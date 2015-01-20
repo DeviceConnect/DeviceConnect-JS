@@ -387,6 +387,17 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Availabilityプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        availability : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : 'availability'
+        },
+
+        /**
          * Batteryプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
