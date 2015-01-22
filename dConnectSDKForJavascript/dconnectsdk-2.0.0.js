@@ -1259,7 +1259,9 @@ var dConnect = (function(parent, global) {
      * @param {function} error_cb 失敗時コールバック。
      */
     var checkDeviceConnect = function(success_cb, error_cb) {
-        this.getSystemInfo(function(status, headers, data) {
+        var builder = new parent.URIBuilder();
+        builder.setProfile(parent.constants.availability.PROFILE_NAME);
+        parent.execute('GET', builder.build(), null, null, function(status, headers, data) {
             if (status === 200) {
                 var obj = JSON.parse(data);
                 if (obj.result == parent.constants.RESULT_OK) {
