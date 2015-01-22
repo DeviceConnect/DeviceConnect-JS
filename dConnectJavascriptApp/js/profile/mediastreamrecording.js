@@ -21,13 +21,13 @@ function showMediastreamRecording(deviceId) {
      
     var str = "";
     if (myDeviceName.indexOf("Sony Camera") != -1) {
-        setTitle("MediastreamRecording (Sony Camera)");
+        setTitle("MediastreamRecording Profile(Sony Camera)");
         
         str += '<li><a href="javascript:doPreviewStart(\'' + deviceId + '\');">Preview</a></li>';
         str += '<li><a href="javascript:doTakePhoto(\'' + deviceId + '\');">Take Photo</a></li>';
 
     } else {
-        setTitle("MediastreamRecording");
+        setTitle("MediastreamRecording Profile");
         
         str += '<li><a href="javascript:doPreviewStart(\'' + deviceId + '\');">Preview</a></li>';
         str += '<li><a href="javascript:doTakePhoto(\'' + deviceId + '\');">Take Photo</a></li>';
@@ -37,61 +37,67 @@ function showMediastreamRecording(deviceId) {
     reloadList(str);
 }
 
-var isPreview = false;
-
 /**
- * onDataAvailable(Preview)
+ * previewを開始する.
  *
  * @param {String} deviceId デバイスID
- * @param {String} sessionKey セッションキー
  */
-function doRegisterOnDataAvailable(deviceId, sessionKey) {
+function doRegisterPreview(deviceId) {
    
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
-    builder.setAttribute("ondataavailable");
+    builder.setAttribute("preview");
     builder.setDeviceId(deviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
 
-    if (DEBUG) console.log("Uri:"+uri)
+    if (DEBUG) console.log("Uri:" + uri)
 
-    isPreview = true;
+    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+        if (DEBUG) console.log("Response: " + responseText);
 
-    dConnect.addEventListener(uri, function(message) {
-        // イベントメッセージが送られてくる
-        //if(DEBUG) console.log("Event-Message:"+message)
-        
-        if (isPreview) {
-            var json = JSON.parse(message);
-            json.media.uri = json.media.uri.replace("localhost", ip);
-            refreshImg(json.media.uri, "preview");
+        var json = JSON.parse(responseText);
+        if (json.result == 0) {
+            var myUri = json.uri;
+            myUri = myUri.replace("localhost", ip);
+            var img = document.getElementById("preview");
+            if (img != null) {
+                img.onerror = function() {
+                    alert('Failed to get a preview.');
+                }
+                img.src = myUri;
+            }
+        } else {
+            showError("PUT mediastream_recording/preview", json);
         }
-    }, null, function(errorCode, errorMessage){
-    	alert(errorMessage);
+    }, function(xhr, textStatus, errorThrown) {
+        showError("PUT mediastream_recording/preview", errorThrown);
     });
 }
 
 /**
- * onDataAvailable(Preview)の終了
+ * previewを終了する.
  *
  * @param {String} deviceId デバイスID
- * @param {String} sessionKey セッションキー
  */
-function doUnregisterOnDataAvailable(deviceId, sessionKey) {
-    isPreview = false;
-    
+function doUnregisterPreview(deviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
-    builder.setAttribute("ondataavailable");
+    builder.setAttribute("preview");
     builder.setDeviceId(deviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
-    if(DEBUG) console.log("Uri:"+uri)
-    dConnect.removeEventListener(uri, null, function(errorCode, errorMessage){
-    	alert(errorMessage);
+
+    if (DEBUG) console.log("Uri:" + uri)
+
+    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
+        if (DEBUG) console.log("Response: " + responseText);
+        var json = JSON.parse(responseText);
+        if (json.result == 0) {
+        } else {
+            showError("DELETE mediastream_recording/preview", json);
+        }
+    }, function(xhr, textStatus, errorThrown) {
     });
 }
 
@@ -107,7 +113,7 @@ function doPreviewStart(deviceId) {
     
     initAll();
     
-    setTitle("takephoto preview");
+    setTitle("preview");
     
     var btnStr = getBackButton('MediaStreamRecording Top','doPreviewBack', deviceId, sessionKey);
     reloadHeader(btnStr); 
@@ -119,10 +125,7 @@ function doPreviewStart(deviceId) {
     str += '</center><br>';
     reloadContent(str);
     
-    loadFlag = false;
-    
-    doRegisterOnDataAvailable(deviceId, sessionKey);
-    dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+    doRegisterPreview(deviceId);
 }
 
 /**
@@ -144,7 +147,8 @@ function doTakePhoto(deviceId) {
 
     var str = "";
     str += makeInputText("onPhoto", "onPhoto", "onPhoto")
-    str += '<img src="./css/images/cameraWait.png" width="100%" id="photo">';
+    str += '<center>';
+    str += '<img src="./css/images/cameraWait.png" id="photo">';
     str += '</center><br>';
     str += takePhotoButton(deviceId);
 
@@ -195,7 +199,7 @@ function doTakephotoBack(deviceId, sessionKey) {
 }
 
 function doPreviewStop(deviceId,sessionKey) {
-    doUnregisterOnDataAvailable(deviceId, sessionKey);
+    doUnregisterPreview(deviceId);
 }
 
 /**
@@ -205,7 +209,7 @@ function doPreviewStop(deviceId,sessionKey) {
  * @param {String} sessionKey セッションKEY
  */
 function doPreviewBack(deviceId, sessionKey) {
-    doUnregisterOnDataAvailable(deviceId, sessionKey);
+    doUnregisterPreview(deviceId);
     showMediastreamRecording(deviceId);
 }
 
@@ -240,13 +244,13 @@ function refreshImg(uri, id) {
         loadFlag = true;
         var img = document.getElementById(id);
         if (img != null) {
-        	//iOSではonloadがこないタイミングがあるので、その場合はタイムアウトさせる
-        	var timeout = setInterval(function() {
+            // MEMO: iOSではonloadがこないタイミングがあるので、その場合はタイムアウトさせる
+            var timeout = setInterval(function() {
                 loadFlag = false;
                 clearInterval(timeout);
             }, 500);
 
-			img.onload = function() {
+            img.onload = function() {
                 loadFlag = false;
                 clearInterval(timeout);
             };
@@ -290,7 +294,7 @@ function doMediaRecord(deviceId, target) {
             showError("POST mediastream_recording/record", json);
         }
     }, function(xhr, textStatus, errorThrown) {
-
+        showError("POST mediastream_recording/record", errorThrown);
     });
 }
 
@@ -317,7 +321,7 @@ function doMediaStop(deviceId) {
             showError("PUT mediastream_recording/stop", json);
         }
     }, function(xhr, textStatus, errorThrown) {
-
+        showError("PUT mediastream_recording/stop", errorThrown);
     });
 }
 
@@ -344,6 +348,7 @@ function doGetMediaRecorder(deviceId) {
             showError("GET mediastream_recording/mediarecorder", json);
         }
     }, function(xhr, textStatus, errorThrown) {
+        showError("GET mediastream_recording/mediarecorder", errorThrown);
     });
 }
 
@@ -414,7 +419,7 @@ function doRegisterOnPhoto(deviceId, sessionKey) {
         var json = JSON.parse(message);
         $("#onPhoto").val(json.photo.path + ":" + json.photo.mimeType);
     }, null, function(errorCode, errorMessage){
-    	alert(errorMessage);
+        alert(errorMessage);
     });
 }
 
@@ -435,6 +440,6 @@ function doUnregisterOnPhoto(deviceId, sessionKey) {
     if(DEBUG) console.log("Uri:"+uri)
     
     dConnect.removeEventListener(uri, null, function(errorCode, errorMessage){
-    	alert(errorMessage);
+        alert(errorMessage);
     });
 }

@@ -1139,6 +1139,38 @@ var dConnect = (function(parent, global) {
             /** パラメータ: pattern。 */
             PARAM_PATTERN : "pattern",
         },
+        /**
+         * Canvasプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        canvas : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "canvas",
+
+            // Attribute
+            /** アトリビュート: drawimage */
+            ATTR_DRAWIMAGE : "drawimage",
+
+            // Parameter
+            /** パラメータ: mimeType */
+            PARAM_MIME_TYPE : "mimeType",
+            /** パラメータ: data */
+            PARAM_DATA : "data",
+            /** パラメータ: x */
+            PARAM_X : "x",
+            /** パラメータ: y */
+            PARAM_Y : "y",
+            /** パラメータ: mode */
+            PARAM_MODE : "mode",
+            
+            /** モードフラグ：スケールモード */
+            MODE_SCALES : "scales",
+            
+            /** モードフラグ：フィルモード */
+            MODE_FILLS : "fills",
+        },
     };
     parent.constants = constants;
 
