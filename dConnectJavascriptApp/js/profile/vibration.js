@@ -8,14 +8,14 @@
 /** 
  * Vibration Menu
  */
-function showVibration(deviceId) {
+function showVibration(serviceId) {
 
     initAll();
     
     setTitle("Vibration Profile(Vibrate)");
 
 	var btnStr = "";    
-    btnStr += getBackButton('Device Top','doVibrationBack', deviceId, "");
+    btnStr += getBackButton('Device Top','doVibrationBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
   	
@@ -29,9 +29,9 @@ function showVibration(deviceId) {
     str += '<OPTION value="100,5000,100,5000">100,5000,100,5000</OPTION>';
     str += '</SELECT>';
     str += '</form>';
-    str += '<input data-role="button" type="button" name="button" id="button" value="Vibrate" onclick="javascript:doVibrateVibration(\'' + deviceId + '\');"/><br>';
+    str += '<input data-role="button" type="button" name="button" id="button" value="Vibrate" onclick="javascript:doVibrateVibration(\'' + serviceId + '\');"/><br>';
 
-    str += '<input data-role="button" type="button" name="button" id="button" value="Stop Vibrate" onclick="javascript:doStopVibration(\'' + deviceId + '\');"/><br>';
+    str += '<input data-role="button" type="button" name="button" id="button" value="Stop Vibrate" onclick="javascript:doStopVibration(\'' + serviceId + '\');"/><br>';
 
     reloadContent(str);
 }
@@ -40,20 +40,20 @@ function showVibration(deviceId) {
 /**
  * Back Button
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param sessionKey セッションキー
  */
-function doVibrationBack(deviceId, sessionKey){
+function doVibrationBack(serviceId, sessionKey){
 
-    searchSystem(deviceId);
+    searchSystem(serviceId);
 }
 
 /** 
  * Vibrationを実行
  *
- * @param String}deviceId デバイスID
+ * @param String}serviceId サービスID
  */
-function doVibrateVibration(deviceId) {
+function doVibrateVibration(serviceId) {
 	
 	var patternValue = $('#pattern').val();
     if (patternValue == "null_value") {
@@ -63,7 +63,7 @@ function doVibrateVibration(deviceId) {
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("vibration");
     builder.setAttribute("vibrate");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     if (patternValue) builder.addParameter("pattern",patternValue);
     var uri = builder.build();
@@ -91,14 +91,14 @@ function doVibrateVibration(deviceId) {
 /** 
  * Vibrationをキャンセル
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doStopVibration(deviceId) {
+function doStopVibration(serviceId) {
 	
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("vibration");
     builder.setAttribute("vibrate");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     

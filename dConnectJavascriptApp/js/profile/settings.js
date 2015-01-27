@@ -18,16 +18,16 @@ var finish_count = 3;
 /** 
  * Setting menu
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showSetting(deviceId) {
+function showSetting(serviceId) {
 
     initAll();
     
     setTitle("Settings Profile");
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Device Top','doSettingBack', deviceId, "");
+    btnStr += getBackButton('Device Top','doSettingBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -39,43 +39,43 @@ function showSetting(deviceId) {
     	str += makeInputText("DeviceTime", "deviceDate", "deviceDate");
     	str += '<input name="newDate" id="newDate" type="text" data-role="datebox" data-options=\'{"mode":"datebox"}\' />'
 		str += '<input name="newTime" id="newTime" type="text" data-role="datebox" data-options=\'{"mode":"timebox"}\' />';	
-		str += '<input type="button" onclick="doSetDate(\'' + deviceId + '\',1);" id="setDate" value="Set date"  />';
+		str += '<input type="button" onclick="doSetDate(\'' + serviceId + '\',1);" id="setDate" value="Set date"  />';
 	} else 	if(myDeviceName.indexOf("Sony Camera") != -1){
 		str += '<center>Date</center><br>';
     	str += makeInputText("DeviceTime", "deviceDate", "deviceDate");
     	str += '<input name="newDate" id="newDate" type="text" data-role="datebox" data-options=\'{"mode":"datebox"}\' />'
 		str += '<input name="newTime" id="newTime" type="text" data-role="datebox" data-options=\'{"mode":"timebox"}\' />';	
-		str += '<input type="button" onclick="doSetDate(\'' + deviceId + '\',1);" id="setDate" value="Set date"  />';
+		str += '<input type="button" onclick="doSetDate(\'' + serviceId + '\',1);" id="setDate" value="Set date"  />';
 	} else {
 		str += '<center>Date</center><br>';
     	str += makeInputText("DeviceTime", "deviceDate", "deviceDate");
     	str += '<label for="slider-0">Volume Alerm:</label>';
     	str += '<input type="range" name="slider" id="volumeAlerm" value="25" min="0" max="100"  />';
-    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + deviceId + '\',1);" id="volumeSetAlerm" value="Set volume of Alerm"  />';
+    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + serviceId + '\',1);" id="volumeSetAlerm" value="Set volume of Alerm"  />';
 
     	str += '<label for="slider-0">Volume Call:</label>';
     	str += '<input type="range" name="slider" id="volumeCall" value="25" min="0" max="100"  />';
-    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + deviceId + '\',2);" id="volumeSeCall" value="Set volume of Call"  />';
+    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + serviceId + '\',2);" id="volumeSeCall" value="Set volume of Call"  />';
 
     	str += '<label for="slider-0">Volume Ringtone:</label>';
     	str += '<input type="range" name="slider" id="volumeRingtone" value="25" min="0" max="100"  />';
-    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + deviceId + '\',3);" id="volumeSetRingtone" value="Set volume of Ringtone"  />';
+    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + serviceId + '\',3);" id="volumeSetRingtone" value="Set volume of Ringtone"  />';
 
     	//str += '<label for="slider-0">Volume Mail:</label>';
     	//str += '<input type="range" name="slider" id="volumeMail" value="25" min="0" max="100"  />';
-    	//str += '<input type="button" onclick="doChangeSoundLevel(\'' + deviceId + '\',4);" id="volumeSetMail" value="Set volume of Mail"  />';
+    	//str += '<input type="button" onclick="doChangeSoundLevel(\'' + serviceId + '\',4);" id="volumeSetMail" value="Set volume of Mail"  />';
 
     	str += '<label for="slider-0">Volume Media Player:</label>';
     	str += '<input type="range" name="slider" id="volumeMediaplayer" value="25" min="0" max="100"  />';
-    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + deviceId + '\',5);" id="volumeSetMediaplayer" value="Set volume of Media Player"  />';
+    	str += '<input type="button" onclick="doChangeSoundLevel(\'' + serviceId + '\',5);" id="volumeSetMediaplayer" value="Set volume of Media Player"  />';
 
     	str += '<label for="slider-0">Light:</label>';
     	str += '<input type="range" name="slider" id="light" value="25" min="0" max="100"  />';
-    	str += '<input type="button" id="lightSet" onclick="doSetLight(\'' + deviceId + '\');" value="Set light"  />';
+    	str += '<input type="button" id="lightSet" onclick="doSetLight(\'' + serviceId + '\');" value="Set light"  />';
 
    	 	str += '<label for="slider-0">Sleep:</label>';
     	str += '<input type="text" value="" id="sleep" name="sleep" >';
-    	str += '<input type="button" id="sleepSet" onclick="doSetSleep(\'' + deviceId + '\');" value="Set sleep"  />';
+    	str += '<input type="button" id="sleepSet" onclick="doSetSleep(\'' + serviceId + '\');" value="Set sleep"  />';
 	}
 
    	reloadContent(str);
@@ -84,16 +84,16 @@ function showSetting(deviceId) {
     showLoading();
 
 	if(myDeviceName.indexOf("Pebble") != -1){
-		doCheckDate(deviceId);
+		doCheckDate(serviceId);
 		finish_count = 1;
 	} else if(myDeviceName.indexOf("Sony Camera") != -1){
-		doCheckDate(deviceId);
+		doCheckDate(serviceId);
 		finish_count = 1;
 	} else {
-		doCheckDate(deviceId);
-    	doCheckVolume(deviceId);
-    	doCheckLight(deviceId);
-    	doCheckSleep(deviceId);
+		doCheckDate(serviceId);
+    	doCheckVolume(serviceId);
+    	doCheckLight(serviceId);
+    	doCheckSleep(serviceId);
     	finish_count = 4;
 	}
     
@@ -103,19 +103,19 @@ function showSetting(deviceId) {
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doSettingBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doSettingBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /**
  * 時刻の設定
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doSetDate(deviceId){
+function doSetDate(serviceId){
 	var newDate = $('#newDate').val();
 	var newTime = $('#newTime').val();
 	
@@ -125,7 +125,7 @@ function doSetDate(deviceId){
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
     builder.setAttribute("date");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("date",newDateStr);
     var uri = builder.build();
@@ -140,7 +140,7 @@ function doSetDate(deviceId){
 
         if (json.result == 0) {
         	alert("Success: set date");
-        	doCheckDate(deviceId);
+        	doCheckDate(serviceId);
         } else {
 			showError("PUT settings/date", json);
         }
@@ -154,14 +154,14 @@ function doSetDate(deviceId){
 /** 
  * Get date from Setting profile.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckDate(deviceId) {
+function doCheckDate(serviceId) {
 
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
     builder.setAttribute("date");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     
@@ -190,25 +190,25 @@ function doCheckDate(deviceId) {
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doSettingBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doSettingBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /** 
  * Get volume from Setting profile.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckVolume(deviceId) {
+function doCheckVolume(serviceId) {
 
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
     builder.setAttribute("volume");
     builder.setInterface("sound");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     
@@ -248,14 +248,14 @@ function doCheckVolume(deviceId) {
 /** 
  * Get display light value
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckLight(deviceId) {
+function doCheckLight(serviceId) {
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
     builder.setInterface("display");
     builder.setAttribute("light"); 
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     
@@ -283,16 +283,16 @@ function doCheckLight(deviceId) {
 /** 
  * Set display light value
  *
- * @param {String}deviceID デバイスID
+ * @param {String}deviceID サービスID
  * @param {String}level 明るさレベル
  */
-function doSetLight(deviceId) {
+function doSetLight(serviceId) {
 	var level = $('#light').val()/100;
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
     builder.setInterface("display");
     builder.setAttribute("light");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("level",level);
     var uri = builder.build();
@@ -319,16 +319,16 @@ function doSetLight(deviceId) {
 /** 
  * Set sleep time
  *
- * @param {String}deviceID デバイスID
+ * @param {String}deviceID サービスID
  */
-function doSetSleep(deviceId) {
+function doSetSleep(serviceId) {
 	var time = $('#sleep').val();
 
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
     builder.setInterface("display");
     builder.setAttribute("sleep");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("time",time);
     var uri = builder.build();
@@ -357,15 +357,15 @@ function doSetSleep(deviceId) {
 /** 
  * Get sleep time
  *
- * @param {String}deviceID デバイスID
+ * @param {String}deviceID サービスID
  */
-function doCheckSleep(deviceId) {
+function doCheckSleep(serviceId) {
 
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("settings");
    	builder.setInterface("display");
     builder.setAttribute("sleep");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     
@@ -404,26 +404,26 @@ function loadingCheck(count) {
 /**
  * Soundのレベルを変更.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}type 音のタイプ
  */
-function doChangeSoundLevel(deviceId,type){
+function doChangeSoundLevel(serviceId,type){
 
 	if(type == VOLUME_TYPE_ALERM){
 		var level = $('#volumeAlerm').val()/100;
-		doSetSoundLevel(type, deviceId, level);
+		doSetSoundLevel(type, serviceId, level);
 	} else if(type == VOLUME_TYPE_CALL){
 		var level = $('#volumeCall').val()/100;
-		doSetSoundLevel(type, deviceId, level);
+		doSetSoundLevel(type, serviceId, level);
 	} else if(type == VOLUME_TYPE_RINGTONE){
 		var level = $('#volumeRingtone').val()/100;
-		doSetSoundLevel(type, deviceId, level);
+		doSetSoundLevel(type, serviceId, level);
 	} else if(type == VOLUME_TYPE_MAIL){
 		var level = $('#volumeMail').val()/100;
-		doSetSoundLevel(type, deviceId, level);
+		doSetSoundLevel(type, serviceId, level);
 	} else if(type == VOLUME_TYPE_MEDIA_PLAYER){
 		var level = $('#volumeMediaplayer').val()/100;
-		doSetSoundLevel(type, deviceId, level);
+		doSetSoundLevel(type, serviceId, level);
 	}
 	
 	
@@ -433,15 +433,15 @@ function doChangeSoundLevel(deviceId,type){
  * 各種音部分の設定
  *
  * @param {String}type 音源のタイプ
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}level 音のレベル
  */
- function doSetSoundLevel(type, deviceId, level) {
+ function doSetSoundLevel(type, serviceId, level) {
     var builder = new dConnect.URIBuilder();
     	builder.setProfile("settings");
     	builder.setAttribute("volume");
     	builder.setInterface("sound");
-    	builder.setDeviceId(deviceId);
+    	builder.setServiceId(serviceId);
     	builder.setAccessToken(accessToken);
 		builder.addParameter("kind", type);
 		builder.addParameter("level", level);

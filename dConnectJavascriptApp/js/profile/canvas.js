@@ -11,23 +11,23 @@ var deleteMode;
 /**
  * Canvasプロファイルのメニューを表示する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function showCanvas(deviceId) {
+function showCanvas(serviceId) {
     initAll();
     setTitle("Canvas Profile", "black");
 
-    var btnStr = getBackButton('Device Top', 'doCanvasBack', deviceId, "");
+    var btnStr = getBackButton('Device Top', 'doCanvasBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
     var str = "";
     if(myDeviceName.indexOf("Pebble") != -1){
-        str += '<li><a href="javascript:showCanvasDrawImage(\'' + deviceId + '\');" value="send">Canvas DrawImage</a></li>';
+        str += '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId + '\');" value="send">Canvas DrawImage</a></li>';
     } else if(myDeviceName.indexOf("SmartWatch") != -1){
-        str += '<li><a href="javascript:showCanvasDrawImage(\'' + deviceId + '\');" value="send">Canvas DrawImage</a></li>';
+        str += '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId + '\');" value="send">Canvas DrawImage</a></li>';
     } else {
-        str += '<li><a href="javascript:showCanvasDrawImage(\'' + deviceId + '\');" value="send">Canvas DrawImage</a></li>';
+        str += '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId + '\');" value="send">Canvas DrawImage</a></li>';
     }
     reloadList(str);
 }
@@ -35,15 +35,15 @@ function showCanvas(deviceId) {
 /**
  * PathからURIを取得
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} path パス
  */
-function doGetUriFromPath(deviceId, path){
+function doGetUriFromPath(serviceId, path){
     var path = $('#path').val();
     var builder = new dConnect.URIBuilder();
     builder.setProfile("canvas");
     builder.setAttribute("receive");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -65,33 +65,33 @@ function doGetUriFromPath(deviceId, path){
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doCanvasBack(deviceId, sessionKey){
-    searchDevice(deviceId);
+function doCanvasBack(serviceId, sessionKey){
+    searchDevice(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doCanvasDrawImageBack(deviceId, sessionKey){
-    showCanvas(deviceId);
+function doCanvasDrawImageBack(serviceId, sessionKey){
+    showCanvas(serviceId);
 }
 
 /**
  * ファイル送信フォームを表示する.
  *
- * @param {String} deviceId　デバイスID
+ * @param {String} serviceId　サービスID
  */
-function showCanvasDrawImage(deviceId) {
+function showCanvasDrawImage(serviceId) {
     initAll();
     setTitle("Canvas Profile(DrawImage)");
 
-    var btnStr = getBackButton('Canvas Top', 'doCanvasDrawImageBack', deviceId, "");
+    var btnStr = getBackButton('Canvas Top', 'doCanvasDrawImageBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
@@ -109,7 +109,7 @@ function showCanvasDrawImage(deviceId) {
     
     
     str += '<form action="' + uri + '" method="POST" enctype="multipart/form-data" id="fileForm"><br>';
-    str += '<input type="hidden" name="deviceId" value="' + deviceId + '"/>';
+    str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
     str += '<input type="hidden" name="accessToken" value="' + accessToken + '"/>';
     
     str += makeInputText("path", "path", "path");
@@ -126,7 +126,7 @@ function showCanvasDrawImage(deviceId) {
     str += '<input type="text" name="x" value="0"/>';
     str += '<label>y:</label>';
     str += '<input type="text" name="y" value="0"/>';
-    str += '<input type="button" name="sendButton" id="sendButton" value="Upload" onclick="doCanvasDrawImage(\'' + deviceId + '\', \'fileForm\');"/>';
+    str += '<input type="button" name="sendButton" id="sendButton" value="Upload" onclick="doCanvasDrawImage(\'' + serviceId + '\', \'fileForm\');"/>';
     
     str += '</form>';
     
@@ -149,10 +149,10 @@ function showCanvasDrawImage(deviceId) {
 /**
  * 画像描画処理.
  *
- *  @param {String} deviceId デバイスID
+ *  @param {String} serviceId サービスID
  *  @param {String} fileFormId ファイルフォームID
  */
-function doCanvasDrawImage(deviceId, fileFormId) {
+function doCanvasDrawImage(serviceId, fileFormId) {
     closeLoading();
     showLoading();
     

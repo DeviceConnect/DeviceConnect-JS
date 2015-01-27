@@ -182,44 +182,44 @@ function getCookie(name) {
 /**
  * プロファイルごとの分岐.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} profile プロファイル名
  */
-function searchProfile(deviceId, profile) {
+function searchProfile(serviceId, profile) {
     if (profile === "notification") {
-        showNotification(deviceId);
+        showNotification(serviceId);
     } else if (profile === "vibration") {
-        showVibration(deviceId);
+        showVibration(serviceId);
     } else if (profile === "mediastream_recording") {
-        showMediastreamRecording(deviceId);
+        showMediastreamRecording(serviceId);
     } else if (profile === "deviceorientation") {
-        showDeviceOrientation(deviceId);
+        showDeviceOrientation(serviceId);
     } else if (profile === "drive_controller") {
-        showDriveController(deviceId);
+        showDriveController(serviceId);
     } else if (profile === "remote_controller") {
-        showRemoteController(deviceId);
+        showRemoteController(serviceId);
     } else if (profile === "file") {
-        showFile(deviceId);
+        showFile(serviceId);
     } else if (profile === "file_descriptor") {
-        showFileDescriptor(deviceId);
+        showFileDescriptor(serviceId);
     } else if (profile === "light") {
-        showSearchLight(deviceId);
+        showSearchLight(serviceId);
     } else if (profile === "phone") {
-        showPhone(deviceId);
+        showPhone(serviceId);
     } else if (profile === "connect") {
-        showConnect(deviceId);
+        showConnect(serviceId);
     } else if (profile === "settings") {
-        showSetting(deviceId);
+        showSetting(serviceId);
     } else if (profile === "media_player") {
-        showMediaPlayer(deviceId);
+        showMediaPlayer(serviceId);
     } else if (profile === "battery") {
-        showBattery(deviceId);
+        showBattery(serviceId);
     } else if (profile === "camera") {
-        showCamera(deviceId);
+        showCamera(serviceId);
     } else if (profile === "dice") {
-        showDice(deviceId);
+        showDice(serviceId);
     } else if (profile === "mhealth") {
-        showMhealth(deviceId);
+        showMhealth(serviceId);
     } else if (profile === "network_service_discovery") {
         alert("This list is the result of network_service_discovery.");
     } else if (profile === "authorization") {
@@ -227,12 +227,12 @@ function searchProfile(deviceId, profile) {
     } else if (profile === "system") {
         alert("Use for setting.");
     } else if (profile === "temperature") {
-        showTemperature(deviceId);
+        showTemperature(serviceId);
     } else if (profile === "proximity") {
-        showProximity(deviceId);
+        showProximity(serviceId);
     } else if (profile === "sphero") {
-        showSphero(deviceId);
+        showSphero(serviceId);
     } else if (profile === "canvas") {
-        showCanvas(deviceId);
+        showCanvas(serviceId);
     }
 }

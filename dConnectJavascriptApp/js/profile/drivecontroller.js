@@ -9,16 +9,16 @@
 /**
  * Drive Controllerのメニューを表示
  *
- * @param {String}deviceIde デバイスID
+ * @param {String}serviceIde サービスID
  */
-function showDriveController(deviceId) {
+function showDriveController(serviceId) {
     
     initAll();
     
     setTitle("Drive Controller");
     
     var btnStr = "";    
-    btnStr += getBackButton('Device Top','doDriveControllerBack', deviceId, "");
+    btnStr += getBackButton('Device Top','doDriveControllerBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -27,14 +27,14 @@ function showDriveController(deviceId) {
     str += '<form name="formDrive">';
     str += '<label for="slider-0">Power:</label>';
     str += '<input type="range" name="power" id="power" value="80" min="0" max="100"  />';
-    str += '<input type="button" data-icon="arrow-u" onclick="doDriveMove(\'' + deviceId + '\', 0);" value=" "  data-inline="true"   data-iconpos="top" ><br>';
-    str += '<input type="button" data-icon="arrow-l" onclick="doDriveMove(\'' + deviceId + '\', 270);" value=" "  data-inline="true"   data-iconpos="left">';
-    str += '<input type="button" onclick="doDriveStop(\'' + deviceId + '\');" value="*"  data-inline="true"  >';
-    str += '<input type="button" data-icon="arrow-r" onclick="doDriveMove(\'' + deviceId + '\', 90);" value=" " data-inline="true"  data-iconpos="right"><br>';
-    str += '<input type="button" data-icon="arrow-d" onclick="doDriveMove(\'' + deviceId + '\', 180);" value=" " data-inline="true"  data-iconpos="bottom"><br>';
+    str += '<input type="button" data-icon="arrow-u" onclick="doDriveMove(\'' + serviceId + '\', 0);" value=" "  data-inline="true"   data-iconpos="top" ><br>';
+    str += '<input type="button" data-icon="arrow-l" onclick="doDriveMove(\'' + serviceId + '\', 270);" value=" "  data-inline="true"   data-iconpos="left">';
+    str += '<input type="button" onclick="doDriveStop(\'' + serviceId + '\');" value="*"  data-inline="true"  >';
+    str += '<input type="button" data-icon="arrow-r" onclick="doDriveMove(\'' + serviceId + '\', 90);" value=" " data-inline="true"  data-iconpos="right"><br>';
+    str += '<input type="button" data-icon="arrow-d" onclick="doDriveMove(\'' + serviceId + '\', 180);" value=" " data-inline="true"  data-iconpos="bottom"><br>';
     str += 'angle:';
     str += '<input type="range" name="userRotate" id="userRotate" value="80" min="0" max="360"  />';
-    str += '<input type="button" onclick="doDriveRotate(\'' + deviceId + '\');" value="Rotate" >';
+    str += '<input type="button" onclick="doDriveRotate(\'' + serviceId + '\');" value="Rotate" >';
     str += '</form>';
     str += '</center>';
     reloadContent(str);
@@ -43,25 +43,25 @@ function showDriveController(deviceId) {
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doDriveControllerBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doDriveControllerBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /**
  * 回転する
  *
- * @param {String}deviceIde デバイスID
+ * @param {String}serviceIde サービスID
  */
-function doDriveRotate(deviceId){
+function doDriveRotate(serviceId){
     var angle = document.formDrive.userRotate.value;
 
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("drive_controller");
     builder.setAttribute("rotate");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("angle", angle);
     var uri = builder.build();
@@ -85,13 +85,13 @@ function doDriveRotate(deviceId){
 /**
  * 停止する
  *
- * @param {String}deviceIde デバイスID
+ * @param {String}serviceIde サービスID
  */
-function doDriveStop(deviceId) {
+function doDriveStop(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("drive_controller");
     builder.setAttribute("stop");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     console.log("doDriveStop:" + uri);
@@ -113,16 +113,16 @@ function doDriveStop(deviceId) {
 /**
  * 操作する
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}angle 操作する方向
  */
-function doDriveMove(deviceId, angle) {
+function doDriveMove(serviceId, angle) {
     var body = document.formDrive.power.value;
     var mPower = body / 100;
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("drive_controller");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAttribute("move");
     builder.setAccessToken(accessToken);
     builder.addParameter("angle", angle);

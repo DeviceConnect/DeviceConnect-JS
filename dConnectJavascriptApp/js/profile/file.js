@@ -11,26 +11,26 @@ var deleteMode;
 /**
  * Fileプロファイルのメニューを表示する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function showFile(deviceId) {
+function showFile(serviceId) {
     initAll();
     setTitle("File Top", "black");
 
-    var btnStr = getBackButton('Device Top', 'doFileBack', deviceId, "");
+    var btnStr = getBackButton('Device Top', 'doFileBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
     var str = "";
     var path = "/";
     if(myDeviceName.indexOf("Pebble") != -1){
-        str += '<li><a href="javascript:showFileSend(\'' + deviceId + '\');" value="send">File Send</a></li>';
+        str += '<li><a href="javascript:showFileSend(\'' + serviceId + '\');" value="send">File Send</a></li>';
     } else if(myDeviceName.indexOf("SmartWatch") != -1){
-        str += '<li><a href="javascript:showFileSend(\'' + deviceId + '\');" value="send">File Send</a></li>';
+        str += '<li><a href="javascript:showFileSend(\'' + serviceId + '\');" value="send">File Send</a></li>';
     } else {
-        str += '<li><a href="javascript:showFileList(\'' + deviceId + '\',\'' + path + '\');" value="list">File Manager</a></li>';
-        str += '<li><a href="javascript:showFileSend(\'' + deviceId + '\');" value="send">File Send</a></li>';
-        str += '<li><a href="javascript:showFileReceive(\'' + deviceId + '\',\'' + path + '\');" value="send">File Receive</a></li>';
+        str += '<li><a href="javascript:showFileList(\'' + serviceId + '\',\'' + path + '\');" value="list">File Manager</a></li>';
+        str += '<li><a href="javascript:showFileSend(\'' + serviceId + '\');" value="send">File Send</a></li>';
+        str += '<li><a href="javascript:showFileReceive(\'' + serviceId + '\',\'' + path + '\');" value="send">File Receive</a></li>';
     }
     reloadList(str);
 }
@@ -39,33 +39,33 @@ function showFile(deviceId) {
  * ファイルURIの取得
  *
  * @param {String} path パス
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function showFileReceive(deviceId, path){
+function showFileReceive(serviceId, path){
     initAll();
 
-    var btnStr = getBackButton('File Top', 'doFileRecieveBack', deviceId, "");
+    var btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
     var str = "";
     str += makeInputText("path", "path", "path")
-    str += '<input type="button" onclick="javascript:doGetUriFromPath(\'' + deviceId + '\',\'' + path + '\');" value="Get URI from PATH" type="button" >';
+    str += '<input type="button" onclick="javascript:doGetUriFromPath(\'' + serviceId + '\',\'' + path + '\');" value="Get URI from PATH" type="button" >';
     reloadContent(str);
 }
 
 /**
  * PathからURIを取得
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} path パス
  */
-function doGetUriFromPath(deviceId, path){
+function doGetUriFromPath(serviceId, path){
     var path = $('#path').val();
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("receive");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -87,58 +87,58 @@ function doGetUriFromPath(deviceId, path){
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doFileBack(deviceId, sessionKey){
-    searchDevice(deviceId);
+function doFileBack(serviceId, sessionKey){
+    searchDevice(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doFileListBack(deviceId, sessionKey){
-    showFile(deviceId);
+function doFileListBack(serviceId, sessionKey){
+    showFile(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doFileSendBack(deviceId, sessionKey){
-    showFile(deviceId);
+function doFileSendBack(serviceId, sessionKey){
+    showFile(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doFileRecieveBack(deviceId, sessionKey){
-    showFile(deviceId);
+function doFileRecieveBack(serviceId, sessionKey){
+    showFile(serviceId);
 }
 
 /**
  * ファイル一覧の表示<br>
  * uri:/file/list
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} path パス
  * @param {Number} mode 表示モード(1: normal, 2:削除)
  */
-function showFileList(deviceId, path, mode) {
+function showFileList(serviceId, path, mode) {
     initAll();
     
     closeLoading();
     showLoading();
     
-    var btnStr = getBackButton('File Top', 'doFileListBack', deviceId, "");
+    var btnStr = getBackButton('File Top', 'doFileListBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
@@ -147,7 +147,7 @@ function showFileList(deviceId, path, mode) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("list");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -166,11 +166,11 @@ function showFileList(deviceId, path, mode) {
             }
             currentPath = path;
 
-            var cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + deviceId +
+            var cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + serviceId +
                 '\',\'/\');" type="button" value="/"/>';
-            cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeDeleteMode(\'' + deviceId +
+            cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeDeleteMode(\'' + serviceId +
                 '\');" type="button" value="Delete Mode"/>';
-            cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + deviceId +
+            cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + serviceId +
                 '\');" type="button" value="mkdir"/>';
 
             if (mode != 2) {
@@ -182,14 +182,14 @@ function showFileList(deviceId, path, mode) {
                 var iconName = getFileIcon(json.files[i].mimeType, json.files[i].fileType);
                 if (json.files[i].fileType == "1") {
                     listStr += '<li>';
-                    listStr += '<a href="javascript:doFileAction(\'' + deviceId + '\',\'' + json.files[i].path + '\',\'dir/folder\');"  >';
+                    listStr += '<a href="javascript:doFileAction(\'' + serviceId + '\',\'' + json.files[i].path + '\',\'dir/folder\');"  >';
                     if (mode == 2) {
                         listStr += '<img src="css/images/icon_del.png">';
                     }
                     listStr += '<img src=\'' + iconName + '\' >' + json.files[i].fileName + '</a></li>';
                 } else {
                     listStr += '<li>';
-                    listStr += '<a href="javascript:doFileAction(\'' + deviceId + '\',\'' + json.files[i].path + '\',\'' + json.files[i].mimeType +
+                    listStr += '<a href="javascript:doFileAction(\'' + serviceId + '\',\'' + json.files[i].path + '\',\'' + json.files[i].mimeType +
                         '\');"  >';
                     if (mode == 2) {
                         listStr += '<img src="css/images/icon_del.png">';
@@ -209,19 +209,19 @@ function showFileList(deviceId, path, mode) {
 /**
  * UIをファイル削除モードに遷移させる.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function changeDeleteMode(deviceId) {
+function changeDeleteMode(serviceId) {
     setTitle("File list(Delete Mode)", "red");
 
-    showFileList(deviceId, currentPath, 2);
+    showFileList(serviceId, currentPath, 2);
 
     var cmdStr = "";
-    cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + deviceId +
+    cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + serviceId +
         '\',\'/\',\'1\');" type="button" value="/"/>';
-    cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeNormalMode(\'' + deviceId +
+    cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeNormalMode(\'' + serviceId +
         '\');" type="button" value="Normal  Mode"/>';
-	cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + deviceId +
+	cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + serviceId +
 		'\');" type="button" value="mkdir"/>';
 
     reloadMenu(cmdStr);
@@ -231,20 +231,20 @@ function changeDeleteMode(deviceId) {
 /**
  * UIをファイル閲覧モードに遷移させる.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function changeNormalMode(deviceId) {
+function changeNormalMode(serviceId) {
     deleteMode = false;
     setTitle("File list", "black");
 
-    showFileList(deviceId, currentPath, 1);
+    showFileList(serviceId, currentPath, 1);
 
     var cmdStr = "";
-    cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + deviceId +
+    cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + serviceId +
         '\',\'/\');" type="button" value="/" />';
-    cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeDeleteMode(\'' + deviceId +
+    cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeDeleteMode(\'' + serviceId +
         '\');" type="button" value="Delete  Mode" />';
-	cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + deviceId +
+	cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + serviceId +
 		'\');" type="button" value="mkdir"/>';
     reloadMenu(cmdStr);
 }
@@ -291,21 +291,21 @@ function getFileIcon(mimeType, fileType) {
 /**
  * MIME/TYPE毎にActionを振り分け
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} path パス
  * @param {String} mimeType MIME/TYPE
  */
-function doFileAction(deviceId, path, mimeType) {
+function doFileAction(serviceId, path, mimeType) {
     if (deleteMode) {
         if (mimeType == "dir/folder") {
-    		doRMDir(deviceId, path);
+    		doRMDir(serviceId, path);
     	} else {
-	        doDeleteFile(deviceId, path, mimeType);
+	        doDeleteFile(serviceId, path, mimeType);
 	    }
     } else {
         initAll();
     	if (mimeType == "dir/folder") {
-    		showFileList(deviceId, path);
+    		showFileList(serviceId, path);
     	} else if ((mimeType == "audio/mpeg")
             ||(mimeType == "audio/x-wav")
             ||(mimeType == "audio/x-ms-wma")
@@ -313,23 +313,23 @@ function doFileAction(deviceId, path, mimeType) {
             ||(mimeType == "audio/ogg")
             ||(mimeType == "audio/mp4"))
         {
-            doMediaPlay(deviceId, path);
+            doMediaPlay(serviceId, path);
         } else if ((mimeType == "image/png")
             ||(mimeType == "image/jpeg")
             ||(mimeType == "image/jpg")
             ||(mimeType == "image/bmp"))
         {
-            doImageShow(deviceId, path);
+            doImageShow(serviceId, path);
         } else if ((mimeType == "video/3gpp")
             ||(mimeType == "video/mp4")
             ||(mimeType == "video/m4v")
             ||(mimeType == "video/3gpp2")
             ||(mimeType == "video/mpeg"))
         {
-            doMediaPlay(deviceId, path);
+            doMediaPlay(serviceId, path);
         } else {
             alert("Unsupported MIME-Type: " + mimeType);
-            showFileList(deviceId, currentPath, 1);
+            showFileList(serviceId, currentPath, 1);
 
         }
     }
@@ -338,26 +338,26 @@ function doFileAction(deviceId, path, mimeType) {
 /**
  * Video/Musicの再生
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} path パス
  */
-function doMediaPlay(deviceId, path) {
+function doMediaPlay(serviceId, path) {
     var sessionKey = currentClientId;
-    doRegisterOnStatusChange(deviceId, sessionKey);
-    doMediaPlayer(deviceId, path, 2);
+    doRegisterOnStatusChange(serviceId, sessionKey);
+    doMediaPlayer(serviceId, path, 2);
 }
 
 /**
  * ファイル削除要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @path {String} path パス
  */
-function doDeleteFile(deviceId, path) {
+function doDeleteFile(serviceId, path) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("remove");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -372,16 +372,16 @@ function doDeleteFile(deviceId, path) {
         } else {
             showError("DELETE file/remove", json);
         }
-        changeDeleteMode(deviceId);
+        changeDeleteMode(serviceId);
     });
 }
 
 /**
  * ディレクトリ作成要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doMKDir(deviceId) {
+function doMKDir(serviceId) {
 	var path = window.prompt("ディレクトリ名を入力してください");
 	if (path == null) {
 		return;
@@ -394,7 +394,7 @@ function doMKDir(deviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("mkdir");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -414,25 +414,25 @@ function doMKDir(deviceId) {
             showError("POST file/mkdir", json);
         }
         if (deleteMode) {
-	        changeDeleteMode(deviceId);
+	        changeDeleteMode(serviceId);
         } else {
-	        changeNormalMode(deviceId);
+	        changeNormalMode(serviceId);
 	    }
-	    showFileList(deviceId, currentPath, fileMode);
+	    showFileList(serviceId, currentPath, fileMode);
 
     });
 }
 /**
  * ディレクトリ削除要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} dir ディレクトリ名
  */
-function doRMDir(deviceId, dir) {
+function doRMDir(serviceId, dir) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("rmdir");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", dir);
     var uri = builder.build();
@@ -453,23 +453,23 @@ function doRMDir(deviceId, dir) {
             showError("DELETE file/rmdir", json);
         }
         if (deleteMode) {
-	        changeNormalMode(deviceId);
+	        changeNormalMode(serviceId);
         } else {
-	        changeDeleteMode(deviceId);
+	        changeDeleteMode(serviceId);
 	    }
- 	    showFileList(deviceId, currentPath, fileMode);
+ 	    showFileList(serviceId, currentPath, fileMode);
     });
 }
 /**
  * ファイル送信フォームを表示する.
  *
- * @param {String} deviceId　デバイスID
+ * @param {String} serviceId　サービスID
  */
-function showFileSend(deviceId) {
+function showFileSend(serviceId) {
     initAll();
     setTitle("File Profile(Send)");
 
-    var btnStr = getBackButton('File Top', 'doFileSendBack', deviceId, "");
+    var btnStr = getBackButton('File Top', 'doFileSendBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
@@ -482,11 +482,11 @@ function showFileSend(deviceId) {
     
     var str = "";
     str += '<form action="' + uri + '" method="POST" enctype="multipart/form-data" id="fileForm"><br>';
-    str += '<input type="hidden" name="deviceId" value="' + deviceId + '"/>';
+    str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
     str += '<input type="hidden" name="accessToken" value="' + accessToken + '"/>';
     str += makeInputText("path", "path", "path");
     str += '<input type="file" name="data" id="data"/>';
-    str += '<input type="button" name="sendButton" id="sendButton" value="Upload" onclick="doFileSend(\'' + deviceId + '\');"/>';
+    str += '<input type="button" name="sendButton" id="sendButton" value="Upload" onclick="doFileSend(\'' + serviceId + '\');"/>';
     str += '</form>';
     
     reloadContent(str);
@@ -507,9 +507,9 @@ function showFileSend(deviceId) {
 /**
  * ファイル送信処理.
  *
- *  @param {String} deviceId デバイスID
+ *  @param {String} serviceId サービスID
  */
-function doFileSend(deviceId) {
+function doFileSend(serviceId) {
     closeLoading();
     showLoading();
     
@@ -543,21 +543,21 @@ function doFileSend(deviceId) {
 /**
  * 画像の表示
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @path {String} path パス名
  */
-function doImageShow(deviceId, path) {
+function doImageShow(serviceId, path) {
     initAll();
     setTitle("ImageShow");
     
-    var btnStr = getBackButton('File List', 'doImageShowBack', deviceId, "");
+    var btnStr = getBackButton('File List', 'doImageShowBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("receive");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -583,9 +583,9 @@ function doImageShow(deviceId, path) {
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doImageShowBack(deviceId, sessionKey){
-    showFileList(deviceId, currentPath);
+function doImageShowBack(serviceId, sessionKey){
+    showFileList(serviceId, currentPath);
 }

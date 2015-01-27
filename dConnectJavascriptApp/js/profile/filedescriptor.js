@@ -8,12 +8,12 @@
 /**
  * File Descriptorプロファイルのメニューを表示する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function showFileDescriptor(deviceId) {
+function showFileDescriptor(serviceId) {
     initAll();
 
-    var btnStr = getBackButton('Device Top','doFileDescriptorBack', deviceId, "");
+    var btnStr = getBackButton('Device Top','doFileDescriptorBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
@@ -31,7 +31,7 @@ function showFileDescriptor(deviceId) {
     str += '<OPTION value="r">Read</OPTION>';
     str += '</SELECT>';
     str += '</form>';
-    str += '<input type="button" onclick="doOpenFile(\'' + deviceId + '\');" id="openFile" value="Open file" />';
+    str += '<input type="button" onclick="doOpenFile(\'' + serviceId + '\');" id="openFile" value="Open file" />';
     
     reloadContent(str);
 }
@@ -39,46 +39,46 @@ function showFileDescriptor(deviceId) {
 /**
  * Backボタン.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doFileDescriptorBack(deviceId, sessionKey){
-    searchSystem(deviceId);
+function doFileDescriptorBack(serviceId, sessionKey){
+    searchSystem(serviceId);
 }
 
 /**
  * Backボタン.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doOpenFileBack(deviceId, sessionKey){
-    doUnregisterOnWatchFile(deviceId, sessionKey);
-    showFileDescriptor(deviceId);
+function doOpenFileBack(serviceId, sessionKey){
+    doUnregisterOnWatchFile(serviceId, sessionKey);
+    showFileDescriptor(serviceId);
 }
 
 /**
  * ファイルオープン要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doOpenFile(deviceId) {
+function doOpenFile(serviceId) {
     var sessionKey = currentClientId;
     var flag = $('#flag').val();
     var path = $('#path').val();
     
-    var btnStr = getBackButton('FileDescriptor Top','doOpenFileBack', deviceId, sessionKey);
+    var btnStr = getBackButton('FileDescriptor Top','doOpenFileBack', serviceId, sessionKey);
     
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
-    doRegisterOnWatchFile(deviceId, sessionKey);
+    doRegisterOnWatchFile(serviceId, sessionKey);
     dConnect.connectWebSocket(sessionKey, function(eventCode, message) {});
     
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("open");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     builder.addParameter("flag", flag);
@@ -105,9 +105,9 @@ function doOpenFile(deviceId) {
             reloadMenu(str);
             
             var str = "";
-            str += getFileWriteHtml(deviceId, path, flag, sessionKey);
-            str += getFileReadHtml(deviceId, path, flag, sessionKey);
-            str += getCloseHtml(deviceId, sessionKey);
+            str += getFileWriteHtml(serviceId, path, flag, sessionKey);
+            str += getFileReadHtml(serviceId, path, flag, sessionKey);
+            str += getCloseHtml(serviceId, sessionKey);
             reloadContent(str);
         } else {
             showError("file_descriptor/open",json);
@@ -119,10 +119,10 @@ function doOpenFile(deviceId) {
 /**
  * ファイル書き込み要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doWriteFile(deviceId, sessionKey) {
+function doWriteFile(serviceId, sessionKey) {
     var position = document.fileDescriptorWriteForm.position.value;
     var path = document.fileDescriptorWriteForm.path.value;
     var flag = document.fileDescriptorWriteForm.flag.value;
@@ -138,10 +138,10 @@ function doWriteFile(deviceId, sessionKey) {
                 obj = JSON.parse(xhr.responseText);
                 if (obj.result == 0) {
                     var str = "";
-                    str += getFileWriteHtml(deviceId, path, flag, sessionKey);
-                    str += getFileReadHtml(deviceId, path, flag, sessionKey);
-                    str += getCloseHtml(deviceId, sessionKey);
-                    str += getProfileListLink(deviceId);
+                    str += getFileWriteHtml(serviceId, path, flag, sessionKey);
+                    str += getFileReadHtml(serviceId, path, flag, sessionKey);
+                    str += getCloseHtml(serviceId, sessionKey);
+                    str += getProfileListLink(serviceId);
                     $('#contents').html(str).trigger('create');
                     alert("Succeeded to write.");
                     return;
@@ -156,10 +156,10 @@ function doWriteFile(deviceId, sessionKey) {
 /**
  * ファイル読み込み要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doReadFile(deviceId, sessionKey) {
+function doReadFile(serviceId, sessionKey) {
     var length = document.fileDescriptorReadForm.length.value;
     var position = document.fileDescriptorReadForm.position.value;
     var path = document.fileDescriptorReadForm.path.value;
@@ -170,7 +170,7 @@ function doReadFile(deviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("read");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     builder.addParameter("position", position);
@@ -187,13 +187,13 @@ function doReadFile(deviceId, sessionKey) {
             var result = json.fileData;
 
             var str = "";
-            str += getFileWriteHtml(deviceId, path, flag, sessionKey);
-            str += getFileReadHtml(deviceId, path, flag, sessionKey);
+            str += getFileWriteHtml(serviceId, path, flag, sessionKey);
+            str += getFileReadHtml(serviceId, path, flag, sessionKey);
 
             str += '<textarea cols="40" rows="10" name="textarea-8" id="textarea-8">';
             str += result;
             str += '</textarea>';
-            str += getCloseHtml(deviceId, sessionKey);
+            str += getCloseHtml(serviceId, sessionKey);
 
             reloadContent(str);
         } else {
@@ -206,17 +206,17 @@ function doReadFile(deviceId, sessionKey) {
 /**
  * ファイルクローズ要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doCloseFile(deviceId, sessionKey) {
+function doCloseFile(serviceId, sessionKey) {
     var path = document.fileDescriptorReadForm.path.value;
 
     initResult();
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("onwatchfile");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -230,7 +230,7 @@ function doCloseFile(deviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("close");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("path", path);
     var uri = builder.build();
@@ -241,7 +241,7 @@ function doCloseFile(deviceId, sessionKey) {
         var json = JSON.parse(responseText);
         if (json.result === 0) {
             setTitle("Close");
-            showFileDescriptor(deviceId, sessionKey);
+            showFileDescriptor(serviceId, sessionKey);
         } else {
             showError("PUT file_descriptor/close", json);
         }
@@ -252,14 +252,14 @@ function doCloseFile(deviceId, sessionKey) {
 /*
  * OnWatchFileイベントの登録.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doRegisterOnWatchFile(deviceId, sessionKey){
+function doRegisterOnWatchFile(serviceId, sessionKey){
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("onwatchfile");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -283,14 +283,14 @@ function doRegisterOnWatchFile(deviceId, sessionKey){
 /*
  * OnWatchFileイベントの削除.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doUnregisterOnWatchFile(deviceId, sessionKey){
+function doUnregisterOnWatchFile(serviceId, sessionKey){
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("onwatchfile");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -304,16 +304,16 @@ function doUnregisterOnWatchFile(deviceId, sessionKey){
 /*
  * ファイル書き込み用HTMLを生成する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} path パス
  * @param {String} flag RWのフラグ
  * @param {String} sessionKey セッションKey
  */
-function getFileWriteHtml(deviceId, path, flag, sessionKey) {
+function getFileWriteHtml(serviceId, path, flag, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file_descriptor");
     builder.setAttribute("write");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -330,7 +330,7 @@ function getFileWriteHtml(deviceId, path, flag, sessionKey) {
     str += '<input type="hidden" name="path" id="path" value="' + path + '">';
     str += '<input type="hidden" name="flag" id="flag" value="' + flag + '">';
 
-    str += '<input type="button" onclick="doWriteFile(\'' + deviceId + '\',\'' + sessionKey + '\');" id="writeFile" value="Write file"  />';
+    str += '<input type="button" onclick="doWriteFile(\'' + serviceId + '\',\'' + sessionKey + '\');" id="writeFile" value="Write file"  />';
     str += '</form>';
     return str;
 }
@@ -338,12 +338,12 @@ function getFileWriteHtml(deviceId, path, flag, sessionKey) {
 /*
  * ファイル読み込み用HTMLを生成する.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}path パス
  * @param {String}flag RWのフラグ
  * @param {String}sessionKey セッションKey
  */
-function getFileReadHtml(deviceId, path, flag, sessionKey) {
+function getFileReadHtml(serviceId, path, flag, sessionKey) {
     var str = "";
     str += '<form  name="fileDescriptorReadForm">';
     str += '<div class="ui-field-contain">';
@@ -354,7 +354,7 @@ function getFileReadHtml(deviceId, path, flag, sessionKey) {
     str += '<label for="length">Length:</label>';
     str += '<input type="text" data-mini="true" name="length" id="length" value="">';
     str += '</div>';
-    str += '<input type="button" onclick="doReadFile(\'' + deviceId + '\',\'' + sessionKey + '\');" id="readFile" value="Read file"  />';
+    str += '<input type="button" onclick="doReadFile(\'' + serviceId + '\',\'' + sessionKey + '\');" id="readFile" value="Read file"  />';
     str += '</form>';
     return str;
 }
@@ -362,9 +362,9 @@ function getFileReadHtml(deviceId, path, flag, sessionKey) {
 /*
  * ファイルクローズ用HTMLを生成する.
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKey
  */
-function getCloseHtml(deviceId, sessionKey){
-    return '<input type="button" onclick="doCloseFile(\'' + deviceId + '\', \'' + sessionKey + '\');" value="Close file"  />';
+function getCloseHtml(serviceId, sessionKey){
+    return '<input type="button" onclick="doCloseFile(\'' + serviceId + '\', \'' + sessionKey + '\');" value="Close file"  />';
 }
