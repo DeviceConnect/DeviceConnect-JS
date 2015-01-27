@@ -111,7 +111,7 @@ function authorization(){
     dConnect.setHost(ip);
     var scopes = Array("battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
                     "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
-                    "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera");
+                    "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
         dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
                 // Client ID
@@ -232,5 +232,7 @@ function searchProfile(deviceId, profile) {
         showProximity(deviceId);
     } else if (profile === "sphero") {
         showSphero(deviceId);
+    } else if (profile === "canvas") {
+        showCanvas(deviceId);
     }
 }
