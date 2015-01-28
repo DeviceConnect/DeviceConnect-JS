@@ -1248,6 +1248,7 @@ var dConnect = (function(parent, global) {
     /**
      * Service Discovery APIへの簡易アクセスを提供する。
      * @memberOf dConnect
+     * @param {String} accessToken アクセストークン
      * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
      * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
      *
@@ -1260,9 +1261,10 @@ var dConnect = (function(parent, global) {
      *     function(readyState, status) {
      *     });
      */
-    var discoverDevices = function(success_cb, error_cb) {
+    var discoverDevices = function(accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
+        builder.setAccessToken(accessToken);
         parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.discoverDevices = discoverDevices;

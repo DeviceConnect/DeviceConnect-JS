@@ -109,7 +109,7 @@ function checkDeviceConnect() {
  */
 function authorization(){
     dConnect.setHost(ip);
-    var scopes = Array("battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
+    var scopes = Array("servicediscovery", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
                     "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
                     "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
         dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
@@ -220,8 +220,8 @@ function searchProfile(serviceId, profile) {
         showDice(serviceId);
     } else if (profile === "mhealth") {
         showMhealth(serviceId);
-    } else if (profile === "network_service_discovery") {
-        alert("This list is the result of network_service_discovery.");
+    } else if (profile === "servicediscovery") {
+        alert("This list is the result of servicediscovery.");
     } else if (profile === "authorization") {
         alert("Use for only OAuth.");
     } else if (profile === "system") {
