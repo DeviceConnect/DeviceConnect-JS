@@ -9,7 +9,7 @@
 /**
  * MediastreamRecording Menu
  *
- * @param {String} serviceId デバイスId
+ * @param {String} serviceId サービスID
  */
 function showMediastreamRecording(serviceId) {
     

@@ -272,8 +272,8 @@ var dConnect = (function(parent, global) {
             NOT_SUPPORT_ATTRIBUTE : 4,
             /** エラーコード: serviceIdが設定されていない. */
             EMPTY_SERVICE_ID : 5,
-            /** エラーコード: デバイスが発見できなかった. */
-            NOT_FOUND_DEVICE : 6,
+            /** エラーコード: サービスが発見できなかった. */
+            NOT_FOUND_SERVICE : 6,
             /** エラーコード: タイムアウトが発生した. */
             TIMEOUT : 7,
             /** エラーコード: 未知の属性・インターフェースにアクセスされた. */
