@@ -149,12 +149,12 @@ var dConnect = (function(parent, global) {
          * @memberOf dConnect.oauth
          * @param {String} clientId クライアントID
          * @param {String} grantType グラントタイプ(AUTHORIZATION_CODEを指定する)
-         * @param {String} deviceId デバイスID(UIアプリの場合はnullまたは""(空の文字列)を設定する)
+         * @param {String} serviceId サービスID(UIアプリの場合はnullまたは""(空の文字列)を設定する)
          * @param {String} scopes スコープ(カンマ区切りで複数指定可能。(例)"bivration,file,notification")
          * @param {String} clientSecret クライアントシークレット
          * @return {String} 生成したSignature
          */
-        generateSignatureForAccessTokenRequest : function(clientId, grantType, deviceId, scopes, clientSecret) {
+        generateSignatureForAccessTokenRequest : function(clientId, grantType, serviceId, scopes, clientSecret) {
             var inputMaps = [];
             inputMaps.push({
                 key : "clientId",
@@ -164,10 +164,10 @@ var dConnect = (function(parent, global) {
                 key : "grantType",
                 value : grantType
             });
-            if (deviceId != null && deviceId != "") {
+            if (serviceId != null && serviceId != "") {
                 inputMaps.push({
-                    key : "deviceId",
-                    value : deviceId
+                    key : "serviceId",
+                    value : serviceId
                 });
             }
 
@@ -270,10 +270,10 @@ var dConnect = (function(parent, global) {
             NOT_SUPPORT_ACTION : 3,
             /** エラーコード: サポートされていない属性・インターフェースが指定された. */
             NOT_SUPPORT_ATTRIBUTE : 4,
-            /** エラーコード: deviceIdが設定されていない. */
-            EMPTY_DEVICE_ID : 5,
-            /** エラーコード: デバイスが発見できなかった. */
-            NOT_FOUND_DEVICE : 6,
+            /** エラーコード: serviceIdが設定されていない. */
+            EMPTY_SERVICE_ID : 5,
+            /** エラーコード: サービスが発見できなかった. */
+            NOT_FOUND_SERVICE : 6,
             /** エラーコード: タイムアウトが発生した. */
             TIMEOUT : 7,
             /** エラーコード: 未知の属性・インターフェースにアクセスされた. */
@@ -306,8 +306,8 @@ var dConnect = (function(parent, global) {
         common : {
             /** 共通パラメータ: action。*/
             PARAM_ACTION : 'action',
-            /** 共通パラメータ: deviceId。 */
-            PARAM_DEVICE_ID : 'deviceId',
+            /** 共通パラメータ: serviceId。 */
+            PARAM_SERVICE_ID : 'serviceId',
             /** 共通パラメータ: pluginId。 */
             PARAM_PLUGIN_ID : 'pluginId',
             /** 共通パラメータ: profile。 */
@@ -838,18 +838,16 @@ var dConnect = (function(parent, global) {
         },
 
         /**
-         * Network Service Discoveryプロファイルの定数
+         * Service Discoveryプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
          */
-        network_service_discovery : {
+        servicediscovery : {
             // Profile name
             /** プロファイル名。 */
-            PROFILE_NAME : "network_service_discovery",
+            PROFILE_NAME : "servicediscovery",
 
             // Attribute
-            /** アトリビュート: getnetworkservices */
-            ATTR_GET_NETWORK_SERVICES : "getnetworkservices",
             /** アトリビュート: onservicechange */
             ATTR_ON_SERVICE_CHANGE : "onservicechange",
 
@@ -1248,8 +1246,9 @@ var dConnect = (function(parent, global) {
     parent.execute = execute;
 
     /**
-     * Network Service Discovery APIへの簡易アクセスを提供する。
+     * Service Discovery APIへの簡易アクセスを提供する。
      * @memberOf dConnect
+     * @param {String} accessToken アクセストークン
      * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
      * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
      *
@@ -1262,10 +1261,10 @@ var dConnect = (function(parent, global) {
      *     function(readyState, status) {
      *     });
      */
-    var discoverDevices = function(success_cb, error_cb) {
+    var discoverDevices = function(accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
-        builder.setProfile(parent.constants.network_service_discovery.PROFILE_NAME);
-        builder.setAttribute(parent.constants.network_service_discovery.ATTR_GET_NETWORK_SERVICES);
+        builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
+        builder.setAccessToken(accessToken);
         parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.discoverDevices = discoverDevices;
@@ -1390,7 +1389,7 @@ var dConnect = (function(parent, global) {
      *
      * @example
      * // アクセスするプロファイル一覧を定義
-     * var scopes = Array('network_service_discovery', 'sysytem', 'battery');
+     * var scopes = Array('servicediscovery', 'sysytem', 'battery');
      * // 認可を実行
      * dConnect.authorization('http://hogehoge.com/index.html', scopes, 'サンプル',
      *     function(clientId, clientSecret, accessToken) {
@@ -1665,13 +1664,13 @@ var dConnect = (function(parent, global) {
      * var builder = new dConnect.URIBuilder();
      * builder.setProfile("battery");
      * builder.setAttribute("level");
-     * builder.setDeviceId(deviceId);
+     * builder.setServiceId(serviceId);
      * builder.setAccessToken(accessToken);
      * builder.addParameter("key", "value");
      *
      * var uri = builder.build();
      *
-     * uriは"http://localhost:4035/gotapi/battery/level?deviceId=deviceId&accessToken=accessToken&key=value"に変換される。
+     * uriは"http://localhost:4035/gotapi/battery/level?serviceId=serviceId&accessToken=accessToken&key=value"に変換される。
      */
     var URIBuilder = function() {
         this.scheme = "http://";
@@ -1782,7 +1781,7 @@ var dConnect = (function(parent, global) {
      * <p>
      * Device Connectで定義してあるプロファイル名を指定すること。<br/>
      * <ul>
-     * <li>network_service_discovery</li>
+     * <li>servicediscovery</li>
      * <li>system</li>
      * <li>battery</li>
      * <li>mediastream_recording</li>
@@ -1848,13 +1847,13 @@ var dConnect = (function(parent, global) {
     };
 
     /**
-     * デバイスIDを設定する。
+     * サービスIDを設定する。
      * @memberOf dConnect.URIBuilder
-     * @param {String} deviceId デバイスID
+     * @param {String} serviceId サービスID
      * @return {URIBuilder} 自分自身のインスタンス
      */
-    URIBuilder.prototype.setDeviceId = function(deviceId) {
-        this.params['deviceId'] = deviceId;
+    URIBuilder.prototype.setServiceId = function(serviceId) {
+        this.params['serviceId'] = serviceId;
         return this;
     };
 

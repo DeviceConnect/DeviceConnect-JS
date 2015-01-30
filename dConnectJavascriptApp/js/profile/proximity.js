@@ -8,14 +8,14 @@
 /**
  * Proximity Profile
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function showProximity(deviceId)  {
+function showProximity(serviceId)  {
 
     initAll();
 	
 	var btnStr = "";   
-    btnStr += getBackButton('Device Top', 'doProximityBack', deviceId, "");
+    btnStr += getBackButton('Device Top', 'doProximityBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -24,9 +24,9 @@ function showProximity(deviceId)  {
     var str = "";
     
     if(myDeviceName.indexOf("Host") != -1){
-	    str += '<li><a href="javascript:showUserProximity(\'' + deviceId + '\');" value="Setting">user proximity</a></li>';
+	    str += '<li><a href="javascript:showUserProximity(\'' + serviceId + '\');" value="Setting">user proximity</a></li>';
     } else if(myDeviceName.indexOf("Dice+") != -1){
-    	str += '<li><a href="javascript:showDeviceProximity(\'' + deviceId + '\');" value="Call">device proximity</a></li>';
+    	str += '<li><a href="javascript:showDeviceProximity(\'' + serviceId + '\');" value="Call">device proximity</a></li>';
 	}
 	
 	reloadList(str);
@@ -35,15 +35,15 @@ function showProximity(deviceId)  {
 /** 
  * Device Proximityの処理
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showDeviceProximity(deviceId) {
+function showDeviceProximity(serviceId) {
 
 	initAll();
     var sessionKey = currentClientId;
     
     var btnStr = "";    
-    btnStr += getBackButton('Proximity Top', 'doDeviceProximityBack', deviceId, sessionKey);
+    btnStr += getBackButton('Proximity Top', 'doDeviceProximityBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -61,23 +61,23 @@ function showDeviceProximity(deviceId) {
 	
 	reloadContent(str);
 	
-	doRegisterDeviceProximity(deviceId, sessionKey);
+	doRegisterDeviceProximity(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /** 
  * User Proximityの表示
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showUserProximity(deviceId) {
+function showUserProximity(serviceId) {
     
     initAll();
     
     var sessionKey = currentClientId;
     
     var btnStr = "";    
-    btnStr += getBackButton('Proximity Top', 'doUserProximityBack', deviceId, sessionKey);
+    btnStr += getBackButton('Proximity Top', 'doUserProximityBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -90,55 +90,55 @@ function showUserProximity(deviceId) {
     str += '</form>';
 	reloadContent(str);
 	
-	doRegisterUserProximity(deviceId,sessionKey);
+	doRegisterUserProximity(serviceId,sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Menu Backボタン
  *
- * deviceId {String} デバイスID
+ * serviceId {String} サービスID
  * sessionKey {String} セッションKEY
  */
-function doProximityBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doProximityBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /**
  * User Proximity Backボタン
  *
- * deviceId {String} デバイスID
+ * serviceId {String} サービスID
  * sessionKey {String} セッションKEY
  */
-function doUserProximityBack(deviceId, sessionKey){
-	showProximity(deviceId);
-	doUnregisterUserProximity(deviceId, sessionKey);
+function doUserProximityBack(serviceId, sessionKey){
+	showProximity(serviceId);
+	doUnregisterUserProximity(serviceId, sessionKey);
 }
 
 /**
  * User Proximity Backボタン
  *
- * deviceId {String} デバイスID
+ * serviceId {String} サービスID
  * sessionKey {String} セッションKEY
  */
-function doDeviceProximityBack(deviceId, sessionKey){
-	showProximity(deviceId);
-	doUnregisterDeviceProximity(deviceId, sessionKey);
+function doDeviceProximityBack(serviceId, sessionKey){
+	showProximity(serviceId);
+	doUnregisterDeviceProximity(serviceId, sessionKey);
 }
 
 
 /**
  * Device Proximityイベントの登録
  *
- * @param deviceId {String} デバイスID
+ * @param serviceId {String} サービスID
  * @param sessionKey {String} セッションキー
  */
-function doRegisterDeviceProximity(deviceId, sessionKey) {
+function doRegisterDeviceProximity(serviceId, sessionKey) {
     
     var builder = new dConnect.URIBuilder();
 	builder.setProfile("proximity");
     builder.setAttribute("ondeviceproximity");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     
@@ -165,14 +165,14 @@ function doRegisterDeviceProximity(deviceId, sessionKey) {
 /**
  * Device Proximityイベントの削除
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param sessionKey セッションキー
  */
-function doUnregisterDeviceProximity(deviceId, sessionKey) {
+function doUnregisterDeviceProximity(serviceId, sessionKey) {
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("proximity");
     builder.setAttribute("ondeviceproximity");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();
@@ -187,14 +187,14 @@ function doUnregisterDeviceProximity(deviceId, sessionKey) {
 /**
  * User Proximityイベントの登録
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param sessionKey セッションキー
  */
-function doRegisterUserProximity(deviceId, sessionKey) {
+function doRegisterUserProximity(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("proximity");
     builder.setAttribute("onuserproximity");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();
@@ -217,14 +217,14 @@ function doRegisterUserProximity(deviceId, sessionKey) {
 /**
  * User Proximityイベントの削除
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param sessionKey セッションキー
  */
-function doUnregisterUserProximity(deviceId, sessionKey) {
+function doUnregisterUserProximity(serviceId, sessionKey) {
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("proximity");
     builder.setAttribute("onuserproximity");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();

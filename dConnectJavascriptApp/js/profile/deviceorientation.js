@@ -8,12 +8,12 @@
 /** 
  * DeviceOrientation
  */
-function showDeviceOrientation(deviceId) {
+function showDeviceOrientation(serviceId) {
     initAll();
     setTitle("DeviceOrientation Profile(Event)");
 
     var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top','doOrientationBack', deviceId, sessionKey);
+    var btnStr = getBackButton('Device Top','doOrientationBack', serviceId, sessionKey);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
@@ -36,29 +36,29 @@ function showDeviceOrientation(deviceId) {
     str += '</form>';
     reloadContent(str);
 
-    doDeviceOrientationRegist(deviceId, sessionKey);
+    doDeviceOrientationRegist(serviceId, sessionKey);
     dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Backボタン
  *
- * deviceId デバイスID
+ * serviceId サービスID
  * sessionKey セッションKEY
  */
-function doOrientationBack(deviceId, sessionKey){
-    doDeviceOrientationUnregister(deviceId, sessionKey);
-    searchSystem(deviceId);
+function doOrientationBack(serviceId, sessionKey){
+    doDeviceOrientationUnregister(serviceId, sessionKey);
+    searchSystem(serviceId);
 }
 
 /**
  * DeviceOrientation Event
  */
-function doDeviceOrientationRegist(deviceId, sessionKey) {
+function doDeviceOrientationRegist(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("deviceorientation");
     builder.setAttribute("ondeviceorientation");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -101,12 +101,12 @@ function doDeviceOrientationRegist(deviceId, sessionKey) {
 /**
  * DeviceOrientation
  */
-function doDeviceOrientationUnregister(deviceId, sessionKey) {
+function doDeviceOrientationUnregister(serviceId, sessionKey) {
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("deviceorientation");
     builder.setAttribute("ondeviceorientation");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();

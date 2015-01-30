@@ -9,16 +9,16 @@
 /**
  * Notification Menu
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showNotification(deviceId) {
+function showNotification(serviceId) {
   
     initAll();
     
     var sessionKey = currentClientId;
     
     var btnStr = "";
-    btnStr += getBackButton('Device Top','doNotificationBack', deviceId, sessionKey);
+    btnStr += getBackButton('Device Top','doNotificationBack', serviceId, sessionKey);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
@@ -31,10 +31,10 @@ function showNotification(deviceId) {
     } else {
         dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
     
-        doRegisterNotificationShow(deviceId, sessionKey);
-        doRegisterNotificationClick(deviceId, sessionKey);
-        doRegisterNotificationClose(deviceId, sessionKey);
-        //doRegisterNotificationError(deviceId, sessionKey);
+        doRegisterNotificationShow(serviceId, sessionKey);
+        doRegisterNotificationClick(serviceId, sessionKey);
+        doRegisterNotificationClose(serviceId, sessionKey);
+        //doRegisterNotificationError(serviceId, sessionKey);
     }
      
     setTitle("Notification Profile(Notify)");
@@ -68,9 +68,9 @@ function showNotification(deviceId) {
     str += '<OPTION value="3">Normal event</OPTION>';
     str += '</SELECT>';
     str += '<input type="file" name="icon" id="icon"/>';
-    str += '<input type="hidden" name="deviceId" value="' + deviceId + '"/>';
+    str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
     str += '<input type="hidden" name="accessToken" value="' + accessToken + '"/>';
-    str += '<input type="button" name="sendButton" id="sendButton" value="Noftiy" onclick="doNotificationNotify(\'' + deviceId + '\');"/>';
+    str += '<input type="button" name="sendButton" id="sendButton" value="Noftiy" onclick="doNotificationNotify(\'' + serviceId + '\');"/>';
     str += '</form>';
     str += '</center>';
     reloadContent(str);
@@ -80,10 +80,10 @@ function showNotification(deviceId) {
 /**
  * Back Button
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doNotificationBack(deviceId, sessionKey) {
+function doNotificationBack(serviceId, sessionKey) {
     
     if(myDeviceName.indexOf("Pebble") != -1) {
     
@@ -92,25 +92,25 @@ function doNotificationBack(deviceId, sessionKey) {
     } else if(myDeviceName.indexOf("Chromecast") != -1) {
     
     } else {
-        doUnregisterNotificationShow(deviceId, sessionKey);
-        doUnregisterNotificationClick(deviceId, sessionKey);
-        doUnregisterNotificationClose(deviceId, sessionKey);
-        //doUnregisterNotificationError(deviceId, sessionKey);
+        doUnregisterNotificationShow(serviceId, sessionKey);
+        doUnregisterNotificationClick(serviceId, sessionKey);
+        doUnregisterNotificationClose(serviceId, sessionKey);
+        //doUnregisterNotificationError(serviceId, sessionKey);
     }
-    searchSystem(deviceId);
+    searchSystem(serviceId);
 }
 
 /**
  * onShowイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterNotificationShow(deviceId, sessionKey) {
+function doRegisterNotificationShow(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onshow");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
      
@@ -131,15 +131,15 @@ function doRegisterNotificationShow(deviceId, sessionKey) {
 /**
  * onShowイベントの解除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterNotificationShow(deviceId, sessionKey) {
+function doUnregisterNotificationShow(serviceId, sessionKey) {
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onshow");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -154,14 +154,14 @@ function doUnregisterNotificationShow(deviceId, sessionKey) {
 /**
  * onClickイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterNotificationClick(deviceId, sessionKey) {
+function doRegisterNotificationClick(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onclick");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -181,14 +181,14 @@ function doRegisterNotificationClick(deviceId, sessionKey) {
 /**
  * onClickイベントの解除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterNotificationClick(deviceId, sessionKey) {
+function doUnregisterNotificationClick(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onclick");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -201,14 +201,14 @@ function doUnregisterNotificationClick(deviceId, sessionKey) {
 /**
  * onCloseイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterNotificationClose(deviceId, sessionKey) {
+function doRegisterNotificationClose(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onclose");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -226,15 +226,15 @@ function doRegisterNotificationClose(deviceId, sessionKey) {
 /**
  * onCloseイベントの解除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterNotificationClose(deviceId, sessionKey) {
+function doUnregisterNotificationClose(serviceId, sessionKey) {
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onclose");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -248,14 +248,14 @@ function doUnregisterNotificationClose(deviceId, sessionKey) {
 /**
  * onErrorイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterNotificationError(deviceId, sessionKey) {
+function doRegisterNotificationError(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onerror");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -273,14 +273,14 @@ function doRegisterNotificationError(deviceId, sessionKey) {
 /**
  * onErrorイベントの解除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterNotificationError(deviceId, sessionKey) {
+function doUnregisterNotificationError(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("onerror");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();
@@ -293,9 +293,9 @@ function doUnregisterNotificationError(deviceId, sessionKey) {
 /**
  * Notification(Notify)
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doNotificationNotify(deviceId) {
+function doNotificationNotify(serviceId) {
     var myForm = document.getElementById("notificationForm");
     var myFormData = new FormData(myForm);
     var myXhr = new XMLHttpRequest();
@@ -311,7 +311,7 @@ function doNotificationNotify(deviceId) {
                     } else if(myDeviceName.indexOf("SmartWatch") != -1){
                     } else {
                         str += '<center>';
-                        str += '<input type="button" onclick="notificationDel(\'' + deviceId + '\',\'' + obj.notificationId + '\');" value="Delete" type="button" >';
+                        str += '<input type="button" onclick="notificationDel(\'' + serviceId + '\',\'' + obj.notificationId + '\');" value="Delete" type="button" >';
                         str += '</center>';
                         reloadMenu(str)
                     }
@@ -330,13 +330,13 @@ function doNotificationNotify(deviceId) {
 /**
  * ID指定でNotificationを消す
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function notificationDel(deviceId, notificationId) {
+function notificationDel(serviceId, notificationId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("notification");
     builder.setAttribute("notify");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("notificationId", notificationId);
     var uri = builder.build();

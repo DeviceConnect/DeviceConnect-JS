@@ -173,10 +173,10 @@ function setTitle(msg, color) {
 /**
  * Profile Listのリンク.
  */
-function getProfileListLink(deviceId){
+function getProfileListLink(serviceId){
  var str = "";
  str += '<center>';
- str += '<input data-icon="home" data-inline="true" data-mini="true" onclick="javascript:searchSystem(\'' + deviceId + '\');" type="button" value="Device TOP"/>';
+ str += '<input data-icon="home" data-inline="true" data-mini="true" onclick="javascript:searchSystem(\'' + serviceId + '\');" type="button" value="Device TOP"/>';
  str += '</center>';
  
  return str;
@@ -185,10 +185,10 @@ function getProfileListLink(deviceId){
 /**
  * Backのリンク.
  */
-function getBackButton(name, doBackFunction, deviceId, sessionKey){
+function getBackButton(name, doBackFunction, serviceId, sessionKey){
  var str = "<hr>";
  str += '<center>';
- str += '<input data-icon="home" data-inline="true" data-mini="true" onclick="javascript:'+doBackFunction+'(\'' + deviceId + '\', \'' + sessionKey + '\');" type="button" value="'+name+'"/>';
+ str += '<input data-icon="home" data-inline="true" data-mini="true" onclick="javascript:'+doBackFunction+'(\'' + serviceId + '\', \'' + sessionKey + '\');" type="button" value="'+name+'"/>';
  str += '</center>';
  str += "<hr>";
  return str;

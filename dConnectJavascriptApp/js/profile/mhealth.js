@@ -8,15 +8,15 @@
 /** 
  * mhealth Profile.
  */
-function showMhealth(deviceId) {
+function showMhealth(serviceId) {
 	initAll();
 	
     initListView();
     setTitle("mHealth Profile");
 
     var str = "";
-    str += '<input data-role="button" type="button" name="button" id="button" value="OMRON(HBF-206IT)" onclick="javascript:doStartService(\'' + deviceId + '\',\'HBF-206IT\');"/><br>';
-   	str += getProfileListLink(deviceId);
+    str += '<input data-role="button" type="button" name="button" id="button" value="OMRON(HBF-206IT)" onclick="javascript:doStartService(\'' + serviceId + '\',\'HBF-206IT\');"/><br>';
+   	str += getProfileListLink(serviceId);
 
 	reloadContent(str);
 }
@@ -24,15 +24,15 @@ function showMhealth(deviceId) {
 /**
  * startService
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param deviceName デバイス名
  */
-function doStartService(deviceId, deviceName){
+function doStartService(serviceId, deviceName){
 	
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("mhealth");
     builder.setAttribute("startservice");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("protocol","HDP");
     var uri = builder.build();
@@ -47,14 +47,14 @@ function doStartService(deviceId, deviceName){
 	    
         if (json.result == 0) {
             if(deviceName == "HBF-206IT"){
-            	showHBF206IT1(deviceId);
+            	showHBF206IT1(serviceId);
             }
            
         } else {
             alert("startService API failed!\n\nURI: "+uri+"\nerrorCode: " + json.errorCode + "\nerrorMessage: " + json.errorMessage + ")");
             
             if(deviceName == "HBF-206IT"){
-            	showHBF206IT1(deviceId);
+            	showHBF206IT1(serviceId);
             }
         }
 
@@ -66,9 +66,9 @@ function doStartService(deviceId, deviceName){
 /**
  * HBF-206IT(1)
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function showHBF206IT1(deviceId){
+function showHBF206IT1(serviceId){
 	var str = "";
 	setTitle("初期設定","blue");
 	str += '<center>';
@@ -77,7 +77,7 @@ function showHBF206IT1(deviceId){
 	str += '体組成計の「個人番号」ボタンを押す。<br>';
 	str += '「ピッ」というブザー音とともに、生年月日が表示される。<br>';
 	str += '「ピ・ピッ」というブザー音の後、0.0kg表示に変わる。<br>';
-	str += '<input data-role="button" type="button" name="button" id="button" value="NEXT" onclick="javascript:showHBF206IT2(\'' + deviceId + '\');"/><br>';
+	str += '<input data-role="button" type="button" name="button" id="button" value="NEXT" onclick="javascript:showHBF206IT2(\'' + serviceId + '\');"/><br>';
 	
 	reloadContent(str);
 }
@@ -85,16 +85,16 @@ function showHBF206IT1(deviceId){
 /**
  * HBF-206IT(2)
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function showHBF206IT2(deviceId){
+function showHBF206IT2(serviceId){
 	var str = "";
 	setTitle("測定","blue");
 	str += '<center>';
 	str += '<img src="./css/images/weight2.png">';
 	str += '</center>';
 	str += '計測が完了すると「ピ・ピー」というブザー音が鳴り、計測結果が表示される。<br>';
-	str += '<input data-role="button" type="button" name="button" id="button" value="NEXT" onclick="javascript:showHBF206IT3(\'' + deviceId + '\');"/><br>';
+	str += '<input data-role="button" type="button" name="button" id="button" value="NEXT" onclick="javascript:showHBF206IT3(\'' + serviceId + '\');"/><br>';
 	
 	reloadContent(str);
 }
@@ -102,9 +102,9 @@ function showHBF206IT2(deviceId){
 /**
  * HBF-206IT(3)
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function showHBF206IT3(deviceId){
+function showHBF206IT3(serviceId){
 	var str = "";
 	setTitle("データ転送","blue");
 	str += '<center>';
@@ -112,7 +112,7 @@ function showHBF206IT3(deviceId){
 	str += '</center>';
 	str += '「転送」ボタンを押すと転送が開始される。<br>';
 	str += '転送が完了すると「ピッ・ピッ」というブザー音が鳴り、OKランプが点灯する。<br>';
-	str += '<input data-role="button" type="button" name="button" id="button" value="データの取得" onclick="javascript:doHBF206IT(\'' + deviceId + '\');"/><br>';
+	str += '<input data-role="button" type="button" name="button" id="button" value="データの取得" onclick="javascript:doHBF206IT(\'' + serviceId + '\');"/><br>';
 
 
 	reloadContent(str);
@@ -122,9 +122,9 @@ function showHBF206IT3(deviceId){
 /**
  * HBF-206ITの処理
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function doHBF206IT(deviceId){
+function doHBF206IT(serviceId){
 	closeLoading();
 	showLoading();
 	
@@ -136,7 +136,7 @@ function doHBF206IT(deviceId){
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("mhealth");
     builder.setAttribute("getdbinfo");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 	
@@ -152,7 +152,7 @@ function doHBF206IT(deviceId){
         
         	if(DEBUG) console.log("json.datas[0].lastindexId:"+json.datas[0].lastindexId)
             closeLoading();
-            doGetDataFromHBF206IT(deviceId, json.datas[0].lastindexId);
+            doGetDataFromHBF206IT(serviceId, json.datas[0].lastindexId);
            
         } else {
         	showError("POST mhealth/getdbinfo", json);
@@ -170,9 +170,9 @@ function doHBF206IT(deviceId){
 /**
  * HBF-206ITの処理
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function doGetDataFromHBF206IT(deviceId, id){
+function doGetDataFromHBF206IT(serviceId, id){
 
 	closeLoading();
 	showLoading();
@@ -184,7 +184,7 @@ function doGetDataFromHBF206IT(deviceId, id){
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("mhealth");
     builder.setAttribute("getmeasurements");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("firstId",id);
     builder.addParameter("lastId",id);
@@ -205,7 +205,7 @@ function doGetDataFromHBF206IT(deviceId, id){
             if(DEBUG) console.log("data:"+responseText);
             reloadHeader(str);   
             var contentStr = ""
-            contentStr += '<input data-role="button" type="button" name="button" id="button" value="mHealthの停止" onclick="javascript:doStopService(\'' + deviceId + '\');"/><br>';
+            contentStr += '<input data-role="button" type="button" name="button" id="button" value="mHealthの停止" onclick="javascript:doStopService(\'' + serviceId + '\');"/><br>';
 			reloadContent(contentStr);
            	closeLoading();
             
@@ -223,15 +223,15 @@ function doGetDataFromHBF206IT(deviceId, id){
 /**
  * stopService
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param deviceName デバイス名
  */
-function doStopService(deviceId){
+function doStopService(serviceId){
 	
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("mhealth");
     builder.setAttribute("stopservice");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("protocol","HDP");
     var uri = builder.build();
@@ -244,7 +244,7 @@ function doStopService(deviceId){
 	    
         if (json.result == 0) {
            alert("STOP mHealth Service");
-           showMhealth(deviceId);
+           showMhealth(serviceId);
            
         } else {
         	showError("POST mhealth/stopservice", json);

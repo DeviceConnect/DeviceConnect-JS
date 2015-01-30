@@ -8,53 +8,53 @@
 /**
  * Phone Menu
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showPhone(deviceId) {
+function showPhone(serviceId) {
 
     initAll();
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Device Top','doMediaplayerBack', deviceId, "");
+    btnStr += getBackButton('Device Top','doMediaplayerBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
     setTitle("Phone Profile");
 
     var str = "";
-    str += '<li><a href="javascript:showPhoneCall(\'' + deviceId + '\');" value="Call">phone/call</a></li>';
-    str += '<li><a href="javascript:showPhoneSetting(\'' + deviceId + '\');" value="Setting">phone/set</a></li>';
+    str += '<li><a href="javascript:showPhoneCall(\'' + serviceId + '\');" value="Call">phone/call</a></li>';
+    str += '<li><a href="javascript:showPhoneSetting(\'' + serviceId + '\');" value="Setting">phone/set</a></li>';
 	reloadList(str);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}essionKey セッションKEY
  */
-function doPhoneCallBack(deviceId, sessionKey){
-	showPhone(deviceId);
-	doUnregisterOnConnect(deviceId, sessionKey);
+function doPhoneCallBack(serviceId, sessionKey){
+	showPhone(serviceId);
+	doUnregisterOnConnect(serviceId, sessionKey);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doPhoneSetBack(deviceId, sessionKey){
-	showPhone(deviceId);
+function doPhoneSetBack(serviceId, sessionKey){
+	showPhone(serviceId);
 }
 
 
 /**
  * Call 
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showPhoneCall(deviceId) {
+function showPhoneCall(serviceId) {
 	var sessionKey = currentClientId;
 	
 	initAll();
@@ -62,7 +62,7 @@ function showPhoneCall(deviceId) {
     setTitle("Phone Profile(Call)");
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Phone TOP', 'doPhoneCallBack', deviceId, sessionKey);
+    btnStr += getBackButton('Phone TOP', 'doPhoneCallBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -71,10 +71,10 @@ function showPhoneCall(deviceId) {
     str += makeInputText("Status", "status", "status");
     str += makeInputText("Phone Number", "phone", "phone");
     str += '</form>';
-    str += '<input onclick="javascript:doPhoneCall(\'' + deviceId + '\');" type="button" value="Call"/>';
+    str += '<input onclick="javascript:doPhoneCall(\'' + serviceId + '\');" type="button" value="Call"/>';
 	reloadContent(str);
 
-	doRegisterOnConnect(deviceId, sessionKey);
+	doRegisterOnConnect(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 
 }
@@ -83,16 +83,16 @@ function showPhoneCall(deviceId) {
  * Phone profile<br>
  * Setting
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function showPhoneSetting(deviceId) {
+function showPhoneSetting(serviceId) {
 	
 	initAll();
 
     setTitle("Phone Profile(Set)");
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Phone TOP', 'doPhoneSetBack', deviceId, "");
+    btnStr += getBackButton('Phone TOP', 'doPhoneSetBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 
@@ -104,14 +104,14 @@ function showPhoneSetting(deviceId) {
     str += '<OPTION value="2">Normal Mode</OPTION>'
     str += '</SELECT>'
     str += '</form>';
-    str += '<input onclick="javascript:doPhoneSet(\'' + deviceId + '\');" type="button" value="Set"/>';
+    str += '<input onclick="javascript:doPhoneSet(\'' + serviceId + '\');" type="button" value="Set"/>';
     reloadContent(str);
 }
 
 /**
  * phone call
  */
-function doPhoneCall(deviceId) {
+function doPhoneCall(serviceId) {
 	
 	var form = document.getElementsByName("phoneForm");
     var phoneNumber = $('#phone').val();
@@ -119,7 +119,7 @@ function doPhoneCall(deviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("phone");
     builder.setAttribute("call");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("phoneNumber", phoneNumber);
     var uri = builder.build();
@@ -146,14 +146,14 @@ function doPhoneCall(deviceId) {
 /**
  * onCloseイベントの登録
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param sessionKey セッションキー
  */
-function doRegisterOnConnect(deviceId, sessionKey) {
+function doRegisterOnConnect(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("phone");
     builder.setAttribute("onconnect");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();
@@ -175,15 +175,15 @@ function doRegisterOnConnect(deviceId, sessionKey) {
 /**
  * onConnectイベントの解除
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  * @param sessionKey セッションキー
  */
-function doUnregisterOnConnect(deviceId, sessionKey) {
+function doUnregisterOnConnect(serviceId, sessionKey) {
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("phone");
     builder.setAttribute("onconnect");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();
@@ -197,7 +197,7 @@ function doUnregisterOnConnect(deviceId, sessionKey) {
 /**
  * phone set
  */
-function doPhoneSet(deviceId) {
+function doPhoneSet(serviceId) {
 
 	
     var modeValue = $('#mode').val();
@@ -206,7 +206,7 @@ function doPhoneSet(deviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("phone");
     builder.setAttribute("set");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("mode", modeValue);
     var uri = builder.build();

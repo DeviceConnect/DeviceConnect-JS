@@ -11,7 +11,7 @@
  *
  *
  */
-function searchSystem(deviceId, deviceName)
+function searchSystem(serviceId, deviceName)
 {
 
     if (deviceName != undefined) {
@@ -28,7 +28,7 @@ function searchSystem(deviceId, deviceName)
     var builder = new dConnect.URIBuilder();
     builder.setProfile("system");
     builder.setAttribute("device");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 	
@@ -46,7 +46,7 @@ function searchSystem(deviceId, deviceName)
             var str = "";
             for (var i = 0; i < json.supports.length; i++)
             {
-                str += '<li><a href="javascript:searchProfile(\'' + deviceId + '\', ';
+                str += '<li><a href="javascript:searchProfile(\'' + serviceId + '\', ';
                 str += '\'' + json.supports[i] + '\');" ';
                 str += 'value="' + json.supports[i] + '">';
                 str += json.supports[i] + '</a></li>';

@@ -8,37 +8,37 @@
 /** 
  * Dice Menu
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showDice(deviceId) {
+function showDice(serviceId) {
     initAll();
 	
 	setTitle("Dice Profile");
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Device Top','doDiceBack', deviceId, "");
+    btnStr += getBackButton('Device Top','doDiceBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 
     var str = "";
     var path = "/";
-    str += '<li><a href="javascript:showOnRoll(\'' + deviceId + '\',\'' + path + '\');" value="list">onRoll</a></li>';
-    str += '<li><a href="javascript:showOnMagnetometer(\'' + deviceId + '\');" value="send">onMagnetometer</a></li>';
+    str += '<li><a href="javascript:showOnRoll(\'' + serviceId + '\',\'' + path + '\');" value="list">onRoll</a></li>';
+    str += '<li><a href="javascript:showOnMagnetometer(\'' + serviceId + '\');" value="send">onMagnetometer</a></li>';
     reloadList(str);
 }
 
 /**
  * サイコロの目を取得
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showOnRoll(deviceId){
+function showOnRoll(serviceId){
 	initAll();
 	
     var sessionKey = currentClientId;
     
     var btnStr = "";    
-    btnStr += getBackButton('Device Top','doOnDiceBack', deviceId, sessionKey);
+    btnStr += getBackButton('Device Top','doOnDiceBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -48,23 +48,23 @@ function showOnRoll(deviceId){
     str += '</form>';
 	reloadContent(str);
 	
-	doRegisterOnDice(deviceId, sessionKey);
+	doRegisterOnDice(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Magnetometerの表示
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showOnMagnetometer(deviceId){
+function showOnMagnetometer(serviceId){
 	
 	initAll();
 
     var sessionKey = currentClientId;
     
     var btnStr = "";    
-    btnStr += getBackButton('Device Top','doOnMagnetBack', deviceId, sessionKey);
+    btnStr += getBackButton('Device Top','doOnMagnetBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
     
@@ -79,55 +79,55 @@ function showOnMagnetometer(deviceId){
     str += '</form>';
 	reloadContent(str);
 	
-	doRegisterOnMagnetometer(deviceId, sessionKey);
+	doRegisterOnMagnetometer(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doDiceBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doDiceBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doOnDiceBack(deviceId, sessionKey){
-	showDice(deviceId);
-	doUnregisterOnDice(deviceId, sessionKey);
+function doOnDiceBack(serviceId, sessionKey){
+	showDice(serviceId);
+	doUnregisterOnDice(serviceId, sessionKey);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doOnMagnetBack(deviceId, sessionKey){	
-	showDice(deviceId);
-	doUnregisterOnMagnetometer(deviceId, sessionKey);
+function doOnMagnetBack(serviceId, sessionKey){	
+	showDice(serviceId);
+	doUnregisterOnMagnetometer(serviceId, sessionKey);
 }
 
 
 /**
  * Dice ondiceイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doRegisterOnDice(deviceId, sessionKey) {
+function doRegisterOnDice(serviceId, sessionKey) {
  
     var builder = new dConnect.URIBuilder();
     builder.setProfile("dice");
     builder.setAttribute("ondice");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -152,15 +152,15 @@ function doRegisterOnDice(deviceId, sessionKey) {
 /**
  * Dice ondiceイベントの削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doUnregisterOnDice(deviceId, sessionKey) {
+function doUnregisterOnDice(serviceId, sessionKey) {
 	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("dice");
     builder.setAttribute("ondice");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -174,16 +174,16 @@ function doUnregisterOnDice(deviceId, sessionKey) {
 /**
  * Dice OnMagnetometerイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doRegisterOnMagnetometer(deviceId, sessionKey) {
+function doRegisterOnMagnetometer(serviceId, sessionKey) {
  
     var builder = new dConnect.URIBuilder();
     builder.setProfile("dice");
     builder.setInterface("magnetometer");
     builder.setAttribute("onmagnetometer");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -211,16 +211,16 @@ function doRegisterOnMagnetometer(deviceId, sessionKey) {
 /**
  * Dice OnMagnetometerイベントの削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doUnregisterOnMagnetometer(deviceId, sessionKey) {
+function doUnregisterOnMagnetometer(serviceId, sessionKey) {
 	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("dice");
     builder.setInterface("magnetometer");
     builder.setAttribute("onmagnetometer");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
