@@ -244,9 +244,15 @@ function doRegisterBatteryChangeEvent(serviceId, sessionKey) {
         
         var json = JSON.parse(message);
         if(json.battery){
-            document.batteryForm.chargingTime.value = json.battery.chargingTime;
-            document.batteryForm.dischargintTime.value = json.battery.dischargintTime;
-            document.batteryForm.level.value = json.battery.level;
+        	if (json.battery.chargingTime) {
+	            document.batteryForm.chargingTime.value = json.battery.chargingTime;
+	        }
+	        if (json.battery.dischargingTime) {
+	            document.batteryForm.dischargingTime.value = json.battery.dischargingTime;
+	        }
+	        if (json.battery.level) {
+	            document.batteryForm.level.value = json.battery.level;
+	        }
         }
     }, null, function(errorCode, errorMessage){
         alert(errorMessage);
