@@ -15,7 +15,7 @@ var deleteMode;
  */
 function showFile(serviceId) {
     initAll();
-    setTitle("File Top", "black");
+    setTitle("File Profile", "black");
 
     var btnStr = getBackButton('Device Top', 'doFileBack', serviceId, "");
     reloadHeader(btnStr);

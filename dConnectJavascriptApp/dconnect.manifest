@@ -14,7 +14,7 @@ CACHE MANIFEST
 ./js/profile/filedescriptor.js
 ./js/profile/mediaplayer.js
 ./js/profile/mediastreamrecording.js
-./js/profile/networkservicedescoverty.js
+./js/profile/servicediscovery.js
 ./js/profile/notification.js
 ./js/profile/phone.js
 ./js/profile/settings.js
@@ -28,7 +28,7 @@ CACHE MANIFEST
 ./js/profile/sphero.js
 ./js/profile/camera.js
 ./js/profile/canvas.js
-./js/sdk/dconnectsdk-1.0.1.js
+./js/sdk/dconnectsdk-2.0.0.js
 ./js/sdk/util.js
 ./js/jquery.mobile-1.4.2.min.map
 ./js/jqm-datebox-1.4.4.mode.datebox.min.js

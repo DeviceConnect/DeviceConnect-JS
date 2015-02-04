@@ -19,7 +19,7 @@ function showProximity(serviceId)  {
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
-    setTitle("Proximity");
+    setTitle("Proximity Profile");
 
     var str = "";
     
