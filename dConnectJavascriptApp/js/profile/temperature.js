@@ -14,7 +14,7 @@ function showTemperature(serviceId) {
     
     initAll();
     
-    setTitle("Temperature");
+    setTitle("Temperature Profile");
 	
 	var btnStr = "";    
     btnStr += getBackButton('Device Top', 'doTemperatureBack', serviceId, "");

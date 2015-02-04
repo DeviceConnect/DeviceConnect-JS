@@ -81,8 +81,8 @@ function showOnLocator(serviceId){
     str += 'Locator<br>';
     str += makeInputText("PosX", "posx", "posx");
     str += makeInputText("PosY", "posy", "posy");
-    str += makeInputText("VerX", "verx", "verx");
-    str += makeInputText("VerY", "very", "very");
+    str += makeInputText("VelX", "velx", "velx");
+    str += makeInputText("VelY", "vely", "vely");
     str += '</form>';
     reloadContent(str);
 		
@@ -252,8 +252,8 @@ function doRegisterOnLocator(serviceId, sessionKey) {
 		if (json.locator) {
 		 	$('#posx').val(json.locator.positionX);
 		 	$('#posy').val(json.locator.positionY);
-		 	$('#verx').val(json.locator.verocityX);
-		 	$('#very').val(json.locator.verocityY);
+		 	$('#velx').val(json.locator.velocityX);
+		 	$('#vely').val(json.locator.velocityY);
         }
 
     }, null, function(errorCode, errorMessage){

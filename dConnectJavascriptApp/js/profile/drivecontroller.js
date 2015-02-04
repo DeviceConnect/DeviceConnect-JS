@@ -15,7 +15,7 @@ function showDriveController(serviceId) {
     
     initAll();
     
-    setTitle("Drive Controller");
+    setTitle("Drive Controller Profile");
     
     var btnStr = "";    
     btnStr += getBackButton('Device Top','doDriveControllerBack', serviceId, "");
