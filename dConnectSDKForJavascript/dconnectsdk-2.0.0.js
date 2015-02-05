@@ -889,6 +889,31 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Service Informationプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        serviceinformation : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "serviceinformation",
+
+            // Parameter
+            /** パラメータ: supports */
+            PARAM_SUPPORTS : "supports",
+            /** パラメータ: connect */
+            PARAM_CONNECT : "connect",
+            /** パラメータ: wifi */
+            PARAM_WIFI : "wifi",
+            /** パラメータ: bluetooth */
+            PARAM_BLUETOOTH : "bluetooth",
+            /** パラメータ: nfc */
+            PARAM_NFC : "nfc",
+            /** パラメータ: ble */
+            PARAM_BLE : "ble"
+        },
+
+        /**
          * Notificationプロファイルの定数
          * @namespace
          * @type {Object.<String, (String|Number)>}
@@ -1093,8 +1118,6 @@ var dConnect = (function(parent, global) {
             INTERFACE_DEVICE : "device",
 
             // Attribute
-            /** アトリビュート: device */
-            ATTRI_DEVICE : "device",
             /** アトリビュート: events */
             ATTRI_EVENTS : "events",
             /** アトリビュート: keyword */
@@ -1107,16 +1130,6 @@ var dConnect = (function(parent, global) {
             PARAM_SUPPORTS : "supports",
             /** パラメータ: version */
             PARAM_VERSION : "version",
-            /** パラメータ: connect */
-            PARAM_CONNECT : "connect",
-            /** パラメータ: wifi */
-            PARAM_WIFI : "wifi",
-            /** パラメータ: bluetooth */
-            PARAM_BLUETOOTH : "bluetooth",
-            /** パラメータ: nfc */
-            PARAM_NFC : "nfc",
-            /** パラメータ: ble */
-            PARAM_BLE : "ble",
             /** パラメータ: id */
             PARAM_ID : "id",
             /** パラメータ: name */
@@ -1278,17 +1291,16 @@ var dConnect = (function(parent, global) {
     parent.discoverDevices = discoverDevices;
     
     /**
-     * System Device APIへの簡易アクセスを提供する。
+     * Service Information APIへの簡易アクセスを提供する。
      * @memberOf dConnect
-     * @param {String} デバイスのID
+     * @param {String} サービスID
      * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
      * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
      */    
-    var getSystemDeviceInfo = function(deviceId, success_cb, error_cb) {
+    var getSystemDeviceInfo = function(serviceId, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
-        builder.setProfile(parent.constants.system.PROFILE_NAME);
-        builder.setInterface(parent.constants.system.INTERFACE_DEVICE);
-        builder.setDeviceId(deviceId);
+        builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
+        builder.setServiceId(serviceId);
         parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.getSystemDeviceInfo = getSystemDeviceInfo;
