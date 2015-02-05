@@ -8,7 +8,7 @@
 /** 
  * media_playerのメニューを表示する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function showMediaPlayer(serviceId) {
     initAll();
@@ -27,7 +27,7 @@ function showMediaPlayer(serviceId) {
 /**
  * Backボタン
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} sessionKey セッションKEY
  */
 function doMediaplayerBack(serviceId, sessionKey){
@@ -37,7 +37,7 @@ function doMediaplayerBack(serviceId, sessionKey){
 /**
  * Media Listを取得する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function doMediaList(serviceId) {
     initAll();
@@ -81,7 +81,7 @@ function doMediaList(serviceId) {
 /**
  * Backボタン
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} sessionKey セッションKEY
  */
 function doMediaListBack(serviceId, sessionKey){
@@ -91,7 +91,7 @@ function doMediaListBack(serviceId, sessionKey){
 /**
  * Backボタン
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} sessionKey セッションKEY
  */
 function doMediaPlayerToFileBack(serviceId, sessionKey){
@@ -101,7 +101,7 @@ function doMediaPlayerToFileBack(serviceId, sessionKey){
 /**
  * Backボタン
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} sessionKey セッションKEY
  */
 function doMediaPlayerBack(serviceId, sessionKey){
@@ -112,7 +112,7 @@ function doMediaPlayerBack(serviceId, sessionKey){
 /**
  * MusicPlayer onStatus Eventの登録
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} sessionKey セッションKEY
  */
 function doRegisterOnStatusChange(serviceId, sessionKey) {
@@ -162,7 +162,7 @@ function doRegisterOnStatusChange(serviceId, sessionKey) {
 /**
  * MusicPlayer onStatus Eventの削除
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} sessionKey セッションKEY
  */
 function doUnregisterOnStatusChange(serviceId, sessionKey) {
@@ -183,7 +183,7 @@ function doUnregisterOnStatusChange(serviceId, sessionKey) {
 /**
  * MediaPlayer
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} id メディアID
  * @param {String} from FileListから実行か, MediaListからの実行か
  */
@@ -203,7 +203,18 @@ function doMediaPlayer(serviceId, id, from) {
         reloadHeader(btnStr);
         reloadFooter(btnStr);
     }
+    doMediaPlayerMediaGet(serviceId, id);
+}
 
+
+/**
+ * メディアを設定する。
+ *
+ * @param {String}serviceId デバイスID
+ * @param {String}id メディアID
+ * @param {Integer}seek メディアの長さ
+ */
+function doMedia(serviceId,id, seek) {
     var str = "";
     str += '<form  name="mediaPlayerForm">';
     str += '<input type="text" id="mediaId" width="100%">';
@@ -216,10 +227,12 @@ function doMediaPlayer(serviceId, id, from) {
     str += '<input data-icon="play" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerResume(\'' + serviceId + '\', \'' + id + '\' );" type="button" value="Resume"/>';
     str += '<input data-icon="pause" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerPause(\'' + serviceId + '\');" type="button" value="Pause"/>';
     str += '<input data-icon="stop" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerStop(\'' + serviceId + '\');" type="button" value="Stop"/>';
+    str += '<p>';
     str += '<label for="mediaPlayerSeek">Seek:</label>';
     str += '<input type="range" name="mediaPlayerSeek" id="mediaPlayerSeek" value="0" min="0" max=\'' + seek + '\' step="1" />';
     str += '<input type="button" onclick="doMediaPlayerSeekPut(\'' + serviceId + '\');" id="mediaPlayerSeekPut" value="Set seek" />';
     str += '</p>';
+    str += '<p>';
     str += '<p>';
     str += '<label for="mediaPlayerVolume">Volume:</label>';
     str += '<input type="range" name="mediaPlayerVolume" id="mediaPlayerVolume" value="0" min="0" max="100" step="1" />';
@@ -251,16 +264,16 @@ function doMediaPlayer(serviceId, id, from) {
     $('#mediaPlayerVolumePut').button('refresh');
     $('#mediaPlayerMuteStatus').slider('disable');
     $('#mediaPlayerMuteStatus').slider('refresh');
-
 	doMediaPlayerSeekGet(serviceId);
     doMediaPlayerVolumeGet(serviceId);
     doMediaPlayerMuteGet(serviceId, id);
 }
 
+
 /**
  * PUT media メディアファイルの設定
  *
- * @param {String}serviceId サービスID
+ * @param {String}serviceId デバイスID
  * @param {String}id メディアID
  */
 function doMediaPlayerMediaPut(serviceId, id) {
@@ -295,7 +308,7 @@ function doMediaPlayerMediaGet(serviceId, id) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("media_player");
     builder.setAttribute("media");
-    builder.setserviceId(serviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("mediaId", id);
     var uri = builder.build();
@@ -320,7 +333,7 @@ function doMediaPlayerMediaGet(serviceId, id) {
 /**
  * メディア再生要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} id メディアID
  */
 function doMediaPlayerPlay(serviceId, id) {
@@ -336,7 +349,7 @@ function doMediaPlayerPlay(serviceId, id) {
 		if (DEBUG) console.log("Response: " + responseText);
 		var json = JSON.parse(responseText);
 		if (json.result == 0) {
-		
+	
 		} else {
 			showError("PUT media_player/play", json);
 		}
@@ -355,7 +368,7 @@ function doMediaPlayerResume(serviceId, id) {
 	var builder = new dConnect.URIBuilder();
 	builder.setProfile("media_player");
 	builder.setAttribute("resume");
-	builder.setserviceId(serviceId);
+	builder.setServiceId(serviceId);
 	builder.setAccessToken(accessToken);
 	var uri = builder.build();
 	if (DEBUG) console.log("Uri: " + uri);
@@ -376,7 +389,7 @@ function doMediaPlayerResume(serviceId, id) {
 /**
  * メディア停止要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function doMediaPlayerStop(serviceId) {
     var builder = new dConnect.URIBuilder();
@@ -403,7 +416,7 @@ function doMediaPlayerStop(serviceId) {
 /**
  * メディア一時停止要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function doMediaPlayerPause(serviceId) {
     var builder = new dConnect.URIBuilder();
@@ -430,7 +443,7 @@ function doMediaPlayerPause(serviceId) {
 /**
  * メディアのシーク設定要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function doMediaPlayerSeekPut(serviceId) {
     var pos = $('#mediaPlayerSeek').val();
@@ -459,7 +472,7 @@ function doMediaPlayerSeekPut(serviceId) {
 /**
  * メディアの音量変更要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function doMediaPlayerVolumePut(serviceId) {
     var level = $('#mediaPlayerVolume').val() / 100;
@@ -488,7 +501,7 @@ function doMediaPlayerVolumePut(serviceId) {
 /**
  * メディアの音量取得要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  */
 function doMediaPlayerVolumeGet(serviceId) {
     var builder = new dConnect.URIBuilder();
@@ -518,7 +531,7 @@ function doMediaPlayerVolumeGet(serviceId) {
 /**
  * メディアのミュート開始または解除要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {Boolean} isMute ミュート開始の場合はtrue、ミュート解除の場合はfalse
  */
 function doMediaPlayerMuteChange(serviceId, isMute) {
@@ -552,7 +565,7 @@ function doMediaPlayerMuteChange(serviceId, isMute) {
 /**
  * メディアのミュート状態要求を送信する.
  *
- * @param {String} serviceId サービスID
+ * @param {String} serviceId デバイスID
  * @param {String} mediaId メディアID
  */
 function doMediaPlayerMuteGet(serviceId, mediaId) {
@@ -575,7 +588,8 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
         } else {
             showError("GET media_player/mute", json);
         }
-		doMediaPlayerMediaPut(deviceId, mediaId);
+        
+		doMediaPlayerMediaPut(serviceId, mediaId);
 
     }, function(xhr, textStatus, errorThrown) {
     });
@@ -585,15 +599,15 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
 /**
  * メディアのSeek位置変更要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId デバイスID
  */
-function doMediaPlayerSeekPut(deviceId) {
+function doMediaPlayerSeekPut(serviceId) {
     var pos = $('#mediaPlayerSeek').val();
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("media_player");
     builder.setAttribute("seek");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("pos", pos);
     var uri = builder.build();
@@ -610,16 +624,17 @@ function doMediaPlayerSeekPut(deviceId) {
     }, function(xhr, textStatus, errorThrown) {
     });
 }
+
 /**
  * メディアのSeek位置取得要求を送信する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId デバイスID
  */
-function doMediaPlayerSeekGet(deviceId) {
+function doMediaPlayerSeekGet(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("media_player");
     builder.setAttribute("seek");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
