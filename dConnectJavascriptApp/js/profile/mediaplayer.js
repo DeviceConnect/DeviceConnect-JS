@@ -275,8 +275,9 @@ function doMedia(serviceId,id, seek) {
  *
  * @param {String}serviceId デバイスID
  * @param {String}id メディアID
+ * @param {Function}callback コールバック
  */
-function doMediaPlayerMediaPut(serviceId, id) {
+function doMediaPlayerMediaPut(serviceId, id, callback) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("media_player");
     builder.setAttribute("media");
@@ -294,6 +295,9 @@ function doMediaPlayerMediaPut(serviceId, id) {
             initListView();
         } else {
             showError("PUT media_player/media", json);
+        }
+        if (callback) {
+        	callback();
         }
     }, function(xhr, textStatus, errorThrown) {
     });
@@ -321,11 +325,17 @@ function doMediaPlayerMediaGet(serviceId, id) {
 		if (!json.duration) {
 			seek = 100;
 		}
-        if (json.result == 0) {
+        if(myDeviceName.indexOf("Chromecast") != -1){
+    		showLoading();
+        	doMediaPlayerMediaPut(serviceId, id, function() {
+				doMediaPlayerPlay(serviceId, id, function() {
+					doMedia(serviceId, id, seek);
+			        closeLoading();
+				});
+			});
         } else {
-            showError("GET media_player/media", json);
+			doMedia(serviceId, id, seek);
         }
-		doMedia(serviceId, id, seek);
     }, function(xhr, textStatus, errorThrown) {
     });
 }
@@ -335,8 +345,9 @@ function doMediaPlayerMediaGet(serviceId, id) {
  *
  * @param {String} serviceId デバイスID
  * @param {String} id メディアID
+ * @param {Function} callback コールバック
  */
-function doMediaPlayerPlay(serviceId, id) {
+function doMediaPlayerPlay(serviceId, id, callback) {
 	var builder = new dConnect.URIBuilder();
 	builder.setProfile("media_player");
 	builder.setAttribute("play");
@@ -349,9 +360,12 @@ function doMediaPlayerPlay(serviceId, id) {
 		if (DEBUG) console.log("Response: " + responseText);
 		var json = JSON.parse(responseText);
 		if (json.result == 0) {
-	
+
 		} else {
 			showError("PUT media_player/play", json);
+		}
+		if (callback) {
+		     callback();
 		}
 	}, function(xhr, textStatus, errorThrown) {
 
@@ -588,9 +602,9 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
         } else {
             showError("GET media_player/mute", json);
         }
-        
-		doMediaPlayerMediaPut(serviceId, mediaId);
-
+		if(myDeviceName.indexOf("Chromecast") == -1){
+			doMediaPlayerMediaPut(serviceId, mediaId);
+		}
     }, function(xhr, textStatus, errorThrown) {
     });
 }
