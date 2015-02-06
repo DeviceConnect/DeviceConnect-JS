@@ -63,6 +63,7 @@ function searchSystem(serviceId, deviceName)
             var errorCode = json.errorCode;
             var errorMessage = json.errorMessage;
             if(DEBUG) console.log("Error: " + errorCode + ": " + errorMessage);
+            showError("serviceinformation", json);
         }
     }, function(xhr, textStatus, errorThrown) {
 
