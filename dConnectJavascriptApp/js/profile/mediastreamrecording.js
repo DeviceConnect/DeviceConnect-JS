@@ -9,13 +9,13 @@
 /**
  * MediastreamRecording Menu
  *
- * @param {String} deviceId デバイスId
+ * @param {String} serviceId サービスID
  */
-function showMediastreamRecording(deviceId) {
+function showMediastreamRecording(serviceId) {
     
     initAll();
     
-    var btnStr = getBackButton('Device Top','doMediaStreamRecordingBack', deviceId, "");
+    var btnStr = getBackButton('Device Top','doMediaStreamRecordingBack', serviceId, "");
     reloadHeader(btnStr); 
     reloadFooter(btnStr);
      
@@ -23,16 +23,16 @@ function showMediastreamRecording(deviceId) {
     if (myDeviceName.indexOf("Sony Camera") != -1) {
         setTitle("MediastreamRecording Profile(Sony Camera)");
         
-        str += '<li><a href="javascript:doPreviewStart(\'' + deviceId + '\');">Preview</a></li>';
-        str += '<li><a href="javascript:doTakePhoto(\'' + deviceId + '\');">Take Photo</a></li>';
+        str += '<li><a href="javascript:doPreviewStart(\'' + serviceId + '\');">Preview</a></li>';
+        str += '<li><a href="javascript:doTakePhoto(\'' + serviceId + '\');">Take Photo</a></li>';
 
     } else {
         setTitle("MediastreamRecording Profile");
         
-        str += '<li><a href="javascript:doPreviewStart(\'' + deviceId + '\');">Preview</a></li>';
-        str += '<li><a href="javascript:doTakePhoto(\'' + deviceId + '\');">Take Photo</a></li>';
-        str += '<li><a href="javascript:doMediaRecord(\'' + deviceId + '\',\'video\');">Record Video</a></li>';
-        str += '<li><a href="javascript:doMediaRecord(\'' + deviceId + '\',\'audio\');">Record Audio</a></li>';
+        str += '<li><a href="javascript:doPreviewStart(\'' + serviceId + '\');">Preview</a></li>';
+        str += '<li><a href="javascript:doTakePhoto(\'' + serviceId + '\');">Take Photo</a></li>';
+        str += '<li><a href="javascript:doMediaRecord(\'' + serviceId + '\',\'video\');">Record Video</a></li>';
+        str += '<li><a href="javascript:doMediaRecord(\'' + serviceId + '\',\'audio\');">Record Audio</a></li>';
     }
     reloadList(str);
 }
@@ -40,14 +40,14 @@ function showMediastreamRecording(deviceId) {
 /**
  * previewを開始する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doRegisterPreview(deviceId) {
+function doRegisterPreview(serviceId) {
    
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("preview");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 
@@ -78,13 +78,13 @@ function doRegisterPreview(deviceId) {
 /**
  * previewを終了する.
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doUnregisterPreview(deviceId) {
+function doUnregisterPreview(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("preview");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 
@@ -105,17 +105,17 @@ function doUnregisterPreview(deviceId) {
 /**
  * Previewの開始
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
 
-function doPreviewStart(deviceId) {
+function doPreviewStart(serviceId) {
      var sessionKey = currentClientId;
     
     initAll();
     
     setTitle("preview");
     
-    var btnStr = getBackButton('MediaStreamRecording Top','doPreviewBack', deviceId, sessionKey);
+    var btnStr = getBackButton('MediaStreamRecording Top','doPreviewBack', serviceId, sessionKey);
     reloadHeader(btnStr); 
     reloadFooter(btnStr);
     
@@ -125,15 +125,15 @@ function doPreviewStart(deviceId) {
     str += '</center><br>';
     reloadContent(str);
     
-    doRegisterPreview(deviceId);
+    doRegisterPreview(serviceId);
 }
 
 /**
  * Take Photo
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doTakePhoto(deviceId) {
+function doTakePhoto(serviceId) {
 
     initAll();
 
@@ -142,7 +142,7 @@ function doTakePhoto(deviceId) {
     var sessionKey = currentClientId;
 
     var str = "";
-    str += getBackButton('MediaStreamRecording Top','doTakephotoBack', deviceId, sessionKey);
+    str += getBackButton('MediaStreamRecording Top','doTakephotoBack', serviceId, sessionKey);
     reloadHeader(str);
 
     var str = "";
@@ -150,18 +150,18 @@ function doTakePhoto(deviceId) {
     str += '<center>';
     str += '<img src="./css/images/cameraWait.png" id="photo">';
     str += '</center><br>';
-    str += takePhotoButton(deviceId);
+    str += takePhotoButton(serviceId);
 
     reloadContent(str);
 
     var str = "";
-    str += getBackButton('MediaStreamRecording Top','doTakephotoBack', deviceId, sessionKey);
+    str += getBackButton('MediaStreamRecording Top','doTakephotoBack', serviceId, sessionKey);
     reloadFooter(str);
     
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("takephoto");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 
@@ -183,54 +183,54 @@ function doTakePhoto(deviceId) {
 
     });
 
-    doRegisterOnPhoto(deviceId, sessionKey);
+    doRegisterOnPhoto(serviceId, sessionKey);
     dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションキー
  */
-function doTakephotoBack(deviceId, sessionKey) {
-    doUnregisterOnPhoto(deviceId, sessionKey);
-    showMediastreamRecording(deviceId);
+function doTakephotoBack(serviceId, sessionKey) {
+    doUnregisterOnPhoto(serviceId, sessionKey);
+    showMediastreamRecording(serviceId);
 }
 
-function doPreviewStop(deviceId,sessionKey) {
-    doUnregisterPreview(deviceId);
+function doPreviewStop(serviceId,sessionKey) {
+    doUnregisterPreview(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doPreviewBack(deviceId, sessionKey) {
-    doUnregisterPreview(deviceId);
-    showMediastreamRecording(deviceId);
+function doPreviewBack(serviceId, sessionKey) {
+    doUnregisterPreview(serviceId);
+    showMediastreamRecording(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEYY
  */
-function doRecordMediaBack(deviceId, sessionKey) {
-    showMediastreamRecording(deviceId);
+function doRecordMediaBack(serviceId, sessionKey) {
+    showMediastreamRecording(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
-function doMediaStreamRecordingBack(deviceId, sessionKey) {
-    searchSystem(deviceId);
+function doMediaStreamRecordingBack(serviceId, sessionKey) {
+    searchSystem(serviceId);
 }
 
 /**
@@ -262,13 +262,13 @@ function refreshImg(uri, id) {
 /**
  * Media Recorder Target指定実行
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} target ターゲット(video, audio)
  */
-function doMediaRecord(deviceId, target) {
+function doMediaRecord(serviceId, target) {
     initAll();
 
-    var btnStr = getBackButton('Device Top','doRecordMediaBack', deviceId, "");
+    var btnStr = getBackButton('Device Top','doRecordMediaBack', serviceId, "");
     reloadHeader(btnStr); 
     reloadFooter(btnStr);
 
@@ -277,7 +277,7 @@ function doMediaRecord(deviceId, target) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("record");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("target", target);
     var uri = builder.build();
@@ -289,7 +289,7 @@ function doMediaRecord(deviceId, target) {
 
         var json = JSON.parse(responseText);
         if (json.result == 0) {
-            reloadContent(mediaStopButton(deviceId));
+            reloadContent(mediaStopButton(serviceId));
         } else {
             showError("POST mediastream_recording/record", json);
         }
@@ -301,13 +301,13 @@ function doMediaRecord(deviceId, target) {
 /**
  * Media停止
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doMediaStop(deviceId) {
+function doMediaStop(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("stop");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri:"+uri)
@@ -316,7 +316,7 @@ function doMediaStop(deviceId) {
         if (DEBUG) console.log("Response:"+responseText)
         var json = JSON.parse(responseText);
         if (json.result == 0) {
-            showMediastreamRecording(deviceId);
+            showMediastreamRecording(serviceId);
         } else {
             showError("PUT mediastream_recording/stop", json);
         }
@@ -328,13 +328,13 @@ function doMediaStop(deviceId) {
 /**
  * Media Recorder情報の取得
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function doGetMediaRecorder(deviceId) {
+function doGetMediaRecorder(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("mediarecorder");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri:"+uri)
@@ -355,13 +355,13 @@ function doGetMediaRecorder(deviceId) {
 /**
  * メディアの停止
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function mediaStopButton(deviceId){
+function mediaStopButton(serviceId){
     var str = "";
     str += '<center>';
     str += '<input data-icon="stop"  ';
-    str += 'onclick="javascript:doMediaStop(\'' + deviceId + '\');" type="button" value="Stop"/>';
+    str += 'onclick="javascript:doMediaStop(\'' + serviceId + '\');" type="button" value="Stop"/>';
     str += '</center>';
     return str;
 }
@@ -369,13 +369,13 @@ function mediaStopButton(deviceId){
 /**
  * メディアの停止
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function previewStopButton(deviceId, sessionKey){
+function previewStopButton(serviceId, sessionKey){
     var str = "";
     str += '<center>';
     str += '<input data-icon="stop"  ';
-    str += 'onclick="javascript:doPreviewStop(\'' + deviceId + '\', \'' + sessionKey + '\');" type="button" value="Stop"/>';
+    str += 'onclick="javascript:doPreviewStop(\'' + serviceId + '\', \'' + sessionKey + '\');" type="button" value="Stop"/>';
     str += '</center>';
     return str;
 }
@@ -383,13 +383,13 @@ function previewStopButton(deviceId, sessionKey){
 /**
  * 写真の撮影
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function takePhotoButton(deviceId){
+function takePhotoButton(serviceId){
     var str = "";
     str += '<center>';
     str += '<input data-icon="stop"  ';
-    str += 'onclick="javascript:doTakePhoto(\'' + deviceId + '\');" type="button" value="takePhoto"/>';
+    str += 'onclick="javascript:doTakePhoto(\'' + serviceId + '\');" type="button" value="takePhoto"/>';
     str += '</center>';
     return str;
 }
@@ -398,14 +398,14 @@ function takePhotoButton(deviceId){
 /**
  * onPhotoイベントの登録
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションキー
  */
-function doRegisterOnPhoto(deviceId, sessionKey) {
+function doRegisterOnPhoto(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("onphoto");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
      
@@ -426,14 +426,14 @@ function doRegisterOnPhoto(deviceId, sessionKey) {
 /**
  * onPhotoイベントの解除
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションキー
  */
-function doUnregisterOnPhoto(deviceId, sessionKey) {
+function doUnregisterOnPhoto(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("mediastream_recording");
     builder.setAttribute("onphoto");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey",sessionKey);
     var uri = builder.build();

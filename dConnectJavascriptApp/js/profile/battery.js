@@ -8,24 +8,24 @@
 /**
  * Show Battery Menu
  * 
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showBattery(deviceId) {
+function showBattery(serviceId) {
     initAll();
     setTitle("Battery Profile");
 
-    var btnStr = getBackButton('Device Top', 'doBatteryBack', deviceId, "");
+    var btnStr = getBackButton('Device Top', 'doBatteryBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
     var str = "";
     if(myDeviceName.indexOf("Host") != -1){
-        str += '<li><a href="javascript:doBatteryAll(\'' + deviceId + '\');">Show battery info</a></li>';
-        str += '<li><a href="javascript:showChargeEvent(\'' + deviceId + '\');" >Battery Event(onchargingchange)</a></li>';
+        str += '<li><a href="javascript:doBatteryAll(\'' + serviceId + '\');">Show battery info</a></li>';
+        str += '<li><a href="javascript:showChargeEvent(\'' + serviceId + '\');" >Battery Event(onchargingchange)</a></li>';
     } else{
-        str += '<li><a href="javascript:doBatteryAll(\'' + deviceId + '\');">Show battery info</a></li>';
-        str += '<li><a href="javascript:showBatteryChangeEvent(\'' + deviceId + '\');" >Battery Event(onbatterychange)</a></li>';
-        str += '<li><a href="javascript:showChargeEvent(\'' + deviceId + '\');" >Battery Event(onchargingchange)</a></li>';
+        str += '<li><a href="javascript:doBatteryAll(\'' + serviceId + '\');">Show battery info</a></li>';
+        str += '<li><a href="javascript:showBatteryChangeEvent(\'' + serviceId + '\');" >Battery Event(onbatterychange)</a></li>';
+        str += '<li><a href="javascript:showChargeEvent(\'' + serviceId + '\');" >Battery Event(onchargingchange)</a></li>';
     }
     reloadList(str);
 }
@@ -33,15 +33,15 @@ function showBattery(deviceId) {
 /**
  * Show Battery Change Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showBatteryChangeEvent(deviceId){
+function showBatteryChangeEvent(serviceId){
     initAll();
     setTitle("Battery Event");
 
     var sessionKey = currentClientId;
 
-    var btnStr = getBackButton('Device Top', 'doBatteryChangeBack', deviceId, sessionKey);
+    var btnStr = getBackButton('Device Top', 'doBatteryChangeBack', serviceId, sessionKey);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
@@ -54,29 +54,29 @@ function showBatteryChangeEvent(deviceId){
     str += '</form>';
     reloadContent(str);
 
-    doRegisterBatteryChangeEvent(deviceId, sessionKey);
+    doRegisterBatteryChangeEvent(serviceId, sessionKey);
     dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Show Battery Charge Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showChargeEvent(deviceId){
+function showChargeEvent(serviceId){
     initAll();
     setTitle("Battery Event");
 
     var sessionKey = currentClientId;
 
-    var btnStr = getBackButton('Battery Top', 'doBatteryChargingBack', deviceId, sessionKey);
+    var btnStr = getBackButton('Battery Top', 'doBatteryChargingBack', serviceId, sessionKey);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("battery");
     builder.setAttribute("charging");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -110,7 +110,7 @@ function showChargeEvent(deviceId){
             str += '</center>';
             reloadContent(str);
     
-            doRegisterChargingEvent(deviceId, sessionKey);
+            doRegisterChargingEvent(serviceId, sessionKey);
             dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
            
         } else {
@@ -126,56 +126,56 @@ function showChargeEvent(deviceId){
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doBatteryChargingBack(deviceId, sessionKey){
-    doUnregisterChargingEvent(deviceId, sessionKey);
-    showBattery(deviceId);
+function doBatteryChargingBack(serviceId, sessionKey){
+    doUnregisterChargingEvent(serviceId, sessionKey);
+    showBattery(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doBatteryBack(deviceId, sessionKey){
-    searchSystem(deviceId);
+function doBatteryBack(serviceId, sessionKey){
+    searchSystem(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doBatteryChangeBack(deviceId, sessionKey){
-    doUnregisterBatteryChangeEvent(deviceId, sessionKey);
-    showBattery(deviceId);
+function doBatteryChangeBack(serviceId, sessionKey){
+    doUnregisterBatteryChangeEvent(serviceId, sessionKey);
+    showBattery(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doBatteryAllBack(deviceId, sessionKey){
-    showBattery(deviceId);
+function doBatteryAllBack(serviceId, sessionKey){
+    showBattery(serviceId);
 }
 
 /**
  * Register Battery Charging Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterChargingEvent(deviceId, sessionKey) {
+function doRegisterChargingEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("battery");
     builder.setAttribute("onchargingchange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -204,14 +204,14 @@ function doRegisterChargingEvent(deviceId, sessionKey) {
 /**
  * Unregister Battery Charging Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterChargingEvent(deviceId, sessionKey) {
+function doUnregisterChargingEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("battery");
     builder.setAttribute("onchargingchange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -225,14 +225,14 @@ function doUnregisterChargingEvent(deviceId, sessionKey) {
 /**
  * Register Battery Change Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterBatteryChangeEvent(deviceId, sessionKey) {
+function doRegisterBatteryChangeEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("battery");
     builder.setAttribute("onbatterychange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -256,14 +256,14 @@ function doRegisterBatteryChangeEvent(deviceId, sessionKey) {
 /**
  * Unregister Battery Change Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterBatteryChangeEvent(deviceId, sessionKey) {
+function doUnregisterBatteryChangeEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("battery");
     builder.setAttribute("onbatterychange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -277,17 +277,17 @@ function doUnregisterBatteryChangeEvent(deviceId, sessionKey) {
 /**
  * Battery Profile
  */
-function doBatteryAll(deviceId) {
+function doBatteryAll(serviceId) {
     initAll();
     setTitle("Battery Info");
 
-    var btnStr = getBackButton('Battery Top', 'doBatteryAllBack', deviceId, "");
+    var btnStr = getBackButton('Battery Top', 'doBatteryAllBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("battery");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);

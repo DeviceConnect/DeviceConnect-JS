@@ -8,22 +8,22 @@
 /** 
  * Temperature Menu
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showTemperature(deviceId) {
+function showTemperature(serviceId) {
     
     initAll();
     
     setTitle("Temperature");
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Device Top', 'doTemperatureBack', deviceId, "");
+    btnStr += getBackButton('Device Top', 'doTemperatureBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
 	var builder = new dConnect.URIBuilder();
     builder.setProfile("temperature");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 	
@@ -62,11 +62,11 @@ function showTemperature(deviceId) {
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doTemperatureBack(deviceId, sessionKey){
-	searchDevice(deviceId);
+function doTemperatureBack(serviceId, sessionKey){
+	searchDevice(serviceId);
 }
 
 

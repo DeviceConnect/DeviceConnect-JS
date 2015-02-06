@@ -8,31 +8,31 @@
 /** 
  * Sphero Menu
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showSphero(deviceId) {
+function showSphero(serviceId) {
     initAll();
     setTitle("Sphero Profile");
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Device Top','doSpheroBack', deviceId, "");
+    btnStr += getBackButton('Device Top','doSpheroBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 
     var str = "";
     var path = "/";
-    str += '<li><a href="javascript:showOnQuaternion(\'' + deviceId + '\');" value="list">onQuaternion</a></li>';
-    str += '<li><a href="javascript:showOnLocator(\'' + deviceId + '\');" value="send">onLocator</a></li>';
-	str += '<li><a href="javascript:showOnCollision(\'' + deviceId + '\');" value="send">onCollision</a></li>';
+    str += '<li><a href="javascript:showOnQuaternion(\'' + serviceId + '\');" value="list">onQuaternion</a></li>';
+    str += '<li><a href="javascript:showOnLocator(\'' + serviceId + '\');" value="send">onLocator</a></li>';
+	str += '<li><a href="javascript:showOnCollision(\'' + serviceId + '\');" value="send">onCollision</a></li>';
     reloadList(str);
 }
 
 /**
  * OnQuaternionの表示
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showOnQuaternion(deviceId){
+function showOnQuaternion(serviceId){
 	initAll();
 	
 	setTitle("OnQuaternion Event");
@@ -40,7 +40,7 @@ function showOnQuaternion(deviceId){
 	var sessionKey = currentClientId;
 	
 	var btnStr = "";    
-    btnStr += getBackButton('Sphero Top','doOnQuaternionBack', deviceId, sessionKey);
+    btnStr += getBackButton('Sphero Top','doOnQuaternionBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
@@ -55,16 +55,16 @@ function showOnQuaternion(deviceId){
     str += '</form>';
 	reloadContent(str);
 	
-	doRegisterOnQuaternion(deviceId, sessionKey);
+	doRegisterOnQuaternion(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * OnLocatorの表示
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showOnLocator(deviceId){
+function showOnLocator(serviceId){
 	initAll();
 	
 	setTitle("OnLocator Event");
@@ -72,7 +72,7 @@ function showOnLocator(deviceId){
 	var sessionKey = currentClientId;
 
 	var btnStr = "";
-    btnStr += getBackButton('Sphero Top','doOnLocatorBack', deviceId, sessionKey);
+    btnStr += getBackButton('Sphero Top','doOnLocatorBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 
@@ -86,22 +86,22 @@ function showOnLocator(deviceId){
     str += '</form>';
     reloadContent(str);
 		
-	doRegisterOnLocator(deviceId, sessionKey);
+	doRegisterOnLocator(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * OnCollisionの表示
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showOnCollision(deviceId){
+function showOnCollision(serviceId){
 	initAll();
 	
     var sessionKey = currentClientId;
     
     var btnStr = "";
-    btnStr += getBackButton('Sphero Top','doOnCollisionBack', deviceId, sessionKey);
+    btnStr += getBackButton('Sphero Top','doOnCollisionBack', serviceId, sessionKey);
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
     
@@ -120,65 +120,65 @@ function showOnCollision(deviceId){
     str += '</form>';
 	reloadContent(str);
 	
-	doRegisterOnCollision(deviceId, sessionKey);
+	doRegisterOnCollision(serviceId, sessionKey);
 	dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doSpheroBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doSpheroBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doOnQuaternionBack(deviceId, sessionKey){
-	showSphero(deviceId);
-	doUnregisterOnQuaternion(deviceId, sessionKey);
+function doOnQuaternionBack(serviceId, sessionKey){
+	showSphero(serviceId);
+	doUnregisterOnQuaternion(serviceId, sessionKey);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doOnLocatorBack(deviceId, sessionKey){
-	showSphero(deviceId);
-	doUnregisterOnLocator(deviceId, sessionKey);
+function doOnLocatorBack(serviceId, sessionKey){
+	showSphero(serviceId);
+	doUnregisterOnLocator(serviceId, sessionKey);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doOnCollisionBack(deviceId, sessionKey){
-	showSphero(deviceId);
-	doUnregisterOnCollision(deviceId, sessionKey);
+function doOnCollisionBack(serviceId, sessionKey){
+	showSphero(serviceId);
+	doUnregisterOnCollision(serviceId, sessionKey);
 }
 
 /**
  * Quaternionイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doRegisterOnQuaternion(deviceId, sessionKey) {
+function doRegisterOnQuaternion(serviceId, sessionKey) {
  
     var builder = new dConnect.URIBuilder();
     builder.setProfile("sphero");
     builder.setInterface("quaternion");
     builder.setAttribute("onquaternion");    
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -205,15 +205,15 @@ function doRegisterOnQuaternion(deviceId, sessionKey) {
 /**
  * OnQuaternionイベントの削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doUnregisterOnQuaternion(deviceId, sessionKey) {
+function doUnregisterOnQuaternion(serviceId, sessionKey) {
 	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("sphero");
     builder.setInterface("quaternion");
     builder.setAttribute("onquaternion");    
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -228,15 +228,15 @@ function doUnregisterOnQuaternion(deviceId, sessionKey) {
 /**
  * OnLocatorイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doRegisterOnLocator(deviceId, sessionKey) {
+function doRegisterOnLocator(serviceId, sessionKey) {
  	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("sphero");
     builder.setInterface("locator");
     builder.setAttribute("onlocator");    
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -264,15 +264,15 @@ function doRegisterOnLocator(deviceId, sessionKey) {
 /**
  * OnLocatorイベントの削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doUnregisterOnLocator(deviceId, sessionKey) {
+function doUnregisterOnLocator(serviceId, sessionKey) {
 	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("sphero");
     builder.setInterface("locator");
     builder.setAttribute("onlocator");      
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -288,15 +288,15 @@ function doUnregisterOnLocator(deviceId, sessionKey) {
 /**
  * OnCollisionイベントの登録
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doRegisterOnCollision(deviceId, sessionKey) {
+function doRegisterOnCollision(serviceId, sessionKey) {
  
     var builder = new dConnect.URIBuilder();
     builder.setProfile("sphero");
     builder.setInterface("collision");
     builder.setAttribute("oncollision");    
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();
@@ -331,15 +331,15 @@ function doRegisterOnCollision(deviceId, sessionKey) {
 /**
  * OnCollisionイベントの削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doUnregisterOnCollision(deviceId, sessionKey) {
+function doUnregisterOnCollision(serviceId, sessionKey) {
 	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("sphero");
     builder.setInterface("collision");
     builder.setAttribute("oncollision");      
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("sessionKey", sessionKey);
     var uri = builder.build();

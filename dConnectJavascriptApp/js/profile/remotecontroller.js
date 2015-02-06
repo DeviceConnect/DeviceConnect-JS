@@ -8,19 +8,19 @@
 /** 
  * Remote Controller Profile
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showRemoteController(deviceId) {
+function showRemoteController(serviceId) {
 	
     initAll();
     
     var btnStr = "";    
-    btnStr += getBackButton('Battery Top', 'doRemoteControllerBack', deviceId, "");
+    btnStr += getBackButton('Battery Top', 'doRemoteControllerBack', serviceId, "");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
     var str = "";
-    str += '<input type="button" onclick="doRemoteControllerGet(\'' + deviceId + '\');" value="get" name="get" >';
+    str += '<input type="button" onclick="doRemoteControllerGet(\'' + serviceId + '\');" value="get" name="get" >';
     reloadContent(str);
 }
 
@@ -28,9 +28,9 @@ function showRemoteController(deviceId) {
  *
  * IrDataの送信
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doRemoteControllerSend(deviceId) {
+function doRemoteControllerSend(serviceId) {
 	
 	closeLoading();
     showLoading();
@@ -39,7 +39,7 @@ function doRemoteControllerSend(deviceId) {
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("remote_controller");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("message", message);
     var uri = builder.build();
@@ -68,19 +68,19 @@ function doRemoteControllerSend(deviceId) {
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doRemoteControllerBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doRemoteControllerBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 /** 
  * IrDataの取得
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doRemoteControllerGet(deviceId) {
+function doRemoteControllerGet(serviceId) {
 	
 	
 	closeLoading();
@@ -88,7 +88,7 @@ function doRemoteControllerGet(deviceId) {
     
     var builder = new dConnect.URIBuilder();
     builder.setProfile("remote_controller");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     
@@ -106,8 +106,8 @@ function doRemoteControllerGet(deviceId) {
         	
             var str = "";
             str += '<center>';
-            str += '<input type="button" onclick="doRemoteControllerGet(\'' + deviceId + '\');" value="get" name="get" >';
-            str += '<input type="button" onclick="doRemoteControllerSend(\'' + deviceId + '\');" value="send" name="send">';
+            str += '<input type="button" onclick="doRemoteControllerGet(\'' + serviceId + '\');" value="get" name="get" >';
+            str += '<input type="button" onclick="doRemoteControllerSend(\'' + serviceId + '\');" value="send" name="send">';
             str += '</center>';
 
             reloadContent(str);

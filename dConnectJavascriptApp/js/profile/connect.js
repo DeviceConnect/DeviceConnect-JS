@@ -8,14 +8,14 @@
 /** 
  * Connect Menu
  *
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  */
-function showConnect(deviceId) {
+function showConnect(serviceId) {
     initAll();
     var sessionKey = currentClientId;
     setTitle("Connect Profile");
     
-    var btnStr = getBackButton('Device Top', 'doSettingBack',  deviceId, sessionKey);
+    var btnStr = getBackButton('Device Top', 'doSettingBack',  serviceId, sessionKey);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
     
@@ -42,26 +42,26 @@ function showConnect(deviceId) {
     str += '</select><br>'; 
     reloadContent(str);
 
-    doCheckBluetooth(deviceId);
-    doCheckBLE(deviceId);
-    doCheckWifi(deviceId);
-    doCheckNfc(deviceId);
+    doCheckBluetooth(serviceId);
+    doCheckBLE(serviceId);
+    doCheckWifi(serviceId);
+    doCheckNfc(serviceId);
     
-    doRegisterWifiChangeEvent(deviceId, sessionKey);
-    doRegisterBluetoothChangeEvent(deviceId, sessionKey);
+    doRegisterWifiChangeEvent(serviceId, sessionKey);
+    doRegisterBluetoothChangeEvent(serviceId, sessionKey);
     dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
 }
 
 /** 
  * Bluetoothが有効かどうかのチェック
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckBluetooth(deviceId) {
+function doCheckBluetooth(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("bluetooth");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -74,9 +74,9 @@ function doCheckBluetooth(deviceId) {
             changeSlider('bluetooth', json.enable ? 1 : 0);
             $('#bluetooth').bind("change", function(event, ui) {
                 if ($('#bluetooth').val() === "off") {
-                    doConnectBluetooth(deviceId, false);
+                    doConnectBluetooth(serviceId, false);
                 } else if ($('#bluetooth').val() === "on") {
-                    doConnectBluetooth(deviceId, true);
+                    doConnectBluetooth(serviceId, true);
                 }
             });
         } else {
@@ -89,13 +89,13 @@ function doCheckBluetooth(deviceId) {
 /** 
  * BLEが有効かどうかのチェック
  * 
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckBLE(deviceId) {
+function doCheckBLE(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("ble");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -108,9 +108,9 @@ function doCheckBLE(deviceId) {
             changeSlider('ble', json.enable ? 1 : 0);
             $('#ble').bind("change", function(event, ui) {
                 if ($('#ble').val() === "off") {
-                    doConnectBLE(deviceId, false);
+                    doConnectBLE(serviceId, false);
                 } else if ($('#ble').val() === "on") {
-                    doConnectBLE(deviceId, true);
+                    doConnectBLE(serviceId, true);
                 }
             });
         } else {
@@ -123,13 +123,13 @@ function doCheckBLE(deviceId) {
 /** 
  * Wifiが有効かどうかのチェック
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckWifi(deviceId) {
+function doCheckWifi(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("wifi");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -142,9 +142,9 @@ function doCheckWifi(deviceId) {
             changeSlider('wifi', json.enable ? 1 : 0);
             $('#wifi').bind("change", function(event, ui) {
                 if ($('#wifi').val() === "off") {
-                    doConnectWifi(deviceId, false);
+                    doConnectWifi(serviceId, false);
                 } else if ($('#wifi').val() === "on") {
-                    doConnectWifi(deviceId, true);
+                    doConnectWifi(serviceId, true);
                 }
             });
         } else {
@@ -157,13 +157,13 @@ function doCheckWifi(deviceId) {
 /** 
  * NFCが有効かどうかのチェック
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doCheckNfc(deviceId) {
+function doCheckNfc(serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("nfc");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -176,9 +176,9 @@ function doCheckNfc(deviceId) {
             changeSlider('nfc', json.enable ? 1 : 0);
             $('#nfc').bind("change", function(event, ui) {
                 if ($('#nfc').val() === "off") {
-                    doConnectNfc(deviceId, false);
+                    doConnectNfc(serviceId, false);
                 } else if ($('#nfc').val() === "on") {
-                    doConnectNfc(deviceId, true);
+                    doConnectNfc(serviceId, true);
                 }
             });
             
@@ -192,41 +192,41 @@ function doCheckNfc(deviceId) {
 /** 
  * WifiのOn/Off
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {Boolean}connect true ON, false OFF
  */
-function doConnectWifi(deviceId, connect) {
-    doDeviceOn("wifi", deviceId, connect);
+function doConnectWifi(serviceId, connect) {
+    doDeviceOn("wifi", serviceId, connect);
 }
 
 /** 
  * BluetoothのOn/Off
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {Boolean}connect true ON, false OFF
  */
-function doConnectBluetooth(deviceId, connect) {
-    doDeviceOn("bluetooth", deviceId, connect);
+function doConnectBluetooth(serviceId, connect) {
+    doDeviceOn("bluetooth", serviceId, connect);
 }
 
 /** 
  * BLEのOn/Off
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {Boolean}connect true ON, false OFF
  */
-function doConnectBLE(deviceId, connect) {
-    doDeviceOn("ble", deviceId, connect);
+function doConnectBLE(serviceId, connect) {
+    doDeviceOn("ble", serviceId, connect);
 }
 
 
 /** 
  * NFCのOn/Off
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {Boolean}connect true ON, false OFF
  */
-function doConnectNfc(deviceId, connect) {
+function doConnectNfc(serviceId, connect) {
     alert("Not supported.");
     changeSlider("nfc", 1);
 }
@@ -235,14 +235,14 @@ function doConnectNfc(deviceId, connect) {
  * 各種通信部分の設定
  *
  * @param {String} type Bluetooth or Wifi
- * @param {String} deviceId デバイスID
+ * @param {String} serviceId サービスID
  * @param {Boolean} connect true ON, false OFF
  */
- function doDeviceOn(type, deviceId, connect) {
+ function doDeviceOn(type, serviceId, connect) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute(type);
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
@@ -307,14 +307,14 @@ function changeSlider(name, status){
 /**
  * Wifi Change Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterWifiChangeEvent(deviceId, sessionKey) {
+function doRegisterWifiChangeEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("onwifichange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -339,14 +339,14 @@ function doRegisterWifiChangeEvent(deviceId, sessionKey) {
 /**
  * Bluetooth Change Event
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doRegisterBluetoothChangeEvent(deviceId, sessionKey) {
+function doRegisterBluetoothChangeEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("onbluetoothchange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -372,26 +372,26 @@ function doRegisterBluetoothChangeEvent(deviceId, sessionKey) {
 /**
  * Backボタン
  *
- * deviceId {String}デバイスID
+ * serviceId {String}サービスID
  * sessionKey {String}セッションKEY
  */
-function doSettingBack(deviceId, sessionKey){
-    doUnregisterWifiChangeEvent(deviceId, sessionKey);
-    doUnregisterBluetoothChangeEvent(deviceId, sessionKey);
-    searchSystem(deviceId);
+function doSettingBack(serviceId, sessionKey){
+    doUnregisterWifiChangeEvent(serviceId, sessionKey);
+    doUnregisterBluetoothChangeEvent(serviceId, sessionKey);
+    searchSystem(serviceId);
 }
 
 /**
  * Wifi Change Event削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterWifiChangeEvent(deviceId, sessionKey) {
+function doUnregisterWifiChangeEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("onwifichange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
@@ -405,14 +405,14 @@ function doUnregisterWifiChangeEvent(deviceId, sessionKey) {
 /**
  * Bluetooth Change Event削除
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションキー
  */
-function doUnregisterBluetoothChangeEvent(deviceId, sessionKey) {
+function doUnregisterBluetoothChangeEvent(serviceId, sessionKey) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("connect");
     builder.setAttribute("onbluetoothchange");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();

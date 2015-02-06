@@ -8,12 +8,12 @@
 /** 
  * Camera Profile 
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function showCamera(deviceId) {
+function showCamera(serviceId) {
     initAll();
 
-    var btnStr = getBackButton('Device Top', 'doCameraBack', deviceId, "");
+    var btnStr = getBackButton('Device Top', 'doCameraBack', serviceId, "");
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
@@ -32,7 +32,7 @@ function showCamera(deviceId) {
     str += '<OPTION value="1shot">1shot</OPTION>';
     str += '</SELECT>';
     str += '<br>';
-    str += '<input type="button" onclick="doZoom(\'' + deviceId + '\');" value="Zoom" />';
+    str += '<input type="button" onclick="doZoom(\'' + serviceId + '\');" value="Zoom" />';
     str += '</form>';
 
     reloadContent(str);
@@ -51,33 +51,33 @@ function showCamera(deviceId) {
         }
     });
 
-    doCheckZoom(deviceId);
+    doCheckZoom(serviceId);
 }
 
 /**
  * Backボタン
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  * @param {String}sessionKey セッションKEY
  */
-function doCameraBack(deviceId, sessionKey){
-	searchSystem(deviceId);
+function doCameraBack(serviceId, sessionKey){
+	searchSystem(serviceId);
 }
 
 
 /** 
  * Camera Profile Zoop
  *
- * @param {String}deviceId デバイスID
+ * @param {String}serviceId サービスID
  */
-function doZoom(deviceId) {
+function doZoom(serviceId) {
     var movement = $("#movement").val();
     var direction = $("#direction").val();
    
     var builder = new dConnect.URIBuilder();
     builder.setProfile("camera");
     builder.setAttribute("zoom");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("movement", movement);
     builder.addParameter("direction", direction);
@@ -90,7 +90,7 @@ function doZoom(deviceId) {
 		if(DEBUG) console.log("Response:"+responseText)
 	    
         if (json.result == 0) {
-			//doCheckZoom(deviceId);
+			//doCheckZoom(serviceId);
         } else {
 
         }
@@ -104,14 +104,14 @@ function doZoom(deviceId) {
 /** 
  * Camera Profile Zoop
  *
- * @param deviceId デバイスID
+ * @param serviceId サービスID
  */
-function doCheckZoom(deviceId) {
+function doCheckZoom(serviceId) {
 	
     var builder = new dConnect.URIBuilder();
     builder.setProfile("camera");
     builder.setAttribute("zoom");
-    builder.setDeviceId(deviceId);
+    builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
 	if(DEBUG) console.log("Uri:"+uri)
