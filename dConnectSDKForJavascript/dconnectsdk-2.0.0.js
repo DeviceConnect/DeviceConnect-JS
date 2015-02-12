@@ -1416,6 +1416,70 @@ var dConnect = (function(parent, global) {
     parent.sendRequest = sendRequest;
 
     /**
+     * Device Connect RESTful APIのGETメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.get = function(uri, header, data, success, error) {
+        sendRequest('GET', uri, header, data, success, error);
+    };
+
+    /**
+     * Device Connect RESTful APIのPUTメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.put = function(uri, header, data, success, error) {
+        sendRequest('PUT', uri, header, data, success, error);
+    };
+
+    /**
+     * Device Connect RESTful APIのPOSTメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.post = function(uri, header, data, success, error) {
+        sendRequest('POST', uri, header, data, success, error);
+    };
+
+    /**
+     * Device Connect RESTful APIのDELETEメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.delete = function(uri, header, data, success, error) {
+        sendRequest('DELETE', uri, header, data, success, error);
+    };
+
+    /**
      * REST API呼び出し.
      * @see {@link sendRequest}
      * @memberOf dConnect
@@ -1560,7 +1624,7 @@ var dConnect = (function(parent, global) {
         if (typeof event_cb != "function") {
             throw new TypeError("2nd argument must be a function for callback.");
         }
-        parent.sendRequest('PUT', uri, null, null, function(json) {
+        parent.put(uri, null, null, function(json) {
             eventListener[uri] = event_cb;
             if (success_cb) {
                 success_cb();
@@ -1581,7 +1645,7 @@ var dConnect = (function(parent, global) {
      * dConnect.removeEventListener(uri, success_cb, error_cb);
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
-        parent.sendRequest('DELETE', uri, null, null, function(json) {
+        parent.delete(uri, null, null, function(json) {
             delete eventListener[uri];
             if (success_cb) {
                 success_cb();
