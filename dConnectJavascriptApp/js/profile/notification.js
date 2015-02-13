@@ -316,7 +316,7 @@ function doNotificationNotify(serviceId) {
                         reloadMenu(str)
                     }
                 } else{
-                    showError("POST notification/notify", json);
+                    showError("POST notification/notify", obj.errorCode, obj.errorMessage);
                 }
             } else {
                 alert("error:" + myXhr.status);
@@ -343,11 +343,10 @@ function notificationDel(serviceId, notificationId) {
 
     if (DEBUG) console.log("Uri:" + uri)
     
-    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response:"+responseText);
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            reloadMenu("");
-        }
+    dConnect.delete(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);;
+        reloadMenu("");
+    }, function(errorCode, errorMessage) {
+        showError("POST notification/notify", errorCode, errorMessage);
     });
 }

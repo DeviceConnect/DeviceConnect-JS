@@ -13,66 +13,64 @@
 function showSearchLightGroup(serviceId) {
     initAll();
     
-	closeLoading();
+    closeLoading();
     showLoading();
-	
-	var btnStr = getBackButton('Light List', 'doSearchLightGroupBack', serviceId, "");
-	reloadHeader(btnStr);
-	reloadFooter(btnStr);
-	
+    
+    var btnStr = getBackButton('Light List', 'doSearchLightGroupBack', serviceId, "");
+    reloadHeader(btnStr);
+    reloadFooter(btnStr);
+    
     var builder = new dConnect.URIBuilder();
     builder.setProfile("light");
     builder.setAttribute("group");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-	
-	if (DEBUG) console.log("Uri: " + uri);
-	
+    
+    if (DEBUG) console.log("Uri: " + uri);
+    
     setTitle("Light Group List");
 
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        
         var lightGroups = json.lightGroups;
-		console.log(responseText);
-		var str = "";
-        if (json.result == 0) {
-        	var list = $("#list");
-            list.empty();
-            for (var i = 0; i < lightGroups.length; i++) {
-            	var li = $("<li><a>" + lightGroups[i].name + "</a></li>");
-            	li.data("group", lightGroups[i]);
-            	li.on("click", function() {
-            	    showLightGroup(serviceId, $(this).data("group"));
-            	});
-            	list.append(li);
-            }
-            list.listview("refresh");
-            closeLoading();
-            
-    		var buttonDelete = $('<input data-icon="delete" data-inline="true" data-mini="true" type="button" value="Delete a group" />');
-    		buttonDelete.data("groups", lightGroups);
-    		buttonDelete.on("click", function() {
-    			showDeleteLightGroupForm(serviceId, $(this).data("groups"));
-    		});
-    		var contents = $("#contents");
-    		contents.append(buttonDelete);
-    		contents.trigger('create');
-        } else {
-        	showError("GET light", json);
-            showSearchLight(serviceId);
+        var str = "";
+        var list = $("#list");
+        list.empty();
+        for (var i = 0; i < lightGroups.length; i++) {
+            var li = $("<li><a>" + lightGroups[i].name + "</a></li>");
+            li.data("group", lightGroups[i]);
+            li.on("click", function() {
+                showLightGroup(serviceId, $(this).data("group"));
+            });
+            list.append(li);
         }
-    }, function(xhr, textStatus, errorThrown) {
+        list.listview("refresh");
+        closeLoading();
+        
+        var buttonDelete = $('<input data-icon="delete" data-inline="true" data-mini="true" type="button" value="Delete a group" />');
+        buttonDelete.data("groups", lightGroups);
+        buttonDelete.on("click", function() {
+            showDeleteLightGroupForm(serviceId, $(this).data("groups"));
+        });
+        var contents = $("#contents");
+        contents.append(buttonDelete);
+        contents.trigger('create');
+    }, function(errorCode, errorMessage) {
+        showError("GET light", errorCode, errorMessage);
+        closeLoading();
+        showSearchLight(serviceId);
     });
 }
 
 function showCreateLightGroupForm(serviceId, lights) {
-	initAll();
-	
-	var btnStr = getBackButton('Light List', 'doCreateLightGroupFormBack', serviceId, "");
-	reloadHeader(btnStr);
-	reloadFooter(btnStr);
-	
+    initAll();
+    
+    var btnStr = getBackButton('Light List', 'doCreateLightGroupFormBack', serviceId, "");
+    reloadHeader(btnStr);
+    reloadFooter(btnStr);
+    
     setTitle("Create new light group");
     
     var contents = $("#contents");
@@ -83,31 +81,31 @@ function showCreateLightGroupForm(serviceId, lights) {
     contents.append(div);
     contents.append($('<p>Member(s) of new group:</p>'));
     for (var i = 0; i < lights.length; i++) {
-    	var light = lights[i];
-    	var id = "light-" + light.lightId;
-    	var checkbox = $('<input type="checkbox" name="group-creation" id="' + id + '" value="' + light.lightId + '" class="custom" data-mini="true" />');
-    	var label = $('<label for="' + id + '">' + light.name + '</label>');
+        var light = lights[i];
+        var id = "light-" + light.lightId;
+        var checkbox = $('<input type="checkbox" name="group-creation" id="' + id + '" value="' + light.lightId + '" class="custom" data-mini="true" />');
+        var label = $('<label for="' + id + '">' + light.name + '</label>');
         contents.append(checkbox);
         contents.append(label);
     }
     contents.append('<hr />');
     var buttonCreate = $('<input data-icon="plus" data-inline="true" data-mini="true" type="button" value="Submit to create"/>');
     buttonCreate.on("click", function() {
-    	var lightIds = "";
-    	$("[name='group-creation']:checked").each(function() {
-    		if (lightIds !== "") {
-    			lightIds += ",";
-    		}
-    		lightIds += $(this).attr("value");
-    	});
-    	
-    	var groupName = $('#textfield-new-group-name').val();
-    	if (groupName === "") {
-    		alert("Please specify new group name.");
-    		return;
-    	}
-    	
-    	var builder = new dConnect.URIBuilder();
+        var lightIds = "";
+        $("[name='group-creation']:checked").each(function() {
+            if (lightIds !== "") {
+                lightIds += ",";
+            }
+            lightIds += $(this).attr("value");
+        });
+        
+        var groupName = $('#textfield-new-group-name').val();
+        if (groupName === "") {
+            alert("Please specify new group name.");
+            return;
+        }
+        
+        var builder = new dConnect.URIBuilder();
         builder.setProfile("light");
         builder.setInterface("group");
         builder.setAttribute("create");
@@ -116,16 +114,12 @@ function showCreateLightGroupForm(serviceId, lights) {
         builder.addParameter("groupName", groupName);
         builder.addParameter("lightIds", lightIds);
         var uri = builder.build();
-		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            var str = "";
-            if (json.result == 0) {
-				alert("Created Group: name=" + groupName + " lightIds=" + lightIds);
-            } else {
-				showError("POST /light/group/create", json);
-            }
+        if (DEBUG) console.log("Uri: " + uri);
+        dConnect.post(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Created Group: name=" + groupName + " lightIds=" + lightIds);
+        }, function(errorCode, errorMessage) {
+            showError("POST /light/group/create", errorCode, errorMessage);
         });
     });
     contents.append(buttonCreate);
@@ -176,16 +170,12 @@ function showDeleteLightGroupForm(serviceId, lightGroups) {
     	builder.addParameter("groupId", deletedGroupId);
     	var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-		dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            var str = "";
-            if (json.result == 0) {
-            	$("#group-" + deletedGroupId).remove();
-            	$("#label-group-" + deletedGroupId).remove();
-            } else {
-				showError("DELETE /light/group", json);
-            }
+        dConnect.delete(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            $("#group-" + deletedGroupId).remove();
+            $("#label-group-" + deletedGroupId).remove();
+        }, function(errorCode, errorMessage) {
+            showError("DELETE /light/group", errorCode, errorMessage);
         });
     });
     contents.append(buttonDelete);
@@ -218,31 +208,27 @@ function showSearchLight(serviceId) {
 	
     setTitle("Light List");
 
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
-		console.log(responseText);
-        if (json.result == 0) {
-            listLights(serviceId, json.lights);
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        listLights(serviceId, json.lights);
             
-            var buttonViewGroups = $('<input data-icon="search" data-inline="true" data-mini="true" type="button" value="View groups"/>');
-    		buttonViewGroups.on("click", function() {
-    			showSearchLightGroup(serviceId);
-    		});
-            var buttonCreate = $('<input data-icon="plus" data-inline="true" data-mini="true" type="button" value="Create a group"/>');
-    		buttonCreate.data("lights", json.lights);
-    		buttonCreate.on("click", function() {
-    			showCreateLightGroupForm(serviceId, $(this).data("lights"));
-    		});
-    		var contents = $("#contents");
-    		contents.append(buttonViewGroups);
-    		contents.append(buttonCreate);
-    		contents.trigger('create');
-        } else {
-            showError("GET light", json);
-            reloadContent("");
-            closeLoading();
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        var buttonViewGroups = $('<input data-icon="search" data-inline="true" data-mini="true" type="button" value="View groups"/>');
+        buttonViewGroups.on("click", function() {
+            showSearchLightGroup(serviceId);
+        });
+        var buttonCreate = $('<input data-icon="plus" data-inline="true" data-mini="true" type="button" value="Create a group"/>');
+        buttonCreate.data("lights", json.lights);
+        buttonCreate.on("click", function() {
+            showCreateLightGroupForm(serviceId, $(this).data("lights"));
+        });
+        var contents = $("#contents");
+        contents.append(buttonViewGroups);
+        contents.append(buttonCreate);
+        contents.trigger('create');
+    }, function(errorCode, errorMessage) {
+        showError("GET light", errorCode, errorMessage);
+        reloadContent("");
+        closeLoading();
     });
 }
 
@@ -306,20 +292,15 @@ function showLight(serviceId, lightId, lightName) {
     	builder.addParameter("name", newLightName);
     	var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-    	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-    	    var json = JSON.parse(responseText);
-			console.log(responseText);
-    	    if (json.result == 0) {
-    	        alert("Success");
-     	    } else {
-                showError("GET light", json);
-                $('#light-name-form').val(originalLightName);
-            }
+        dConnect.put(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Success");
             closeLoading();
-    	}, function(xhr, textStatus, errorThrown) {
-    	    $('#light-name-form').val(originalLightName);
-    	    closeLoading();
-    	});
+        }, function(errorCode, errorMessage) {
+            showError("GET light", errorCode, errorMessage);
+            $('#light-name-form').val(originalLightName);
+            closeLoading();
+        });
 	});
 	contents.append(buttonChangeName);
 	
@@ -383,20 +364,15 @@ function showLightGroup(serviceId, group) {
     	builder.addParameter("name", newGroupName);
     	var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-    	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-    	    var json = JSON.parse(responseText);
-			console.log(responseText);
-    	    if (json.result == 0) {
-    	        alert("Success");
-     	    } else {
-                showError("GET light", json);
-                $('#group-name-form').val(originalGroupName);
-            }
+        dConnect.put(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Success");
             closeLoading();
-    	}, function(xhr, textStatus, errorThrown) {
-    	    $('#group-name-form').val(originalGroupName);
-    	    closeLoading();
-    	});
+        }, function(errorCode, errorMessage) {
+            showError("GET light", errorCode, errorMessage);
+            $('#group-name-form').val(originalGroupName);
+            closeLoading();
+        });
 	});
 	contents.append(buttonChangeName);
 	
@@ -512,15 +488,11 @@ function doLightGroup(serviceId, groupId, on) {
         builder.addParameter("groupId", groupId);
         var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            var str = "";
-            if (json.result == 0) {
-				alert("Success");
-            } else {
-				showError("POST /light/group", json);
-            }
+        dConnect.post(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Success");
+        }, function(errorCode, errorMessage) {
+            showError("POST /light/group", errorCode, errorMessage);
         });
     } else {
         var builder = new dConnect.URIBuilder();
@@ -531,15 +503,11 @@ function doLightGroup(serviceId, groupId, on) {
         builder.addParameter("groupId", groupId);
         var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            var str = "";
-            if (json.result == 0) {
-				alert("Success");
-            } else {
-				showError("DELETE /light/group", json);
-            }
+        dConnect.delete(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Success");
+        }, function(errorCode, errorMessage) {
+            showError("DELETE /light/group", errorCode, errorMessage);
         });
     }
 }
@@ -571,15 +539,12 @@ function doLight(serviceId, lightId, value) {
         builder.addParameter("color", col);
         builder.addParameter("lightId", lightId);
         var uri = builder.build();
-		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            if (json.result == 0) {
-				alert("Success");
-            } else {
-				showError("POST light", json);
-            }
+        if (DEBUG) console.log("Uri: " + uri);
+        dConnect.post(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Success");
+        }, function(errorCode, errorMessage) {
+            showError("POST light", errorCode, errorMessage);
         });
     } else {
         var builder = new dConnect.URIBuilder();
@@ -588,15 +553,12 @@ function doLight(serviceId, lightId, value) {
         builder.setAccessToken(accessToken);
         builder.addParameter("lightId", lightId);
         var uri = builder.build();
-		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            if (json.result == 0) {
-				alert("Success");
-            } else {
-				showError("DELETE light", json);
-            }
+        if (DEBUG) console.log("Uri: " + uri);
+        dConnect.delete(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            alert("Success");
+        }, function(errorCode, errorMessage) {
+            showError("DELETE light", errorCode, errorMessage);
         });
     }
 }
