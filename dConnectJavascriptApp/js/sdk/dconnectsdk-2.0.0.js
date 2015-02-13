@@ -28,6 +28,14 @@ var dConnect = (function(parent, global) {
      */
     var webAppAccessToken;
     /**
+     * HTTPおよびWebSocket通信でSSLを使用するかどうかを指定するフラグ.
+     * @private
+     * @type {Boolean}
+     * @default false
+     * @see setSSLEnabled
+     */
+    var sslEnabled = false;
+    /**
      * ホスト名.
      * @private
      * @type {String}
@@ -881,6 +889,31 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Service Informationプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        serviceinformation : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "serviceinformation",
+
+            // Parameter
+            /** パラメータ: supports */
+            PARAM_SUPPORTS : "supports",
+            /** パラメータ: connect */
+            PARAM_CONNECT : "connect",
+            /** パラメータ: wifi */
+            PARAM_WIFI : "wifi",
+            /** パラメータ: bluetooth */
+            PARAM_BLUETOOTH : "bluetooth",
+            /** パラメータ: nfc */
+            PARAM_NFC : "nfc",
+            /** パラメータ: ble */
+            PARAM_BLE : "ble"
+        },
+
+        /**
          * Notificationプロファイルの定数
          * @namespace
          * @type {Object.<String, (String|Number)>}
@@ -1064,10 +1097,10 @@ var dConnect = (function(parent, global) {
             VOLUME_KIND_RINGTONE : 3,
             /** 音量の種別定数: メール着信音 */
             VOLUME_KIND_MAIL : 4,
-            /** 音量の種別定数: その他SNS等の着信音 */
-            VOLUME_KIND_OTHER : 5,
             /** 音量の種別定数: メディアプレーヤーの音量 */
-            VOLUME_KIND_MEDIA_PLAYER : 6,
+            VOLUME_KIND_MEDIA_PLAYER : 5,
+            /** 音量の種別定数: その他SNS等の着信音 */
+            VOLUME_KIND_OTHER : 6,
         },
 
         /**
@@ -1085,8 +1118,6 @@ var dConnect = (function(parent, global) {
             INTERFACE_DEVICE : "device",
 
             // Attribute
-            /** アトリビュート: device */
-            ATTRI_DEVICE : "device",
             /** アトリビュート: events */
             ATTRI_EVENTS : "events",
             /** アトリビュート: keyword */
@@ -1099,16 +1130,6 @@ var dConnect = (function(parent, global) {
             PARAM_SUPPORTS : "supports",
             /** パラメータ: version */
             PARAM_VERSION : "version",
-            /** パラメータ: connect */
-            PARAM_CONNECT : "connect",
-            /** パラメータ: wifi */
-            PARAM_WIFI : "wifi",
-            /** パラメータ: bluetooth */
-            PARAM_BLUETOOTH : "bluetooth",
-            /** パラメータ: nfc */
-            PARAM_NFC : "nfc",
-            /** パラメータ: ble */
-            PARAM_BLE : "ble",
             /** パラメータ: id */
             PARAM_ID : "id",
             /** パラメータ: name */
@@ -1254,7 +1275,7 @@ var dConnect = (function(parent, global) {
      *
      * @example
      * // デバイスの検索
-     * dConnect.discoverDevices(
+     * dConnect.discoverDevices(accessToekn,
      *     function(status, headerMap, responseText) {
      *         var json = JSON.parse(responseText);
      *     },
@@ -1264,10 +1285,25 @@ var dConnect = (function(parent, global) {
     var discoverDevices = function(accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
-        builder.setAccessToken(accessToken);
+                builder.setAccessToken(accessToken);
         parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.discoverDevices = discoverDevices;
+    
+    /**
+     * Service Information APIへの簡易アクセスを提供する。
+     * @memberOf dConnect
+     * @param {String} サービスID
+     * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
+     * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
+     */    
+    var getSystemDeviceInfo = function(serviceId, success_cb, error_cb) {
+        var builder = new parent.URIBuilder();
+        builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
+        builder.setServiceId(serviceId);
+        parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
+    };
+    parent.getSystemDeviceInfo = getSystemDeviceInfo;
 
     /**
      * System APIへの簡易アクセスを提供する。
@@ -1526,6 +1562,32 @@ var dConnect = (function(parent, global) {
     parent.combineScope = combineScope;
 
     /**
+     * HTTPおよびWebSocket通信でSSLを使用するかどうかを設定する.
+     * <p>
+     * デフォルト設定ではSSLは使用しない。
+     * </p>
+     * @memberOf dConnect
+     * @param {String} enabled SSLを使用する場合はtrue、使用しない場合はfalse
+     */
+    var setSSLEnabled = function(enabled) {
+        sslEnabled = enabled;
+    }
+    parent.setSSLEnabled = setSSLEnabled;
+
+    /**
+     * HTTPおよびWebSocket通信でSSLを使用するかどうかを取得する.
+     * <p>
+     * デフォルト設定ではSSLは使用しない。
+     * </p>
+     * @memberOf dConnect
+     * @return enabled SSLを使用する場合はtrue、使用しない場合はfalse
+     */
+    var isSSLEnabled = function() {
+        return sslEnabled;
+    }
+    parent.isSSLEnabled = isSSLEnabled;
+
+    /**
      * ホスト名を設定する.
      * @memberOf dConnect
      * @param {String} h ホスト名
@@ -1577,7 +1639,8 @@ var dConnect = (function(parent, global) {
         if (parent.isConnectedWebSocket()) {
             return;
         }
-        websocket = new WebSocket('ws://' + host + ':' + port + '/websocket');
+        var scheme = sslEnabled ? "wss" : "ws";
+        websocket = new WebSocket(scheme + '://' + host + ':' + port + '/websocket');
         websocket.onopen = function(e) {
             clearTimeout(reconnectingTimerId);
             forcedClose = false;
@@ -1673,7 +1736,7 @@ var dConnect = (function(parent, global) {
      * uriは"http://localhost:4035/gotapi/battery/level?serviceId=serviceId&accessToken=accessToken&key=value"に変換される。
      */
     var URIBuilder = function() {
-        this.scheme = "http://";
+        this.scheme = sslEnabled ? "https" : "http";
         this.host = host;
         this.port = port;
         this.api = "gotapi";
@@ -1685,12 +1748,12 @@ var dConnect = (function(parent, global) {
     parent.URIBuilder = URIBuilder;
 
     /**
-     * スキーマを設定する。
+     * スキーム名を設定する。
      * <p>
-     * デフォルトでは、「http://」が設定されている。
+     * デフォルトでは、dConnect.isSSLEnabled()が真の場合にhttps、そうでない場合にはhttpが設定されている。<br/>
      * </p>
      * @memberOf dConnect.URIBuilder
-     * @param {String} scheme スキーマ
+     * @param {String} scheme スキーム名
      * @return {URIBuilder} 自分自身のインスタンス
      */
     URIBuilder.prototype.setScheme = function(scheme) {
@@ -1698,9 +1761,9 @@ var dConnect = (function(parent, global) {
         return this;
     };
     /**
-     * スキーマを取得する。
+     * スキーマ名を取得する。
      * @memberOf dConnect.URIBuilder
-     * @return {String} スキーマ
+     * @return {String} スキーマ名
      */
     URIBuilder.prototype.getScheme = function() {
         return this.scheme;
@@ -1897,7 +1960,7 @@ var dConnect = (function(parent, global) {
      * @return {String} uri
      */
     URIBuilder.prototype.build = function() {
-        var uri = this.scheme + this.host + ":" + this.port;
+        var uri = this.scheme + "://" + this.host + ":" + this.port;
         if (this.api) {
             uri += "/" + encodeURIComponent(this.api);
         }

@@ -213,8 +213,13 @@ function doMediaPlayer(serviceId, id, from) {
     str += '</form>';
     str += '<input type="text" value="' + id + '"/>';
     str += '<input data-icon="play" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerPlay(\'' + serviceId + '\', \'' + id + '\' );" type="button" value="Play"/>';
+    str += '<input data-icon="play" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerResume(\'' + serviceId + '\', \'' + id + '\' );" type="button" value="Resume"/>';
     str += '<input data-icon="pause" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerPause(\'' + serviceId + '\');" type="button" value="Pause"/>';
     str += '<input data-icon="stop" data-inline="true" data-mini="true" onclick="javascript:doMediaPlayerStop(\'' + serviceId + '\');" type="button" value="Stop"/>';
+    str += '<label for="mediaPlayerSeek">Seek:</label>';
+    str += '<input type="range" name="mediaPlayerSeek" id="mediaPlayerSeek" value="0" min="0" max=\'' + seek + '\' step="1" />';
+    str += '<input type="button" onclick="doMediaPlayerSeekPut(\'' + serviceId + '\');" id="mediaPlayerSeekPut" value="Set seek" />';
+    str += '</p>';
     str += '<p>';
     str += '<label for="mediaPlayerVolume">Volume:</label>';
     str += '<input type="range" name="mediaPlayerVolume" id="mediaPlayerVolume" value="0" min="0" max="100" step="1" />';
@@ -236,6 +241,10 @@ function doMediaPlayer(serviceId, id, from) {
             doMediaPlayerMuteChange(serviceId, true);
         }
     });
+    $('#mediaPlayerSeek').slider('disable');
+    $('#mediaPlayerSeek').slider('refresh');
+	$('#mediaPlayerSeekPut').button('disable');
+	$('#mediaPlayerSeekPut').button('refresh');
     $('#mediaPlayerVolume').slider('disable');
     $('#mediaPlayerVolume').slider('refresh');
     $('#mediaPlayerVolumePut').button('disable');
@@ -243,9 +252,9 @@ function doMediaPlayer(serviceId, id, from) {
     $('#mediaPlayerMuteStatus').slider('disable');
     $('#mediaPlayerMuteStatus').slider('refresh');
 
-    doMediaPlayerMedia(serviceId, id);
+	doMediaPlayerSeekGet(serviceId);
     doMediaPlayerVolumeGet(serviceId);
-    doMediaPlayerMuteGet(serviceId);
+    doMediaPlayerMuteGet(serviceId, id);
 }
 
 /**
@@ -254,7 +263,7 @@ function doMediaPlayer(serviceId, id, from) {
  * @param {String}serviceId サービスID
  * @param {String}id メディアID
  */
-function doMediaPlayerMedia(serviceId, id, callback) {
+function doMediaPlayerMediaPut(serviceId, id) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("media_player");
     builder.setAttribute("media");
@@ -273,9 +282,37 @@ function doMediaPlayerMedia(serviceId, id, callback) {
         } else {
             showError("PUT media_player/media", json);
         }
-        if (callback) {
-            callback();
+    }, function(xhr, textStatus, errorThrown) {
+    });
+}
+/**
+ * GET media メディアファイルの取得
+ *
+ * @param {String}serviceId デバイスID
+ * @param {String}id メディアID
+ */
+function doMediaPlayerMediaGet(serviceId, id) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile("media_player");
+    builder.setAttribute("media");
+    builder.setserviceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter("mediaId", id);
+    var uri = builder.build();
+    if (DEBUG) console.log("Uri: " + uri);
+
+    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
+        if (DEBUG) console.log("Response: " + responseText);
+        var json = JSON.parse(responseText);
+		var seek = json.duration;
+		if (!json.duration) {
+			seek = 100;
+		}
+        if (json.result == 0) {
+        } else {
+            showError("GET media_player/media", json);
         }
+		doMedia(serviceId, id, seek);
     }, function(xhr, textStatus, errorThrown) {
     });
 }
@@ -287,27 +324,53 @@ function doMediaPlayerMedia(serviceId, id, callback) {
  * @param {String} id メディアID
  */
 function doMediaPlayerPlay(serviceId, id) {
-    doMediaPlayerMedia(serviceId, id, function() {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile("media_player");
-        builder.setAttribute("play");
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        if (DEBUG) console.log("Uri: " + uri);
+	var builder = new dConnect.URIBuilder();
+	builder.setProfile("media_player");
+	builder.setAttribute("play");
+	builder.setServiceId(serviceId);
+	builder.setAccessToken(accessToken);
+	var uri = builder.build();
+	if (DEBUG) console.log("Uri: " + uri);
 
-        dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            if (json.result == 0) {
-            
-            } else {
-                showError("PUT media_player/play", json);
-            }
-        }, function(xhr, textStatus, errorThrown) {
+	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+		if (DEBUG) console.log("Response: " + responseText);
+		var json = JSON.parse(responseText);
+		if (json.result == 0) {
+		
+		} else {
+			showError("PUT media_player/play", json);
+		}
+	}, function(xhr, textStatus, errorThrown) {
 
-        });
-    });
+	});
+}
+
+/**
+ * メディアresume要求を送信する.
+ *
+ * @param {String} serviceId デバイスID
+ * @param {String} id メディアID
+ */
+function doMediaPlayerResume(serviceId, id) {
+	var builder = new dConnect.URIBuilder();
+	builder.setProfile("media_player");
+	builder.setAttribute("resume");
+	builder.setserviceId(serviceId);
+	builder.setAccessToken(accessToken);
+	var uri = builder.build();
+	if (DEBUG) console.log("Uri: " + uri);
+
+	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+		if (DEBUG) console.log("Response: " + responseText);
+		var json = JSON.parse(responseText);
+		if (json.result == 0) {
+	
+		} else {
+			showError("PUT media_player/resume", json);
+		}
+	}, function(xhr, textStatus, errorThrown) {
+
+	});
 }
 
 /**
@@ -490,8 +553,9 @@ function doMediaPlayerMuteChange(serviceId, isMute) {
  * メディアのミュート状態要求を送信する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} mediaId メディアID
  */
-function doMediaPlayerMuteGet(serviceId) {
+function doMediaPlayerMuteGet(serviceId, mediaId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("media_player");
     builder.setAttribute("mute");
@@ -509,7 +573,68 @@ function doMediaPlayerMuteGet(serviceId) {
             $('#mediaPlayerMuteStatus').slider('enable');
             $('#mediaPlayerMuteStatus').slider('refresh');
         } else {
-            showError(method + " media_player/mute", json);
+            showError("GET media_player/mute", json);
+        }
+		doMediaPlayerMediaPut(deviceId, mediaId);
+
+    }, function(xhr, textStatus, errorThrown) {
+    });
+}
+
+
+/**
+ * メディアのSeek位置変更要求を送信する.
+ *
+ * @param {String} deviceId デバイスID
+ */
+function doMediaPlayerSeekPut(deviceId) {
+    var pos = $('#mediaPlayerSeek').val();
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile("media_player");
+    builder.setAttribute("seek");
+    builder.setDeviceId(deviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter("pos", pos);
+    var uri = builder.build();
+    if (DEBUG) console.log("Uri: " + uri);
+
+    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+        if (DEBUG) console.log("Response: " + responseText);
+        var json = JSON.parse(responseText);
+        if (json.result == 0) {
+            // 何もしない
+        } else {
+            showError("PUT media_player/seek", json);
+        }
+    }, function(xhr, textStatus, errorThrown) {
+    });
+}
+/**
+ * メディアのSeek位置取得要求を送信する.
+ *
+ * @param {String} deviceId デバイスID
+ */
+function doMediaPlayerSeekGet(deviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile("media_player");
+    builder.setAttribute("seek");
+    builder.setDeviceId(deviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    if (DEBUG) console.log("Uri: " + uri);
+
+    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
+        if (DEBUG) console.log("Response: " + responseText);
+        var json = JSON.parse(responseText);
+        if (json.result == 0) {
+            $('#mediaPlayerSeek').val(json.pos);
+            $('#mediaPlayerSeek').slider('enable');
+            $('#mediaPlayerSeek').slider('refresh');
+            $('#mediaPlayerSeekPut').button('enable');
+            $('#mediaPlayerSeekPut').button('refresh');
+        } else {
+            showError("GET media_player/seek", json);
         }
     }, function(xhr, textStatus, errorThrown) {
     });

@@ -17,7 +17,7 @@ function showCamera(serviceId) {
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    setTitle("Camera API");
+    setTitle("Camera Profile");
 
     var str = "";
     str += '<form name="cameraForm">';

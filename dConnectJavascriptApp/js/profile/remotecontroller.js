@@ -15,7 +15,8 @@ function showRemoteController(serviceId) {
     initAll();
     
     var btnStr = "";    
-    btnStr += getBackButton('Battery Top', 'doRemoteControllerBack', serviceId, "");
+    btnStr += getBackButton('Device Top', 'doRemoteControllerBack', serviceId, "");
+	setTitle("Remote Controller Profile");
 	reloadHeader(btnStr);
 	reloadFooter(btnStr);
 	
