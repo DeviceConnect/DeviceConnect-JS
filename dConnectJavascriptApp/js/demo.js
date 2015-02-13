@@ -97,7 +97,7 @@ function checkDeviceConnect() {
  */
 function authorization(){
     dConnect.setHost(ip);
-    var scopes = Array("servicediscovery", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
+    var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
                     "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
                     "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
         dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',

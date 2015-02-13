@@ -21,8 +21,7 @@ function searchSystem(serviceId, deviceName) {
     initAll();
 
     var builder = new dConnect.URIBuilder();
-    builder.setProfile("system");
-    builder.setAttribute("device");
+    builder.setProfile("serviceinformation");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -53,10 +52,8 @@ function searchSystem(serviceId, deviceName) {
         {
             var errorCode = json.errorCode;
             var errorMessage = json.errorMessage;
-            if (error_cb)
-            {
-                error_cb(errorCode, errorMessage);
-            }
+            if(DEBUG) console.log("Error: " + errorCode + ": " + errorMessage);
+            showError("serviceinformation", json);
         }
     }, function(errorCode, errorMessage) {
         showError("GET /serviceinformation", errorCode, errorMessage);
