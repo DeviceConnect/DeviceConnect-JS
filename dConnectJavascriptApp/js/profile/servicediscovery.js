@@ -1,5 +1,5 @@
 /**
- sevicedescovery.js
+ sevicediscovery.js
  Copyright (c) 2014 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
@@ -15,26 +15,22 @@ function searchDevice() {
     showLoading();
 
     dConnect.setHost(ip);
-    dConnect.discoverDevices(accessToken, function(status, headerMap, responseText){
+    dConnect.discoverDevices(accessToken, function(obj){
         var str = "";
-        if(DEBUG) console.log("responseText"+responseText);
+        if(DEBUG) console.log("response: ", obj);
 
-        var obj = JSON.parse(responseText);
-        if (obj.result == 0) {
-            for (var i = 0; i < obj.services.length; i++) {
-                str += '<li><a href="javascript:searchSystem(\'' + obj.services[i].id + '\',\'' + obj.services[i].name + '\');" value="' + obj.services[i].name + '">' + obj.services[i].name + '</a></li>';
-            }
-
-            setTitle("Device List", "black");
-            deleteMode = false;
-
-            var listHtml = document.getElementById('list');
-            listHtml.innerHTML = str;
-            $("ul.list").listview("refresh");
-            closeLoading();
-        } else {
-            alert("Error: " + responseText);
+        for (var i = 0; i < obj.services.length; i++) {
+            str += '<li><a href="javascript:searchSystem(\'' + obj.services[i].id + '\',\'' + obj.services[i].name + '\');" value="' + obj.services[i].name + '">' + obj.services[i].name + '</a></li>';
         }
-    }, function(readyState, status) {
+
+        setTitle("Device List", "black");
+        deleteMode = false;
+
+        var listHtml = document.getElementById('list');
+        listHtml.innerHTML = str;
+        $("ul.list").listview("refresh");
+        closeLoading();
+    }, function(errorCode, errorMessage) {
+        alert("Error: code=" + errorCode + ", messsage=\"" + errorMessage + "\"");
     });
 }

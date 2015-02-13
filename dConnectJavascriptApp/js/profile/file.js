@@ -71,16 +71,12 @@ function doGetUriFromPath(serviceId, path){
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
-        } else {
-            showError("GET file/receive", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
+    }, function(errorCode, errorMessage) {
+        showError("GET file/receive", errorCode, errorMessage);
     });
 }
 
@@ -154,55 +150,52 @@ function showFileList(serviceId, path, mode) {
     
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            if (mode === 2) {
-                setTitle("File list(Delete Mode)", "red");
-            } else {
-                setTitle("File list", "black");
-            }
-            currentPath = path;
-
-            var cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + serviceId +
-                '\',\'/\');" type="button" value="/"/>';
-            cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeDeleteMode(\'' + serviceId +
-                '\');" type="button" value="Delete Mode"/>';
-            cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + serviceId +
-                '\');" type="button" value="mkdir"/>';
-
-            if (mode != 2) {
-                reloadMenu(cmdStr);
-            }
-
-            var listStr = "";
-            for (var i = 0; i < json.files.length; i++) {
-                var iconName = getFileIcon(json.files[i].mimeType, json.files[i].fileType);
-                if (json.files[i].fileType == "1") {
-                    listStr += '<li>';
-                    listStr += '<a href="javascript:doFileAction(\'' + serviceId + '\',\'' + json.files[i].path + '\',\'dir/folder\');"  >';
-                    if (mode == 2) {
-                        listStr += '<img src="css/images/icon_del.png">';
-                    }
-                    listStr += '<img src=\'' + iconName + '\' >' + json.files[i].fileName + '</a></li>';
-                } else {
-                    listStr += '<li>';
-                    listStr += '<a href="javascript:doFileAction(\'' + serviceId + '\',\'' + json.files[i].path + '\',\'' + json.files[i].mimeType +
-                        '\');"  >';
-                    if (mode == 2) {
-                        listStr += '<img src="css/images/icon_del.png">';
-                    }
-                    listStr += '<img src=\'' + iconName + '\' >' + json.files[i].fileName + '</a></li>';
-                }
-            }
-            closeLoading();
-            reloadList(listStr);
+        if (mode === 2) {
+            setTitle("File list(Delete Mode)", "red");
         } else {
-            showError("GET file/list", json);
+            setTitle("File list", "black");
         }
-    }, function(xhr, textStatus, errorThrown) {
+        currentPath = path;
+
+        var cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:showFileList(\'' + serviceId +
+            '\',\'/\');" type="button" value="/"/>';
+        cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true" onclick="javascript:changeDeleteMode(\'' + serviceId +
+            '\');" type="button" value="Delete Mode"/>';
+        cmdStr += '<input data-icon="folder" data-inline="true" data-mini="true" onclick="javascript:doMKDir(\'' + serviceId +
+            '\');" type="button" value="mkdir"/>';
+
+        if (mode != 2) {
+            reloadMenu(cmdStr);
+        }
+
+        var listStr = "";
+        for (var i = 0; i < json.files.length; i++) {
+            var iconName = getFileIcon(json.files[i].mimeType, json.files[i].fileType);
+            if (json.files[i].fileType == "1") {
+                listStr += '<li>';
+                listStr += '<a href="javascript:doFileAction(\'' + serviceId + '\',\'' + json.files[i].path + '\',\'dir/folder\');"  >';
+                if (mode == 2) {
+                    listStr += '<img src="css/images/icon_del.png">';
+                }
+                listStr += '<img src=\'' + iconName + '\' >' + json.files[i].fileName + '</a></li>';
+            } else {
+                listStr += '<li>';
+                listStr += '<a href="javascript:doFileAction(\'' + serviceId + '\',\'' + json.files[i].path + '\',\'' + json.files[i].mimeType +
+                    '\');"  >';
+                if (mode == 2) {
+                    listStr += '<img src="css/images/icon_del.png">';
+                }
+                listStr += '<img src=\'' + iconName + '\' >' + json.files[i].fileName + '</a></li>';
+            }
+        }
+        closeLoading();
+        reloadList(listStr);
+    }, function(errorCode, errorMessage) {
+        closeLoading();
+        showError("GET file/list", errorCode, errorMessage);
     });
 }
 
@@ -363,15 +356,13 @@ function doDeleteFile(serviceId, path) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-        if(DEBUG) console.log("Response:"+responseText)
+    dConnect.delete(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-			alert("deleted " + path);
-        } else {
-            showError("DELETE file/remove", json);
-        }
+        alert("deleted " + path);
+        changeDeleteMode(serviceId);
+    }, function(errorCode, errorMessage) {
+        showError("DELETE file/remove", errorCode, errorMessage);
         changeDeleteMode(serviceId);
     });
 }
@@ -382,15 +373,15 @@ function doDeleteFile(serviceId, path) {
  * @param {String} serviceId サービスID
  */
 function doMKDir(serviceId) {
-	var path = window.prompt("ディレクトリ名を入力してください");
-	if (path == null) {
-		return;
-	}
-	if (path.substring(0,1) != '/') {
-		path = currentPath + '/' + path;
-	} else {
-		path = currentPath + path;
-	}
+    var path = window.prompt("ディレクトリ名を入力してください");
+    if (path == null) {
+        return;
+    }
+    if (path.substring(0,1) != '/') {
+        path = currentPath + '/' + path;
+    } else {
+        path = currentPath + path;
+    }
     var builder = new dConnect.URIBuilder();
     builder.setProfile("file");
     builder.setAttribute("mkdir");
@@ -400,26 +391,26 @@ function doMKDir(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-        if(DEBUG) console.log("Response:"+responseText)
-        
-        var json = JSON.parse(responseText);
+    var oncomplete = function() {
         var fileMode = 1;
         if (deleteMode) {
-        	fileMode = 2;
-        }
-        if (json.result === 0) {
-			alert("mkdir " + path);
-        } else {
-            showError("POST file/mkdir", json);
+            fileMode = 2;
         }
         if (deleteMode) {
-	        changeDeleteMode(serviceId);
+            changeDeleteMode(serviceId);
         } else {
-	        changeNormalMode(serviceId);
-	    }
-	    showFileList(serviceId, currentPath, fileMode);
+            changeNormalMode(serviceId);
+        }
+        showFileList(serviceId, currentPath, fileMode);
+    };
 
+    dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("mkdir " + path);
+        oncomplete();
+    }, function(errorCode, errorMessage) {
+        showError("POST file/mkdir", errorCode, errorMessage);
+        oncomplete();
     });
 }
 /**
@@ -438,26 +429,26 @@ function doRMDir(serviceId, dir) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-        if(DEBUG) console.log("Response:"+responseText)
-        
-        var json = JSON.parse(responseText);
+    var oncomplete = function() {
         var fileMode = 1;
         if (deleteMode) {
-        	fileMode = 2;
-        }
-
-        if (json.result === 0) {
-	        alert("rmdir " + dir);
-        } else {
-            showError("DELETE file/rmdir", json);
+            fileMode = 2;
         }
         if (deleteMode) {
-	        changeNormalMode(serviceId);
+            changeNormalMode(serviceId);
         } else {
-	        changeDeleteMode(serviceId);
-	    }
- 	    showFileList(serviceId, currentPath, fileMode);
+            changeDeleteMode(serviceId);
+        }
+        showFileList(serviceId, currentPath, fileMode);
+    };
+
+    dConnect.delete(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("rmdir " + dir);
+        oncomplete();
+    }, function(errorCode, errorMessage) {
+        showError("DELETE file/rmdir", errorCode, errorMessage);
+        oncomplete();
     });
 }
 /**
@@ -529,7 +520,7 @@ function doFileSend(serviceId) {
                     $('#path').val("");
                     $('#data').val("");
                 } else{
-                    showError("PUT file/send", obj);
+                    showError("PUT file/send", obj.errorCode, obj.errorMessage);
                 }
             } else {
                 alert("error:" + myXhr.status);
@@ -564,19 +555,16 @@ function doImageShow(serviceId, path) {
     
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
 
-        var json = JSON.parse(responseText);
-        if (json.result === 0){
-            json.uri = json.uri.replace("localhost", ip);
-            var str = "";
-            str += '<img src="' + json.uri + '" width="100%">';
-            str += '</center><br>';
-            reloadContent(str);
-        } else {
-            showError("GET file/receive", json);
-        }
+        json.uri = json.uri.replace("localhost", ip);
+        var str = "";
+        str += '<img src="' + json.uri + '" width="100%">';
+        str += '</center><br>';
+        reloadContent(str);
+    }, function(errorCode, errorMessage) {
+        showError("GET file/receive", errorCode, errorMessage);
     });
 }
 
