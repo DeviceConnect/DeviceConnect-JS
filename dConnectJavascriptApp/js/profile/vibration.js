@@ -70,20 +70,10 @@ function doVibrateVibration(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-    	
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-		
-        if (json.result == 0) {
-        	
-        } else {
-			showError("PUT vibration/vibrate", json);
-        }
-        
-    }, function(xhr, textStatus, errorThrown) {
-        
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("PUT vibration/vibrate", errorCode, errorMessage);
     });
 }
 
@@ -94,8 +84,7 @@ function doVibrateVibration(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doStopVibration(serviceId) {
-	
-	var builder = new dConnect.URIBuilder();
+    var builder = new dConnect.URIBuilder();
     builder.setProfile("vibration");
     builder.setAttribute("vibrate");
     builder.setServiceId(serviceId);
@@ -104,19 +93,9 @@ function doStopVibration(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-    	
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-		
-        if (json.result == 0) {
-        	
-        } else {
-           showError("DELETE vibration/vibrate", json);
-        }
-        
-    }, function(xhr, textStatus, errorThrown) {
-        
+    dConnect.delete(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("DELETE vibration/vibrate", errorCode, errorMessage);
     });
 }

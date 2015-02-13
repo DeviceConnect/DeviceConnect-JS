@@ -39,27 +39,18 @@ function doStartService(serviceId, deviceName){
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        if(DEBUG) console.log("Response:"+responseText)
-        
-        var json = JSON.parse(responseText);
-	    
-        if (json.result == 0) {
-            if(deviceName == "HBF-206IT"){
-            	showHBF206IT1(serviceId);
-            }
-           
-        } else {
-            alert("startService API failed!\n\nURI: "+uri+"\nerrorCode: " + json.errorCode + "\nerrorMessage: " + json.errorMessage + ")");
-            
-            if(deviceName == "HBF-206IT"){
-            	showHBF206IT1(serviceId);
-            }
+        if(deviceName == "HBF-206IT"){
+            showHBF206IT1(serviceId);
         }
-
-    }, function(xhr, textStatus, errorThrown) {
-
+    }, function(errorCode, errorMessage) {
+        alert("startService API failed!\n\nURI: "+uri+"\nerrorCode: " + errorCode + "\nerrorMessage: " + errorMessage + ")");
+        
+        if(deviceName == "HBF-206IT"){
+            showHBF206IT1(serviceId);
+        }
     });
 }
 
@@ -142,25 +133,17 @@ function doHBF206IT(serviceId){
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-	dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
+	dConnect.get(uri, null, null, function(json) {
         
-        if(DEBUG) console.log("Response:"+responseText)
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-	    
-        if (json.result == 0) {
-        
-        	if(DEBUG) console.log("json.datas[0].lastindexId:"+json.datas[0].lastindexId)
-            closeLoading();
-            doGetDataFromHBF206IT(serviceId, json.datas[0].lastindexId);
-           
-        } else {
-        	showError("POST mhealth/getdbinfo", json);
-            closeLoading();
-        }
+        if(DEBUG) console.log("json.datas[0].lastindexId:"+json.datas[0].lastindexId)
+        closeLoading();
+        doGetDataFromHBF206IT(serviceId, json.datas[0].lastindexId);
 
-    }, function(xhr, textStatus, errorThrown) {
-
+    }, function(errorCode, errorMessage) {
+        showError("POST mhealth/getdbinfo", errorCode, errorMessage);
+        closeLoading();
     });
     
 	reloadContent(str);
@@ -192,30 +175,22 @@ function doGetDataFromHBF206IT(serviceId, id){
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-	dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
+	dConnect.get(uri, null, null, function(json) {
         
-        if(DEBUG) console.log("Response:"+responseText)
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-	    
-        if (json.result == 0) {
-        	setTitle("データ転送完了","gray");
-	
-            var str = responseText;
-            if(DEBUG) console.log("data:"+responseText);
-            reloadHeader(str);   
-            var contentStr = ""
-            contentStr += '<input data-role="button" type="button" name="button" id="button" value="mHealthの停止" onclick="javascript:doStopService(\'' + serviceId + '\');"/><br>';
-			reloadContent(contentStr);
-           	closeLoading();
-            
-        } else {
-			showError("POST mhealth/getmeasurements", json);
-       		closeLoading();
-        }
+        setTitle("データ転送完了","gray");
 
-    }, function(xhr, textStatus, errorThrown) {
+        var str = responseText;
+        reloadHeader(str);
+        var contentStr = "";
+        contentStr += '<input data-role="button" type="button" name="button" id="button" value="mHealthの停止" onclick="javascript:doStopService(\'' + serviceId + '\');"/><br>';
+        reloadContent(contentStr);
+        closeLoading();
 
+    }, function(errorCode, errorMessage) {
+        showError("POST mhealth/getmeasurements", errorCode, errorMessage);
+        closeLoading();
     });
     
 }
@@ -236,23 +211,15 @@ function doStopService(serviceId){
     builder.addParameter("protocol","HDP");
     var uri = builder.build();
 
-	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+    dConnect.put(uri, null, null, function(json) {
         
-        if(DEBUG) console.log("Response:"+responseText)
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-	    
-        if (json.result == 0) {
-           alert("STOP mHealth Service");
-           showMhealth(serviceId);
-           
-        } else {
-        	showError("POST mhealth/stopservice", json);
-            
-        }
+        alert("STOP mHealth Service");
+        showMhealth(serviceId);
 
-    }, function(xhr, textStatus, errorThrown) {
-
+    }, function(errorCode, errorMessage) {
+        showError("POST mhealth/stopservice", errorCode, errorMessage);
     });
 }
 
