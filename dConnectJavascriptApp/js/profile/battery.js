@@ -8,7 +8,7 @@
 /**
  * Show Battery Menu
  * 
- * @param {String}serviceId サービスID
+ * @param {String} serviceId サービスID
  */
 function showBattery(serviceId) {
     initAll();
@@ -33,7 +33,7 @@ function showBattery(serviceId) {
 /**
  * Show Battery Change Event
  *
- * @param {String}serviceId サービスID
+ * @param {String} serviceId サービスID
  */
 function showBatteryChangeEvent(serviceId){
     initAll();
@@ -49,7 +49,7 @@ function showBatteryChangeEvent(serviceId){
     str += '<form name="batteryForm">';
     str += 'Battery<br>';
     str += makeInputText("chargingTime", "chargingTime", "chargingTime"); 
-    str += makeInputText("dischargintTime", "dischargintTime", "dischargintTime");
+    str += makeInputText("dischargingTime", "dischargingTime", "dischargingTime");
     str += makeInputText("level", "level", "level");
     str += '</form>';
     reloadContent(str);
@@ -84,42 +84,32 @@ function showChargeEvent(serviceId){
     closeLoading();
     showLoading();
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
-        
-        if (DEBUG) console.log("Response: " + responseText);
-        
-        if (json.result == 0) {
-            closeLoading();
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        closeLoading();
 
-            var charging = json.charging;
-            
-            var str = "";
-            str += '<center>';
-            str += '<form  name="batteryForm">';
-            str += '<select name="charging" id="charging" data-role="slider">';
-            if (charging) {
-                str += '<option value="false">False</option>';
-                str += '<option value="true" selected="selected">True</option>';
-            } else {
-                str += '<option value="false" selected="selected">False</option>';
-                str += '<option value="true">True</option>';
-            }
-            str += "</select>";
-            str += '</form>';
-            str += '</center>';
-            reloadContent(str);
-    
-            doRegisterChargingEvent(serviceId, sessionKey);
-            dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
-           
+        var charging = json.charging;
+        var str = "";
+        str += '<center>';
+        str += '<form  name="batteryForm">';
+        str += '<select name="charging" id="charging" data-role="slider">';
+        if (charging) {
+            str += '<option value="false">False</option>';
+            str += '<option value="true" selected="selected">True</option>';
         } else {
-            closeLoading();
-            showError("GET battery/charging", json);
+            str += '<option value="false" selected="selected">False</option>';
+            str += '<option value="true">True</option>';
         }
-       
-    }, function(xhr, textStatus, errorThrown) {
-        
+        str += "</select>";
+        str += '</form>';
+        str += '</center>';
+        reloadContent(str);
+
+        doRegisterChargingEvent(serviceId, sessionKey);
+        dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+    }, function(errorCode, errorMessage) {
+        closeLoading();
+        showError("GET battery/charging", errorCode, errorMessage);
     });
 }
 
@@ -301,30 +291,24 @@ function doBatteryAll(serviceId) {
     closeLoading();
     showLoading();
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        if (DEBUG) console.log("Response: " + responseText);
+        closeLoading();
+        var level = json.level * 100;
+        var str = "";
+        str += '<label for="slider-0">LEVEL:</label>';
+        str += '<input type="range" name="slider" id="volume" value="' + level + '" min="0" max="100"  />';
         
-        if (json.result == 0) {
-            closeLoading();
-            var level = json.level * 100;
-            var str = "";
-            str += '<label for="slider-0">LEVEL:</label>';
-            str += '<input type="range" name="slider" id="volume" value="' + level + '" min="0" max="100"  />';
-            
-            if (json.charging) {
-                str += 'Status: Charging';
-            } else {
-                str += 'Status: Not charging';
-            }
-            
-            reloadContent(str);
+        if (json.charging) {
+            str += 'Status: Charging';
         } else {
-            closeLoading();
-            showError("GET battery", json);
+            str += 'Status: Not charging';
         }
-    }, function(xhr, textStatus, errorThrown) {
         
+        reloadContent(str);
+    }, function(errorCode, errorMessage) {
+        closeLoading();
+        showError("GET battery", errorCode, errorMessage);
     });
 }

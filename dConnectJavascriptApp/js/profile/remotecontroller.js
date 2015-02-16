@@ -48,20 +48,13 @@ function doRemoteControllerSend(serviceId) {
     if(DEBUG) console.log("Uri:"+uri)
 
 
-    dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
+    dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        if(DEBUG) console.log("Response:"+responseText)
-        
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-            closeLoading();
-        } else {
-			showError("POST remote_controller", json);
-        }
-
-    }, function(xhr, textStatus, errorThrown) {
-
+        closeLoading();
+    }, function(errorCode, errorMessage) {
+        showError("POST remote_controller", errorCode, errorMessage);
+        closeLoading();
     });
 }
 
@@ -95,30 +88,22 @@ function doRemoteControllerGet(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
 
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        if(DEBUG) console.log("Response:"+responseText)
+        var cmd = json.message;
+        reloadMenu(cmd);
         
-        var json = JSON.parse(responseText);
+        var str = "";
+        str += '<center>';
+        str += '<input type="button" onclick="doRemoteControllerGet(\'' + serviceId + '\');" value="get" name="get" >';
+        str += '<input type="button" onclick="doRemoteControllerSend(\'' + serviceId + '\');" value="send" name="send">';
+        str += '</center>';
 
-        if (json.result == 0) {
-        	var cmd = json.message;
-        	reloadMenu(cmd);
-        	
-            var str = "";
-            str += '<center>';
-            str += '<input type="button" onclick="doRemoteControllerGet(\'' + serviceId + '\');" value="get" name="get" >';
-            str += '<input type="button" onclick="doRemoteControllerSend(\'' + serviceId + '\');" value="send" name="send">';
-            str += '</center>';
-
-            reloadContent(str);
-            
-            closeLoading();
-        } else {
-			showError("GET remote_controller", json);
-        }
-
-    }, function(xhr, textStatus, errorThrown) {
-
+        reloadContent(str);
+        closeLoading();
+    }, function(errorCode, errorMessage) {
+        showError("GET remote_controller", errorCode, errorMessage);
+        closeLoading();
     });
 }

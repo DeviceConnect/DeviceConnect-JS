@@ -11,35 +11,25 @@
  *
  *
  */
-function searchSystem(serviceId, deviceName)
-{
-
+function searchSystem(serviceId, deviceName) {
     if (deviceName != undefined) {
         // 第2引数が空でない場合、代入を行う。
         myDeviceName = deviceName;
     }
-	
-	if(DEBUG) console.log(myDeviceName)
-	
-	initAll();
-	
-	
+
+    if(DEBUG) console.log(myDeviceName)
+    initAll();
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("serviceinformation");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-	
-	if(DEBUG) console.log("Uri:"+uri)
-	
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText)
-    {
-    
-    	if(DEBUG) console.log( "Response:" + responseText)
-    	
-        var json = JSON.parse(responseText);
 
+    if(DEBUG) console.log("Uri:"+uri)
+
+    dConnect.get(uri, null, null, function(json) {
+        if(DEBUG) console.log("Response:", json);
         if (json.result == 0)
         {
             var str = "";
@@ -65,74 +55,47 @@ function searchSystem(serviceId, deviceName)
             if(DEBUG) console.log("Error: " + errorCode + ": " + errorMessage);
             showError("serviceinformation", json);
         }
-    }, function(xhr, textStatus, errorThrown) {
-
+    }, function(errorCode, errorMessage) {
+        showError("GET /serviceinformation", errorCode, errorMessage);
     });
     
 
 }
 
-function checkDevicePlugins()
-{
-
-
+function checkDevicePlugins() {
     initAll();
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile("system");
-
     var uri = builder.build();
 
-	if(DEBUG) console.log("Uri:"+uri)
-	
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText)
-    {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-        var str = "";
-        if (json.result == 0)
-        {
-            for (var i = 0; i < json.plugins.length; i++)
-            {
-                str += '<li><a href="javascript:launchDevicePlugin(\'' + json.plugins[i].id + '\');" value="' + json.plugins[i].name + '" >' + json.plugins[
-                    i].name + '</a></li>';
-             
-            }
+    if(DEBUG) console.log("Uri:"+uri)
 
-           var listHtml = document.getElementById('listSetting');
-        	listHtml.innerHTML = str;
-        	$("ul.listSetting").listview("refresh");
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+
+        var str = "";
+        for (var i = 0; i < json.plugins.length; i++) {
+            str += '<li><a href="javascript:launchDevicePlugin(\'' + json.plugins[i].id + '\');" value="' + json.plugins[i].name + '" >' + json.plugins[i].name + '</a></li>';
         }
 
-
-
+        var listHtml = document.getElementById('listSetting');
+        listHtml.innerHTML = str;
+        $("ul.listSetting").listview("refresh");
     });
-
 }
 
-function launchDevicePlugin(pluginId)
-{
-
-	var builder = new dConnect.URIBuilder();
+function launchDevicePlugin(pluginId) {
+    var builder = new dConnect.URIBuilder();
     builder.setProfile("system");
     builder.setInterface("device");
     builder.setAttribute("wakeup");
     builder.addParameter("pluginId",pluginId);
-  	var uri = builder.build();
-  	
-  	if(DEBUG) console.log("Uri:"+uri)
-  	
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText)
-    {
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-        var str = "";
-        if (json.result == 0)
-        {
-           
-        }
+    var uri = builder.build();
+
+    if(DEBUG) console.log("Uri:"+uri)
+
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
     });
 }

@@ -49,16 +49,11 @@ function doGetUriFromPath(serviceId, path){
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
-        
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
-        } else {
-            showError("GET canvas/receive", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+    dConnect.get(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
+    }, function(errorCode, errorMessage) {
+        showError("GET canvas/receive", errorCode, errorMessage);
     });
 }
 
@@ -172,7 +167,7 @@ function doCanvasDrawImage(serviceId, fileFormId) {
                     $('#path').val("");
                     $('#data').val("");
                 } else{
-                    showError("POST canvas/drawimage", obj);
+                    showError("POST canvas/drawimage", obj.errorCode, obj.errorMessage);
                 }
             } else {
                 alert("error:" + myXhr.status);

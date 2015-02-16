@@ -126,20 +126,10 @@ function doPhoneCall(serviceId) {
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-    dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-        
-        if(DEBUG) console.log("Response:"+responseText)
-        
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-
-
-        } else {
-			showError("phone/call", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
-
+    dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("phone/call", errorCode, errorMessage);
     });
 }
 
@@ -168,7 +158,7 @@ function doRegisterOnConnect(serviceId, sessionKey) {
 	        $('#status').val(json.phoneStatus.phoneNumber + " Calling"); 
 	    }
     }, null, function(errorCode, errorMessage){
-    	alert(errorMessage);
+        alert(errorMessage);
     });   
 }
 
@@ -213,18 +203,11 @@ function doPhoneSet(serviceId) {
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        if(DEBUG) console.log("Response:"+responseText)
-        
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-			alert("success:change mode");
-        } else {
-			showError("phone/call", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
-
+        alert("success:change mode");
+    }, function(errorCode, errorMessage) {
+        showError("phone/call", errorCode, errorMessage);
     });
 }
