@@ -20,7 +20,7 @@ function showHealth(serviceId) {
     reloadFooter(btnStr);
 
     var str = "";
-    str += '<li><a href="javascript:showHeartRate(\'' + serviceId + '\');">Get HeartRate</a></li>';
+    str += '<li><a href="javascript:showHeartRate(\'' + serviceId + '\');">Get Heart Rate</a></li>';
     reloadList(str);
 }
 
@@ -46,14 +46,16 @@ function showHeartRate(serviceId) {
     showLoading();
     
     dConnect.get(uri, null, null, function(json) {
-        if (DEBUG) console.log("Response: ", json);
+        if (DEBUG) {
+            console.log("Response: ", json);
+        }
         
         closeLoading();
 
         var str = "";
         str += makeInputText('HeartRate', 'heartRate', 'HeartRate');
-  		str += '<input data-role="button" type="button" name="button" id="button" value="RegisterEvent" onclick="javascript:registerHeartRate(\'' + serviceId + '\');"/><br>';
-  		str += '<input data-role="button" type="button" name="button" id="button" value="UnregisterEvent" onclick="javascript:unregisterHeartRate(\'' + serviceId + '\');"/><br>';
+  		str += '<input data-role="button" type="button" name="button" id="button" value="Register Event" onclick="javascript:registerHeartRate(\'' + serviceId + '\');"/><br>';
+  		str += '<input data-role="button" type="button" name="button" id="button" value="Unregister Event" onclick="javascript:unregisterHeartRate(\'' + serviceId + '\');"/><br>';
 
         reloadContent(str);
 
@@ -108,6 +110,10 @@ function unregisterHeartRate(serviceId) {
     dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
         alert(errorMessage);
     });
+}
+
+function doHealthBack(serviceId) {
+    searchDevice(serviceId);
 }
 
 function doHealthAllBack(serviceId, sessionKey) {
