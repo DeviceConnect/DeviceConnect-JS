@@ -70,7 +70,7 @@ function showNotification(serviceId) {
     str += '<input type="file" name="icon" id="icon"/>';
     str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
     str += '<input type="hidden" name="accessToken" value="' + accessToken + '"/>';
-    str += '<input type="button" name="sendButton" id="sendButton" value="Noftiy" onclick="doNotificationNotify(\'' + serviceId + '\');"/>';
+    str += '<input type="button" name="sendButton" id="sendButton" value="Notify" onclick="doNotificationNotify(\'' + serviceId + '\');"/>';
     str += '</form>';
     str += '</center>';
     reloadContent(str);
