@@ -59,7 +59,19 @@
 <body onload="init();">
     <div id="home" data-role="page">
         <div data-role="header" data-theme="b">
-            <a data-ajax="false" data-icon="home" href="../index.html">Close</a>
+            <h1>Device Connect</h1>
+        </div>
+        <div data-role="header" data-theme="c"><center>Demo</center></div>
+        <a data-role="button" onclick="startManagerAndDemo()" data-ajax="false"/ data-icon="arrow-r" data-iconpos="right">
+         Launch UI-App (HTML5)</a>
+        <div data-role="footer"  data-theme="b">
+            <h4>Device Connect</h4>
+        </div>
+    </div>
+
+    <div id="demo" data-role="page">
+        <div data-role="header" data-theme="b">
+            <a data-ajax="false" data-icon="home" href="#home">Close</a>
             <a data-ajax="false" data-icon="gear" href="#setting">Setting</a>
             <h1 id="version"></h1>
         </div>
@@ -112,7 +124,7 @@
 
     <div id="setting" data-role="page">
         <div data-role="header" data-theme="b">
-            <a href="#home" data-ajax="false" data-icon="back">Back</a>
+            <a href="#demo" data-ajax="false" data-icon="back">Back</a>
             <h1>Setting</h1>
         </div>
 
@@ -144,6 +156,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
