@@ -118,7 +118,7 @@ function authorization(){
     var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
                     "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
                     "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
-        dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
+        dConnect.authorization(scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
                 // Client ID
                 currentClientId = clientId;

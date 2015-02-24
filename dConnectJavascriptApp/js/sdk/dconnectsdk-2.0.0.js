@@ -1669,7 +1669,6 @@ var dConnect = (function(parent, global) {
     /**
      * dConnectManagnerに認可を求める.
      * @memberOf dConnect
-     * @param packageName アプリを識別するためのURI
      * @param scopes 使用するスコープの配列
      * @param applicationName アプリ名
      * @param success_cb 成功時のコールバック
@@ -1679,7 +1678,7 @@ var dConnect = (function(parent, global) {
      * // アクセスするプロファイル一覧を定義
      * var scopes = Array('servicediscovery', 'sysytem', 'battery');
      * // 認可を実行
-     * dConnect.authorization('http://hogehoge.com/index.html', scopes, 'サンプル',
+     * dConnect.authorization(scopes, 'サンプル',
      *     function(clientId, clientSecret, accessToken) {
      *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
      *     },
@@ -1687,7 +1686,7 @@ var dConnect = (function(parent, global) {
      *         alert("Failed to get accessToken.");
      *     });
      */
-    var authorization = function(packageName, scopes, applicationName, success_cb, error_cb) {
+    var authorization = function(scopes, applicationName, success_cb, error_cb) {
         parent.createClient(location.origin, function(clientId, clientSecret) {
             parent.requestAccessToken(clientId, clientSecret, scopes, applicationName, function(accessToken) {
                 if (success_cb) {
