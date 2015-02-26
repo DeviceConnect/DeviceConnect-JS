@@ -1436,12 +1436,11 @@ var dConnect = (function(parent, global) {
      * @memberOf dConnect
      * @param {String} uri URI
      * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
-     * @param {} data コンテンツデータ
      * @param {Function} success 成功時コールバック
      * @param {Function} error 失敗時コールバック
      */
-    parent.get = function(uri, header, data, success, error) {
-        sendRequest('GET', uri, header, data, success, error);
+    parent.get = function(uri, header, success, error) {
+        sendRequest('GET', uri, header, null, success, error);
     };
 
     /**
@@ -1484,12 +1483,11 @@ var dConnect = (function(parent, global) {
      * @memberOf dConnect
      * @param {String} uri URI
      * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
-     * @param {} data コンテンツデータ
      * @param {Function} success 成功時コールバック
      * @param {Function} error 失敗時コールバック
      */
-    parent.delete = function(uri, header, data, success, error) {
-        sendRequest('DELETE', uri, header, data, success, error);
+    parent.delete = function(uri, header, success, error) {
+        sendRequest('DELETE', uri, header, null, success, error);
     };
 
     /**
