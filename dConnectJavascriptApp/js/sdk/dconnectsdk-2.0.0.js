@@ -1223,6 +1223,17 @@ var dConnect = (function(parent, global) {
             /** モードフラグ：フィルモード */
             MODE_FILLS : "fills",
         },
+        /**
+         * HumanDetectプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        humandetect : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "humandetect",
+
+        },
     };
     parent.constants = constants;
 

@@ -117,7 +117,7 @@ function authorization(){
     dConnect.setHost(ip);
     var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
                     "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
-                    "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
+                    "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas", "humandetect");
         dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
                 // Client ID
@@ -240,5 +240,7 @@ function searchProfile(serviceId, profile) {
         showSphero(serviceId);
     } else if (profile === "canvas") {
         showCanvas(serviceId);
+    } else if (profile === "humandetect") {
+        showHumanDetect(serviceId);
     }
 }
