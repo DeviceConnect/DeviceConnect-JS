@@ -338,6 +338,7 @@ function doHumanDetectFaceRegist(serviceId, sessionKey) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.setSessionKey(sessionKey);
+    builder.addParameter("options", "eye,nose,mouth,blink,age,gender,faceDirection,gaze,expression");
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
