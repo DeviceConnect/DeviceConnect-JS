@@ -115,8 +115,8 @@ function startManager(onavailable) {
  */
 function authorization(){
     dConnect.setHost(ip);
-    var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
-                    "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
+    var scopes = Array("servicediscovery", "serviceinformation", "system", "battery", "connect", "deviceorientation", "file_descriptor", "file",
+                    "media_player", "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
                     "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
         dConnect.authorization(scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
