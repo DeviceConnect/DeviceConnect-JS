@@ -71,7 +71,7 @@ function doGetUriFromPath(serviceId, path){
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
@@ -150,7 +150,7 @@ function showFileList(serviceId, path, mode) {
     
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         if (mode === 2) {
@@ -356,7 +356,7 @@ function doDeleteFile(serviceId, path) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.delete(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         alert("deleted " + path);
@@ -442,7 +442,7 @@ function doRMDir(serviceId, dir) {
         showFileList(serviceId, currentPath, fileMode);
     };
 
-    dConnect.delete(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         alert("rmdir " + dir);
         oncomplete();
@@ -555,7 +555,7 @@ function doImageShow(serviceId, path) {
     
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 
         json.uri = json.uri.replace("localhost", ip);
