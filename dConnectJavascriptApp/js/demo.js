@@ -240,5 +240,7 @@ function searchProfile(serviceId, profile) {
         showSphero(serviceId);
     } else if (profile === "canvas") {
         showCanvas(serviceId);
+    } else if (profile === "health") {
+        showHealth(serviceId);
     }
 }
