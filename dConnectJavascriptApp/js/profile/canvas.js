@@ -122,6 +122,7 @@ function showCanvasDrawImage(serviceId) {
     str += '<label>y:</label>';
     str += '<input type="text" name="y" value="0"/>';
     str += '<input type="button" name="sendButton" id="sendButton" value="Upload" onclick="doCanvasDrawImage(\'' + serviceId + '\', \'fileForm\');"/>';
+    str += '<input type="button" name="sendDeleteButton" id="sendDeleteButton" value="Delete" onclick="doDeleteCanvasDrawImage(\'' + serviceId + '\');"/>';
     
     str += '</form>';
     
@@ -177,3 +178,33 @@ function doCanvasDrawImage(serviceId, fileFormId) {
     };
     myXhr.send(myFormData);
 }
+
+
+/**
+ * 画像削除処理.
+ *
+ *  @param {String} serviceId サービスID
+ *  @param {String} fileFormId ファイルフォームID
+ */
+function doDeleteCanvasDrawImage(serviceId) {
+    closeLoading();
+    showLoading();
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile("canvas");
+    builder.setAttribute("drawimage");
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+
+    if(DEBUG) console.log("Uri:"+uri)
+    
+    dConnect.delete(uri, null, null, function(json) {
+        closeLoading();
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        closeLoading();
+        showError("DELETE canvas/drawimage", errorCode, errorMessage);
+    });
+}
+
