@@ -50,24 +50,41 @@ function init() {
     // 接続先のBASE_URIを作成
     BASE_URI = "http://" + ip + ":4035/gotapi/";
 
-    dConnect.setLaunchListener(function(version) {
-        if (DEBUG) console.log("Device Connect Manager has launched: version=" + version);
-        if(accessToken == null){
+    $(window).on("hashchange", function() {
+        if(location.hash === "#demo" && accessToken == null){
             authorization();
         }
     });
+
     dConnect.setAntiSpoofing(true);
-    dConnect.startManager();
+}
+
+/**
+ * Device Connect Managerを起動後、デモ画面に遷移する.
+ */
+function startManagerAndDemo() {
+    startManager(function(apiVersion) {
+        if (DEBUG) console.log("Manager has been available already. version=" + apiVersion);
+        location.hash = "#demo";
+        if (DEBUG) console.log("URL: " + location.href);
+    });
 }
 
 /**
  * Device Connect Managerが起動していることを確認する.
  */
 function checkDeviceConnect() {
-    var appId = ""; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
-    var success_cb = function(apiVersion) {
+    startManager(function(apiVersion) {
         alert("Device Connect API version:" + apiVersion);
-    };
+    });
+}
+
+/**
+ * Device Connect Managerが起動していることを確認する.
+ * @param onavailable すでに起動していた場合、または起動された場合に呼ばれる関数
+ */
+function startManager(onavailable) {
+    var appId = ""; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
     var error_cb = function(errorCode, errorMessage) {
         switch (errorCode) {
         case dConnect.constants.ErrorCode.ACCESS_FAILED:
@@ -89,7 +106,8 @@ function checkDeviceConnect() {
             break;
         }
     }
-    dConnect.checkDeviceConnect(success_cb, error_cb);
+    dConnect.setLaunchListener(onavailable);
+    dConnect.checkDeviceConnect(onavailable, error_cb);
 }
 
 /**
@@ -99,7 +117,7 @@ function authorization(){
     dConnect.setHost(ip);
     var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
                     "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
-                    "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas","touch");
+                    "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas", "health", "touch");
         dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
                 // Client ID
@@ -222,6 +240,8 @@ function searchProfile(serviceId, profile) {
         showSphero(serviceId);
     } else if (profile === "canvas") {
         showCanvas(serviceId);
+    } else if (profile === "health") {
+        showHealth(serviceId);
     } else if (profile === "touch") {
         showTouch(serviceId);
     }

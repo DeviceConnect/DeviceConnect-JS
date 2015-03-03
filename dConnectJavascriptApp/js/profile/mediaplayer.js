@@ -284,9 +284,7 @@ function doMediaPlayerMediaPut(serviceId, id, callback) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
-        var json = JSON.parse(responseText);
+    dConnect.put(uri, null, null, function(json) {
         if (json.result == 0) {
             setTitle("MediaPlayer");
             initListView();
@@ -316,17 +314,8 @@ function doMediaPlayerMediaGet(serviceId, id) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    var oncomplete = function(json) {
-        var seek = json.duration;
-        if (!json.duration) {
-            seek = 100;
-        }
-        doMedia(serviceId, id, seek);
-    }
-
     dConnect.get(uri, null, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
-        var json = JSON.parse(responseText);
 		var seek = json.duration;
 		if (!json.duration) {
 			seek = 100;
@@ -335,16 +324,15 @@ function doMediaPlayerMediaGet(serviceId, id) {
     		showLoading();
         	doMediaPlayerMediaPut(serviceId, id, function() {
 				doMediaPlayerPlay(serviceId, id, function() {
-			        oncomplete(json);
 			        closeLoading();
+		        	doMedia(serviceId, id, seek);
 				});
 			});
         } else {
-        oncomplete(json);
-        }
+        	doMedia(serviceId, id, seek);
+		}
     }, function(errorCode, errorMessage) {
         showError("GET media_player/media", errorCode, errorMessage);
-        oncomplete(json);
     });
 }
 
@@ -364,9 +352,7 @@ function doMediaPlayerPlay(serviceId, id, callback) {
 	var uri = builder.build();
 	if (DEBUG) console.log("Uri: " + uri);
 
-	dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-		if (DEBUG) console.log("Response: " + responseText);
-		var json = JSON.parse(responseText);
+	dConnect.put(uri, null, null, function(json) {
 		if (json.result == 0) {
 
 		} else {
@@ -562,9 +548,7 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
-        var json = JSON.parse(responseText);
+    dConnect.get(uri, null, null, function(json) {
         if (json.result == 0) {
             var status = json.mute ? 1 : 0;
             $('#mediaPlayerMuteStatus').prop('selectedIndex', status);
