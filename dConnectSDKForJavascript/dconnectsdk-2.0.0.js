@@ -1601,7 +1601,7 @@ var dConnect = (function(parent, global) {
             if (json.supports) {
               for (var i = 0; i < json.supports.length; i++) {
                 if (json.supports[i] === profileName) {
-                  result.services.push(devices[i]);
+                  result.services.push(devices[count]);
                   break;
                 }
               }
