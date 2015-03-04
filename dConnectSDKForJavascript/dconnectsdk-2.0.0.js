@@ -1590,40 +1590,34 @@ var dConnect = (function(parent, global) {
      *     });
      */
     var discoverDevicesFromProfile = function(profileName, accessToken, success_cb, error_cb) {
-        var count = 0;
         var result = {
             "result" : parent.constants.RESULT_OK,
             "services" : new Array()
         };
         parent.discoverDevices(accessToken, function(json) {
           var devices = json.services;
-          var func = function(json) {
-            if (json.supports) {
-              for (var i = 0; i < json.supports.length; i++) {
-                if (json.supports[i] === profileName) {
-                  result.services.push(devices[count]);
-                  break;
-                }
-              }
-            }
-            count++;
+          var func = function(count) {
             if (count == devices.length) {
               success_cb(result);
             } else {
-              dConnect.getSystemDeviceInfo(devices[count].id, accessToken, func,
-                  function(errorCode, errorMessage) {
-                    error_cb(errorCode, errorMessage);
-                  });
-            }
-          };
-          if (count == devices.length) {
-            success_cb(result);
-          } else {
-            dConnect.getSystemDeviceInfo(devices[count].id, accessToken, func,
+              dConnect.getSystemDeviceInfo(devices[count].id, accessToken, 
+                function(json) {
+                  if (json.supports) {
+                    for (var i = 0; i < json.supports.length; i++) {
+                      if (json.supports[i] === profileName) {
+                        result.services.push(devices[count]);
+                        break;
+                      }
+                    }
+                  }
+                  func(count + 1);
+                },
                 function(errorCode, errorMessage) {
                   error_cb(errorCode, errorMessage);
                 });
+            }
           }
+          func(0);
         }, error_cb);
     };
     parent.discoverDevicesFromProfile = discoverDevicesFromProfile;
@@ -1711,7 +1705,7 @@ var dConnect = (function(parent, global) {
      * dConnect.removeEventListener(uri, success_cb, error_cb);
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
-        parent.delete(uri, null, null, function(json) {
+        parent.delete(uri, null, function(json) {
             delete eventListener[uri];
             if (success_cb) {
                 success_cb();
