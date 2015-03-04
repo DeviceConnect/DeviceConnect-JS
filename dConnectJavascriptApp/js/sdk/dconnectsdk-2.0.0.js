@@ -1572,7 +1572,56 @@ var dConnect = (function(parent, global) {
         parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.discoverDevices = discoverDevices;
-   
+    /**
+     * プロファイル名からサービス一覧を取得するためのAPIを提供する。
+     * @memberOf dConnect
+     * @param {String} profileName プロファイル名
+     * @param {String} accessToken アクセストークン
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
+     *
+     * @example
+     * // サービスの検索
+     * discoverDevicesFromProfile('battery', accessToken,
+     *     function(json) {
+     *         var services = json.services;
+     *     },
+     *     function(errorCode, errorMessage) {
+     *     });
+     */
+    var discoverDevicesFromProfile = function(profileName, accessToken, success_cb, error_cb) {
+        var result = {
+            "result" : parent.constants.RESULT_OK,
+            "services" : new Array()
+        };
+        parent.discoverDevices(accessToken, function(json) {
+          var devices = json.services;
+          var func = function(count) {
+            if (count == devices.length) {
+              success_cb(result);
+            } else {
+              dConnect.getSystemDeviceInfo(devices[count].id, accessToken, 
+                function(json) {
+                  if (json.supports) {
+                    for (var i = 0; i < json.supports.length; i++) {
+                      if (json.supports[i] === profileName) {
+                        result.services.push(devices[count]);
+                        break;
+                      }
+                    }
+                  }
+                  func(count + 1);
+                },
+                function(errorCode, errorMessage) {
+                  error_cb(errorCode, errorMessage);
+                });
+            }
+          }
+          func(0);
+        }, error_cb);
+    };
+    parent.discoverDevicesFromProfile = discoverDevicesFromProfile;
+    
     /**
      * Service Information APIへの簡易アクセスを提供する。
      * @memberOf dConnect
@@ -1580,11 +1629,12 @@ var dConnect = (function(parent, global) {
      * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
      * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
      */    
-    var getSystemDeviceInfo = function(serviceId, success_cb, error_cb) {
+    var getSystemDeviceInfo = function(serviceId, accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
         builder.setServiceId(serviceId);
-        parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
+        builder.setAccessToken(accessToken);
+        parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.getSystemDeviceInfo = getSystemDeviceInfo;
 
@@ -1655,7 +1705,7 @@ var dConnect = (function(parent, global) {
      * dConnect.removeEventListener(uri, success_cb, error_cb);
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
-        parent.delete(uri, null, null, function(json) {
+        parent.delete(uri, null, function(json) {
             delete eventListener[uri];
             if (success_cb) {
                 success_cb();
