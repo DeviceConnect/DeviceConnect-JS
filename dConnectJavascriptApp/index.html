@@ -87,7 +87,30 @@
                 <input data-icon="grid" data-inline="true" data-mini="true" onclick="javascript:authorization();" type="button" value="accessToken" />
             </div>
 
-            <input data-icon="search" onclick="javascript:searchDevice();" type="button" value="Search Device" />
+            <fieldset class="ui-grid-a">
+              <div class="ui-block-a">
+                <select id="entry_profile" name="entry_profile">
+                  <option value="">-</option>
+                  <option value="battery">Battery</option>
+                  <option value="canvas">Canvas</option>
+                  <option value="connect">Connect</option>
+                  <option value="deviceorientation">DeviceOrientation</option>
+                  <option value="file">File</option>
+                  <option value="file_descriptor">File Descriptor</option>
+                  <option value="media_player">Media Player</option>
+                  <option value="mediastream_recording">MediaStream Recording</option>
+                  <option value="notification">Notification</option>
+                  <option value="phone">Phone</option>
+                  <option value="proximity">Proximity</option>
+                  <option value="settings">Settings</option>
+                  <option value="vibration">Vibration</option>
+                  <option value="health">Health</option>
+                </select>
+              </div>
+              <div class="ui-block-b">
+                <input data-icon="search" onclick="javascript:searchDevice();" type="button" value="Search Device" />
+              </div>
+           </fieldset>
         </div>
         <div id="title" data-role="header" data-theme="b"></div>
         
