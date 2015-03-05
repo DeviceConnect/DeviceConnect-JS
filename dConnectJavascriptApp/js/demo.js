@@ -28,6 +28,9 @@ var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = "";
 
+/** Manager起動待機タイマー */
+var launchTimerId;
+
 /**
  * 初期化処理.
  */
@@ -84,12 +87,16 @@ function checkDeviceConnect() {
  * @param onavailable すでに起動していた場合、または起動された場合に呼ばれる関数
  */
 function startManager(onavailable) {
+    var requested = false;
     var appId = ""; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
     var error_cb = function(errorCode, errorMessage) {
         switch (errorCode) {
         case dConnect.constants.ErrorCode.ACCESS_FAILED:
-            dConnect.startManager();
-            alert("Requested to start Device Connect Manager.");
+            if (!requested) {
+                requested = true;
+                dConnect.startManager();
+                alert("Requested to start Device Connect Manager.");
+            }
             
             var userAgent = navigator.userAgent.toLowerCase();
             if (userAgent.search(/iphone|ipad|ipod/) > -1) {
@@ -106,8 +113,18 @@ function startManager(onavailable) {
             break;
         }
     }
-    dConnect.setLaunchListener(onavailable);
-    dConnect.checkDeviceConnect(onavailable, error_cb);
+    var success_cb = function(apiVersion) {
+        clearInterval(launchTimerId);
+        launchTimerId = undefined;
+        onavailable(apiVersion);
+    }
+
+    if (launchTimerId) {
+        clearInterval(launchTimerId);
+    }
+    launchTimerId = setInterval(function() {
+        dConnect.checkDeviceConnect(success_cb, error_cb);
+    }, 500);
 }
 
 /**
