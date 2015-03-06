@@ -660,6 +660,41 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Key Eventプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        keyevent : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "keyevent",
+
+            // Attribute
+            /** アトリビュート: ondown */
+            ATTR_ON_DOWN : "ondown",
+            /** アトリビュート: onup */
+            ATTR_ON_UP : "onup",
+
+            // Parameter
+            /** パラメータ: keyevent */
+            PARAM_KEY_EVENT : "keyevent",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: config */
+            PARAM_CONFIG : "config",
+
+            // Key Types
+            /** キータイプ: Standard Keyboard */
+            KEYTYPE_STD_KEY : 0,
+            /** キータイプ: Media Control */
+            KEYTYPE_MEDIA_CTRL: 512,
+            /** キータイプ:  Directional Pad / Button */
+            KEYTYPE_DPAD_BUTTON : 1024,
+            /** キータイプ: User defined */
+            KEYTYPE_USER : 32768
+        },
+
+        /**
          * Media Playerプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
@@ -1171,6 +1206,43 @@ var dConnect = (function(parent, global) {
             PARAM_PLUGINS : "plugins",
             /** パラメータ: pluginId */
             PARAM_PLUGIN_ID : "pluginId",
+        },
+
+        /**
+         * Touchプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        touch : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "touch",
+
+            // Attribute
+            /** アトリビュート: ontouch */
+            ATTR_ON_TOUCH : "ontouch",
+            /** アトリビュート: ontouchstart */
+            ATTR_ON_TOUCH_START : "ontouchstart",
+            /** アトリビュート: ontouchend */
+            ATTR_ON_TOUCH_END : "ontouchend",
+            /** アトリビュート: ontouchmove */
+            ATTR_ON_TOUCH_MOVE : "ontouchmove",
+            /** アトリビュート: ontouchcancel */
+            ATTR_ON_TOUCH_CANCEL : "ontouchcancel",
+            /** アトリビュート: ondoubletap */
+            ATTR_ON_DOUBLE_TAP : "ondoubletap",
+
+            // Parameter
+            /** パラメータ: touch */
+            PARAM_TOUCH : "touch",
+            /** パラメータ: touches */
+            PARAM_TOUCHES : "touches",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: x */
+            PARAM_X : "x",
+            /** パラメータ: y */
+            PARAM_Y : "y"
         },
 
         /**
