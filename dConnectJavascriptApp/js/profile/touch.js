@@ -418,7 +418,7 @@ function showOnDoubleTap(serviceId){
     var str = "";
     str += '<form name="doubletapForm">';
     str += 'DoubleTap<br>';
-    str += '<input type="button" name="getButton" id="getButton" value="Get" onclick="doGetOnDoubeTap(\'' + serviceId + '\');"/>';
+    str += '<input type="button" name="getButton" id="getButton" value="Get" onclick="doGetOnDoubleTap(\'' + serviceId + '\');"/>';
     str += '<input type="text" id="idD0" width="100%">';
     str += '<input type="text" id="idD1" width="100%">';
     str += '<input type="text" id="idD2" width="100%">';
