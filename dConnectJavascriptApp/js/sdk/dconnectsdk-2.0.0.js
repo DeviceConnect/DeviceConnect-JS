@@ -78,6 +78,27 @@ var dConnect = (function(parent, global) {
     var isReconnecting = false;
 
     /**
+     * HMACによるサーバ認証を行うかどうかのフラグ.
+     */
+    var _isEnabledAntiSpoofing = false;
+
+    /**
+     * アプリケーションからサーバの起動要求を送信したかどうかのフラグ.
+     */
+    var _isStartedManager = false;
+
+    /**
+     * Device Connect Managerの起動通知を受信するリスナー.
+     */
+    var _launchListener = function() {};
+
+    /**
+     * 現在設定されているHMAC生成キー.
+     * 空文字の場合はレスポンスのHMACを検証しない.
+     */
+    var _currentHmacKey = "";
+
+    /**
      * Signature生成処理種別 (SHA512)
      * @type {String}
      */
@@ -87,6 +108,16 @@ var dConnect = (function(parent, global) {
      * @type {String}
      */
     var AUTHORIZATION_CODE = "authorization_code";
+
+    /**
+     * Device Connect Managerへ送信するリクエストのnonceの長さ. 単位はバイト.
+     */
+    var NONCE_BYTES = 16;
+
+    /**
+     * Device Connect Managerへ送信するHMAC生成キーの長さ. 単位はバイト.
+     */
+    var HMAC_KEY_BYTES = 16;
 
     /**
      * Signature生成処理 (SHA512).
@@ -156,13 +187,12 @@ var dConnect = (function(parent, global) {
          * アクセストークン発行リクエスト用のSignatureを生成する.
          * @memberOf dConnect.oauth
          * @param {String} clientId クライアントID
-         * @param {String} grantType グラントタイプ(AUTHORIZATION_CODEを指定する)
          * @param {String} serviceId サービスID(UIアプリの場合はnullまたは""(空の文字列)を設定する)
          * @param {String} scopes スコープ(カンマ区切りで複数指定可能。(例)"bivration,file,notification")
          * @param {String} clientSecret クライアントシークレット
          * @return {String} 生成したSignature
          */
-        generateSignatureForAccessTokenRequest : function(clientId, grantType, serviceId, scopes, clientSecret) {
+        generateSignatureForAccessTokenRequest : function(clientId, serviceId, scopes, clientSecret) {
             var inputMaps = [];
             inputMaps.push({
                 key : "clientId",
@@ -170,7 +200,7 @@ var dConnect = (function(parent, global) {
             });
             inputMaps.push({
                 key : "grantType",
-                value : grantType
+                value : AUTHORIZATION_CODE
             });
             if (serviceId != null && serviceId != "") {
                 inputMaps.push({
@@ -270,6 +300,8 @@ var dConnect = (function(parent, global) {
         ErrorCode : {
             /** エラーコード: Device Connectへのアクセスに失敗した. */
             ACCESS_FAILED : -1,
+            /** エラーコード: 不正なサーバからのレスポンスを受信した. */
+            INVALID_SERVER : -2,
             /** エラーコード: 原因不明のエラー. */
             UNKNOWN : 1,
             /** エラーコード: サポートされていないプロファイルにアクセスされた. */
@@ -349,20 +381,16 @@ var dConnect = (function(parent, global) {
             PROFILE_NAME : 'authorization',
 
             // Atttribute
-            /** アトリビュート: create_client。*/
-            ATTR_CREATE_CLIENT : 'create_client',
-            /** アトリビュート: request_accesstoken。 */
-            ATTR_REQUEST_ACCESS_TOKEN : 'request_accesstoken',
+            /** アトリビュート: grant。*/
+            ATTR_GRANT : 'grant',
+            /** アトリビュート: accesstoken。 */
+            ATTR_ACCESS_TOKEN : 'accesstoken',
 
             // Parameter
-            /** パラメータ: package。 */
-            PARAM_PACKAGE : 'package',
             /** パラメータ: clientId。 */
             PARAM_CLIENT_ID : 'clientId',
             /** パラメータ: clientSecret。 */
             PARAM_CLIENT_SECRET : 'clientSecret',
-            /** パラメータ: grantType。 */
-            PARAM_GRANT_TYPE : 'grantType',
             /** パラメータ: scope。 */
             PARAM_SCOPE : "scope",
             /** パラメータ: scopes。 */
@@ -624,6 +652,41 @@ var dConnect = (function(parent, global) {
             PARAM_UPDATE_DATE : "updateDate",
             /** パラメータ: files */
             PARAM_FILES : "files",
+        },
+
+        /**
+         * Key Eventプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        keyevent : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "keyevent",
+
+            // Attribute
+            /** アトリビュート: ondown */
+            ATTR_ON_DOWN : "ondown",
+            /** アトリビュート: onup */
+            ATTR_ON_UP : "onup",
+
+            // Parameter
+            /** パラメータ: keyevent */
+            PARAM_KEY_EVENT : "keyevent",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: config */
+            PARAM_CONFIG : "config",
+
+            // Key Types
+            /** キータイプ: Standard Keyboard */
+            KEYTYPE_STD_KEY : 0,
+            /** キータイプ: Media Control */
+            KEYTYPE_MEDIA_CTRL: 512,
+            /** キータイプ:  Directional Pad / Button */
+            KEYTYPE_DPAD_BUTTON : 1024,
+            /** キータイプ: User defined */
+            KEYTYPE_USER : 32768
         },
 
         /**
@@ -1141,6 +1204,43 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Touchプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        touch : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "touch",
+
+            // Attribute
+            /** アトリビュート: ontouch */
+            ATTR_ON_TOUCH : "ontouch",
+            /** アトリビュート: ontouchstart */
+            ATTR_ON_TOUCH_START : "ontouchstart",
+            /** アトリビュート: ontouchend */
+            ATTR_ON_TOUCH_END : "ontouchend",
+            /** アトリビュート: ontouchmove */
+            ATTR_ON_TOUCH_MOVE : "ontouchmove",
+            /** アトリビュート: ontouchcancel */
+            ATTR_ON_TOUCH_CANCEL : "ontouchcancel",
+            /** アトリビュート: ondoubletap */
+            ATTR_ON_DOUBLE_TAP : "ondoubletap",
+
+            // Parameter
+            /** パラメータ: touch */
+            PARAM_TOUCH : "touch",
+            /** パラメータ: touches */
+            PARAM_TOUCHES : "touches",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: x */
+            PARAM_X : "x",
+            /** パラメータ: y */
+            PARAM_Y : "y"
+        },
+
+        /**
          * Vibrationプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
@@ -1183,10 +1283,10 @@ var dConnect = (function(parent, global) {
             PARAM_Y : "y",
             /** パラメータ: mode */
             PARAM_MODE : "mode",
-            
+           
             /** モードフラグ：スケールモード */
             MODE_SCALES : "scales",
-            
+           
             /** モードフラグ：フィルモード */
             MODE_FILLS : "fills",
         },
@@ -1209,7 +1309,257 @@ var dConnect = (function(parent, global) {
      */
 
     /**
+     * ランダムな16進文字列を生成する.
+     * @private
+     * @param byteSize 生成する文字列の長さ
+     * @return ランダムな16進文字列
+     */
+    var generateRandom = function(byteSize) {
+        var min = 0;   // 0x00
+        var max = 255; // 0xff
+        var bytes = [];
+
+        for (var i = 0; i < byteSize; i++) {
+            var random =  (Math.floor(Math.random() * (max - min + 1)) + min).toString(16);
+            if (random.length < 2) {
+                random = "0" + random;
+           }
+           bytes[i] = random.toString(16);
+        }
+        return bytes.join("");
+    };
+
+    /**
+     * Device Connect Managerから受信したHMACを検証する.
+     * @private
+     * @param {String} nonce 使い捨て乱数
+     * @param {String} Device Connect Managerから受信したHMAC
+     * @return 指定されたHMACが正常であればtrue、そうでない場合はfalse
+     */
+    var checkHmac = function(nonce, hmac) {
+        var hmacKey = _currentHmacKey;
+        if (hmacKey === "") {
+            return true;
+        }
+        if (!hmac) {
+            return false;
+        }
+        var shaObj = new jsSHA(nonce, "HEX");
+        var expectedHmac = shaObj.getHMAC(hmacKey, "HEX", "SHA-256", "HEX");
+        return hmac === expectedHmac;
+    };
+
+    /**
+     * サーバからのレスポンス受信時にサーバの認証を行うかどうかを設定する.
+     * @memberOf dConnect
+     * @param enable サーバの認証を行う場合はtrue、そうでない場合はfalse
+     */
+    var setAntiSpoofing = function(enable) {
+        _isEnabledAntiSpoofing = enable;
+    };
+    parent.setAntiSpoofing = setAntiSpoofing;
+
+    /**
+     * サーバからのレスポンス受信時にサーバの認証を行うかどうかのフラグを取得する.
+     * @memberOf dConnect
+     * @return サーバの認証を行う場合はtrue、そうでない場合はfalse
+     */
+    var isEnabledAntiSpoofing = function() {
+        return _isEnabledAntiSpoofing;
+    };
+    parent.isEnabledAntiSpoofing = isEnabledAntiSpoofing;
+
+    /**
+     * Device Connect Managerの起動通知を受信するリスナーを設定する.
+     * <p>
+     * 注意: Device Connect Managerの起動はアプリケーションの表示状態が非表示から表示へ
+     * 遷移したタイミングで確認される.
+     * </p>
+     * @memberOf dConnect
+     * @param listener リスナー
+     */
+    var setLaunchListener = function(listener) {
+        listener = listener || function() {};
+        _launchListener = listener;
+    }
+    parent.setLaunchListener = setLaunchListener;
+
+    /**
+     * Android端末上でDevice Connect Managerを起動する.
+     * <p>
+     * 注意: 起動に成功した場合、起動用Intentを受信するためのActivity起動する.
+     * つまり、このときWebブラウザがバックグラウンドに移動するので注意.
+     * そのActivityの消えるタイミング(自動的に消えるか、もしくはユーザー操作で消すのか)は
+     * Activityの実装依存とする.
+     * </p>
+     * @private
+     */
+    var startManagerForAndroid = function() {
+        _currentHmacKey = isEnabledAntiSpoofing() ? generateRandom(HMAC_KEY_BYTES) : "";
+        var urlScheme = new AndroidURISchemeBuilder();
+        urlScheme.setPath("start");
+        urlScheme.addParameter("package", "org.deviceconnect.android.manager");
+        urlScheme.addParameter("S.origin", encodeURIComponent(location.origin));
+        urlScheme.addParameter("S.key", _currentHmacKey);
+        location.href = urlScheme.build();
+    };
+
+    /**
+     * iOS端末上でDevice Connect Managerを起動する.
+     * @private
+     */
+    var startManagerForIOS = function() {
+        var div = document.createElement("div");
+        div.setAttribute("style", "width: 0; height: 0; overflow: hidden");
+        document.body.appendChild(div);
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("id", "launch_frame");
+        iframe.setAttribute("name", "launch_frame");
+        div.appendChild(iframe);
+        launch_frame.location.href = "dconnect:" + encodeURIComponent(window.location.href);
+        setTimeout(function() {
+            var frame = document.getElementById("launch_frame");
+            frame.parentNode.removeChild(frame);
+        }, 500);
+    };
+
+    /**
+     * Device Connect Managerを起動する.
+     * @memberOf dConnect
+     */
+    var startManager = function() {
+        var userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf("android") > -1) {
+            startManagerForAndroid();
+        } else if (userAgent.search(/iphone|ipad|ipod/) > -1) {
+            startManagerForIOS();
+        }
+    };
+    parent.startManager = startManager;
+
+    /**
+     * 指定されたURIにリクエストパラメータを追加する.
+     * @private
+     * @param uri URI
+     * @param key URIに追加するパラメータのキー
+     * @param value URIに追加するパラメータの値
+     * @return リクエストパラメータを追加されたURI文字列
+     */
+    var addRequestParameter = function(uri, key, value) {
+        var array = uri.split("?");
+        var sep = (array.length == 2) ? "&" : "?";
+        uri += sep + key + "=" + value;
+        return uri;
+    };
+
+    /**
+     * Device Connect RESTful APIを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} method メソッド
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    var sendRequest = function(method, uri, header, data, success, error) {
+        success = success || function() {};
+        error = error || function() {};
+
+        var hmacKey = _currentHmacKey;
+        var nonce = hmacKey !== "" ? generateRandom(NONCE_BYTES) : null;
+        if (nonce !== null) {
+            uri = addRequestParameter(uri, "nonce", nonce);
+        }
+        var httpSuccess = function(status, headers, responseText) {
+            var json = JSON.parse(responseText);
+            // HMACの検証
+            if (hmacKey !== "" && !checkHmac(nonce, json.hmac)) {
+                error(parent.constants.ErrorCode.INVALID_SERVER, "The response was received from the invalid server.");
+                return;
+            }
+            if (json.result === parent.constants.RESULT_OK) {
+                success(json);
+            } else {
+                error(json.errorCode, json.errorMessage);
+            }
+        };
+        var httpError = function(readyState, status) {
+            error(parent.constants.ErrorCode.ACCESS_FAILED, "Failed to access to the server.");
+        };
+
+        parent.execute(method, uri, header, data, httpSuccess, httpError);
+    }
+    parent.sendRequest = sendRequest;
+
+    /**
+     * Device Connect RESTful APIのGETメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.get = function(uri, header, success, error) {
+        sendRequest('GET', uri, header, null, success, error);
+    };
+
+    /**
+     * Device Connect RESTful APIのPUTメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.put = function(uri, header, data, success, error) {
+        sendRequest('PUT', uri, header, data, success, error);
+    };
+
+    /**
+     * Device Connect RESTful APIのPOSTメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {} data コンテンツデータ
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.post = function(uri, header, data, success, error) {
+        sendRequest('POST', uri, header, data, success, error);
+    };
+
+    /**
+     * Device Connect RESTful APIのDELETEメソッドを実行する.
+     * <p>
+     + レスポンスの受信に成功した場合でも、サーバの認証に失敗した場合はエラーコールバックを実行する.
+     * </p>
+     * @memberOf dConnect
+     * @param {String} uri URI
+     * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
+     * @param {Function} success 成功時コールバック
+     * @param {Function} error 失敗時コールバック
+     */
+    parent.delete = function(uri, header, success, error) {
+        sendRequest('DELETE', uri, header, null, success, error);
+    };
+
+    /**
      * REST API呼び出し.
+     * @see {@link sendRequest}
      * @memberOf dConnect
      * @param {String} method HTTPメソッド
      * @param {String} uri URI
@@ -1240,7 +1590,7 @@ var dConnect = (function(parent, global) {
             // DONE: 一連の動作が完了した。
             else if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    if ( typeof success_cb === "function") {
+                    if (typeof success_cb === "function") {
                         var headerMap = {};
                         var headerArr = xhr.getAllResponseHeaders().split('\r\n');
                         for (var key in headerArr) {
@@ -1270,26 +1620,26 @@ var dConnect = (function(parent, global) {
      * Service Discovery APIへの簡易アクセスを提供する。
      * @memberOf dConnect
      * @param {String} accessToken アクセストークン
-     * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
-     * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
      *
      * @example
      * // デバイスの検索
-     * dConnect.discoverDevices(accessToekn,
-     *     function(status, headerMap, responseText) {
-     *         var json = JSON.parse(responseText);
+     * dConnect.discoverDevices(accessToken,
+     *     function(json) {
+     *         var devices = json.services;
      *     },
-     *     function(readyState, status) {
+     *     function(errorCode, errorMessage) {
      *     });
      */
     var discoverDevices = function(accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
-                builder.setAccessToken(accessToken);
-        parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
+        builder.setAccessToken(accessToken);
+        parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.discoverDevices = discoverDevices;
-    
+   
     /**
      * Service Information APIへの簡易アクセスを提供する。
      * @memberOf dConnect
@@ -1308,13 +1658,13 @@ var dConnect = (function(parent, global) {
     /**
      * System APIへの簡易アクセスを提供する。
      * @memberOf dConnect
-     * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
-     * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
      */
     var getSystemInfo = function(success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.system.PROFILE_NAME);
-        parent.execute('GET', builder.build(), null, null, success_cb, error_cb);
+        parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.getSystemInfo = getSystemInfo;
 
@@ -1322,27 +1672,16 @@ var dConnect = (function(parent, global) {
      * Device Connect Managerが起動しているチェックする。そもそもインストールされていなければ、インストール
      * 画面へと進ませる。
      * @memberOf dConnect
-     * @param {function} success_cb 成功時コールバック。
-     * @param {function} error_cb 失敗時コールバック。
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
      */
     var checkDeviceConnect = function(success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.availability.PROFILE_NAME);
-        parent.execute('GET', builder.build(), null, null, function(status, headers, data) {
-            if (status === 200) {
-                var obj = JSON.parse(data);
-                if (obj.result == parent.constants.RESULT_OK) {
-                    // localhost:4035でGotAPIが利用可能
-                    success_cb(obj.version);
-                } else {
-                    // localhost:4035にサーバが起動しているがGotAPIではない何かが起動
-                    error_cb(status, "Device Connect was not found; it seems another server is running instead.");
-                }
-            }
-        },
-        function(readyState, status) {
-            error_cb(status, "HTTP Error " + status);
-        });
+        parent.sendRequest('GET', builder.build(), null, null, function(json) {
+            // localhost:4035でGotAPIが利用可能
+            success_cb(json.version);
+        }, error_cb);
     };
     parent.checkDeviceConnect = checkDeviceConnect;
 
@@ -1350,9 +1689,9 @@ var dConnect = (function(parent, global) {
      * 指定されたDevice Connect Event APIにイベントリスナーを登録する。
      * @memberOf dConnect
      * @param {String} uri 特定のDevice Connect Event APIを表すURI（必要なパラメータはURLパラメータとして埋め込まれている）
-     * @param {function} event_cb 登録したいイベント受領用コールバック。
-     * @param {function] success_cb イベント登録成功コールバック
-     * @param {function] error_cb イベント登録失敗コールバック
+     * @param {Function} event_cb 登録したいイベント受領用コールバック。
+     * @param {Function] success_cb イベント登録成功コールバック
+     * @param {Function] error_cb イベント登録失敗コールバック
      *
      * @example
      * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
@@ -1362,23 +1701,12 @@ var dConnect = (function(parent, global) {
         if (typeof event_cb != "function") {
             throw new TypeError("2nd argument must be a function for callback.");
         }
-        parent.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-            var json = JSON.parse(responseText);
-            if (json.result == parent.constants.RESULT_OK) {
-                eventListener[uri] = event_cb;
-                if (success_cb) {
-                    success_cb();
-                }
-            } else {
-                if (error_cb) {
-                    error_cb(json.errorCode, json.errorMessage);
-                }
+        parent.put(uri, null, null, function(json) {
+            eventListener[uri] = event_cb;
+            if (success_cb) {
+                success_cb();
             }
-        }, function(readyState, status) {
-            if (error_cb) {
-                error_cb(parent.constants.ErrorCode.ACCESS_FAILED, "Failed to send request to Device Connect Manager; HTTP " + status);
-            }
-        });
+        }, error_cb);
     };
     parent.addEventListener = addEventListener;
 
@@ -1386,38 +1714,26 @@ var dConnect = (function(parent, global) {
      * 指定されたDevice Connect Event APIからイベントリスナーを削除する。
      * @memberOf dConnect
      * @param {String} uri 特定のDevice Connect Event APIを表すURI（必要なパラメータはURLパラメータとして埋め込まれている）
-     * @param {function] success_cb イベント登録解除成功コールバック
-     * @param {function] error_cb イベント登録解除失敗コールバック
+     * @param {Function] success_cb イベント登録解除成功コールバック
+     * @param {Function] error_cb イベント登録解除失敗コールバック
      *
      * @example
      * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
      * dConnect.removeEventListener(uri, success_cb, error_cb);
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
-        parent.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-            var json = JSON.parse(responseText);
-            if (json.result == parent.constants.RESULT_OK) {
-                delete eventListener[uri];
-                if (success_cb) {
-                    success_cb();
-                }
-            } else {
-                if (error_cb) {
-                    error_cb(json.errorCode, json.errorMessage);
-                }
+        parent.delete(uri, null, null, function(json) {
+            delete eventListener[uri];
+            if (success_cb) {
+                success_cb();
             }
-        }, function(readyState, status) {
-            if (error_cb) {
-                error_cb(parent.constants.ErrorCode.ACCESS_FAILED, "Failed to send request to Device Connect Manager; HTTP " + status);
-            }
-        });
+        }, error_cb);
     };
     parent.removeEventListener = removeEventListener;
 
     /**
      * dConnectManagnerに認可を求める.
      * @memberOf dConnect
-     * @param packageName アプリを識別するためのURI
      * @param scopes 使用するスコープの配列
      * @param applicationName アプリ名
      * @param success_cb 成功時のコールバック
@@ -1427,7 +1743,7 @@ var dConnect = (function(parent, global) {
      * // アクセスするプロファイル一覧を定義
      * var scopes = Array('servicediscovery', 'sysytem', 'battery');
      * // 認可を実行
-     * dConnect.authorization('http://hogehoge.com/index.html', scopes, 'サンプル',
+     * dConnect.authorization(scopes, 'サンプル',
      *     function(clientId, clientSecret, accessToken) {
      *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
      *     },
@@ -1435,8 +1751,8 @@ var dConnect = (function(parent, global) {
      *         alert("Failed to get accessToken.");
      *     });
      */
-    var authorization = function(packageName, scopes, applicationName, success_cb, error_cb) {
-        parent.createClient(packageName, function(clientId, clientSecret) {
+    var authorization = function(scopes, applicationName, success_cb, error_cb) {
+        parent.createClient(function(clientId, clientSecret) {
             parent.requestAccessToken(clientId, clientSecret, scopes, applicationName, function(accessToken) {
                 if (success_cb) {
                     success_cb(clientId, clientSecret, accessToken);
@@ -1449,12 +1765,11 @@ var dConnect = (function(parent, global) {
     /**
      * クライアントを作成する.
      * @memberOf dConnect
-     * @param pakcageName ヘージを識別するための名前
      * @param success_cb クライアント作成に成功した場合のコールバック
      * @param error_cb クライアント作成に失敗した場合のコールバック
      *
      * @example
-     * dConnect.createClient(packageName,
+     * dConnect.createClient(
      *     function(clientId, clientSecret) {
      *         // clientId, clientSecretを保存して、アクセストークンの取得に使用する
      *     },
@@ -1462,29 +1777,17 @@ var dConnect = (function(parent, global) {
      *     }
      * );
      */
-    var createClient = function(packageName, success_cb, error_cb) {
+    var createClient = function(success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.authorization.PROFILE_NAME);
-        builder.setAttribute(parent.constants.authorization.ATTR_CREATE_CLIENT);
-        builder.addParameter(parent.constants.authorization.PARAM_PACKAGE, packageName);
-        parent.execute('GET', builder.build(), null, null, function(status, headerMap, responseText) {
-            var json = JSON.parse(responseText);
-            if (json.result == parent.constants.RESULT_OK) {
-                var clientId = json.clientId;
-                var clientSecret = json.clientSecret;
-                if (success_cb) {
-                    success_cb(clientId, clientSecret);
-                }
-            } else {
-                var errorCode = json.errorCode;
-                var errorMessage = json.errorMessage;
-                if (error_cb) {
-                    error_cb(errorCode, errorMessage);
-                }
+        builder.setAttribute(parent.constants.authorization.ATTR_GRANT);
+        parent.sendRequest('GET', builder.build(), null, null, function(json) {
+            if (success_cb) {
+                success_cb(json.clientId, json.clientSecret);
             }
-        }, function(xhr, textStatus, errorThrown) {
+        }, function(errorCode, errorMessage) {
             if (error_cb) {
-                error_cb(0, "Failed to create client.");
+                error_cb(errorCode, "Failed to create client.");
             }
         });
     };
@@ -1511,33 +1814,23 @@ var dConnect = (function(parent, global) {
      */
     var requestAccessToken = function(clientId, clientSecret, scopes, applicatonName, success_cb, error_cb) {
         // パラメータ作成
-        var sig = dConnect.oauth.generateSignatureForAccessTokenRequest(clientId, AUTHORIZATION_CODE, undefined, scopes, clientSecret);
+        var sig = dConnect.oauth.generateSignatureForAccessTokenRequest(clientId, undefined, scopes, clientSecret);
         // uri作成
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.authorization.PROFILE_NAME);
-        builder.setAttribute(parent.constants.authorization.ATTR_REQUEST_ACCESS_TOKEN);
+        builder.setAttribute(parent.constants.authorization.ATTR_ACCESS_TOKEN);
         builder.addParameter(parent.constants.authorization.PARAM_CLIENT_ID, clientId);
-        builder.addParameter(parent.constants.authorization.PARAM_GRANT_TYPE, AUTHORIZATION_CODE);
         builder.addParameter(parent.constants.authorization.PARAM_SCOPE, parent.combineScope(scopes));
         builder.addParameter(parent.constants.authorization.PARAM_SIGNATURE, sig);
         builder.addParameter(parent.constants.authorization.PARAM_APPLICATION_NAME, applicatonName);
-        parent.execute('GET', builder.build(), null, null, function(status, headerMap, responseText) {
-            var json = JSON.parse(responseText);
-            if (json.result == parent.constants.RESULT_OK) {
-                webAppAccessToken = json.accessToken;
-                if (success_cb) {
-                    success_cb(webAppAccessToken);
-                }
-            } else {
-                var errorCode = json.errorCode;
-                var errorMessage = json.errorMessage;
-                if (error_cb) {
-                    error_cb(errorCode, errorMessage);
-                }
+        parent.sendRequest('GET', builder.build(), null, null, function(json) {
+            webAppAccessToken = json.accessToken;
+            if (success_cb) {
+                success_cb(webAppAccessToken);
             }
-        }, function(xhr, textStatus, errorThrown) {
+        }, function(errorCode, errorMessage) {
             if (error_cb) {
-                error_cb(0, "Failed to get access token.");
+                error_cb(errorCode, "Failed to get access token.");
             }
         });
     };
@@ -1580,7 +1873,7 @@ var dConnect = (function(parent, global) {
      * デフォルト設定ではSSLは使用しない。
      * </p>
      * @memberOf dConnect
-     * @return enabled SSLを使用する場合はtrue、使用しない場合はfalse
+     * @return SSLを使用する場合はtrue、使用しない場合はfalse
      */
     var isSSLEnabled = function() {
         return sslEnabled;
@@ -1645,7 +1938,7 @@ var dConnect = (function(parent, global) {
             clearTimeout(reconnectingTimerId);
             forcedClose = false;
             isReconnecting = false;
-            
+           
             // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
             websocket.send('{"sessionKey":"' + sessionKey + '"}');
             if (cb) {
@@ -1714,6 +2007,63 @@ var dConnect = (function(parent, global) {
         return websocket != undefined && forcedClose == false;
     }
     parent.isConnectedWebSocket = isConnectedWebSocket;
+
+    /**
+     * カスタムURIスキームを作成するための抽象的なユーティリティクラス.
+     * @private
+     * @class
+     */
+    var AndroidURISchemeBuilder = function() {
+        this.scheme = "dconnect";
+        this.path = "";
+        this.params = {};
+    };
+
+    /**
+     * URIスキームのスキーム名を設定する.
+     * @private
+     * @return {URISchemeBuilder} 自分自身のインスタンス
+     */
+    AndroidURISchemeBuilder.prototype.setScheme = function(scheme) {
+        this.scheme = scheme;
+        return this;
+    };
+
+    /**
+     * URIスキームのパスを設定する.
+     * @private
+     * @return {URISchemeBuilder} 自分自身のインスタンス
+     */
+    AndroidURISchemeBuilder.prototype.setPath = function(path) {
+        this.path = path;
+        return this;
+    };
+
+    /**
+     * URIスキームにパラメータを追加する.
+     * @private
+     * @param key パラメータキー
+     * @param value パラメータ値
+     * @return {URISchemeBuilder} 自分自身のインスタンス
+     */
+    AndroidURISchemeBuilder.prototype.addParameter = function(key, value) {
+        this.params[key] = value;
+        return this;
+    };
+
+    /**
+     * URIスキームを作成する.
+     * @private
+     * @return {String} URIスキームの文字列表現
+     */
+    AndroidURISchemeBuilder.prototype.build = function() {
+        var urlScheme = "intent://" + this.path + "/#Intent;scheme=" + this.scheme + ";";
+        for (var key in this.params) {
+            urlScheme += key + "=" + this.params[key] + ";";
+        }
+        urlScheme += "end";
+        return urlScheme;
+    };
 
     /**
      * URIを作成するためのユーティリティクラス。
@@ -1871,7 +2221,7 @@ var dConnect = (function(parent, global) {
 
     /**
      * インターフェース名を設定する。
-     * 
+     *
      * @param {String} inter インターフェース名
      * @return {URIBuilder} 自分自身のインスタンス
      */
@@ -1991,6 +2341,19 @@ var dConnect = (function(parent, global) {
 
     document.addEventListener("DOMContentLoaded", function(event) {
         // parent.checkDConnect();
+    });
+
+    document.addEventListener("visibilitychange", function(event) {
+        if (!document.hidden) {
+            if (!_isStartedManager) {
+                parent.checkDeviceConnect(function(version) {
+                    _isStartedManager = true;
+                    _launchListener(version);
+                }, function(errorCode, errorMessage) {
+                    _isStartedManager = false;
+                });
+            }
+        }
     });
 
     return parent;

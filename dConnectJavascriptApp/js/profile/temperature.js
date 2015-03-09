@@ -32,30 +32,19 @@ function showTemperature(serviceId) {
 	closeLoading();
     showLoading();
 	
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
 
-        if (json.result == 0) {
-        	closeLoading();
-        	
-        	var temp = json.temperature * 100;
-			temp = Math.round(temp) / 100;
-  			
-  			var str = "";
-  			str += "<center><h1>" + temp + "<h1></center>";
-  			reloadContent(str); 
-  
-        } else {
-			closeLoading();
-			
-			showError("GET temperature", json);
-        }
+        closeLoading();
+        var temp = json.temperature * 100;
+        temp = Math.round(temp) / 100;
 
-    }, function(xhr, textStatus, errorThrown) {
-
+        var str = "";
+        str += "<center><h1>" + temp + "<h1></center>";
+        reloadContent(str); 
+    }, function(errorCode, errorMessage) {
+        closeLoading();
+        showError("GET temperature", errorCode, errorMessage);
     });
 }
 

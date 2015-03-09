@@ -28,6 +28,9 @@ var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = "";
 
+/** Manager起動待機タイマー */
+var launchTimerId;
+
 /**
  * 初期化処理.
  */
@@ -50,58 +53,78 @@ function init() {
     // 接続先のBASE_URIを作成
     BASE_URI = "http://" + ip + ":4035/gotapi/";
 
-    if(accessToken == null){
-        authorization();
-    }
+    $(window).on("hashchange", function() {
+        if(location.hash === "#demo" && accessToken == null){
+            authorization();
+        }
+    });
+
+    dConnect.setAntiSpoofing(true);
+}
+
+/**
+ * Device Connect Managerを起動後、デモ画面に遷移する.
+ */
+function startManagerAndDemo() {
+    startManager(function(apiVersion) {
+        if (DEBUG) console.log("Manager has been available already. version=" + apiVersion);
+        location.hash = "#demo";
+        if (DEBUG) console.log("URL: " + location.href);
+    });
 }
 
 /**
  * Device Connect Managerが起動していることを確認する.
  */
 function checkDeviceConnect() {
-    var redirectURL = window.location.href;
-    var appId = ""; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
-    var success_cb = function(apiVersion) {
+    startManager(function(apiVersion) {
         alert("Device Connect API version:" + apiVersion);
-    };
-    var error_cb = function(status, errorMessage) {
-        if (status === 0 || status === 404) {
-            var userAgent = navigator.userAgent.toLowerCase();
-            // localhost:4035にはサーバが起動していない状態
-            if (userAgent.indexOf("android") > -1) {
-                // URLスキーム経由でDevice Connectを起動 (Android)
-                location.href = "intent://start/#Intent;scheme=dconnect;package=org.deviceconnect.android.manager;end";
+    });
+}
+
+/**
+ * Device Connect Managerが起動していることを確認する.
+ * @param onavailable すでに起動していた場合、または起動された場合に呼ばれる関数
+ */
+function startManager(onavailable) {
+    var requested = false;
+    var appId = ""; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
+    var error_cb = function(errorCode, errorMessage) {
+        switch (errorCode) {
+        case dConnect.constants.ErrorCode.ACCESS_FAILED:
+            if (!requested) {
+                requested = true;
+                dConnect.startManager();
+                alert("Requested to start Device Connect Manager.");
             }
-            // iOS
-            else if (userAgent.search(/iphone|ipad|ipod/) > -1) {
-                if (appId && typeof appId !== "String") {
-                    throw new TypeError("appId must be a String.");
-                }
-                // URLスキーム経由でDevice Connectを起動 (iOS)
-                var div = document.createElement("div");
-                div.setAttribute("style", "width: 0; height: 0; overflow: hidden");
-                document.body.appendChild(div);
-                var iframe = document.createElement("iframe");
-                iframe.setAttribute("id", "launch_frame");
-                iframe.setAttribute("name", "launch_frame");
-                div.appendChild(iframe);
-                if (redirectURL !== undefined) {
-                    launch_frame.location.href = "dconnect:" + encodeURIComponent(redirectURL);
-                } else {
-                    launch_frame.location.href = "dconnect:" + encodeURIComponent(window.location.href);
-                }
+            
+            var userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.search(/iphone|ipad|ipod/) > -1) {
                 setTimeout(function() {
-                    var frame = document.getElementById("launch_frame");
-                    frame.parentNode.removeChild(frame);
-                    // iTunes App StoreのDevice Connect Browserダウンロード・ページを開く
                     location.href = "itmss://itunes.apple.com/us/app/dconnect/" + appId + "?ls=1&mt=8";
                 }, 500);
             }
-        } else {
+            break;
+        case dConnect.constants.ErrorCode.INVALID_SERVER:
+            alert("WARNING: Device Connect Manager may be spoofed.");
+            break;
+        default:
             alert(errorMessage);
+            break;
         }
     }
-    dConnect.checkDeviceConnect(success_cb, error_cb);
+    var success_cb = function(apiVersion) {
+        clearInterval(launchTimerId);
+        launchTimerId = undefined;
+        onavailable(apiVersion);
+    }
+
+    if (launchTimerId) {
+        clearInterval(launchTimerId);
+    }
+    launchTimerId = setInterval(function() {
+        dConnect.checkDeviceConnect(success_cb, error_cb);
+    }, 500);
 }
 
 /**
@@ -109,10 +132,10 @@ function checkDeviceConnect() {
  */
 function authorization(){
     dConnect.setHost(ip);
-    var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
-                    "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
+    var scopes = Array("servicediscovery", "serviceinformation", "system", "battery", "connect", "deviceorientation", "file_descriptor", "file",
+                    "media_player", "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
                     "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas");
-        dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
+        dConnect.authorization(scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
                 // Client ID
                 currentClientId = clientId;
@@ -234,5 +257,7 @@ function searchProfile(serviceId, profile) {
         showSphero(serviceId);
     } else if (profile === "canvas") {
         showCanvas(serviceId);
+    } else if (profile === "health") {
+        showHealth(serviceId);
     }
 }

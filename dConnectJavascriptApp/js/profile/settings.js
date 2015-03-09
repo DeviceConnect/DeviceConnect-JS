@@ -132,21 +132,13 @@ function doSetDate(serviceId){
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-        	alert("Success: set date");
-        	doCheckDate(serviceId);
-        } else {
-			showError("PUT settings/date", json);
-        }
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-    }, function(xhr, textStatus, errorThrown) {
-        
+        alert("Success: set date");
+        doCheckDate(serviceId);
+    }, function(errorCode, errorMessage) {
+        showError("PUT settings/date", errorCode, errorMessage);
     });
     
 }
@@ -167,22 +159,19 @@ function doCheckDate(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-        	$('#deviceDate').val(json.date);
-            
-        } else {
-           showError("GET setting/date", json);
-        }
+    var oncomplete = function() {
         process_count++;
         loadingCheck(process_count);
-    }, function(xhr, textStatus, errorThrown) {
-        
+    };
+    
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    
+        $('#deviceDate').val(json.date);
+        oncomplete();
+    }, function(errorCode, errorMessage) {
+        showError("GET setting/date", errorCode, errorMessage);
+        oncomplete();
     });
 }
 
@@ -214,34 +203,33 @@ function doCheckVolume(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-        	$('#volumeAlerm').val((json.volumes[0].alerm * 100));
-            $('#volumeAlerm').slider('refresh');
-
-            $('#volumeCall').val((json.volumes[1].call * 100));
-            $('#volumeCall').slider('refresh');
-
-            $('#volumeRingtone').val((json.volumes[2].ringtone * 100));
-            $('#volumeRingtone').slider('refresh');
-
-            $('#volumeMail').val((json.volumes[3].mail * 100));
-            $('#volumeMail').slider('refresh');
-
-            $('#volumeMediaplayer').val((json.volumes[4].mediaplayer * 100));
-            $('#volumeMediaplayer').slider('refresh');
-            
-        } else {
-            showError("GET setting/volume/sound", json);
-        }
+    var oncomplete = function() {
         process_count++;
         loadingCheck(process_count);
-    }, function(xhr, textStatus, errorThrown) {
-        
+    };
+    
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+
+        $('#volumeAlerm').val((json.volumes[0].alerm * 100));
+        $('#volumeAlerm').slider('refresh');
+
+        $('#volumeCall').val((json.volumes[1].call * 100));
+        $('#volumeCall').slider('refresh');
+
+        $('#volumeRingtone').val((json.volumes[2].ringtone * 100));
+        $('#volumeRingtone').slider('refresh');
+
+        $('#volumeMail').val((json.volumes[3].mail * 100));
+        $('#volumeMail').slider('refresh');
+
+        $('#volumeMediaplayer').val((json.volumes[4].mediaplayer * 100));
+        $('#volumeMediaplayer').slider('refresh');
+
+        oncomplete();
+    }, function(errorCode, errorMessage) {
+        showError("GET setting/volume/sound", errorCode, errorMessage);
+        oncomplete();
     });
 }
 
@@ -261,22 +249,20 @@ function doCheckLight(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-		
-        if (json.result == 0) {
-        	$('#light').val((json.level * 100));
-            $('#light').slider('refresh');
-        } else {
-           showError("GET setting/display/light", json);
-        }
+    var oncomplete = function() {
         process_count++;
         loadingCheck(process_count);
-    }, function(xhr, textStatus, errorThrown) {
-        
+    };
+    
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+
+        $('#light').val((json.level * 100));
+        $('#light').slider('refresh');
+        oncomplete();
+    }, function(errorCode, errorMessage) {
+        showError("GET setting/display/light", errorCode, errorMessage);
+        oncomplete();
     });
 }
 
@@ -299,20 +285,11 @@ function doSetLight(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-		
-        if (json.result == 0) {
-        	alert("success");
-        } else {
-			showError("PUT settings/display/light", json);
-        }
-      
-    }, function(xhr, textStatus, errorThrown) {
-        
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("success");
+    }, function(errorCode, errorMessage) {
+        showError("PUT settings/display/light", errorCode, errorMessage);
     });
 }
 
@@ -335,24 +312,13 @@ function doSetSleep(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-		
-        if (json.result == 0) {
-        	alert("success");
-        } else {
-			showError("PUT settings/display/sleep", json);
-        }
-      
-    }, function(xhr, textStatus, errorThrown) {
-        
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("success");
+    }, function(errorCode, errorMessage) {
+        showError("PUT settings/display/sleep", errorCode, errorMessage);
     });
 }
-
-
 
 /** 
  * Get sleep time
@@ -371,21 +337,18 @@ function doCheckSleep(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-    
-    	if(DEBUG) console.log("Response:"+responseText)
-    	
-        var json = JSON.parse(responseText);
-		
-        if (json.result == 0) {
-        	$('#sleep').val(json.time);
-        } else {
-			showError("GET settings/volume/sound", json);
-        }
+    var oncomplete = function() {
         process_count++;
         loadingCheck(process_count);
-    }, function(xhr, textStatus, errorThrown) {
-
+    };
+    
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        $('#sleep').val(json.time);
+        oncomplete();
+    }, function(errorCode, errorMessage) {
+        showError("GET settings/volume/sound", errorCode, errorMessage);
+        oncomplete();
     });
 }
 
@@ -438,30 +401,22 @@ function doChangeSoundLevel(serviceId,type){
  */
  function doSetSoundLevel(type, serviceId, level) {
     var builder = new dConnect.URIBuilder();
-    	builder.setProfile("settings");
-    	builder.setAttribute("volume");
-    	builder.setInterface("sound");
-    	builder.setServiceId(serviceId);
-    	builder.setAccessToken(accessToken);
-		builder.addParameter("kind", type);
-		builder.addParameter("level", level);
-    	var uri = builder.build();
+    builder.setProfile("settings");
+    builder.setAttribute("volume");
+    builder.setInterface("sound");
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter("kind", type);
+    builder.addParameter("level", level);
+    var uri = builder.build();
+
+    if(DEBUG) console.log("Uri:"+uri)
     
-    	if(DEBUG) console.log("Uri:"+uri)
-    	
-		dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-		
-			if(DEBUG) console.log("Response:"+responseText)
-			
-    	    var json = JSON.parse(responseText);
-
-        	if (json.result == 0) {
-        		alert("success");
-    		} else {
-    			showError("PUT settings/volume/sound", json);
-    		}
-
-	    });
-	    
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("success");
+    }, function(errorCode, errorMessage) {
+        showError("PUT settings/volume/sound", errorCode, errorMessage);
+    });
 }
 
