@@ -344,29 +344,39 @@ function doMediaPlayerMediaGet(serviceId, id) {
   if (DEBUG) {
     console.log('Uri: ' + uri);
   }
-
-  dConnect.get(uri, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
-    }
-    var seek = json.duration;
-    if (!json.duration) {
-      seek = 100;
-    }
-    if (myDeviceName.indexOf('Chromecast') != -1) {
-      showLoading();
-      doMediaPlayerMediaPut(serviceId, id, function() {
+  if (myDeviceName.indexOf('Chromecast') != -1) {
+    showLoading();
+    doMediaPlayerMediaPut(serviceId, id, function() {
+      dConnect.get(uri, null, function(json) {
+        if (DEBUG) {
+          console.log('Response: ', json);
+        }
+        var seek = json.duration;
+        if (!json.duration) {
+          seek = 100;
+        }
         doMediaPlayerPlay(serviceId, id, function() {
           closeLoading();
           doMedia(serviceId, id, seek);
         });
+      }, function(errorCode, errorMessage) {
+        showError('GET media_player/media', errorCode, errorMessage);
       });
-    } else {
+    });
+  } else {
+    dConnect.get(uri, null, function(json) {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+      var seek = json.duration;
+      if (!json.duration) {
+        seek = 100;
+      }
       doMedia(serviceId, id, seek);
-    }
-  }, function(errorCode, errorMessage) {
-    showError('GET media_player/media', errorCode, errorMessage);
-  });
+    }, function(errorCode, errorMessage) {
+      showError('GET media_player/media', errorCode, errorMessage);
+    });
+  }
 }
 
 /**
