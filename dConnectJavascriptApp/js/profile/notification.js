@@ -22,8 +22,8 @@ function showNotification(serviceId) {
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  if (myDeviceName.indexOf('Pebble') == -1 ||
-      myDeviceName.indexOf('SmartWatch') == -1 ||
+  if (myDeviceName.indexOf('Pebble') == -1 &&
+      myDeviceName.indexOf('SmartWatch') == -1 &&
       myDeviceName.indexOf('Chromecast') == -1) {
     dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
     });
@@ -46,8 +46,8 @@ function showNotification(serviceId) {
   str += '<form action="' + uri + '" method="POST" id="notificationForm"' +
         ' name="notificationForm" enctype="multipart/form-data">';
 
-  if (myDeviceName.indexOf('Pebble') == -1 ||
-      myDeviceName.indexOf('SmartWatch') == -1 ||
+  if (myDeviceName.indexOf('Pebble') == -1 &&
+      myDeviceName.indexOf('SmartWatch') == -1 &&
       myDeviceName.indexOf('Chromecast') == -1) {
     str += makeInputText('onClick', 'click', 'click');
     str += makeInputText('onShow', 'show', 'show');
