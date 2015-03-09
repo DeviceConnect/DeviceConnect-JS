@@ -32,7 +32,7 @@ function showTemperature(serviceId) {
 	closeLoading();
     showLoading();
 	
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 
         closeLoading();

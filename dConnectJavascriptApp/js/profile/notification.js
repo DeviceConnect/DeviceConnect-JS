@@ -343,7 +343,7 @@ function notificationDel(serviceId, notificationId) {
 
     if (DEBUG) console.log("Uri:" + uri)
     
-    dConnect.delete(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);;
         reloadMenu("");
     }, function(errorCode, errorMessage) {

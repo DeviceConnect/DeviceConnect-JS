@@ -93,7 +93,7 @@ function doStopVibration(serviceId) {
     
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.delete(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
     }, function(errorCode, errorMessage) {
         showError("DELETE vibration/vibrate", errorCode, errorMessage);

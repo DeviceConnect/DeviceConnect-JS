@@ -660,6 +660,41 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Key Eventプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        keyevent : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "keyevent",
+
+            // Attribute
+            /** アトリビュート: ondown */
+            ATTR_ON_DOWN : "ondown",
+            /** アトリビュート: onup */
+            ATTR_ON_UP : "onup",
+
+            // Parameter
+            /** パラメータ: keyevent */
+            PARAM_KEY_EVENT : "keyevent",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: config */
+            PARAM_CONFIG : "config",
+
+            // Key Types
+            /** キータイプ: Standard Keyboard */
+            KEYTYPE_STD_KEY : 0,
+            /** キータイプ: Media Control */
+            KEYTYPE_MEDIA_CTRL: 512,
+            /** キータイプ:  Directional Pad / Button */
+            KEYTYPE_DPAD_BUTTON : 1024,
+            /** キータイプ: User defined */
+            KEYTYPE_USER : 32768
+        },
+
+        /**
          * Media Playerプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
@@ -1174,6 +1209,43 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Touchプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        touch : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "touch",
+
+            // Attribute
+            /** アトリビュート: ontouch */
+            ATTR_ON_TOUCH : "ontouch",
+            /** アトリビュート: ontouchstart */
+            ATTR_ON_TOUCH_START : "ontouchstart",
+            /** アトリビュート: ontouchend */
+            ATTR_ON_TOUCH_END : "ontouchend",
+            /** アトリビュート: ontouchmove */
+            ATTR_ON_TOUCH_MOVE : "ontouchmove",
+            /** アトリビュート: ontouchcancel */
+            ATTR_ON_TOUCH_CANCEL : "ontouchcancel",
+            /** アトリビュート: ondoubletap */
+            ATTR_ON_DOUBLE_TAP : "ondoubletap",
+
+            // Parameter
+            /** パラメータ: touch */
+            PARAM_TOUCH : "touch",
+            /** パラメータ: touches */
+            PARAM_TOUCHES : "touches",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: x */
+            PARAM_X : "x",
+            /** パラメータ: y */
+            PARAM_Y : "y"
+        },
+
+        /**
          * Vibrationプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
@@ -1436,12 +1508,11 @@ var dConnect = (function(parent, global) {
      * @memberOf dConnect
      * @param {String} uri URI
      * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
-     * @param {} data コンテンツデータ
      * @param {Function} success 成功時コールバック
      * @param {Function} error 失敗時コールバック
      */
-    parent.get = function(uri, header, data, success, error) {
-        sendRequest('GET', uri, header, data, success, error);
+    parent.get = function(uri, header, success, error) {
+        sendRequest('GET', uri, header, null, success, error);
     };
 
     /**
@@ -1484,12 +1555,11 @@ var dConnect = (function(parent, global) {
      * @memberOf dConnect
      * @param {String} uri URI
      * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
-     * @param {} data コンテンツデータ
      * @param {Function} success 成功時コールバック
      * @param {Function} error 失敗時コールバック
      */
-    parent.delete = function(uri, header, data, success, error) {
-        sendRequest('DELETE', uri, header, data, success, error);
+    parent.delete = function(uri, header, success, error) {
+        sendRequest('DELETE', uri, header, null, success, error);
     };
 
     /**
@@ -1669,7 +1739,6 @@ var dConnect = (function(parent, global) {
     /**
      * dConnectManagnerに認可を求める.
      * @memberOf dConnect
-     * @param packageName アプリを識別するためのURI
      * @param scopes 使用するスコープの配列
      * @param applicationName アプリ名
      * @param success_cb 成功時のコールバック
@@ -1679,7 +1748,7 @@ var dConnect = (function(parent, global) {
      * // アクセスするプロファイル一覧を定義
      * var scopes = Array('servicediscovery', 'sysytem', 'battery');
      * // 認可を実行
-     * dConnect.authorization('http://hogehoge.com/index.html', scopes, 'サンプル',
+     * dConnect.authorization(scopes, 'サンプル',
      *     function(clientId, clientSecret, accessToken) {
      *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
      *     },
@@ -1687,7 +1756,7 @@ var dConnect = (function(parent, global) {
      *         alert("Failed to get accessToken.");
      *     });
      */
-    var authorization = function(packageName, scopes, applicationName, success_cb, error_cb) {
+    var authorization = function(scopes, applicationName, success_cb, error_cb) {
         parent.createClient(location.origin, function(clientId, clientSecret) {
             parent.requestAccessToken(clientId, clientSecret, scopes, applicationName, function(accessToken) {
                 if (success_cb) {

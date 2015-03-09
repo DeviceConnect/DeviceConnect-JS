@@ -28,6 +28,9 @@ var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = "";
 
+/** Manager起動待機タイマー */
+var launchTimerId;
+
 /**
  * 初期化処理.
  */
@@ -84,12 +87,16 @@ function checkDeviceConnect() {
  * @param onavailable すでに起動していた場合、または起動された場合に呼ばれる関数
  */
 function startManager(onavailable) {
+    var requested = false;
     var appId = ""; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
     var error_cb = function(errorCode, errorMessage) {
         switch (errorCode) {
         case dConnect.constants.ErrorCode.ACCESS_FAILED:
-            dConnect.startManager();
-            alert("Requested to start Device Connect Manager.");
+            if (!requested) {
+                requested = true;
+                dConnect.startManager();
+                alert("Requested to start Device Connect Manager.");
+            }
             
             var userAgent = navigator.userAgent.toLowerCase();
             if (userAgent.search(/iphone|ipad|ipod/) > -1) {
@@ -106,8 +113,18 @@ function startManager(onavailable) {
             break;
         }
     }
-    dConnect.setLaunchListener(onavailable);
-    dConnect.checkDeviceConnect(onavailable, error_cb);
+    var success_cb = function(apiVersion) {
+        clearInterval(launchTimerId);
+        launchTimerId = undefined;
+        onavailable(apiVersion);
+    }
+
+    if (launchTimerId) {
+        clearInterval(launchTimerId);
+    }
+    launchTimerId = setInterval(function() {
+        dConnect.checkDeviceConnect(success_cb, error_cb);
+    }, 500);
 }
 
 /**
@@ -115,10 +132,10 @@ function startManager(onavailable) {
  */
 function authorization(){
     dConnect.setHost(ip);
-    var scopes = Array("servicediscovery", "serviceinformation", "battery", "connect", "deviceorientation", "file_descriptor", "file", "media_player",
-                    "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
+    var scopes = Array("servicediscovery", "serviceinformation", "system", "battery", "connect", "deviceorientation", "file_descriptor", "file",
+                    "media_player", "mediastream_recording", "notification", "phone", "proximity", "settings", "vibration", "light",
                     "remote_controller", "drive_controller", "mhealth", "sphero", "dice", "temperature","camera", "canvas", "humandetect");
-        dConnect.authorization('http://www.deviceconnect.org/demo/', scopes, 'サンプル',
+        dConnect.authorization(scopes, 'サンプル',
             function(clientId, clientSecret, newAccessToken) {
                 // Client ID
                 currentClientId = clientId;
@@ -240,7 +257,12 @@ function searchProfile(serviceId, profile) {
         showSphero(serviceId);
     } else if (profile === "canvas") {
         showCanvas(serviceId);
+<<<<<<< HEAD
     } else if (profile === "humandetect") {
         showHumanDetect(serviceId);
+=======
+    } else if (profile === "health") {
+        showHealth(serviceId);
+>>>>>>> master
     }
 }

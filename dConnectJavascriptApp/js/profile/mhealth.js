@@ -133,7 +133,7 @@ function doHBF206IT(serviceId){
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-	dConnect.get(uri, null, null, function(json) {
+	dConnect.get(uri, null, function(json) {
         
         if (DEBUG) console.log("Response: ", json);
         
@@ -175,7 +175,7 @@ function doGetDataFromHBF206IT(serviceId, id){
 	
 	if(DEBUG) console.log("Uri:"+uri)
 	
-	dConnect.get(uri, null, null, function(json) {
+	dConnect.get(uri, null, function(json) {
         
         if (DEBUG) console.log("Response: ", json);
         

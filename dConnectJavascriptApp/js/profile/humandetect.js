@@ -45,7 +45,7 @@ function doGetUriFromPath(serviceId, path){
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
     }, function(errorCode, errorMessage) {
@@ -115,7 +115,7 @@ function doHumanDetectBodyGet(serviceId) {
     
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         closeLoading();
@@ -156,7 +156,7 @@ function doHumanDetectHandGet(serviceId) {
     
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         closeLoading();
@@ -197,7 +197,7 @@ function doHumanDetectFaceGet(serviceId) {
     
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         closeLoading();
