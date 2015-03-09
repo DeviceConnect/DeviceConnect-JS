@@ -94,7 +94,8 @@ function showHumanDetectGet(serviceId) {
     var str = "";
     str += '<input type="button" name="bodyDetectButton" id="bodyDetectButton" value="Body Detect GET" onclick="doHumanDetectBodyGet(\'' + serviceId + '\');"/>';
     str += '<input type="button" name="handDetectButton" id="handDetectButton" value="Hand Detect GET" onclick="doHumanDetectHandGet(\'' + serviceId + '\');"/>';
-    str += '<input type="button" name="faceDetectButton" id="faceDetectButton" value="Face Detect GET" onclick="doHumanDetectFaceGet(\'' + serviceId + '\');"/>';
+    str += '<input type="button" name="faceDetectButton" id="faceDetectButton" value="Face Detect GET" onclick="doHumanDetectFaceGet(\'' + serviceId + '\', null);"/>';
+    str += '<input type="button" name="faceDetectButtonAllOption" id="faceDetectButtonAllOption" value="Face Detect GET(AllOption)" onclick="doHumanDetectFaceGet(\'' + serviceId + '\', \'eye,nose,mouth,blink,age,gender,faceDirection,aze,expression\');"/>';
     
     reloadContent(str);
 }
@@ -120,19 +121,7 @@ function doHumanDetectBodyGet(serviceId) {
         
         closeLoading();
 
-        var str = "";
-/*
-        var level = json.level * 100;
-        str += '<label for="slider-0">LEVEL:</label>';
-        str += '<input type="range" name="slider" id="volume" value="' + level + '" min="0" max="100"  />';
-        
-        if (json.charging) {
-            str += 'Status: Charging';
-        } else {
-            str += 'Status: Not charging';
-        }
-*/
-        str += 'Success: json=' + json.toString();
+        var str = getHumanDetectResponseString(json);
 
         reloadContent(str);
     }, function(errorCode, errorMessage) {
@@ -161,19 +150,7 @@ function doHumanDetectHandGet(serviceId) {
         
         closeLoading();
 
-        var str = "";
-/*
-        var level = json.level * 100;
-        str += '<label for="slider-0">LEVEL:</label>';
-        str += '<input type="range" name="slider" id="volume" value="' + level + '" min="0" max="100"  />';
-        
-        if (json.charging) {
-            str += 'Status: Charging';
-        } else {
-            str += 'Status: Not charging';
-        }
-*/
-        str += 'Success: json=' + json.toString();
+        var str = getHumanDetectResponseString(json);
 
         reloadContent(str);
     }, function(errorCode, errorMessage) {
@@ -185,7 +162,7 @@ function doHumanDetectHandGet(serviceId) {
 /**
  * Human Detect Face.
  */
-function doHumanDetectFaceGet(serviceId) {
+function doHumanDetectFaceGet(serviceId,options) {
     
     var builder = new dConnect.URIBuilder();
     builder.setProfile("humandetect");
@@ -193,6 +170,9 @@ function doHumanDetectFaceGet(serviceId) {
     builder.setAttribute("face");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
+    if (options != null) {
+        builder.addParameter("options", options);
+    }
     var uri = builder.build();
     
     if (DEBUG) console.log("Uri: " + uri);
@@ -214,11 +194,107 @@ function doHumanDetectFaceGet(serviceId) {
 function getHumanDetectResponseString(json) {
     var str = "";
     str += 'result=' + json.result + '<br>';
-    str += 'bodyDetects=' + (json.bodyDetects ? json.bodyDetects.length : 'undefined') + '<br>';
-    str += 'handDetects=' + (json.handDetects ? json.handDetects.length : 'undefined') + '<br>';
-    str += 'faceDetects=' + (json.faceDetects ? json.faceDetects.length : 'undefined') + '<br>';
+    
+    if (json.bodyDetects) {
+        str += 'bodyDetects=' + json.bodyDetects.length + '<br>';
+        str += getDetectsResponseString(json.bodyDetects);
+    }
+    
+    if (json.handDetects) {
+        str += 'handDetects=' + json.handDetects.length + '<br>';
+        str += getDetectsResponseString(json.handDetects);
+    }
+    
+    if (json.faceDetects) {
+        str += 'faceDetects=' + json.faceDetects.length + '<br>';
+        str += getDetectsResponseString(json.faceDetects);
+    }
+    
     return str;
 }
+
+function getDetectsResponseString(detects) {
+    var str = "";
+    
+    for (var detectIndex = 0; detectIndex < detects.length; detectIndex++) {
+        var detect = detects[detectIndex];
+        
+        str += '(detect) x=' + detect.x + ' y=' + detect.y + ' width=' + detect.width + ' height=' + detect.height + ' confidence=' + detect.confidence + '<br>';
+        
+        if (detect.eyePoints) {
+            for (var eyePointIndex = 0; eyePointIndex < eyePoint.length; eyePointIndex++) {
+                var eyePoint = detect.eyePoints[eyePointIndex];
+                str += '  <eyePoint> leftEyeX=' + eyePoint.leftEyeX + ' leftEyeY=' + eyePoint.leftEyeY + ' leftEyeWidth=' + eyePoint.leftEyeWidth + ' leftEyeHeight=' + eyePoint.leftEyeHeight + '<br>';
+                str += '             rightEyeX=' + eyePoint.rightEyeX + ' rightEyeY=' + eyePoint.rightEyeY + ' rightEyeWidth=' + eyePoint.rightEyeWidth + ' rightEyeHeight=' + eyePoint.rightEyeHeight + '<br>';
+                str += '             confidence=' + eyePoint.confidence + '<br>';
+            }
+        }
+        
+        if (detect.nosePoints) {
+            for (var nosePointIndex = 0; nosePointIndex <detect.nosePoints.length; nosePointIndex++) {
+                var nosePoint = detect.nosePoints[nosePointIndex];
+                str += '  (nosePoint) noseX=' + nosePoint.noseX + ' noseY=' + nosePoint.noseY + ' noseWidth=' + nosePoint.noseWidth + ' noseHeight=' + nosePoint.noseHeight + ' confidence=' + nosePoint.confidence + '<br>';
+            }
+        }
+        
+        if (detect.mouthPoints) {
+            for (var mouthPointIndex = 0; mouthPointIndex < detect.mouthPoints.length; mouthPointIndex++) {
+                var mouthPoint = detect.mouthPoints[mouthPointIndex];
+                str += '  (mouthPoint) mouthX=' + mouthPoint.mouthX + ' mouthY=' + mouthPoint.mouthY + ' mouthWidth=' + mouthPoint.mouthWidth + ' mouthHeight=' + mouthPoint.noseHeight + ' confidence=' + mouthPoint.confidence + '<br>';
+            }
+        }
+        
+        if (detect.blinkResults) {
+            for (var blinkResultIndex = 0; blinkResultIndex < detect.blinkResults.length; blinkResultIndex++) {
+                var blinkResult = detect.blinkResults[blinkResultIndex];
+                str += '  (blinkResult) leftEye=' + blinkResult.leftEye + ' rightEye=' + blinkResult.rightEye + ' confidence=' + blinkResult.confidence + '<br>';
+            }
+        }
+        
+        if (detect.ageResults) {
+            for (var ageResultIndex = 0; ageResultIndex < detect.ageResults.length; ageResultIndex++) {
+                var ageResult = detect.ageResults[ageResultIndex];
+                str += '  (ageResult) age=' + ageResult.age + ' confidence=' + blinkResult.confidence + '<br>';
+            }
+        }
+        
+        if (detect.genderResults) {
+            for (var genderResultIndex = 0; genderResultIndex < detect.genderResults.length; genderResultIndex++) {
+                var genderResult = detect.genderResults[genderResultIndex];
+                str += '  (genderResult) gender=' + genderResult.gender + ' confidence=' + genderResult.confidence + '<br>';
+            }
+        }
+        
+        if (detect.faceDirectionResults) {
+            for (var faceDirectionResultIndex; faceDirectionResultIndex < detect.faceDirectionResults.length; faceDirectionResultIndex++) {
+                var faceDirectionResult = detect.faceDirectionResults[faceDirectionResultIndex];
+                str += '  (faceDirectionResult) yaw=' + faceDirectionResult.yaw + ' pitch=' + faceDirectionResult.pitch + ' roll=' + faceDirectionResult.roll + ' confidence=' + faceDirectionResult.confidence + '<br>';
+            }
+        }
+        
+        if (detect.gazeResults) {
+            for (var gazeResultIndex = 0; gazeResultIndex < detect.gazeResults.length; gazeResultIndex++) {
+                var gazeResult = detect.gazeResults[gazeResultIndex];
+                str += '  (gazeResult) gazeLR=' + gazeResult.gazeLR + ' gazeUD=' + gazeResult.gazeUD + ' confidence=' + gazeResult.confidence + '<br>';
+            }
+        }
+        
+        if (detect.expressionResults) {
+            for (var expressionResultIndex = 0; expressionResultIndex < detect.expressionResults.length; expressionResultIndex++) {
+                var expressionResult = detect.expressionResults[expressionResultIndex];
+                str += '  (expressionResult) expression=' + expressionResult.expression + ' confidence=' + expressionResult.confidence + '<br>';
+            }
+        }
+        
+    }
+    
+    return str;
+}
+
+
+
+
+
 
 /**
  * 人体検知Eventフォームを表示する.
