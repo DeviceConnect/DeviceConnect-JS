@@ -31,7 +31,7 @@ function showSearchLightGroup(serviceId) {
     
     setTitle("Light Group List");
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         var lightGroups = json.lightGroups;
@@ -170,7 +170,7 @@ function showDeleteLightGroupForm(serviceId, lightGroups) {
     	builder.addParameter("groupId", deletedGroupId);
     	var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.delete(uri, null, null, function(json) {
+        dConnect.delete(uri, null, function(json) {
             if (DEBUG) console.log("Response: ", json);
             $("#group-" + deletedGroupId).remove();
             $("#label-group-" + deletedGroupId).remove();
@@ -208,7 +208,7 @@ function showSearchLight(serviceId) {
 	
     setTitle("Light List");
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         listLights(serviceId, json.lights);
             
@@ -503,7 +503,7 @@ function doLightGroup(serviceId, groupId, on) {
         builder.addParameter("groupId", groupId);
         var uri = builder.build();
 		if (DEBUG) console.log("Uri: " + uri);
-        dConnect.delete(uri, null, null, function(json) {
+        dConnect.delete(uri, null, function(json) {
             if (DEBUG) console.log("Response: ", json);
             alert("Success");
         }, function(errorCode, errorMessage) {
@@ -554,7 +554,7 @@ function doLight(serviceId, lightId, value) {
         builder.addParameter("lightId", lightId);
         var uri = builder.build();
         if (DEBUG) console.log("Uri: " + uri);
-        dConnect.delete(uri, null, null, function(json) {
+        dConnect.delete(uri, null, function(json) {
             if (DEBUG) console.log("Response: ", json);
             alert("Success");
         }, function(errorCode, errorMessage) {

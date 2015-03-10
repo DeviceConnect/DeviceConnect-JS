@@ -187,13 +187,12 @@ var dConnect = (function(parent, global) {
          * アクセストークン発行リクエスト用のSignatureを生成する.
          * @memberOf dConnect.oauth
          * @param {String} clientId クライアントID
-         * @param {String} grantType グラントタイプ(AUTHORIZATION_CODEを指定する)
          * @param {String} serviceId サービスID(UIアプリの場合はnullまたは""(空の文字列)を設定する)
          * @param {String} scopes スコープ(カンマ区切りで複数指定可能。(例)"bivration,file,notification")
          * @param {String} clientSecret クライアントシークレット
          * @return {String} 生成したSignature
          */
-        generateSignatureForAccessTokenRequest : function(clientId, grantType, serviceId, scopes, clientSecret) {
+        generateSignatureForAccessTokenRequest : function(clientId, serviceId, scopes, clientSecret) {
             var inputMaps = [];
             inputMaps.push({
                 key : "clientId",
@@ -201,7 +200,7 @@ var dConnect = (function(parent, global) {
             });
             inputMaps.push({
                 key : "grantType",
-                value : grantType
+                value : AUTHORIZATION_CODE
             });
             if (serviceId != null && serviceId != "") {
                 inputMaps.push({
@@ -382,20 +381,16 @@ var dConnect = (function(parent, global) {
             PROFILE_NAME : 'authorization',
 
             // Atttribute
-            /** アトリビュート: create_client。*/
-            ATTR_CREATE_CLIENT : 'create_client',
-            /** アトリビュート: request_accesstoken。 */
-            ATTR_REQUEST_ACCESS_TOKEN : 'request_accesstoken',
+            /** アトリビュート: grant。*/
+            ATTR_GRANT : 'grant',
+            /** アトリビュート: accesstoken。 */
+            ATTR_ACCESS_TOKEN : 'accesstoken',
 
             // Parameter
-            /** パラメータ: package。 */
-            PARAM_PACKAGE : 'package',
             /** パラメータ: clientId。 */
             PARAM_CLIENT_ID : 'clientId',
             /** パラメータ: clientSecret。 */
             PARAM_CLIENT_SECRET : 'clientSecret',
-            /** パラメータ: grantType。 */
-            PARAM_GRANT_TYPE : 'grantType',
             /** パラメータ: scope。 */
             PARAM_SCOPE : "scope",
             /** パラメータ: scopes。 */
@@ -657,6 +652,41 @@ var dConnect = (function(parent, global) {
             PARAM_UPDATE_DATE : "updateDate",
             /** パラメータ: files */
             PARAM_FILES : "files",
+        },
+
+        /**
+         * Key Eventプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        keyevent : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "keyevent",
+
+            // Attribute
+            /** アトリビュート: ondown */
+            ATTR_ON_DOWN : "ondown",
+            /** アトリビュート: onup */
+            ATTR_ON_UP : "onup",
+
+            // Parameter
+            /** パラメータ: keyevent */
+            PARAM_KEY_EVENT : "keyevent",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: config */
+            PARAM_CONFIG : "config",
+
+            // Key Types
+            /** キータイプ: Standard Keyboard */
+            KEYTYPE_STD_KEY : 0,
+            /** キータイプ: Media Control */
+            KEYTYPE_MEDIA_CTRL: 512,
+            /** キータイプ:  Directional Pad / Button */
+            KEYTYPE_DPAD_BUTTON : 1024,
+            /** キータイプ: User defined */
+            KEYTYPE_USER : 32768
         },
 
         /**
@@ -1174,6 +1204,43 @@ var dConnect = (function(parent, global) {
         },
 
         /**
+         * Touchプロファイルの定数
+         * @namespace
+         * @type {Object.<String, String>}
+         */
+        touch : {
+            // Profile name
+            /** プロファイル名。 */
+            PROFILE_NAME : "touch",
+
+            // Attribute
+            /** アトリビュート: ontouch */
+            ATTR_ON_TOUCH : "ontouch",
+            /** アトリビュート: ontouchstart */
+            ATTR_ON_TOUCH_START : "ontouchstart",
+            /** アトリビュート: ontouchend */
+            ATTR_ON_TOUCH_END : "ontouchend",
+            /** アトリビュート: ontouchmove */
+            ATTR_ON_TOUCH_MOVE : "ontouchmove",
+            /** アトリビュート: ontouchcancel */
+            ATTR_ON_TOUCH_CANCEL : "ontouchcancel",
+            /** アトリビュート: ondoubletap */
+            ATTR_ON_DOUBLE_TAP : "ondoubletap",
+
+            // Parameter
+            /** パラメータ: touch */
+            PARAM_TOUCH : "touch",
+            /** パラメータ: touches */
+            PARAM_TOUCHES : "touches",
+            /** パラメータ: id */
+            PARAM_ID : "id",
+            /** パラメータ: x */
+            PARAM_X : "x",
+            /** パラメータ: y */
+            PARAM_Y : "y"
+        },
+
+        /**
          * Vibrationプロファイルの定数
          * @namespace
          * @type {Object.<String, String>}
@@ -1436,12 +1503,11 @@ var dConnect = (function(parent, global) {
      * @memberOf dConnect
      * @param {String} uri URI
      * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
-     * @param {} data コンテンツデータ
      * @param {Function} success 成功時コールバック
      * @param {Function} error 失敗時コールバック
      */
-    parent.get = function(uri, header, data, success, error) {
-        sendRequest('GET', uri, header, data, success, error);
+    parent.get = function(uri, header, success, error) {
+        sendRequest('GET', uri, header, null, success, error);
     };
 
     /**
@@ -1484,12 +1550,11 @@ var dConnect = (function(parent, global) {
      * @memberOf dConnect
      * @param {String} uri URI
      * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
-     * @param {} data コンテンツデータ
      * @param {Function} success 成功時コールバック
      * @param {Function} error 失敗時コールバック
      */
-    parent.delete = function(uri, header, data, success, error) {
-        sendRequest('DELETE', uri, header, data, success, error);
+    parent.delete = function(uri, header, success, error) {
+        sendRequest('DELETE', uri, header, null, success, error);
     };
 
     /**
@@ -1669,7 +1734,6 @@ var dConnect = (function(parent, global) {
     /**
      * dConnectManagnerに認可を求める.
      * @memberOf dConnect
-     * @param packageName アプリを識別するためのURI
      * @param scopes 使用するスコープの配列
      * @param applicationName アプリ名
      * @param success_cb 成功時のコールバック
@@ -1679,7 +1743,7 @@ var dConnect = (function(parent, global) {
      * // アクセスするプロファイル一覧を定義
      * var scopes = Array('servicediscovery', 'sysytem', 'battery');
      * // 認可を実行
-     * dConnect.authorization('http://hogehoge.com/index.html', scopes, 'サンプル',
+     * dConnect.authorization(scopes, 'サンプル',
      *     function(clientId, clientSecret, accessToken) {
      *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
      *     },
@@ -1687,8 +1751,8 @@ var dConnect = (function(parent, global) {
      *         alert("Failed to get accessToken.");
      *     });
      */
-    var authorization = function(packageName, scopes, applicationName, success_cb, error_cb) {
-        parent.createClient(location.origin, function(clientId, clientSecret) {
+    var authorization = function(scopes, applicationName, success_cb, error_cb) {
+        parent.createClient(function(clientId, clientSecret) {
             parent.requestAccessToken(clientId, clientSecret, scopes, applicationName, function(accessToken) {
                 if (success_cb) {
                     success_cb(clientId, clientSecret, accessToken);
@@ -1701,12 +1765,11 @@ var dConnect = (function(parent, global) {
     /**
      * クライアントを作成する.
      * @memberOf dConnect
-     * @param packageName ヘージを識別するための名前
      * @param success_cb クライアント作成に成功した場合のコールバック
      * @param error_cb クライアント作成に失敗した場合のコールバック
      *
      * @example
-     * dConnect.createClient(packageName,
+     * dConnect.createClient(
      *     function(clientId, clientSecret) {
      *         // clientId, clientSecretを保存して、アクセストークンの取得に使用する
      *     },
@@ -1714,11 +1777,10 @@ var dConnect = (function(parent, global) {
      *     }
      * );
      */
-    var createClient = function(packageName, success_cb, error_cb) {
+    var createClient = function(success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.authorization.PROFILE_NAME);
-        builder.setAttribute(parent.constants.authorization.ATTR_CREATE_CLIENT);
-        builder.addParameter(parent.constants.authorization.PARAM_PACKAGE, packageName);
+        builder.setAttribute(parent.constants.authorization.ATTR_GRANT);
         parent.sendRequest('GET', builder.build(), null, null, function(json) {
             if (success_cb) {
                 success_cb(json.clientId, json.clientSecret);
@@ -1752,13 +1814,12 @@ var dConnect = (function(parent, global) {
      */
     var requestAccessToken = function(clientId, clientSecret, scopes, applicatonName, success_cb, error_cb) {
         // パラメータ作成
-        var sig = dConnect.oauth.generateSignatureForAccessTokenRequest(clientId, AUTHORIZATION_CODE, undefined, scopes, clientSecret);
+        var sig = dConnect.oauth.generateSignatureForAccessTokenRequest(clientId, undefined, scopes, clientSecret);
         // uri作成
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.authorization.PROFILE_NAME);
-        builder.setAttribute(parent.constants.authorization.ATTR_REQUEST_ACCESS_TOKEN);
+        builder.setAttribute(parent.constants.authorization.ATTR_ACCESS_TOKEN);
         builder.addParameter(parent.constants.authorization.PARAM_CLIENT_ID, clientId);
-        builder.addParameter(parent.constants.authorization.PARAM_GRANT_TYPE, AUTHORIZATION_CODE);
         builder.addParameter(parent.constants.authorization.PARAM_SCOPE, parent.combineScope(scopes));
         builder.addParameter(parent.constants.authorization.PARAM_SIGNATURE, sig);
         builder.addParameter(parent.constants.authorization.PARAM_APPLICATION_NAME, applicatonName);

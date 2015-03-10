@@ -85,7 +85,7 @@ function doUnregisterPreview(serviceId) {
 
     if (DEBUG) console.log("Uri:" + uri)
 
-    dConnect.delete(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
     }, function(errorCode, errorMessage) {
         showError("DELETE mediastream_recording/preview", errorCode, errorMessage);
@@ -315,7 +315,7 @@ function doGetMediaRecorder(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri:"+uri)
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
     }, function(errorCode, errorMessage) {
         showError("GET mediastream_recording/mediarecorder", errorCode, errorMessage);

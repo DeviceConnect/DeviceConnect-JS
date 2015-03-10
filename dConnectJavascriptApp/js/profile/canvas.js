@@ -49,7 +49,7 @@ function doGetUriFromPath(serviceId, path){
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
     }, function(errorCode, errorMessage) {

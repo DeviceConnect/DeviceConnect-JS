@@ -66,7 +66,7 @@ function doCheckBluetooth(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 
         changeSlider('bluetooth', json.enable ? 1 : 0);
@@ -96,7 +96,7 @@ function doCheckBLE(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         changeSlider('ble', json.enable ? 1 : 0);
@@ -126,7 +126,7 @@ function doCheckWifi(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         changeSlider('wifi', json.enable ? 1 : 0);
@@ -156,7 +156,7 @@ function doCheckNfc(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         
         changeSlider('nfc', json.enable ? 1 : 0);
@@ -244,7 +244,7 @@ function doConnectNfc(serviceId, connect) {
             changeSlider(type, 0);
         });
     } else {
-        dConnect.delete(uri, null, null, function(json) {
+        dConnect.delete(uri, null, function(json) {
             if (DEBUG) console.log("Response: ", json);
             if(type === "ble" || type === "bluetooth"){
                 changeSlider("bluetooth", 0);
