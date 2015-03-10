@@ -99,17 +99,6 @@ var dConnect = (function(parent, global) {
     var _currentHmacKey = "";
 
     /**
-     * Signature生成処理種別 (SHA512)
-     * @type {String}
-     */
-    var SHA512 = "SHA512";
-    /**
-     * グラントタイプ (authorization_code).
-     * @type {String}
-     */
-    var AUTHORIZATION_CODE = "authorization_code";
-
-    /**
      * Device Connect Managerへ送信するリクエストのnonceの長さ. 単位はバイト.
      */
     var NONCE_BYTES = 16;
@@ -118,155 +107,6 @@ var dConnect = (function(parent, global) {
      * Device Connect Managerへ送信するHMAC生成キーの長さ. 単位はバイト.
      */
     var HMAC_KEY_BYTES = 16;
-
-    /**
-     * Signature生成処理 (SHA512).
-     * @type {Object}
-     */
-    var AuthSignatureProcSHA512 = {
-        /**
-         * Signature生成.
-         * @param {Object.<String, String>} inputMaps 入力文字列 (key,valueの連想配列)
-         * @param {String} clientSecret クライアントシークレット
-         * @return {String} 生成したSignature文字列
-         */
-        generateSignature : function(inputMaps, clientSecret) {
-
-            /* key昇順にソート */
-            inputMaps.sort(function(a, b) {
-                return (a.key < b.key) ? -1 : 1;
-            });
-
-            /* 連結 */
-            var str = "";
-            for (var i = 0; i < inputMaps.length; i++) {
-                str += inputMaps[i].key;
-                str += inputMaps[i].value;
-            }
-
-            /* clientSecretを連結 */
-            str += "clientSecret";
-            str += clientSecret;
-
-            var shaObj = new jsSHA(str, "TEXT");
-            var signature = shaObj.getHash("SHA-512", "HEX");
-            return signature;
-        }
-    };
-
-    /**
-     * Signature生成処理ファクトリークラス.
-     * @type {Object}
-     */
-    var AuthSignatureProcFactory = {
-
-        /**
-         * Signature生成処理を返す.
-         * @param {String} kind Signature生成処理種別
-         * @return {?Object} Signature生成処理オブジェクト
-         */
-        getProc : function(kind) {
-            if (kind == SHA512) {
-                return AuthSignatureProcSHA512;
-            } else {
-                return null;
-            }
-        }
-    };
-
-    /**
-     * Signatureクラス
-     * @memberOf dConnect
-     * @name oauth
-     * @namespace
-     * @type {Object}
-     */
-    var AuthSignature = {
-
-        /**
-         * アクセストークン発行リクエスト用のSignatureを生成する.
-         * @memberOf dConnect.oauth
-         * @param {String} clientId クライアントID
-         * @param {String} serviceId サービスID(UIアプリの場合はnullまたは""(空の文字列)を設定する)
-         * @param {String} scopes スコープ(カンマ区切りで複数指定可能。(例)"bivration,file,notification")
-         * @param {String} clientSecret クライアントシークレット
-         * @return {String} 生成したSignature
-         */
-        generateSignatureForAccessTokenRequest : function(clientId, serviceId, scopes, clientSecret) {
-            var inputMaps = [];
-            inputMaps.push({
-                key : "clientId",
-                value : clientId
-            });
-            inputMaps.push({
-                key : "grantType",
-                value : AUTHORIZATION_CODE
-            });
-            if (serviceId != null && serviceId != "") {
-                inputMaps.push({
-                    key : "serviceId",
-                    value : serviceId
-                });
-            }
-
-            var strScopes = "";
-            scopes.sort();
-            for (var i = 0; i < scopes.length; i++) {
-                if (i > 0) {
-                    strScopes += ",";
-                }
-                strScopes += scopes[i];
-            }
-            inputMaps.push({
-                key : "scopes",
-                value : strScopes
-            });
-
-            var authSignatureProc = AuthSignatureProcFactory.getProc(SHA512);
-            var signature = authSignatureProc.generateSignature(inputMaps, clientSecret);
-            return signature;
-        },
-
-        /**
-         * アクセストークン受信用のSignatureを生成する.
-         * @memberOf dConnect.oauth
-         * @param {String} accessToken アクセストークン
-         * @param {String} clientSecret クライアントシークレット
-         * @return {String} 生成したSignature
-         */
-        generateSignatureForAccessTokenResponse : function(accessToken, clientSecret) {
-            var inputMaps = [];
-            inputMaps.push({
-                key : "accessToken",
-                value : accessToken
-            });
-
-            var authSignatureProc = AuthSignatureProcFactory.getProc(SHA512);
-            var signature = authSignatureProc.generateSignature(inputMaps, clientSecret);
-            return signature;
-        },
-
-        /**
-         * アクセストークン発行リクエスト用のSignatureを生成する(引数パラメータの数により内部処理が切り替わる).
-         * @memberOf dConnect.oauth
-         * @param {String} arg1 arg1
-         * @param {String} arg2 arg2
-         * @param {String} arg3 arg3
-         * @param {String} arg4 arg4
-         * @param {String} arg5 arg5
-         * @return {?String} 生成したSignature
-         */
-        generateSignature : function(arg1, arg2, arg3, arg4, arg5) {
-            if (arguments.length == 5) {
-                return AuthSignature.generateSignatureForAccessTokenRequest(arg1, arg2, arg3, arg4, arg5);
-            } else if (arguments.length == 2) {
-                return AuthSignature.generateSignatureForAccessTokenResponse(arg1, arg2);
-            } else {
-                return null;
-            }
-        }
-    };
-    parent.oauth = AuthSignature;
 
     // ============================================
     //             Public
@@ -389,37 +229,18 @@ var dConnect = (function(parent, global) {
             // Parameter
             /** パラメータ: clientId。 */
             PARAM_CLIENT_ID : 'clientId',
-            /** パラメータ: clientSecret。 */
-            PARAM_CLIENT_SECRET : 'clientSecret',
             /** パラメータ: scope。 */
             PARAM_SCOPE : "scope",
             /** パラメータ: scopes。 */
             PARAM_SCOPES : "scopes",
             /** パラメータ: applicationName。 */
             PARAM_APPLICATION_NAME : "applicationName",
-            /** パラメータ: signature。 */
-            PARAM_SIGNATURE : "signature",
             /** パラメータ: accessToken。 */
             PARAM_ACCESS_TOKEN : "accessToken",
             /** パラメータ: expirePeriod。 */
             PARAM_EXPIRE_PERIOD : "expirePeriod",
-
-            /**
-             * Defined in 4.1 Authorization Code Grant (RFC6749).
-             */
-            GRANT_TYPE_AUTHORIZATION_CODE : AUTHORIZATION_CODE,
-            /**
-             * Defined in 4.3 Resource Owner Password Credentials Grant (RFC6749).
-             */
-            GRANT_TYPE_PASSWORD : "password",
-            /**
-             * Defined in 4.4 Client Credentials Grant (RFC6749).
-             */
-            GRANT_TYPE_CLIENT_CREDENTIALS : "client_credentials",
-            /**
-             * Defined in 6 Refreshing an Access Token (RFC6749).
-             */
-            GRANT_TYPE_REFRESH_TOKEN : "refresh_token"
+            /** パラメータ: expire。 */
+            PARAM_EXPIRE : "expire",
         },
 
         /**
@@ -939,6 +760,8 @@ var dConnect = (function(parent, global) {
             PARAM_ONLINE : "online",
             /** パラメータ: config */
             PARAM_CONFIG : "config",
+            /** パラメータ: scopes */
+            PARAM_SCOPES : "scopes",
 
             // ===== ネットワークタイプ =====
             /** ネットワークタイプ: WiFi */
@@ -1744,18 +1567,18 @@ var dConnect = (function(parent, global) {
      * var scopes = Array('servicediscovery', 'sysytem', 'battery');
      * // 認可を実行
      * dConnect.authorization(scopes, 'サンプル',
-     *     function(clientId, clientSecret, accessToken) {
-     *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
+     *     function(clientId, accessToken) {
+     *         // clientId, accessTokenを保存して、プロファイルにアクセス
      *     },
      *     function(errorCode, errorMessage) {
      *         alert("Failed to get accessToken.");
      *     });
      */
     var authorization = function(scopes, applicationName, success_cb, error_cb) {
-        parent.createClient(function(clientId, clientSecret) {
-            parent.requestAccessToken(clientId, clientSecret, scopes, applicationName, function(accessToken) {
+        parent.createClient(function(clientId) {
+            parent.requestAccessToken(clientId, scopes, applicationName, function(accessToken) {
                 if (success_cb) {
-                    success_cb(clientId, clientSecret, accessToken);
+                    success_cb(clientId, accessToken);
                 }
             }, error_cb);
         }, error_cb);
@@ -1770,8 +1593,8 @@ var dConnect = (function(parent, global) {
      *
      * @example
      * dConnect.createClient(
-     *     function(clientId, clientSecret) {
-     *         // clientId, clientSecretを保存して、アクセストークンの取得に使用する
+     *     function(clientId) {
+     *         // clientIdを保存して、アクセストークンの取得に使用する
      *     },
      *     function(errorCode, errorMessage) {
      *     }
@@ -1783,7 +1606,7 @@ var dConnect = (function(parent, global) {
         builder.setAttribute(parent.constants.authorization.ATTR_GRANT);
         parent.sendRequest('GET', builder.build(), null, null, function(json) {
             if (success_cb) {
-                success_cb(json.clientId, json.clientSecret);
+                success_cb(json.clientId);
             }
         }, function(errorCode, errorMessage) {
             if (error_cb) {
@@ -1797,14 +1620,13 @@ var dConnect = (function(parent, global) {
      * アクセストークンを要求する.
      * @memberOf dConnect
      * @param clientId クライアントID
-     * @param clientSecret クライアントシークレット
      * @param scopes スコープ一覧(配列)
      * @param applicationName アプリ名
      * @param success_cb アクセストークン取得に成功した場合のコールバック
      * @param error_cb アクセストークン取得に失敗した場合のコールバック
      *
      * @example
-     * dConnect.requestAccessToken(clientId, clientSecret, scopes, 'アプリ名',
+     * dConnect.requestAccessToken(clientId, scopes, 'アプリ名',
      *     function(accessToken) {
      *         // アクセストークンの保存して、プロファイルのアクセスを行う
      *     },
@@ -1812,16 +1634,13 @@ var dConnect = (function(parent, global) {
      *     }
      * );
      */
-    var requestAccessToken = function(clientId, clientSecret, scopes, applicatonName, success_cb, error_cb) {
-        // パラメータ作成
-        var sig = dConnect.oauth.generateSignatureForAccessTokenRequest(clientId, undefined, scopes, clientSecret);
+    var requestAccessToken = function(clientId, scopes, applicatonName, success_cb, error_cb) {
         // uri作成
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.authorization.PROFILE_NAME);
         builder.setAttribute(parent.constants.authorization.ATTR_ACCESS_TOKEN);
         builder.addParameter(parent.constants.authorization.PARAM_CLIENT_ID, clientId);
         builder.addParameter(parent.constants.authorization.PARAM_SCOPE, parent.combineScope(scopes));
-        builder.addParameter(parent.constants.authorization.PARAM_SIGNATURE, sig);
         builder.addParameter(parent.constants.authorization.PARAM_APPLICATION_NAME, applicatonName);
         parent.sendRequest('GET', builder.build(), null, null, function(json) {
             webAppAccessToken = json.accessToken;
