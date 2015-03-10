@@ -164,7 +164,7 @@ function doCheckDate(serviceId) {
         loadingCheck(process_count);
     };
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
     
         $('#deviceDate').val(json.date);
@@ -208,7 +208,7 @@ function doCheckVolume(serviceId) {
         loadingCheck(process_count);
     };
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 
         $('#volumeAlerm').val((json.volumes[0].alerm * 100));
@@ -254,7 +254,7 @@ function doCheckLight(serviceId) {
         loadingCheck(process_count);
     };
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 
         $('#light').val((json.level * 100));
@@ -342,7 +342,7 @@ function doCheckSleep(serviceId) {
         loadingCheck(process_count);
     };
     
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         $('#sleep').val(json.time);
         oncomplete();

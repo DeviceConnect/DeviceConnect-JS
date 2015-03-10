@@ -28,7 +28,7 @@ function searchSystem(serviceId, deviceName) {
 
     if(DEBUG) console.log("Uri:"+uri)
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if(DEBUG) console.log("Response:", json);
         if (json.result == 0)
         {
@@ -71,7 +71,7 @@ function checkDevicePlugins() {
 
     if(DEBUG) console.log("Uri:"+uri)
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 
         var str = "";

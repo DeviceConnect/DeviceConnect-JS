@@ -89,7 +89,7 @@ function doDriveStop(serviceId) {
     var uri = builder.build();
     console.log("doDriveStop:" + uri);
 
-    dConnect.delete(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
     }, function(errorCode, errorMessage) {
         showError("DELETE drive_controller/stop", errorCode, errorMessage);

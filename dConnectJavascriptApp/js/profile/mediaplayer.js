@@ -60,7 +60,7 @@ function doMediaList(serviceId) {
 
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         closeLoading();
         var str = "";
@@ -314,7 +314,7 @@ function doMediaPlayerMediaGet(serviceId, id) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
 		var seek = json.duration;
 		if (!json.duration) {
@@ -492,7 +492,7 @@ function doMediaPlayerVolumeGet(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         $('#mediaPlayerVolume').val(json.volume * 100);
         $('#mediaPlayerVolume').slider('enable');
@@ -548,7 +548,7 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (json.result == 0) {
             var status = json.mute ? 1 : 0;
             $('#mediaPlayerMuteStatus').prop('selectedIndex', status);
@@ -605,7 +605,7 @@ function doMediaPlayerSeekGet(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.get(uri, null, null, function(json) {
+    dConnect.get(uri, null, function(json) {
         if (DEBUG) console.log("Response: ", json);
         $('#mediaPlayerSeek').val(json.pos);
         $('#mediaPlayerSeek').slider('enable');
