@@ -72,12 +72,15 @@ function doGetOnDown(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+    $('#idD').val('');
+    $('#configD').val('');
+
     if (json.keyevent) {
       $('#idD').val('KeyID: ' + json.keyevent.id);
       $('#configD').val('config: ' + json.keyevent.config);
@@ -157,12 +160,16 @@ function doGetOnUp(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    $('#idU').val('');
+    $('#configU').val('');
+
     if (json.keyevent) {
       $('#idU').val('KeyID: ' + json.keyevent.id);
       $('#configU').val('config: ' + json.keyevent.config);
