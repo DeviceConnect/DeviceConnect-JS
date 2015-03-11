@@ -145,7 +145,7 @@ function authorization() {
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas');
   dConnect.authorization(scopes, 'サンプル',
-      function(clientId, clientSecret, newAccessToken) {
+      function(clientId, newAccessToken) {
         // Client ID
         currentClientId = clientId;
 
