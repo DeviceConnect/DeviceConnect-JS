@@ -49,16 +49,11 @@ function doGetUriFromPath(serviceId, path){
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
-        
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
-        } else {
-            showError("GET canvas/receive", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        alert("uri:" + json.uri + "\n" + "mimeType:" + json.mimeType);
+    }, function(errorCode, errorMessage) {
+        showError("GET canvas/receive", errorCode, errorMessage);
     });
 }
 
@@ -127,6 +122,7 @@ function showCanvasDrawImage(serviceId) {
     str += '<label>y:</label>';
     str += '<input type="text" name="y" value="0"/>';
     str += '<input type="button" name="sendButton" id="sendButton" value="Upload" onclick="doCanvasDrawImage(\'' + serviceId + '\', \'fileForm\');"/>';
+    str += '<input type="button" name="sendDeleteButton" id="sendDeleteButton" value="Delete" onclick="doDeleteCanvasDrawImage(\'' + serviceId + '\');"/>';
     
     str += '</form>';
     
@@ -172,7 +168,7 @@ function doCanvasDrawImage(serviceId, fileFormId) {
                     $('#path').val("");
                     $('#data').val("");
                 } else{
-                    showError("POST canvas/drawimage", obj);
+                    showError("POST canvas/drawimage", obj.errorCode, obj.errorMessage);
                 }
             } else {
                 alert("error:" + myXhr.status);
@@ -182,3 +178,33 @@ function doCanvasDrawImage(serviceId, fileFormId) {
     };
     myXhr.send(myFormData);
 }
+
+
+/**
+ * 画像削除処理.
+ *
+ *  @param {String} serviceId サービスID
+ *  @param {String} fileFormId ファイルフォームID
+ */
+function doDeleteCanvasDrawImage(serviceId) {
+    closeLoading();
+    showLoading();
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile("canvas");
+    builder.setAttribute("drawimage");
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+
+    if(DEBUG) console.log("Uri:"+uri)
+    
+    dConnect.delete(uri, null, null, function(json) {
+        closeLoading();
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        closeLoading();
+        showError("DELETE canvas/drawimage", errorCode, errorMessage);
+    });
+}
+

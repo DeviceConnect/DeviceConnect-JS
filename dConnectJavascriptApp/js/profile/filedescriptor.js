@@ -85,34 +85,29 @@ function doOpenFile(serviceId) {
     var uri = builder.build();
     if(DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
        
-        if(DEBUG) console.log("Response:"+responseText)
-       
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            initAll();
-            initContent();
-            var str = "";
-            str += '<form  name="fileDescriptorForm">';
-            str += '<center>';
-            str += '<div class="ui-grid-a">';
-            str += '<div class="ui-block-a"><div class="ui-bar ui-bar-a">Path: ' + path + '</div></div>';
-            str += '<div class="ui-block-b"><div class="ui-bar ui-bar-a">Flag: ' + flag + '</div></div>';
-            str += '</div>'
-            str += '<input type="text" name="event" id="event" value="">';
-            str += '</center>';
-            reloadMenu(str);
-            
-            var str = "";
-            str += getFileWriteHtml(serviceId, path, flag, sessionKey);
-            str += getFileReadHtml(serviceId, path, flag, sessionKey);
-            str += getCloseHtml(serviceId, sessionKey);
-            reloadContent(str);
-        } else {
-            showError("file_descriptor/open",json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        initAll();
+        initContent();
+        var str = "";
+        str += '<form  name="fileDescriptorForm">';
+        str += '<center>';
+        str += '<div class="ui-grid-a">';
+        str += '<div class="ui-block-a"><div class="ui-bar ui-bar-a">Path: ' + path + '</div></div>';
+        str += '<div class="ui-block-b"><div class="ui-bar ui-bar-a">Flag: ' + flag + '</div></div>';
+        str += '</div>'
+        str += '<input type="text" name="event" id="event" value="">';
+        str += '</center>';
+        reloadMenu(str);
+        
+        var str = "";
+        str += getFileWriteHtml(serviceId, path, flag, sessionKey);
+        str += getFileReadHtml(serviceId, path, flag, sessionKey);
+        str += getCloseHtml(serviceId, sessionKey);
+        reloadContent(str);
+    }, function(errorCode, errorMessage) {
+        showError("file_descriptor/open", errorCode, errorMessage);
     });
 }
 
@@ -148,7 +143,7 @@ function doWriteFile(serviceId, sessionKey) {
                 }
             } 
         }
-        showError("PUT file_descriptor/write", obj);
+        showError("PUT file_descriptor/write", obj.errorCode, obj.errorMessage);
     };
     xhr.send(form_data);
 }
@@ -178,28 +173,24 @@ function doReadFile(serviceId, sessionKey) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            setTitle("Read");
-            var result = json.fileData;
+        setTitle("Read");
+        var result = json.fileData;
 
-            var str = "";
-            str += getFileWriteHtml(serviceId, path, flag, sessionKey);
-            str += getFileReadHtml(serviceId, path, flag, sessionKey);
+        var str = "";
+        str += getFileWriteHtml(serviceId, path, flag, sessionKey);
+        str += getFileReadHtml(serviceId, path, flag, sessionKey);
 
-            str += '<textarea cols="40" rows="10" name="textarea-8" id="textarea-8">';
-            str += result;
-            str += '</textarea>';
-            str += getCloseHtml(serviceId, sessionKey);
+        str += '<textarea cols="40" rows="10" name="textarea-8" id="textarea-8">';
+        str += result;
+        str += '</textarea>';
+        str += getCloseHtml(serviceId, sessionKey);
 
-            reloadContent(str);
-        } else {
-            showError("GET file_descriptor/read", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        reloadContent(str);
+    }, function(errorCode, errorMessage) {
+        showError("GET file_descriptor/read", errorCode, errorMessage);
     });
 }
 
@@ -235,17 +226,13 @@ function doCloseFile(serviceId, sessionKey) {
     builder.addParameter("path", path);
     var uri = builder.build();
 
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            setTitle("Close");
-            showFileDescriptor(serviceId, sessionKey);
-        } else {
-            showError("PUT file_descriptor/close", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        setTitle("Close");
+        showFileDescriptor(serviceId, sessionKey);
+    }, function(errorCode, errorMessage) {
+        showError("PUT file_descriptor/close", errorCode, errorMessage);
     });
 }
 

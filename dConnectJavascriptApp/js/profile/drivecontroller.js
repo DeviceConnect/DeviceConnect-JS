@@ -67,17 +67,10 @@ function doDriveRotate(serviceId){
     var uri = builder.build();
     console.log("doDriveRotate:" + uri);
 
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-
-        } else {
-			showError("PUT drive_controller/rotate", json);
-        }
-
-    }, function(xhr, textStatus, errorThrown) {
-
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("PUT drive_controller/rotate", errorCode, errorMessage);
     });
 
 }
@@ -96,17 +89,10 @@ function doDriveStop(serviceId) {
     var uri = builder.build();
     console.log("doDriveStop:" + uri);
 
-    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-
-        } else {
-			showError("DELETE drive_controller/stop", json);
-        }
-
-    }, function(xhr, textStatus, errorThrown) {
-
+    dConnect.delete(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("DELETE drive_controller/stop", errorCode, errorMessage);
     });
 }
 
@@ -130,16 +116,9 @@ function doDriveMove(serviceId, angle) {
     var uri = builder.build();
     console.log("doDriveMove:" + uri);
 
-    dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-        var json = JSON.parse(responseText);
-
-        if (json.result == 0) {
-
-        } else {
-			showError("POST drive_controller/move", json);
-        }
-
-    }, function(xhr, textStatus, errorThrown) {
-
+    dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("POST drive_controller/move", errorCode, errorMessage);
     });
 }

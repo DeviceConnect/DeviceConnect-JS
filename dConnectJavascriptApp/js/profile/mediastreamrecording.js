@@ -53,25 +53,20 @@ function doRegisterPreview(serviceId) {
 
     if (DEBUG) console.log("Uri:" + uri)
 
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
 
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            var myUri = json.uri;
-            myUri = myUri.replace("localhost", ip);
-            var img = document.getElementById("preview");
-            if (img != null) {
-                img.onerror = function() {
-                    alert('Failed to get a preview.');
-                }
-                img.src = myUri;
+        var myUri = json.uri;
+        myUri = myUri.replace("localhost", ip);
+        var img = document.getElementById("preview");
+        if (img != null) {
+            img.onerror = function() {
+                alert('Failed to get a preview.');
             }
-        } else {
-            showError("PUT mediastream_recording/preview", json);
+            img.src = myUri;
         }
-    }, function(xhr, textStatus, errorThrown) {
-        showError("PUT mediastream_recording/preview", errorThrown);
+    }, function(errorCode, errorMessage) {
+        showError("PUT mediastream_recording/preview", errorCode, errorMessage);
     });
 }
 
@@ -90,17 +85,12 @@ function doUnregisterPreview(serviceId) {
 
     if (DEBUG) console.log("Uri:" + uri)
 
-    dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-        } else {
-            showError("DELETE mediastream_recording/preview", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+    dConnect.delete(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("DELETE mediastream_recording/preview", errorCode, errorMessage);
     });
 }
-
 
 /**
  * Previewの開始
@@ -167,20 +157,16 @@ function doTakePhoto(serviceId) {
 
     if (DEBUG) console.log("Uri: " + uri)
 
-    dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
 
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            var myUri = json.uri;
-            myUri  = myUri.replace("localhost", ip);
-            refreshImg(myUri, "photo");
-            closeLoading();
-        } else {
-            showError("POST mediastream_recording/takephoto", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
-
+        var myUri = json.uri;
+        myUri  = myUri.replace("localhost", ip);
+        refreshImg(myUri, "photo");
+        closeLoading();
+    }, function(errorCode, errorMessage) {
+        showError("POST mediastream_recording/takephoto", errorCode, errorMessage);
+        closeLoading();
     });
 
     doRegisterOnPhoto(serviceId, sessionKey);
@@ -284,17 +270,12 @@ function doMediaRecord(serviceId, target) {
 
     if (DEBUG) console.log("Uri: " + uri);
 
-    dConnect.execute('POST', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response:"+responseText);
+    dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);;
 
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            reloadContent(mediaStopButton(serviceId));
-        } else {
-            showError("POST mediastream_recording/record", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
-        showError("POST mediastream_recording/record", errorThrown);
+        reloadContent(mediaStopButton(serviceId));
+    }, function(errorCode, errorMessage) {
+        showError("POST mediastream_recording/record", errorCode, errorMessage);
     });
 }
 
@@ -312,16 +293,11 @@ function doMediaStop(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response:"+responseText)
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            showMediastreamRecording(serviceId);
-        } else {
-            showError("PUT mediastream_recording/stop", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
-        showError("PUT mediastream_recording/stop", errorThrown);
+    dConnect.put(uri, null, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+        showMediastreamRecording(serviceId);
+    }, function(errorCode, errorMessage) {
+        showError("PUT mediastream_recording/stop", errorCode, errorMessage);
     });
 }
 
@@ -339,16 +315,10 @@ function doGetMediaRecorder(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri:"+uri)
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response:"+responseText)
-        var json = JSON.parse(responseText);
-        if (json.result == 0) {
-            console.log(json);
-        } else {
-            showError("GET mediastream_recording/mediarecorder", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
-        showError("GET mediastream_recording/mediarecorder", errorThrown);
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+    }, function(errorCode, errorMessage) {
+        showError("GET mediastream_recording/mediarecorder", errorCode, errorMessage);
     });
 }
 

@@ -297,15 +297,16 @@ function makeInputText(keyName, id, name){
 }
 
 /**
- * Errorメッセージ
+ * エラーメッセージを表示する.
  *
- * @param {String}profileName プロファイル名
- * @param {String}json エラーJSON
+ * @param {String} profileName プロファイル名
+ * @param {String} errorCode エラーコード
+ * @param {String} errorMessage エラーメッセージ
  */
-function showError(profileName, json){
-	if(json.errorMessage == "clientId was not found."){
-		alert(profileName + " API\n アクセストークンが不正です。再取得してください。");
-	} else {
-		alert(profileName + " API\n errorMessage:"+json.errorMessage +"\n errorCode:"+json.errorCode);
-	}
+function showError(profileName, errorCode, errorMessage){
+    if (errorCode === dConnect.constants.ErrorCode.NOT_FOUND_CLIENT_ID){
+        alert(profileName + " API\n アクセストークンが不正です。再取得してください。");
+    } else {
+        alert(profileName + " API\n errorMessage:" + errorMessage +"\n errorCode:" + errorCode);
+    }
 }

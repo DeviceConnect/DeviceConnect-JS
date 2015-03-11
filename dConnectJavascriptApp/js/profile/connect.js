@@ -65,24 +65,20 @@ function doCheckBluetooth(serviceId) {
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
-    
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
-        
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            changeSlider('bluetooth', json.enable ? 1 : 0);
-            $('#bluetooth').bind("change", function(event, ui) {
-                if ($('#bluetooth').val() === "off") {
-                    doConnectBluetooth(serviceId, false);
-                } else if ($('#bluetooth').val() === "on") {
-                    doConnectBluetooth(serviceId, true);
-                }
-            });
-        } else {
-             showError("connect/bluetooth", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
+
+        changeSlider('bluetooth', json.enable ? 1 : 0);
+        $('#bluetooth').bind("change", function(event, ui) {
+            if ($('#bluetooth').val() === "off") {
+                doConnectBluetooth(serviceId, false);
+            } else if ($('#bluetooth').val() === "on") {
+                doConnectBluetooth(serviceId, true);
+            }
+        });
+    }, function(errorCode, errorMessage) {
+        showError("connect/bluetooth", errorCode, errorMessage);
     });
 }
 
@@ -100,23 +96,19 @@ function doCheckBLE(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if (DEBUG) console.log("Response: " + responseText);
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            changeSlider('ble', json.enable ? 1 : 0);
-            $('#ble').bind("change", function(event, ui) {
-                if ($('#ble').val() === "off") {
-                    doConnectBLE(serviceId, false);
-                } else if ($('#ble').val() === "on") {
-                    doConnectBLE(serviceId, true);
-                }
-            });
-        } else {
-            showError("GET connect/ble", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        changeSlider('ble', json.enable ? 1 : 0);
+        $('#ble').bind("change", function(event, ui) {
+            if ($('#ble').val() === "off") {
+                doConnectBLE(serviceId, false);
+            } else if ($('#ble').val() === "on") {
+                doConnectBLE(serviceId, true);
+            }
+        });
+    }, function(errorCode, errorMessage) {
+        showError("GET connect/ble", errorCode, errorMessage);
     });
 }
 
@@ -134,23 +126,19 @@ function doCheckWifi(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if(DEBUG) console.log("Response:"+responseText)
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            changeSlider('wifi', json.enable ? 1 : 0);
-            $('#wifi').bind("change", function(event, ui) {
-                if ($('#wifi').val() === "off") {
-                    doConnectWifi(serviceId, false);
-                } else if ($('#wifi').val() === "on") {
-                    doConnectWifi(serviceId, true);
-                }
-            });
-        } else {
-             showError("GET connect/wifi", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        changeSlider('wifi', json.enable ? 1 : 0);
+        $('#wifi').bind("change", function(event, ui) {
+            if ($('#wifi').val() === "off") {
+                doConnectWifi(serviceId, false);
+            } else if ($('#wifi').val() === "on") {
+                doConnectWifi(serviceId, true);
+            }
+        });
+    }, function(errorCode, errorMessage) {
+        showError("GET connect/wifi", errorCode, errorMessage);
     });
 }
 
@@ -168,24 +156,19 @@ function doCheckNfc(serviceId) {
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
     
-    dConnect.execute('GET', uri, null, null, function(status, headerMap, responseText) {
-        if(DEBUG) console.log("Response:"+responseText)
+    dConnect.get(uri, null, function(json) {
+        if (DEBUG) console.log("Response: ", json);
         
-        var json = JSON.parse(responseText);
-        if (json.result === 0) {
-            changeSlider('nfc', json.enable ? 1 : 0);
-            $('#nfc').bind("change", function(event, ui) {
-                if ($('#nfc').val() === "off") {
-                    doConnectNfc(serviceId, false);
-                } else if ($('#nfc').val() === "on") {
-                    doConnectNfc(serviceId, true);
-                }
-            });
-            
-        } else {
-            showError("GET connect/nfc", json);
-        }
-    }, function(xhr, textStatus, errorThrown) {
+        changeSlider('nfc', json.enable ? 1 : 0);
+        $('#nfc').bind("change", function(event, ui) {
+            if ($('#nfc').val() === "off") {
+                doConnectNfc(serviceId, false);
+            } else if ($('#nfc').val() === "on") {
+                doConnectNfc(serviceId, true);
+            }
+        });
+    }, function(errorCode, errorMessage) {
+        showError("GET connect/nfc", errorCode, errorMessage);
     });
 }
 
@@ -246,38 +229,32 @@ function doConnectNfc(serviceId, connect) {
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     if (DEBUG) console.log("Uri: " + uri);
-    
+
     if (connect){
-        dConnect.execute('PUT', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response: " + responseText);
-            var json = JSON.parse(responseText);
-            if (json.result === 0) {
-                if (type === "ble" || type === "bluetooth"){
-                    changeSlider("bluetooth", 1);
-                    changeSlider("ble", 1);
-                } else {
-                    changeSlider(type, 1);
-                }
+        dConnect.put(uri, null, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            if (type === "ble" || type === "bluetooth"){
+                changeSlider("bluetooth", 1);
+                changeSlider("ble", 1);
             } else {
-                showError("PUT connect/" + type, json);
-                changeSlider(type, 0);
-            }
-        });
-    } else {
-        dConnect.execute('DELETE', uri, null, null, function(status, headerMap, responseText) {
-            if (DEBUG) console.log("Response:" + responseText);
-            var json = JSON.parse(responseText);
-            if (json.result === 0) {
-                if(type === "ble" || type === "bluetooth"){
-                    changeSlider("bluetooth", 0);
-                    changeSlider("ble", 0);
-                } else {
-                    changeSlider(type, 0);
-                }
-            } else {
-                showError("DELETE connect/" + type, json);
                 changeSlider(type, 1);
             }
+        }, function(errorCode, errorMessage) {
+            showError("PUT connect/" + type, errorCode, errorMessage);
+            changeSlider(type, 0);
+        });
+    } else {
+        dConnect.delete(uri, null, function(json) {
+            if (DEBUG) console.log("Response: ", json);
+            if(type === "ble" || type === "bluetooth"){
+                changeSlider("bluetooth", 0);
+                changeSlider("ble", 0);
+            } else {
+                changeSlider(type, 0);
+            }
+        }, function(errorCode, errorMessage) {
+            showError("DELETE connect/" + type, errorCode, errorMessage);
+            changeSlider(type, 1);
         });
     }
 }
