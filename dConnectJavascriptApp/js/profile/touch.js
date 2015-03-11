@@ -95,12 +95,29 @@ function doGetOnTouch(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    var i;
+    for (i = 0; i < 10; i++) {
+      switch (i) {
+      case 0: $('#idT0').val(''); break;
+      case 1: $('#idT1').val(''); break;
+      case 2: $('#idT2').val(''); break;
+      case 3: $('#idT3').val(''); break;
+      case 4: $('#idT4').val(''); break;
+      case 5: $('#idT5').val(''); break;
+      case 6: $('#idT6').val(''); break;
+      case 7: $('#idT7').val(''); break;
+      case 8: $('#idT8').val(''); break;
+      case 9: $('#idT9').val(''); break;
+      }
+    }
+
     if (json.touch) {
       if (json.touch.touches) {
         var i;
@@ -156,20 +173,6 @@ function doGetOnTouch(serviceId) {
               ' x: ' + json.touch.touches[i].x +
               ' y: ' + json.touch.touches[i].y);
             break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idT0').val(''); break;
-          case 1: $('#idT1').val(''); break;
-          case 2: $('#idT2').val(''); break;
-          case 3: $('#idT3').val(''); break;
-          case 4: $('#idT4').val(''); break;
-          case 5: $('#idT5').val(''); break;
-          case 6: $('#idT6').val(''); break;
-          case 7: $('#idT7').val(''); break;
-          case 8: $('#idT8').val(''); break;
-          case 9: $('#idT9').val(''); break;
           }
         }
       }
@@ -265,12 +268,29 @@ function doGetOnTouchStart(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    var i;
+    for (i = 0; i < 10; i++) {
+      switch (i) {
+      case 0: $('#idS0').val(''); break;
+      case 1: $('#idS1').val(''); break;
+      case 2: $('#idS2').val(''); break;
+      case 3: $('#idS3').val(''); break;
+      case 4: $('#idS4').val(''); break;
+      case 5: $('#idS5').val(''); break;
+      case 6: $('#idS6').val(''); break;
+      case 7: $('#idS7').val(''); break;
+      case 8: $('#idS8').val(''); break;
+      case 9: $('#idS9').val(''); break;
+      }
+    }
+
     if (json.touch) {
       if (json.touch.touches) {
         var i;
@@ -326,20 +346,6 @@ function doGetOnTouchStart(serviceId) {
               ' x: ' + json.touch.touches[i].x +
               ' y: ' + json.touch.touches[i].y);
             break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idS0').val(''); break;
-          case 1: $('#idS1').val(''); break;
-          case 2: $('#idS2').val(''); break;
-          case 3: $('#idS3').val(''); break;
-          case 4: $('#idS4').val(''); break;
-          case 5: $('#idS5').val(''); break;
-          case 6: $('#idS6').val(''); break;
-          case 7: $('#idS7').val(''); break;
-          case 8: $('#idS8').val(''); break;
-          case 9: $('#idS9').val(''); break;
           }
         }
       }
@@ -434,12 +440,29 @@ function doGetOnTouchEnd(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    var i;
+    for (i = 0; i < 10; i++) {
+      switch (i) {
+      case 0: $('#idE0').val(''); break;
+      case 1: $('#idE1').val(''); break;
+      case 2: $('#idE2').val(''); break;
+      case 3: $('#idE3').val(''); break;
+      case 4: $('#idE4').val(''); break;
+      case 5: $('#idE5').val(''); break;
+      case 6: $('#idE6').val(''); break;
+      case 7: $('#idE7').val(''); break;
+      case 8: $('#idE8').val(''); break;
+      case 9: $('#idE9').val(''); break;
+      }
+    }
+
     if (json.touch) {
       if (json.touch.touches) {
         var i;
@@ -495,20 +518,6 @@ function doGetOnTouchEnd(serviceId) {
               ' x: ' + json.touch.touches[i].x +
               ' y: ' + json.touch.touches[i].y);
             break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idE0').val(''); break;
-          case 1: $('#idE1').val(''); break;
-          case 2: $('#idE2').val(''); break;
-          case 3: $('#idE3').val(''); break;
-          case 4: $('#idE4').val(''); break;
-          case 5: $('#idE5').val(''); break;
-          case 6: $('#idE6').val(''); break;
-          case 7: $('#idE7').val(''); break;
-          case 8: $('#idE8').val(''); break;
-          case 9: $('#idE9').val(''); break;
           }
         }
       }
@@ -603,12 +612,29 @@ function doGetOnDoubleTap(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    var i;
+    for (i = 0; i < 10; i++) {
+      switch (i) {
+      case 0: $('#idD0').val(''); break;
+      case 1: $('#idD1').val(''); break;
+      case 2: $('#idD2').val(''); break;
+      case 3: $('#idD3').val(''); break;
+      case 4: $('#idD4').val(''); break;
+      case 5: $('#idD5').val(''); break;
+      case 6: $('#idD6').val(''); break;
+      case 7: $('#idD7').val(''); break;
+      case 8: $('#idD8').val(''); break;
+      case 9: $('#idD9').val(''); break;
+      }
+    }
+
     if (json.touch) {
       if (json.touch.touches) {
         var i;
@@ -664,20 +690,6 @@ function doGetOnDoubleTap(serviceId) {
               ' x: ' + json.touch.touches[i].x +
               ' y: ' + json.touch.touches[i].y);
             break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idD0').val(''); break;
-          case 1: $('#idD1').val(''); break;
-          case 2: $('#idD2').val(''); break;
-          case 3: $('#idD3').val(''); break;
-          case 4: $('#idD4').val(''); break;
-          case 5: $('#idD5').val(''); break;
-          case 6: $('#idD6').val(''); break;
-          case 7: $('#idD7').val(''); break;
-          case 8: $('#idD8').val(''); break;
-          case 9: $('#idD9').val(''); break;
           }
         }
       }
@@ -772,12 +784,29 @@ function doGetOnTouchMove(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    var i;
+    for (i = 0; i < 10; i++) {
+      switch (i) {
+      case 0: $('#idM0').val(''); break;
+      case 1: $('#idM1').val(''); break;
+      case 2: $('#idM2').val(''); break;
+      case 3: $('#idM3').val(''); break;
+      case 4: $('#idM4').val(''); break;
+      case 5: $('#idM5').val(''); break;
+      case 6: $('#idM6').val(''); break;
+      case 7: $('#idM7').val(''); break;
+      case 8: $('#idM8').val(''); break;
+      case 9: $('#idM9').val(''); break;
+      }
+    }
+
     if (json.touch) {
       if (json.touch.touches) {
         var i;
@@ -833,20 +862,6 @@ function doGetOnTouchMove(serviceId) {
               ' x: ' + json.touch.touches[i].x +
               ' y: ' + json.touch.touches[i].y);
             break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idM0').val(''); break;
-          case 1: $('#idM1').val(''); break;
-          case 2: $('#idM2').val(''); break;
-          case 3: $('#idM3').val(''); break;
-          case 4: $('#idM4').val(''); break;
-          case 5: $('#idM5').val(''); break;
-          case 6: $('#idM6').val(''); break;
-          case 7: $('#idM7').val(''); break;
-          case 8: $('#idM8').val(''); break;
-          case 9: $('#idM9').val(''); break;
           }
         }
       }
@@ -941,15 +956,31 @@ function doGetOnTouchCancel(serviceId) {
     console.log('Uri: ' + uri);
   }
 
-  dConnect.get(uri, null, null, function(json) {
+  dConnect.get(uri, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
+
+    var i;
+    for (i = 0; i < 10; i++) {
+      switch (i) {
+      case 0: $('#idC0').val(''); break;
+      case 1: $('#idC1').val(''); break;
+      case 2: $('#idC2').val(''); break;
+      case 3: $('#idC3').val(''); break;
+      case 4: $('#idC4').val(''); break;
+      case 5: $('#idC5').val(''); break;
+      case 6: $('#idC6').val(''); break;
+      case 7: $('#idC7').val(''); break;
+      case 8: $('#idC8').val(''); break;
+      case 9: $('#idC9').val(''); break;
+      }
+    }
+
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1002,20 +1033,6 @@ function doGetOnTouchCancel(serviceId) {
               ' x: ' + json.touch.touches[i].x +
               ' y: ' + json.touch.touches[i].y);
             break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idC0').val(''); break;
-          case 1: $('#idC1').val(''); break;
-          case 2: $('#idC2').val(''); break;
-          case 3: $('#idC3').val(''); break;
-          case 4: $('#idC4').val(''); break;
-          case 5: $('#idC5').val(''); break;
-          case 6: $('#idC6').val(''); break;
-          case 7: $('#idC7').val(''); break;
-          case 8: $('#idC8').val(''); break;
-          case 9: $('#idC9').val(''); break;
           }
         }
       }
