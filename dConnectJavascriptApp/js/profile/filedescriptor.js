@@ -298,7 +298,11 @@ function doRegisterOnWatchFile(serviceId, sessionKey){
           console.log("Event-Message: " + message);
         }
         var json = JSON.parse(message);
-        if (json.file) {
+        if (json.profile === "file_descriptor") {
+          document.fileDescriptorForm.event.value = json.file.curr;
+          if (DEBUG) {
+            console.log(json.file.curr);
+          }
         }
     }, function() {
       if (DEBUG) {
