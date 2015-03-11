@@ -14,15 +14,29 @@ function showFileDescriptor(serviceId) {
   initAll();
 
   var btnStr = getBackButton('Device Top', 'doFileDescriptorBack',
-              serviceId, '');
+      serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  setTitle('File Descriptor Profile');
+  var sessionKey = currentClientId;
 
   var str = '';
+  str += '<div>';
+  str += '  <input data-icon=\"search\" onclick=\"doGetOnWatchFile(\'' +
+        serviceId + '\')\" type=\"button\" value=\"Get\" />';
+  str += '</div>';
+  str += '<fieldset class=\"ui-grid-a\">';
+  str += '  <div class=\"ui-block-a\">';
+  str += '    <input data-icon=\"search\" onclick=\"doRegisterOnWatchFile(\'' +
+          serviceId + '\', \'' + sessionKey +
+          '\')\" type=\"button\" value=\"Register\" />';
+  str += '  </div>';
+  str += '  <div class=\"ui-block-b\">';
+  str += '    <input data-icon=\"search\"' +
+        ' onclick=\"doUnregisterOnWatchFile(\'' + serviceId + '\', \'' +
+        sessionKey + '\')\" type=\"button\" value=\"Unregister\" />';
+  str += '  </div>';
+  str += '</fieldset>';
   str += '<form  name="fileDescriptorForm">';
-
   str += '<div class="ui-field-contain">';
   str += '<label for="path">Path:</label>';
   str += '<input type="text" data-mini="true" name="path" id="path" value="">';
@@ -32,8 +46,8 @@ function showFileDescriptor(serviceId) {
   str += '<OPTION value="r">Read</OPTION>';
   str += '</SELECT>';
   str += '</form>';
-  str += '<input type="button" onclick="doOpenFile(\'' +
-        serviceId + '\');" id="openFile" value="Open file" />';
+  str += '<input type="button" onclick="doOpenFile(\'' + serviceId +
+          '\');" id="openFile" value="Open file" />';
 
   reloadContent(str);
 }
@@ -68,16 +82,11 @@ function doOpenFile(serviceId) {
   var sessionKey = currentClientId;
   var flag = $('#flag').val();
   var path = $('#path').val();
-
   var btnStr = getBackButton('FileDescriptor Top', 'doOpenFileBack',
-                          serviceId, sessionKey);
+                  serviceId, sessionKey);
 
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  doRegisterOnWatchFile(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(eventCode, message) {
-  });
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file_descriptor');
@@ -88,7 +97,7 @@ function doOpenFile(serviceId) {
   builder.addParameter('flag', flag);
   var uri = builder.build();
   if (DEBUG) {
-    console.log('Uri:' + uri);
+    console.log('Uri:' + uri)
   }
 
   dConnect.get(uri, null, function(json) {
@@ -110,7 +119,6 @@ function doOpenFile(serviceId) {
     str += '<input type="text" name="event" id="event" value="">';
     str += '</center>';
     reloadMenu(str);
-
     var str = '';
     str += getFileWriteHtml(serviceId, path, flag, sessionKey);
     str += getFileReadHtml(serviceId, path, flag, sessionKey);
@@ -260,6 +268,30 @@ function doCloseFile(serviceId, sessionKey) {
  * @param {String} serviceId サービスID
  * @param {String} sessionKey セッションKEY
  */
+function doGetOnWatchFile(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('file_descriptor');
+  builder.setAttribute('onwatchfile');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (json.file) {
+      alert('UPDATE: ' + json.file.path);
+    }
+  }, function(errorCode, errorMessage) {
+    alert('errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  });
+}
+/*
+ * OnWatchFileイベントの登録.
+ *
+ * @param {String} serviceId サービスID
+ * @param {String} sessionKey セッションKEY
+ */
 function doRegisterOnWatchFile(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file_descriptor');
@@ -271,21 +303,23 @@ function doRegisterOnWatchFile(serviceId, sessionKey) {
   if (DEBUG) {
     console.log('Uri: ' + uri);
   }
-
   dConnect.addEventListener(uri, function(message) {
-    // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
-
     var json = JSON.parse(message);
-
     if (json.profile === 'file_descriptor') {
-      document.fileDescriptorForm.event.value = json.fileData.curr;
-      console.log(json.fileData.curr);
+      document.fileDescriptorForm.event.value = json.file.curr;
+      if (DEBUG) {
+        console.log(json.file.curr);
+      }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }, function() {
+    if (DEBUG) {
+      console.log('Success to add event listener');
+    }
+  }, function(errorCode, errorMessage) {
+    alert('errorCode=' + errorCode + ', errorMessage=' + errorMessage);
   });
 }
 
@@ -306,9 +340,12 @@ function doUnregisterOnWatchFile(serviceId, sessionKey) {
   if (DEBUG) {
     console.log('Uri: ' + uri);
   }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  dConnect.removeEventListener(uri, function() {
+    if (DEBUG) {
+      console.log('Success to remove event listener');
+    }
+  }, function(errorCode, errorMessage) {
+    alert('errorCode=' + errorCode + ', errorMessage=' + errorMessage);
   });
 }
 
@@ -346,9 +383,8 @@ function getFileWriteHtml(serviceId, path, flag, sessionKey) {
   str += '<input type="hidden" name="path" id="path" value="' + path + '">';
   str += '<input type="hidden" name="flag" id="flag" value="' + flag + '">';
 
-  str += '<input type="button" onclick="doWriteFile(\'' +
-        serviceId + '\',\'' + sessionKey +
-        '\');" id="writeFile" value="Write file"  />';
+  str += '<input type="button" onclick="doWriteFile(\'' + serviceId +
+        '\',\'' + sessionKey + '\');" id="writeFile" value="Write file"  />';
   str += '</form>';
   return str;
 }
@@ -367,16 +403,16 @@ function getFileReadHtml(serviceId, path, flag, sessionKey) {
   str += '<div class="ui-field-contain">';
   str += '<label>Position:</label>';
   str += '<input type="text" data-mini="true" name="position"' +
-        ' id="position" value="">';
+  ' id="position" value="">';
   str += '<input type="hidden" name="path" id="path" value="' + path + '">';
   str += '<input type="hidden" name="flag" id="flag" value="' + flag + '">';
   str += '<label for="length">Length:</label>';
   str += '<input type="text" data-mini="true" name="length"' +
-        ' id="length" value="">';
+  ' id="length" value="">';
   str += '</div>';
   str += '<input type="button" onclick="doReadFile(\'' +
-        serviceId + '\',\'' + sessionKey +
-        '\');" id="readFile" value="Read file"  />';
+  serviceId + '\',\'' + sessionKey +
+  '\');" id="readFile" value="Read file"  />';
   str += '</form>';
   return str;
 }

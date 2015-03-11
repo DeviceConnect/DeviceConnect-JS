@@ -100,17 +100,6 @@ var dConnect = (function(parent, global) {
   var _currentHmacKey = '';
 
   /**
-   * Signature生成処理種別 (SHA512)
-   * @type {String}
-   */
-  var SHA512 = 'SHA512';
-  /**
-   * グラントタイプ (authorization_code).
-   * @type {String}
-   */
-  var AUTHORIZATION_CODE = 'authorization_code';
-
-  /**
    * Device Connect Managerへ送信するリクエストのnonceの長さ. 単位はバイト.
    */
   var NONCE_BYTES = 16;
@@ -119,163 +108,6 @@ var dConnect = (function(parent, global) {
    * Device Connect Managerへ送信するHMAC生成キーの長さ. 単位はバイト.
    */
   var HMAC_KEY_BYTES = 16;
-
-  /**
-   * Signature生成処理 (SHA512).
-   * @type {Object}
-   */
-  var AuthSignatureProcSHA512 = {
-    /**
-     * Signature生成.
-     * @param {Object.<String, String>} inputMaps 入力文字列 (key,valueの連想配列)
-     * @param {String} clientSecret クライアントシークレット
-     * @return {String} 生成したSignature文字列
-     */
-    generateSignature: function(inputMaps, clientSecret) {
-
-      /* key昇順にソート */
-      inputMaps.sort(function(a, b) {
-        return (a.key < b.key) ? -1 : 1;
-      });
-
-      /* 連結 */
-      var str = '';
-      for (var i = 0; i < inputMaps.length; i++) {
-        str += inputMaps[i].key;
-        str += inputMaps[i].value;
-      }
-
-      /* clientSecretを連結 */
-      str += 'clientSecret';
-      str += clientSecret;
-
-      var shaObj = new jsSHA(str, 'TEXT');
-      var signature = shaObj.getHash('SHA-512', 'HEX');
-      return signature;
-    }
-  };
-
-  /**
-   * Signature生成処理ファクトリークラス.
-   * @type {Object}
-   */
-  var AuthSignatureProcFactory = {
-
-    /**
-     * Signature生成処理を返す.
-     * @param {String} kind Signature生成処理種別
-     * @return {?Object} Signature生成処理オブジェクト
-     */
-    getProc: function(kind) {
-      if (kind == SHA512) {
-        return AuthSignatureProcSHA512;
-      } else {
-        return null;
-      }
-    }
-  };
-
-  /**
-   * Signatureクラス
-   * @memberOf dConnect
-   * @name oauth
-   * @namespace
-   * @type {Object}
-   */
-  var AuthSignature = {
-
-    /**
-     * アクセストークン発行リクエスト用のSignatureを生成する.
-     * @memberOf dConnect.oauth
-     * @param {String} clientId クライアントID
-     * @param {String} grantType グラントタイプ(AUTHORIZATION_CODEを指定する)
-     * @param {String} serviceId サービスID(UIアプリの場合はnullまたは''(空の文字列)を設定する)
-     * @param {String} scopes スコープ(カンマ区切りで複数指定可能。(例)'bivration,file,notification')
-     * @param {String} clientSecret クライアントシークレット
-     * @return {String} 生成したSignature
-     */
-    generateSignatureForAccessTokenRequest: function(clientId, grantType,
-                                                     serviceId, scopes,
-                                                     clientSecret) {
-      var inputMaps = [];
-      inputMaps.push({
-        key: 'clientId',
-        value: clientId
-      });
-      inputMaps.push({
-        key: 'grantType',
-        value: grantType
-      });
-      if (serviceId != null && serviceId != '') {
-        inputMaps.push({
-          key: 'serviceId',
-          value: serviceId
-        });
-      }
-
-      var strScopes = '';
-      scopes.sort();
-      for (var i = 0; i < scopes.length; i++) {
-        if (i > 0) {
-          strScopes += ',';
-        }
-        strScopes += scopes[i];
-      }
-      inputMaps.push({
-        key: 'scopes',
-        value: strScopes
-      });
-
-      var authSignatureProc = AuthSignatureProcFactory.getProc(SHA512);
-      var signature = authSignatureProc.generateSignature(inputMaps,
-          clientSecret);
-      return signature;
-    },
-
-    /**
-     * アクセストークン受信用のSignatureを生成する.
-     * @memberOf dConnect.oauth
-     * @param {String} accessToken アクセストークン
-     * @param {String} clientSecret クライアントシークレット
-     * @return {String} 生成したSignature
-     */
-    generateSignatureForAccessTokenResponse: function(accessToken,
-                                                      clientSecret) {
-      var inputMaps = [];
-      inputMaps.push({
-        key: 'accessToken',
-        value: accessToken
-      });
-
-      var authSignatureProc = AuthSignatureProcFactory.getProc(SHA512);
-      var signature = authSignatureProc.generateSignature(inputMaps,
-          clientSecret);
-      return signature;
-    },
-
-    /**
-     * アクセストークン発行リクエスト用のSignatureを生成する(引数パラメータの数により内部処理が切り替わる).
-     * @memberOf dConnect.oauth
-     * @param {String} arg1 arg1
-     * @param {String} arg2 arg2
-     * @param {String} arg3 arg3
-     * @param {String} arg4 arg4
-     * @param {String} arg5 arg5
-     * @return {?String} 生成したSignature
-     */
-    generateSignature: function(arg1, arg2, arg3, arg4, arg5) {
-      if (arguments.length == 5) {
-        return AuthSignature.generateSignatureForAccessTokenRequest(arg1,
-            arg2, arg3, arg4, arg5);
-      } else if (arguments.length == 2) {
-        return AuthSignature.generateSignatureForAccessTokenResponse(arg1,
-            arg2);
-      } else {
-        return null;
-      }
-    }
-  };
-  parent.oauth = AuthSignature;
 
   // ============================================
   //             Public
@@ -390,49 +222,26 @@ var dConnect = (function(parent, global) {
       PROFILE_NAME: 'authorization',
 
       // Atttribute
-      /** アトリビュート: create_client。*/
-      ATTR_CREATE_CLIENT: 'create_client',
-      /** アトリビュート: request_accesstoken。 */
-      ATTR_REQUEST_ACCESS_TOKEN: 'request_accesstoken',
+      /** アトリビュート: grant。*/
+      ATTR_GRANT: 'grant',
+      /** アトリビュート: accesstoken。 */
+      ATTR_ACCESS_TOKEN: 'accesstoken',
 
       // Parameter
-      /** パラメータ: package。 */
-      PARAM_PACKAGE: 'package',
       /** パラメータ: clientId。 */
       PARAM_CLIENT_ID: 'clientId',
-      /** パラメータ: clientSecret。 */
-      PARAM_CLIENT_SECRET: 'clientSecret',
-      /** パラメータ: grantType。 */
-      PARAM_GRANT_TYPE: 'grantType',
       /** パラメータ: scope。 */
       PARAM_SCOPE: 'scope',
       /** パラメータ: scopes。 */
       PARAM_SCOPES: 'scopes',
       /** パラメータ: applicationName。 */
       PARAM_APPLICATION_NAME: 'applicationName',
-      /** パラメータ: signature。 */
-      PARAM_SIGNATURE: 'signature',
       /** パラメータ: accessToken。 */
       PARAM_ACCESS_TOKEN: 'accessToken',
       /** パラメータ: expirePeriod。 */
       PARAM_EXPIRE_PERIOD: 'expirePeriod',
-
-      /**
-       * Defined in 4.1 Authorization Code Grant (RFC6749).
-       */
-      GRANT_TYPE_AUTHORIZATION_CODE: AUTHORIZATION_CODE,
-      /**
-       * Defined in 4.3 Resource Owner Password Credentials Grant (RFC6749).
-       */
-      GRANT_TYPE_PASSWORD: 'password',
-      /**
-       * Defined in 4.4 Client Credentials Grant (RFC6749).
-       */
-      GRANT_TYPE_CLIENT_CREDENTIALS: 'client_credentials',
-      /**
-       * Defined in 6 Refreshing an Access Token (RFC6749).
-       */
-      GRANT_TYPE_REFRESH_TOKEN: 'refresh_token'
+      /** パラメータ: expire。 */
+      PARAM_EXPIRE: 'expire',
     },
 
     /**
@@ -480,7 +289,7 @@ var dConnect = (function(parent, global) {
       /** パラメータ: level */
       PARAM_LEVEL: 'level',
       /** パラメータ: battery */
-      PARAM_BATTERY: 'battery'
+      PARAM_BATTERY: 'battery',
     },
 
     /**
@@ -664,7 +473,7 @@ var dConnect = (function(parent, global) {
       /** パラメータ: updateDate */
       PARAM_UPDATE_DATE: 'updateDate',
       /** パラメータ: files */
-      PARAM_FILES: 'files',
+      PARAM_FILES: 'files'
     },
 
     /**
@@ -952,6 +761,8 @@ var dConnect = (function(parent, global) {
       PARAM_ONLINE: 'online',
       /** パラメータ: config */
       PARAM_CONFIG: 'config',
+      /** パラメータ: scopes */
+      PARAM_SCOPES: 'scopes',
 
       // ===== ネットワークタイプ =====
       /** ネットワークタイプ: WiFi */
@@ -1324,7 +1135,7 @@ var dConnect = (function(parent, global) {
   /**
    * ランダムな16進文字列を生成する.
    * @private
-   * @param {String} byteSize 生成する文字列の長さ
+   * @param byteSize 生成する文字列の長さ
    * @return ランダムな16進文字列
    */
   var generateRandom = function(byteSize) {
@@ -1333,8 +1144,8 @@ var dConnect = (function(parent, global) {
     var bytes = [];
 
     for (var i = 0; i < byteSize; i++) {
-      var random = (Math.floor(Math.random() * (max - min + 1)) +
-                                                  min).toString(16);
+      var random = (Math.floor(Math.random() *
+                    (max - min + 1)) + min).toString(16);
       if (random.length < 2) {
         random = '0' + random;
       }
@@ -1366,7 +1177,7 @@ var dConnect = (function(parent, global) {
   /**
    * サーバからのレスポンス受信時にサーバの認証を行うかどうかを設定する.
    * @memberOf dConnect
-   * @param {Boolean} enable サーバの認証を行う場合はtrue、そうでない場合はfalse
+   * @param enable サーバの認証を行う場合はtrue、そうでない場合はfalse
    */
   var setAntiSpoofing = function(enable) {
     _isEnabledAntiSpoofing = enable;
@@ -1390,7 +1201,7 @@ var dConnect = (function(parent, global) {
    * 遷移したタイミングで確認される.
    * </p>
    * @memberOf dConnect
-   * @param {Function} listener リスナー
+   * @param listener リスナー
    */
   var setLaunchListener = function(listener) {
     listener = listener || function() {
@@ -1411,7 +1222,7 @@ var dConnect = (function(parent, global) {
    */
   var startManagerForAndroid = function() {
     _currentHmacKey = isEnabledAntiSpoofing() ?
-        generateRandom(HMAC_KEY_BYTES) : '';
+                        generateRandom(HMAC_KEY_BYTES) : '';
     var urlScheme = new AndroidURISchemeBuilder();
     urlScheme.setPath('start');
     urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
@@ -1433,7 +1244,7 @@ var dConnect = (function(parent, global) {
     iframe.setAttribute('name', 'launch_frame');
     div.appendChild(iframe);
     launch_frame.location.href = 'dconnect:' +
-            encodeURIComponent(window.location.href);
+                  encodeURIComponent(window.location.href);
     setTimeout(function() {
       var frame = document.getElementById('launch_frame');
       frame.parentNode.removeChild(frame);
@@ -1457,9 +1268,9 @@ var dConnect = (function(parent, global) {
   /**
    * 指定されたURIにリクエストパラメータを追加する.
    * @private
-   * @param {String} uri URI
-   * @param {String} key URIに追加するパラメータのキー
-   * @param {String} value URIに追加するパラメータの値
+   * @param uri URI
+   * @param key URIに追加するパラメータのキー
+   * @param value URIに追加するパラメータの値
    * @return リクエストパラメータを追加されたURI文字列
    */
   var addRequestParameter = function(uri, key, value) {
@@ -1478,7 +1289,7 @@ var dConnect = (function(parent, global) {
    * @param {String} method メソッド
    * @param {String} uri URI
    * @param {Object.<String, String>} header リクエストヘッダー。Key-Valueマップで渡す。
-   * @param {ContentData} data コンテンツデータ
+   * @param {} data コンテンツデータ
    * @param {Function} success 成功時コールバック
    * @param {Function} error 失敗時コールバック
    */
@@ -1509,7 +1320,7 @@ var dConnect = (function(parent, global) {
     };
     var httpError = function(readyState, status) {
       error(parent.constants.ErrorCode.ACCESS_FAILED,
-            'Failed to access to the server.');
+              'Failed to access to the server.');
     };
 
     parent.execute(method, uri, header, data, httpSuccess, httpError);
@@ -1523,7 +1334,7 @@ var dConnect = (function(parent, global) {
    * </p>
    * @memberOf dConnect
    * @param {String} uri URI
-   * @param {Object.<String, String>} header リクエストヘッダー。Key-Valueマップで渡す。
+   * @param {Object.<String, String>} headers リクエストヘッダー。Key-Valueマップで渡す。
    * @param {Function} success 成功時コールバック
    * @param {Function} error 失敗時コールバック
    */
@@ -1539,7 +1350,7 @@ var dConnect = (function(parent, global) {
    * @memberOf dConnect
    * @param {String} uri URI
    * @param {Object.<String, String>} header リクエストヘッダー。Key-Valueマップで渡す。
-   * @param {ContentData} data コンテンツデータ
+   * @param {} data コンテンツデータ
    * @param {Function} success 成功時コールバック
    * @param {Function} error 失敗時コールバック
    */
@@ -1555,7 +1366,7 @@ var dConnect = (function(parent, global) {
    * @memberOf dConnect
    * @param {String} uri URI
    * @param {Object.<String, String>} header リクエストヘッダー。Key-Valueマップで渡す。
-   * @param {ContentsData} data コンテンツデータ
+   * @param {} data コンテンツデータ
    * @param {Function} success 成功時コールバック
    * @param {Function} error 失敗時コールバック
    */
@@ -1585,7 +1396,7 @@ var dConnect = (function(parent, global) {
    * @param {String} method HTTPメソッド
    * @param {String} uri URI
    * @param {Object.<String, String>} header HTTPリクエストヘッダー。Key-Valueマップで渡す。
-   * @param {ContentsData} data コンテンツデータ
+   * @param {} data コンテンツデータ
    * @param {dConnect.HTTPSuccessCallback} successCallback 成功時コールバック。
    * @param {dConnect.HTTPFailCallback} errorCallback 失敗時コールバック。
    */
@@ -1654,8 +1465,7 @@ var dConnect = (function(parent, global) {
    *     function(errorCode, errorMessage) {
      *     });
    */
-  var discoverDevices = function(accessToken,
-                                 successCallback, errorCallback) {
+  var discoverDevices = function(accessToken, successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
     builder.setAccessToken(accessToken);
@@ -1676,8 +1486,8 @@ var dConnect = (function(parent, global) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
     builder.setServiceId(serviceId);
-    parent.execute('GET', builder.build(), null, null, successCallback,
-        errorCallback);
+    parent.execute('GET', builder.build(), null, null,
+                                  successCallback, errorCallback);
   };
   parent.getSystemDeviceInfo = getSystemDeviceInfo;
 
@@ -1691,7 +1501,7 @@ var dConnect = (function(parent, global) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.system.PROFILE_NAME);
     parent.sendRequest('GET', builder.build(), null, null,
-        successCallback, errorCallback);
+                            successCallback, errorCallback);
   };
   parent.getSystemInfo = getSystemInfo;
 
@@ -1725,7 +1535,7 @@ var dConnect = (function(parent, global) {
    * dConnect.addEventListener(uri, eventCallback, successCallback, errorCallback);
    */
   var addEventListener = function(uri, eventCallback,
-                                  successCallback, errorCallback) {
+                                        successCallback, errorCallback) {
     if (typeof eventCallback != 'function') {
       throw new TypeError('2nd argument must be a function for callback.');
     }
@@ -1762,18 +1572,18 @@ var dConnect = (function(parent, global) {
   /**
    * dConnectManagnerに認可を求める.
    * @memberOf dConnect
-   * @param {Array} scopes 使用するスコープの配列
-   * @param {String} applicationName アプリ名
-   * @param {Function} successCallback 成功時のコールバック
-   * @param {Function} errorCallback 失敗時のコールバック
+   * @param scopes 使用するスコープの配列
+   * @param applicationName アプリ名
+   * @param successCallback 成功時のコールバック
+   * @param errorCallback 失敗時のコールバック
    *
    * @example
    * // アクセスするプロファイル一覧を定義
    * var scopes = Array('servicediscovery', 'sysytem', 'battery');
    * // 認可を実行
    * dConnect.authorization(scopes, 'サンプル',
-   *     function(clientId, clientSecret, accessToken) {
-     *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
+   *     function(clientId, accessToken) {
+     *         // clientId, accessTokenを保存して、プロファイルにアクセス
      *     },
    *     function(errorCode, errorMessage) {
      *         alert('Failed to get accessToken.');
@@ -1781,11 +1591,11 @@ var dConnect = (function(parent, global) {
    */
   var authorization = function(scopes, applicationName,
                                successCallback, errorCallback) {
-    parent.createClient(location.origin, function(clientId, clientSecret) {
-      parent.requestAccessToken(clientId, clientSecret, scopes,
-              applicationName, function(accessToken) {
+    parent.createClient(function(clientId) {
+      parent.requestAccessToken(clientId, scopes,
+                        applicationName, function(accessToken) {
         if (successCallback) {
-          successCallback(clientId, clientSecret, accessToken);
+          successCallback(clientId, accessToken);
         }
       }, errorCallback);
     }, errorCallback);
@@ -1795,28 +1605,25 @@ var dConnect = (function(parent, global) {
   /**
    * クライアントを作成する.
    * @memberOf dConnect
-   * @param {String} packageName ヘージを識別するための名前
-   * @param {Function} successCallback クライアント作成に成功した場合のコールバック
-   * @param {Function} errorCallback クライアント作成に失敗した場合のコールバック
+   * @param successCallback クライアント作成に成功した場合のコールバック
+   * @param errorCallback クライアント作成に失敗した場合のコールバック
    *
    * @example
-   * dConnect.createClient(packageName,
-   *     function(clientId, clientSecret) {
-     *         // clientId, clientSecretを保存して、アクセストークンの取得に使用する
+   * dConnect.createClient(
+   *     function(clientId) {
+     *         // clientIdを保存して、アクセストークンの取得に使用する
      *     },
    *     function(errorCode, errorMessage) {
      *     }
    * );
    */
-  var createClient = function(packageName, successCallback, errorCallback) {
+  var createClient = function(successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.authorization.PROFILE_NAME);
-    builder.setAttribute(parent.constants.authorization.ATTR_CREATE_CLIENT);
-    builder.addParameter(parent.constants.authorization.PARAM_PACKAGE,
-        packageName);
+    builder.setAttribute(parent.constants.authorization.ATTR_GRANT);
     parent.sendRequest('GET', builder.build(), null, null, function(json) {
       if (successCallback) {
-        successCallback(json.clientId, json.clientSecret);
+        successCallback(json.clientId);
       }
     }, function(errorCode, errorMessage) {
       if (errorCallback) {
@@ -1829,15 +1636,14 @@ var dConnect = (function(parent, global) {
   /**
    * アクセストークンを要求する.
    * @memberOf dConnect
-   * @param {String} clientId クライアントID
-   * @param {String} clientSecret クライアントシークレット
-   * @param {Array} scopes スコープ一覧(配列)
-   * @param {String} applicationName アプリ名
-   * @param {function} successCallback アクセストークン取得に成功した場合のコールバック
-   * @param {function} errorCallback アクセストークン取得に失敗した場合のコールバック
+   * @param clientId クライアントID
+   * @param scopes スコープ一覧(配列)
+   * @param applicationName アプリ名
+   * @param successCallback アクセストークン取得に成功した場合のコールバック
+   * @param errorCallback アクセストークン取得に失敗した場合のコールバック
    *
    * @example
-   * dConnect.requestAccessToken(clientId, clientSecret, scopes, 'アプリ名',
+   * dConnect.requestAccessToken(clientId, scopes, 'アプリ名',
    *     function(accessToken) {
      *         // アクセストークンの保存して、プロファイルのアクセスを行う
      *     },
@@ -1845,28 +1651,18 @@ var dConnect = (function(parent, global) {
      *     }
    * );
    */
-  var requestAccessToken = function(clientId, clientSecret,
-                                    scopes, applicationName,
+  var requestAccessToken = function(clientId, scopes, applicatonName,
                                     successCallback, errorCallback) {
-    // パラメータ作成
-    var sig = dConnect.oauth.generateSignatureForAccessTokenRequest(clientId,
-        AUTHORIZATION_CODE, undefined, scopes, clientSecret);
     // uri作成
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.authorization.PROFILE_NAME);
-    builder.setAttribute(
-        parent.constants.authorization.ATTR_REQUEST_ACCESS_TOKEN);
-    builder.addParameter(
-        parent.constants.authorization.PARAM_CLIENT_ID, clientId);
-    builder.addParameter(
-        parent.constants.authorization.PARAM_GRANT_TYPE, AUTHORIZATION_CODE);
-    builder.addParameter(
-        parent.constants.authorization.PARAM_SCOPE,
-        parent.combineScope(scopes));
-    builder.addParameter(
-        parent.constants.authorization.PARAM_SIGNATURE, sig);
-    builder.addParameter(
-        parent.constants.authorization.PARAM_APPLICATION_NAME, applicationName);
+    builder.setAttribute(parent.constants.authorization.ATTR_ACCESS_TOKEN);
+    builder.addParameter(parent.constants.authorization.PARAM_CLIENT_ID,
+                          clientId);
+    builder.addParameter(parent.constants.authorization.PARAM_SCOPE,
+                          parent.combineScope(scopes));
+    builder.addParameter(parent.constants.authorization.PARAM_APPLICATION_NAME,
+                          applicatonName);
     parent.sendRequest('GET', builder.build(), null, null, function(json) {
       webAppAccessToken = json.accessToken;
       if (successCallback) {
@@ -1964,7 +1760,7 @@ var dConnect = (function(parent, global) {
    * </p>
    * @memberOf dConnect
    * @param {!String} sessionKey Device Connect側に要求したいイベント用WebSocketの識別子
-   * @param {Function} cb WebSocketの開閉イベントを受け取るコールバック関数
+   * @param cb WebSocketの開閉イベントを受け取るコールバック関数
    *
    * @example
    * // Websocketを開く
@@ -1977,15 +1773,15 @@ var dConnect = (function(parent, global) {
       return;
     }
     var scheme = sslEnabled ? 'wss' : 'ws';
-    websocket = new WebSocket(scheme + '://' + host + ':' + port +
-              '/websocket');
+    websocket = new WebSocket(scheme + '://' + host + ':' +
+                              port + '/websocket');
     websocket.onopen = function(e) {
       clearTimeout(reconnectingTimerId);
       forcedClose = false;
       isReconnecting = false;
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
-      websocket.send('{"sessionKey":"' + sessionKey + '"}');
+      websocket.send('{\'sessionKey\':\'' + sessionKey + '\'}');
       if (cb) {
         cb(0, 'open');
       }
@@ -2007,7 +1803,7 @@ var dConnect = (function(parent, global) {
       for (var key in eventListener) {
         if (key.lastIndexOf(uri) > 0) {
           if (eventListener[key] != null &&
-              typeof(eventListener[key]) == 'function') {
+                    typeof(eventListener[key]) == 'function') {
             eventListener[key](msg.data);
           }
         }
@@ -2088,8 +1884,8 @@ var dConnect = (function(parent, global) {
   /**
    * URIスキームにパラメータを追加する.
    * @private
-   * @param {String} key パラメータキー
-   * @param {String} value パラメータ値
+   * @param key パラメータキー
+   * @param value パラメータ値
    * @return {URISchemeBuilder} 自分自身のインスタンス
    */
   AndroidURISchemeBuilder.prototype.addParameter = function(key, value) {
@@ -2103,7 +1899,8 @@ var dConnect = (function(parent, global) {
    * @return {String} URIスキームの文字列表現
    */
   AndroidURISchemeBuilder.prototype.build = function() {
-    var urlScheme = 'intent://' + this.path + '/#Intent;scheme=' + this.scheme + ';';
+    var urlScheme = 'intent://' + this.path + '/#Intent;scheme=' +
+                            this.scheme + ';';
     for (var key in this.params) {
       urlScheme += key + '=' + this.params[key] + ';';
     }
@@ -2373,8 +2170,7 @@ var dConnect = (function(parent, global) {
       var p = '';
       for (var key in this.params) {
         p += (p.length == 0) ? '?' : '&';
-        p += encodeURIComponent(key) + '=' +
-        encodeURIComponent(this.params[key]);
+        p += encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key]);
       }
       uri += p;
     }
@@ -2554,7 +2350,7 @@ var dConnect = (function(parent, global) {
     g = a.indexOf('=');
     a = a.replace(/\=/g, '');
     if (-1 !== g && g < a.length)
-      throw 'Invalid "=" found in base-64 string';
+      throw 'Invalid \'=\' found in base-64 string';
     for (f = 0; f < a.length; f += 4) {
       r = a.substr(f, 4);
       for (h = l = 0; h < r.length; h += 1)

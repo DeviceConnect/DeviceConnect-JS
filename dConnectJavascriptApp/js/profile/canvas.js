@@ -213,7 +213,7 @@ function doDeleteCanvasDrawImage(serviceId) {
     console.log('Uri:' + uri);
   }
 
-  dConnect.delete(uri, null, null, function(json) {
+  dConnect.delete(uri, null, function(json) {
     closeLoading();
     if (DEBUG) {
       console.log('Response: ', json);
