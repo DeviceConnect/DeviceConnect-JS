@@ -52,6 +52,13 @@ var dConnect = (function(parent, global) {
    */
   var port = '4035';
   /**
+   * ハイブリッドアプリとしてのオリジン.
+   * @private
+   * @type {String}
+   * @see setExtendedOrigin 
+   */
+  var extendedOrigin;
+  /**
    * イベント通知用のリスナーを格納するオブジェクト.
    * @type {Object}
    * @private
@@ -108,6 +115,11 @@ var dConnect = (function(parent, global) {
    * Device Connect Managerへ送信するHMAC生成キーの長さ. 単位はバイト.
    */
   var HMAC_KEY_BYTES = 16;
+
+  /**
+   * ハイブリッドアプリのオリジンを指定するリクエストヘッダ名.
+   */
+  var HEADER_EXTENDED_ORIGIN = "X-GotAPI-Origin";
 
   // ============================================
   //             Public
@@ -1135,7 +1147,7 @@ var dConnect = (function(parent, global) {
   /**
    * ランダムな16進文字列を生成する.
    * @private
-   * @param byteSize 生成する文字列の長さ
+   * @param {Number} byteSize 生成する文字列の長さ
    * @return ランダムな16進文字列
    */
   var generateRandom = function(byteSize) {
@@ -1408,6 +1420,10 @@ var dConnect = (function(parent, global) {
       if (xhr.readyState === 1) {
         for (var key in header) {
           xhr.setRequestHeader(key.toLowerCase(), header[key]);
+        }
+        if (extendedOrigin !== undefined) {
+          xhr.setRequestHeader(HEADER_EXTENDED_ORIGIN.toLowerCase(),
+            extendedOrigin);
         }
 
         xhr.send(data);
@@ -1729,6 +1745,17 @@ var dConnect = (function(parent, global) {
     host = h;
   };
   parent.setHost = setHost;
+
+  /**
+   * オリジンを設定する.
+   * ハイブリッドアプリとして動作させる場合には本メソッドでオリジンを設定する.
+   * @memberOf dConnect
+   * @param {String} o オリジン
+   */
+  var setExtendedOrigin = function(o) {
+    extendedOrigin = o;
+  };
+  parent.setExtendedOrigin = setExtendedOrigin;
 
   /**
    * ポート番号を設定する.
