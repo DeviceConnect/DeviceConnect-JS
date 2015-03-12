@@ -20,9 +20,22 @@ function showHumanDetect(serviceId) {
   reloadFooter(btnStr);
   var str = '';
   str += '<li><a href="javascript:showHumanDetectGet(\'' + serviceId +
-    '\');" value="send">HumanDetect Detection GET API</a></li>';
-  str += '<li><a href="javascript:showHumanDetectEvent(\'' + serviceId +
-    '\');" value="send">HumanDetect Detection EVENT API</a></li>';
+    '\');" value="send">Detection GET API</a></li>';
+
+  str += '<li><a href="javascript:showHumanDetectEventFace1(\'' + serviceId +
+    '\');" value="send">FACE Detect EVENT (no option)</a></li>';
+  str += '<li><a href="javascript:showHumanDetectEventFace2(\'' + serviceId +
+    '\');" value="send">FACE Detect EVENT (interval=0)</a></li>';
+  str += '<li><a href="javascript:showHumanDetectEventFace3(\'' + serviceId +
+    '\');" value="send">FACE Detect EVENT (interval=10)</a></li>';
+  str += '<li><a href="javascript:showHumanDetectEventFace4(\'' + serviceId +
+    '\');" value="send">FACE Detect EVENT (options=all, threshold=0.1)</a></li>';
+  str += '<li><a href="javascript:showHumanDetectEventFace5(\'' + serviceId +
+    '\');" value="send">FACE Detect EVENT (options=all, threshold=0.5)</a></li>';
+
+
+//  str += '<li><a href="javascript:showHumanDetectEvent(\'' + serviceId +
+//  '\');" value="send">HumanDetect Detection EVENT API</a></li>';
   reloadList(str);
 }
 
@@ -668,7 +681,9 @@ function doHumanDetectFaceGetTest7(serviceId) {
 
 function getHumanDetectResponseString(json) {
   var str = '';
-  str += 'result=' + json.result + '<br>';
+  if (json.result) {
+    str += 'result=' + json.result + '<br>';
+  }
   if (json.bodyDetects) {
     str += 'bodyDetects=' + json.bodyDetects.length + '<br>';
     str += getDetectsResponseString(json.bodyDetects);
@@ -796,6 +811,151 @@ function getDetectsResponseString(detects) {
   return str;
 }
 
+
+// ----------------------------------------------------------------
+// Face Detect EVENT
+// ----------------------------------------------------------------
+
+/**
+ * FACE Detect EVENT (no option).
+ *
+ * @param {String} serviceId　service id
+ */
+function showHumanDetectEventFace1(serviceId) {
+  initAll();
+  setTitle('FACE Detect EVENT (no option)');
+
+  var sessionKey = currentClientId;
+  var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
+    serviceId, sessionKey);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += '<form  name="humanDetectForm">';
+  str += '<h1>FACE Detect EVENT (no option).</h1><br><br>';
+  str += '<div id="eventInfoFace1" width="100%"></div>';
+  str += '</form>';
+  reloadContent(str);
+
+  doHumanDetectFaceRegist1(serviceId, sessionKey);
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+  });
+}
+
+/**
+ * FACE Detect EVENT (interval=0).
+ *
+ * @param {String} serviceId　service id
+ */
+function showHumanDetectEventFace2(serviceId) {
+  initAll();
+  setTitle('FACE Detect EVENT (interval=0)');
+
+  var sessionKey = currentClientId;
+  var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
+    serviceId, sessionKey);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += '<form  name="humanDetectForm">';
+  str += '<h1>FACE Detect EVENT (interval=0).</h1><br><br>';
+  str += '<div id="eventInfoFace2" width="100%"></div>';
+  str += '</form>';
+  reloadContent(str);
+
+  doHumanDetectFaceRegist2(serviceId, sessionKey);
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+  });
+}
+
+/**
+ * FACE Detect EVENT (interval=10).
+ *
+ * @param {String} serviceId　service id
+ */
+function showHumanDetectEventFace3(serviceId) {
+  initAll();
+  setTitle('FACE Detect EVENT (interval=10)');
+
+  var sessionKey = currentClientId;
+  var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
+    serviceId, sessionKey);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += '<form  name="humanDetectForm">';
+  str += '<h1>FACE Detect EVENT (interval=10).</h1><br><br>';
+  str += '<div id="eventInfoFace3" width="100%"></div>';
+  str += '</form>';
+  reloadContent(str);
+
+  doHumanDetectFaceRegist3(serviceId, sessionKey);
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+  });
+}
+
+/**
+ * FACE Detect EVENT (options=all, threshold=0.1).
+ *
+ * @param {String} serviceId　service id
+ */
+function showHumanDetectEventFace4(serviceId) {
+  initAll();
+  setTitle('FACE Detect EVENT (options=all, threshold=0.1)');
+
+  var sessionKey = currentClientId;
+  var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
+    serviceId, sessionKey);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += '<form  name="humanDetectForm">';
+  str += '<h1>FACE Detect EVENT (options=all, threshold=0.1).</h1><br><br>';
+  str += '<div id="eventInfoFace4" width="100%"></div>';
+  str += '</form>';
+  reloadContent(str);
+
+  doHumanDetectFaceRegist4(serviceId, sessionKey);
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+  });
+}
+
+/**
+ * FACE Detect EVENT (options=all, threshold=0.5).
+ *
+ * @param {String} serviceId　service id
+ */
+function showHumanDetectEventFace5(serviceId) {
+  initAll();
+  setTitle('FACE Detect EVENT (options=all, threshold=0.5)');
+
+  var sessionKey = currentClientId;
+  var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
+    serviceId, sessionKey);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += '<form  name="humanDetectForm">';
+  str += '<h1>FACE Detect EVENT (options=all, threshold=0.5).</h1><br><br>';
+  str += '<div id="eventInfoFace5" width="100%"></div>';
+  str += '</form>';
+  reloadContent(str);
+
+  doHumanDetectFaceRegist5(serviceId, sessionKey);
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+  });
+}
+
+
+
+
+// ※削除
+
 /**
  * 人体検知Eventフォームを表示する.
  *
@@ -901,6 +1061,224 @@ function doHumanDetectHandRegist(serviceId, sessionKey) {
     var eventInfo = '[' + getStrTime() + '] body:' + bodyLength +
       ' hand:' + handLength + ' face:' + faceLength;
     $('#eventInfoHand').val(eventInfo);
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * FACE Detect EVENT (no option) Register.
+ */
+function doHumanDetectFaceRegist1(serviceId, sessionKey) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setAttribute('onfacedetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(sessionKey);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    var bodyLength = 0;
+    var handLength = 0;
+    var faceLength = 0;
+    if (json.bodyDetects) {
+      bodyLength = json.bodyDetects.length;
+    }
+    if (json.handDetects) {
+      handLength = json.handDetects.length;
+    }
+    if (json.faceDetects) {
+      faceLength = json.faceDetects.length;
+    }
+    var eventInfo = '[' + getStrTime() + '] body:' +
+      bodyLength + ' hand:' + handLength + ' face:' + faceLength + '<br>';
+    eventInfo += getHumanDetectResponseString(json);
+    
+    $('#eventInfoFace1').html(eventInfo);
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * FACE Detect EVENT (interval=0).
+ */
+function doHumanDetectFaceRegist2(serviceId, sessionKey) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setAttribute('onfacedetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(sessionKey);
+  builder.addParameter('interval','0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    var bodyLength = 0;
+    var handLength = 0;
+    var faceLength = 0;
+    if (json.bodyDetects) {
+      bodyLength = json.bodyDetects.length;
+    }
+    if (json.handDetects) {
+      handLength = json.handDetects.length;
+    }
+    if (json.faceDetects) {
+      faceLength = json.faceDetects.length;
+    }
+    var eventInfo = '[' + getStrTime() + '] body:' +
+      bodyLength + ' hand:' + handLength + ' face:' + faceLength + '<br>';
+    eventInfo += getHumanDetectResponseString(json);
+    
+    $('#eventInfoFace2').html(eventInfo);
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * FACE Detect EVENT (interval=10).
+ */
+function doHumanDetectFaceRegist3(serviceId, sessionKey) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setAttribute('onfacedetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(sessionKey);
+  builder.addParameter('interval','10');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    var bodyLength = 0;
+    var handLength = 0;
+    var faceLength = 0;
+    if (json.bodyDetects) {
+      bodyLength = json.bodyDetects.length;
+    }
+    if (json.handDetects) {
+      handLength = json.handDetects.length;
+    }
+    if (json.faceDetects) {
+      faceLength = json.faceDetects.length;
+    }
+    var eventInfo = '[' + getStrTime() + '] body:' +
+      bodyLength + ' hand:' + handLength + ' face:' + faceLength + '<br>';
+    eventInfo += getHumanDetectResponseString(json);
+    
+    $('#eventInfoFace3').html(eventInfo);
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * FACE Detect EVENT (options=all, threshold=0.1).
+ */
+function doHumanDetectFaceRegist4(serviceId, sessionKey) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setAttribute('onfacedetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(sessionKey);
+  builder.addParameter('options',
+    'eye,nose,mouth,blink,age,gender,faceDirection,gaze,expression');
+  builder.addParameter('threshold','0.1');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    var bodyLength = 0;
+    var handLength = 0;
+    var faceLength = 0;
+    if (json.bodyDetects) {
+      bodyLength = json.bodyDetects.length;
+    }
+    if (json.handDetects) {
+      handLength = json.handDetects.length;
+    }
+    if (json.faceDetects) {
+      faceLength = json.faceDetects.length;
+    }
+    var eventInfo = '[' + getStrTime() + '] body:' +
+      bodyLength + ' hand:' + handLength + ' face:' + faceLength + '<br>';
+    eventInfo += getHumanDetectResponseString(json);
+    
+    $('#eventInfoFace4').html(eventInfo);
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * FACE Detect EVENT (options=all, threshold=0.5).
+ */
+function doHumanDetectFaceRegist5(serviceId, sessionKey) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setAttribute('onfacedetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(sessionKey);
+  builder.addParameter('options',
+    'eye,nose,mouth,blink,age,gender,faceDirection,gaze,expression');
+  builder.addParameter('threshold','0.5');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    var bodyLength = 0;
+    var handLength = 0;
+    var faceLength = 0;
+    if (json.bodyDetects) {
+      bodyLength = json.bodyDetects.length;
+    }
+    if (json.handDetects) {
+      handLength = json.handDetects.length;
+    }
+    if (json.faceDetects) {
+      faceLength = json.faceDetects.length;
+    }
+    var eventInfo = '[' + getStrTime() + '] body:' +
+      bodyLength + ' hand:' + handLength + ' face:' + faceLength + '<br>';
+    eventInfo += getHumanDetectResponseString(json);
+    
+    $('#eventInfoFace5').html(eventInfo);
   }, null, function(errorCode, errorMessage) {
     alert(errorMessage);
   });
