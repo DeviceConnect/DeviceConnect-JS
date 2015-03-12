@@ -681,7 +681,7 @@ function doHumanDetectFaceGetTest7(serviceId) {
 
 function getHumanDetectResponseString(json) {
   var str = '';
-  if (json.result) {
+  if (json.result !== undefined) {
     str += 'result=' + json.result + '<br>';
   }
   if (json.bodyDetects) {
