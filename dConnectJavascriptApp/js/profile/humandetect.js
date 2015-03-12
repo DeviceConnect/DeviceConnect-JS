@@ -27,7 +27,7 @@ function showHumanDetect(serviceId) {
   str += '<li><a href="javascript:showHumanDetectEventFace2(\'' + serviceId +
     '\');" value="send">FACE Detect EVENT (interval=0)</a></li>';
   str += '<li><a href="javascript:showHumanDetectEventFace3(\'' + serviceId +
-    '\');" value="send">FACE Detect EVENT (interval=10)</a></li>';
+    '\');" value="send">FACE Detect EVENT (interval=10000)</a></li>';
   str += '<li><a href="javascript:showHumanDetectEventFace4(\'' + serviceId +
     '\');" value="send">FACE Detect EVENT (options=all, threshold=0.1)</a></li>';
   str += '<li><a href="javascript:showHumanDetectEventFace5(\'' + serviceId +
@@ -871,13 +871,13 @@ function showHumanDetectEventFace2(serviceId) {
 }
 
 /**
- * FACE Detect EVENT (interval=10).
+ * FACE Detect EVENT (interval=10000).
  *
  * @param {String} serviceId　service id
  */
 function showHumanDetectEventFace3(serviceId) {
   initAll();
-  setTitle('FACE Detect EVENT (interval=10)');
+  setTitle('FACE Detect EVENT (interval=10000)');
 
   var sessionKey = currentClientId;
   var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
@@ -887,7 +887,7 @@ function showHumanDetectEventFace3(serviceId) {
 
   var str = '';
   str += '<form  name="humanDetectForm">';
-  str += '<h1>FACE Detect EVENT (interval=10).</h1><br><br>';
+  str += '<h1>FACE Detect EVENT (interval=10000).</h1><br><br>';
   str += '<div id="eventInfoFace3" width="100%"></div>';
   str += '</form>';
   reloadContent(str);
@@ -1152,7 +1152,7 @@ function doHumanDetectFaceRegist2(serviceId, sessionKey) {
 }
 
 /**
- * FACE Detect EVENT (interval=10).
+ * FACE Detect EVENT (interval=10000).
  */
 function doHumanDetectFaceRegist3(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1161,7 +1161,7 @@ function doHumanDetectFaceRegist3(serviceId, sessionKey) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(sessionKey);
-  builder.addParameter('interval','10');
+  builder.addParameter('interval','10000');
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
