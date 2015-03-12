@@ -92,27 +92,74 @@ function showHumanDetectGet(serviceId) {
   reloadHeader(btnStr);
   reloadFooter(btnStr);
   var str = '';
-  str += '<input type="button" name="bodyDetectButton" ';
-  str += 'id="bodyDetectButton" value="Body Detect GET" ';
-  str += 'onclick="doHumanDetectBodyGet(\'' + serviceId + '\');"/>';
-  str += '<input type="button" name="handDetectButton" ';
-  str += 'id="handDetectButton" value="Hand Detect GET" ';
-  str += 'onclick="doHumanDetectHandGet(\'' + serviceId + '\');"/>';
-  str += '<input type="button" name="faceDetectButton" ';
-  str += 'id="faceDetectButton" value="Face Detect GET" ';
-  str += 'onclick="doHumanDetectFaceGet(\'' + serviceId + '\', null);"/>';
-  str += '<input type="button" name="faceDetectButtonAllOption" ';
-  str += 'id="faceDetectButtonAllOption" value="Face Detect GET(AllOption)" ';
-  str += 'onclick="doHumanDetectFaceGet(\'' + serviceId + '\',' ;
-  str += '\'eye,nose,mouth,blink,age,gender,faceDirection,aze,expression\'';
-  str += ');"/>';
+  // body
+  str += '<h1>body</h1>';
+  str += '<input type="button" name="bodyDetectButtonTest1" ';
+  str += 'id="bodyDetectButtonTest1" value="Body Detect GET (no option)" ';
+  str += 'onclick="doHumanDetectBodyGetTest1(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="bodyDetectButtonTest2" ';
+  str += 'id="bodyDetectButtonTest2" value="Body Detect GET (threshold = 0.0)" ';
+  str += 'onclick="doHumanDetectBodyGetTest2(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="bodyDetectButtonTest3" ';
+  str += 'id="bodyDetectButtonTest3" value="Body Detect GET (threshold = 0.5)" ';
+  str += 'onclick="doHumanDetectBodyGetTest3(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="bodyDetectButtonTest4" ';
+  str += 'id="bodyDetectButtonTest4" value="Body Detect GET (threshold = 1.0)" ';
+  str += 'onclick="doHumanDetectBodyGetTest4(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="bodyDetectButtonTest5" ';
+  str += 'id="bodyDetectButtonTest5" value="Body Detect GET (minW/H = 0.1, maxW/H = 0.8)" ';
+  str += 'onclick="doHumanDetectBodyGetTest5(\'' + serviceId + '\');"/>';
+  // hand
+  str += '<h1>hand</h1>';
+  str += '<input type="button" name="handDetectButtonTest1" ';
+  str += 'id="handDetectButtonTest1" value="Hand Detect GET (no option)" ';
+  str += 'onclick="doHumanDetectHandGetTest1(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="handDetectButtonTest2" ';
+  str += 'id="handDetectButtonTest2" value="Hand Detect GET (threshold = 0.0)" ';
+  str += 'onclick="doHumanDetectHandGetTest2(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="handDetectButtonTest3" ';
+  str += 'id="handDetectButtonTest3" value="Hand Detect GET (threshold = 0.5)" ';
+  str += 'onclick="doHumanDetectHandGetTest3(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="handDetectButtonTest4" ';
+  str += 'id="handDetectButtonTest4" value="Hand Detect GET (threshold = 1.0)" ';
+  str += 'onclick="doHumanDetectHandGetTest4(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="handDetectButtonTest5" ';
+  str += 'id="handDetectButtonTest5" value="Hand Detect GET (minW/H = 0.1, maxW/H = 0.8)" ';
+  str += 'onclick="doHumanDetectHandGetTest5(\'' + serviceId + '\');"/>';
+  // face
+  str += '<h1>face</h1>';
+  str += '<input type="button" name="faceDetectButtonTest1" ';
+  str += 'id="faceDetectButtonTest1" value="Face Detect GET (no option)" ';
+  str += 'onclick="doHumanDetectFaceGetTest1(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="faceDetectButtonTest2" ';
+  str += 'id="faceDetectButtonTest2" value="Face Detect GET (threshold = 0.0)" ';
+  str += 'onclick="doHumanDetectFaceGetTest2(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="faceDetectButtonTest3" ';
+  str += 'id="faceDetectButtonTest3" value="Face Detect GET (threshold = 0.5)" ';
+  str += 'onclick="doHumanDetectFaceGetTest3(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="faceDetectButtonTest4" ';
+  str += 'id="faceDetectButtonTest4" value="Face Detect GET (threshold = 1.0)" ';
+  str += 'onclick="doHumanDetectFaceGetTest4(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="faceDetectButtonTest5" ';
+  str += 'id="faceDetectButtonTest5" value="Face Detect GET (minW/H = 0.1, maxW/H = 0.8)" ';
+  str += 'onclick="doHumanDetectFaceGetTest5(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="faceDetectButtonTest6" ';
+  str += 'id="faceDetectButtonTest6" value="FACE Detect GET (options all, threshold=0.1)" ';
+  str += 'onclick="doHumanDetectFaceGetTest6(\'' + serviceId + '\');"/>';
+  str += '<input type="button" name="faceDetectButtonTest7" ';
+  str += 'id="faceDetectButtonTest7" value="FACE Detect GET (options all, threshold=0.5)" ';
+  str += 'onclick="doHumanDetectFaceGetTest7(\'' + serviceId + '\');"/>';
   reloadContent(str);
 }
 
+// ----------------------------------------------------------------
+// Body Detect GET
+// ----------------------------------------------------------------
+
 /**
- * Human Detect Body.
+ * Body Detect GET (no option).
  */
-function doHumanDetectBodyGet(serviceId) {
+function doHumanDetectBodyGetTest1(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('humandetect');
   builder.setInterface('detection');
@@ -137,9 +184,128 @@ function doHumanDetectBodyGet(serviceId) {
 }
 
 /**
- * Human Detect Hand.
+ * Body Detect GET (threshold = 0.0).
  */
-function doHumanDetectHandGet(serviceId) {
+function doHumanDetectBodyGetTest2(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('body');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','0.0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/body', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Body Detect GET (threshold = 0.5).
+ */
+function doHumanDetectBodyGetTest3(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('body');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','0.5');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/body', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Body Detect GET (threshold = 1.0).
+ */
+function doHumanDetectBodyGetTest4(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('body');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','1.0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/body', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Body Detect GET (minW/H = 0.1, maxW/H = 0.8).
+ */
+function doHumanDetectBodyGetTest5(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('body');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth','0.1');
+  builder.addParameter('minHeight','0.1');
+  builder.addParameter('maxWidth','0.8');
+  builder.addParameter('maxHeight','0.8');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/body', errorCode, errorMessage);
+  });
+}
+
+// ----------------------------------------------------------------
+// Hand Detect GET
+// ----------------------------------------------------------------
+
+/**
+ * Hand Detect GET (no option).
+ */
+function doHumanDetectHandGetTest1(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('humandetect');
   builder.setInterface('detection');
@@ -164,18 +330,325 @@ function doHumanDetectHandGet(serviceId) {
 }
 
 /**
- * Human Detect Face.
+ * Hand Detect GET (threshold = 0.0).
  */
-function doHumanDetectFaceGet(serviceId, options) {
+function doHumanDetectHandGetTest2(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('hand');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','0.0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/hand', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Hand Detect GET (threshold = 0.5).
+ */
+function doHumanDetectHandGetTest3(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('hand');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','0.5');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/hand', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Hand Detect GET (threshold = 1.0).
+ */
+function doHumanDetectHandGetTest4(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('hand');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','1.0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/hand', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Hand Detect GET (minW/H = 0.1, maxW/H = 0.8).
+ */
+function doHumanDetectHandGetTest5(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('hand');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth','0.1');
+  builder.addParameter('minHeight','0.1');
+  builder.addParameter('maxWidth','0.8');
+  builder.addParameter('maxHeight','0.8');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/hand', errorCode, errorMessage);
+  });
+}
+
+// ----------------------------------------------------------------
+// Face Detect GET
+// ----------------------------------------------------------------
+
+/**
+ * Face Detect GET (no option).
+ */
+function doHumanDetectFaceGetTest1(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('humandetect');
   builder.setInterface('detection');
   builder.setAttribute('face');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  if (options != null) {
-    builder.addParameter('options', options);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
   }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/face', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Face Detect GET (threshold = 0.0).
+ */
+function doHumanDetectFaceGetTest2(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('face');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','0.0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/face', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Face Detect GET (threshold = 0.5).
+ */
+function doHumanDetectFaceGetTest3(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('face');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','0.5');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/face', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Face Detect GET (threshold = 1.0).
+ */
+function doHumanDetectFaceGetTest4(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('face');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('threshold','1.0');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/face', errorCode, errorMessage);
+  });
+}
+
+/**
+ * Face Detect GET (minW/H = 0.1, maxW/H = 0.8).
+ */
+function doHumanDetectFaceGetTest5(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('face');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth','0.1');
+  builder.addParameter('minHeight','0.1');
+  builder.addParameter('maxWidth','0.8');
+  builder.addParameter('maxHeight','0.8');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/face', errorCode, errorMessage);
+  });
+}
+
+/**
+ * FACE Detect GET (options all, threshold=0.1)
+ */
+function doHumanDetectFaceGetTest6(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('face');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('options',
+    'eye,nose,mouth,blink,age,gender,faceDirection,gaze,expression');
+  builder.addParameter('eyeThreshold','0.1');
+  builder.addParameter('noseThreshold','0.1');
+  builder.addParameter('mouthThreshold','0.1');
+  builder.addParameter('blinkThreshold','0.1');
+  builder.addParameter('ageThreshold','0.1');
+  builder.addParameter('genderThreshold','0.1');
+  builder.addParameter('faceDirectionThreshold','0.1');
+  builder.addParameter('gazeThreshold','0.1');
+  builder.addParameter('expressionThreshold','0.1');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    var str = getHumanDetectResponseString(json);
+    reloadContent(str);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET detection/face', errorCode, errorMessage);
+  });
+}
+
+/**
+ * FACE Detect GET (options all, threshold=0.5)
+ */
+function doHumanDetectFaceGetTest7(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetect');
+  builder.setInterface('detection');
+  builder.setAttribute('face');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('options',
+    'eye,nose,mouth,blink,age,gender,faceDirection,gaze,expression');
+  builder.addParameter('eyeThreshold','0.5');
+  builder.addParameter('noseThreshold','0.5');
+  builder.addParameter('mouthThreshold','0.5');
+  builder.addParameter('blinkThreshold','0.5');
+  builder.addParameter('ageThreshold','0.5');
+  builder.addParameter('genderThreshold','0.5');
+  builder.addParameter('faceDirectionThreshold','0.5');
+  builder.addParameter('gazeThreshold','0.5');
+  builder.addParameter('expressionThreshold','0.5');
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
