@@ -143,7 +143,7 @@ function authorization() {
               'file', 'media_player', 'mediastream_recording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
-              'dice', 'temperature', 'camera', 'canvas', 'humandetect');
+              'dice', 'temperature', 'camera', 'canvas', 'health', 'humandetect');
   dConnect.authorization(scopes, 'サンプル',
       function(clientId, newAccessToken) {
         // Client ID
@@ -253,12 +253,6 @@ function searchProfile(serviceId, profile) {
     showDice(serviceId);
   } else if (profile === 'mhealth') {
     showMhealth(serviceId);
-  } else if (profile === 'servicediscovery') {
-    alert('This list is the result of servicediscovery.');
-  } else if (profile === 'authorization') {
-    alert('Use for only OAuth.');
-  } else if (profile === 'system') {
-    alert('Use for setting.');
   } else if (profile === 'temperature') {
     showTemperature(serviceId);
   } else if (profile === 'proximity') {
