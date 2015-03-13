@@ -143,7 +143,7 @@ function authorization() {
               'file', 'media_player', 'mediastream_recording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
-              'dice', 'temperature', 'camera', 'canvas');
+              'dice', 'temperature', 'camera', 'canvas', 'health');
   dConnect.authorization(scopes, 'サンプル',
       function(clientId, newAccessToken) {
         // Client ID
