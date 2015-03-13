@@ -126,7 +126,7 @@ function doPreviewStart(serviceId) {
 
   var str = '';
   str += '<center>';
-  str += '<img src="./css/images/cameraWait.png" width="100%" id="preview">';
+  str += '<img crossorigin="anonymous" src="./css/images/cameraWait.png" width="100%" id="preview">';
   str += '</center><br>';
   reloadContent(str);
 
@@ -154,7 +154,7 @@ function doTakePhoto(serviceId) {
   var str = '';
   str += makeInputText('onPhoto', 'onPhoto', 'onPhoto')
   str += '<center>';
-  str += '<img src="./css/images/cameraWait.png" id="photo">';
+  str += '<img crossorigin="anonymous" src="./css/images/cameraWait.png" id="photo">';
   str += '</center><br>';
   str += takePhotoButton(serviceId);
 
