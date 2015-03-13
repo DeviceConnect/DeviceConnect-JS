@@ -74,6 +74,7 @@ function doRegisterPreview(serviceId) {
         alert('Failed to get a preview.');
       }
       img.src = myUri;
+      img.crossOrigin = 'anonymous';
     }
   }, function(errorCode, errorMessage) {
     showError('PUT mediastream_recording/preview', errorCode, errorMessage);
@@ -126,7 +127,7 @@ function doPreviewStart(serviceId) {
 
   var str = '';
   str += '<center>';
-  str += '<img crossorigin="anonymous" src="./css/images/cameraWait.png" width="100%" id="preview">';
+  str += '<img src="./css/images/cameraWait.png" width="100%" id="preview">';
   str += '</center><br>';
   reloadContent(str);
 
@@ -154,7 +155,7 @@ function doTakePhoto(serviceId) {
   var str = '';
   str += makeInputText('onPhoto', 'onPhoto', 'onPhoto')
   str += '<center>';
-  str += '<img crossorigin="anonymous" src="./css/images/cameraWait.png" id="photo">';
+  str += '<img src="./css/images/cameraWait.png" id="photo">';
   str += '</center><br>';
   str += takePhotoButton(serviceId);
 
@@ -263,6 +264,7 @@ function refreshImg(uri, id) {
         clearInterval(timeout);
       };
       img.src = uri + '?' + Date.now();
+      img.crossOrigin = 'anonymous';
     }
   }
 }
