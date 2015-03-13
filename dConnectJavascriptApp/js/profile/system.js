@@ -41,6 +41,12 @@ function searchSystem(serviceId, deviceName) {
       for (var i = 0; i < json.supports.length; i++) {
         str += '<li><a href="javascript:searchProfile(\'' + serviceId + '\', ';
         str += '\'' + json.supports[i] + '\');" ';
+        if (json.supports[i] == 'authorization' ||
+            json.supports[i] == 'servicediscovery' ||
+            json.supports[i] == 'serviceinformation' ||
+            json.supports[i] == 'system') {
+          str += ' class="ui-disabled" ';
+        }
         str += 'value="' + json.supports[i] + '">';
         str += json.supports[i] + '</a></li>';
       }
