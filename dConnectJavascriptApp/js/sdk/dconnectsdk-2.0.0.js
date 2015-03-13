@@ -1560,7 +1560,7 @@ var dConnect = (function(parent, global) {
    * dConnect.removeEventListener(uri, successCallback, errorCallback);
    */
   var removeEventListener = function(uri, successCallback, errorCallback) {
-    parent.delete(uri, null, null, function(json) {
+    parent.delete(uri, null, function(json) {
       delete eventListener[uri];
       if (successCallback) {
         successCallback();
