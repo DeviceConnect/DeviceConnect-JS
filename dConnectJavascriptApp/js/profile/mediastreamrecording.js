@@ -68,13 +68,13 @@ function doRegisterPreview(serviceId) {
 
     var myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
-    var img = document.getElementById('preview');
-    if (img != null) {
-      img.onerror = function() {
+    var img = $('#preview');
+    if (img) {
+      img.attr('onerror', function() {
         alert('Failed to get a preview.');
-      }
-      img.src = myUri;
-      img.crossOrigin = 'anonymous';
+      });
+      img.attr('crossorigin', 'anonymous');
+      img.attr('src', myUri);
     }
   }, function(errorCode, errorMessage) {
     showError('PUT mediastream_recording/preview', errorCode, errorMessage);
@@ -251,20 +251,20 @@ function doMediaStreamRecordingBack(serviceId, sessionKey) {
 function refreshImg(uri, id) {
   if (!loadFlag) {
     loadFlag = true;
-    var img = document.getElementById(id);
-    if (img != null) {
+    var img = $('#' + id);
+    if (img) {
       // MEMO: iOSではonloadがこないタイミングがあるので、その場合はタイムアウトさせる
       var timeout = setInterval(function() {
         loadFlag = false;
         clearInterval(timeout);
       }, 500);
 
-      img.onload = function() {
+      img.attr('onload', function() {
         loadFlag = false;
         clearInterval(timeout);
-      };
-      img.src = uri + '?' + Date.now();
-      img.crossOrigin = 'anonymous';
+      });
+      img.attr('crossorigin', 'anonymous');
+      img.attr('src', uri + '?' + Date.now());
     }
   }
 }
