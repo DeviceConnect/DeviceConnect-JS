@@ -35,6 +35,7 @@ function searchDevice() {
     $('ul.list').listview('refresh');
     closeLoading();
   }, function(errorCode, errorMessage) {
+    closeLoading();
     alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
   });
 }

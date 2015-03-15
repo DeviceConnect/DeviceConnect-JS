@@ -101,36 +101,32 @@ function startManager(onavailable) {
           requested = true;
           dConnect.startManager();
           alert('Requested to start Device Connect Manager.');
+          
+          var userAgent = navigator.userAgent.toLowerCase();
+          if (userAgent.search(/iphone|ipad|ipod/) > -1) {
+            setTimeout(function() {
+              location.href = 'itmss://itunes.apple.com/us/app/dconnect/' +
+                      appId + '?ls=1&mt=8';
+            }, 250);
+          }
         }
-
-        var userAgent = navigator.userAgent.toLowerCase();
-        if (userAgent.search(/iphone|ipad|ipod/) > -1) {
-          setTimeout(function() {
-            location.href = 'itmss://itunes.apple.com/us/app/dconnect/' +
-                    appId + '?ls=1&mt=8';
-          }, 500);
-        }
+        setTimeout(function() {
+          dConnect.checkDeviceConnect(onavailable, errorCallback);
+        }, 500);
         break;
       case dConnect.constants.ErrorCode.INVALID_SERVER:
         alert('WARNING: Device Connect Manager may be spoofed.');
+        break;
+      case dConnect.constants.ErrorCode.INVALID_ORIGIN:
+        alert('WARNING: Origin of this app is invalid. Maybe the origin is not registered in whitelist.');
         break;
       default:
         alert(errorMessage);
         break;
     }
-  }
-  var successCallback = function(apiVersion) {
-    clearInterval(launchTimerId);
-    launchTimerId = undefined;
-    onavailable(apiVersion);
-  }
+  };
 
-  if (launchTimerId) {
-    clearInterval(launchTimerId);
-  }
-  launchTimerId = setInterval(function() {
-    dConnect.checkDeviceConnect(successCallback, errorCallback);
-  }, 500);
+  dConnect.checkDeviceConnect(onavailable, errorCallback);
 }
 
 /**
