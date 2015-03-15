@@ -74,35 +74,31 @@ function getBodyDetectForm(serviceId, sessionKey) {
   // -------------------------------------------------------
   // div(optionvalues)
   str += '<div id="optionvalues">';
-  // fieldset(threshold, minWidth, maxWidth, minHeight, maxHeight)
-  str += '<fieldset class=\"ui-grid-e\">';
   // threshold
-  str += '<div class=\"ui-block-a\">';
+  str += '<div>';
   str += '<label for="threshold">threshold</label>';
   str += '<input type="text" id="body_threshold">';
   str += '</div>';
   // minWidth
-  str += '<div class=\"ui-block-b\">';
+  str += '<div>';
   str += '<label for="minWidth">minWidth</label>';
   str += '<input type="text" id="body_minWidth" size="10" maxlength="10">';
   str += '</div>';
   // maxWidth
-  str += '<div class=\"ui-block-c\">';
+  str += '<div>';
   str += '<label for="maxWidth">maxWidth</label>';
   str += '<input type="text" id="body_maxWidth" size="10" maxlength="10">';
   str += '</div>';
   // minHeight
-  str += '<div class=\"ui-block-d\">';
+  str += '<div>';
   str += '<label for="minHeight">minHeight</label>';
   str += '<input type="text" id="body_minHeight" size="10" maxlength="10">';
   str += '</div>';
   // maxHeight
-  str += '<div class=\"ui-block-e\">';
+  str += '<div>';
   str += '<label for="maxHeight">maxHeight</label>';
   str += '<input type="text" id="body_maxHeight" size="10" maxlength="10">';
   str += '</div>';
-  // end of fieldset(threshold, minWidth, maxWidth, minHeight, maxHeight)
-  str += '</fieldset>';
   // end of div(optionvalues)
   str += '</div>';
   // -------------------------------------------------------
@@ -253,35 +249,31 @@ function getHandDetectForm(serviceId, sessionKey) {
   // -------------------------------------------------------
   // div(optionvalues)
   str += '<div id="optionvalues">';
-  // fieldset(threshold, minWidth, maxWidth, minHeight, maxHeight)
-  str += '<fieldset class=\"ui-grid-e\">';
   // threshold
-  str += '<div class=\"ui-block-a\">';
+  str += '<div>';
   str += '<label for="threshold">threshold</label>';
   str += '<input type="text" id="hand_threshold">';
   str += '</div>';
   // minWidth
-  str += '<div class=\"ui-block-b\">';
+  str += '<div>';
   str += '<label for="minWidth">minWidth</label>';
   str += '<input type="text" id="hand_minWidth" size="10" maxlength="10">';
   str += '</div>';
   // maxWidth
-  str += '<div class=\"ui-block-c\">';
+  str += '<div>';
   str += '<label for="maxWidth">maxWidth</label>';
   str += '<input type="text" id="hand_maxWidth" size="10" maxlength="10">';
   str += '</div>';
   // minHeight
-  str += '<div class=\"ui-block-d\">';
+  str += '<div>';
   str += '<label for="minHeight">minHeight</label>';
   str += '<input type="text" id="hand_minHeight" size="10" maxlength="10">';
   str += '</div>';
   // maxHeight
-  str += '<div class=\"ui-block-e\">';
+  str += '<div>';
   str += '<label for="maxHeight">maxHeight</label>';
   str += '<input type="text" id="hand_maxHeight" size="10" maxlength="10">';
   str += '</div>';
-  // end of fieldset(threshold, minWidth, maxWidth, minHeight, maxHeight)
-  str += '</fieldset>';
   // end of div(optionvalues)
   str += '</div>';
   // -------------------------------------------------------
@@ -433,56 +425,34 @@ function getFaceDetectForm(serviceId, sessionKey) {
   // options
   str += '<label for="options">options</label>';
   // fieldset(options)
-  str += '<fieldset class=\"ui-grid-f\">';
+  str += '<fieldset data-role=\"controlgroup\" data-type=\"horizontal\">';
   // eye
-  str += '<div class=\"ui-block-a\">';
   str += '<input type="checkbox" id="eye">';
   str += '<label for="eye">eye</label>';
-  str += '</div>';
   // nose
-  str += '<div class=\"ui-block-b\">';
   str += '<input type="checkbox" id="nose">';
   str += '<label for="nose">nose</label>';
-  str += '</div>';
   // mouth
-  str += '<div class=\"ui-block-c\">';
   str += '<input type="checkbox" id="mouth">';
   str += '<label for="mouth">mouth</label>';
-  str += '</div>';
   // blink
-  str += '<div class=\"ui-block-d\">';
   str += '<input type="checkbox" id="blink">';
   str += '<label for="blink">blink</label>';
-  str += '</div>';
   // age
-  str += '<div class=\"ui-block-e\">';
   str += '<input type="checkbox" id="age">';
   str += '<label for="age">age</label>';
-  str += '</div>';
   // gender
-  str += '<div class=\"ui-block-f\">';
   str += '<input type="checkbox" id="gender">';
   str += '<label for="gender">gender</label>';
-  str += '</div>';
-  // end of fieldset(options)
-  str += '</fieldset>';
-  // fieldset(options)
-  str += '<fieldset class=\"ui-grid-c\">';
   // faceDirection
-  str += '<div class=\"ui-block-a\">';
   str += '<input type="checkbox" id="faceDirection">';
   str += '<label for="faceDirection">faceDirection</label>';
-  str += '</div>';
   // gaze
-  str += '<div class=\"ui-block-b\">';
   str += '<input type="checkbox" id="gaze">';
   str += '<label for="gaze">gaze</label>';
-  str += '</div>';
   // expression
-  str += '<div class=\"ui-block-c\">';
   str += '<input type="checkbox" id="expression">';
   str += '<label for="expression">expression</label>';
-  str += '</div>';
   // end of fieldset(options)
   str += '</fieldset>';
   // end of div(options)
@@ -490,49 +460,81 @@ function getFaceDetectForm(serviceId, sessionKey) {
   // -------------------------------------------------------
   // div(optionvalues)
   str += '<div id="optionvalues">';
-  // fieldset(threshold, minWidth, maxWidth, minHeight, maxHeight)
-  str += '<fieldset class=\"ui-grid-e\">';
   // threshold
-  str += '<div class=\"ui-block-a\">';
+  str += '<div>';
   str += '<label for="threshold">threshold</label>';
   str += '<input type="text" id="face_threshold">';
   str += '</div>';
   // minWidth
-  str += '<div class=\"ui-block-b\">';
+  str += '<div>';
   str += '<label for="minWidth">minWidth</label>';
   str += '<input type="text" id="face_minWidth" size="10" maxlength="10">';
   str += '</div>';
   // maxWidth
-  str += '<div class=\"ui-block-c\">';
+  str += '<div>';
   str += '<label for="maxWidth">maxWidth</label>';
   str += '<input type="text" id="face_maxWidth" size="10" maxlength="10">';
   str += '</div>';
   // minHeight
-  str += '<div class=\"ui-block-d\">';
+  str += '<div>';
   str += '<label for="minHeight">minHeight</label>';
   str += '<input type="text" id="face_minHeight" size="10" maxlength="10">';
   str += '</div>';
   // maxHeight
-  str += '<div class=\"ui-block-e\">';
+  str += '<div>';
   str += '<label for="maxHeight">maxHeight</label>';
   str += '<input type="text" id="face_maxHeight" size="10" maxlength="10">';
   str += '</div>';
-  // end of fieldset(threshold, minWidth, maxWidth, minHeight, maxHeight)
-  str += '</fieldset>';
-  // fieldset(threshold(options), interval)
-  str += '<fieldset class=\"ui-grid-b\">';
-  // threshold(options)
-  str += '<div class=\"ui-block-a\">';
-  str += '<label for="optionsThreshold">threshold(for options)</label>';
-  str += '<input type="text" id="optionsThreshold">';
+  // eyeThreshold
+  str += '<div>';
+  str += '<label for="eyeThreshold">eyeThreshold</label>';
+  str += '<input type="text" id="eyeThreshold">';
+  str += '</div>';
+  // noseThreshold
+  str += '<div>';
+  str += '<label for="noseThreshold">noseThreshold</label>';
+  str += '<input type="text" id="noseThreshold">';
+  str += '</div>';
+  // mouthThreshold
+  str += '<div>';
+  str += '<label for="mouthThreshold">mouthThreshold</label>';
+  str += '<input type="text" id="mouthThreshold">';
+  str += '</div>';
+  // blinkThreshold
+  str += '<div>';
+  str += '<label for="blinkThreshold">blinkThreshold</label>';
+  str += '<input type="text" id="blinkThreshold">';
+  str += '</div>';
+  // ageThreshold
+  str += '<div>';
+  str += '<label for="ageThreshold">ageThreshold</label>';
+  str += '<input type="text" id="ageThreshold">';
+  str += '</div>';
+  // genderThreshold
+  str += '<div>';
+  str += '<label for="genderThreshold">genderThreshold</label>';
+  str += '<input type="text" id="genderThreshold">';
+  str += '</div>';
+  // faceDirectionThreshold
+  str += '<div>';
+  str += '<label for="faceDirectionThreshold">faceDirectionThreshold</label>';
+  str += '<input type="text" id="faceDirectionThreshold">';
+  str += '</div>';
+  // gazeThreshold
+  str += '<div>';
+  str += '<label for="gazeThreshold">gazeThreshold</label>';
+  str += '<input type="text" id="gazeThreshold">';
+  str += '</div>';
+  // expressionThreshold
+  str += '<div>';
+  str += '<label for="expressionThreshold">expressionThreshold</label>';
+  str += '<input type="text" id="expressionThreshold">';
   str += '</div>';
   // interval
-  str += '<div class=\"ui-block-b\">';
+  str += '<div>';
   str += '<label for="interval">interval</label>';
   str += '<input type="text" id="interval" size="10" maxlength="10">';
   str += '</div>';
-  // end of fieldset(interval)
-  str += '</fieldset>';
   // end of div(optionvalues)
   str += '</div>';
   // -------------------------------------------------------
@@ -573,9 +575,9 @@ function addFaceOptionParameter(builder, section) {
     var strOptions = options.join(',');
     builder.addParameter('options', strOptions);
   }
-  // threshold, minWidth, maxWidth, minHeight, maxHeight, interval
+  // threshold, minWidth, maxWidth, minHeight, maxHeight
   var optionParams = ['threshold', 'minWidth', 'maxWidth', 'minHeight',
-                      'maxHeight', 'interval'];
+                      'maxHeight'];
   for (var index in optionParams) {
     var optionParam = optionParams[index];
     var optionParamValue = $('#' + section + '_' + optionParam).val();
@@ -583,16 +585,21 @@ function addFaceOptionParameter(builder, section) {
       builder.addParameter(optionParam, optionParamValue);
     }
   }
+  // interval
+  var optionParamValue = $('#interval').val();
+  if (optionParamValue && optionParamValue.length > 0) {
+    builder.addParameter('interval', optionParamValue);
+  }
   // threshold(for options)
-  var optionsThresholdValue = $('#optionsThreshold').val();
-  if (optionsThresholdValue && optionsThresholdValue.length > 0) {
-    var optionThresholds = ['eyeThreshold', 'noseThreshold', 'mouthThreshold',
-                          'blinkThreshold', 'ageThreshold', 'genderThreshold',
-                          'faceDirectionThreshold', 'gazeThreshold',
-                          'expressionThreshold'];
-    for (var index in optionThresholds) {
-      var optionThreshold = optionThresholds[index];
-      builder.addParameter(optionThreshold, optionsThresholdValue);
+  var optionThresholds = ['eyeThreshold', 'noseThreshold', 'mouthThreshold',
+                        'blinkThreshold', 'ageThreshold', 'genderThreshold',
+                        'faceDirectionThreshold', 'gazeThreshold',
+                        'expressionThreshold'];
+  for (var index in optionThresholds) {
+    var optionThreshold = optionThresholds[index];
+    var optionThresholdValue = $('#' + optionThreshold).val();
+    if (optionThresholdValue && optionThresholdValue.length > 0) {
+      builder.addParameter(optionThreshold, optionThresholdValue);
     }
   }
 }
@@ -635,7 +642,7 @@ function doHumanDetectFaceRegist(serviceId, sessionKey) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(sessionKey);
-  addFaceOptionParameter(builder);
+  addFaceOptionParameter(builder, 'face');
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
