@@ -176,7 +176,9 @@ var dConnect = (function(parent, global) {
       /** エラーコード: デバイスの状態異常エラー. */
       ILLEGAL_DEVICE_STATE: 16,
       /** エラーコード: サーバの状態異常エラー. */
-      ILLEGAL_SERVER_STATE: 17
+      ILLEGAL_SERVER_STATE: 17,
+      /** エラーコード: 不正オリジンエラー. */
+      INVALID_ORIGIN: 18,
     },
 
     /**
@@ -1135,7 +1137,7 @@ var dConnect = (function(parent, global) {
   /**
    * ランダムな16進文字列を生成する.
    * @private
-   * @param byteSize 生成する文字列の長さ
+   * @param {Number} byteSize 生成する文字列の長さ
    * @return ランダムな16進文字列
    */
   var generateRandom = function(byteSize) {
@@ -1781,7 +1783,8 @@ var dConnect = (function(parent, global) {
       isReconnecting = false;
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
-      websocket.send('{\'sessionKey\':\'' + sessionKey + '\'}');
+      websocket.send('{"sessionKey":"' + sessionKey + '"}');
+
       if (cb) {
         cb(0, 'open');
       }

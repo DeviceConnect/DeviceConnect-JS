@@ -28,6 +28,7 @@ CACHE MANIFEST
 ./js/profile/sphero.js
 ./js/profile/camera.js
 ./js/profile/canvas.js
+./js/profile/touch.js
 ./js/profile/keyevent.js
 ./js/sdk/dconnectsdk-2.0.0.js
 ./js/sdk/util.js
