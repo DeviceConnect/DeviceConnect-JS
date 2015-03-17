@@ -139,7 +139,8 @@ function authorization() {
               'file', 'media_player', 'mediastream_recording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
-              'dice', 'temperature', 'camera', 'canvas', 'health', 'humandetect');
+              'dice', 'temperature', 'camera', 'canvas', 'health',
+               "touch", 'humandetect');
   dConnect.authorization(scopes, 'サンプル',
       function(clientId, newAccessToken) {
         // Client ID
@@ -259,7 +260,12 @@ function searchProfile(serviceId, profile) {
     showCanvas(serviceId);
   } else if (profile === 'health') {
     showHealth(serviceId);
+<<<<<<< HEAD
+  } else if (profile === "touch") {
+    showTouch(serviceId);
+=======
   } else if (profile === 'humandetect') {
     showHumanDetect(serviceId);
+>>>>>>> master
   }
 }
