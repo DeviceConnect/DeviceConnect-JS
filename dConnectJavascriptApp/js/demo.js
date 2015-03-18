@@ -260,12 +260,9 @@ function searchProfile(serviceId, profile) {
     showCanvas(serviceId);
   } else if (profile === 'health') {
     showHealth(serviceId);
-<<<<<<< HEAD
   } else if (profile === "touch") {
     showTouch(serviceId);
-=======
   } else if (profile === 'humandetect') {
     showHumanDetect(serviceId);
->>>>>>> master
   }
 }
