@@ -637,7 +637,7 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
     }
   }, function(errorCode, errorMessage) {
     showError('GET media_player/mute', errorCode, errorMessage);
-    doMediaPlayerMediaPut(deviceId, mediaId);
+    doMediaPlayerMediaPut(serviceId, mediaId);
   });
 }
 

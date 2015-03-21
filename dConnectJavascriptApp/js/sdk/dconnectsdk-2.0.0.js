@@ -188,7 +188,9 @@ var dConnect = (function(parent, global) {
       /** エラーコード: デバイスの状態異常エラー. */
       ILLEGAL_DEVICE_STATE: 16,
       /** エラーコード: サーバの状態異常エラー. */
-      ILLEGAL_SERVER_STATE: 17
+      ILLEGAL_SERVER_STATE: 17,
+      /** エラーコード: 不正オリジンエラー. */
+      INVALID_ORIGIN: 18,
     },
 
     /**
@@ -1576,7 +1578,7 @@ var dConnect = (function(parent, global) {
    * dConnect.removeEventListener(uri, successCallback, errorCallback);
    */
   var removeEventListener = function(uri, successCallback, errorCallback) {
-    parent.delete(uri, null, null, function(json) {
+    parent.delete(uri, null, function(json) {
       delete eventListener[uri];
       if (successCallback) {
         successCallback();

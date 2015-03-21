@@ -101,36 +101,32 @@ function startManager(onavailable) {
           requested = true;
           dConnect.startManager();
           alert('Requested to start Device Connect Manager.');
+          
+          var userAgent = navigator.userAgent.toLowerCase();
+          if (userAgent.search(/iphone|ipad|ipod/) > -1) {
+            setTimeout(function() {
+              location.href = 'itmss://itunes.apple.com/us/app/dconnect/' +
+                      appId + '?ls=1&mt=8';
+            }, 250);
+          }
         }
-
-        var userAgent = navigator.userAgent.toLowerCase();
-        if (userAgent.search(/iphone|ipad|ipod/) > -1) {
-          setTimeout(function() {
-            location.href = 'itmss://itunes.apple.com/us/app/dconnect/' +
-                    appId + '?ls=1&mt=8';
-          }, 500);
-        }
+        setTimeout(function() {
+          dConnect.checkDeviceConnect(onavailable, errorCallback);
+        }, 500);
         break;
       case dConnect.constants.ErrorCode.INVALID_SERVER:
         alert('WARNING: Device Connect Manager may be spoofed.');
+        break;
+      case dConnect.constants.ErrorCode.INVALID_ORIGIN:
+        alert('WARNING: Origin of this app is invalid. Maybe the origin is not registered in whitelist.');
         break;
       default:
         alert(errorMessage);
         break;
     }
-  }
-  var successCallback = function(apiVersion) {
-    clearInterval(launchTimerId);
-    launchTimerId = undefined;
-    onavailable(apiVersion);
-  }
+  };
 
-  if (launchTimerId) {
-    clearInterval(launchTimerId);
-  }
-  launchTimerId = setInterval(function() {
-    dConnect.checkDeviceConnect(successCallback, errorCallback);
-  }, 500);
+  dConnect.checkDeviceConnect(onavailable, errorCallback);
 }
 
 /**
@@ -143,7 +139,8 @@ function authorization() {
               'file', 'media_player', 'mediastream_recording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
-              'dice', 'temperature', 'camera', 'canvas');
+              'dice', 'temperature', 'camera', 'canvas', 'health',
+               "touch", 'humandetect', 'keyevent');
   dConnect.authorization(scopes, 'サンプル',
       function(clientId, newAccessToken) {
         // Client ID
@@ -253,12 +250,6 @@ function searchProfile(serviceId, profile) {
     showDice(serviceId);
   } else if (profile === 'mhealth') {
     showMhealth(serviceId);
-  } else if (profile === 'servicediscovery') {
-    alert('This list is the result of servicediscovery.');
-  } else if (profile === 'authorization') {
-    alert('Use for only OAuth.');
-  } else if (profile === 'system') {
-    alert('Use for setting.');
   } else if (profile === 'temperature') {
     showTemperature(serviceId);
   } else if (profile === 'proximity') {
@@ -269,5 +260,11 @@ function searchProfile(serviceId, profile) {
     showCanvas(serviceId);
   } else if (profile === 'health') {
     showHealth(serviceId);
+  } else if (profile === 'touch') {
+    showTouch(serviceId);
+  } else if (profile === 'humandetect') {
+    showHumanDetect(serviceId);
+  } else if (profile === 'keyevent') {
+    showKeyEvent(serviceId);
   }
 }
