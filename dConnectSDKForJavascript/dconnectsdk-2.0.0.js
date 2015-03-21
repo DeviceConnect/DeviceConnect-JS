@@ -1496,14 +1496,16 @@ var dConnect = (function(parent, global) {
    * Service Information APIへの簡易アクセスを提供する。
    * @memberOf dConnect
    * @param {String} serviceId サービスID
+   * @param {String} accessToken アクセストークン
    * @param {dConnect.HTTPSuccessCallback} successCallback 成功時コールバック。
    * @param {dConnect.HTTPFailCallback} errorCallback 失敗時コールバック。
    */
-  var getSystemDeviceInfo = function(serviceId,
+  var getSystemDeviceInfo = function(serviceId, accessToken,
                                      successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     parent.execute('GET', builder.build(), null, null,
                                   successCallback, errorCallback);
   };
