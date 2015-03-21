@@ -52,6 +52,13 @@ var dConnect = (function(parent, global) {
    */
   var port = '4035';
   /**
+   * ハイブリッドアプリとしてのオリジン.
+   * @private
+   * @type {String}
+   * @see setExtendedOrigin 
+   */
+  var extendedOrigin;
+  /**
    * イベント通知用のリスナーを格納するオブジェクト.
    * @type {Object}
    * @private
@@ -108,6 +115,11 @@ var dConnect = (function(parent, global) {
    * Device Connect Managerへ送信するHMAC生成キーの長さ. 単位はバイト.
    */
   var HMAC_KEY_BYTES = 16;
+
+  /**
+   * ハイブリッドアプリのオリジンを指定するリクエストヘッダ名.
+   */
+  var HEADER_EXTENDED_ORIGIN = "X-GotAPI-Origin";
 
   // ============================================
   //             Public
@@ -1411,6 +1423,10 @@ var dConnect = (function(parent, global) {
         for (var key in header) {
           xhr.setRequestHeader(key.toLowerCase(), header[key]);
         }
+        if (extendedOrigin !== undefined) {
+          xhr.setRequestHeader(HEADER_EXTENDED_ORIGIN.toLowerCase(),
+            extendedOrigin);
+        }
 
         xhr.send(data);
       }
@@ -1480,14 +1496,16 @@ var dConnect = (function(parent, global) {
    * Service Information APIへの簡易アクセスを提供する。
    * @memberOf dConnect
    * @param {String} serviceId サービスID
+   * @param {String} accessToken アクセストークン
    * @param {dConnect.HTTPSuccessCallback} successCallback 成功時コールバック。
    * @param {dConnect.HTTPFailCallback} errorCallback 失敗時コールバック。
    */
-  var getSystemDeviceInfo = function(serviceId,
+  var getSystemDeviceInfo = function(serviceId, accessToken,
                                      successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     parent.execute('GET', builder.build(), null, null,
                                   successCallback, errorCallback);
   };
@@ -1733,6 +1751,17 @@ var dConnect = (function(parent, global) {
   parent.setHost = setHost;
 
   /**
+   * オリジンを設定する.
+   * ハイブリッドアプリとして動作させる場合には本メソッドでオリジンを設定する.
+   * @memberOf dConnect
+   * @param {String} o オリジン
+   */
+  var setExtendedOrigin = function(o) {
+    extendedOrigin = o;
+  };
+  parent.setExtendedOrigin = setExtendedOrigin;
+
+  /**
    * ポート番号を設定する.
    * @memberOf dConnect
    * @param {Number} p ポート番号
@@ -1784,7 +1813,6 @@ var dConnect = (function(parent, global) {
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
       websocket.send('{"sessionKey":"' + sessionKey + '"}');
-
       if (cb) {
         cb(0, 'open');
       }
