@@ -57,7 +57,7 @@ function showFileReceive(serviceId, path) {
 
   var str = '';
   str += makeInputText('path', 'path', 'path')
-  str += '<input type="button" onclick="javascript:doGetUriFromPath(\'' +
+  str += '<input type="button" onclick="javascript:doFileGetUriFromPath(\'' +
         serviceId + '\',\'' + path +
         '\');" value="Get URI from PATH" type="button" >';
   reloadContent(str);
@@ -69,7 +69,7 @@ function showFileReceive(serviceId, path) {
  * @param {String} serviceId サービスID
  * @param {String} path パス
  */
-function doGetUriFromPath(serviceId, path) {
+function doFileGetUriFromPath(serviceId, path) {
   var path = $('#path').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
