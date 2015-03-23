@@ -179,7 +179,7 @@ function showFileList(serviceId, path, mode) {
     var cmdStr = '<input data-icon="folder" data-inline="true"' +
                 ' data-mini="true"' +
                 ' onclick="javascript:showFileList(\'' + serviceId +
-                '\',\'/\');" type="button" value=' / '/>';
+                '\',\'/\');" type="button" value=" / "/>';
     cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true"' +
               ' onclick="javascript:changeDeleteMode(\'' + serviceId +
               '\');" type="button" value="Delete Mode"/>';
@@ -239,7 +239,7 @@ function changeDeleteMode(serviceId) {
   cmdStr += '<input data-icon="folder" data-inline="true"' +
             ' data-mini="true" onclick="javascript:showFileList(\'' +
             serviceId +
-            '\',\'/\',\'1\');" type="button" value=' / '/>';
+            '\',\'/\',\'1\');" type="button" value=" / "/>';
   cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true"' +
             ' onclick="javascript:changeNormalMode(\'' + serviceId +
             '\');" type="button" value="Normal  Mode"/>';
@@ -265,7 +265,7 @@ function changeNormalMode(serviceId) {
   var cmdStr = '';
   cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true"' +
           ' onclick="javascript:showFileList(\'' + serviceId +
-          '\',\'/\');" type="button" value=' / ' />';
+          '\',\'/\');" type="button" value=" / " />';
   cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true"' +
           ' onclick="javascript:changeDeleteMode(\'' + serviceId +
           '\');" type="button" value="Delete  Mode" />';
