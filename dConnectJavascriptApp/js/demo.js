@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-var versionRev = 'V1.0.1 Rev.8';
+var versionRev = 'V2.0.0 Rev.9';
 /** BASE URI. */
 var BASE_URI;
 /** Client ID. */
