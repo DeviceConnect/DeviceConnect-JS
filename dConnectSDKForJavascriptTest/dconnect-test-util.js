@@ -3,8 +3,6 @@ var mClientId = null;
 var mServiceId = null;
 
 function init() {
-  dConnect.setExtendedOrigin('org.deviceconnect');
-
 
   if (DEVICE_CONNECT_HOST) {
     dConnect.setHost(DEVICE_CONNECT_HOST);
