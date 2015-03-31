@@ -18,6 +18,8 @@ Device Connect JSはJavaScript版のDeviceConnectのライブラリ用レポジ�
 |:-----------|:---------|
 |dConnectJavascriptApp|demoWebSiteのソースコード。 |
 |dConnectSDKForJavascript|DeviceConnectのJavaScript用SDK。|
+|dConnectSDKForJavascriptTest|DeviceConnectがサポートしているデバイスプラグインの自動テストのソースコード。|
+
 
 # <a name="section2">プラットフォームの準備</a>
 DeviceConnect-JSは、AndroidおよびiOS端末をサポートしています。<br>

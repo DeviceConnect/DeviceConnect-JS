@@ -26,6 +26,8 @@ In this guide I will continue to discuss the following.<br>
 |:-----------|:---------|
 |dConnectJavascriptApp|demoWebSite source code. |
 |dConnectSDKForJavascript|DeviceConnectのJavaScript用SDK。|
+|dConnectSDKForJavascriptTest|Source code of automatic test of the device plug-ins that DeviceConnect supports.|
+
 
 # <a name="section2">Preparation of Platform</a>
 DeviceConnect-JS provides support for Android and iOS devices.<br>

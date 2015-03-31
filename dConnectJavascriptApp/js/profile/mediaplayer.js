@@ -289,9 +289,10 @@ function doMedia(serviceId, id, seek) {
   $('#mediaPlayerVolumePut').button('refresh');
   $('#mediaPlayerMuteStatus').slider('disable');
   $('#mediaPlayerMuteStatus').slider('refresh');
-  doMediaPlayerSeekGet(serviceId);
   doMediaPlayerVolumeGet(serviceId);
   doMediaPlayerMuteGet(serviceId, id);
+  doMediaPlayerStatusGet(serviceId);
+  doMediaPlayerSeekGet(serviceId);
 }
 
 /**
@@ -698,3 +699,30 @@ function doMediaPlayerSeekGet(serviceId) {
     showError('GET media_player/seek', errorCode, errorMessage);
   });
 }
+
+/**
+ * メディアの再生状態要求を送信する.
+ *
+ * @param {String} serviceId サービスID
+ */
+function doMediaPlayerStatusGet(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('media_player');
+  builder.setAttribute('play_status');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    $('#status').val(json.status);
+  }, function(errorCode, errorMessage) {
+    showError('GET media_player/volume', errorCode, errorMessage);
+  });
+}
+

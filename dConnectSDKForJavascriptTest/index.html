@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Device Connect Javascript Test</title>
+  <link rel="stylesheet" href="qunit/qunit-1.15.0.css">
+</head>
+<body onload="onInit();">
+<H1>IP設定</H1>
+<form name="form1" id="form1" action="">
+<table border="0">
+  <tr>
+    <td align="right"><b> IP：</b></td>
+    <td><input type="text" name="ip" value="localhost" size="30"></td>
+  </tr>
+</table>
+</form>
+<H1>デバイスプラグインテスト</H1>
+<table border="1" width="100%">
+  <tr>
+    <td width="80%"><b>chromecastデバイスプラグイン</b></td>
+    <td width="20%"><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/chromecast_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Hostデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/host_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Hueデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hue_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>IRKitデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/irkit_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Pebbleデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/pebble_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>SonyCameraデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/sony_camera_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Sony SmartWatchデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/sony_sw_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Spheroデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/sphero_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Android Wearデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/wear_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>Health(BLE) デバイスプラグイン (Mio Alpha)</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/mio_alpha_health_test.html');">テスト</button></td>
+  </tr>
+  <tr>
+    <td><b>HVC-Cデバイスプラグイン</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hvcc_test.html');">テスト</button></td>
+  </tr>
+    <tr>
+        <td><b>Dice+デバイスプラグイン</b></td>
+        <td><button style="padding:10px;" type="button" name="テスト"
+                    onclick="onTestClick('tests/dice_plus_test.html');">テスト
+        </button></td>
+    </tr>
+</table>
+<H1>Javascript SDK テスト</H1>
+<table border="1" width="100%">
+  <tr>
+    <td><b>Javascript SDK</b></td>
+    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/js_sdk_test.html');">テスト</button></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript">
+function onInit() {
+    var data = getCookies();
+    if (data['ip']) {
+        document.forms.form1.ip.value = data['ip'];
+    }
+}
+
+function onTestClick(uri) {
+    var ip = document.forms.form1.ip.value;
+    document.cookie = 'ip=' + ip;
+    location.href = uri + '?ip=' + ip;
+}
+
+function getCookies() {
+    var result = new Array();
+    var allcookies = document.cookie;
+    if (allcookies != '') {
+        var cookies = allcookies.split('; ');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].split('=');
+            result[cookie[0]] = decodeURIComponent(cookie[1]);
+        }
+    }
+    return result;
+}
+</script>
+</html>
