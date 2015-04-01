@@ -57,7 +57,7 @@ function showFileReceive(serviceId, path) {
 
   var str = '';
   str += makeInputText('path', 'path', 'path')
-  str += '<input type="button" onclick="javascript:doGetUriFromPath(\'' +
+  str += '<input type="button" onclick="javascript:doFileGetUriFromPath(\'' +
         serviceId + '\',\'' + path +
         '\');" value="Get URI from PATH" type="button" >';
   reloadContent(str);
@@ -69,7 +69,7 @@ function showFileReceive(serviceId, path) {
  * @param {String} serviceId サービスID
  * @param {String} path パス
  */
-function doGetUriFromPath(serviceId, path) {
+function doFileGetUriFromPath(serviceId, path) {
   var path = $('#path').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
@@ -179,7 +179,7 @@ function showFileList(serviceId, path, mode) {
     var cmdStr = '<input data-icon="folder" data-inline="true"' +
                 ' data-mini="true"' +
                 ' onclick="javascript:showFileList(\'' + serviceId +
-                '\',\'/\');" type="button" value=' / '/>';
+                '\',\'/\');" type="button" value=" / "/>';
     cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true"' +
               ' onclick="javascript:changeDeleteMode(\'' + serviceId +
               '\');" type="button" value="Delete Mode"/>';
@@ -239,7 +239,7 @@ function changeDeleteMode(serviceId) {
   cmdStr += '<input data-icon="folder" data-inline="true"' +
             ' data-mini="true" onclick="javascript:showFileList(\'' +
             serviceId +
-            '\',\'/\',\'1\');" type="button" value=' / '/>';
+            '\',\'/\',\'1\');" type="button" value=" / "/>';
   cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true"' +
             ' onclick="javascript:changeNormalMode(\'' + serviceId +
             '\');" type="button" value="Normal  Mode"/>';
@@ -265,7 +265,7 @@ function changeNormalMode(serviceId) {
   var cmdStr = '';
   cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true"' +
           ' onclick="javascript:showFileList(\'' + serviceId +
-          '\',\'/\');" type="button" value=' / ' />';
+          '\',\'/\');" type="button" value=" / " />';
   cmdStr += '<input data-icon="delete" data-inline="true" data-mini="true"' +
           ' onclick="javascript:changeDeleteMode(\'' + serviceId +
           '\');" type="button" value="Delete  Mode" />';

@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-var versionRev = 'V1.0.1 Rev.8';
+var versionRev = 'V2.0.0 Rev.9';
 /** BASE URI. */
 var BASE_URI;
 /** Client ID. */
@@ -139,7 +139,8 @@ function authorization() {
               'file', 'media_player', 'mediastream_recording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
-              'dice', 'temperature', 'camera', 'canvas', 'health');
+              'dice', 'temperature', 'camera', 'canvas', 'health',
+               "touch", 'humandetect', 'keyevent');
   dConnect.authorization(scopes, 'サンプル',
       function(clientId, newAccessToken) {
         // Client ID
@@ -259,5 +260,11 @@ function searchProfile(serviceId, profile) {
     showCanvas(serviceId);
   } else if (profile === 'health') {
     showHealth(serviceId);
+  } else if (profile === 'touch') {
+    showTouch(serviceId);
+  } else if (profile === 'humandetect') {
+    showHumanDetect(serviceId);
+  } else if (profile === 'keyevent') {
+    showKeyEvent(serviceId);
   }
 }

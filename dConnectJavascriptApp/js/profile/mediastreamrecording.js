@@ -70,10 +70,9 @@ function doRegisterPreview(serviceId) {
     myUri = myUri.replace('localhost', ip);
     var img = $('#preview');
     if (img) {
-      img.attr('onerror', function() {
-        alert('Failed to get a preview.');
+      img.error(function() {
+        alert('Failed to get a preview: URL=' + myUri);
       });
-      img.attr('crossorigin', 'anonymous');
       img.attr('src', myUri);
     }
   }, function(errorCode, errorMessage) {
