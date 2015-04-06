@@ -54,7 +54,7 @@ QUnit.asyncTest('mediaListNormalTest001(get)', MediaPlayerProfileNormalTest.medi
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='audio/'<br/>
+ * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='audio/mpeg'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -68,7 +68,7 @@ MediaPlayerProfileNormalTest.mediaListNormalTest002 = function(assert) {
     builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.media_player.PARAM_MIME_TYPE, 'audio/');
+    builder.addParameter(dConnect.constants.media_player.PARAM_MIME_TYPE, 'audio/mpeg');
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
@@ -91,7 +91,7 @@ QUnit.asyncTest('mediaListNormalTest002', MediaPlayerProfileNormalTest.mediaList
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='video/'<br/>
+ * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='video/mp4'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -105,7 +105,7 @@ MediaPlayerProfileNormalTest.mediaListNormalTest003 = function(assert) {
     builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.media_player.PARAM_MIME_TYPE, 'video/');
+    builder.addParameter(dConnect.constants.media_player.PARAM_MIME_TYPE, 'video/mp4');
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
@@ -650,7 +650,7 @@ MediaPlayerProfileNormalTest.mediaNormalTest002 = function(assert) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage, supported) {
@@ -669,11 +669,12 @@ QUnit.asyncTest('mediaNormalTest002(put)', MediaPlayerProfileNormalTest.mediaNor
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
+ * ・メディアが再生されること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  setMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
@@ -683,8 +684,26 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage, supported) {
@@ -695,19 +714,83 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
 QUnit.asyncTest('playNormalTest001(put)', MediaPlayerProfileNormalTest.playNormalTest001);
 
 /**
- * メディア再生を停止するテストを行う。
+ * メディアの一時停止と再生再開を続けてテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /media_player/pause?serviceId=xxx<br/>
+ *       /media_player/stop?serviceId=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
+ * ・メディアが一時停止したあとに再生が再開されること。<br/>
  * </p>
  */
-MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
+  playMedia(function(accessToken, serviceId) {
+    setTimeout(function() {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'pause ok. result=' + json.result);
+
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_RESUME);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        dConnect.put(uri, null, null, function(json) {
+          if (json.result === dConnect.constants.RESULT_ERROR) {
+            if (supported) {
+              assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
+            } else {
+              assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
+            }
+          } else {
+            assert.ok(true, 'resume ok. result=' + json.result);
+          }
+          QUnit.start();
+
+          var builder = new dConnect.URIBuilder();
+          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+          builder.setServiceId(serviceId);
+          builder.setAccessToken(accessToken);
+          var uri = builder.build();
+          setTimeout(function() {
+            dConnect.put(uri, null, null, function(json) {
+              assert.ok(true, 'result=' + json.result);
+              QUnit.start();
+            }, function(errorCode, errorMessage) {
+              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+              QUnit.start();
+            });
+          }, 3 * 1000);
+          QUnit.stop();
+
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    }, 3 * 1000);
+  }, function(errorCode, errorMessage, supported) {
+    if (!supported) {
+      assert.equal(errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    } else {
+      assert.equal(errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE, 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
@@ -719,10 +802,291 @@ MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
       }, function(errorCode, errorMessage) {
-        assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
     }, 3 * 1000);
+    QUnit.stop();
+
+  });
+};
+QUnit.asyncTest('pauseAndResumeNormalTest001(put)', MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001);
+
+/**
+ * メディア再生を停止するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /media_player/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * ・メディアが停止されること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
+  playMedia(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    setTimeout(function() {
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    }, 3 * 1000);
+  }, function(errorCode, errorMessage, supported) {
+    assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('stopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.stopMediaNormalTest001);
+
+/**
+ * メディアを設定するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /media_player/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.mediaNormalTest002 = function(assert) {
+  getAudioMediaList(function(accessToken, serviceId, list) {
+    if (list.count < 1) {
+      assert.ok(false, 'this device does not have a media.');
+      QUnit.start();
+      return;
+    }
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, list.media[0].mediaId);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result + ', set mediaId=' + list.media[0].mediaId);
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage, supported) {
+    assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('mediaNormalTest002(put)', MediaPlayerProfileNormalTest.mediaNormalTest002);
+
+/**
+ * 設定したメディアを取得するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: GET<br/>
+ * Path: /media_player/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.mediaNormalTest001 = function(assert) {
+  getAudioMediaList(function(accessToken, serviceId, list) {
+    if (list.count < 1) {
+      assert.ok(false, 'this device does not have a media.');
+      QUnit.start();
+      return;
+    }
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, list.media[0].mediaId);
+    var uri = builder.build();
+    dConnect.get(uri, null, function(json) {
+      assert.ok(true, 'result=' + json.result + ', media=' + json.mediaId);
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage, supported) {
+    assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('mediaNormalTest001(get)', MediaPlayerProfileNormalTest.mediaNormalTest001);
+
+/**
+ * メディアを再生するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /media_player/play?serviceId=xxxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * ・音楽が再生されること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
+  setAudioMedia(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage, supported) {
+    assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('playNormalTest001(put)', MediaPlayerProfileNormalTest.playNormalTest001);
+
+/**
+ * メディアの一時停止と再生再開を続けてテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /media_player/pause?serviceId=xxx<br/>
+ *       /media_player/stop?serviceId=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * ・メディアが一時停止したあとに再生が再開されること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
+  playAudioMedia(function(accessToken, serviceId) {
+    setTimeout(function() {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'pause ok. result=' + json.result);
+
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_RESUME);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'resume ok. result=' + json.result);
+          QUnit.start();
+
+          var builder = new dConnect.URIBuilder();
+          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+          builder.setServiceId(serviceId);
+          builder.setAccessToken(accessToken);
+          var uri = builder.build();
+          setTimeout(function() {
+            dConnect.put(uri, null, null, function(json) {
+              assert.ok(true, 'result=' + json.result);
+              QUnit.start();
+            }, function(errorCode, errorMessage) {
+              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+              QUnit.start();
+            });
+          }, 3 * 1000);
+          QUnit.stop();
+
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    }, 3 * 1000);
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('pauseAndResumeNormalTest001(put)', MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001);
+
+/**
+ * メディア再生を停止するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /media_player/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * ・音楽が停止されること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
+  playAudioMedia(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
   }, function(errorCode, errorMessage, supported) {
     assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
@@ -739,26 +1103,43 @@ QUnit.asyncTest('stopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.stop
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.playStatusNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    setTimeout(function() {
+  playMedia(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY_STATUS);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    dConnect.get(uri, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      assert.ok(true, 'status=' + json.status);
+      QUnit.start();
+
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY_STATUS);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
-    }, 3 * 1000);
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
   }, function(errorCode, errorMessage) {
     assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
@@ -775,11 +1156,12 @@ QUnit.asyncTest('playStatusNormalTest001(get)', MediaPlayerProfileNormalTest.pla
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
+ * ・再生位置が取得できること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.seekNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId, json) {
     setTimeout(function() {
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
@@ -789,9 +1171,28 @@ MediaPlayerProfileNormalTest.seekNormalTest001 = function(assert) {
       var uri = builder.build();
       dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
+        assert.ok(json.pos > 0, 'pos=' + json.pos);
         QUnit.start();
+
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        setTimeout(function() {
+          dConnect.put(uri, null, null, function(json) {
+            assert.ok(true, 'result=' + json.result);
+            QUnit.start();
+          }, function(errorCode, errorMessage) {
+            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+            QUnit.start();
+          });
+        }, 3 * 1000);
+        QUnit.stop();
+
       }, function(errorCode, errorMessage) {
-        assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
     }, 3 * 1000);
@@ -811,11 +1212,12 @@ QUnit.asyncTest('seekNormalTest001(get)', MediaPlayerProfileNormalTest.seekNorma
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
+ * ・再生位置が変更されること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.seekNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
@@ -826,8 +1228,26 @@ MediaPlayerProfileNormalTest.seekNormalTest002 = function(assert) {
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage, supported) {
@@ -838,6 +1258,116 @@ MediaPlayerProfileNormalTest.seekNormalTest002 = function(assert) {
 QUnit.asyncTest('seekNormalTest002(put)', MediaPlayerProfileNormalTest.seekNormalTest002);
 
 /**
+ * メディアの再生位置を取得するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: GET<br/>
+ * Path: /media_player/seek?serviceId=xxxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * ・再生位置が取得できること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.seekNormalTest003 = function(assert) {
+  playAudioMedia(function(accessToken, serviceId, json) {
+    setTimeout(function() {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(json.pos > 0, 'pos=' + json.pos);
+        QUnit.start();
+
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        setTimeout(function() {
+          dConnect.put(uri, null, null, function(json) {
+            assert.ok(true, 'result=' + json.result);
+            QUnit.start();
+          }, function(errorCode, errorMessage) {
+            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+            QUnit.start();
+          });
+        }, 3 * 1000);
+        QUnit.stop();
+
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    }, 3 * 1000);
+  }, function(errorCode, errorMessage, supported) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('seekNormalTest003(get)', MediaPlayerProfileNormalTest.seekNormalTest003);
+
+/**
+ * メディアの再生位置を設定するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /media_player/seek?serviceId=xxxx&accessToken=xxx&pos=10<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * ・再生位置が変更されること。<br/>
+ * </p>
+ */
+MediaPlayerProfileNormalTest.seekNormalTest004 = function(assert) {
+  playAudioMedia(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter(dConnect.constants.media_player.PARAM_POS, 0);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage, supported) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('seekNormalTest004(put)', MediaPlayerProfileNormalTest.seekNormalTest004);
+
+/**
  * メディアのミュート状態を取得するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
@@ -846,11 +1376,11 @@ QUnit.asyncTest('seekNormalTest002(put)', MediaPlayerProfileNormalTest.seekNorma
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.muteNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
@@ -861,8 +1391,26 @@ MediaPlayerProfileNormalTest.muteNormalTest001 = function(assert) {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.mute != undefined, 'mute=' + json.mute);
       QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
@@ -881,11 +1429,11 @@ QUnit.asyncTest('mute(get)', MediaPlayerProfileNormalTest.muteNormalTest001);
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
@@ -894,13 +1442,45 @@ MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
     var uri = builder.build();
     dConnect.put(uri, null, null, function(res) {
       assert.ok(true, 'put ok. result=' + res.result);
-      QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'get ok. result=' + json.result);
+        assert.ok(json.mute == true, 'mute=' + json.mute);
+        QUnit.start();
+
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        setTimeout(function() {
+          dConnect.put(uri, null, null, function(json) {
+            assert.ok(true, 'result=' + json.result);
+            QUnit.start();
+          }, function(errorCode, errorMessage) {
+            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+            QUnit.start();
+          });
+        }, 3 * 1000);
+        QUnit.stop();
+
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(errorCode > 0, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -915,11 +1495,11 @@ QUnit.asyncTest('muteNormalTest002(put)', MediaPlayerProfileNormalTest.muteNorma
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.muteNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
@@ -928,9 +1508,49 @@ MediaPlayerProfileNormalTest.muteNormalTest003 = function(assert) {
     var uri = builder.build();
     dConnect.delete(uri, null, function(res) {
       assert.ok(true, 'delete ok. result=' + res.result);
-      QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.get(uri, null, function(json) {
+        if (json.result === dConnect.constants.RESULT_ERROR) {
+          if (supported) {
+            assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
+          } else {
+            assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
+          }
+        } else {
+          assert.ok(true, 'get ok. result=' + json.result);
+          assert.ok(json.mute == false, 'mute=' + json.mute);
+
+          var builder = new dConnect.URIBuilder();
+          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+          builder.setServiceId(serviceId);
+          builder.setAccessToken(accessToken);
+          var uri = builder.build();
+          setTimeout(function() {
+            dConnect.put(uri, null, null, function(json) {
+              assert.ok(true, 'result=' + json.result);
+              QUnit.start();
+            }, function(errorCode, errorMessage) {
+              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+              QUnit.start();
+            });
+          }, 3 * 1000);
+          QUnit.stop();
+
+        }
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
@@ -949,11 +1569,11 @@ QUnit.asyncTest('muteNormalTest003(delete)', MediaPlayerProfileNormalTest.muteNo
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.volumeNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
@@ -964,8 +1584,26 @@ MediaPlayerProfileNormalTest.volumeNormalTest001 = function(assert) {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.volume >= 0, 'volume=' + json.volume);
       QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
@@ -984,11 +1622,11 @@ QUnit.asyncTest('volumeNormalTest001(get)', MediaPlayerProfileNormalTest.volumeN
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
- * ・レスポンスが返ってくること。<br/>
+ * ・resultに0が返ってくること。<br/>
  * </p>
  */
 MediaPlayerProfileNormalTest.volumeNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  playMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
@@ -999,8 +1637,26 @@ MediaPlayerProfileNormalTest.volumeNormalTest002 = function(assert) {
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
+
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      setTimeout(function() {
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
+      }, 3 * 1000);
+      QUnit.stop();
+
     }, function(errorCode, errorMessage) {
-      assert.ok(errorCode > 0, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
@@ -1066,3 +1722,67 @@ function setMedia(success_cb, error_cb) {
     }, error_cb);
   }, error_cb);
 }
+
+function playMedia(success_cb, error_cb) {
+  setMedia(function(accessToken, serviceId) {
+    setTimeout(function() {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.put(uri, null, null, function(json) {
+        success_cb(accessToken, serviceId, json);
+      }, error_cb);
+    }, 1 * 1000);
+  }, error_cb);
+}
+
+function getAudioMediaList(success_cb, error_cb) {
+  searchTestService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter(dConnect.constants.media_player.PARAM_MIME_TYPE, 'audio/mpeg');
+    builder.addParameter(dConnect.constants.media_player.PARAM_ORDER, 'duration,desc');
+    var uri = builder.build();
+    dConnect.get(uri, null, function(json) {
+      success_cb(accessToken, serviceId, json);
+    }, error_cb);
+  }, error_cb);
+}
+
+function setAudioMedia(success_cb, error_cb) {
+  getAudioMediaList(function(accessToken, serviceId, list) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, list.media[0].mediaId);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      success_cb(accessToken, serviceId, json);
+    }, error_cb);
+  }, error_cb);
+}
+
+function playAudioMedia(success_cb, error_cb) {
+  setAudioMedia(function(accessToken, serviceId) {
+    setTimeout(function() {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.put(uri, null, null, function(json) {
+        success_cb(accessToken, serviceId, json);
+      }, error_cb);
+    }, 1 * 1000);
+  }, error_cb);
+}
+
