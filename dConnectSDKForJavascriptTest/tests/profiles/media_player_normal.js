@@ -1693,6 +1693,11 @@ MediaPlayerProfileNormalTest.onStatusChangeNormalTest001 = function(assert) {
 };
 QUnit.asyncTest('onStatusChangeNormalTest001', MediaPlayerProfileNormalTest.onStatusChangeNormalTest001);
 
+/**
+ * テスト終了。再生停止。
+ */
+QUnit.asyncTest('stopMedia', MediaPlayerProfileNormalTest.stopMediaNormalTest001);
+
 function getMediaList(success_cb, error_cb) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
