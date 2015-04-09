@@ -83,8 +83,8 @@ function showNotification(serviceId) {
  */
 function doNotificationBack(serviceId, sessionKey) {
 
-  if (myDeviceName.indexOf('Pebble') == -1 ||
-      myDeviceName.indexOf('SmartWatch') == -1 ||
+  if (myDeviceName.indexOf('Pebble') == -1 &&
+      myDeviceName.indexOf('SmartWatch') == -1 &&
       myDeviceName.indexOf('Chromecast') == -1) {
     doUnregisterNotificationShow(serviceId, sessionKey);
     doUnregisterNotificationClick(serviceId, sessionKey);
