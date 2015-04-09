@@ -861,7 +861,7 @@ QUnit.asyncTest('stopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.stop
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-MediaPlayerProfileNormalTest.mediaNormalTest002 = function(assert) {
+MediaPlayerProfileNormalTest.audiomediaNormalTest002 = function(assert) {
   getAudioMediaList(function(accessToken, serviceId, list) {
     if (list.count < 1) {
       assert.ok(false, 'this device does not have a media.');
@@ -888,7 +888,7 @@ MediaPlayerProfileNormalTest.mediaNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mediaNormalTest002(put)', MediaPlayerProfileNormalTest.mediaNormalTest002);
+QUnit.asyncTest('audiomediaNormalTest002(put)', MediaPlayerProfileNormalTest.audiomediaNormalTest002);
 
 /**
  * 設定したメディアを取得するテストを行う。
@@ -902,7 +902,7 @@ QUnit.asyncTest('mediaNormalTest002(put)', MediaPlayerProfileNormalTest.mediaNor
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-MediaPlayerProfileNormalTest.mediaNormalTest001 = function(assert) {
+MediaPlayerProfileNormalTest.audiomediaNormalTest001 = function(assert) {
   getAudioMediaList(function(accessToken, serviceId, list) {
     if (list.count < 1) {
       assert.ok(false, 'this device does not have a media.');
@@ -929,7 +929,7 @@ MediaPlayerProfileNormalTest.mediaNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mediaNormalTest001(get)', MediaPlayerProfileNormalTest.mediaNormalTest001);
+QUnit.asyncTest('audiomediaNormalTest001(get)', MediaPlayerProfileNormalTest.audiomediaNormalTest001);
 
 /**
  * メディアを再生するテストを行う。
@@ -944,7 +944,7 @@ QUnit.asyncTest('mediaNormalTest001(get)', MediaPlayerProfileNormalTest.mediaNor
  * ・音楽が再生されること。<br/>
  * </p>
  */
-MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
+MediaPlayerProfileNormalTest.audioplayNormalTest001 = function(assert) {
   setAudioMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
@@ -982,7 +982,7 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('playNormalTest001(put)', MediaPlayerProfileNormalTest.playNormalTest001);
+QUnit.asyncTest('audioplayNormalTest001(put)', MediaPlayerProfileNormalTest.audioplayNormalTest001);
 
 /**
  * メディアの一時停止と再生再開を続けてテストを行う。
@@ -998,7 +998,7 @@ QUnit.asyncTest('playNormalTest001(put)', MediaPlayerProfileNormalTest.playNorma
  * ・メディアが一時停止したあとに再生が再開されること。<br/>
  * </p>
  */
-MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
+MediaPlayerProfileNormalTest.audiopauseAndResumeNormalTest001 = function(assert) {
   playAudioMedia(function(accessToken, serviceId) {
     setTimeout(function() {
       var builder = new dConnect.URIBuilder();
@@ -1051,7 +1051,7 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAndResumeNormalTest001(put)', MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001);
+QUnit.asyncTest('audiopauseAndResumeNormalTest001(put)', MediaPlayerProfileNormalTest.audiopauseAndResumeNormalTest001);
 
 /**
  * メディア再生を停止するテストを行う。
@@ -1066,7 +1066,7 @@ QUnit.asyncTest('pauseAndResumeNormalTest001(put)', MediaPlayerProfileNormalTest
  * ・音楽が停止されること。<br/>
  * </p>
  */
-MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
+MediaPlayerProfileNormalTest.audiostopMediaNormalTest001 = function(assert) {
   playAudioMedia(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
@@ -1092,7 +1092,7 @@ MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.stopMediaNormalTest001);
+QUnit.asyncTest('audiostopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.audiostopMediaNormalTest001);
 
 /**
  * メディアの再生状態を取得するテストを行う。
