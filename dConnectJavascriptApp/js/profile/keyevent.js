@@ -41,7 +41,7 @@ function showOnDown(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doKeyBack', serviceId, sessionKey);
+  var btnStr = getBackButton('KeyEvent Top', 'doKeyBack', serviceId, sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -101,7 +101,7 @@ function showDownEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doDownEventBack', serviceId,
+  var btnStr = getBackButton('KeyEvent Top', 'doDownEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -129,7 +129,7 @@ function showOnUp(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doKeyBack', serviceId, sessionKey);
+  var btnStr = getBackButton('KeyEvent Top', 'doKeyBack', serviceId, sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -190,7 +190,7 @@ function showUpEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doUpEventBack', serviceId,
+  var btnStr = getBackButton('KeyEvent Top', 'doUpEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);

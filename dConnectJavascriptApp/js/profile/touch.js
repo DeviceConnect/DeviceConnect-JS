@@ -57,7 +57,7 @@ function showOnTouch(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doOnTouchBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -194,7 +194,7 @@ function showTouchEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doTouchEventBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doTouchEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -230,7 +230,7 @@ function showOnTouchStart(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doOnTouchBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -366,7 +366,7 @@ function showTouchStartEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doTouchStartEventBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doTouchStartEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -402,7 +402,7 @@ function showOnTouchEnd(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doOnTouchBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -538,7 +538,7 @@ function showTouchEndEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doTouchEndEventBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doTouchEndEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -574,7 +574,7 @@ function showOnDoubleTap(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doOnTouchBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -635,7 +635,7 @@ function showDoubleTapEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doDoubleTapEventBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doDoubleTapEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -662,7 +662,7 @@ function showOnTouchMove(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doOnTouchBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -798,7 +798,7 @@ function showTouchMoveEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doTouchMoveEventBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doTouchMoveEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -834,7 +834,7 @@ function showOnTouchCancel(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doOnTouchBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -969,7 +969,7 @@ function showTouchCancelEvent(serviceId) {
 
   var sessionKey = currentClientId;
 
-  var btnStr = getBackButton('Device Top', 'doTouchCancelEventBack', serviceId,
+  var btnStr = getBackButton('Touch Top', 'doTouchCancelEventBack', serviceId,
                  sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);

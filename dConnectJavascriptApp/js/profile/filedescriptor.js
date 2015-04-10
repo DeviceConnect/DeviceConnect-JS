@@ -226,21 +226,6 @@ function doCloseFile(serviceId, sessionKey) {
   var path = document.fileDescriptorReadForm.path.value;
 
   initResult();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
-  builder.setAttribute('onwatchfile');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
-  });
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file_descriptor');
