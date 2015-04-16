@@ -35,6 +35,10 @@ var launchTimerId;
  * 初期化処理.
  */
 function init() {
+  var length = 8
+  var sessionKey = Math.random().toString(36).slice(-length);
+  currentClientId = sessionKey;
+
   // Versionを表示
   $('#version').html(versionRev);
 
@@ -60,6 +64,13 @@ function init() {
   });
 
   dConnect.setAntiSpoofing(true);
+  dConnect.setHost(ip);
+  if (dConnect.isConnectedWebSocket()) {
+    dConnect.disconnectWebSocket();
+  }
+  dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
+  });
+
 }
 
 /**
@@ -133,7 +144,6 @@ function startManager(onavailable) {
  * Local OAuthのアクセストークンを取得する.
  */
 function authorization() {
-  dConnect.setHost(ip);
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
               'battery', 'connect', 'deviceorientation', 'file_descriptor',
               'file', 'media_player', 'mediastream_recording', 'notification',
@@ -158,7 +168,7 @@ function authorization() {
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
         }
-        dConnect.connectWebSocket(clientId, function(errorCode, errorMessage) {
+        dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
         });
 
         // rewrite html
