@@ -57,12 +57,6 @@ function init() {
   // 接続先のBASE_URIを作成
   BASE_URI = 'http://' + ip + ':4035/gotapi/';
 
-  $(window).on('hashchange', function() {
-    if (location.hash === '#demo' && accessToken == null) {
-      authorization();
-    }
-  });
-
   dConnect.setAntiSpoofing(true);
   dConnect.setHost(ip);
   if (dConnect.isConnectedWebSocket()) {
@@ -143,7 +137,7 @@ function startManager(onavailable) {
 /**
  * Local OAuthのアクセストークンを取得する.
  */
-function authorization() {
+function authorization(callback) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
               'battery', 'connect', 'deviceorientation', 'file_descriptor',
               'file', 'media_player', 'mediastream_recording', 'notification',
@@ -173,9 +167,15 @@ function authorization() {
 
         // rewrite html
         $('#token').html('accessToken:' + accessToken);
+        if (callback) {
+          callback();
+        }
       },
       function(errorCode, errorMessage) {
         alert('Failed to get accessToken.');
+        if (callback) {
+          callback();
+        }
       });
 }
 
