@@ -349,7 +349,7 @@ function showLight(serviceId, lightId, lightName) {
   });
   contents.append(buttonChangeName);
 
-  contents.append('<h3>Light Brightness</h3>');
+  contents.append('<h3>Brightness of light</h3>');
   if (lightName == 'Sphero LED') {
     contents.append($('<input type="hidden" id="brightness"' +
                     ' value="100" min="0" max="100" step="1" />'));
@@ -359,7 +359,7 @@ function showLight(serviceId, lightId, lightName) {
                     ' id="brightness" value="100" min="0" max="100" step="1" />'));
   }
 
-  contents.append('<h3>Light Color</h3>');
+  contents.append('<h3>Color of light</h3>');
   var divColor = $('<div />');
   contents.append(divColor);
 
@@ -448,13 +448,13 @@ function showLightGroup(serviceId, group) {
   contents.append(buttonChangeName);
 
   // グループの明るさUI
-  contents.append('<h3>Group Brightness</h3>');
+  contents.append('<h3>Brightness of light group</h3>');
   contents.append($('<label for="slider-0">Brightness:</label>'));
   contents.append($('<input type="range" name="slider"' +
                   ' id="brightness" value="100" min="0" max="100" step="1" />'));
 
   // グループの色指定UI
-  contents.append('<h3>Group Color</h3>');
+  contents.append('<h3>Color of light group </h3>');
   contents.append('<label for="slider-0">Red:</label>');
   contents.append('<input type="range" name="slider" id="red"' +
                   ' value="25" min="0" max="255" />');
