@@ -35,9 +35,7 @@ var launchTimerId;
  * 初期化処理.
  */
 function init() {
-  var length = 8
-  var sessionKey = Math.random().toString(36).slice(-length);
-  currentClientId = sessionKey;
+  currentClientId = Math.random().toString(36).slice(-8);
 
   // Versionを表示
   $('#version').html(versionRev);
