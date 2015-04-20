@@ -36,6 +36,10 @@ function searchDevice() {
     closeLoading();
   }, function(errorCode, errorMessage) {
     closeLoading();
-    alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
+    if (errorCode == 12 || errorCode == 13 || errorCode == 15) {
+      authorization(searchDevice);
+    } else {
+      alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
+    }
   });
 }

@@ -40,7 +40,7 @@ function showOnRoll(serviceId) {
   var sessionKey = currentClientId;
 
   var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doOnDiceBack', serviceId, sessionKey);
+  btnStr += getBackButton('Dice Top', 'doOnDiceBack', serviceId, sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -80,7 +80,7 @@ function showOnMagnetometer(serviceId) {
   var sessionKey = currentClientId;
 
   var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doOnMagnetBack',
+  btnStr += getBackButton('Dice Top', 'doOnMagnetBack',
                   serviceId, sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
