@@ -277,7 +277,7 @@ function refreshImg(uri, id) {
 function doMediaRecord(serviceId, target) {
   initAll();
 
-  var btnStr = getBackButton('Device Top', 'doRecordMediaBack', serviceId, '');
+  var btnStr = getBackButton('MediaStreamRecording Top', 'doRecordMediaBack', serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
