@@ -1452,7 +1452,7 @@ QUnit.asyncTest('closeAbnormalTest003(Calling a delete method that does not supp
  */
 FileDescriptorProfileAbnormalTest.closeAbnormalTest004 = function(assert) {
   FileDescriptorProfileAbnormalTest.closeFile('/test_r.txt');
-  FileDescriptorProfileAbnormalTest.closeFile('test_rw.txt');
+  FileDescriptorProfileAbnormalTest.closeFile('/test_rw.txt');
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.file_descriptor.PROFILE_NAME);
