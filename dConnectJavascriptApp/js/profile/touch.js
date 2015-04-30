@@ -585,15 +585,6 @@ function showOnDoubleTap(serviceId) {
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
            ' onclick="doGetOnDoubleTap(\'' + serviceId + '\');"/>';
   str += '<input type="text" id="idD0" width="100%">';
-  str += '<input type="text" id="idD1" width="100%">';
-  str += '<input type="text" id="idD2" width="100%">';
-  str += '<input type="text" id="idD3" width="100%">';
-  str += '<input type="text" id="idD4" width="100%">';
-  str += '<input type="text" id="idD5" width="100%">';
-  str += '<input type="text" id="idD6" width="100%">';
-  str += '<input type="text" id="idD7" width="100%">';
-  str += '<input type="text" id="idD8" width="100%">';
-  str += '<input type="text" id="idD9" width="100%">';
   str += '</form>';
   reloadContent(str);
 }
@@ -619,79 +610,13 @@ function doGetOnDoubleTap(serviceId) {
 
     closeLoading();
 
-    var i;
-    for (i = 0; i < 10; i++) {
-      switch (i) {
-      case 0: $('#idD0').val(''); break;
-      case 1: $('#idD1').val(''); break;
-      case 2: $('#idD2').val(''); break;
-      case 3: $('#idD3').val(''); break;
-      case 4: $('#idD4').val(''); break;
-      case 5: $('#idD5').val(''); break;
-      case 6: $('#idD6').val(''); break;
-      case 7: $('#idD7').val(''); break;
-      case 8: $('#idD8').val(''); break;
-      case 9: $('#idD9').val(''); break;
-      }
-    }
+    $('#idD0').val('');
 
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
-        for (i = 0; i < json.touch.touches.length; i++) {
-          switch (i) {
-          case 0:
-            $('#idD0').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 1:
-            $('#idD1').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 2:
-            $('#idD2').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 3:
-            $('#idD3').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 4:
-            $('#idD4').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 5:
-            $('#idD5').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 6:
-            $('#idD6').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 7:
-            $('#idD7').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 8:
-            $('#idD8').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 9:
-            $('#idD9').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          }
-        }
+        $('#idD0').val('id: ' + json.touch.touches[0].id +
+          ' x: ' + json.touch.touches[0].x +
+          ' y: ' + json.touch.touches[0].y);
       }
     }
   }, function(errorCode, errorMessage) {
@@ -719,15 +644,6 @@ function showDoubleTapEvent(serviceId) {
   str += '<form name="doubletapForm">';
   str += 'DoubleTap<br>';
   str += '<input type="text" id="idD0" width="100%">';
-  str += '<input type="text" id="idD1" width="100%">';
-  str += '<input type="text" id="idD2" width="100%">';
-  str += '<input type="text" id="idD3" width="100%">';
-  str += '<input type="text" id="idD4" width="100%">';
-  str += '<input type="text" id="idD5" width="100%">';
-  str += '<input type="text" id="idD6" width="100%">';
-  str += '<input type="text" id="idD7" width="100%">';
-  str += '<input type="text" id="idD8" width="100%">';
-  str += '<input type="text" id="idD9" width="100%">';
   str += '</form>';
   reloadContent(str);
 
@@ -1488,75 +1404,10 @@ function doDoubleTapRegist(serviceId, sessionKey) {
     var json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
-        for (i = 0; i < json.touch.touches.length; i++) {
-          switch (i) {
-          case 0:
-            $('#idD0').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 1:
-            $('#idD1').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 2:
-            $('#idD2').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 3:
-            $('#idD3').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 4:
-            $('#idD4').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 5:
-            $('#idD5').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 6:
-            $('#idD6').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 7:
-            $('#idD7').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 8:
-            $('#idD8').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          case 9:
-            $('#idD9').val('id: ' + json.touch.touches[i].id +
-              ' x: ' + json.touch.touches[i].x +
-              ' y: ' + json.touch.touches[i].y);
-            break;
-          }
-        }
-        for (i; i < 10; i++) {
-          switch (i) {
-          case 0: $('#idD0').val(''); break;
-          case 1: $('#idD1').val(''); break;
-          case 2: $('#idD2').val(''); break;
-          case 3: $('#idD3').val(''); break;
-          case 4: $('#idD4').val(''); break;
-          case 5: $('#idD5').val(''); break;
-          case 6: $('#idD6').val(''); break;
-          case 7: $('#idD7').val(''); break;
-          case 8: $('#idD8').val(''); break;
-          case 9: $('#idD9').val(''); break;
-          }
-        }
+        $('#idD0').val('');
+        $('#idD0').val('id: ' + json.touch.touches[0].id +
+          ' x: ' + json.touch.touches[0].x +
+          ' y: ' + json.touch.touches[0].y);
       }
     }
   }, null, function(errorCode, errorMessage) {
