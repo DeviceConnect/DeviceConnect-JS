@@ -35,6 +35,8 @@ var launchTimerId;
  * 初期化処理.
  */
 function init() {
+  currentClientId = Math.random().toString(36).slice(-8);
+
   // Versionを表示
   $('#version').html(versionRev);
 
@@ -53,13 +55,14 @@ function init() {
   // 接続先のBASE_URIを作成
   BASE_URI = 'http://' + ip + ':4035/gotapi/';
 
-  $(window).on('hashchange', function() {
-    if (location.hash === '#demo' && accessToken == null) {
-      authorization();
-    }
+  dConnect.setAntiSpoofing(true);
+  dConnect.setHost(ip);
+  if (dConnect.isConnectedWebSocket()) {
+    dConnect.disconnectWebSocket();
+  }
+  dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
   });
 
-  dConnect.setAntiSpoofing(true);
 }
 
 /**
@@ -132,8 +135,7 @@ function startManager(onavailable) {
 /**
  * Local OAuthのアクセストークンを取得する.
  */
-function authorization() {
-  dConnect.setHost(ip);
+function authorization(callback) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
               'battery', 'connect', 'deviceorientation', 'file_descriptor',
               'file', 'media_player', 'mediastream_recording', 'notification',
@@ -158,14 +160,20 @@ function authorization() {
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
         }
-        dConnect.connectWebSocket(clientId, function(errorCode, errorMessage) {
+        dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
         });
 
         // rewrite html
         $('#token').html('accessToken:' + accessToken);
+        if (callback) {
+          callback();
+        }
       },
       function(errorCode, errorMessage) {
         alert('Failed to get accessToken.');
+        if (callback) {
+          callback();
+        }
       });
 }
 
