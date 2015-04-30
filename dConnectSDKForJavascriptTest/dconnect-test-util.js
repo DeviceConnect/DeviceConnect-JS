@@ -70,7 +70,8 @@ function getAccessToken(func) {
       'remote_controller',
       'sphero',
       'temperature',
-      'health'
+      'health',
+      'humandetect'
   );
 
   dConnect.authorization(scopes,
