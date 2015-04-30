@@ -69,7 +69,6 @@ In order to use the Device Connect is basically it will be in the following proc
 
 
 1. Availability will make the start-up confirmation of Device Connect Manager.<br><br>
-すでに起動が確認できている場合には、スキップすることができます。<br>
 Already if the boot is able to confirm, you can skip.<br>
 
 ```
