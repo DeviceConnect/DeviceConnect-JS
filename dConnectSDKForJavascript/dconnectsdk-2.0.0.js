@@ -1531,12 +1531,14 @@ var dConnect = (function(parent, global) {
   /**
    * System APIへの簡易アクセスを提供する。
    * @memberOf dConnect
+   * @param {String} accessToken アクセストークン
    * @param {Function} successCallback 成功時コールバック。
    * @param {Function} errorCallback 失敗時コールバック。
    */
-  var getSystemInfo = function(successCallback, errorCallback) {
+  var getSystemInfo = function(accessToken, successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.system.PROFILE_NAME);
+    builder.setAccessToken(accessToken);
     parent.sendRequest('GET', builder.build(), null, null,
                             successCallback, errorCallback);
   };
