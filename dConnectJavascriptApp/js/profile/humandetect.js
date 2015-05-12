@@ -718,105 +718,76 @@ function getDetectsResponseString(detects) {
     str += ' width=' + detect.width + ' height=' + detect.height;
     str += ' confidence=' + detect.confidence + '<br>';
     if (detect.eyePoints) {
-      for (var eyePointIndex = 0; eyePointIndex < eyePoint.length;
-        eyePointIndex++) {
-        var eyePoint = detect.eyePoints[eyePointIndex];
-        str += '  <eyePoint> leftEyeX=' + eyePoint.leftEyeX;
-        str += ' leftEyeY=' + eyePoint.leftEyeY;
-        str += ' leftEyeWidth=' + eyePoint.leftEyeWidth;
-        str += ' leftEyeHeight=' + eyePoint.leftEyeHeight + '<br>';
-        str += '             ';
-        str += 'rightEyeX=' + eyePoint.rightEyeX;
-        str += ' rightEyeY=' + eyePoint.rightEyeY;
-        str += ' rightEyeWidth=' + eyePoint.rightEyeWidth;
-        str += ' rightEyeHeight=' + eyePoint.rightEyeHeight + '<br>';
-        str += '             confidence=' + eyePoint.confidence + '<br>';
-      }
+      var eyePoint = detect.eyePoints;
+      str += '  <eyePoint> leftEyeX=' + eyePoint.leftEyeX;
+      str += ' leftEyeY=' + eyePoint.leftEyeY;
+      str += ' leftEyeWidth=' + eyePoint.leftEyeWidth;
+      str += ' leftEyeHeight=' + eyePoint.leftEyeHeight + '<br>';
+      str += '             ';
+      str += 'rightEyeX=' + eyePoint.rightEyeX;
+      str += ' rightEyeY=' + eyePoint.rightEyeY;
+      str += ' rightEyeWidth=' + eyePoint.rightEyeWidth;
+      str += ' rightEyeHeight=' + eyePoint.rightEyeHeight + '<br>';
+      str += '             confidence=' + eyePoint.confidence + '<br>';
     }
     if (detect.nosePoints) {
-      for (var nosePointIndex = 0; nosePointIndex < detect.nosePoints.length;
-        nosePointIndex++) {
-        var nosePoint = detect.nosePoints[nosePointIndex];
-        str += '  (nosePoint)';
-        str += ' noseX=' + nosePoint.noseX;
-        str += ' noseY=' + nosePoint.noseY;
-        str += ' noseWidth=' + nosePoint.noseWidth;
-        str += ' noseHeight=' + nosePoint.noseHeight;
-        str += ' confidence=' + nosePoint.confidence + '<br>';
-      }
+      var nosePoint = detect.nosePoints;
+      str += '  (nosePoint)';
+      str += ' noseX=' + nosePoint.noseX;
+      str += ' noseY=' + nosePoint.noseY;
+      str += ' noseWidth=' + nosePoint.noseWidth;
+      str += ' noseHeight=' + nosePoint.noseHeight;
+      str += ' confidence=' + nosePoint.confidence + '<br>';
     }
     if (detect.mouthPoints) {
-      for (var mouthPointIndex = 0;
-        mouthPointIndex < detect.mouthPoints.length; mouthPointIndex++) {
-        var mouthPoint = detect.mouthPoints[mouthPointIndex];
-        str += '  (mouthPoint)';
-        str += ' mouthX=' + mouthPoint.mouthX;
-        str += ' mouthY=' + mouthPoint.mouthY;
-        str += ' mouthWidth=' + mouthPoint.mouthWidth;
-        str += ' mouthHeight=' + mouthPoint.noseHeight;
-        str += ' confidence=' + mouthPoint.confidence + '<br>';
-      }
+      var mouthPoint = detect.mouthPoints;
+      str += '  (mouthPoint)';
+      str += ' mouthX=' + mouthPoint.mouthX;
+      str += ' mouthY=' + mouthPoint.mouthY;
+      str += ' mouthWidth=' + mouthPoint.mouthWidth;
+      str += ' mouthHeight=' + mouthPoint.noseHeight;
+      str += ' confidence=' + mouthPoint.confidence + '<br>';
     }
     if (detect.blinkResults) {
-      for (var blinkResultIndex = 0;
-        blinkResultIndex < detect.blinkResults.length; blinkResultIndex++) {
-        var blinkResult = detect.blinkResults[blinkResultIndex];
-        str += '  (blinkResult)';
-        str += ' leftEye=' + blinkResult.leftEye;
-        str += ' rightEye=' + blinkResult.rightEye;
-        str += ' confidence=' + blinkResult.confidence + '<br>';
-      }
+      var blinkResult = detect.blinkResults;
+      str += '  (blinkResult)';
+      str += ' leftEye=' + blinkResult.leftEye;
+      str += ' rightEye=' + blinkResult.rightEye;
+      str += ' confidence=' + blinkResult.confidence + '<br>';
     }
     if (detect.ageResults) {
-      for (var ageResultIndex = 0; ageResultIndex < detect.ageResults.length;
-        ageResultIndex++) {
-        var ageResult = detect.ageResults[ageResultIndex];
-        str += '  (ageResult)';
-        str += ' age=' + ageResult.age;
-        str += ' confidence=' + blinkResult.confidence + '<br>';
-      }
+      var ageResult = detect.ageResults;
+      str += '  (ageResult)';
+      str += ' age=' + ageResult.age;
+      str += ' confidence=' + blinkResult.confidence + '<br>';
     }
     if (detect.genderResults) {
-      for (var genderResultIndex = 0;
-        genderResultIndex < detect.genderResults.length; genderResultIndex++) {
-        var genderResult = detect.genderResults[genderResultIndex];
-        str += '  (genderResult)';
-        str += ' gender=' + genderResult.gender;
-        str += ' confidence=' + genderResult.confidence + '<br>';
-      }
+      var genderResult = detect.genderResults;
+      str += '  (genderResult)';
+      str += ' gender=' + genderResult.gender;
+      str += ' confidence=' + genderResult.confidence + '<br>';
     }
     if (detect.faceDirectionResults) {
-      for (var faceDirectionResultIndex;
-        faceDirectionResultIndex < detect.faceDirectionResults.length;
-        faceDirectionResultIndex++) {
-        var faceDirectionResult =
-          detect.faceDirectionResults[faceDirectionResultIndex];
+      var faceDirectionResult =
+          detect.faceDirectionResults;
         str += '  (faceDirectionResult)';
         str += ' yaw=' + faceDirectionResult.yaw;
         str += ' pitch=' + faceDirectionResult.pitch;
         str += ' roll=' + faceDirectionResult.roll;
         str += ' confidence=' + faceDirectionResult.confidence + '<br>';
-      }
     }
     if (detect.gazeResults) {
-      for (var gazeResultIndex = 0;
-        gazeResultIndex < detect.gazeResults.length; gazeResultIndex++) {
-        var gazeResult = detect.gazeResults[gazeResultIndex];
-        str += '  (gazeResult)';
-        str += ' gazeLR=' + gazeResult.gazeLR;
-        str += ' gazeUD=' + gazeResult.gazeUD;
-        str += ' confidence=' + gazeResult.confidence + '<br>';
-      }
+      var gazeResult = detect.gazeResults;
+      str += '  (gazeResult)';
+      str += ' gazeLR=' + gazeResult.gazeLR;
+      str += ' gazeUD=' + gazeResult.gazeUD;
+      str += ' confidence=' + gazeResult.confidence + '<br>';
     }
     if (detect.expressionResults) {
-      for (var expressionResultIndex = 0;
-        expressionResultIndex < detect.expressionResults.length;
-        expressionResultIndex++) {
-        var expressionResult = detect.expressionResults[expressionResultIndex];
-        str += '  (expressionResult)';
-        str += ' expression=' + expressionResult.expression;
-        str += ' confidence=' + expressionResult.confidence + '<br>';
-      }
+      var expressionResult = detect.expressionResults;
+      str += '  (expressionResult)';
+      str += ' expression=' + expressionResult.expression;
+      str += ' confidence=' + expressionResult.confidence + '<br>';
     }
   }
   return str;
