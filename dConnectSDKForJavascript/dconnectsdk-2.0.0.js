@@ -1225,6 +1225,15 @@ var dConnect = (function(parent, global) {
   parent.setLaunchListener = setLaunchListener;
 
   /**
+   * ブラウザがFirefoxかどうかを判定する.
+   * @private
+   * @returns ブラウザがFirefoxの場合はtrue、そうでない場合はfalse
+   */
+  var isFirefox = function() {
+    return (navigator.userAgent.indexOf("Firefox") != -1);
+  }
+
+  /**
    * Android端末上でDevice Connect Managerを起動する.
    * <p>
    * 注意: 起動に成功した場合、起動用Intentを受信するためのActivity起動する.
@@ -1238,11 +1247,17 @@ var dConnect = (function(parent, global) {
     _currentHmacKey = isEnabledAntiSpoofing() ?
                         generateRandom(HMAC_KEY_BYTES) : '';
     var urlScheme = new AndroidURISchemeBuilder();
-    urlScheme.setPath('start');
-    urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
-    urlScheme.addParameter('S.origin', encodeURIComponent(location.origin));
-    urlScheme.addParameter('S.key', _currentHmacKey);
-    location.href = urlScheme.build();
+    var url;
+    if (isFirefox()) {
+      url = 'dconnect://start/';
+    } else {
+      urlScheme.setPath('start');
+      urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
+      urlScheme.addParameter('S.origin', encodeURIComponent(location.origin));
+      urlScheme.addParameter('S.key', _currentHmacKey);
+      url = urlScheme.build();
+    }
+    location.href = url;
   };
 
   /**
@@ -1486,7 +1501,9 @@ var dConnect = (function(parent, global) {
   var discoverDevices = function(accessToken, successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
-    builder.setAccessToken(accessToken);
+    if (accessToken !== undefined && accessToken !== null) {
+      builder.setAccessToken(accessToken);
+    }
     parent.sendRequest('GET', builder.build(), null, null,
         successCallback, errorCallback);
   };
@@ -1514,12 +1531,14 @@ var dConnect = (function(parent, global) {
   /**
    * System APIへの簡易アクセスを提供する。
    * @memberOf dConnect
+   * @param {String} accessToken アクセストークン
    * @param {Function} successCallback 成功時コールバック。
    * @param {Function} errorCallback 失敗時コールバック。
    */
-  var getSystemInfo = function(successCallback, errorCallback) {
+  var getSystemInfo = function(accessToken, successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.system.PROFILE_NAME);
+    builder.setAccessToken(accessToken);
     parent.sendRequest('GET', builder.build(), null, null,
                             successCallback, errorCallback);
   };

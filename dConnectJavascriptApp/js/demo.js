@@ -55,7 +55,9 @@ function init() {
   // 接続先のBASE_URIを作成
   BASE_URI = 'http://' + ip + ':4035/gotapi/';
 
-  dConnect.setAntiSpoofing(true);
+  if (isAndroidChrome()) {
+    dConnect.setAntiSpoofing(true);
+  }
   dConnect.setHost(ip);
   if (dConnect.isConnectedWebSocket()) {
     dConnect.disconnectWebSocket();
@@ -63,6 +65,14 @@ function init() {
   dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
   });
 
+}
+
+/**
+ * ユーザエージェントがAndroid Chromeであることを確認する.
+ */
+function isAndroidChrome() {
+  var userAgent = window.navigator.userAgent.toLowerCase();
+  return (userAgent.indexOf('android') != -1) && (userAgent.indexOf('chrome') != -1);
 }
 
 /**
