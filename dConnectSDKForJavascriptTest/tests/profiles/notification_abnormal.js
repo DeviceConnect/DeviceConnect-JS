@@ -1,5 +1,6 @@
 module('Notification Profile Abnormal Test', {
   setup: function() {
+    TEST_TIMEOUT = 60000;
     init();
   }
 });
