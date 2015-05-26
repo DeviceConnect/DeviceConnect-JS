@@ -1,6 +1,6 @@
 module('MediaPlayer Profile Abnormal Test', {
   setup: function() {
-    TEST_TIMEOUT = 500000;
+    TEST_TIMEOUT = 120000;
     init();
   }
 });
