@@ -130,11 +130,11 @@ ProximityProfileNormalTest.onUserProximityNormalTest002 = function(assert) {
       assert.ok(json.proximity != undefined, JSON.stringify(json));
       QUnit.start();
     }, function(errorCode, errorMessage) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

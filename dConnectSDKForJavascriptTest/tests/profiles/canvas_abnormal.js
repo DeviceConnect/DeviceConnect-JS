@@ -1,5 +1,7 @@
 module('Canvas Profile Abnormal Test', {
   setup: function() {
+    TEST_TIMEOUT = 60000;
+
     init();
   }, teardown: function() {
     var img = document.getElementById('images');
