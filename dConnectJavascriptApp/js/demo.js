@@ -55,7 +55,8 @@ function init() {
   // 接続先のBASE_URIを作成
   BASE_URI = 'http://' + ip + ':4035/gotapi/';
 
-  if (isAndroidChrome()) {
+  if (isAndroidChrome() &&
+    location.href.indexOf('file:///') == -1) {
     dConnect.setAntiSpoofing(true);
   }
   dConnect.setHost(ip);
