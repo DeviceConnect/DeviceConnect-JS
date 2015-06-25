@@ -1248,12 +1248,15 @@ var dConnect = (function(parent, global) {
                         generateRandom(HMAC_KEY_BYTES) : '';
     var urlScheme = new AndroidURISchemeBuilder();
     var url;
+    var origin = encodeURIComponent(location.origin);
     if (isFirefox()) {
-      url = 'dconnect://start/';
+      url = 'dconnect://start/'
+              + '?origin=' + origin
+              + '&key=' + _currentHmacKey;
     } else {
       urlScheme.setPath('start');
       urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
-      urlScheme.addParameter('S.origin', encodeURIComponent(location.origin));
+      urlScheme.addParameter('S.origin', origin);
       urlScheme.addParameter('S.key', _currentHmacKey);
       url = urlScheme.build();
     }
