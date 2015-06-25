@@ -55,7 +55,7 @@ function init() {
   // 接続先のBASE_URIを作成
   BASE_URI = 'http://' + ip + ':4035/gotapi/';
 
-  if (isAndroidChrome() &&
+  if (isAndroid() &&
     location.href.indexOf('file:///') == -1) {
     dConnect.setAntiSpoofing(true);
   }
@@ -69,11 +69,11 @@ function init() {
 }
 
 /**
- * ユーザエージェントがAndroid Chromeであることを確認する.
+ * ユーザエージェントがAndroidであることを確認する.
  */
-function isAndroidChrome() {
+function isAndroid() {
   var userAgent = window.navigator.userAgent.toLowerCase();
-  return (userAgent.indexOf('android') != -1) && (userAgent.indexOf('chrome') != -1);
+  return (userAgent.indexOf('android') != -1);
 }
 
 /**
