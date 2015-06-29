@@ -77,10 +77,6 @@ var dConnect = (function(parent, global) {
    */
   var isOpenedWebSocket = false;
   /**
-   * websocketをクライアント側で明示的にcloseしたかどうかを示すフラグ.
-   */
-  var forcedClose = false;
-  /**
    * WebSocketを再接続するタイマー.
    */
   var reconnectingTimerId;
@@ -1935,7 +1931,6 @@ var dConnect = (function(parent, global) {
       stopMonitoringWebsocket();
 
       isOpenedWebSocket = false;
-      forcedClose = true;
       websocket.close();
       websocket = undefined;
     }
@@ -1947,7 +1942,7 @@ var dConnect = (function(parent, global) {
    * @return 接続している場合にはtrue、それ以外はfalse
    */
   var isConnectedWebSocket = function() {
-    return websocket != undefined && isOpenedWebSocket && forcedClose == false;
+    return websocket != undefined && isOpenedWebSocket;
   }
   parent.isConnectedWebSocket = isConnectedWebSocket;
 
