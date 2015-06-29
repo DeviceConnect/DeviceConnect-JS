@@ -60,12 +60,7 @@ function init() {
     dConnect.setAntiSpoofing(true);
   }
   dConnect.setHost(ip);
-  if (dConnect.isConnectedWebSocket()) {
-    dConnect.disconnectWebSocket();
-  }
-  dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
-  });
-
+  openWebsocketIfNeeded();
 }
 
 /**
@@ -84,11 +79,23 @@ function startManagerAndDemo() {
     if (DEBUG) {
       console.log('Manager has been available already. version=' + apiVersion);
     }
+    openWebsocketIfNeeded();
     location.hash = '#demo';
     if (DEBUG) {
       console.log('URL: ' + location.href);
     }
   });
+}
+
+function openWebsocketIfNeeded() {
+  if (!dConnect.isConnectedWebSocket()) {
+    dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
+      console.log('Failed to open websocket: ' + errorCode + ' - ' + errorMessage);
+    });
+    console.log('WebSocket opened.');
+  } else {
+    console.log('WebSocket has opened already.');
+  }
 }
 
 /**

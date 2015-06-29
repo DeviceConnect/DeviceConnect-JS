@@ -71,6 +71,11 @@ var dConnect = (function(parent, global) {
    * WebSocketのインスタンス.
    */
   var websocket;
+
+  /**
+   * WebSocketが開いているかどうかを示すフラグ.
+   */
+  var isOpenedWebSocket = false;
   /**
    * websocketをクライアント側で明示的にcloseしたかどうかを示すフラグ.
    */
@@ -79,10 +84,6 @@ var dConnect = (function(parent, global) {
    * WebSocketを再接続するタイマー.
    */
   var reconnectingTimerId;
-  /**
-   * 再接続待ちかどうかのフラグ.
-   */
-  var isReconnecting = false;
 
   /**
    * HMACによるサーバ認証を行うかどうかのフラグ.
@@ -1853,16 +1854,16 @@ var dConnect = (function(parent, global) {
    *
    */
   var connectWebSocket = function(sessionKey, cb) {
-    if (parent.isConnectedWebSocket()) {
+    if (websocket) {
       return;
     }
     var scheme = sslEnabled ? 'wss' : 'ws';
     websocket = new WebSocket(scheme + '://' + host + ':' +
                               port + '/websocket');
     websocket.onopen = function(e) {
-      clearTimeout(reconnectingTimerId);
-      forcedClose = false;
-      isReconnecting = false;
+      isOpenedWebSocket = true;
+
+      startMonitoringWebsocket(sessionKey, cb);
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
       websocket.send('{"sessionKey":"' + sessionKey + '"}');
@@ -1899,12 +1900,8 @@ var dConnect = (function(parent, global) {
       }
     }
     websocket.onclose = function(e) {
-      if (!forcedClose && !isReconnecting) {
-        isReconnecting = true;
-        reconnectingTimerId = setTimeout(function() {
-          connectWebSocket(sessionKey, cb);
-        }, 1000);
-      }
+      isOpenedWebSocket = false;
+      websocket = undefined;
       if (cb) {
         cb(1, 'close');
       }
@@ -1912,12 +1909,32 @@ var dConnect = (function(parent, global) {
   };
   parent.connectWebSocket = connectWebSocket;
 
+  var startMonitoringWebsocket = function(sessionKey, cb) {
+    if (reconnectingTimerId === undefined) {
+      reconnectingTimerId = setInterval(function() {
+        if (!isConnectedWebSocket()) {
+          connectWebSocket(sessionKey, cb);
+        }
+      }, 1000);
+    }
+  };
+
+  var stopMonitoringWebsocket = function() {
+    if (reconnectingTimerId !== undefined) {
+      clearInterval(reconnectingTimerId);
+      reconnectingTimerId = undefined;
+    }
+  };
+
   /**
    * WebSocketを切断する.
    * @memberOf dConnect
    */
   var disconnectWebSocket = function() {
     if (websocket) {
+      stopMonitoringWebsocket();
+
+      isOpenedWebSocket = false;
       forcedClose = true;
       websocket.close();
       websocket = undefined;
@@ -1930,7 +1947,7 @@ var dConnect = (function(parent, global) {
    * @return 接続している場合にはtrue、それ以外はfalse
    */
   var isConnectedWebSocket = function() {
-    return websocket != undefined && forcedClose == false;
+    return websocket != undefined && isOpenedWebSocket && forcedClose == false;
   }
   parent.isConnectedWebSocket = isConnectedWebSocket;
 
