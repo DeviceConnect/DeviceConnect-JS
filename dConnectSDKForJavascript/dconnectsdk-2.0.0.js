@@ -1801,6 +1801,16 @@ var dConnect = (function(parent, global) {
   parent.setHost = setHost;
 
   /**
+   * ホスト名を取得する.
+   * @memberOf dConnect
+   * @return {String} ホスト名
+   */
+  var getHost = function() {
+    return host;
+  }
+  parent.getHost = getHost;
+
+  /**
    * オリジンを設定する.
    * ハイブリッドアプリとして動作させる場合には本メソッドでオリジンを設定する.
    * @memberOf dConnect
