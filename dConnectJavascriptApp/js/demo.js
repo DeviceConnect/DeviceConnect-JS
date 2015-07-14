@@ -55,24 +55,20 @@ function init() {
   // 接続先のBASE_URIを作成
   BASE_URI = 'http://' + ip + ':4035/gotapi/';
 
-  if (isAndroidChrome()) {
+  if (isAndroid() &&
+    location.href.indexOf('file:///') == -1) {
     dConnect.setAntiSpoofing(true);
   }
   dConnect.setHost(ip);
-  if (dConnect.isConnectedWebSocket()) {
-    dConnect.disconnectWebSocket();
-  }
-  dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
-  });
-
+  openWebsocketIfNeeded();
 }
 
 /**
- * ユーザエージェントがAndroid Chromeであることを確認する.
+ * ユーザエージェントがAndroidであることを確認する.
  */
-function isAndroidChrome() {
+function isAndroid() {
   var userAgent = window.navigator.userAgent.toLowerCase();
-  return (userAgent.indexOf('android') != -1) && (userAgent.indexOf('chrome') != -1);
+  return (userAgent.indexOf('android') != -1);
 }
 
 /**
@@ -83,11 +79,23 @@ function startManagerAndDemo() {
     if (DEBUG) {
       console.log('Manager has been available already. version=' + apiVersion);
     }
+    openWebsocketIfNeeded();
     location.hash = '#demo';
     if (DEBUG) {
       console.log('URL: ' + location.href);
     }
   });
+}
+
+function openWebsocketIfNeeded() {
+  if (!dConnect.isConnectedWebSocket()) {
+    dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
+      console.log('Failed to open websocket: ' + errorCode + ' - ' + errorMessage);
+    });
+    console.log('WebSocket opened.');
+  } else {
+    console.log('WebSocket has opened already.');
+  }
 }
 
 /**

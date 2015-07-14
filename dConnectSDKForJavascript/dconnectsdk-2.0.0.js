@@ -79,18 +79,15 @@ var dConnect = (function(parent, global) {
    * WebSocketのインスタンス.
    */
   var websocket;
+
   /**
-   * websocketをクライアント側で明示的にcloseしたかどうかを示すフラグ.
+   * WebSocketが開いているかどうかを示すフラグ.
    */
-  var forcedClose = false;
+  var isOpenedWebSocket = false;
   /**
    * WebSocketを再接続するタイマー.
    */
   var reconnectingTimerId;
-  /**
-   * 再接続待ちかどうかのフラグ.
-   */
-  var isReconnecting = false;
 
   /**
    * HMACによるサーバ認証を行うかどうかのフラグ.
@@ -1256,12 +1253,15 @@ var dConnect = (function(parent, global) {
                         generateRandom(HMAC_KEY_BYTES) : '';
     var urlScheme = new AndroidURISchemeBuilder();
     var url;
+    var origin = encodeURIComponent(location.origin);
     if (isFirefox()) {
-      url = uriSchemeName + '://start/';
+      url = uriSchemeName + '://start/'
+              + '?origin=' + origin
+              + '&key=' + _currentHmacKey;
     } else {
       urlScheme.setPath('start');
       urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
-      urlScheme.addParameter('S.origin', encodeURIComponent(location.origin));
+      urlScheme.addParameter('S.origin', origin);
       urlScheme.addParameter('S.key', _currentHmacKey);
       url = urlScheme.build();
     }
@@ -1345,19 +1345,28 @@ var dConnect = (function(parent, global) {
       var json = JSON.parse(responseText);
       // HMACの検証
       if (hmacKey !== '' && !checkHmac(nonce, json.hmac)) {
-        error(parent.constants.ErrorCode.INVALID_SERVER,
+        if (typeof error === 'function') {
+          error(parent.constants.ErrorCode.INVALID_SERVER,
             'The response was received from the invalid server.');
+        }
         return;
       }
       if (json.result === parent.constants.RESULT_OK) {
-        success(json);
+        if (typeof success === 'function') {
+          success(json);
+        }
       } else {
-        error(json.errorCode, json.errorMessage);
+        if (typeof error === 'function') {
+          error(json.errorCode, json.errorMessage);
+        }
       }
     };
     var httpError = function(readyState, status) {
-      error(parent.constants.ErrorCode.ACCESS_FAILED,
-              'Failed to access to the server.');
+      if (typeof error === 'function') {
+
+        error(parent.constants.ErrorCode.ACCESS_FAILED,
+          'Failed to access to the server.');
+      }
     };
 
     parent.execute(method, uri, header, data, httpSuccess, httpError);
@@ -1444,11 +1453,25 @@ var dConnect = (function(parent, global) {
       // OPENED: open()が呼び出されて、まだsend()が呼び出されてない。
       if (xhr.readyState === 1) {
         for (var key in header) {
-          xhr.setRequestHeader(key.toLowerCase(), header[key]);
+          try {
+            xhr.setRequestHeader(key.toLowerCase(), header[key]);
+          } catch (e) {
+            if (typeof errorCallback === 'function') {
+              errorCallback(xhr.readyState, xhr.status);
+            }
+            return;
+          }
         }
         if (extendedOrigin !== undefined) {
-          xhr.setRequestHeader(HEADER_EXTENDED_ORIGIN.toLowerCase(),
-            extendedOrigin);
+          try {
+            xhr.setRequestHeader(HEADER_EXTENDED_ORIGIN.toLowerCase(),
+              extendedOrigin);
+          } catch (e) {
+            if (typeof errorCallback === 'function') {
+              errorCallback(xhr.readyState, xhr.status);
+            }
+            return;
+          }
         }
 
         xhr.send(data);
@@ -1478,7 +1501,9 @@ var dConnect = (function(parent, global) {
             successCallback(xhr.status, headerMap, xhr.responseText);
           }
         } else {
-          errorCallback(xhr.readyState, xhr.status);
+          if (typeof errorCallback === 'function') {
+            errorCallback(xhr.readyState, xhr.status);
+          }
         }
       }
     };
@@ -1486,7 +1511,13 @@ var dConnect = (function(parent, global) {
       // console.log('### error');
     };
     xhr.timeout = 60000;
-    xhr.open(method, uri, true);
+    try {
+      xhr.open(method, uri, true);
+    } catch (e) {
+      if (typeof errorCallback === 'function') {
+        errorCallback(-1, e.toString());
+      }
+    }
   };
   parent.execute = execute;
 
@@ -1509,9 +1540,7 @@ var dConnect = (function(parent, global) {
   var discoverDevices = function(accessToken, successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
-    if (accessToken !== undefined && accessToken !== null) {
-      builder.setAccessToken(accessToken);
-    }
+    builder.setAccessToken(accessToken);
     parent.sendRequest('GET', builder.build(), null, null,
         successCallback, errorCallback);
   };
@@ -1539,14 +1568,12 @@ var dConnect = (function(parent, global) {
   /**
    * System APIへの簡易アクセスを提供する。
    * @memberOf dConnect
-   * @param {String} accessToken アクセストークン
    * @param {Function} successCallback 成功時コールバック。
    * @param {Function} errorCallback 失敗時コールバック。
    */
-  var getSystemInfo = function(accessToken, successCallback, errorCallback) {
+  var getSystemInfo = function(successCallback, errorCallback) {
     var builder = new parent.URIBuilder();
     builder.setProfile(parent.constants.system.PROFILE_NAME);
-    builder.setAccessToken(accessToken);
     parent.sendRequest('GET', builder.build(), null, null,
                             successCallback, errorCallback);
   };
@@ -1564,7 +1591,9 @@ var dConnect = (function(parent, global) {
     builder.setProfile(parent.constants.availability.PROFILE_NAME);
     parent.sendRequest('GET', builder.build(), null, null, function(json) {
       // localhost:4035でGotAPIが利用可能
-      successCallback(json.version);
+      if (typeof successCallback === 'function') {
+        successCallback(json.version);
+      }
     }, errorCallback);
   };
   parent.checkDeviceConnect = checkDeviceConnect;
@@ -1609,7 +1638,7 @@ var dConnect = (function(parent, global) {
   var removeEventListener = function(uri, successCallback, errorCallback) {
     parent.delete(uri, null, function(json) {
       delete eventListener[uri];
-      if (successCallback) {
+      if (typeof successCallback === 'function') {
         successCallback();
       }
     }, errorCallback);
@@ -1641,7 +1670,7 @@ var dConnect = (function(parent, global) {
     parent.createClient(function(clientId) {
       parent.requestAccessToken(clientId, scopes,
                         applicationName, function(accessToken) {
-        if (successCallback) {
+          if (typeof successCallback === 'function') {
           successCallback(clientId, accessToken);
         }
       }, errorCallback);
@@ -1669,11 +1698,11 @@ var dConnect = (function(parent, global) {
     builder.setProfile(parent.constants.authorization.PROFILE_NAME);
     builder.setAttribute(parent.constants.authorization.ATTR_GRANT);
     parent.sendRequest('GET', builder.build(), null, null, function(json) {
-      if (successCallback) {
+      if (typeof successCallback === 'function') {
         successCallback(json.clientId);
       }
     }, function(errorCode, errorMessage) {
-      if (errorCallback) {
+      if (typeof errorCallback === 'function') {
         errorCallback(errorCode, 'Failed to create client.');
       }
     });
@@ -1712,11 +1741,11 @@ var dConnect = (function(parent, global) {
                           applicatonName);
     parent.sendRequest('GET', builder.build(), null, null, function(json) {
       webAppAccessToken = json.accessToken;
-      if (successCallback) {
+      if (typeof successCallback === 'function') {
         successCallback(webAppAccessToken);
       }
     }, function(errorCode, errorMessage) {
-      if (errorCallback) {
+      if (typeof errorCallback === 'function') {
         errorCallback(errorCode, 'Failed to get access token.');
       }
     });
@@ -1731,11 +1760,13 @@ var dConnect = (function(parent, global) {
    */
   var combineScope = function(scopes) {
     var scope = '';
-    for (var i = 0; i < scopes.length; i++) {
-      if (i > 0) {
-        scope += ',';
+    if (Array.isArray(scopes)) {
+      for (var i = 0; i < scopes.length; i++) {
+        if (i > 0) {
+          scope += ',';
+        }
+        scope += scopes[i];
       }
-      scope += scopes[i];
     }
     return scope;
   };
@@ -1836,16 +1867,16 @@ var dConnect = (function(parent, global) {
    *
    */
   var connectWebSocket = function(sessionKey, cb) {
-    if (parent.isConnectedWebSocket()) {
+    if (websocket) {
       return;
     }
     var scheme = sslEnabled ? 'wss' : 'ws';
     websocket = new WebSocket(scheme + '://' + host + ':' +
                               port + '/websocket');
     websocket.onopen = function(e) {
-      clearTimeout(reconnectingTimerId);
-      forcedClose = false;
-      isReconnecting = false;
+      isOpenedWebSocket = true;
+
+      startMonitoringWebsocket(sessionKey, cb);
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
       websocket.send('{"sessionKey":"' + sessionKey + '"}');
@@ -1882,12 +1913,8 @@ var dConnect = (function(parent, global) {
       }
     }
     websocket.onclose = function(e) {
-      if (!forcedClose && !isReconnecting) {
-        isReconnecting = true;
-        reconnectingTimerId = setTimeout(function() {
-          connectWebSocket(sessionKey, cb);
-        }, 1000);
-      }
+      isOpenedWebSocket = false;
+      websocket = undefined;
       if (cb) {
         cb(1, 'close');
       }
@@ -1895,13 +1922,32 @@ var dConnect = (function(parent, global) {
   };
   parent.connectWebSocket = connectWebSocket;
 
+  var startMonitoringWebsocket = function(sessionKey, cb) {
+    if (reconnectingTimerId === undefined) {
+      reconnectingTimerId = setInterval(function() {
+        if (!isConnectedWebSocket()) {
+          connectWebSocket(sessionKey, cb);
+        }
+      }, 1000);
+    }
+  };
+
+  var stopMonitoringWebsocket = function() {
+    if (reconnectingTimerId !== undefined) {
+      clearInterval(reconnectingTimerId);
+      reconnectingTimerId = undefined;
+    }
+  };
+
   /**
    * WebSocketを切断する.
    * @memberOf dConnect
    */
   var disconnectWebSocket = function() {
     if (websocket) {
-      forcedClose = true;
+      stopMonitoringWebsocket();
+
+      isOpenedWebSocket = false;
       websocket.close();
       websocket = undefined;
     }
@@ -1913,7 +1959,7 @@ var dConnect = (function(parent, global) {
    * @return 接続している場合にはtrue、それ以外はfalse
    */
   var isConnectedWebSocket = function() {
-    return websocket != undefined && forcedClose == false;
+    return websocket != undefined && isOpenedWebSocket;
   }
   parent.isConnectedWebSocket = isConnectedWebSocket;
 
@@ -2236,8 +2282,8 @@ var dConnect = (function(parent, global) {
     if (this.params) {
       var p = '';
       for (var key in this.params) {
-        p += (p.length == 0) ? '?' : '&';
-        p += encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key]);
+          p += (p.length == 0) ? '?' : '&';
+          p += encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key]);
       }
       uri += p;
     }
