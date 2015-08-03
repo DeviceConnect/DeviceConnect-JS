@@ -128,10 +128,10 @@ function doTVChangeChannel(serviceId, channel, nextPrevious) {
   builder.setAttribute('channel');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  if (channel != null) {
+  if (channel !== null) {
     builder.addParameter('tuning', channel);
-  } else if (nextPrevious != null) {
-    builder.addParameter('action', nextPrevious);
+  } else if (nextPrevious !== null) {
+    builder.addParameter('control', nextPrevious);
   }
 
   var uri = builder.build();
@@ -166,7 +166,7 @@ function doTVChangeVolume(serviceId, isUpDown) {
   builder.setAttribute('volume');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('action', isUpDown);
+  builder.addParameter('control', isUpDown);
 
   var uri = builder.build();
   if (DEBUG) {
@@ -360,9 +360,9 @@ function tvRemoconUI(s, serviceId) {
   serviceId + '\',\'CS\');" value="CS" name="CS" >';
   str += '</label>';
   str += '<label for="tvMute">ミュート:';
-  str += '<input type="button" onclick="doTVOnOff(\'' +
+  str += '<input type="button" onclick="doTVChangeMuteOnOff(\'' +
   serviceId + '\', \'ON\');" value="ON" name="ON" >';
-  str += '<input type="button" onclick="doTVOnOff(\'' +
+  str += '<input type="button" onclick="doTVChangeMuteOnOff(\'' +
   serviceId + '\', \'OFF\');" value="OFF" name="OFF" >';
   str += '</label>';
 
