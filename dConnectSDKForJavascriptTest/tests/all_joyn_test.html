@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Device Connect Javascript Test (AllJoyn)</title>
+  <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
+</head>
+<body>
+  <div id="images"style="position:absolute;">
+    <img crossorigin="anonymous" id="image" width="240">
+    <img id="preview" width="240">
+    <canvas id="canvas" width="120" height="120" ></canvas>
+  </div>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script type="text/javascript">
+   /**
+    * テストを行うデバイス名を定義する.
+    * <p>
+    * undefineやnullの場合には、テストプラグインを使用する。
+    * </p>
+    */
+  var DEVICE_NAME = "Luminaire";
+  </script>
+  
+  <script src="../qunit/qunit-1.15.0.js"></script>
+  <script src="../qunit/qunit-reporter-junit.js"></script>
+  <script src="../dconnectsdk-2.0.0.js"></script>
+  <script src="../dconnect-test-config.js"></script>
+  <script src="../dconnect-test-util.js"></script>
+
+  <script src="profiles/battery_normal.js"></script>
+  <script src="profiles/battery_abnormal.js"></script>
+  <script src="profiles/canvas_normal.js"></script>
+  <script src="profiles/canvas_abnormal.js"></script>
+  <script src="profiles/deviceorientation_normal.js"></script>
+  <script src="profiles/deviceorientation_abnormal.js"></script>
+  <script src="profiles/file_descriptor_normal.js"></script>
+  <script src="profiles/file_descriptor_abnormal.js"></script>
+  <script src="profiles/file_normal.js"></script>
+  <script src="profiles/file_abnormal.js"></script>
+  <script src="profiles/key_event_abnormal.js"></script>
+  <script src="profiles/key_event_normal.js"></script>
+  <script src="profiles/media_player_normal.js"></script>
+  <script src="profiles/media_player_abnormal.js"></script>
+  <script src="profiles/mediastream_recording_normal.js"></script>
+  <script src="profiles/mediastream_recording_abnormal.js"></script>
+  <script src="profiles/service_discovery_normal.js"></script>
+  <script src="profiles/service_discovery_abnormal.js"></script>
+  <script src="profiles/notification_normal.js"></script>
+  <script src="profiles/notification_abnormal.js"></script>
+  <script src="profiles/phone_normal.js"></script>
+  <script src="profiles/phone_abnormal.js"></script>
+  <script src="profiles/proximity_normal.js"></script>
+  <script src="profiles/proximity_abnormal.js"></script>
+  <script src="profiles/settings_normal.js"></script>
+  <script src="profiles/settings_abnormal.js"></script>
+  <script src="profiles/system_normal.js"></script>
+  <script src="profiles/system_abnormal.js"></script>
+  <script src="profiles/vibration_normal.js"></script>
+  <script src="profiles/vibration_abnormal.js"></script>
+  <script src="profiles/connect_abnormal.js"></script>
+  <script src="profiles/connect_normal.js"></script>
+
+  <script src="extra_profiles/light_normal.js"></script>
+  <script src="extra_profiles/light_abnormal.js"></script>
+
+  <script>
+    QUnit.jUnitReport = function(report) {
+        console.log(report.xml);
+    };
+  </script>
+</body>
+</html>
