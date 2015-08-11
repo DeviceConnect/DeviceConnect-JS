@@ -71,8 +71,9 @@ MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest001 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('mediarecorderAbnormalTest001(Calling a put method that does not support.)', MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('mediarecorderAbnormalTest001(Calling a put method that does not support.)', MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest001);
+}
 /**
  * 定義されてないPOSTメソッドでカメラ一覧にアクセスする異常系テストを行う。
  * <h3>【HTTP通信】</h3>
@@ -112,8 +113,9 @@ MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest002 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('mediarecorderAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('mediarecorderAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest002);
+}
 /**
  * 定義されてないDELETEメソッドでカメラ一覧にアクセスする異常系テストを行う。
  * <h3>【HTTP通信】</h3>
@@ -153,21 +155,22 @@ MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest003 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('mediarecorderAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('mediarecorderAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest003);
+}
 /**
  * 定義されていないPUTメソッドで写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest001 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -193,21 +196,22 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest001 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest001(Calling a put method that does not support.)', MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest001);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest001(Calling a put method that does not support.)', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest001);
+}
 /**
  * 定義されていないDELETEメソッドで写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest002 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -233,21 +237,22 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest002 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest002(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest002);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest002(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest002);
+}
 /**
  * 定義されていないGETメソッドで写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest003 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -273,21 +278,22 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest003 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest003(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest003);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest003(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest003);
+}
 /**
  * targetを数値に設定して写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target=100<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target=100<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest004 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -314,21 +320,22 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest004 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest004);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest004);
+}
 /**
  * targetを日本語の文字列に設定して写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target='あいうえおあいうえおあいうえお'<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target='あいうえおあいうえおあいうえお'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest005 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -355,21 +362,22 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest005 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest005()', MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest005);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest005()', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest005);
+}
 /**
  * targetを特殊文字に設定して写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target='#$%!?^#$%!?^'<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target='#$%!?^#$%!?^'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest006 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -396,22 +404,23 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest006 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest006(target is special character.)',
-    MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest006);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest006(target is special character.)',
+    MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest006);
+}
 /**
  * targetを空文字に設定して写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target=''<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target=''<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest007 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -438,21 +447,22 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest007 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest007);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest007);
+}
 /**
  * targetを英文字列に設定して写真撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target='abcdefgabcdefg'<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target='abcdefgabcdefg'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが1であること。<br/>
  * </p>
  */
-MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest008 = function(assert) {
+MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
@@ -479,9 +489,10 @@ MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest008 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoAbnormalTest008()', 
-    MediaStreamRecordingProfileAbnormalTest.takephotoAbnormalTest008);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('pictureAbnormalTest008()',
+    MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest008);
+}
 /**
  * 定義されていないPUTメソッドで動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -520,9 +531,11 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest001(Calling a put method that does not support.)', 
-    MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest001);
 
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest001(Calling a put method that does not support.)',
+    MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest001);
+}
 /**
  * 定義されていないDELETEメソッドで動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -561,8 +574,9 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest002(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+ QUnit.asyncTest('recordAbnormalTest002(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002);
+}
 /**
  * 定義されていないGETメソッドで動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -601,9 +615,10 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest003(Calling a get method that does not support.)',
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest003(Calling a get method that does not support.)',
     MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest003);
-
+}
 /**
  * targetを数値に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -643,8 +658,9 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004);
+}
 /**
  * targetを日本語の文字列に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -684,8 +700,10 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest005()', 
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest005()',
     MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest005);
+}
 
 /**
  * targetを特殊文字に設定して動画撮影リクエストを行う。
@@ -726,14 +744,15 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest006()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest006()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006);
+}
 /**
  * targetを空文字に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target=''<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target=''<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -767,14 +786,15 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007);
+}
 /**
  * targetを英文字列に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&target='abcdefgabcdefg'<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&target='abcdefgabcdefg'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -808,8 +828,9 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest008()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest008()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008);
+}
 /**
  * timesliceを日本語の文字列に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -849,8 +870,9 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest010()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest010()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010);
+}
 /**
  * timesliceを特殊文字に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -890,14 +912,15 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest011()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest011()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011);
+}
 /**
  * timesliceを空文字に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&timeslice=''<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&timeslice=''<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -931,14 +954,15 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest012(timeslice is empty.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest012(timeslice is empty.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012);
+}
 /**
  * timesliceを英文字列に設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&timeslice='abcdefgabcdefg'<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&timeslice='abcdefgabcdefg'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -972,14 +996,15 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest013()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest013()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013);
+}
 /**
  * timesliceをマイナスに設定して動画撮影リクエストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx&timeslice=-1<br/>
+ * Path: /mediastream_recording/picture?serviceId=xxx&accessToken=xxx&timeslice=-1<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1013,8 +1038,9 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('recordAbnormalTest014()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordAbnormalTest014()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014);
+}
 /**
  * 定義されていないGETメソッドで動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1053,8 +1079,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001 = function(assert) 
     assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
   });
 };
-QUnit.asyncTest('pauseAbnormalTest001()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest001()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドで動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1093,8 +1120,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest002 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest002()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest002()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest002);
+}
 /**
  * 定義されていないDELETEメソッドで動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1133,8 +1161,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest003 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest003()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest003()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest003);
+}
 /**
  * targetを数値に設定して動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1174,8 +1203,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest004 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest004);
+}
 /**
  * targetを日本語の文字列に設定して動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1215,8 +1245,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest005 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest005()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest005);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest005()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest005);
+}
 /**
  * targetを特殊文字に設定して動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1256,8 +1287,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest006 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest006()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest006);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest006()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest006);
+}
 /**
  * targetを空文字に設定して動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1297,8 +1329,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007);
+}
 /**
  * targetを英文字列に設定して動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1338,8 +1371,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest008 = function(assert) 
     assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
   });
 };
-QUnit.asyncTest('pauseAbnormalTest008()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest008);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest008()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest008);
+}
 /**
  * targetを存在しないIDに設定して動画撮影に対して一時停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1379,8 +1413,9 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest009 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAbnormalTest009(media_test does not exist.)', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest009);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAbnormalTest009(media_test does not exist.)', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest009);
+}
 /**
  * targetを存在しないIDに設定して動画撮影に対して録画再開リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1420,8 +1455,9 @@ MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('resumeAbnormalTest001(media_test does not exist.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('resumeAbnormalTest001(media_test does not exist.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest001);
+}
 /**
  * 定義されていないGETメソッドで動画撮影に対して録画再開リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1461,8 +1497,9 @@ MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest002 = function(assert)
     assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
   });
 };
-QUnit.asyncTest('resumeAbnormalTest002(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('resumeAbnormalTest002(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest002);
+}
 /**
  * 定義されていないPOSTメソッドで動画撮影に対して録画再開リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1502,8 +1539,9 @@ MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('resumeAbnormalTest003(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('resumeAbnormalTest003(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest003);
+}
 /**
  * 定義されていないDELETEメソッドで動画撮影に対して録画再開リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1543,8 +1581,9 @@ MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('resumeAbnormalTest004(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('resumeAbnormalTest004(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest004);
+}
 /**
  * 一時停止していない動画撮影に対して録画再開リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1583,8 +1622,9 @@ MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('resumeAbnormalTest005', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest005);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('resumeAbnormalTest005', MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest005);
+}
 /**
  * 定義されていないGETメソッドでミュートリクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1623,8 +1663,9 @@ MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('muteAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('muteAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドでミュートリクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1663,8 +1704,9 @@ MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('muteAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('muteAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest002);
+}
 /**
  * 定義されていないDELETEメソッドでミュートリクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1703,8 +1745,9 @@ MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('muteAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('muteAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest003);
+}
 
 
 /**
@@ -1756,8 +1799,9 @@ MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('muteAbnormalTest004(Already muted.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('muteAbnormalTest004(Already muted.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004);
+}
 /**
  * 定義されていないGETメソッドでミュート解除リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1796,8 +1840,9 @@ MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('muteAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('muteAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドでミュート解除リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1836,8 +1881,9 @@ MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('unmuteAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('unmuteAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest002);
+}
 /**
  * 定義されていないDELETEメソッドでミュート解除リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1876,8 +1922,9 @@ MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('unmuteAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('unmuteAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest003);
+}
 
 
 /**
@@ -1929,8 +1976,9 @@ MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('unmuteAbnormalTest004(Already unmuted.)', MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('unmuteAbnormalTest004(Already unmuted.)', MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest004);
+}
 /**
  * 定義されていないGETメソッドで動画撮影停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -1969,8 +2017,9 @@ MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('stopAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドで動画撮影停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2009,8 +2058,9 @@ MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('stopAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest002);
+}
 /**
  * 定義されていないDELETEメソッドで動画撮影停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2049,8 +2099,9 @@ MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('stopAbnormalTest003(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest003);
+}
 /**
  * 既に停止されている動画撮影に対して動画撮影停止リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2103,8 +2154,9 @@ MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest004(Already stopped.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('stopAbnormalTest004(Already stopped.)', MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest004);
+}
 /**
  * デバイスの録画、録音オプションを設定するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2143,8 +2195,9 @@ MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('optionsAbnormalTest001()', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('optionsAbnormalTest001()', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest001);
+}
 /**
  * デバイスの録画、録音オプションを設定するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2183,8 +2236,9 @@ MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('optionsAbnormalTest002()', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('optionsAbnormalTest002()', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest002);
+}
 /**
  * 定義されていないPOSTメソッドでデバイスの録画、録音オプションにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2224,8 +2278,9 @@ MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('optionsAbnormalTest003(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest003);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('optionsAbnormalTest003(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest003);
+}
 /**
  * 定義されていないDELETEメソッドでデバイスの録画、録音オプションにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -2265,8 +2320,9 @@ MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('optionsAbnormalTest004(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest004);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('optionsAbnormalTest004(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest004);
+}
 /**
  * 定義されていないGETメソッドで写真撮影通知イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2306,8 +2362,9 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('onPhotoAbnormalTest001', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest001);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('onPhotoAbnormalTest001', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドで写真撮影通知イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2347,8 +2404,9 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('onPhotoAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('onPhotoAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002);
+}
 /**
  * SessionKeyがない状態で写真撮影イベントを登録する異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2387,8 +2445,9 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('onPhotoAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest003);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('onPhotoAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest003);
+}
 /**
  * SessionKeyがない状態で写真撮影イベントを解除する異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2427,8 +2486,9 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('onPhotoAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest004);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('onPhotoAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest004);
+}
 /**
  * 定義されていないGETメソッドで録画状態変化取得イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2468,8 +2528,9 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest001 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('onRecordingChangeAbnormalTest001', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onRecordingChangeAbnormalTest001', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドで録画状態変化通知イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2509,8 +2570,9 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('onRecordingChangeAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onRecordingChangeAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002);
+}
 /**
  * SessionKeyがない状態で録画状態変化通知イベントを登録する異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2549,8 +2611,9 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest003 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('onRecordingChangeAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onRecordingChangeAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest003);
+}
 /**
  * SessionKeyがない状態で録画状態変化通知イベントを解除する異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2589,8 +2652,9 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest004 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('onRecordingChangeAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest004);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onRecordingChangeAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest004);
+}
 /**
  * 定義されていないGETメソッドで録画プレビュー通知イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2630,8 +2694,9 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest001 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('onDataAvailableAbnormalTest001', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onDataAvailableAbnormalTest001', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest001);
+}
 /**
  * 定義されていないPOSTメソッドで録画プレビュー通知イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2671,8 +2736,9 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest002 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('onDataAvailableAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest002);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('onDataAvailableAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest002);
+}
 /**
  * SessionKeyがない状態で録画プレビュー通知イベントを登録する異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2711,8 +2777,9 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest003 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('onDataAvailableAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest003);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onDataAvailableAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest003);
+}
 /**
  * SessionKeyがない状態で録画プレビュー通知イベントを解除する異常系テスト。
  * <h3>【HTTP通信】</h3>
@@ -2751,4 +2818,6 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('onDataAvailableAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004);
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onDataAvailableAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004);
+}

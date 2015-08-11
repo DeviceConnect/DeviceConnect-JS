@@ -92,8 +92,9 @@ MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('mediarecorderNormalTest001(get)', MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('mediarecorderNormalTest001(get)', MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001);
+}
 /**
  * デバイスがサポートしている撮影、録画、録音のオプションを取得するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -128,8 +129,9 @@ MediaStreamRecordingProfileNormalTest.optionsNormalTest001 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('optionsNormalTest001(get)', MediaStreamRecordingProfileNormalTest.optionsNormalTest001);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('optionsNormalTest001(get)', MediaStreamRecordingProfileNormalTest.optionsNormalTest001);
+}
 /**
  * デバイスの録画、録音オプションを設定するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -163,8 +165,9 @@ MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('optionsNormalTest002(put)', MediaStreamRecordingProfileNormalTest.optionsNormalTest002);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('optionsNormalTest002(put)', MediaStreamRecordingProfileNormalTest.optionsNormalTest002);
+}
 /**
  * デバイスに写真撮影を指示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -216,8 +219,9 @@ MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('takePhotoNormalTest001', MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001);
-
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('takePhotoNormalTest001', MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001);
+}
 /**
  * デバイスに動画撮影を指示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -270,8 +274,9 @@ MediaStreamRecordingProfileNormalTest.recordNormalTest001 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('recordNormalTest001', MediaStreamRecordingProfileNormalTest.recordNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('recordNormalTest001', MediaStreamRecordingProfileNormalTest.recordNormalTest001);
+}
 /**
  * デバイスに録画のミュートを指示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -307,8 +312,9 @@ MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001 = function(assert) 
         QUnit.start();
       });
 };
-QUnit.asyncTest('mutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('mutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001);
+}
 /**
  * デバイスに録画のミュート解除を指示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -344,8 +350,9 @@ MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001 = function(assert
         QUnit.start();
       });
 };
-QUnit.asyncTest('unmutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('unmutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001);
+}
 /**
  * デバイスに録画の一時停止を指示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -398,8 +405,9 @@ MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('pauseAndResumeNormalTest001', MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('pauseAndResumeNormalTest001', MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001);
+}
 /**
  * デバイス動画撮影の停止を指示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -438,8 +446,9 @@ MediaStreamRecordingProfileNormalTest.stopNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopNormalTest001', MediaStreamRecordingProfileNormalTest.stopNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('stopNormalTest001', MediaStreamRecordingProfileNormalTest.stopNormalTest001);
+}
 /**
  * プレビュー通知イベントを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -472,8 +481,9 @@ MediaStreamRecordingProfileNormalTest.onDataAvailableNormalTest001 = function(as
     return false;
   });
 };
-QUnit.asyncTest('onDataAvailableNormalTest001', MediaStreamRecordingProfileNormalTest.onDataAvailableNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onDataAvailableNormalTest001', MediaStreamRecordingProfileNormalTest.onDataAvailableNormalTest001);
+}
 /**
  * プレビューを表示するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -503,8 +513,9 @@ MediaStreamRecordingProfileNormalTest.onPreviewNormalTest001 = function(assert) 
     return false;
   });
 };
-QUnit.asyncTest('onPreviewNormalTest001', MediaStreamRecordingProfileNormalTest.onPreviewNormalTest001);
-
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onPreviewNormalTest001', MediaStreamRecordingProfileNormalTest.onPreviewNormalTest001);
+}
 /**
  * プレビュー通知イベントを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -542,4 +553,6 @@ MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onPhotoNormalTest001', MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001);
+if (IS_TEST_STATUS != 'record') {
+  QUnit.asyncTest('onPhotoNormalTest001', MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001);
+}
