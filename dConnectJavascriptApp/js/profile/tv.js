@@ -107,7 +107,7 @@ function doTVOnOff(serviceId, isSwitch) {
     getTVPowerStatus(serviceId);
   };
 
-  if (isSwitch === 'on') {
+  if (isSwitch == 'ON') {
     dConnect.put(uri, null, null, successCallback, errorCallback);
   } else {
     dConnect.delete(uri, null, successCallback, errorCallback);
@@ -256,7 +256,7 @@ function doTVChangeMuteOnOff(serviceId, isSwitch) {
     getTVPowerStatus(serviceId);
   };
 
-  if (isSwitch === 'on') {
+  if (isSwitch == 'ON') {
     dConnect.put(uri, null, null, successCallback, errorCallback);
   } else {
     dConnect.delete(uri, null, successCallback, errorCallback);
