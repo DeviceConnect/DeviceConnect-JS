@@ -292,5 +292,7 @@ function searchProfile(serviceId, profile) {
     showHumanDetect(serviceId);
   } else if (profile === 'keyevent') {
     showKeyEvent(serviceId);
+  } else if (profile === 'omnidirectional_image') {
+    showOmnidirectionalImage(serviceId);
   }
 }
