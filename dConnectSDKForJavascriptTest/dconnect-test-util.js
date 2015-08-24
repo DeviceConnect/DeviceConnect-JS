@@ -71,7 +71,8 @@ function getAccessToken(func) {
       'sphero',
       'temperature',
       'health',
-      'humandetect'
+      'humandetect',
+      'omnidirectional_image'
   );
 
   dConnect.authorization(scopes,
