@@ -3,7 +3,7 @@ var mClientId = null;
 var mServiceId = null;
 
 function init() {
-
+  dConnect.setExtendedOrigin("http://localhost:4035/");
   if (DEVICE_CONNECT_HOST) {
     dConnect.setHost(DEVICE_CONNECT_HOST);
   }

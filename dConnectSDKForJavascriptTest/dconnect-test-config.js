@@ -10,6 +10,12 @@ var DEVICE_CONNECT_HOST = 'localhost';
 var TEST_TIMEOUT = 20000;
 
 /**
+ * テストによっては、無効にするテストがある。
+ * そのためのフラグ。record,picture,none
+ */
+var IS_TEST_STATUS = 'none';
+
+/**
  * Get a query string in URL.
  * @return query string
  */

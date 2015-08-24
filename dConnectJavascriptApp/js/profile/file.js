@@ -594,7 +594,7 @@ function doImageShow(serviceId, path) {
 
     json.uri = json.uri.replace('localhost', ip);
     var str = '';
-    str += '<img src="' + json.uri + '" width="100%">';
+    str += '<img crossorigin="anonymous" src="' + json.uri + '" width="100%">';
     str += '</center><br>';
     reloadContent(str);
   }, function(errorCode, errorMessage) {

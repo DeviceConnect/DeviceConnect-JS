@@ -619,8 +619,9 @@ FileProfileNormalTest.listNormalTest015 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('listNormalTest015', FileProfileNormalTest.listNormalTest015);
-
+if (IS_TEST_STATUS == 'none') {
+  QUnit.asyncTest('listNormalTest015', FileProfileNormalTest.listNormalTest015);
+}
 /**
  * order=path,desc ,path=/を指定してファイル一覧取得リクエストを行う。
  * <h3>【HTTP通信】</h3>
@@ -656,8 +657,11 @@ FileProfileNormalTest.listNormalTest016 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('listNormalTest016', FileProfileNormalTest.listNormalTest016);
+if (IS_TEST_STATUS == 'none') {
+  QUnit.asyncTest('listNormalTest016', FileProfileNormalTest.listNormalTest016);
+}
 /**
+ *
  * POSTメソッドでsendにアクセスするテストを行なう。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
@@ -709,7 +713,6 @@ QUnit.asyncTest('sendNormalTest001', FileProfileNormalTest.sendNormalTest001);
  * ・resultに0が返ってくること。<br />
  * </p>
  */
-
 FileProfileNormalTest.receiveNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
@@ -731,8 +734,9 @@ FileProfileNormalTest.receiveNormalTest001 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('receiveNormalTest001', FileProfileNormalTest.receiveNormalTest001);
-
+if (IS_TEST_STATUS == 'none') {
+  QUnit.asyncTest('receiveNormalTest001', FileProfileNormalTest.receiveNormalTest001);
+}
 /**
  * DELETEメソッドでremoveにアクセスするテストを行なう。
  * <h3>【HTTP通信】</h3>
@@ -745,7 +749,6 @@ QUnit.asyncTest('receiveNormalTest001', FileProfileNormalTest.receiveNormalTest0
  * ・resultに0が返ってくること。<br />
  * </p>
  */
-
 FileProfileNormalTest.removeNormalTest001 = function(assert) {
   FileProfileNormalTest.makeDir('/dir1');
   FileProfileNormalTest.saveFile('/dir1/rm_test.jpg');
@@ -769,8 +772,9 @@ FileProfileNormalTest.removeNormalTest001 = function(assert) {
         QUnit.start();
       });
 };
-QUnit.asyncTest('removeNormalTest001', FileProfileNormalTest.removeNormalTest001);
-
+if (IS_TEST_STATUS == 'none') {
+  QUnit.asyncTest('removeNormalTest001', FileProfileNormalTest.removeNormalTest001);
+}
 /**
  * ディレクトリdir1がある事が前提。dir1を削除する。
  * <h3>【HTTP通信】</h3>

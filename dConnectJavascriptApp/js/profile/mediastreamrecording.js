@@ -272,7 +272,7 @@ function refreshImg(uri, id) {
  * Media Recorder Target指定実行
  *
  * @param {String} serviceId サービスID
- * @param {String} target ターゲット(video, audio)
+ * @param {String} target メディアの種類。video、またはaudioを指定する
  */
 function doMediaRecord(serviceId, target) {
   initAll();
@@ -283,26 +283,36 @@ function doMediaRecord(serviceId, target) {
 
   setTitle('Recording, now');
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastream_recording');
-  builder.setAttribute('record');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('target', target);
-  var uri = builder.build();
+　doGetMediaRecorder(serviceId, target, {
+    onrecorder: function(recorder) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('mediastream_recording');
+      builder.setAttribute('record');
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      if (recorder !== undefined) {
+        builder.addParameter('target', recorder.id);
+      }
+      var uri = builder.build();
 
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
+      if (DEBUG) {
+        console.log('Uri: ' + uri);
+      }
 
-  dConnect.post(uri, null, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
+      dConnect.post(uri, null, null, function(json) {
+        if (DEBUG) {
+          console.log('Response: ', json);
+        }
+
+        reloadContent(mediaStopButton(serviceId));
+      }, function(errorCode, errorMessage) {
+        showError('POST mediastream_recording/record', errorCode, errorMessage);
+      });
+    },
+
+    onerror: function(errorCode, errorMessage) {
+      showError('POST mediastream_recording/mediarecorder', errorCode, errorMessage);
     }
-
-    reloadContent(mediaStopButton(serviceId));
-  }, function(errorCode, errorMessage) {
-    showError('POST mediastream_recording/record', errorCode, errorMessage);
   });
 }
 
@@ -333,17 +343,20 @@ function doMediaStop(serviceId) {
 }
 
 /**
- * Media Recorder情報の取得
+ * レコーダー情報を取得する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} target メディアの種類。video、またはaudioを指定する
+ * @param {Object} callback レコーダー情報取得処理のコールバック
  */
-function doGetMediaRecorder(serviceId) {
+function doGetMediaRecorder(serviceId, target, callback) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('mediarecorder');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
+
   if (DEBUG) {
     console.log('Uri:' + uri)
   }
@@ -352,10 +365,27 @@ function doGetMediaRecorder(serviceId) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET mediastream_recording/mediarecorder',
-                    errorCode, errorMessage);
-  });
+
+    var targetRecorder = undefined;
+    var recorders = json.recorders;
+    for (var i = 0; i < recorders.length; i++) {
+      var recorder = recorders[i];
+      if (recorder.id.indexOf(target) !== -1) {
+        targetRecorder = recorder;
+        break;
+      }
+    }
+    if (targetRecorder === undefined) {
+      for (var i = 0; i < recorders.length; i++) {
+        var recorder = recorders[i];
+        if (recorder.mimeType && recorder.mimeType.indexOf(target) !== -1) {
+          targetRecorder = recorder;
+          break;
+        }
+      }
+    }
+    callback.onrecorder(targetRecorder);
+  }, callback.onerror);
 }
 
 /**
