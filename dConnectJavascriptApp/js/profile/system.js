@@ -36,6 +36,7 @@ function searchSystem(serviceId, deviceName) {
     if (DEBUG) {
       console.log('Response:', json);
     }
+
     if (json.result == 0) {
       var str = '';
       for (var i = 0; i < json.supports.length; i++) {
@@ -52,11 +53,7 @@ function searchSystem(serviceId, deviceName) {
       }
 
       setTitle('Profile List');
-
-      var listHtml = document.getElementById('list');
-      listHtml.innerHTML = str;
-      $('ul.list').listview('refresh');
-
+      reloadList(str);
     } else {
       var errorCode = json.errorCode;
       var errorMessage = json.errorMessage;
