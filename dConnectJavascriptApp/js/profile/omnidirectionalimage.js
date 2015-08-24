@@ -13,6 +13,17 @@
 function showOmnidirectionalImage(serviceId) {
   var defaultWidth = 280;
   var defaultHeight = 210;
+  var paramPatterns = [
+    { id: 'patternX', name: 'x', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
+    { id: 'patternY', name: 'y', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
+    { id: 'patternZ', name: 'z', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
+    { id: 'patternRoll', name: 'roll', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
+    { id: 'patternYaw', name: 'yaw', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
+    { id: 'patternPitch', name: 'pitch', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
+    { id: 'patternFov', name: 'fov', type: 'number', min: 0.0, max: 180.0, by: 15.0 },
+    { id: 'patternWidth', name: 'width', type: 'number', min: 100.0, max: 500.0, by: 50.0 },
+    { id: 'patternHeight', name: 'height', type: 'number', min: 100.0, max: 500.0, by: 50.0 }
+  ];
 
   initAll();
   setTitle('Omnidirectional Image Profile');
@@ -22,8 +33,10 @@ function showOmnidirectionalImage(serviceId) {
   reloadFooter(btnStr);
 
   var content = '';
+  content += '<b>Omnidirectional Image:</b><br>';
+  content += '<input id="omniUri" type="text">';
   content += '<button id="buttonShutter">Shot</button><br>';
-  content += '<b>Omnidirectional Image URI:</b><br><input id="omniUri" type="text"><br>';
+  content += '<div id="updatedDate" style="font-size:0.5em"></div><br>';
   content += '<b>ROI Image Type:</b><br>';
   content += '<form>';
   content += '<select name="imgType">';
@@ -33,21 +46,36 @@ function showOmnidirectionalImage(serviceId) {
   content += '</form>';
   content += '<button id="buttonStartStop">Start</button><br>';
   content += '<b>ROI Image URI:</b><br><input id="roiUri" type="text"><br>';
-  content += '<b>ROI Image Viewer:</b><br><center><img id="omniImg"></center><br>';
+  content += '<b>ROI Image Viewer:</b><br><center><img id="omniImg"></center>';
   content += '<button id="buttonShow">Show</button><br>';
+  content += '<b>Params (Auto Increment):</b><br>';
+  content += '<form>';
+  content += '<select name="patterns">';
+  content += '<option value="patternX" selected>Camera: X-coodinate</option>';
+  content += '<option value="patternY">Camera: Y-coodinate</option>';
+  content += '<option value="patternZ">Camera: Z-coodinate</option>';
+  content += '<option value="patternRoll">Camera: Roll</option>';
+  content += '<option value="patternYaw">Camera: Yaw</option>';
+  content += '<option value="patternPitch">Camera: Pitch</option>';
+  content += '<option value="patternFov">Camera: FOV</option>';
+  content += '<option value="patternWidth">ROI Width</option>';
+  content += '<option value="patternHeight">ROI Height</option>';
+  content += '</select>';
+  content += '</form>';
+  content += '<button id="buttonStartPattern">Start Increment</button><br>';
+  content += '<b>Params (Manual):</b><br>';
   content += '<button id="buttonSendParams">Send Params</button><br>';
-  content += '<b>Params:</b><br>';
   content += 'VR: ';
   content += '<form>';
   content += '<select name="vrMode">';
-  content += '<option value="true" selected>ON</option>';
+  content += '<option value="true">ON</option>';
   content += '<option value="false" selected>OFF</option>';
   content += '</select>';
   content += '</form>';
   content += 'Stereo: ';
   content += '<form>';
   content += '<select name="stereoMode">';
-  content += '<option value="true" selected>ON</option>';
+  content += '<option value="true">ON</option>';
   content += '<option value="false" selected>OFF</option>';
   content += '</select>';
   content += '</form>';
@@ -78,10 +106,13 @@ function showOmnidirectionalImage(serviceId) {
   $('#buttonStartStop').on('click', function() { switchView(); });
   $('#buttonShow').on('click', function() { showViewImage(); });
   $('#buttonSendParams').on('click', function() { sendParams(); });
+  $('#buttonStartPattern').on('click', function() { startSettingsPattern(); });
 
   // XXXX: For debug
   omniUri = 'http://192.168.1.58:8080/R0010162.JPG';
   $('#omniUri').val(omniUri);
+
+  showOmniImageUpdatedDate();
 
   function shot() {
     searchTHETA({
@@ -96,6 +127,8 @@ function showOmnidirectionalImage(serviceId) {
           function(json) {
             omniUri = json.uri;
             $('#omniUri').val(omniUri);
+
+            showOmniImageUpdatedDate();
           },
           function(errorCode, errorMessage) {
             alert('Failed to take photo.');
@@ -178,29 +211,28 @@ function showOmnidirectionalImage(serviceId) {
     } else {
       stopView({
         onstop: function() {
-          roiUri = undefined;
-          imgType = undefined;
           changeToStart($('#buttonStartStop'));
         }
       });
     }
   }
 
+  function showOmniImageUpdatedDate() {
+    $('#updatedDate').text('Last Updated: ' + new Date().toString());
+  }
+
   function showViewImage() {
-    if (roiUri === undefined || imgType === undefined) {
-      alert('Please push "Start" button.');
-      return;
-    }
     omniImg.attr('src', roiUri);
+    omniImg.bind('error', function() {
+      if (timerId !== undefined) {
+        clearInterval(timerId);
+        timerId = undefined;
+      }
+      alert('Failed to show ROI image.');
+    });
     if (imgType === 'jpeg') {
       omniImg.bind('load', function() {
         timerId = scheduleToRefresh(roiUri, 200);
-      });
-      omniImg.bind('error', function() {
-        if (timerId !== undefined) {
-          clearInterval(timerId);
-          timerId = undefined;
-        }
       });
     }
   }
@@ -215,6 +247,11 @@ function showOmnidirectionalImage(serviceId) {
   }
 
   function startView(cb) {
+    if ($('#omniUri').val() === '') {
+      alert('Please push "Shot" button to take a photo.');
+      return;
+    }
+
     var imgType = $('[name=imgType]').val();
     var method;
     if (imgType === 'mjpeg') {
@@ -275,6 +312,74 @@ function showOmnidirectionalImage(serviceId) {
 
   function changeToStart(button) {
     button.text('Start');
+  }
+
+  function findPattern(id) {
+    var i, pattern;
+    for (i = 0; i < paramPatterns.length; i++) {
+      pattern = paramPatterns[i];
+      if (pattern.id === id) {
+        return pattern;
+      }
+    }
+    return null;
+  }
+
+  function startSettingsPattern() {
+    var patternId = $('[name=patterns]').val();
+    var pattern = findPattern(patternId);
+    if (!pattern) {
+      return;
+    }
+    if (pattern.type === 'number') {
+      pattern.execute = executePatternOfNumber;
+    } else {
+      alert('Fatal: specified type (' + pattern.type + ') of pattern is not defined.');
+      return;
+    }
+    pattern.execute({
+        pattern: pattern,
+        onend: function() {
+          alert('End of Auto Increment.');
+        }
+      });
+  }
+
+  function executePatternOfNumber(option, num) {
+    if (num === undefined) {
+      num = option.pattern.min;
+    }
+    var width = option.pattern.name === 'width' ? num : defaultWidth;
+    var height = option.pattern.name === 'height' ? num : defaultHeight;
+    var uri = new dConnect.URIBuilder()
+      .setProfile('omnidirectional_image')
+      .setInterface('roi')
+      .setAttribute('settings')
+      .setServiceId(serviceId)
+      .setAccessToken(accessToken)
+      .addParameter('uri', roiUri)
+      .addParameter('width', width.toString())
+      .addParameter('height', height.toString())
+      .addParameter(option.pattern.name, num.toString())
+      .build();
+    dConnect.put(uri, null, null,
+      function(json) {
+
+        setTimeout(function() {
+          var nextNum = num + option.pattern.by;
+          if (nextNum > option.pattern.max) {
+            option.onend();
+            return;
+          }
+          executePatternOfNumber(option, nextNum);
+        }, 500);
+      },
+      function(errorCode, errorMessage) {
+        alert('ERROR: Failed to send settings param.');
+      });
+
+    $('#omniImg').css('width', width + 'px');
+    $('#omniImg').css('height', height + 'px');
   }
 
 }
