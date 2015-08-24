@@ -36,6 +36,14 @@ var dConnect = (function(parent, global) {
    */
   var sslEnabled = false;
   /**
+   * Manager起動用URIスキームの名前.
+   * @private
+   * @type {String}
+   * @default gotapi
+   * @see setURISchemeName
+   */
+  var uriSchemeName = 'gotapi';
+  /**
    * ホスト名.
    * @private
    * @type {String}
@@ -1247,7 +1255,7 @@ var dConnect = (function(parent, global) {
     var url;
     var origin = encodeURIComponent(location.origin);
     if (isFirefox()) {
-      url = 'dconnect://start/'
+      url = uriSchemeName + '://start/'
               + '?origin=' + origin
               + '&key=' + _currentHmacKey;
     } else {
@@ -1272,7 +1280,7 @@ var dConnect = (function(parent, global) {
     iframe.setAttribute('id', 'launch_frame');
     iframe.setAttribute('name', 'launch_frame');
     div.appendChild(iframe);
-    launch_frame.location.href = 'dconnect:' +
+    launch_frame.location.href = uriSchemeName + ':' +
                   encodeURIComponent(window.location.href);
     setTimeout(function() {
       var frame = document.getElementById('launch_frame');
@@ -1791,6 +1799,15 @@ var dConnect = (function(parent, global) {
   parent.isSSLEnabled = isSSLEnabled;
 
   /**
+   * Manager起動用URIスキームの名前を設定する.
+   * @memberOf dConnect
+   * @param {String} name Manager起動用URIスキームの名前
+   */
+  var setURISchemeName = function(name) {
+    uriSchemeName = name;
+  };
+
+  /**
    * ホスト名を設定する.
    * @memberOf dConnect
    * @param {String} h ホスト名
@@ -1952,7 +1969,7 @@ var dConnect = (function(parent, global) {
    * @class
    */
   var AndroidURISchemeBuilder = function() {
-    this.scheme = 'dconnect';
+    this.scheme = uriSchemeName;
     this.path = '';
     this.params = {};
   };
