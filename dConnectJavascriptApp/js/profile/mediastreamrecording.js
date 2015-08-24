@@ -68,6 +68,7 @@ function doRegisterPreview(serviceId) {
 
     var myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
+    $('#preview-uri').html(myUri);
     var img = $('#preview');
     if (img) {
       img.error(function() {
@@ -126,6 +127,7 @@ function doPreviewStart(serviceId) {
 
   var str = '';
   str += '<center>';
+  str += '<div id="preview-uri"></div>';
   str += '<img src="./css/images/cameraWait.png" width="100%" id="preview">';
   str += '</center><br>';
   reloadContent(str);
@@ -154,7 +156,7 @@ function doTakePhoto(serviceId) {
   var str = '';
   str += makeInputText('onPhoto', 'onPhoto', 'onPhoto')
   str += '<center>';
-  str += '<img src="./css/images/cameraWait.png" id="photo">';
+  str += '<img src="./css/images/cameraWait.png" width="100%" id="photo">';
   str += '</center><br>';
   str += takePhotoButton(serviceId);
 
