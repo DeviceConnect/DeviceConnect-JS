@@ -286,5 +286,7 @@ function searchProfile(serviceId, profile) {
     showHumanDetect(serviceId);
   } else if (profile === 'keyevent') {
     showKeyEvent(serviceId);
+  } else if (profile === 'videochat') {
+    showVideoChat(serviceId);
   }
 }
