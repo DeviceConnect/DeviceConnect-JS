@@ -1,6 +1,12 @@
 module('OmnidirectionalImageProfileAbnormalTest', {
   setup: function() {
     init();
+    this.option = null;
+  },
+  teardown: function() {
+    if (this.option !== null) {
+      stopRoiView(this.option);
+    }
   }
 });
 
@@ -14,12 +20,29 @@ function startRoiView(option) {
   var uri = builder.build();
   dConnect.put(uri, null, null,
     function(json) {
-      option.onsuccess(json.uri);
+      var uri = json.uri;
+      option.uri = uri;
+      option.onsuccess(uri);
     },
     function(errorCode, errorMessage) {
       var assert = option.assert;
       assert.ok(false, 'Failed to start ROI View; errorCode=' + errorCode + ', errorMessage=' + errorMessage);
       QUnit.start();
+    });
+}
+
+function stopRoiView(option) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectional_image');
+  builder.setAttribute('roi');
+  builder.setServiceId(option.serviceId);
+  builder.setAccessToken(option.accessToken);
+  builder.addParameter('uri', option.uri);
+  var uri = builder.build();
+  dConnect.delete(uri, null,
+    function(json) {
+    },
+    function(errorCode, errorMessage) {
     });
 }
 
@@ -355,40 +378,42 @@ QUnit.asyncTest('putRoiViewSettingsParamUriAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('x', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('x', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -411,40 +436,42 @@ QUnit.asyncTest('putRoiViewSettingsParamXAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('y', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('y', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -467,40 +494,42 @@ QUnit.asyncTest('putRoiViewSettingsParamYAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('z', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('z', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -523,40 +552,42 @@ QUnit.asyncTest('putRoiViewSettingsParamZAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('roll', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('roll', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -579,40 +610,42 @@ QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('roll', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('roll', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -635,40 +668,42 @@ QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest003 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('roll', '361.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('roll', '361.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -691,40 +726,42 @@ QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest003',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('yaw', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('yaw', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -747,40 +784,42 @@ QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('yaw', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('yaw', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -803,40 +842,42 @@ QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest003 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('yaw', '361.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('yaw', '361.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -859,40 +900,42 @@ QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest003',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('pitch', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('pitch', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -915,40 +958,42 @@ QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('pitch', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('pitch', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -971,40 +1016,42 @@ QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest003 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('pitch', '361.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('pitch', '361.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1027,40 +1074,42 @@ QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest003',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('fov', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('fov', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1083,40 +1132,42 @@ QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('fov', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('fov', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1139,40 +1190,42 @@ QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest003 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('fov', '181.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('fov', '181.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1195,40 +1248,42 @@ QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest003',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('sphereSize', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('sphereSize', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1251,40 +1306,42 @@ QUnit.asyncTest('putRoiViewSettingsParamSphereSizeAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('sphereSize', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('sphereSize', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1307,40 +1364,42 @@ QUnit.asyncTest('putRoiViewSettingsParamSphereSizeAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('width', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('width', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1363,40 +1422,42 @@ QUnit.asyncTest('putRoiViewSettingsParamWidthAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('width', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('width', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1419,40 +1480,42 @@ QUnit.asyncTest('putRoiViewSettingsParamWidthAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('height', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('height', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1475,40 +1538,42 @@ QUnit.asyncTest('putRoiViewSettingsParamHeightAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTest002 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('height', '-1.0');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('height', '-1.0');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1531,40 +1596,42 @@ QUnit.asyncTest('putRoiViewSettingsParamHeightAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('stereo', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('stereo', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
@@ -1587,40 +1654,42 @@ QUnit.asyncTest('putRoiViewSettingsParamStereoAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001 = function(assert) {
+  var option = {
+    assert: assert,
+    onsuccess: function(uri) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile('omnidirectional_image');
+      builder.setInterface('roi');
+      builder.setAttribute('settings');
+      builder.setServiceId(option.serviceId);
+      builder.setAccessToken(option.accessToken);
+      builder.addParameter('uri', uri);
+      builder.addParameter('vr', 'xxxxx');
+      var uri = builder.build();
+      dConnect.put(uri, null, null,
+        function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        },
+        function(errorCode, errorMessage) {
+          if (errorCode == 10) {
+            assert.ok(true, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode +
+            ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+    }
+  };
+  this.option = option;
   searchTestService(function(accessToken, serviceId) {
-    startRoiView({
-      serviceId: serviceId,
-      accessToken: accessToken,
-      assert: assert,
-      onsuccess: function(uri) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('omnidirectional_image');
-        builder.setInterface('roi');
-        builder.setAttribute('settings');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('uri', uri);
-        builder.addParameter('vr', 'xxxxx');
-        var uri = builder.build();
-        dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, 'not support');
-            } else {
-              assert.ok(false, 'errorCode=' + errorCode +
-              ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-          });
-      }
-    });
+    option.serviceId = serviceId;
+    option.accessToken = accessToken;
+    startRoiView(option);
   }, function(errorCode, errorMessage) {
     assert.ok(false, 'errorCode=' + errorCode +
     ', errorMessage=' + errorMessage);
