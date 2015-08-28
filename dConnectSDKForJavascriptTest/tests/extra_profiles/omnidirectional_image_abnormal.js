@@ -41,7 +41,7 @@ var OmnidirectionalImageProfileAbnormalTest = {};
  * ・resultに1が返ること。<br/>
  * </p>
  */
-OmnidirectionalImageProfileAbnormalTest.startRoiViewAbnormalTest001 = function(assert) {
+OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('omnidirectional_image');
@@ -70,8 +70,8 @@ OmnidirectionalImageProfileAbnormalTest.startRoiViewAbnormalTest001 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('startRoiViewAbnormalTest001',
-  OmnidirectionalImageProfileAbnormalTest.startRoiViewAbnormalTest001);
+QUnit.asyncTest('putStartRoiViewAbnormalTest001',
+  OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001);
 
 /**
  * ROI画像表示開始APIのsourceパラメータに存在しないURIを指定する。
@@ -85,7 +85,7 @@ QUnit.asyncTest('startRoiViewAbnormalTest001',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-OmnidirectionalImageProfileAbnormalTest.startRoiViewAbnormalTest002 = function(assert) {
+OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('omnidirectional_image');
@@ -115,8 +115,97 @@ OmnidirectionalImageProfileAbnormalTest.startRoiViewAbnormalTest002 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('startRoiViewAbnormalTest002',
-  OmnidirectionalImageProfileAbnormalTest.startRoiViewAbnormalTest002);
+QUnit.asyncTest('putStartRoiViewAbnormalTest002',
+  OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002);
+
+/**
+ * ROI画像表示開始APIのsourceパラメータを指定しない。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: GET<br/>
+ * Path: /omnidirectional/roi?serviceId=xxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('omnidirectional_image');
+    builder.setAttribute('roi');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    dConnect.get(uri, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode +
+        ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode +
+        ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode +
+    ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('getStartRoiViewAbnormalTest001',
+  OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001);
+
+/**
+ * ROI画像表示開始APIのsourceパラメータに存在しないURIを指定する。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: GET<br/>
+ * Path: /omnidirectional/roi?serviceId=xxx&accessToken=xxx&source=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('omnidirectional_image');
+    builder.setAttribute('roi');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('source', 'http://localhost:4035/xxxxx');
+    var uri = builder.build();
+    dConnect.get(uri, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode +
+        ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode +
+        ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode +
+    ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('getStartRoiViewAbnormalTest002',
+  OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002);
 
 /**
  * ROI画像表示終了APIのsourceパラメータを指定しない。
@@ -130,7 +219,7 @@ QUnit.asyncTest('startRoiViewAbnormalTest002',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-OmnidirectionalImageProfileAbnormalTest.stopRoiViewAbnormalTest001 = function(assert) {
+OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('omnidirectional_image');
@@ -159,8 +248,8 @@ OmnidirectionalImageProfileAbnormalTest.stopRoiViewAbnormalTest001 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopRoiViewAbnormalTest001',
-  OmnidirectionalImageProfileAbnormalTest.stopRoiViewAbnormalTest001);
+QUnit.asyncTest('deleteStopRoiViewAbnormalTest001',
+  OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001);
 
 /**
  * ROI画像表示設定APIのuriパラメータを指定しない。
