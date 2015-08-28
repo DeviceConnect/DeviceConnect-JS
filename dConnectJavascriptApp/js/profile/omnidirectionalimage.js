@@ -13,7 +13,7 @@
 function showOmnidirectionalImage(serviceId) {
   var defaultWidth = 280;
   var defaultHeight = 210;
-  var paramPatterns = [
+  var paramIncrementPatterns = [
     { id: 'patternX', name: 'x', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
     { id: 'patternY', name: 'y', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
     { id: 'patternZ', name: 'z', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
@@ -21,6 +21,7 @@ function showOmnidirectionalImage(serviceId) {
     { id: 'patternYaw', name: 'yaw', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
     { id: 'patternPitch', name: 'pitch', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
     { id: 'patternFov', name: 'fov', type: 'number', min: 0.0, max: 180.0, by: 15.0 },
+    { id: 'patternSphereSize', name: 'fov', type: 'number', min: 1.0, max: 101.0, by: 20.0 },
     { id: 'patternWidth', name: 'width', type: 'number', min: 100.0, max: 500.0, by: 50.0 },
     { id: 'patternHeight', name: 'height', type: 'number', min: 100.0, max: 500.0, by: 50.0 }
   ];
@@ -101,12 +102,25 @@ function showOmnidirectionalImage(serviceId) {
   omniImg.css('width', defaultWidth + 'px');
   omniImg.css('height', defaultHeight + 'px');
   omniImg.css('border', '1px solid #000000');
+  omniImg.bind('error', function() {
+    if (timerId !== undefined) {
+      clearInterval(timerId);
+      timerId = undefined;
+    }
+    alert('Failed to show ROI image.');
+  });
+  omniImg.bind('load', function() {
+    if (imgType === 'jpeg') {
+      timerId = scheduleToRefresh(roiUri, 200);
+    }
+  });
 
   $('#buttonShutter').on('click', function() { shot(); });
   $('#buttonStartStop').on('click', function() { switchView(); });
   $('#buttonShow').on('click', function() { showViewImage(); });
   $('#buttonSendParams').on('click', function() { sendParams(); });
   $('#buttonStartPattern').on('click', function() { startSettingsPattern(); });
+
 
   // XXXX: For debug
   omniUri = 'http://192.168.1.58:8080/R0010162.JPG';
@@ -223,18 +237,6 @@ function showOmnidirectionalImage(serviceId) {
 
   function showViewImage() {
     omniImg.attr('src', roiUri);
-    omniImg.bind('error', function() {
-      if (timerId !== undefined) {
-        clearInterval(timerId);
-        timerId = undefined;
-      }
-      alert('Failed to show ROI image.');
-    });
-    if (imgType === 'jpeg') {
-      omniImg.bind('load', function() {
-        timerId = scheduleToRefresh(roiUri, 200);
-      });
-    }
   }
 
   function scheduleToRefresh(uri, delay) {
@@ -316,8 +318,8 @@ function showOmnidirectionalImage(serviceId) {
 
   function findPattern(id) {
     var i, pattern;
-    for (i = 0; i < paramPatterns.length; i++) {
-      pattern = paramPatterns[i];
+    for (i = 0; i < paramIncrementPatterns.length; i++) {
+      pattern = paramIncrementPatterns[i];
       if (pattern.id === id) {
         return pattern;
       }
