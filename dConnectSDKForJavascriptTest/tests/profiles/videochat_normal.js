@@ -4,23 +4,27 @@ module('VideoChat Profile Normal Test', {
   }
 });
 
+var VIDEOCHAT_CALL_TIME = 4000;
+
 function findAddress(success_cb, error_cb) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("videochat");
-    builder.setAttribute("address");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("config", VIDEOCHAT_CONFIG);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      success_cb(accessToken, serviceId, json.addresses);
+  setTimeout(function() {
+    searchTestService(function(accessToken, serviceId) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile("videochat");
+      builder.setAttribute("address");
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      builder.addParameter("config", VIDEOCHAT_CONFIG);
+      var uri = builder.build();
+      dConnect.get(uri, null, function(json) {
+        success_cb(accessToken, serviceId, json.addresses);
+      }, function(errorCode, errorMessage) {
+        error_cb(errorCode, errorMessage);
+      });
     }, function(errorCode, errorMessage) {
       error_cb(errorCode, errorMessage);
     });
-  }, function(errorCode, errorMessage) {
-    error_cb(errorCode, errorMessage);
-  });
+  }, 1000);
 }
 
 function callAddress(success_cb, error_cb) {
@@ -52,7 +56,7 @@ function callAddress(success_cb, error_cb) {
         },function(errorCode, errorMessage) {
           error_cb(errorCode, errorMessage);
         });
-      }, 5 * 1000);
+      }, VIDEOCHAT_CALL_TIME);
     }, function(errorCode, errorMessage) {
       error_cb(errorCode, errorMessage);
     });
@@ -297,7 +301,7 @@ VideoChatProfileNormalTest.callNormalTest001 = function(assert) {
           assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
           QUnit.start();
         });
-      }, 5 * 1000);
+      }, VIDEOCHAT_CALL_TIME);
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
       QUnit.start();
@@ -322,7 +326,6 @@ QUnit.asyncTest('callNormalTest001(post)', VideoChatProfileNormalTest.callNormal
  * </p>
  */
 VideoChatProfileNormalTest.callNormalTest002 = function(assert) {
-
   findAddress(function(accessToken, serviceId, addresses) {
     assert.ok(true, 'get address is ok. [result=0]');
 
@@ -354,7 +357,7 @@ VideoChatProfileNormalTest.callNormalTest002 = function(assert) {
           assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
           QUnit.start();
         });
-      }, 5 * 1000);
+      }, VIDEOCHAT_CALL_TIME);
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
       QUnit.start();
@@ -410,7 +413,7 @@ VideoChatProfileNormalTest.callNormalTest003 = function(assert) {
           assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
           QUnit.start();
         });
-      }, 5 * 1000);
+      }, VIDEOCHAT_CALL_TIME);
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
       QUnit.start();
@@ -466,7 +469,7 @@ VideoChatProfileNormalTest.callNormalTest004 = function(assert) {
           assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
           QUnit.start();
         });
-      }, 5 * 1000);
+      }, VIDEOCHAT_CALL_TIME);
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
       QUnit.start();
@@ -522,7 +525,7 @@ VideoChatProfileNormalTest.callNormalTest005 = function(assert) {
           assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
           QUnit.start();
         });
-      }, 5 * 1000);
+      }, VIDEOCHAT_CALL_TIME);
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
       QUnit.start();
@@ -599,7 +602,7 @@ VideoChatProfileNormalTest.oncallNormalTest001 = function(assert) {
     assert.ok(false, "message=" + message);
     return false;
   });
-  
+
   setTimeout(function() {
     callAddress(function(accessToken, serviceId, address) {
       assert.ok(true, "address=" + address);

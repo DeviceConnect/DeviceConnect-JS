@@ -5,22 +5,24 @@ module('VideoChat Profile Abnormal Test', {
 });
 
 function findAddress(success_cb, error_cb) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("videochat");
-    builder.setAttribute("address");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("config", VIDEOCHAT_CONFIG);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      success_cb(accessToken, serviceId, json.addresses);
+  setTimeout(function() {
+    searchTestService(function(accessToken, serviceId) {
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile("videochat");
+      builder.setAttribute("address");
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      builder.addParameter("config", VIDEOCHAT_CONFIG);
+      var uri = builder.build();
+      dConnect.get(uri, null, function(json) {
+        success_cb(accessToken, serviceId, json.addresses);
+      }, function(errorCode, errorMessage) {
+        error_cb(errorCode, errorMessage);
+      });
     }, function(errorCode, errorMessage) {
       error_cb(errorCode, errorMessage);
     });
-  }, function(errorCode, errorMessage) {
-    error_cb(errorCode, errorMessage);
-  });
+  }, 1000);
 }
 
 /**
