@@ -71,7 +71,9 @@ function getAccessToken(func) {
       'sphero',
       'temperature',
       'health',
-      'humandetect'
+      'humandetect',
+      
+      'videochat'
   );
 
   dConnect.authorization(scopes,
@@ -147,13 +149,15 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
       }
     }, function() {
       assert.ok(true, 'Succeeded to add the event listener.');
-      dConnect.removeEventListener(uri, function() {
-        assert.ok(true, 'Succeeded to remove the event listener.');
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'Failed to remove the event listener.');
-        QUnit.start();
-      });
+      setTimeout(function() {
+        dConnect.removeEventListener(uri, function() {
+          assert.ok(true, 'Succeeded to remove the event listener.');
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(false, 'Failed to remove the event listener.');
+          QUnit.start();
+        });
+      }, timeout);
     }, function(errorCode, errorMessage) {
       if (errorCode == 2) {
         assert.ok(true, 'Profile not support');
@@ -167,4 +171,8 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
       QUnit.start();
     });
   });
+}
+
+function isArray(obj) {
+  return Object.prototype.toString.call(obj) === '[object Array]';
 }
