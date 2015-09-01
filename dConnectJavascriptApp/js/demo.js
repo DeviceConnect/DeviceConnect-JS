@@ -7,8 +7,6 @@
 
 /** Revision of this apps. */
 var versionRev = 'V2.0.0 Rev.9';
-/** BASE URI. */
-var BASE_URI;
 /** Client ID. */
 var currentClientId = null;
 /** AccessTonen. */
@@ -19,17 +17,11 @@ var ip;
 var deleteMode = false;
 /** 画像読み込み中Flag. */
 var loadFlag = false;
-/** アプリ名. */
-var myAppName = 'DemoHTML5';
 
-var body = '';
 /** Logメッセージを表示 */
 var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = '';
-
-/** Manager起動待機タイマー */
-var launchTimerId;
 
 /**
  * 初期化処理.
@@ -52,15 +44,13 @@ function init() {
   // Tokenをページに表示
   $('#token').html('accessToken:' + accessToken);
 
-  // 接続先のBASE_URIを作成
-  BASE_URI = 'http://' + ip + ':4035/gotapi/';
-
   if (isAndroid() &&
     location.href.indexOf('file:///') == -1) {
-    dConnect.setAntiSpoofing(true);
+      dConnect.setAntiSpoofing(true);
   }
   dConnect.setHost(ip);
   openWebsocketIfNeeded();
+  searchDevice();
 }
 
 /**
@@ -75,11 +65,14 @@ function isAndroid() {
  * Device Connect Managerを起動後、デモ画面に遷移する.
  */
 function startManagerAndDemo() {
+  $(window).trigger("hashchange");
+
   startManager(function(apiVersion) {
     if (DEBUG) {
       console.log('Manager has been available already. version=' + apiVersion);
     }
     openWebsocketIfNeeded();
+    location.hash = "";
     location.hash = '#demo';
     if (DEBUG) {
       console.log('URL: ' + location.href);
@@ -161,7 +154,7 @@ function authorization(callback) {
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
                "touch", 'humandetect', 'keyevent', 'tv');
-  dConnect.authorization(scopes, 'サンプル',
+  dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
         currentClientId = clientId;
@@ -178,7 +171,8 @@ function authorization(callback) {
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
         }
-        dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
+        dConnect.connectWebSocket(currentClientId, function(code, message) {
+          console.log("WebSocket. [code: " + code + ", message: " + message + "]");
         });
 
         // rewrite html

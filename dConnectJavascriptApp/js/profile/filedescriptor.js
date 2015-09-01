@@ -178,8 +178,6 @@ function doReadFile(serviceId, sessionKey) {
   var path = document.fileDescriptorReadForm.path.value;
   var flag = document.fileDescriptorReadForm.flag.value;
 
-  initResult();
-
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file_descriptor');
   builder.setAttribute('read');
@@ -224,8 +222,6 @@ function doReadFile(serviceId, sessionKey) {
  */
 function doCloseFile(serviceId, sessionKey) {
   var path = document.fileDescriptorReadForm.path.value;
-
-  initResult();
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file_descriptor');

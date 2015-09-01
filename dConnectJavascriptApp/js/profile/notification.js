@@ -44,7 +44,8 @@ function showNotification(serviceId) {
   }
   var str = '';
   str += '<form action="' + uri + '" method="POST" id="notificationForm"' +
-        ' name="notificationForm" enctype="multipart/form-data">';
+        ' name="notificationForm" enctype="multipart/form-data"' +
+        ' onsubmit="return false;">';
 
   if (myDeviceName.indexOf('Pebble') == -1 &&
       myDeviceName.indexOf('SmartWatch') == -1 &&
@@ -69,8 +70,8 @@ function showNotification(serviceId) {
   str += '<input type="button" name="sendButton" id="sendButton"' +
         ' value="Notify" onclick="doNotificationNotify(\'' +
         serviceId + '\');"/>';
-  str += '</form>';
   str += '</center>';
+  str += '</form>';
   reloadContent(str);
 
 }
