@@ -153,7 +153,7 @@ function authorization(callback) {
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetect', 'keyevent');
+               "touch", 'humandetect', 'keyevent', 'tv');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -286,5 +286,7 @@ function searchProfile(serviceId, profile) {
     showHumanDetect(serviceId);
   } else if (profile === 'keyevent') {
     showKeyEvent(serviceId);
+  } else if (profile === 'tv') {
+    showTV(serviceId);
   }
 }
