@@ -115,7 +115,7 @@ function startManager(onavailable) {
           requested = true;
           dConnect.startManager();
           alert('Requested to start Device Connect Manager.');
-          
+
           var userAgent = navigator.userAgent.toLowerCase();
           if (userAgent.search(/iphone|ipad|ipod/) > -1) {
             setTimeout(function() {
@@ -286,6 +286,8 @@ function searchProfile(serviceId, profile) {
     showHumanDetect(serviceId);
   } else if (profile === 'keyevent') {
     showKeyEvent(serviceId);
+  } else if (profile === 'serviceinformation') {
+    showServiceInformation(serviceId);
   } else if (profile === 'tv') {
     showTV(serviceId);
   }
