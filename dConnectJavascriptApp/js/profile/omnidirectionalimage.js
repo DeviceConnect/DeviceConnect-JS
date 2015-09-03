@@ -17,11 +17,11 @@ function showOmnidirectionalImage(serviceId) {
     { id: 'patternX', name: 'x', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
     { id: 'patternY', name: 'y', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
     { id: 'patternZ', name: 'z', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
-    { id: 'patternRoll', name: 'roll', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
-    { id: 'patternYaw', name: 'yaw', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
-    { id: 'patternPitch', name: 'pitch', type: 'number', min: 0.0, max: 360.0, by: 45.0 },
-    { id: 'patternFov', name: 'fov', type: 'number', min: 0.0, max: 180.0, by: 15.0 },
-    { id: 'patternSphereSize', name: 'fov', type: 'number', min: 1.0, max: 101.0, by: 20.0 },
+    { id: 'patternRoll', name: 'roll', type: 'number', min: 0.1, max: 359.0, by: 45.0 },
+    { id: 'patternYaw', name: 'yaw', type: 'number', min: 0.1, max: 359.0, by: 45.0 },
+    { id: 'patternPitch', name: 'pitch', type: 'number', min: 0.1, max: 359.0, by: 45.0 },
+    { id: 'patternFov', name: 'fov', type: 'number', min: 0.1, max: 179.0, by: 15.0 },
+    { id: 'patternSphereSize', name: 'sphereSize', type: 'number', min: 1.0, max: 101.0, by: 20.0 },
     { id: 'patternWidth', name: 'width', type: 'number', min: 100.0, max: 500.0, by: 50.0 },
     { id: 'patternHeight', name: 'height', type: 'number', min: 100.0, max: 500.0, by: 50.0 }
   ];
