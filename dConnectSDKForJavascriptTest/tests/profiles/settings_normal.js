@@ -168,7 +168,7 @@ QUnit.asyncTest('dateNormalTest001(get)', SettingProfileNormalTest.dateNormalTes
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /settings/date?serviceId=xxxx&date='2015-01-01T00:00:00+0900'<br/>
+ * Path: /settings/date?serviceId=xxxx&date='yyyy-MM-ddThh:mm:ssZ'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -183,7 +183,7 @@ SettingProfileNormalTest.dateNormalTest002 = function(assert) {
         builder.setAttribute(dConnect.constants.settings.ATTR_DATE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.addParameter('date', '2015-01-01T00:00:00+0900');
+        builder.addParameter('date', createCurrentDateString());
         var uri = builder.build();
         dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
