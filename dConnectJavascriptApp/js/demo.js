@@ -153,8 +153,8 @@ function authorization(callback) {
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-               "touch", 'humandetect', 'keyevent', 'tv', 'powermeter',
-              'humidity','illuminance');
+              'touch', 'humandetect', 'keyevent', 'omnidirectional_image'
+               'tv', 'powermeter','humidity','illuminance');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -287,8 +287,16 @@ function searchProfile(serviceId, profile) {
     showHumanDetect(serviceId);
   } else if (profile === 'keyevent') {
     showKeyEvent(serviceId);
+  } else if (profile === 'omnidirectional_image') {
+    showOmnidirectionalImage(serviceId);
   } else if (profile === 'serviceinformation') {
     showServiceInformation(serviceId);
+  } else if (profile === 'humidity') {
+    showHumidity(serviceId);
+  } else if (profile === 'illuminance') {
+    showIlluminance(serviceId);
+  } else if (profile === 'powermeter') {
+    showPowerMeter(serviceId);
   } else if (profile === 'tv') {
     showTV(serviceId);
   }
