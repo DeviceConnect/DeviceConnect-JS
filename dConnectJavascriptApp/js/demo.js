@@ -115,7 +115,7 @@ function startManager(onavailable) {
           requested = true;
           dConnect.startManager();
           alert('Requested to start Device Connect Manager.');
-          
+
           var userAgent = navigator.userAgent.toLowerCase();
           if (userAgent.search(/iphone|ipad|ipod/) > -1) {
             setTimeout(function() {
@@ -153,7 +153,9 @@ function authorization(callback) {
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetect', 'keyevent', 'omnidirectional_image');
+              'touch', 'humandetect', 'keyevent', 'omnidirectional_image'
+               'tv', 'powermeter',
+              'humidity','illuminance');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -288,5 +290,9 @@ function searchProfile(serviceId, profile) {
     showKeyEvent(serviceId);
   } else if (profile === 'omnidirectional_image') {
     showOmnidirectionalImage(serviceId);
+  } else if (profile === 'serviceinformation') {
+    showServiceInformation(serviceId);
+  } else if (profile === 'tv') {
+    showTV(serviceId);
   }
 }

@@ -73,6 +73,9 @@ function getAccessToken(func) {
       'health',
       'humandetect',
       'omnidirectional_image'
+      'humidity',
+      'illuminance',
+      'powermeter'
   );
 
   dConnect.authorization(scopes,
@@ -168,4 +171,22 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
       QUnit.start();
     });
   });
+}
+
+//RFC3339
+function createCurrentDateString() {
+  var now = new Date();
+  var dateString = now.getFullYear() + "-" +
+    ("0" + (now.getMonth() + 1)).slice (-2) + "-" +
+    ("0" + now.getDate()).slice (-2) + "T" +
+    ("0" + now.getHours()).slice (-2) + ":" +
+    ("0" + now.getMinutes()).slice (-2) + ":" +
+    ("0" + now.getSeconds()).slice (-2) +
+    (function (offset){
+    	var z = (offset < 0) ? "+" : "-";
+    	offset = Math.abs(offset);
+    	z +=  ("0" + (offset / 60)).slice(-2) + ":" + ("0" + (offset % 60)).slice(-2);
+    	return z;
+    })(now.getTimezoneOffset());
+  return dateString;
 }

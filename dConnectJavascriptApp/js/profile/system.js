@@ -12,13 +12,13 @@
  * @param {String} deviceName デバイス名
  */
 function searchSystem(serviceId, deviceName) {
-  if (deviceName != undefined) {
+  if (deviceName !== undefined) {
     // 第2引数が空でない場合、代入を行う。
     myDeviceName = deviceName;
   }
 
   if (DEBUG) {
-    console.log(myDeviceName)
+    console.log(myDeviceName);
   }
   initAll();
 
@@ -37,14 +37,13 @@ function searchSystem(serviceId, deviceName) {
       console.log('Response:', json);
     }
 
-    if (json.result == 0) {
+    if (json.result === 0) {
       var str = '';
       for (var i = 0; i < json.supports.length; i++) {
         str += '<li><a href="javascript:searchProfile(\'' + serviceId + '\', ';
         str += '\'' + json.supports[i] + '\');" ';
         if (json.supports[i] == 'authorization' ||
             json.supports[i] == 'servicediscovery' ||
-            json.supports[i] == 'serviceinformation' ||
             json.supports[i] == 'system') {
           str += ' class="ui-disabled" ';
         }
@@ -78,7 +77,7 @@ function checkDevicePlugins() {
   var uri = builder.build();
 
   if (DEBUG) {
-    console.log('Uri:' + uri)
+    console.log('Uri:' + uri);
   }
 
   dConnect.get(uri, null, function(json) {
@@ -113,7 +112,7 @@ function launchDevicePlugin(pluginId) {
   var uri = builder.build();
 
   if (DEBUG) {
-    console.log('Uri:', uri)
+    console.log('Uri:', uri);
   }
 
   dConnect.put(uri, null, null, function(json) {

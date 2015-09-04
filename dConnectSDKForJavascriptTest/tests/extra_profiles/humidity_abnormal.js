@@ -1,31 +1,31 @@
-module('TemperatureProfileAbnormalTest', {
+module('HumidityProfileAbnormalTest', {
   setup: function() {
     init();
   }
 });
 
 /**
- * Temperatureプロファイルの異常系テストを行うクラス。
+ * Humidityプロファイルの異常系テストを行うクラス。
  * @class
  */
-var TemperatureProfileAbnormalTest = {};
+var HumidityProfileAbnormalTest = {};
 
 /**
- * 定義されていないPUTメソッドで温度計にアクセスするテストを行う。
+ * 定義されていないPUTメソッドで湿度計にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /temperature?deviceId=xxxx&accessToken=xxx<br/>
+ * Path: /humidity?deviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-TemperatureProfileAbnormalTest.temperatureAbnormalTest001 = function(assert) {
+HumidityProfileAbnormalTest.humidityAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, deviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
+    builder.setProfile('humidity');
     builder.setServiceId(deviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -48,25 +48,25 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest001',
-    TemperatureProfileAbnormalTest.temperatureAbnormalTest001);
+QUnit.asyncTest('humidityAbnormalTest001',
+    HumidityProfileAbnormalTest.humidityAbnormalTest001);
 
 /**
- * 定義されていないPOSTメソッドで温度計にアクセスするテストを行う。
+ * 定義されていないPOSTメソッドで湿度計にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /temperature?deviceId=xxxx&accessToken=xxx<br/>
+ * Path: /humidity?deviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-TemperatureProfileAbnormalTest.temperatureAbnormalTest002 = function(assert) {
+HumidityProfileAbnormalTest.humidityAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, deviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
+    builder.setProfile('humidity');
     builder.setServiceId(deviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -89,25 +89,25 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest002',
-    TemperatureProfileAbnormalTest.temperatureAbnormalTest002);
+QUnit.asyncTest('humidityAbnormalTest002',
+    HumidityProfileAbnormalTest.humidityAbnormalTest002);
 
 /**
- * 定義されていないDELETEメソッドで温度計にアクセスするテストを行う。
+ * 定義されていないDELETEメソッドで湿度計にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /temperature?deviceId=xxxx&accessToken=xxx<br/>
+ * Path: /humidity?deviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-TemperatureProfileAbnormalTest.temperatureAbnormalTest003 = function(assert) {
+HumidityProfileAbnormalTest.humidityAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, deviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
+    builder.setProfile('humidity');
     builder.setServiceId(deviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -130,5 +130,5 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest003',
-    TemperatureProfileAbnormalTest.temperatureAbnormalTest003);
+QUnit.asyncTest('humidityAbnormalTest003',
+    HumidityProfileAbnormalTest.humidityAbnormalTest003);

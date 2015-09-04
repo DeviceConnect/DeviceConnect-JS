@@ -63,7 +63,7 @@ function showSearchLightGroup(serviceId) {
     });
     var contents = $('#contents');
     contents.append(buttonDelete);
-    contents.trigger('create');
+    reloadContent(contents.html());
   }, function(errorCode, errorMessage) {
     showError('GET light', errorCode, errorMessage);
     closeLoading();
@@ -141,7 +141,7 @@ function showCreateLightGroupForm(serviceId, lights) {
     });
   });
   contents.append(buttonCreate);
-  contents.trigger('create');
+  reloadContent(contents.html());
 }
 
 function showDeleteLightGroupForm(serviceId, lightGroups) {
@@ -208,7 +208,7 @@ function showDeleteLightGroupForm(serviceId, lightGroups) {
     });
   });
   contents.append(buttonDelete);
-  contents.trigger('create');
+  reloadContent(contents.html());
 }
 
 /**
@@ -261,7 +261,7 @@ function showSearchLight(serviceId) {
     var contents = $('#contents');
     contents.append(buttonViewGroups);
     contents.append(buttonCreate);
-    contents.trigger('create');
+    reloadContent(contents.html());
   }, function(errorCode, errorMessage) {
     showError('GET light', errorCode, errorMessage);
     reloadContent('');
@@ -310,6 +310,7 @@ function showLight(serviceId, lightId, lightName) {
   reloadFooter(btnStr);
 
   var contents = $('#contents');
+
   contents.empty();
 
   contents.append('<h3>Light Name</h3>');
@@ -388,7 +389,7 @@ function showLight(serviceId, lightId, lightName) {
                     serviceId + '\',\'' + lightId +
                     '\', 0);" value="off" name="Off" id="off"/>'));
 
-  contents.trigger('create');
+  reloadContent(contents.html());
 }
 
 /**
@@ -486,7 +487,7 @@ function showLightGroup(serviceId, group) {
   }
   contents.append($('<h3>Light(s)</h3>'));
   contents.append(memberList);
-  contents.trigger('create');
+  reloadContent(contents.html());
 }
 
 /**
