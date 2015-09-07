@@ -72,7 +72,7 @@ function getAccessToken(func) {
       'temperature',
       'health',
       'humandetect',
-      'omnidirectional_image'
+      'omnidirectional_image',
       'humidity',
       'illuminance',
       'powermeter'
