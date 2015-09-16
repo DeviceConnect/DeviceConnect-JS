@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Device Connect Javascript Test(Theta)</title>
+  <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
+</head>
+<body>
+  <div id="images"style="position:absolute;">
+    <img crossorigin="anonymous" id="image" width="240">
+    <img id="preview" width="240">
+    <canvas id="canvas" width="120" height="120" ></canvas>
+  </div>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="../dconnect-test-config.js"></script>
+
+  <script type="text/javascript">
+   /**
+    * テストを行うデバイス名を定義する.
+    * <p>
+    * undefinedやnullの場合には、テストプラグインを使用する。
+    * </p>
+    */
+  var DEVICE_NAME = 'roi';
+  </script>
+  
+  <script src="../qunit/qunit-1.15.0.js"></script>
+  <script src="../qunit/qunit-reporter-junit.js"></script>
+  <script src="../dconnectsdk-2.0.0.js"></script>
+  <script src="../dconnect-test-util.js"></script>
+
+  <script src="extra_profiles/omnidirectional_image_abnormal.js"></script>
+
+  <script>
+    QUnit.jUnitReport = function(report) {
+        console.log(report.xml);
+    };
+  </script>
+</body>
+</html>
