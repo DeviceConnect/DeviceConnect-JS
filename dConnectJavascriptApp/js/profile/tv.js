@@ -131,7 +131,7 @@ function doTVChangeChannel(serviceId, channel, nextPrevious) {
   if (channel !== null) {
     builder.addParameter('tuning', channel);
   } else if (nextPrevious !== null) {
-    builder.addParameter('control', nextPrevious);
+    builder.addParameter('action', nextPrevious);
   }
 
   var uri = builder.build();
