@@ -150,9 +150,10 @@ LightProfileNormalTest.statusChangeNormalTest001 = function(assert) {
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         builder.addParameter('color', 'ff0000');
+        builder.addParameter('name', 'Hue Light Test');
         builder.addParameter('lightId', json.lights[i].lightId);
         var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
+        dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
         }, function(errorCode, errorMessage) {
           assert.ok(checkErrorCode(errorCode),
@@ -306,7 +307,6 @@ LightProfileNormalTest.groupNormalTest001 = function(assert) {
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
-      console.log('GroupID:' + json.lightGroups[0].groupId);
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
     }, function(errorCode, errorMessage) {
