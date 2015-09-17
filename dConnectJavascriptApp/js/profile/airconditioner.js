@@ -709,7 +709,12 @@ function getAirConditionerECHONETLiteProperty(serviceId, epc) {
     closeLoading();
 
     var str = '';
-    str += json.value;
+    for(var i=0; i<json.properties.length; i++) {
+      if (i != 0) {
+        str += ",";
+      }
+      str += '{\"' + json.properties[i].epc + '\",\"' + json.properties[i].value + '\"}';
+    }
     $('#idGetEDT').val(str);
   }, function(errorCode, errorMessage) {
     closeLoading();
