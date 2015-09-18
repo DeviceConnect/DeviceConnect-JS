@@ -1115,7 +1115,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest013',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightStatusChangeAbnormalTest013 = function(assert) {
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -1146,8 +1146,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest013',
-    LightProfileAbnormalTest.lightStatusChangeAbnormalTest013);
+QUnit.asyncTest('lightStatusChangeAbnormalTest014',
+  LightProfileAbnormalTest.lightStatusChangeAbnormalTest014);
 
 /**
  * flashingに特殊文字を指定してライト点滅リクエストを送る。
@@ -1161,7 +1161,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest013',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest015 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -1192,8 +1192,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest014',
-    LightProfileAbnormalTest.lightStatusChangeAbnormalTest014);
+QUnit.asyncTest('lightStatusChangeAbnormalTest015',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest015);
 
 /**
  * flashingに[100,-100,100,100]を指定してライト点滅リクエストを送る。
@@ -1207,7 +1207,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest014',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightStatusChangeAbnormalTest015 = function(assert) {
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest016 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -1236,8 +1236,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest015 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest015',
-    LightProfileAbnormalTest.lightStatusChangeAbnormalTest015);
+QUnit.asyncTest('lightStatusChangeAbnormalTest016',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest016);
 
 /**
  * flashingに[100,0.1,0.1,0.2]を指定してライト点滅リクエストを送る。
@@ -1251,7 +1251,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest015',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightStatusChangeAbnormalTest016 = function(assert) {
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest017 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -1280,8 +1280,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest016 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest016',
-    LightProfileAbnormalTest.lightStatusChangeAbnormalTest016);
+QUnit.asyncTest('lightStatusChangeAbnormalTest017',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest017);
 
 /**
  * nameを指定しないでライト点灯リクエストを送る。
@@ -1295,7 +1295,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest016',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightStatusChangeAbnormalTest017 = function(assert) {
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest018 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -1321,8 +1321,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest017 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest017',
-    LightProfileAbnormalTest.lightStatusChangeAbnormalTest017);
+QUnit.asyncTest('lightStatusChangeAbnormalTest018',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest018);
 
 
 /**
@@ -1337,7 +1337,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest017',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightStatusChangeAbnormalTest018 = function(assert) {
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest019 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -1364,8 +1364,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest018 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest018',
-    LightProfileAbnormalTest.lightStatusChangeAbnormalTest018);
+QUnit.asyncTest('lightStatusChangeAbnormalTest019',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest019);
 
 /**
  * 存在しないlightIdを指定してライト消灯リクエストを送る。
