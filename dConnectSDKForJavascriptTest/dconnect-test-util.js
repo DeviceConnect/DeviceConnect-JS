@@ -75,7 +75,8 @@ function getAccessToken(func) {
       'omnidirectional_image',
       'humidity',
       'illuminance',
-      'powermeter'
+      'powermeter',
+      'airconditioner'
   );
 
   dConnect.authorization(scopes,
