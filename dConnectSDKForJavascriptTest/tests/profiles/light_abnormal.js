@@ -167,7 +167,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest003 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -212,7 +213,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest004 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -257,7 +259,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest005 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -299,7 +302,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest006 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -341,7 +345,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest007 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -383,7 +388,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -429,7 +435,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -474,7 +481,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -519,7 +527,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest011 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -607,7 +616,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest002 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -652,7 +662,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest003 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -696,7 +707,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest004 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -739,7 +751,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest005 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -782,8 +795,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest006 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false,
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -829,7 +842,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest007 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -874,7 +888,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest008 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -917,7 +932,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest009 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -961,7 +977,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest010 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1005,7 +1022,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest011 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1049,7 +1067,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest012 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1096,7 +1115,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest013 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1142,7 +1162,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1188,7 +1209,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest015 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1232,7 +1254,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest016 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1276,7 +1299,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest017 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1317,7 +1341,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest018 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1360,7 +1385,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest019 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1444,7 +1470,8 @@ LightProfileAbnormalTest.groupCreateAbnormalTest001 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1488,7 +1515,8 @@ LightProfileAbnormalTest.groupCreateAbnormalTest002 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1531,7 +1559,8 @@ LightProfileAbnormalTest.groupCreateAbnormalTest003 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1573,7 +1602,8 @@ LightProfileAbnormalTest.groupCreateAbnormalTest004 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1617,7 +1647,8 @@ LightProfileAbnormalTest.groupCreateAbnormalTest005 = function(assert) {
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1661,7 +1692,8 @@ LightProfileAbnormalTest.groupCreateAbnormalTest006 = function(assert) {
           QUnit.start();
         });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
