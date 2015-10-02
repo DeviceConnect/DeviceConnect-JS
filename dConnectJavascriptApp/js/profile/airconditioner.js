@@ -770,7 +770,7 @@ function doAirConditionerECHONETLitePropertySet(serviceId, epc, value) {
 /* Show ECHONET Lite page */
 function showENLControl(serviceId) {
   initAll();
-  setTitle('ECHONET Lite Control (GET)');
+  setTitle('ECHONET Lite Property Control');
 
   var sessionKey = currentClientId;
   var btnStr = getBackButton('AirCoditioner Top', 'doENLGetBack', serviceId,
