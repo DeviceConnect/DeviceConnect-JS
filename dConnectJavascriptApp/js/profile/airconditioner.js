@@ -760,7 +760,7 @@ function doAirConditionerECHONETLitePropertySet(serviceId, epc, value) {
   var errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('ECHONETLitePropertySet Air Conditioner', errorCode, errorMessage);
-    $('#idSetResult').val(json.result);
+    $('#idSetResult').val(errorMessage);
   };
 
   dConnect.put(uri, null, null, successCallback, errorCallback);
