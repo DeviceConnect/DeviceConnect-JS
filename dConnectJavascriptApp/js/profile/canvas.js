@@ -177,7 +177,7 @@ function doCanvasDrawImage(serviceId, fileFormId) {
         var str = '';
         var obj = JSON.parse(myXhr.responseText);
         if (obj.result == 0) {
-          alert('success:canvas/drawimage');
+          //alert('success:canvas/drawimage');
           $('#path').val('');
           $('#data').val('');
         } else {
