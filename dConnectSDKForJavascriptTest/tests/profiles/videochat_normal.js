@@ -594,9 +594,9 @@ VideoChatProfileNormalTest.oncallNormalTest001 = function(assert) {
   openWebsocket(builder, assert, 10 * 1000, function(message) {
     var json = JSON.parse(message);
     if (json.profile === "videochat" && json.attribute === "oncall") {
-      assert.ok(json.oncall != undefined, "oncall=" + json.oncall);
-      assert.ok(json.oncall.name != undefined, "oncall.name=" + json.oncall.name);
-      assert.ok(json.oncall.addressId != undefined, "oncall.addressId=" + json.oncall.addressId);
+      assert.ok(json.oncall[0] != undefined, "oncall=" + json.oncall[0]);
+      assert.ok(json.oncall[0].name != undefined, "oncall.name=" + json.oncall[0].name);
+      assert.ok(json.oncall[0].addressId != undefined, "oncall.addressId=" + json.oncall[0].addressId);
       return true;
     }
     assert.ok(false, "message=" + message);
