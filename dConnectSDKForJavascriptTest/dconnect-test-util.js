@@ -177,11 +177,9 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
   });
 }
 
-<<<<<<< HEAD
 function isArray(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
 }
-=======
 //RFC3339
 function createCurrentDateString() {
   var now = new Date();
@@ -199,4 +197,3 @@ function createCurrentDateString() {
     })(now.getTimezoneOffset());
   return dateString;
 }
->>>>>>> feature_videochat_profile
