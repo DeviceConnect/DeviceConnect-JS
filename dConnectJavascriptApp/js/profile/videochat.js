@@ -5,8 +5,8 @@
  http://opensource.org/licenses/mit-license.php
  */
 
-var _skywayApiKey = "aaba9b2b-7cb0-4cb9-b5ea-d1c7394b3567";
-var _skywayDomain = "test.gclue.io";
+var _skywayApiKey = "[ YOUR API KEY ]";
+var _skywayDomain = "[ YOUR DOMAIN ]";
 
 /**
  * Show VideoChat Menu
