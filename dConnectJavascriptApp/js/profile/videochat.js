@@ -5,8 +5,8 @@
  http://opensource.org/licenses/mit-license.php
  */
 
-var _skywayApiKey = "[ YOUR API KEY ]";
-var _skywayDomain = "[ YOUR DOMAIN ]";
+var _skywayApiKey = "aaba9b2b-7cb0-4cb9-b5ea-d1c7394b3567";
+var _skywayDomain = "test.gclue.io";
 
 /**
  * Show VideoChat Menu
@@ -192,11 +192,12 @@ function registVideoChatOnCallEvent(serviceId,sessionKey){
   var eventCallback = function(message){
     console.log('Event-Message:' + message);
     var json = JSON.parse(message);
+    console.log(json);
     if(json.oncall){
-      $('#oncall-name').val(json.oncall.name);
-      $('#oncall-addressId').val(json.oncall.addressId);
-      $('#oncall-video').val(json.oncall.video);
-      $('#oncall-audio').val(json.oncall.audio);
+      $('#oncall-name').val(json.oncall[0].name);
+      $('#oncall-addressId').val(json.oncall[0].addressId);
+      $('#oncall-video').val(json.oncall[0].video);
+      $('#oncall-audio').val(json.oncall[0].audio);
     }
   };
   dConnect.addEventListener(builder.build(),eventCallback, vcEventRegistSuccess, vcAlertError);
