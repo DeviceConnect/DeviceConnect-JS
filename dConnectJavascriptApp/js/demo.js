@@ -154,7 +154,8 @@ function authorization(callback) {
               'remote_controller', 'drive_controller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectional_image',
-               'tv', 'powermeter','humidity','illuminance', 'videochat');
+               'tv', 'powermeter','humidity','illuminance', 'videochat',
+               'airconditioner');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -301,5 +302,7 @@ function searchProfile(serviceId, profile) {
     showPowerMeter(serviceId);
   } else if (profile === 'tv') {
     showTV(serviceId);
+  } else if (profile === 'airconditioner') {
+    showAirConditioner(serviceId);
   }
 }

@@ -77,7 +77,8 @@ function getAccessToken(func) {
       'humidity',
       'illuminance',
       'powermeter',
-      'tv'
+      'tv',
+      'airconditioner'
   );
 
   dConnect.authorization(scopes,
