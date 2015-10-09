@@ -90,7 +90,7 @@ function checkDevicePlugins() {
       str += '<li><a href="javascript:launchDevicePlugin(\'' +
               json.plugins[i].id + '\');" value="' +
               json.plugins[i].name + '" >' +
-              json.plugins[i].name + '</a></li>';
+              json.plugins[i].name + '<br> <span style="font-size:12px; margin-left:12px;"> Version: ' + json.plugins[i].version +  '</span></a></li>';
     }
 
     var listHtml = document.getElementById('listSetting');
