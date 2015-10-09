@@ -4,10 +4,9 @@
 https://github.com/DeviceConnect/DeviceConnect-JS/blob/master/readme.ja.md
 
 # About DeviceConnect WebAPI
-"DeviceConnect WebAPI" is WebAPI which operates as a virtual server on a smart phone. It can use easily various wearable devices and an IoT device by unific description from a web browser or an application. 
+"DeviceConnect WebAPI" is WebAPI which operates as a virtual server on a smart phone. It can use easily various wearable devices and an IoT device by unific description from a web browser or an application.
 
 # About DeviceConnect JS
-
 
 Device Connect WebAPI in WebAPI which operates as a virtual server on the smartphone, it can be easy to use in a uniform description of various wearable devices and IoT devices from a Web browser and apps.<br>
 Device Connect JS will be in the library for the repository of DeviceConnect of JavaScript version.<br>
@@ -19,8 +18,6 @@ In this guide I will continue to discuss the following.<br>
 * [Import method of JavaScript](#section3)
 * [Using the library](#section4)
 
-
-
 # <a name="section1">Project description</a>
 | Project Name|Content  |
 |:-----------|:---------|
@@ -28,14 +25,12 @@ In this guide I will continue to discuss the following.<br>
 |dConnectSDKForJavascript|DeviceConnectのJavaScript用SDK。|
 |dConnectSDKForJavascriptTest|Source code of automatic test of the device plug-ins that DeviceConnect supports.|
 
-
 # <a name="section2">Preparation of Platform</a>
 DeviceConnect-JS provides support for Android and iOS devices.<br>
 Please refer to the following page with respect to the installation of each platform.<br>
 
 * [DeviceConnect-Android](https://github.com/DeviceConnect/DeviceConnect-Android)
 * [DeviceConnect-iOS](https://github.com/DeviceConnect/DeviceConnect-iOS)
-
 
 # <a name="section3">Import method of JavaScript</a>
 Have a directory structure as follows.<br>
@@ -45,7 +40,7 @@ HTML root
    └── js
    |    └── dconnectsdk-x.x.x.js
    └── index.html
-                
+
 ```
 
 <br>
@@ -56,17 +51,14 @@ In this case, by inserting the import statement to index.html as follows, you wi
  <script src="./js/dconnectsdk-x.x.x.js" type="text/javascript"></script>
 ```
 
-
 # <a name="section4">Using the library</a>
 ## Flow of Device Connect processing
 In order to use the Device Connect is basically it will be in the following procedure.<br>
 <br>
 
-<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/DeviceConnectSequence_en.png" >
+<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/DeviceConnectSequence_en.png" target="_blank">
 <img src="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/DeviceConnectSequence_en.png" border="0"
  width="701" height="456" alt="" /></a></center>
-
-
 
 1. Availability will make the start-up confirmation of Device Connect Manager.<br><br>
 Already if the boot is able to confirm, you can skip.<br>
@@ -102,7 +94,7 @@ function authorization(){
       var scopes = Array("battery","serviceinformation", "servicediscovery");
 
 
-       dConnect.authorization(scopes, myAppName, 
+       dConnect.authorization(scopes, myAppName,
         function(clientId, clientSecret, newAccessToken) {
                 // accessToken
                 myAccessToken = newAccessToken;
@@ -114,7 +106,6 @@ function authorization(){
        );
 }
 ```
-
 
 3. Get the serviceId of each device that is registered in the Device Connect Manager.<br><br>
 Already, in case you have to get the serviceId, you can skip.<br>
@@ -132,7 +123,7 @@ function searchDevice() {
             // To get the service you want to use from such as the name.
             for (var i = 0; i < json.services.length; i++) {
                 if (json.services[i].name == "HOST") {
-                    myServiceId = json.services[i].id; 
+                    myServiceId = json.services[i].id;
                 }
             }
         } else {
@@ -144,11 +135,9 @@ function searchDevice() {
 }
 ```
 
-
 4. Using serviceId, do the operation of the device.
 <br><br>
 Here, we explained in the sample to get the battery information.<br>
-
 
 ```
     var builder = new dConnect.URIBuilder();
@@ -156,8 +145,8 @@ Here, we explained in the sample to get the battery information.<br>
     builder.setServiceId(myServiceId);
     builder.setAccessToken(myAccessToken);
     var uri = builder.build();
-    
-    dConnect.get(uri, null, 
+
+    dConnect.get(uri, null,
        // Is sent response
  	 	function(json) {
 	        if (json.result == 0) {
@@ -166,7 +155,7 @@ Here, we explained in the sample to get the battery information.<br>
  	       } else {
  	           alert('Error');
  	       }
-	    }, 
+	    },
 	    function(errorCode, errorMessage) {
 			alert(errorMessage);
     });
@@ -178,9 +167,7 @@ Procedure for operating the device<br><br>
 3. Callback by I will receive a response to a request.<br>
 <br>
 In addition, the device operation is variously exist other than the battery. <br>
-Please check [here](https://github.com/DeviceConnect/DeviceConnect-JS/wiki/1.HTML5Application-Manual) for more information.<br>
-
-
+Please check [here](https://github.com/DeviceConnect/DeviceConnect-JS/wiki/HTML5Application-Manual) for more information.<br>
 
 ## Using the Event
 
@@ -193,10 +180,10 @@ In that case, you must specify the SessionKey as the notification destination id
 ### Flow of Event processing
 In order to use the Event of Device Connect is basically it will be in the following procedure.
 
-<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/EventSequence_en.png" >
+<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/EventSequence_en.png" target="_blank">
 <img src="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/EventSequence_en.png" border="0"
  width="701" height="456" alt="" /></a></center>
- 
+
 ### Open the WebSocket
 Open the Websocket to receive events from the Device Connect Manager.<br>
 If you already have opened a Websocket, you do not need to do this.<br>
@@ -225,7 +212,7 @@ For example, if the Battery devices to get events when obtaining an event when n
     builder.setAccessToken(myAccessToken);
     builder.setSessionKey(mySessionKey);
     var uri = builder.build();
-        
+
     dConnect.addEventListener(uri,
     //Events of the message
     function(message) {
@@ -237,7 +224,7 @@ For example, if the Battery devices to get events when obtaining an event when n
 				alert('Discharging');
             }
         }
-    }, 
+    },
     //Event registration has been successful
     function() {
         alert('Register Success');
@@ -248,11 +235,9 @@ For example, if the Battery devices to get events when obtaining an event when n
     });
 ```
 
-
 ### Release of events
 
 If you want to stop the use of events, and delete events as follows.<br>
-
 
 ```
     var builder = new dConnect.URIBuilder();
@@ -262,8 +247,8 @@ If you want to stop the use of events, and delete events as follows.<br>
     builder.setAccessToken(myAccessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
-    
-    dConnect.removeEventListener(uri, 
+
+    dConnect.removeEventListener(uri,
          //Event registration cancellation was successful
 	     function() {
     	    alert('Unregister Success');
@@ -274,7 +259,6 @@ If you want to stop the use of events, and delete events as follows.<br>
     	 }
     );
 ```
-
 
 ### WebSocket Close
 　If you want to stop the use of events, you can close the WebSocket.<br>
