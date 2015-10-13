@@ -1660,7 +1660,6 @@ var dConnect = (function(parent, global) {
    * dConnect.authorization(scopes, 'サンプル',
    *     function(clientId, accessToken) {
      *         // clientId, accessTokenを保存して、プロファイルにアクセス
->>>>>>> master
      *     },
    *     function(errorCode, errorMessage) {
      *         alert('Failed to get accessToken.');
