@@ -25,7 +25,12 @@ function searchDeviceFromProfile(profileName) {
     setTitle("Device List", "black");
     reloadList(str);
   }, function(errorCode, errorMessage) {
-      alert("Error: code=" + errorCode + ", messsage=\"" + errorMessage + "\"");
+    closeLoading();
+    if (errorCode == 12 || errorCode == 13 || errorCode == 15) {
+      authorization(searchDevice);
+    } else {
+      alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
+    }
   });
 }
 
@@ -49,7 +54,12 @@ function searchDevice2() {
     setTitle("Device List", "black");
     reloadList(str);
   }, function(errorCode, errorMessage) {
-      alert("Error: code=" + errorCode + ", messsage=\"" + errorMessage + "\"");
+    closeLoading();
+    if (errorCode == 12 || errorCode == 13 || errorCode == 15) {
+      authorization(searchDevice);
+    } else {
+      alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
+    }
   });
 }
 
