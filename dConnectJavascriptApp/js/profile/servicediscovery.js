@@ -20,10 +20,10 @@ function searchDeviceFromProfile(profileName) {
         str += '<li><a href="javascript:searchSystem(\'' + obj.services[i].id + '\',\'' + obj.services[i].name + '\');" value="' + obj.services[i].name + '">' + obj.services[i].name + '</a></li>';
     }
 
-    setTitle("Device List", "black");
     deleteMode = false;
-    document.getElementById('list').innerHTML = str;
-    $("ul.list").listview("refresh");
+
+    setTitle("Device List", "black");
+    reloadList(str);
   }, function(errorCode, errorMessage) {
       alert("Error: code=" + errorCode + ", messsage=\"" + errorMessage + "\"");
   });
@@ -44,12 +44,10 @@ function searchDevice2() {
         str += '<li><a href="javascript:searchSystem(\'' + obj.services[i].id + '\',\'' + obj.services[i].name + '\');" value="' + obj.services[i].name + '">' + obj.services[i].name + '</a></li>';
     }
 
-    setTitle("Device List", "black");
     deleteMode = false;
 
-    var listHtml = document.getElementById('list');
-    listHtml.innerHTML = str;
-    $("ul.list").listview("refresh");
+    setTitle("Device List", "black");
+    reloadList(str);
   }, function(errorCode, errorMessage) {
       alert("Error: code=" + errorCode + ", messsage=\"" + errorMessage + "\"");
   });
