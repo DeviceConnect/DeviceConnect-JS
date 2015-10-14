@@ -452,10 +452,12 @@ function doRMDir(serviceId, dir) {
   }
 
   var oncomplete = function() {
-    var fileMode = 1;
+    var fileMode = 2;
     if (deleteMode) {
-      fileMode = 2;
+      fileMode = 1;
     }
+    console.log("file:" + fileMode);
+
     if (deleteMode) {
       changeNormalMode(serviceId);
     } else {
