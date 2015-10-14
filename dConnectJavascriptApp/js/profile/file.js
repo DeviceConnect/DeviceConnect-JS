@@ -392,6 +392,7 @@ function doMKDir(serviceId) {
   if (path == null) {
     return;
   }
+  var defaultPath = path;
   if (path.substring(0, 1) != '/') {
     path = currentPath + '/' + path;
   } else {
@@ -425,7 +426,7 @@ function doMKDir(serviceId) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-    alert('mkdir ' + path);
+    alert('mkdir ' + defaultPath);
     oncomplete();
   }, function(errorCode, errorMessage) {
     showError('POST file/mkdir', errorCode, errorMessage);
