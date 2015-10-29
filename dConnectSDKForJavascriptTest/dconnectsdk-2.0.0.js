@@ -1273,19 +1273,8 @@ var dConnect = (function(parent, global) {
    * @private
    */
   var startManagerForIOS = function() {
-    var div = document.createElement('div');
-    div.setAttribute('style', 'width: 0; height: 0; overflow: hidden');
-    document.body.appendChild(div);
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('id', 'launch_frame');
-    iframe.setAttribute('name', 'launch_frame');
-    div.appendChild(iframe);
-    launch_frame.location.href = uriSchemeName + ':' +
+    window.location.href = uriSchemeName + ':' +
                   encodeURIComponent(window.location.href);
-    setTimeout(function() {
-      var frame = document.getElementById('launch_frame');
-      frame.parentNode.removeChild(frame);
-    }, 500);
   };
 
   /**
@@ -1536,130 +1525,171 @@ var dConnect = (function(parent, global) {
      *     },
    *     function(errorCode, errorMessage) {
      *     });
-   */
-  var discoverDevices = function(accessToken, successCallback, errorCallback) {
-    var builder = new parent.URIBuilder();
-    builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
-    builder.setAccessToken(accessToken);
-    parent.sendRequest('GET', builder.build(), null, null,
-        successCallback, errorCallback);
-  };
-  parent.discoverDevices = discoverDevices;
-
-  /**
-   * Service Information APIへの簡易アクセスを提供する。
-   * @memberOf dConnect
-   * @param {String} serviceId サービスID
-   * @param {String} accessToken アクセストークン
-   * @param {dConnect.HTTPSuccessCallback} successCallback 成功時コールバック。
-   * @param {dConnect.HTTPFailCallback} errorCallback 失敗時コールバック。
-   */
-  var getSystemDeviceInfo = function(serviceId, accessToken,
-                                     successCallback, errorCallback) {
-    var builder = new parent.URIBuilder();
-    builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    parent.execute('GET', builder.build(), null, null,
-                                  successCallback, errorCallback);
-  };
-  parent.getSystemDeviceInfo = getSystemDeviceInfo;
-
-  /**
-   * System APIへの簡易アクセスを提供する。
-   * @memberOf dConnect
-   * @param {Function} successCallback 成功時コールバック。
-   * @param {Function} errorCallback 失敗時コールバック。
-   */
-  var getSystemInfo = function(successCallback, errorCallback) {
-    var builder = new parent.URIBuilder();
-    builder.setProfile(parent.constants.system.PROFILE_NAME);
-    parent.sendRequest('GET', builder.build(), null, null,
-                            successCallback, errorCallback);
-  };
-  parent.getSystemInfo = getSystemInfo;
-
-  /**
-   * Device Connect Managerが起動しているチェックする。そもそもインストールされていなければ、インストール
-   * 画面へと進ませる。
-   * @memberOf dConnect
-   * @param {Function} successCallback 成功時コールバック。
-   * @param {Function} errorCallback 失敗時コールバック。
-   */
-  var checkDeviceConnect = function(successCallback, errorCallback) {
-    var builder = new parent.URIBuilder();
-    builder.setProfile(parent.constants.availability.PROFILE_NAME);
-    parent.sendRequest('GET', builder.build(), null, null, function(json) {
-      // localhost:4035でGotAPIが利用可能
-      if (typeof successCallback === 'function') {
-        successCallback(json.version);
-      }
-    }, errorCallback);
-  };
-  parent.checkDeviceConnect = checkDeviceConnect;
-
-  /**
-   * 指定されたDevice Connect Event APIにイベントリスナーを登録する。
-   * @memberOf dConnect
-   * @param {String} uri 特定のDevice Connect Event APIを表すURI（必要なパラメータはURLパラメータとして埋め込まれている）
-   * @param {Function} eventCallback 登録したいイベント受領用コールバック。
-   * @param {Function} successCallback イベント登録成功コールバック
-     * @param {Function} errorCallback イベント登録失敗コールバック
+     */
+    var discoverDevices = function(accessToken, success_cb, error_cb) {
+        var builder = new parent.URIBuilder();
+        builder.setProfile(parent.constants.servicediscovery.PROFILE_NAME);
+        builder.setAccessToken(accessToken);
+        parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
+    };
+    parent.discoverDevices = discoverDevices;
+    /**
+     * プロファイル名からサービス一覧を取得するためのAPIを提供する。
+     * @memberOf dConnect
+     * @param {String} profileName プロファイル名
+     * @param {String} accessToken アクセストークン
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
      *
      * @example
-   * var uri = 'http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy';
-   * dConnect.addEventListener(uri, eventCallback, successCallback, errorCallback);
-   */
-  var addEventListener = function(uri, eventCallback,
-                                        successCallback, errorCallback) {
-    if (typeof eventCallback != 'function') {
-      throw new TypeError('2nd argument must be a function for callback.');
-    }
-    parent.put(uri, null, null, function(json) {
-      eventListener[uri] = eventCallback;
-      if (successCallback) {
-        successCallback();
-      }
-    }, errorCallback);
-  };
-  parent.addEventListener = addEventListener;
+     * // サービスの検索
+     * discoverDevicesFromProfile('battery', accessToken,
+     *     function(json) {
+     *         var services = json.services;
+     *     },
+     *     function(errorCode, errorMessage) {
+     *     });
+     */
+    var discoverDevicesFromProfile = function(profileName, accessToken, success_cb, error_cb) {
+        var result = {
+            "result" : parent.constants.RESULT_OK,
+            "services" : new Array()
+        };
+        parent.discoverDevices(accessToken, function(json) {
+          var devices = json.services;
+          var func = function(count) {
+            if (count == devices.length) {
+              success_cb(result);
+            } else {
+              dConnect.getSystemDeviceInfo(devices[count].id, accessToken, 
+                function(json) {
+                  if (json.supports) {
+                    for (var i = 0; i < json.supports.length; i++) {
+                      if (json.supports[i] === profileName) {
+                        result.services.push(devices[count]);
+                        break;
+                      }
+                    }
+                  }
+                  func(count + 1);
+                },
+                function(errorCode, errorMessage) {
+                  error_cb(errorCode, errorMessage);
+                });
+            }
+          }
+          func(0);
+        }, error_cb);
+    };
+    parent.discoverDevicesFromProfile = discoverDevicesFromProfile;
+    
+    /**
+     * Service Information APIへの簡易アクセスを提供する。
+     * @memberOf dConnect
+     * @param {String} サービスID
+     * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
+     * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
+     */    
+    var getSystemDeviceInfo = function(serviceId, accessToken, success_cb, error_cb) {
+        var builder = new parent.URIBuilder();
+        builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
+    };
+    parent.getSystemDeviceInfo = getSystemDeviceInfo;
 
-  /**
-   * 指定されたDevice Connect Event APIからイベントリスナーを削除する。
-   * @memberOf dConnect
-   * @param {String} uri 特定のDevice Connect Event APIを表すURI（必要なパラメータはURLパラメータとして埋め込まれている）
-   * @param {Function} successCallback イベント登録解除成功コールバック
-   * @param {Function} errorCallback イベント登録解除失敗コールバック
-   *
-   * @example
-   * var uri = 'http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy';
-   * dConnect.removeEventListener(uri, successCallback, errorCallback);
-   */
-  var removeEventListener = function(uri, successCallback, errorCallback) {
-    parent.delete(uri, null, function(json) {
-      delete eventListener[uri];
-      if (typeof successCallback === 'function') {
-        successCallback();
-      }
-    }, errorCallback);
-  };
-  parent.removeEventListener = removeEventListener;
+    /**
+     * System APIへの簡易アクセスを提供する。
+     * @memberOf dConnect
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
+     */
+    var getSystemInfo = function(success_cb, error_cb) {
+        var builder = new parent.URIBuilder();
+        builder.setProfile(parent.constants.system.PROFILE_NAME);
+        parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
+    };
+    parent.getSystemInfo = getSystemInfo;
 
-  /**
-   * dConnectManagnerに認可を求める.
-   * @memberOf dConnect
-   * @param scopes 使用するスコープの配列
-   * @param applicationName アプリ名
-   * @param successCallback 成功時のコールバック
-   * @param errorCallback 失敗時のコールバック
-   *
-   * @example
-   * // アクセスするプロファイル一覧を定義
-   * var scopes = Array('servicediscovery', 'sysytem', 'battery');
-   * // 認可を実行
-   * dConnect.authorization(scopes, 'サンプル',
-   *     function(clientId, accessToken) {
-     *         // clientId, accessTokenを保存して、プロファイルにアクセス
+    /**
+     * Device Connect Managerが起動しているチェックする。そもそもインストールされていなければ、インストール
+     * 画面へと進ませる。
+     * @memberOf dConnect
+     * @param {Function} success_cb 成功時コールバック。
+     * @param {Function} error_cb 失敗時コールバック。
+     */
+    var checkDeviceConnect = function(success_cb, error_cb) {
+        var builder = new parent.URIBuilder();
+        builder.setProfile(parent.constants.availability.PROFILE_NAME);
+        parent.sendRequest('GET', builder.build(), null, null, function(json) {
+            // localhost:4035でGotAPIが利用可能
+            success_cb(json.version);
+        }, error_cb);
+    };
+    parent.checkDeviceConnect = checkDeviceConnect;
+
+    /**
+     * 指定されたDevice Connect Event APIにイベントリスナーを登録する。
+     * @memberOf dConnect
+     * @param {String} uri 特定のDevice Connect Event APIを表すURI（必要なパラメータはURLパラメータとして埋め込まれている）
+     * @param {Function} event_cb 登録したいイベント受領用コールバック。
+     * @param {Function] success_cb イベント登録成功コールバック
+     * @param {Function] error_cb イベント登録失敗コールバック
+     *
+     * @example
+     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
+     * dConnect.addEventListener(uri, event_cb, success_cb, error_cb);
+     */
+    var addEventListener = function(uri, event_cb, success_cb, error_cb) {
+        if (typeof event_cb != "function") {
+            throw new TypeError("2nd argument must be a function for callback.");
+        }
+        parent.put(uri, null, null, function(json) {
+            eventListener[uri] = event_cb;
+            if (success_cb) {
+                success_cb();
+            }
+        }, error_cb);
+    };
+    parent.addEventListener = addEventListener;
+
+    /**
+     * 指定されたDevice Connect Event APIからイベントリスナーを削除する。
+     * @memberOf dConnect
+     * @param {String} uri 特定のDevice Connect Event APIを表すURI（必要なパラメータはURLパラメータとして埋め込まれている）
+     * @param {Function] success_cb イベント登録解除成功コールバック
+     * @param {Function] error_cb イベント登録解除失敗コールバック
+     *
+     * @example
+     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
+     * dConnect.removeEventListener(uri, success_cb, error_cb);
+     */
+    var removeEventListener = function(uri, success_cb, error_cb) {
+        parent.delete(uri, null, function(json) {
+            delete eventListener[uri];
+            if (success_cb) {
+                success_cb();
+            }
+        }, error_cb);
+    };
+    parent.removeEventListener = removeEventListener;
+
+    /**
+     * dConnectManagnerに認可を求める.
+     * @memberOf dConnect
+     * @param scopes 使用するスコープの配列
+     * @param applicationName アプリ名
+     * @param success_cb 成功時のコールバック
+     * @param error_cb 失敗時のコールバック
+     *
+     * @example
+     * // アクセスするプロファイル一覧を定義
+     * var scopes = Array('servicediscovery', 'sysytem', 'battery');
+     * // 認可を実行
+     * dConnect.authorization(scopes, 'サンプル',
+     *     function(clientId, clientSecret, accessToken) {
+     *         // clientId, clientSecret, accessTokenを保存して、プロファイルにアクセス
      *     },
    *     function(errorCode, errorMessage) {
      *         alert('Failed to get accessToken.');

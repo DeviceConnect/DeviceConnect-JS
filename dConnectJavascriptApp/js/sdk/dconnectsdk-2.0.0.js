@@ -1273,19 +1273,8 @@ var dConnect = (function(parent, global) {
    * @private
    */
   var startManagerForIOS = function() {
-    var div = document.createElement('div');
-    div.setAttribute('style', 'width: 0; height: 0; overflow: hidden');
-    document.body.appendChild(div);
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('id', 'launch_frame');
-    iframe.setAttribute('name', 'launch_frame');
-    div.appendChild(iframe);
-    launch_frame.location.href = uriSchemeName + ':' +
+    window.location.href = uriSchemeName + ':' +
                   encodeURIComponent(window.location.href);
-    setTimeout(function() {
-      var frame = document.getElementById('launch_frame');
-      frame.parentNode.removeChild(frame);
-    }, 500);
   };
 
   /**

@@ -1273,19 +1273,8 @@ var dConnect = (function(parent, global) {
    * @private
    */
   var startManagerForIOS = function() {
-    var div = document.createElement('div');
-    div.setAttribute('style', 'width: 0; height: 0; overflow: hidden');
-    document.body.appendChild(div);
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('id', 'launch_frame');
-    iframe.setAttribute('name', 'launch_frame');
-    div.appendChild(iframe);
-    launch_frame.location.href = uriSchemeName + ':' +
+    window.location.href = uriSchemeName + ':' +
                   encodeURIComponent(window.location.href);
-    setTimeout(function() {
-      var frame = document.getElementById('launch_frame');
-      frame.parentNode.removeChild(frame);
-    }, 500);
   };
 
   /**
@@ -1859,16 +1848,6 @@ var dConnect = (function(parent, global) {
   parent.setHost = setHost;
 
   /**
-   * ホスト名を取得する.
-   * @memberOf dConnect
-   * @return {String} ホスト名
-   */
-  var getHost = function() {
-    return host;
-  }
-  parent.getHost = getHost;
-
-  /**
    * オリジンを設定する.
    * ハイブリッドアプリとして動作させる場合には本メソッドでオリジンを設定する.
    * @memberOf dConnect
@@ -1937,10 +1916,7 @@ var dConnect = (function(parent, global) {
     };
     websocket.onmessage = function(msg) {
       var json = JSON.parse(msg.data);
-      var uri = '';
-      if (json.api) {
-        uri += json.api;
-      }
+      var uri = '/gotapi/';
       if (json.profile) {
         uri += json.profile;
       }
@@ -1952,22 +1928,10 @@ var dConnect = (function(parent, global) {
         uri += '/';
         uri += json.attribute;
       }
-
-      if (!json.serviceId) {
-        console.log('Event API response JSON error: property "serviceId" is required.\n' + json);
-        return;
-      }
-
-      if (!json.sessionKey) {
-        console.log('Event API response JSON error: property "sessionKey" is required.\n' + json);
-        return;
-      }
-
       for (var key in eventListener) {
-        if (key.indexOf(uri) != -1 && key.indexOf('serviceId=' + json.serviceId) != -1
-            && key.indexOf('sessionKey=' + json.sessionKey) != -1) {
+        if (key.lastIndexOf(uri) > 0) {
           if (eventListener[key] != null &&
-              typeof(eventListener[key]) == 'function') {
+                    typeof(eventListener[key]) == 'function') {
             eventListener[key](msg.data);
           }
         }
@@ -1977,7 +1941,7 @@ var dConnect = (function(parent, global) {
       if (cb) {
         cb(2, 'error: ' + error);
       }
-    };
+    }
     websocket.onclose = function(e) {
       isOpenedWebSocket = false;
       websocket = undefined;
@@ -2026,7 +1990,7 @@ var dConnect = (function(parent, global) {
    */
   var isConnectedWebSocket = function() {
     return websocket != undefined && isOpenedWebSocket;
-  };
+  }
   parent.isConnectedWebSocket = isConnectedWebSocket;
 
   /**
