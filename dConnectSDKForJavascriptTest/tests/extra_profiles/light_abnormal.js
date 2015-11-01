@@ -93,8 +93,7 @@ QUnit.asyncTest('lightOnAbnormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /light?serviceId=xxx&accessToken=xxx
- *        &lightId=10000000000000000000000<br/>
+ * Path: /light?serviceId=xxx&accessToken=xxx&lightId=10000000000000000000000<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -350,6 +349,48 @@ QUnit.asyncTest('lightOnAbnormalTest007',
     LightProfileAbnormalTest.lightOnAbnormalTest007);
 
 /**
+ * brightnessに空文字を指定してライト点灯リクエストを送る。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: POST<br/>
+ * Path: /light?serviceId=xxx&accessToken=xxx&lightId=xxx&brightness=<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
+  getLightId(function(accessToken, serviceId, json) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('light');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('lightId', json.lights[0].lightId);
+    builder.addParameter('brightness', '');
+    var uri = builder.build();
+    dConnect.post(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('lightOnAbnormalTest008',
+    LightProfileAbnormalTest.lightOnAbnormalTest008);
+
+/**
  * colorに全角文字を指定してライト点灯リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
@@ -361,7 +402,7 @@ QUnit.asyncTest('lightOnAbnormalTest007',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -392,8 +433,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest008',
-    LightProfileAbnormalTest.lightOnAbnormalTest008);
+QUnit.asyncTest('lightOnAbnormalTest009',
+    LightProfileAbnormalTest.lightOnAbnormalTest009);
 
 /**
  * colorに半角文字を指定してライト点灯リクエストを送る。
@@ -407,7 +448,7 @@ QUnit.asyncTest('lightOnAbnormalTest008',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -437,8 +478,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest009',
-    LightProfileAbnormalTest.lightOnAbnormalTest009);
+QUnit.asyncTest('lightOnAbnormalTest010',
+    LightProfileAbnormalTest.lightOnAbnormalTest010);
 
 /**
  * colorに特殊文字を指定してライト点灯リクエストを送る。
@@ -452,7 +493,7 @@ QUnit.asyncTest('lightOnAbnormalTest009',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest011 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -482,8 +523,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest010',
-    LightProfileAbnormalTest.lightOnAbnormalTest010);
+QUnit.asyncTest('lightOnAbnormalTest011',
+    LightProfileAbnormalTest.lightOnAbnormalTest011);
 
 /**
  * 存在しないlightIdを指定してライトステータス変更リクエストを送る。
@@ -504,6 +545,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest001 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('lightId', 10000000000000000000000);
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -549,6 +591,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest002 = function(assert) {
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -593,6 +636,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest003 = function(assert) {
     builder.addParameter('color',
         'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
         'abcdefgabcdefg' + 'abcdefgabcdefg');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -636,6 +680,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest004 = function(assert) {
     builder.addParameter('lightId', json.lights[0].lightId);
     builder.addParameter('color',
         '#$%&<>?' + '#$%&<>?' + '#$%&<>?' + '#$%&<>?' + '#$%&<>?');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -678,6 +723,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest005 = function(assert) {
     builder.setAccessToken(accessToken);
     builder.addParameter('lightId', json.lights[0].lightId);
     builder.addParameter('brightness', 100);
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -720,6 +766,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest006 = function(assert) {
     builder.setAccessToken(accessToken);
     builder.addParameter('lightId', json.lights[0].lightId);
     builder.addParameter('brightness', -0.5);
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -766,6 +813,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest007 = function(assert) {
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -810,6 +858,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest008 = function(assert) {
     builder.addParameter('brightness',
         'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
         'abcdefgabcdefg' + 'abcdefgabcdefg');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -833,7 +882,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest008',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest008);
 
 /**
- * brightnessにマイナスの数値を指定してライトステータス変更リクエストを送る。
+ * brightnessに空文字を指定してライトステータス変更リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
@@ -851,7 +900,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest009 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', -0.5);
+    builder.addParameter('brightness', '');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -895,6 +945,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest010 = function(assert) {
     builder.addParameter('lightId', json.lights[0].lightId);
     builder.addParameter('brightness', 0.5);
     builder.addParameter('flashing', 0);
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -938,6 +989,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest011 = function(assert) {
     builder.addParameter('lightId', json.lights[0].lightId);
     builder.addParameter('brightness', 0.5);
     builder.addParameter('flashing', -1000);
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -961,7 +1013,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest011',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest011);
 
 /**
- * flashingにnumber型でマイナスの値を指定してライト点滅リクエストを送る。
+ * flashingに文字列でマイナスの値を指定してライト点滅リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
@@ -980,7 +1032,8 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest012 = function(assert) {
     builder.setAccessToken(accessToken);
     builder.addParameter('lightId', json.lights[0].lightId);
     builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', -1000);
+    builder.addParameter('flashing', '-1000');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1004,7 +1057,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest012',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest012);
 
 /**
- * flashingに全角文字でマイナスの値を指定してライト点滅リクエストを送る。
+ * flashingに全角文字を指定してライト点滅リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
@@ -1027,6 +1080,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest013 = function(assert) {
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1050,7 +1104,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest013',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest013);
 
 /**
- * flashingに半角文字でマイナスの値を指定してライト点滅リクエストを送る。
+ * flashingに半角文字を指定してライト点滅リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
@@ -1072,6 +1126,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest013 = function(assert) {
     builder.addParameter('flashing', 'abcdefgabcdefgabcdefg' 
         + 'abcdefgabcdefgabcdefg' + 'abcdefgabcdefgabcdefg' 
         + 'abcdefgabcdefgabcdefg' + 'abcdefgabcdefgabcdefg');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1095,7 +1150,7 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest013',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest013);
 
 /**
- * flashingに特殊文字でマイナスの値を指定してライト点滅リクエストを送る。
+ * flashingに特殊文字を指定してライト点滅リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
@@ -1117,6 +1172,7 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
     builder.addParameter('flashing', '#$%&<>?#$%&<>?#$%&<>?' 
         + '#$%&<>?#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?#$%&<>?' 
         + '#$%&<>?#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?#$%&<>?');
+    builder.addParameter('name', 'Hue Light Test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1138,6 +1194,178 @@ LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
 };
 QUnit.asyncTest('lightStatusChangeAbnormalTest014',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest014);
+
+/**
+ * flashingに[100,-100,100,100]を指定してライト点滅リクエストを送る。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: PUT<br/>
+ * Path: /light?serviceId=xxx&accessToken=xxx&lightId=xxx&brightness=xxx&flashing=100,-100,100,100<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest015 = function(assert) {
+  getLightId(function(accessToken, serviceId, json) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('light');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('lightId', json.lights[0].lightId);
+    builder.addParameter('brightness', 0.5);
+    builder.addParameter('flashing', '100,-100,100,100');
+    builder.addParameter('name', 'Hue Light Test');
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('lightStatusChangeAbnormalTest015',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest015);
+
+/**
+ * flashingに[100,0.1,0.1,0.2]を指定してライト点滅リクエストを送る。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: PUT<br/>
+ * Path: /light?serviceId=xxx&accessToken=xxx&lightId=xxx&brightness=xxx&flashing=100,0.1,0.1,0.2<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest016 = function(assert) {
+  getLightId(function(accessToken, serviceId, json) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('light');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('lightId', json.lights[0].lightId);
+    builder.addParameter('brightness', 0.5);
+    builder.addParameter('flashing', '100,0.1,0.1,0.2');
+    builder.addParameter('name', 'Hue Light Test');
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('lightStatusChangeAbnormalTest016',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest016);
+
+/**
+ * nameを指定しないでライト点灯リクエストを送る。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: PUT<br/>
+ * Path: /light?serviceId=xxx&accessToken=xxx&lightId=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest017 = function(assert) {
+  getLightId(function(accessToken, serviceId, json) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('light');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('lightId', json.lights[0].lightId);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('lightStatusChangeAbnormalTest017',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest017);
+
+
+/**
+ * nameに空文字を指定してライト点灯リクエストを送る。
+ * <h3>【HTTP通信】</h3>
+ * <p id='test'>
+ * Method: PUT<br/>
+ * Path: /light?serviceId=xxx&accessToken=xxx&lightId=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id='expected'>
+ * ・resultに1が返ること。<br/>
+ * </p>
+ */
+LightProfileAbnormalTest.lightStatusChangeAbnormalTest018 = function(assert) {
+  getLightId(function(accessToken, serviceId, json) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('light');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('lightId', json.lights[0].lightId);
+    builder.addParameter('name', '');
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, 'not support');
+      } else {
+        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('lightStatusChangeAbnormalTest018',
+    LightProfileAbnormalTest.lightStatusChangeAbnormalTest018);
 
 /**
  * 存在しないlightIdを指定してライト消灯リクエストを送る。
@@ -1267,11 +1495,11 @@ LightProfileAbnormalTest.groupCreateAbnormalTest002 = function(assert) {
 QUnit.asyncTest('groupCreateAbnormalTest002', LightProfileAbnormalTest.groupCreateAbnormalTest002);
 
 /**
- * nameに数値を指定してgroup作成リクエストを送る。
+ * nameに空文字を指定してgroup作成リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /light/group/create?serviceId=xxx&accessToken=xxx&lightIds=xxx&name=1000<br/>
+ * Path: /light/group/create?serviceId=xxx&accessToken=xxx&lightIds=xxx&name=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1287,7 +1515,7 @@ LightProfileAbnormalTest.groupCreateAbnormalTest003 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('lightIds', json.lights[0].lightId);
-    builder.addParameter('name', 1000);
+    builder.addParameter('name', '');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1310,11 +1538,11 @@ LightProfileAbnormalTest.groupCreateAbnormalTest003 = function(assert) {
 QUnit.asyncTest('groupCreateAbnormalTest003', LightProfileAbnormalTest.groupCreateAbnormalTest003);
 
 /**
- * lightIdsに存在しないlightIdを指定してgroup作成リクエストを送る。
+ * lightIdsを指定しないgroup作成リクエストを送る。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /light/group/create?serviceId=xxx&accessToken=xxx&lightIds='10000000'&name='testGroup'<br/>
+ * Path: /light/group/create?serviceId=xxx&accessToken=xxx&name='testGroup'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1329,7 +1557,6 @@ LightProfileAbnormalTest.groupCreateAbnormalTest004 = function(assert) {
     builder.setAttribute('create');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('lightIds', '10000000');
     builder.addParameter('name', 'testGroup');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
