@@ -2,25 +2,67 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Device Connect Javascript Test(Pebble)</title>
+  <title>Device Connect Javascript Test(WebRTC Device Plug-in)</title>
   <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
 </head>
 <body>
-  <div id="images" style="position:absolute;">
-    <img crossorigin="anonymous" id="image" width="240">
+  <div id="images"style="position:absolute;">
+    <img id="image" width="240">
     <img id="preview" width="240">
     <canvas id="canvas" width="120" height="120" ></canvas>
   </div>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
+  <div crossorigin="anonymous" id="qunit"></div>
+  <div crossorigin="anonymous" id="qunit-fixture"></div>
+  
   <script type="text/javascript">
+  /**
+   * テストを行うデバイス名を定義する.
+   * <p>
+   * undefineやnullの場合には、テストプラグインを使用する。
+   * </p>
+   */
+  var DEVICE_NAME = "WebRTC Service";
+  
+  /**
+   * タイムアウトの時間を定義する.
+   */
+  var TEST_TIMEOUT = 40000;
+
    /**
-    * テストを行うデバイス名を定義する.
-    * <p>
-    * undefineやnullの場合には、テストプラグインを使用する。
-    * </p>
+    * このQunitテストを行うための前準備。
+    * 
+    * 1. WebRTCの通信相手となる相手を用意すること。
+    * 2. 以下のパラメータに適切な値を設定すること。
     */
-  var DEVICE_NAME = "Pebble";
+
+  /**
+   * SkyWayを使用する場合のAPI KEYを定義する。
+   */
+  var API_KEY = "[ YOUR API KEY ]";
+  
+  /**
+   * ドメイン名を定義する。
+   */
+  var DOMAIN = "[ YOUR DOMAIN ]";
+  
+  /**
+   * VideoChat Call APIのパラメータvideoに設定するURI。
+   * 
+   * MotionJPEG、PNG、JPEGの画像へのURIを設定すること。
+   */
+  var VIDEO_URI = "[ YOUR VIDEO URI ]";
+
+  /**
+   * VideoChat Call APIのパラメータaudioに設定するURI。
+   * 
+   * サンプルレート: 48kHZ、チャンネル: モノラル、ビット深度: 32bit-floatの音声データへのURIを設定すること。
+   */
+  var AUDIO_URI = "[ YOUR AUDIO URI ]";
+  
+  /**
+   * config.
+   */
+  var VIDEOCHAT_CONFIG = '{apiKey:"' + API_KEY + '", domain:"' + DOMAIN + '"}';
   </script>
   
   <script src="../qunit/qunit-1.15.0.js"></script>
@@ -41,8 +83,6 @@
   <script src="profiles/file_abnormal.js"></script>
   <script src="profiles/key_event_abnormal.js"></script>
   <script src="profiles/key_event_normal.js"></script>
-  <script src="profiles/light_normal.js"></script>
-  <script src="profiles/light_abnormal.js"></script>
   <script src="profiles/media_player_normal.js"></script>
   <script src="profiles/media_player_abnormal.js"></script>
   <script src="profiles/mediastream_recording_normal.js"></script>
@@ -61,6 +101,10 @@
   <script src="profiles/system_abnormal.js"></script>
   <script src="profiles/vibration_normal.js"></script>
   <script src="profiles/vibration_abnormal.js"></script>
+
+  <script src="profiles/videochat_normal.js"></script>
+  <script src="profiles/videochat_abnormal.js"></script>
+
   <script src="profiles/connect_abnormal.js"></script>
   <script src="profiles/connect_normal.js"></script>
 

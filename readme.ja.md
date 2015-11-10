@@ -1,6 +1,5 @@
 # DeviceConnect JS について
 
-
 Device Connect WebAPIはスマートフォン上で仮想サーバとして動作するWebAPIで、様々なウェアラブルデバイスやIoTデバイスをWebブラウザやアプリから統一的な記述で簡単に利用することができます。<br>
 Device Connect JSはJavaScript版のDeviceConnectのライブラリ用レポジトリになります。<br>
 <br><br>
@@ -11,15 +10,12 @@ Device Connect JSはJavaScript版のDeviceConnectのライブラリ用レポジ�
 * [JavaScriptのインポート方法](#section3)
 * [ライブラリの使い方](#section4)
 
-
-
 # <a name="section1">プロジェクトの説明</a>
 | プロジェクト名|内容  |
 |:-----------|:---------|
-|dConnectJavascriptApp|demoWebSiteのソースコード。 |
+|dConnectJavascriptApp|demoWebSiteのソースコード。|
 |dConnectSDKForJavascript|DeviceConnectのJavaScript用SDK。|
 |dConnectSDKForJavascriptTest|DeviceConnectがサポートしているデバイスプラグインの自動テストのソースコード。|
-
 
 # <a name="section2">プラットフォームの準備</a>
 DeviceConnect-JSは、AndroidおよびiOS端末をサポートしています。<br>
@@ -27,7 +23,6 @@ DeviceConnect-JSは、AndroidおよびiOS端末をサポートしています。
 
 * [DeviceConnect-Android](https://github.com/DeviceConnect/DeviceConnect-Android)
 * [DeviceConnect-iOS](https://github.com/DeviceConnect/DeviceConnect-iOS)
-
 
 # <a name="section3">JavaScriptのインポート方法</a>
 以下のようなディレクトリ構成があるとします。<br>
@@ -37,7 +32,7 @@ HTML root
    └── js
    |    └── dconnectsdk-x.x.x.js
    └── index.html
-                
+
 ```
 
 <br>
@@ -48,17 +43,14 @@ HTML root
  <script src="./js/dconnectsdk-x.x.x.js" type="text/javascript"></script>
 ```
 
-
 # <a name="section4">ライブラリの使い方</a>
 ## Device Connect 処理の流れ
 Device Connectを使用するには、基本的には以下の手順になります。<br>
 <br>
 
-<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/DeviceConnectSequence.png" >
+<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/DeviceConnectSequence.png" target="_blank">
 <img src="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/DeviceConnectSequence.png" border="0"
  width="701" height="456" alt="" /></a></center>
-
-
 
 1. availabilityは、Device Connect Managerの起動確認を行います。<br><br>
 すでに起動が確認できている場合には、スキップすることができます。<br>
@@ -95,7 +87,7 @@ function authorization(){
       var scopes = Array("battery","serviceinformation", "servicediscovery");
 
 
-       dConnect.authorization(scopes, myAppName, 
+       dConnect.authorization(scopes, myAppName,
         function(clientId, clientSecret, newAccessToken) {
                 // accessToken
                 myAccessToken = newAccessToken;
@@ -107,7 +99,6 @@ function authorization(){
        );
 }
 ```
-
 
 3. Device Connect Managerに登録されている各デバイスのserviceIdを取得します。<br><br>
 すでに、serviceIdを取得している場合には、スキップすることができます。<br>
@@ -125,7 +116,7 @@ function searchDevice() {
             // 名前などから使用するサービスを取得する。
             for (var i = 0; i < json.services.length; i++) {
                 if (json.services[i].name == "HOST") {
-                    myServiceId = json.services[i].id; 
+                    myServiceId = json.services[i].id;
                 }
             }
         } else {
@@ -137,11 +128,9 @@ function searchDevice() {
 }
 ```
 
-
 4. serviceIdを用いて、デバイスの操作を行います。
 <br><br>
 ここでは、バッテリー情報を取得するサンプルで説明をします。<br>
-
 
 ```
     var builder = new dConnect.URIBuilder();
@@ -149,8 +138,8 @@ function searchDevice() {
     builder.setServiceId(myServiceId);
     builder.setAccessToken(myAccessToken);
     var uri = builder.build();
-    
-    dConnect.get(uri, null, 
+
+    dConnect.get(uri, null,
        // レスポンスが送られてくる
  	 	function(json) {
 	        if (json.result == 0) {
@@ -159,7 +148,7 @@ function searchDevice() {
  	       } else {
  	           alert('Error');
  	       }
-	    }, 
+	    },
 	    function(errorCode, errorMessage) {
 			alert(errorMessage);
     });
@@ -171,9 +160,7 @@ function searchDevice() {
 3. コールバックによりリクエストのレスポンスを受け取ります。<br>
 <br>
 また、デバイス操作は、バッテリー以外にも色々存在します。<br>
-詳細は[こちら](https://github.com/DeviceConnect/DeviceConnect-JS/wiki/1.HTML5Application-Manual)から確認してください。<br>
-
-
+詳細は[こちら](https://github.com/DeviceConnect/DeviceConnect-JS/wiki/HTML5Application-Manual)から確認してください。<br>
 
 ## Eventの使い方
 
@@ -186,10 +173,10 @@ function searchDevice() {
 ### Event処理の流れ
 Device ConnectのEventを使用するには、基本的には以下の手順になります。
 
-<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/EventSequence.png" >
+<center><a href="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/EventSequence.png" target="_black">
 <img src="https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/EventSequence.png" border="0"
  width="701" height="456" alt="" /></a></center>
- 
+
 ### WebSocketのオープン
  Device Connect Managerからのイベントを受け取るためにWebsocketを開きます。<br>
 すでにWebsocketをオープンしている場合には、この処理を行う必要はありません。<br>
@@ -218,7 +205,7 @@ dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
     builder.setAccessToken(myAccessToken);
     builder.setSessionKey(mySessionKey);
     var uri = builder.build();
-        
+
     dConnect.addEventListener(uri,
     //イベントのメッセージ
     function(message) {
@@ -230,7 +217,7 @@ dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
 				alert('Discharging');
             }
         }
-    }, 
+    },
     //イベント登録が成功した
     function() {
         alert('Register Success');
@@ -241,11 +228,9 @@ dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
     });
 ```
 
-
 ### イベントの解除
 
 イベントの利用を停止する場合は、以下のようにイベントの削除を行います。<br>
-
 
 ```
     var builder = new dConnect.URIBuilder();
@@ -255,8 +240,8 @@ dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
     builder.setAccessToken(myAccessToken);
     builder.setSessionKey(sessionKey);
     var uri = builder.build();
-    
-    dConnect.removeEventListener(uri, 
+
+    dConnect.removeEventListener(uri,
          //イベント登録解除が成功した
 	     function() {
     	    alert('Unregister Success');
@@ -267,7 +252,6 @@ dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
     	 }
     );
 ```
-
 
 ### WebSocketクローズ
 　イベントの利用を停止する場合は、WebSocketをクローズします。<br>
