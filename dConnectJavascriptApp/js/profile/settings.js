@@ -49,6 +49,15 @@ function showSetting(serviceId) {
           ' data-role="datebox" data-options=\'{"mode":"timebox"}\' />';
     str += '<input type="button" onclick="doSetDate(\'' +
           serviceId + '\',1);" id="setDate" value="Set date"  />';
+  }  else if (myDeviceName.indexOf('F-PLUG') != -1) {
+    str += '<center>Date</center><br>';
+    str += makeInputText('DeviceTime', 'deviceDate', 'deviceDate');
+    str += '<input name="newDate" id="newDate" type="text"' +
+          ' data-role="datebox" data-options=\'{"mode":"datebox"}\' />'
+    str += '<input name="newTime" id="newTime" type="text"' +
+          ' data-role="datebox" data-options=\'{"mode":"timebox"}\' />';
+    str += '<input type="button" onclick="doSetDate(\'' +
+          serviceId + '\',1);" id="setDate" value="Set date"  />';
   } else {
     str += '<center>Date</center><br>';
     str += makeInputText('DeviceTime', 'deviceDate', 'deviceDate');

@@ -42,12 +42,14 @@
     <script src="./js/profile/health.js" type="text/javascript"></script>
     <script src="./js/profile/humandetect.js" type="text/javascript"></script>
     <script src="./js/profile/keyevent.js" type="text/javascript"></script>
+    <script src="./js/profile/videochat.js" type="text/javascript"></script>
     <script src="./js/profile/omnidirectionalimage.js" type="text/javascript"></script>
     <script src="./js/profile/serviceinformation.js" type="text/javascript"></script>
     <script src="./js/profile/tv.js" type="text/javascript"></script>
     <script src="./js/profile/powermeter.js" type="text/javascript"></script>
     <script src="./js/profile/humidity.js" type="text/javascript"></script>  
     <script src="./js/profile/illuminance.js" type="text/javascript"></script>
+    <script src="./js/profile/airconditioner.js" type="text/javascript"></script>
     <script src="./js/sdk/util.js" type="text/javascript"></script>
     <script src="./js/demo.js" type="text/javascript"></script>
 
@@ -109,7 +111,30 @@
                 <input data-icon="grid" data-inline="true" data-mini="true" onclick="javascript:authorization();" type="button" value="accessToken" />
             </div>
 
-            <input data-icon="search" onclick="javascript:searchDevice();" type="button" value="Search Device" />
+            <fieldset class="ui-grid-a">
+              <div class="ui-block-a">
+                <select id="entry_profile" name="entry_profile">
+                  <option value="">-</option>
+                  <option value="battery">Battery</option>
+                  <option value="canvas">Canvas</option>
+                  <option value="connect">Connect</option>
+                  <option value="deviceorientation">DeviceOrientation</option>
+                  <option value="file">File</option>
+                  <option value="file_descriptor">File Descriptor</option>
+                  <option value="media_player">Media Player</option>
+                  <option value="mediastream_recording">MediaStream Recording</option>
+                  <option value="notification">Notification</option>
+                  <option value="phone">Phone</option>
+                  <option value="proximity">Proximity</option>
+                  <option value="settings">Settings</option>
+                  <option value="vibration">Vibration</option>
+                  <option value="health">Health</option>
+                </select>
+              </div>
+              <div class="ui-block-b">
+                <input data-icon="search" onclick="javascript:searchDevice();" type="button" value="Search Device" />
+              </div>
+           </fieldset>
         </div>
 
         <!-- Title -->

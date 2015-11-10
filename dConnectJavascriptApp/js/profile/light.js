@@ -44,26 +44,36 @@ function showSearchLightGroup(serviceId) {
     var list = $('#list');
     list.empty();
     for (var i = 0; i < lightGroups.length; i++) {
-      var li = $('<li><a>' + lightGroups[i].name + '</a></li>');
-      li.data('group', lightGroups[i]);
-      li.on('click', function() {
-        showLightGroup(serviceId, $(this).data('group'));
-      });
+      var li = $('<li id="lightGroup' + i + '"><a>' + lightGroups[i].name + '</a></li>');
+      //li.data('group', lightGroups[i]);
+      //li.on('click', function() {
+      //  showLightGroup(serviceId, $(this).data('group'));
+      //});
       list.append(li);
     }
-    list.listview('refresh');
-    closeLoading();
 
-    var buttonDelete = $('<input data-icon="delete" data-inline="true"' +
+    reloadList(list.html());
+    closeLoading();
+    for (var i = 0; i < lightGroups.length; i++) {
+      $('#lightGroup' + i).data('group', lightGroups[i]);
+      $('#lightGroup' + i).on('click', function() {
+        showLightGroup(serviceId,  $(this).data('group'));
+      });
+
+    }
+    var buttonDelete = $('<input id="deleteButton" data-icon="delete" data-inline="true"' +
                       ' data-mini="true" type="button"' +
                       ' value="Delete a group" />');
-    buttonDelete.data('groups', lightGroups);
-    buttonDelete.on('click', function() {
-      showDeleteLightGroupForm(serviceId, $(this).data('groups'));
-    });
+
     var contents = $('#contents');
     contents.append(buttonDelete);
     reloadContent(contents.html());
+
+    $('#deleteButton').data('groups', lightGroups);
+
+    $('#deleteButton').on('click', function() {
+      showDeleteLightGroupForm(serviceId, $('#deleteButton').data('groups'));
+    });
   }, function(errorCode, errorMessage) {
     showError('GET light', errorCode, errorMessage);
     closeLoading();
@@ -100,10 +110,12 @@ function showCreateLightGroupForm(serviceId, lights) {
     contents.append(label);
   }
   contents.append('<hr />');
-  var buttonCreate = $('<input data-icon="plus" data-inline="true"' +
+  var buttonCreate = $('<input id="createGroup" data-icon="plus" data-inline="true"' +
                       ' data-mini="true" type="button"' +
                       ' value="Submit to create"/>');
-  buttonCreate.on('click', function() {
+  contents.append(buttonCreate);
+  reloadContent(contents.html());
+  $('#createGroup').on('click', function() {
     var lightIds = '';
     $('[name="group-creation"]:checked').each(function() {
       if (lightIds !== '') {
@@ -140,8 +152,6 @@ function showCreateLightGroupForm(serviceId, lights) {
       showError('POST /light/group/create', errorCode, errorMessage);
     });
   });
-  contents.append(buttonCreate);
-  reloadContent(contents.html());
 }
 
 function showDeleteLightGroupForm(serviceId, lightGroups) {
@@ -172,10 +182,12 @@ function showDeleteLightGroupForm(serviceId, lightGroups) {
     contents.append(label);
   }
   contents.append('<hr />');
-  var buttonDelete = $('<input data-icon="delete" data-inline="true"' +
+  var buttonDelete = $('<input id="deleteGroup" data-icon="delete" data-inline="true"' +
                     ' data-mini="true" type="button" value="Delete"/>');
   //buttonDelete.data('groups', lightGroups);
-  buttonDelete.on('click', function() {
+  contents.append(buttonDelete);
+  reloadContent(contents.html());
+  $('#deleteGroup').on('click', function() {
     var selectedGroup = $('input[name="group-deletion"]:checked');
     if (selectedGroup === undefined) {
       alert('Please select a group to be deleted.');
@@ -207,8 +219,6 @@ function showDeleteLightGroupForm(serviceId, lightGroups) {
       showError('DELETE /light/group', errorCode, errorMessage);
     });
   });
-  contents.append(buttonDelete);
-  reloadContent(contents.html());
 }
 
 /**
@@ -245,23 +255,24 @@ function showSearchLight(serviceId) {
     }
     listLights(serviceId, json.lights);
 
-    var buttonViewGroups = $('<input data-icon="search"' +
+    var buttonViewGroups = $('<input id="view" data-icon="search"' +
                         ' data-inline="true" data-mini="true"' +
                         ' type="button" value="View groups"/>');
-    buttonViewGroups.on('click', function() {
-      showSearchLightGroup(serviceId);
-    });
-    var buttonCreate = $('<input data-icon="plus" data-inline="true"' +
+    var buttonCreate = $('<input id="create" data-icon="plus" data-inline="true"' +
                       ' data-mini="true" type="button"' +
                       ' value="Create a group"/>');
-    buttonCreate.data('lights', json.lights);
-    buttonCreate.on('click', function() {
-      showCreateLightGroupForm(serviceId, $(this).data('lights'));
-    });
     var contents = $('#contents');
     contents.append(buttonViewGroups);
     contents.append(buttonCreate);
     reloadContent(contents.html());
+    $('#view').on('click', function() {
+      showSearchLightGroup(serviceId);
+    });
+    $('#create').data('lights', json.lights);
+    $('#create').on('click', function() {
+      showCreateLightGroupForm(serviceId, $('#create').data('lights'));
+    });
+
   }, function(errorCode, errorMessage) {
     showError('GET light', errorCode, errorMessage);
     reloadContent('');
@@ -318,36 +329,7 @@ function showLight(serviceId, lightId, lightName) {
                 ' data-inline="true" value="' + lightName + '" />');
 
   var originalLightName = lightName;
-  var buttonChangeName = $('<input type="button" value="Change name" />');
-  buttonChangeName.on('click', function() {
-    var newLightName = $('#light-name-form').val();
-    if (newLightName === '') {
-      alert('Please specify light name.');
-      return;
-    }
-    showLoading();
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', lightId);
-    builder.addParameter('name', newLightName);
-    var uri = builder.build();
-    if (DEBUG) {
-      console.log('Uri: ' + uri);
-    }
-    dConnect.put(uri, null, null, function(json) {
-      if (DEBUG) {
-        console.log('Response: ', json);
-      }
-      alert('Success');
-      closeLoading();
-    }, function(errorCode, errorMessage) {
-      showError('GET light', errorCode, errorMessage);
-      $('#light-name-form').val(originalLightName);
-      closeLoading();
-    });
-  });
+  var buttonChangeName = $('<input id="changeLight" type="button" value="Change name" />');
   contents.append(buttonChangeName);
 
   contents.append('<h3>Brightness of light</h3>');
@@ -390,6 +372,36 @@ function showLight(serviceId, lightId, lightName) {
                     '\', 0);" value="off" name="Off" id="off"/>'));
 
   reloadContent(contents.html());
+  $('#changeLight').on('click', function() {
+    var newLightName = $('#light-name-form').val();
+    if (newLightName === '') {
+      alert('Please specify light name.');
+      return;
+    }
+    showLoading();
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('light');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('lightId', lightId);
+    builder.addParameter('name', newLightName);
+    var uri = builder.build();
+    if (DEBUG) {
+      console.log('Uri: ' + uri);
+    }
+    dConnect.put(uri, null, null, function(json) {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+      alert('Success');
+      closeLoading();
+    }, function(errorCode, errorMessage) {
+      showError('GET light', errorCode, errorMessage);
+      $('#light-name-form').val(originalLightName);
+      closeLoading();
+    });
+  });
+
 }
 
 /**
@@ -411,12 +423,52 @@ function showLightGroup(serviceId, group) {
   // グループ名変更UI
   contents.append('<h3>Group Name</h3>');
   var groupNameForm = $('<input type="text" id="group-name-form"' +
-                    ' data-inline="true" />');
-  groupNameForm.val(group.name);
+                    ' data-inline="true" value="'+ group.name +'"/>');
+  //$('#group-name-form').val(group.name);
+  console.log("group" + group.name);
   contents.append(groupNameForm);
   var originalGroupName = group.name;
-  var buttonChangeName = $('<input type="button" value="Change name" />');
-  buttonChangeName.on('click', function() {
+  var buttonChangeName = $('<input id="change" type="button" value="Change name" />');
+
+  contents.append(buttonChangeName);
+
+  // グループの明るさUI
+  contents.append('<h3>Brightness of light group</h3>');
+  contents.append($('<label for="slider-0">Brightness:</label>'));
+  contents.append($('<input type="range" name="slider"' +
+                  ' id="brightness" value="100" min="0" max="100" step="1" />'));
+
+  // グループの色指定UI
+  contents.append('<h3>Color of light group </h3>');
+  contents.append('<label for="slider-0">Red:</label>');
+  contents.append('<input type="range" name="slider" id="red"' +
+                  ' value="25" min="0" max="255" />');
+  contents.append('<label for="slider-0">Green:</label>');
+  contents.append('<input type="range" name="slider" id="green"' +
+                  ' value="25" min="0" max="255" />');
+  contents.append('<label for="slider-0">Blue:</label>');
+  contents.append('<input type="range" name="slider" id="blue"' +
+                  ' value="25" min="0" max="255" />');
+  var buttonOn = $('<input id="on" type="button" value="on" name="On" id="On" />');
+
+  var buttonOff = $('<input id="off" type="button" value="off" name="Off" id="off" />');
+
+  contents.append(buttonOn);
+  contents.append(buttonOff);
+
+  // ライト一覧UI
+  var memberList = $('<ul data-role="listview" data-inset="true" />');
+  for (var i = 0; i < group.lights.length; i++) {
+    var light = group.lights[i];
+    memberList.append($('<li><a href="javascript:showLight(\'' +
+                        serviceId + '\', \'' + light.lightId +
+                        '\', \'' + light.name + '\');" value="' +
+                        light.name + '">' + light.name + '</a></li>'));
+  }
+  contents.append($('<h3>Light(s)</h3>'));
+  contents.append(memberList);
+  reloadContent(contents.html());
+  $('#change').on('click', function() {
     var newGroupName = $('#group-name-form').val();
     if (newGroupName === '') {
       alert('Please specify group name.');
@@ -446,48 +498,12 @@ function showLightGroup(serviceId, group) {
       closeLoading();
     });
   });
-  contents.append(buttonChangeName);
-
-  // グループの明るさUI
-  contents.append('<h3>Brightness of light group</h3>');
-  contents.append($('<label for="slider-0">Brightness:</label>'));
-  contents.append($('<input type="range" name="slider"' +
-                  ' id="brightness" value="100" min="0" max="100" step="1" />'));
-
-  // グループの色指定UI
-  contents.append('<h3>Color of light group </h3>');
-  contents.append('<label for="slider-0">Red:</label>');
-  contents.append('<input type="range" name="slider" id="red"' +
-                  ' value="25" min="0" max="255" />');
-  contents.append('<label for="slider-0">Green:</label>');
-  contents.append('<input type="range" name="slider" id="green"' +
-                  ' value="25" min="0" max="255" />');
-  contents.append('<label for="slider-0">Blue:</label>');
-  contents.append('<input type="range" name="slider" id="blue"' +
-                  ' value="25" min="0" max="255" />');
-  var buttonOn = $('<input type="button" value="on" name="On" id="On" />');
-  buttonOn.on('click', function() {
+  $("#on").on('click', function() {
     doLightGroup(serviceId, group.groupId, true);
   });
-  var buttonOff = $('<input type="button" value="off" name="Off" id="off" />');
-  buttonOff.on('click', function() {
+  $('#off').on('click', function() {
     doLightGroup(serviceId, group.groupId, false);
   });
-  contents.append(buttonOn);
-  contents.append(buttonOff);
-
-  // ライト一覧UI
-  var memberList = $('<ul data-role="listview" data-inset="true" />');
-  for (var i = 0; i < group.lights.length; i++) {
-    var light = group.lights[i];
-    memberList.append($('<li><a href="javascript:showLight(\'' +
-                        serviceId + '\', \'' + light.lightId +
-                        '\', \'' + light.name + '\');" value="' +
-                        light.name + '">' + light.name + '</a></li>'));
-  }
-  contents.append($('<h3>Light(s)</h3>'));
-  contents.append(memberList);
-  reloadContent(contents.html());
 }
 
 /**
