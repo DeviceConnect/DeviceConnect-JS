@@ -183,7 +183,7 @@ Device ConnectのEventを使用するには、基本的には以下の手順に�
 Websocketの状態は、dConnect.isConnectedWebSocket()を用いて確認することができます。<br><br>
 
 ```
-dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
+dConnect.connectWebSocket('sessionKey', function(eventCode, message) {
     if (eventCode == 0) {
          // オープン
     } else if (eventCode == 1) {
