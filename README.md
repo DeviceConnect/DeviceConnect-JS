@@ -190,7 +190,7 @@ If you already have opened a Websocket, you do not need to do this.<br>
 Websocket of state, can be confirmed using dConnect.isConnectedWebSocket ().<br><br>
 
 ```
-dConnect.connectWebsocket('sessionKey', function(eventCode, message) {
+dConnect.connectWebSocket('sessionKey', function(eventCode, message) {
     if (eventCode == 0) {
          // Open
     } else if (eventCode == 1) {

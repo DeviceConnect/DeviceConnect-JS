@@ -107,7 +107,7 @@ function checkDeviceConnect() {
  */
 function startManager(onavailable) {
   var requested = false;
-  var appId = ''; // TODO: DeviceConnect対応アプリが公開されたらApp IDを設定する
+  var appId = '994422987';
   var errorCallback = function(errorCode, errorMessage) {
     switch (errorCode) {
       case dConnect.constants.ErrorCode.ACCESS_FAILED:
@@ -119,8 +119,8 @@ function startManager(onavailable) {
           var userAgent = navigator.userAgent.toLowerCase();
           if (userAgent.search(/iphone|ipad|ipod/) > -1) {
             setTimeout(function() {
-              location.href = 'itmss://itunes.apple.com/us/app/dconnect/' +
-                      appId + '?ls=1&mt=8';
+              location.href = 'itmss://itunes.apple.com/us/app/devicewebapibrowser/id' +
+                      appId + '?mt=8&ign-mpt=uo%3D4';
             }, 250);
           }
         }
