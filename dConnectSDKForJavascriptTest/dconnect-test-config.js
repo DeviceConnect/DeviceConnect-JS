@@ -16,11 +16,6 @@ var TEST_TIMEOUT = 20000;
 var IS_TEST_STATUS = 'none';
 
 /**
- * THETAデバイスプラグインに送信する全天球画像のURI.
- */
-var OMNI_IMG_URI = '';
-
-/**
  * Get a query string in URL.
  * @return query string
  */
