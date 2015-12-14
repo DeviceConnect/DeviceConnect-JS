@@ -47,11 +47,11 @@ function showOmnidirectionalImage(serviceId) {
   content += '<option value="off">OFF</option>';
   content += '</select>';
   content += '</form>';
-  content += 'MJPEG: ';
+  content += 'Image Server: ';
   content += '<form>';
-  content += '<select name="mjpegSwitch">';
+  content += '<select name="imageServerSwitch">';
   content += '<option value="mjpeg" selected>ON (MJPEG)</option>';
-  content += '<option value="jpeg" selected>ON (JPEG)</option>';
+  content += '<option value="jpeg">ON (JPEG)</option>';
   content += '<option value="off">OFF</option>';
   content += '</select>';
   content += '</form>';
@@ -77,15 +77,6 @@ function showOmnidirectionalImage(serviceId) {
   content += '<button id="buttonStartPattern">Start Increment</button><br>';
   content += '<b>Params (Manual):</b><br>';
   content += '<button id="buttonSendParams">Send Params</button><br>';
-  content += 'Output: ';
-  content += '<form>';
-  content += '<select name="output">';
-  content += '<option value="default" selected>Default</option>';
-  content += '<option value="overlay,mjpeg">Overlay + MJPEG</option>';
-  content += '<option value="overlay">Overlay</option>';
-  content += '<option value="mjpeg">MJPEG</option>';
-  content += '</select>';
-  content += '</form>';
   content += 'VR: ';
   content += '<form>';
   content += '<select name="vrMode">';
@@ -239,10 +230,8 @@ function showOmnidirectionalImage(serviceId) {
           roiUri = uri;
 
           imgType = type;
-          if (type != null) {
-            changeToStop($('#buttonStartStop'));
-            $('#roiUri').val(uri);
-          }
+          changeToStop($('#buttonStartStop'));
+          $('#roiUri').val(uri);
           
         }
       });
@@ -280,19 +269,24 @@ function showOmnidirectionalImage(serviceId) {
 
     var outputParams = [];
     var overlaySwitch = $('[name=overlaySwitch]').val();
-    var mjpegSwitch = $('[name=mjpegSwitch]').val();
+    var imageServerSwitch = $('[name=imageServerSwitch]').val();
     if (overlaySwitch !== 'off') {
       outputParams.push('overlay');
     }
-    if (mjpegSwitch !== 'off') {
+    if (imageServerSwitch !== 'off') {
       outputParams.push('mjpeg');
     }
 
     var method;
-    if (mjpegSwitch === 'jpeg') {
+    if (imageServerSwitch === 'jpeg') {
       method = 'GET';
     } else {
       method = 'PUT';
+    }
+
+    if (outputParams.length == 0) {
+      alert('Please turn ON "Overlay" or "Image Server".');
+      return;
     }
 
     var uri = new dConnect.URIBuilder()
@@ -300,14 +294,13 @@ function showOmnidirectionalImage(serviceId) {
       .setAttribute('roi')
       .setServiceId(serviceId)
       .setAccessToken(accessToken)
-      .addParameter('source', $('#omniUri').val());
-    if (outputParams.length > 0) {
-      uri.addParameter('output', concat(outputParams));
-    }
+      .addParameter('source', $('#omniUri').val())
+      .addParameter('output', concat(outputParams))
+      .build();
 
-    dConnect.sendRequest(method, uri.build(), null, null,
+    dConnect.sendRequest(method, uri, null, null,
       function(json) {
-        cb.onstart(json.uri, ((mjpegSwitch === 'off') ? null : mjpegSwitch));
+        cb.onstart(json.uri, ((imageServerSwitch === 'off') ? null : imageServerSwitch));
       },
       function(errorCode, errorMessage) {
       
