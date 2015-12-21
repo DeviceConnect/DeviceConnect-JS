@@ -114,11 +114,11 @@ function showOmnidirectionalImage(serviceId) {
   omniImg.css('height', defaultHeight + 'px');
   omniImg.css('border', '1px solid #000000');
   omniImg.bind('error', function() {
-    if (timerId !== undefined) {
-      clearInterval(timerId);
-      timerId = undefined;
-    }
-    alert('Failed to show ROI image.');
+    // if (timerId !== undefined) {
+    //   clearInterval(timerId);
+    //   timerId = undefined;
+    // }
+    // alert('Failed to show ROI image.');
   });
   omniImg.bind('load', function() {
     if (imgType === 'jpeg') {
@@ -323,7 +323,7 @@ function showOmnidirectionalImage(serviceId) {
       return;
     }
     if (timerId !== undefined) {
-      clearTimeout(timerId);
+      clearInterval(timerId);
       timerId = undefined;
     }
 
