@@ -21,47 +21,9 @@ function showCanvas(serviceId) {
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
-  if (myDeviceName.indexOf('Pebble') != -1) {
-    str += '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId +
-           '\');" value="send">Canvas DrawImage</a></li>';
-  } else if (myDeviceName.indexOf('SmartWatch') != -1) {
-    str += '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId +
+  var str = '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId +
           '\');" value="send">Canvas DrawImage</a></li>';
-  } else {
-    str += '<li><a href="javascript:showCanvasDrawImage(\'' + serviceId +
-          '\');" value="send">Canvas DrawImage</a></li>';
-  }
   reloadList(str);
-}
-
-/**
- * PathからURIを取得
- *
- * @param {String} serviceId サービスID
- * @param {String} path パス
- */
-function doGetUriFromPath(serviceId, path) {
-  var path = $('#path').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('canvas');
-  builder.setAttribute('receive');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', path);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
-    }
-    alert('uri:' + json.uri + '\n' + 'mimeType:' + json.mimeType);
-  }, function(errorCode, errorMessage) {
-    showError('GET canvas/receive', errorCode, errorMessage);
-  });
 }
 
 /**
@@ -118,6 +80,7 @@ function showCanvasDrawImage(serviceId) {
           accessToken + '"/>';
 
   str += makeInputText('path', 'path', 'path');
+  str += makeInputText('uri', 'uri', 'uri');
   str += '<input type="file" name="data" id="data"/>';
 
   str += '<label>mode:</label>';
