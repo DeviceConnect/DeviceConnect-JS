@@ -124,7 +124,7 @@ function showLight(serviceId, lightId, lightName) {
 
   contents.append('<h3>Flashing of light</h3>');
   var divFlashing = $('<div />');
-  divFlashing.append($('<input type="text" id="input-flashing" value="500,500,500,500,500,500,500,500" />'));
+  divFlashing.append($('<input type="text" id="input-flashing" value="" placeholder="500,500,500,500,500,500,500,500"/>'));
   contents.append(divFlashing);
 
   contents.append($('<input type="button" onclick="javascript:doLight(' +
@@ -214,7 +214,7 @@ function doStatusChange(serviceId, lightId) {
     closeLoading();
   },function(errorCode, errorMessage){
     showError('PUT light', errorCode, errorMessage);
-    $('#light-name-form').val(originalLightName);
+    $('#light-name-form').val(lightProfileOriginalLightName);
     closeLoading();
   });
 }
