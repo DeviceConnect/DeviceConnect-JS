@@ -87,6 +87,7 @@ LightProfileNormalTest.lightOnNormalTest001 = function(assert) {
         builder.setAccessToken(accessToken);
         builder.addParameter('color', 'ff0000');
         builder.addParameter('lightId', json.lights[i].lightId);
+        builder.addParameter('flashing', '500,500,500,500,500,500');
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
@@ -132,6 +133,7 @@ LightProfileNormalTest.statusChangeNormalTest001 = function(assert) {
         builder.addParameter('color', 'ff0000');
         builder.addParameter('name', 'Hue Light Test');
         builder.addParameter('lightId', json.lights[i].lightId);
+        builder.addParameter('flashing', '500,500,500,500,500,500');
         var uri = builder.build();
         dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
