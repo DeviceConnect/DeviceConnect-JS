@@ -146,15 +146,37 @@ if (IS_TEST_STATUS != 'record') {
  */
 MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
+        // Get supported options.
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_OPTIONS);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
+        dConnect.get(uri, null, function(json) {
               assert.ok(true, 'result=' + json.result);
-              QUnit.start();
+              var imageWidth = json.imageWidth.min;
+              var imageHeight = json.imageHeight.min;
+              var mimeType = json.mimeType[0];
+              
+              // Set options.
+              var builder = new dConnect.URIBuilder();
+              builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
+              builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_OPTIONS);
+              builder.setServiceId(serviceId);
+              builder.setAccessToken(accessToken);
+              builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_WIDTH, imageWidth);
+              builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_HEIGHT, imageHeight);
+              builder.addParameter(dConnect.constants.media_stream_recording.PARAM_MIME_TYPE, mimeType);
+              var uri = builder.build();
+              dConnect.put(uri, null, null, function(json) {
+                assert.ok(true, 'result=' + json.result);
+                QUnit.start();
+              }, function(errorCode, errorMessage) {
+                assert.ok(checkErrorCode(errorCode),
+                  'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+                QUnit.start();
+              });
             }, function(errorCode, errorMessage) {
               assert.ok(checkErrorCode(errorCode),
                   'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
