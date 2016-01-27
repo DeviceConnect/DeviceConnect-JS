@@ -49,6 +49,10 @@ function showMediastreamRecording(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doRegisterPreview(serviceId) {
+  if (doRegisterPreview.refreshTimerId != undefined) {
+    clearInterval(doRegisterPreview.refreshTimerId);
+    doRegisterPreview.refreshTimerId = undefined;
+  }
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
@@ -74,11 +78,39 @@ function doRegisterPreview(serviceId) {
       img.error(function() {
         alert('Failed to get a preview: URL=' + myUri);
       });
-      img.attr('src', myUri);
+
+      if (useMJPEG()) {
+        img.attr('src', myUri);
+      } else {
+        var timerId = setInterval(function() {
+          img.attr('src', myUri + '?snapshot&' + Date.now());
+        }, 250); // 10 fps
+        doRegisterPreview.refreshTimerId = timerId;
+      }
     }
   }, function(errorCode, errorMessage) {
     showError('PUT mediastream_recording/preview', errorCode, errorMessage);
   });
+
+  function useMJPEG() {
+    var v = getWebkitMajorVersion();
+    if (v === null) {
+        return true;
+    }
+    return v > 534;
+  }
+
+  function getWebkitMajorVersion() {
+    var ua = window.navigator.userAgent;
+    var group = ua.match(/^.* applewebkit\/(\d+)\..*$/i);
+    if (group === null) {
+      return null;
+    }
+    if (group.length > 1) {
+      return Number(group[1]);
+    }
+    return null;
+  }
 }
 
 /**
@@ -87,6 +119,11 @@ function doRegisterPreview(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doUnregisterPreview(serviceId) {
+  if (doRegisterPreview.refreshTimerId != undefined) {
+    clearInterval(doRegisterPreview.refreshTimerId);
+    doRegisterPreview.refreshTimerId = undefined;
+  }
+
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('preview');
