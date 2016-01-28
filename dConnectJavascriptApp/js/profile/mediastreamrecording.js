@@ -23,7 +23,7 @@ function showMediastreamRecording(serviceId) {
   if (myDeviceName.indexOf('Sony Camera') != -1) {
     setTitle('MediastreamRecording Profile(Sony Camera)');
 
-    str += '<li><a href="javascript:doPreviewStart(\'' +
+    str += '<li><a href="javascript:doPreparePreview(\'' +
             serviceId + '\');">Preview</a></li>';
     str += '<li><a href="javascript:doTakePhoto(\'' +
             serviceId + '\');">Take Photo</a></li>';
@@ -31,7 +31,7 @@ function showMediastreamRecording(serviceId) {
   } else {
     setTitle('MediastreamRecording Profile');
 
-    str += '<li><a href="javascript:doPreviewStart(\'' +
+    str += '<li><a href="javascript:doPreparePreview(\'' +
             serviceId + '\');">Preview</a></li>';
     str += '<li><a href="javascript:doTakePhoto(\'' +
             serviceId + '\');">Take Photo</a></li>';
@@ -40,7 +40,97 @@ function showMediastreamRecording(serviceId) {
     str += '<li><a href="javascript:doMediaRecord(\'' +
             serviceId + '\',\'audio\');">Record Audio</a></li>';
   }
+
+  str += '<div data-role="popup" id="popupPreviewSettings" data-history="false" style="font-size:10pt">' +
+         '<div data-role="header"><h3>I/O Settings</h3></div>' +
+         '<div data-role="main" style="padding:12px;">' +
+         '<p>Set empty if you do not change.</p>' + 
+         '<h4>Input</h4>' +
+         '<div class="ui-field-contain"><label for="preview-input-width" id="input-width"></label><input id="preview-input-width" name="preview-input-width" type="text" /></div>' +
+         '<div class="ui-field-contain"><label for="preview-input-height" id="input-height"></label><input id="preview-input-height" name="preview-input-height" type="text" /></div>' +
+         '<hr>' +
+         '<h4>Output</h4>' +
+         '<div class="ui-field-contain"><label for="preview-output-width">Width (1px ~)</label><input id="preview-output-width" name="preview-output-width" type="text" /></div>' +
+         '<div class="ui-field-contain"><label for="preview-output-height">Height (1px ~)</label><input id="preview-output-height" name="preview-output-height" type="text" /></div>' +
+         '<div class="ui-field-contain"><label for="preview-output-max-fps">Max Frame Rate (Unit: fps)</label><input id="preview-output-max-fps" name="preview-output-max-fps" type="text" /></div>' +
+         '<button class="ui-btn" onclick="javascript:doChangeRecorderOptions(\'' + serviceId + '\');">Start</button>' +
+         '</div>' +
+         '</div>';
+
   reloadList(str);
+
+  $('#preview-output-max-fps').val('10');
+}
+
+function doPreparePreview(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastream_recording');
+  builder.setAttribute('options');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+
+    var w = json.imageWidth;
+    var h = json.imageHeight;
+
+    $('#input-width').text('Width (' + w.min + 'px ~ ' + w.max + 'px)');
+    $('#input-height').text('Height (' + h.min + 'px ~ ' + h.max + 'px)');
+    if ($('#preview-input-width').val() === '') {
+      $('#preview-input-width').val(String(w.max));
+    }
+    if ($('#preview-input-height').val() === '') {
+      $('#preview-input-height').val(String(h.max));
+    }
+    $('#popupPreviewSettings').popup('open');
+  }, function(errorCode, errorMessage) {
+    // Options API GETがサポートされていない等、
+    // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+    doPreviewStart(serviceId);
+  });
+}
+
+/**
+ * レコーダーのオプションを変更する
+ *
+ * @param {String} serviceId サービスID
+ */
+function doChangeRecorderOptions(serviceId) {
+  var imageWidth = $('#preview-input-width').val();
+  var imageHeight = $('#preview-input-height').val();
+  if (imageWidth === '' || imageHeight === '') {
+    doPreviewStart(serviceId);
+  }
+
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastream_recording');
+  builder.setAttribute('options');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('imageWidth', imageWidth);
+  builder.addParameter('imageHeight', imageHeight);
+  builder.addParameter('mimeType', 'video/x-mjpeg');
+  var uri = builder.build();
+
+  dConnect.put(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    doPreviewStart(serviceId);
+  }, function(errorCode, errorMessage) {
+    // Options API PUTがサポートされていない等、
+    // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+    alert('Preview setting was failed.\nSo, Preview will started with default setting.');
+    doPreviewStart(serviceId);
+  });
 }
 
 /**
@@ -53,12 +143,24 @@ function doRegisterPreview(serviceId) {
     clearInterval(doRegisterPreview.refreshTimerId);
     doRegisterPreview.refreshTimerId = undefined;
   }
+  var previewWidth = $('#preview-output-width').val();
+  var previewHeight = $('#preview-output-height').val();
+  var previewMaxFps = $('#preview-output-max-fps').val();
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('preview');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (previewWidth !== '') {
+    builder.addParameter('width', previewWidth);
+  }
+  if (previewHeight !== '') {
+    builder.addParameter('height', previewHeight);
+  }
+  if (previewMaxFps !== '') {
+    builder.addParameter('maxFrameRate', previewMaxFps);
+  }
   var uri = builder.build();
 
   if (DEBUG) {
@@ -69,6 +171,12 @@ function doRegisterPreview(serviceId) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
+
+    $("html,body").animate({
+        scrollTop : $('#preview').offset().top
+    }, {
+        queue : false
+    });
 
     var myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
@@ -151,11 +259,13 @@ function doUnregisterPreview(serviceId) {
  */
 
 function doPreviewStart(serviceId) {
+  $('#popupPreviewSettings').popup("close");
+
   var sessionKey = currentClientId;
 
   initAll();
 
-  setTitle('preview');
+  setTitle('Preview');
 
   var btnStr = getBackButton('MediaStreamRecording Top',
                       'doPreviewBack', serviceId, sessionKey);
