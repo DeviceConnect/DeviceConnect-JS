@@ -59,13 +59,15 @@ function showMediastreamRecording(serviceId) {
 
   reloadList(str);
 
-  $('#preview-output-max-fps').val('10');
+  if ($('#preview-output-max-fps').val() === '') {
+    $('#preview-output-max-fps').val('10');
+  }
 }
 
 function doPreparePreview(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
-  builder.setAttribute('options');
+  builder.setAttribute('mediarecorder');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -79,23 +81,58 @@ function doPreparePreview(serviceId) {
       console.log('Response: ', json);
     }
 
-    var w = json.imageWidth;
-    var h = json.imageHeight;
+    var recorder = selectRecorder(json.recorders);
+    if (recorder === null) {
+      doPreviewStart(serviceId);
+      return;
+    }
 
-    $('#input-width').text('Width (' + w.min + 'px ~ ' + w.max + 'px)');
-    $('#input-height').text('Height (' + h.min + 'px ~ ' + h.max + 'px)');
-    if ($('#preview-input-width').val() === '') {
-      $('#preview-input-width').val(String(w.max));
+    $('#preview-input-width').val(String(recorder.imageWidth));
+    $('#preview-input-height').val(String(recorder.imageHeight));
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('mediastream_recording');
+    builder.setAttribute('options');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+
+    if (DEBUG) {
+      console.log('Uri:' + uri)
     }
-    if ($('#preview-input-height').val() === '') {
-      $('#preview-input-height').val(String(h.max));
-    }
-    $('#popupPreviewSettings').popup('open');
+
+    dConnect.get(uri, null, function(json) {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+
+      var w = json.imageWidth;
+      var h = json.imageHeight;
+
+      $('#input-width').text('Width (' + w.min + 'px ~ ' + w.max + 'px)');
+      $('#input-height').text('Height (' + h.min + 'px ~ ' + h.max + 'px)');
+      $('#popupPreviewSettings').popup('open');
+    }, function(errorCode, errorMessage) {
+      // Options API GETがサポートされていない等、
+      // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+      doPreviewStart(serviceId);
+    });
   }, function(errorCode, errorMessage) {
-    // Options API GETがサポートされていない等、
+    // MediaRecorder API GETがサポートされていない等、
     // エラーが発生した場合はデフォルト設定でプレビューを開始する.
     doPreviewStart(serviceId);
   });
+
+  function selectRecorder(recorders) {
+    var i, recorder;
+    for (i = 0; i < recorders.length; i++) {
+      recorder = recorders[i];
+      if (recorder.mimeType === 'video/x-mjpeg') {
+        return recorder;
+      }
+    }
+    return null;
+  }
 }
 
 /**
