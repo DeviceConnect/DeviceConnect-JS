@@ -11,6 +11,7 @@
  * @param {String} serviceId サービスID
  */
 function showMediastreamRecording(serviceId) {
+  showMediastreamRecording.serviceId = serviceId;
 
   initAll();
 
@@ -53,7 +54,7 @@ function showMediastreamRecording(serviceId) {
          '<div class="ui-field-contain"><label for="preview-output-width">Width (1px ~)</label><input id="preview-output-width" name="preview-output-width" type="text" /></div>' +
          '<div class="ui-field-contain"><label for="preview-output-height">Height (1px ~)</label><input id="preview-output-height" name="preview-output-height" type="text" /></div>' +
          '<div class="ui-field-contain"><label for="preview-output-max-fps">Max Frame Rate (Unit: fps)</label><input id="preview-output-max-fps" name="preview-output-max-fps" type="text" /></div>' +
-         '<button class="ui-btn" onclick="javascript:doChangeRecorderOptions(\'' + serviceId + '\');">Start</button>' +
+         '<button class="ui-btn" onclick="javascript:doChangeRecorderOptions();">Start</button>' +
          '</div>' +
          '</div>';
 
@@ -136,11 +137,11 @@ function doPreparePreview(serviceId) {
 }
 
 /**
- * レコーダーのオプションを変更する
- *
- * @param {String} serviceId サービスID
+ * レコーダーのオプションを変更する.
  */
-function doChangeRecorderOptions(serviceId) {
+function doChangeRecorderOptions() {
+  var serviceId = showMediastreamRecording.serviceId;
+
   var imageWidth = $('#preview-input-width').val();
   var imageHeight = $('#preview-input-height').val();
   if (imageWidth === '' || imageHeight === '') {
@@ -157,6 +158,10 @@ function doChangeRecorderOptions(serviceId) {
   builder.addParameter('mimeType', 'video/x-mjpeg');
   var uri = builder.build();
 
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
   dConnect.put(uri, null, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -165,6 +170,7 @@ function doChangeRecorderOptions(serviceId) {
   }, function(errorCode, errorMessage) {
     // Options API PUTがサポートされていない等、
     // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+    console.log('ERROR: PUT /mediastream_recording/options: errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     alert('Preview setting was failed.\nSo, Preview will started with default setting.');
     doPreviewStart(serviceId);
   });
