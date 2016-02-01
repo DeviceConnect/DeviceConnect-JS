@@ -11,6 +11,8 @@
  * @param {String} serviceId サービスID
  */
 function showOmnidirectionalImage(serviceId) {
+  clearRefreshTimer();
+
   var defaultWidth = 280;
   var defaultHeight = 210;
   var paramIncrementPatterns = [
@@ -106,7 +108,6 @@ function showOmnidirectionalImage(serviceId) {
   var omniUri;
   var roiUri;
   var imgType;
-  var timerId;
   var isStarted = false;
 
   var omniImg = $('#omniImg');
@@ -114,15 +115,12 @@ function showOmnidirectionalImage(serviceId) {
   omniImg.css('height', defaultHeight + 'px');
   omniImg.css('border', '1px solid #000000');
   omniImg.bind('error', function() {
-    // if (timerId !== undefined) {
-    //   clearInterval(timerId);
-    //   timerId = undefined;
-    // }
-    // alert('Failed to show ROI image.');
+    clearRefreshTimer();
+    alert('Failed to show ROI image.');
   });
   omniImg.bind('load', function() {
     if (imgType === 'jpeg') {
-      timerId = scheduleToRefresh(roiUri, 200);
+      scheduleToRefresh(roiUri, 200);
     }
   });
 
@@ -253,12 +251,19 @@ function showOmnidirectionalImage(serviceId) {
   }
 
   function scheduleToRefresh(uri, delay) {
-    if (timerId) {
-      return timerId;
+    if (showOmnidirectionalImage.timerId !== undefined) {
+      return;
     }
-    return setInterval(function() {
+    showOmnidirectionalImage.timerId = setInterval(function() {
       omniImg.attr('src', uri + '&timestamp=' + new Date().getTime());
     }, delay);
+  }
+
+  function clearRefreshTimer() {
+    if (showOmnidirectionalImage.timerId !== undefined) {
+      clearInterval(showOmnidirectionalImage.timerId);
+      showOmnidirectionalImage.timerId = undefined;
+    }
   }
 
   function startView(cb) {
@@ -322,10 +327,7 @@ function showOmnidirectionalImage(serviceId) {
     if (roiUri === undefined) {
       return;
     }
-    if (timerId !== undefined) {
-      clearInterval(timerId);
-      timerId = undefined;
-    }
+    clearRefreshTimer();
 
     var uri = new dConnect.URIBuilder()
       .setProfile('omnidirectional_image')
