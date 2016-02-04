@@ -11,6 +11,8 @@
  * @param {String} serviceId サービスID
  */
 function showOmnidirectionalImage(serviceId) {
+  clearRefreshTimer();
+
   var defaultWidth = 280;
   var defaultHeight = 210;
   var paramIncrementPatterns = [
@@ -38,13 +40,24 @@ function showOmnidirectionalImage(serviceId) {
   content += '<input id="omniUri" type="text">';
   content += '<button id="buttonShutter">Shot</button><br>';
   content += '<div id="updatedDate" style="font-size:0.5em"></div><br>';
+
   content += '<b>ROI Image Type:</b><br>';
+  content += 'Overlay: ';
   content += '<form>';
-  content += '<select name="imgType">';
-  content += '<option value="mjpeg" selected>MotionJPEG</option>';
-  content += '<option value="jpeg">JPEG</option>';
+  content += '<select name="overlaySwitch">';
+  content += '<option value="on" selected>ON</option>';
+  content += '<option value="off">OFF</option>';
   content += '</select>';
   content += '</form>';
+  content += 'Image Server: ';
+  content += '<form>';
+  content += '<select name="imageServerSwitch">';
+  content += '<option value="mjpeg" selected>ON (MJPEG)</option>';
+  content += '<option value="jpeg">ON (JPEG)</option>';
+  content += '<option value="off">OFF</option>';
+  content += '</select>';
+  content += '</form>';
+
   content += '<button id="buttonStartStop">Start</button><br>';
   content += '<b>ROI Image URI:</b><br><input id="roiUri" type="text"><br>';
   content += '<b>ROI Image Viewer:</b><br><center><img id="omniImg"></center>';
@@ -95,7 +108,6 @@ function showOmnidirectionalImage(serviceId) {
   var omniUri;
   var roiUri;
   var imgType;
-  var timerId;
   var isStarted = false;
 
   var omniImg = $('#omniImg');
@@ -103,15 +115,12 @@ function showOmnidirectionalImage(serviceId) {
   omniImg.css('height', defaultHeight + 'px');
   omniImg.css('border', '1px solid #000000');
   omniImg.bind('error', function() {
-    if (timerId !== undefined) {
-      clearInterval(timerId);
-      timerId = undefined;
-    }
+    clearRefreshTimer();
     alert('Failed to show ROI image.');
   });
   omniImg.bind('load', function() {
     if (imgType === 'jpeg') {
-      timerId = scheduleToRefresh(roiUri, 200);
+      scheduleToRefresh(roiUri, 200);
     }
   });
 
@@ -123,7 +132,7 @@ function showOmnidirectionalImage(serviceId) {
 
 
   // XXXX: For debug
-  omniUri = 'http://192.168.1.58:8080/R0010162.JPG';
+  omniUri = 'http://192.168.1.59:8080/R0010162.JPG';
   $('#omniUri').val(omniUri);
 
   showOmniImageUpdatedDate();
@@ -217,9 +226,11 @@ function showOmnidirectionalImage(serviceId) {
       startView({
         onstart: function(uri, type) {
           roiUri = uri;
+
           imgType = type;
           changeToStop($('#buttonStartStop'));
           $('#roiUri').val(uri);
+          
         }
       });
     } else {
@@ -236,16 +247,23 @@ function showOmnidirectionalImage(serviceId) {
   }
 
   function showViewImage() {
-    omniImg.attr('src', roiUri);
+    omniImg.attr('src', roiUri.replace('localhost', ip));
   }
 
   function scheduleToRefresh(uri, delay) {
-    if (timerId) {
-      return timerId;
+    if (showOmnidirectionalImage.timerId !== undefined) {
+      return;
     }
-    return setInterval(function() {
+    showOmnidirectionalImage.timerId = setInterval(function() {
       omniImg.attr('src', uri + '&timestamp=' + new Date().getTime());
     }, delay);
+  }
+
+  function clearRefreshTimer() {
+    if (showOmnidirectionalImage.timerId !== undefined) {
+      clearInterval(showOmnidirectionalImage.timerId);
+      showOmnidirectionalImage.timerId = undefined;
+    }
   }
 
   function startView(cb) {
@@ -254,14 +272,25 @@ function showOmnidirectionalImage(serviceId) {
       return;
     }
 
-    var imgType = $('[name=imgType]').val();
+    var outputParams = [];
+    var overlaySwitch = $('[name=overlaySwitch]').val();
+    var imageServerSwitch = $('[name=imageServerSwitch]').val();
+    if (overlaySwitch !== 'off') {
+      outputParams.push('overlay');
+    }
+    if (imageServerSwitch !== 'off') {
+      outputParams.push('mjpeg');
+    }
+
     var method;
-    if (imgType === 'mjpeg') {
-      method = 'PUT';
-    } else if (imgType === 'jpeg') {
+    if (imageServerSwitch === 'jpeg') {
       method = 'GET';
     } else {
-      alert('An unexpected error was occured.');
+      method = 'PUT';
+    }
+
+    if (outputParams.length == 0) {
+      alert('Please turn ON "Overlay" or "Image Server".');
       return;
     }
 
@@ -271,25 +300,34 @@ function showOmnidirectionalImage(serviceId) {
       .setServiceId(serviceId)
       .setAccessToken(accessToken)
       .addParameter('source', $('#omniUri').val())
+      .addParameter('output', concat(outputParams))
       .build();
 
     dConnect.sendRequest(method, uri, null, null,
       function(json) {
-        cb.onstart(json.uri, imgType);
+        cb.onstart(json.uri, ((imageServerSwitch === 'off') ? null : imageServerSwitch));
       },
       function(errorCode, errorMessage) {
       
       });
+
+    function concat(array) {
+      var i, result = '';
+      for (i = 0; i < array.length; i++) {
+        if (i > 0) {
+          result += ',';
+        }
+        result += array[i];
+      }
+      return result;
+    }
   }
 
   function stopView(cb) {
     if (roiUri === undefined) {
       return;
     }
-    if (timerId !== undefined) {
-      clearTimeout(timerId);
-      timerId = undefined;
-    }
+    clearRefreshTimer();
 
     var uri = new dConnect.URIBuilder()
       .setProfile('omnidirectional_image')
