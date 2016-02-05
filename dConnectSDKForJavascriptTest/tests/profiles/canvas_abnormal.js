@@ -22,15 +22,15 @@ CanvasProfileAbnormalTest.draw = function(text) {
   var context = canvas.getContext('2d');
   context.beginPath();
   context.clearRect(0, 0, width, height);
-  context.fillStyle = '#ffffff'; 
+  context.fillStyle = '#ffffff';
   context.fillRect(0, 0, width, height);
   context.stroke();
   context.restore();
   context.save();
-  
+
   context.beginPath();
   context.font = "18pt Arial";
-  context.fillStyle = 'rgb(0, 0, 0)'; 
+  context.fillStyle = 'rgb(0, 0, 0)';
   for (var i = 0; i < 10; i++) {
     context.fillText(text, 10, (i + 1) * 20);
   }
@@ -740,3 +740,87 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest013 = function(assert) {
   });
 };
 QUnit.asyncTest('drawImageAbnormalTest013', CanvasProfileAbnormalTest.drawImageAbnormalTest013);
+
+/**
+ * uriに半角文字で値を指定して画像描画にアクセスするテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: POST<br/>
+ * Path: /canvas/drawimage?serviceId=xxxx&accessToken=xxx&uri="abcdefg..."<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに1が返ってくること。<br/>
+ * ・errCodeに10が返ってくること。<br/>
+ * </p>
+ */
+CanvasProfileAbnormalTest.drawImageAbnormalTest014 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('uri', 'abcdefg');
+    var uri = builder.build();
+    dConnect.post(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, "not support");
+      } else {
+        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('drawImageAbnormalTest014', CanvasProfileAbnormalTest.drawImageAbnormalTest014);
+
+/**
+ * uriに特殊文字で値を指定して画像描画にアクセスするテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: POST<br/>
+ * Path: /canvas/drawimage?serviceId=xxxx&accessToken=xxx&uri="#$%&'()..."<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに1が返ってくること。<br/>
+ * ・errCodeに3が返ってくること。<br/>
+ * </p>
+ */
+CanvasProfileAbnormalTest.drawImageAbnormalTest015 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('uri', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
+    var uri = builder.build();
+    dConnect.post(uri, null, null, function(json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      if (errorCode == 10) {
+        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+        assert.ok(true, "not support");
+      } else {
+        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      }
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('drawImageAbnormalTest015', CanvasProfileAbnormalTest.drawImageAbnormalTest015);

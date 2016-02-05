@@ -21,15 +21,15 @@ CanvasProfileNormalTest.draw = function(text) {
   var context = canvas.getContext('2d');
   context.beginPath();
   context.clearRect(0, 0, width, height);
-  context.fillStyle = '#ffffff'; 
+  context.fillStyle = '#ffffff';
   context.fillRect(0, 0, width, height);
   context.stroke();
   context.restore();
   context.save();
-  
+
   context.beginPath();
   context.font = "18pt Arial";
-  context.fillStyle = 'rgb(0, 0, 0)'; 
+  context.fillStyle = 'rgb(0, 0, 0)';
   for (var i = 0; i < 10; i++) {
     context.fillText(text, 10, (i + 1) * 20);
   }
@@ -195,6 +195,43 @@ QUnit.asyncTest('drawImageNormalTest003(mode is fills)', CanvasProfileNormalTest
 
 
 /**
+ * デフォルトのモードでデバイスに画像表示するテストを行う。
+ * 画像はURIで指定する。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: POST<br/>
+ * Path: /canvas/drawimage?serviceId=xxxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * </p>
+ */
+CanvasProfileNormalTest.drawImageNormalTest004 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    builder.addParameter('uri', 'https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/img_HTMLApplicationManual/image2.png');
+    var uri = builder.build();
+    dConnect.post(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+QUnit.asyncTest('drawImageNormalTest004(put, uri)', CanvasProfileNormalTest.drawImageNormalTest004);
+
+
+/**
  * デバイスから画像を削除するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
@@ -240,12 +277,12 @@ CanvasProfileNormalTest.deleteDrawImageNormalTest001 = function(assert) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
       }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), 
+        assert.ok(checkErrorCode(errorCode),
             "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
     }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 
+      assert.ok(checkErrorCode(errorCode),
           "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
