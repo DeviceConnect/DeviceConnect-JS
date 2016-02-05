@@ -45,16 +45,17 @@ function showMediastreamRecording(serviceId) {
   str += '<div data-role="popup" id="popupPreviewSettings" data-history="false" style="font-size:10pt">' +
          '<div data-role="header"><h3>I/O Settings</h3></div>' +
          '<div data-role="main" style="padding:12px;">' +
-         '<p>Set empty if you do not change.</p>' + 
+         '<p><button class="ui-btn" onclick="javascript:doChangeRecorderOptions();">Start</button></p>' +
+         '<hr>' +
+         '<p>Set empty if you use default.</p>' + 
+         '<hr>' +
          '<h4>Input</h4>' +
          '<div class="ui-field-contain"><label for="preview-input-width" id="input-width"></label><input id="preview-input-width" name="preview-input-width" type="text" /></div>' +
          '<div class="ui-field-contain"><label for="preview-input-height" id="input-height"></label><input id="preview-input-height" name="preview-input-height" type="text" /></div>' +
-         '<hr>' +
          '<h4>Output</h4>' +
          '<div class="ui-field-contain"><label for="preview-output-width">Width (1px ~)</label><input id="preview-output-width" name="preview-output-width" type="text" /></div>' +
          '<div class="ui-field-contain"><label for="preview-output-height">Height (1px ~)</label><input id="preview-output-height" name="preview-output-height" type="text" /></div>' +
          '<div class="ui-field-contain"><label for="preview-output-max-fps">Max Frame Rate (Unit: fps)</label><input id="preview-output-max-fps" name="preview-output-max-fps" type="text" /></div>' +
-         '<button class="ui-btn" onclick="javascript:doChangeRecorderOptions();">Start</button>' +
          '</div>' +
          '</div>';
 
