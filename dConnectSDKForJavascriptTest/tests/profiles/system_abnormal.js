@@ -28,6 +28,7 @@ SystemProfileAbnormalTest.systemAbnormalTest001 = function(assert) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -68,6 +69,7 @@ SystemProfileAbnormalTest.systemAbnormalTest002 = function(assert) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -107,6 +109,7 @@ SystemProfileAbnormalTest.systemAbnormalTest003 = function(assert) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -147,6 +150,7 @@ SystemProfileAbnormalTest.systemDeviceAbnormalTest001 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.system.ATTRI_DEVICE);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -187,6 +191,7 @@ SystemProfileAbnormalTest.systemDeviceAbnormalTest002 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.system.ATTRI_DEVICE);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -227,6 +232,7 @@ SystemProfileAbnormalTest.systemDeviceAbnormalTest003 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.system.ATTRI_DEVICE);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -266,6 +272,7 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest001 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -305,6 +312,7 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest002 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -344,6 +352,7 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest003 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));

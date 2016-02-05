@@ -27,6 +27,7 @@ SystemProfileNormalTest.systemTest001 = function(assert) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
@@ -63,6 +64,7 @@ SystemProfileNormalTest.systemWakeupTest001 = function(assert) {
     builder.setProfile(dConnect.constants.system.PROFILE_NAME);
     builder.setInterface(dConnect.constants.system.INTERFACE_DEVICE);
     builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
+    builder.setAccessToken(accessToken);
     builder.addParameter("pluginId", serviceId);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
