@@ -11,6 +11,7 @@
  * @param {String} serviceId サービスID
  */
 function showMediastreamRecording(serviceId) {
+  showMediastreamRecording.serviceId = serviceId;
 
   initAll();
 
@@ -23,7 +24,7 @@ function showMediastreamRecording(serviceId) {
   if (myDeviceName.indexOf('Sony Camera') != -1) {
     setTitle('MediastreamRecording Profile(Sony Camera)');
 
-    str += '<li><a href="javascript:doPreviewStart(\'' +
+    str += '<li><a href="javascript:doPreparePreview(\'' +
             serviceId + '\');">Preview</a></li>';
     str += '<li><a href="javascript:doTakePhoto(\'' +
             serviceId + '\');">Take Photo</a></li>';
@@ -31,7 +32,7 @@ function showMediastreamRecording(serviceId) {
   } else {
     setTitle('MediastreamRecording Profile');
 
-    str += '<li><a href="javascript:doPreviewStart(\'' +
+    str += '<li><a href="javascript:doPreparePreview(\'' +
             serviceId + '\');">Preview</a></li>';
     str += '<li><a href="javascript:doTakePhoto(\'' +
             serviceId + '\');">Take Photo</a></li>';
@@ -40,7 +41,140 @@ function showMediastreamRecording(serviceId) {
     str += '<li><a href="javascript:doMediaRecord(\'' +
             serviceId + '\',\'audio\');">Record Audio</a></li>';
   }
+
+  str += '<div data-role="popup" id="popupPreviewSettings" data-history="false" style="font-size:10pt">' +
+         '<div data-role="header"><h3>I/O Settings</h3></div>' +
+         '<div data-role="main" style="padding:12px;">' +
+         '<p><button class="ui-btn" onclick="javascript:doChangeRecorderOptions();">Start</button></p>' +
+         '<hr>' +
+         '<p>Set empty if you use default.</p>' + 
+         '<hr>' +
+         '<h4>Input</h4>' +
+         '<div class="ui-field-contain"><label for="preview-input-width" id="input-width"></label><input id="preview-input-width" name="preview-input-width" type="text" /></div>' +
+         '<div class="ui-field-contain"><label for="preview-input-height" id="input-height"></label><input id="preview-input-height" name="preview-input-height" type="text" /></div>' +
+         '<h4>Output</h4>' +
+         '<div class="ui-field-contain"><label for="preview-output-width">Width (1px ~)</label><input id="preview-output-width" name="preview-output-width" type="text" /></div>' +
+         '<div class="ui-field-contain"><label for="preview-output-height">Height (1px ~)</label><input id="preview-output-height" name="preview-output-height" type="text" /></div>' +
+         '<div class="ui-field-contain"><label for="preview-output-max-fps">Max Frame Rate (Unit: fps)</label><input id="preview-output-max-fps" name="preview-output-max-fps" type="text" /></div>' +
+         '</div>' +
+         '</div>';
+
   reloadList(str);
+
+  if ($('#preview-output-max-fps').val() === '') {
+    $('#preview-output-max-fps').val('10');
+  }
+}
+
+function doPreparePreview(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastream_recording');
+  builder.setAttribute('mediarecorder');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+
+    var recorder = selectRecorder(json.recorders);
+    if (recorder === null) {
+      doPreviewStart(serviceId);
+      return;
+    }
+
+    $('#preview-input-width').val(String(recorder.imageWidth));
+    $('#preview-input-height').val(String(recorder.imageHeight));
+
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('mediastream_recording');
+    builder.setAttribute('options');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+
+    if (DEBUG) {
+      console.log('Uri:' + uri)
+    }
+
+    dConnect.get(uri, null, function(json) {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+
+      var w = json.imageWidth;
+      var h = json.imageHeight;
+
+      $('#input-width').text('Width (' + w.min + 'px ~ ' + w.max + 'px)');
+      $('#input-height').text('Height (' + h.min + 'px ~ ' + h.max + 'px)');
+      $('#popupPreviewSettings').popup('open');
+    }, function(errorCode, errorMessage) {
+      // Options API GETがサポートされていない等、
+      // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+      doPreviewStart(serviceId);
+    });
+  }, function(errorCode, errorMessage) {
+    // MediaRecorder API GETがサポートされていない等、
+    // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+    doPreviewStart(serviceId);
+  });
+
+  function selectRecorder(recorders) {
+    var i, recorder;
+    for (i = 0; i < recorders.length; i++) {
+      recorder = recorders[i];
+      if (recorder.mimeType === 'video/x-mjpeg') {
+        return recorder;
+      }
+    }
+    return null;
+  }
+}
+
+/**
+ * レコーダーのオプションを変更する.
+ */
+function doChangeRecorderOptions() {
+  var serviceId = showMediastreamRecording.serviceId;
+
+  var imageWidth = $('#preview-input-width').val();
+  var imageHeight = $('#preview-input-height').val();
+  if (imageWidth === '' || imageHeight === '') {
+    doPreviewStart(serviceId);
+  }
+
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastream_recording');
+  builder.setAttribute('options');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('imageWidth', imageWidth);
+  builder.addParameter('imageHeight', imageHeight);
+  builder.addParameter('mimeType', 'video/x-mjpeg');
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
+  dConnect.put(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    doPreviewStart(serviceId);
+  }, function(errorCode, errorMessage) {
+    // Options API PUTがサポートされていない等、
+    // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+    console.log('ERROR: PUT /mediastream_recording/options: errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    alert('Preview setting was failed.\nSo, Preview will started with default setting.');
+    doPreviewStart(serviceId);
+  });
 }
 
 /**
@@ -49,12 +183,28 @@ function showMediastreamRecording(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doRegisterPreview(serviceId) {
+  if (doRegisterPreview.refreshTimerId != undefined) {
+    clearInterval(doRegisterPreview.refreshTimerId);
+    doRegisterPreview.refreshTimerId = undefined;
+  }
+  var previewWidth = $('#preview-output-width').val();
+  var previewHeight = $('#preview-output-height').val();
+  var previewMaxFps = $('#preview-output-max-fps').val();
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('preview');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (previewWidth !== '') {
+    builder.addParameter('width', previewWidth);
+  }
+  if (previewHeight !== '') {
+    builder.addParameter('height', previewHeight);
+  }
+  if (previewMaxFps !== '') {
+    builder.addParameter('maxFrameRate', previewMaxFps);
+  }
   var uri = builder.build();
 
   if (DEBUG) {
@@ -66,6 +216,12 @@ function doRegisterPreview(serviceId) {
       console.log('Response: ', json);
     }
 
+    $("html,body").animate({
+        scrollTop : $('#preview').offset().top
+    }, {
+        queue : false
+    });
+
     var myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
     $('#preview-uri').html(myUri);
@@ -74,11 +230,39 @@ function doRegisterPreview(serviceId) {
       img.error(function() {
         alert('Failed to get a preview: URL=' + myUri);
       });
-      img.attr('src', myUri);
+
+      if (useMJPEG()) {
+        img.attr('src', myUri);
+      } else {
+        var timerId = setInterval(function() {
+          img.attr('src', myUri + '?snapshot&' + Date.now());
+        }, 250); // 10 fps
+        doRegisterPreview.refreshTimerId = timerId;
+      }
     }
   }, function(errorCode, errorMessage) {
     showError('PUT mediastream_recording/preview', errorCode, errorMessage);
   });
+
+  function useMJPEG() {
+    var v = getWebkitMajorVersion();
+    if (v === null) {
+        return true;
+    }
+    return v > 534;
+  }
+
+  function getWebkitMajorVersion() {
+    var ua = window.navigator.userAgent;
+    var group = ua.match(/^.* applewebkit\/(\d+)\..*$/i);
+    if (group === null) {
+      return null;
+    }
+    if (group.length > 1) {
+      return Number(group[1]);
+    }
+    return null;
+  }
 }
 
 /**
@@ -87,6 +271,11 @@ function doRegisterPreview(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doUnregisterPreview(serviceId) {
+  if (doRegisterPreview.refreshTimerId != undefined) {
+    clearInterval(doRegisterPreview.refreshTimerId);
+    doRegisterPreview.refreshTimerId = undefined;
+  }
+
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('preview');
@@ -114,11 +303,13 @@ function doUnregisterPreview(serviceId) {
  */
 
 function doPreviewStart(serviceId) {
+  $('#popupPreviewSettings').popup("close");
+
   var sessionKey = currentClientId;
 
   initAll();
 
-  setTitle('preview');
+  setTitle('Preview');
 
   var btnStr = getBackButton('MediaStreamRecording Top',
                       'doPreviewBack', serviceId, sessionKey);
