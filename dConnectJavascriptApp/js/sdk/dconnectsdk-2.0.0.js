@@ -678,6 +678,8 @@ var dConnect = (function(parent, global) {
       ATTR_UNMUTETRACK: 'unmutetrack',
       /** アトリビュート: options */
       ATTR_OPTIONS: 'options',
+      /** アトリビュート: preview */
+      ATTR_PREVIEW: 'preview',
       /** アトリビュート: onphoto */
       ATTR_ON_PHOTO: 'onphoto',
       /** アトリビュート: ondataavailable */
