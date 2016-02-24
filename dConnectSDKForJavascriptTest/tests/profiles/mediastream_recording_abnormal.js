@@ -2821,3 +2821,85 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004 = functio
 if (IS_TEST_STATUS != 'picture') {
   QUnit.asyncTest('onDataAvailableAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004);
 }
+/**
+ * 定義されていないGETメソッドでプレビューAPIリクエストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: GET<br/>
+ * Path: /mediastream_recording/preview?serviceId=xxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultが1であること。<br/>
+ * </p>
+ */
+MediaStreamRecordingProfileAbnormalTest.previewAbnormalTest001 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PREVIEW);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        dConnect.get(uri, null, function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          if (errorCode == 8) {
+            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('previewAbnormalTest001(Calling a get method that does not support.)', MediaStreamRecordingProfileAbnormalTest.previewAbnormalTest001);
+}
+/**
+ * 定義されていないPOSTメソッドでプレビューAPIリクエストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: POST<br/>
+ * Path: /mediastream_recording/preview?serviceId=xxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultが1であること。<br/>
+ * </p>
+ */
+MediaStreamRecordingProfileAbnormalTest.previewAbnormalTest002 = function(assert) {
+  searchTestService(function(accessToken, serviceId) {
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PREVIEW);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        dConnect.post(uri, null, null, function(json) {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          if (errorCode == 8) {
+            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+          } else if (checkErrorCode(errorCode)) {
+            assert.ok(true, 'not support');
+          } else {
+            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+          }
+          QUnit.start();
+        });
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('previewAbnormalTest002(Calling a post method that does not support.)', MediaStreamRecordingProfileAbnormalTest.previewAbnormalTest002);
+}

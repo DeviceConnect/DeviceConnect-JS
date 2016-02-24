@@ -155,9 +155,10 @@ MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
               assert.ok(true, 'result=' + json.result);
-              var imageWidth = json.imageWidth.min;
-              var imageHeight = json.imageHeight.min;
+              var imageSizes = json.imageSizes;
+              var previewSizes = json.previewSizes;
               var mimeType = json.mimeType[0];
+              var size;
               
               // Set options.
               var builder = new dConnect.URIBuilder();
@@ -165,8 +166,17 @@ MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
               builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_OPTIONS);
               builder.setServiceId(serviceId);
               builder.setAccessToken(accessToken);
-              builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_WIDTH, imageWidth);
-              builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_HEIGHT, imageHeight);
+              if (imageSizes !== undefined) {
+                size = imageSizes[0];
+                builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_WIDTH, size.width);
+                builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_HEIGHT, size.height);
+              }
+              if (previewSizes !== undefined) {
+                size = previewSizes[0];
+                builder.addParameter(dConnect.constants.media_stream_recording.PARAM_PREVIEW_WIDTH, size.width);
+                builder.addParameter(dConnect.constants.media_stream_recording.PARAM_PREVIEW_HEIGHT, size.height);
+                // NOTE: The previewMaxFrameRate parameter will be tested by scenario tests.
+              }
               builder.addParameter(dConnect.constants.media_stream_recording.PARAM_MIME_TYPE, mimeType);
               var uri = builder.build();
               dConnect.put(uri, null, null, function(json) {
@@ -507,7 +517,7 @@ if (IS_TEST_STATUS != 'picture') {
   QUnit.asyncTest('onDataAvailableNormalTest001', MediaStreamRecordingProfileNormalTest.onDataAvailableNormalTest001);
 }
 /**
- * プレビューを表示するテストを行う。
+ * プレビューを開始するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
@@ -516,27 +526,69 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultが0であること。
- * ・uriにwebサーバへのURIがあること。
  * </p>
  */
-MediaStreamRecordingProfileNormalTest.onPreviewNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
-  img.style.visibility = 'visible';
+MediaStreamRecordingProfileNormalTest.previewNormalTest001 = function(assert) {
+  searchTestService(function(accessToken, serviceId, uri) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PREVIEW);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute('preview');
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.media_stream_recording.PROFILE_NAME && json.attribute === 'preview') {
-      assert.ok(true, message);
-      return true;
-    }
-    return false;
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onPreviewNormalTest001', MediaStreamRecordingProfileNormalTest.onPreviewNormalTest001);
+  QUnit.asyncTest('previewNormalTest001', MediaStreamRecordingProfileNormalTest.previewNormalTest001);
+}
+/**
+ * プレビューを停止するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: DELETE<br/>
+ * Path: /mediastream_recording/preview?serviceId=xxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultが0であること。
+ * </p>
+ */
+MediaStreamRecordingProfileNormalTest.previewNormalTest002 = function(assert) {
+  searchTestService(function(accessToken, serviceId, uri) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PREVIEW);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+
+    dConnect.delete(uri, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      QUnit.start();
+    });
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode) || errorCode == dConnect.constants.ErrorCode.ILLEGAL_DEVICE_STATE, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
+};
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('previewNormalTest002', MediaStreamRecordingProfileNormalTest.previewNormalTest002);
 }
 /**
  * プレビュー通知イベントを登録するテストを行う。
