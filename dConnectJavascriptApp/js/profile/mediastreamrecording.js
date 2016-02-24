@@ -85,18 +85,19 @@ function doPreparePreview(serviceId) {
 
     var recorder = selectRecorder(json.recorders);
     if (recorder === null) {
-      doPreviewStart(serviceId);
+      doPreviewStart(serviceId, recorder.id);
       return;
     }
 
-    $('#preview-input-width').val(String(recorder.imageWidth));
-    $('#preview-input-height').val(String(recorder.imageHeight));
+    $('#preview-input-width').val(String(recorder.previewWidth));
+    $('#preview-input-height').val(String(recorder.previewHeight));
 
     var builder = new dConnect.URIBuilder();
     builder.setProfile('mediastream_recording');
     builder.setAttribute('options');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
+    builder.addParameter('target', recorder.id);
     var uri = builder.build();
 
     if (DEBUG) {
@@ -107,17 +108,12 @@ function doPreparePreview(serviceId) {
       if (DEBUG) {
         console.log('Response: ', json);
       }
-
-      var w = json.imageWidth;
-      var h = json.imageHeight;
-
-      $('#input-width').text('Width (' + w.min + 'px ~ ' + w.max + 'px)');
-      $('#input-height').text('Height (' + h.min + 'px ~ ' + h.max + 'px)');
+      doChangeRecorderOptions.recorder = recorder;
       $('#popupPreviewSettings').popup('open');
     }, function(errorCode, errorMessage) {
       // Options API GETがサポートされていない等、
       // エラーが発生した場合はデフォルト設定でプレビューを開始する.
-      doPreviewStart(serviceId);
+      doPreviewStart(serviceId, recorder.id);
     });
   }, function(errorCode, errorMessage) {
     // MediaRecorder API GETがサポートされていない等、
@@ -130,10 +126,10 @@ function doPreparePreview(serviceId) {
     for (i = 0; i < recorders.length; i++) {
       recorder = recorders[i];
       if (recorder.mimeType === 'video/x-mjpeg') {
-        return recorder;
+       return recorder;
       }
     }
-    return null;
+    return recorders[0];
   }
 }
 
@@ -142,11 +138,13 @@ function doPreparePreview(serviceId) {
  */
 function doChangeRecorderOptions() {
   var serviceId = showMediastreamRecording.serviceId;
+  var recorder = doChangeRecorderOptions.recorder;
+  doChangeRecorderOptions.recorder = undefined;
 
   var imageWidth = $('#preview-input-width').val();
   var imageHeight = $('#preview-input-height').val();
   if (imageWidth === '' || imageHeight === '') {
-    doPreviewStart(serviceId);
+    doPreviewStart(serviceId, recorder.id);
   }
 
   var builder = new dConnect.URIBuilder();
@@ -154,9 +152,12 @@ function doChangeRecorderOptions() {
   builder.setAttribute('options');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('imageWidth', imageWidth);
-  builder.addParameter('imageHeight', imageHeight);
-  builder.addParameter('mimeType', 'video/x-mjpeg');
+  builder.addParameter('previewWidth', imageWidth);
+  builder.addParameter('previewHeight', imageHeight);
+  builder.addParameter('mimeType', recorder.mimeType);
+  if (recorder !== undefined) {
+    builder.addParameter('target', recorder.id);
+  }
   var uri = builder.build();
 
   if (DEBUG) {
@@ -167,13 +168,13 @@ function doChangeRecorderOptions() {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-    doPreviewStart(serviceId);
+    doPreviewStart(serviceId, recorder.id);
   }, function(errorCode, errorMessage) {
     // Options API PUTがサポートされていない等、
     // エラーが発生した場合はデフォルト設定でプレビューを開始する.
     console.log('ERROR: PUT /mediastream_recording/options: errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     alert('Preview setting was failed.\nSo, Preview will started with default setting.');
-    doPreviewStart(serviceId);
+    doPreviewStart(serviceId, recorder.id);
   });
 }
 
@@ -181,8 +182,9 @@ function doChangeRecorderOptions() {
  * previewを開始する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  */
-function doRegisterPreview(serviceId) {
+function doRegisterPreview(serviceId, target) {
   if (doRegisterPreview.refreshTimerId != undefined) {
     clearInterval(doRegisterPreview.refreshTimerId);
     doRegisterPreview.refreshTimerId = undefined;
@@ -196,6 +198,9 @@ function doRegisterPreview(serviceId) {
   builder.setAttribute('preview');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (target !== undefined) {
+    builder.addParameter('target', target);
+  }
   if (previewWidth !== '') {
     builder.addParameter('width', previewWidth);
   }
@@ -269,8 +274,9 @@ function doRegisterPreview(serviceId) {
  * previewを終了する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  */
-function doUnregisterPreview(serviceId) {
+function doUnregisterPreview(serviceId, target) {
   if (doRegisterPreview.refreshTimerId != undefined) {
     clearInterval(doRegisterPreview.refreshTimerId);
     doRegisterPreview.refreshTimerId = undefined;
@@ -281,6 +287,9 @@ function doUnregisterPreview(serviceId) {
   builder.setAttribute('preview');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (target != undefined) {
+    builder.addParameter('target', target);
+  }
   var uri = builder.build();
 
   if (DEBUG) {
@@ -300,9 +309,9 @@ function doUnregisterPreview(serviceId) {
  * Previewの開始
  *
  * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  */
-
-function doPreviewStart(serviceId) {
+function doPreviewStart(serviceId, target) {
   $('#popupPreviewSettings').popup("close");
 
   var sessionKey = currentClientId;
@@ -312,7 +321,7 @@ function doPreviewStart(serviceId) {
   setTitle('Preview');
 
   var btnStr = getBackButton('MediaStreamRecording Top',
-                      'doPreviewBack', serviceId, sessionKey);
+                      'doPreviewBack', serviceId, target);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -323,7 +332,7 @@ function doPreviewStart(serviceId) {
   str += '</center><br>';
   reloadContent(str);
 
-  doRegisterPreview(serviceId);
+  doRegisterPreview(serviceId, target);
 }
 
 /**
@@ -399,18 +408,14 @@ function doTakephotoBack(serviceId, sessionKey) {
   showMediastreamRecording(serviceId);
 }
 
-function doPreviewStop(serviceId, sessionKey) {
-  doUnregisterPreview(serviceId);
-}
-
 /**
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
+ * @param {String} target レコーダーID
  */
-function doPreviewBack(serviceId, sessionKey) {
-  doUnregisterPreview(serviceId);
+function doPreviewBack(serviceId, target) {
+  doUnregisterPreview(serviceId, target);
   showMediastreamRecording(serviceId);
 }
 
@@ -465,9 +470,9 @@ function refreshImg(uri, id) {
  * Media Recorder Target指定実行
  *
  * @param {String} serviceId サービスID
- * @param {String} target メディアの種類。video、またはaudioを指定する
+ * @param {String} type メディアの種類。video、またはaudioを指定する
  */
-function doMediaRecord(serviceId, target) {
+function doMediaRecord(serviceId, type) {
   initAll();
 
   var btnStr = getBackButton('MediaStreamRecording Top', 'doRecordMediaBack', serviceId, '');
@@ -476,37 +481,65 @@ function doMediaRecord(serviceId, target) {
 
   setTitle('Recording, now');
 
-　doGetMediaRecorder(serviceId, target, {
+　doGetMediaRecorder(serviceId, type, {
     onrecorder: function(recorder) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile('mediastream_recording');
-      builder.setAttribute('record');
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      if (recorder !== undefined) {
-        builder.addParameter('target', recorder.id);
-      }
-      var uri = builder.build();
-
-      if (DEBUG) {
-        console.log('Uri: ' + uri);
-      }
-
-      dConnect.post(uri, null, null, function(json) {
-        if (DEBUG) {
-          console.log('Response: ', json);
+      var target = recorder.id || null;
+      sendRecordRequest(serviceId, target, {
+        onsuccess: function() {
+          reloadContent(mediaStopButton(serviceId));
+        },
+        onerror: function(errorCode, errorMessage) {
+          showError('POST mediastream_recording/record', errorCode, errorMessage);
         }
-
-        reloadContent(mediaStopButton(serviceId));
-      }, function(errorCode, errorMessage) {
-        showError('POST mediastream_recording/record', errorCode, errorMessage);
       });
     },
 
     onerror: function(errorCode, errorMessage) {
-      showError('POST mediastream_recording/mediarecorder', errorCode, errorMessage);
+      switch (errorCode) {
+        case 2: // NOT_SUPPORT_PROFILE
+        case 3: // NOT_SUPPORT_ACTION
+        case 4: // NOT_SUPPORT_ATTRIBUTE
+          sendRecordRequest(serviceId, null, {
+            onsuccess: function() {
+              reloadContent(mediaStopButton(serviceId));
+            },
+            onerror: function(errorCode, errorMessage) {
+              showError('POST mediastream_recording/record', errorCode, errorMessage);
+            }
+          });
+          break;
+        default:
+          showError('POST mediastream_recording/mediarecorder', errorCode, errorMessage);
+          break;
+      }
     }
   });
+
+  function sendRecordRequest(serviceId, target, cb) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('mediastream_recording');
+    builder.setAttribute('record');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    if (target !== null) {
+      builder.addParameter('target', target);
+    }
+    var uri = builder.build();
+
+    if (DEBUG) {
+      console.log('Uri: ' + uri);
+    }
+
+    dConnect.post(uri, null, null, function(json) {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+
+      cb.onsuccess();
+    }, function(errorCode, errorMessage) {
+      cb.onerror(errorCode, errorMessage);
+    });
+  }
 }
 
 /**
@@ -592,22 +625,6 @@ function mediaStopButton(serviceId) {
   str += '<input data-icon="stop"  ';
   str += 'onclick="javascript:doMediaStop(\'' +
           serviceId + '\');" type="button" value="Stop"/>';
-  str += '</center>';
-  return str;
-}
-
-/**
- * メディアの停止
- *
- * @param {String} serviceId サービスID
- */
-function previewStopButton(serviceId, sessionKey) {
-  var str = '';
-  str += '<center>';
-  str += '<input data-icon="stop"  ';
-  str += 'onclick="javascript:doPreviewStop(\'' +
-          serviceId + '\', \'' + sessionKey +
-          '\');" type="button" value="Stop"/>';
   str += '</center>';
   return str;
 }
