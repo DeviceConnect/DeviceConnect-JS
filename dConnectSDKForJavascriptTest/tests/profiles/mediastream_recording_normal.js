@@ -550,7 +550,7 @@ MediaStreamRecordingProfileNormalTest.previewNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-if (IS_TEST_STATUS != 'picture') {
+if (IS_TEST_STATUS != 'record') {
   QUnit.asyncTest('previewNormalTest001', MediaStreamRecordingProfileNormalTest.previewNormalTest001);
 }
 /**
@@ -587,7 +587,7 @@ MediaStreamRecordingProfileNormalTest.previewNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-if (IS_TEST_STATUS != 'picture') {
+if (IS_TEST_STATUS != 'record') {
   QUnit.asyncTest('previewNormalTest002', MediaStreamRecordingProfileNormalTest.previewNormalTest002);
 }
 /**
