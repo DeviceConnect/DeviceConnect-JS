@@ -69,7 +69,7 @@ function showRecorderFeatureListByTarget(serviceId, target) {
 function showRecorderFeatureList(serviceId, recorder) {
   showRecorderFeatureList.recorder = recorder;
 
-  var btnStr = getBackButton('MediaStreamRecording Top', 'doFeatureListBack', serviceId, ''),
+  var btnStr = getBackButton('Recorder List', 'doFeatureListBack', serviceId, ''),
       list = '',
       contents = '';
 
@@ -95,7 +95,7 @@ function showRecorderFeatureList(serviceId, recorder) {
 }
 
 function showRecorderInfo(serviceId) {
-  var btnStr = getBackButton('Features Top', 'doOptionsBack', serviceId, ''),
+  var btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId, ''),
       contents = '',
       recorder = showRecorderFeatureList.recorder;
 
@@ -135,7 +135,7 @@ function doRecorderOptions(serviceId, target) {
 
 function showOptionList(serviceId, target, currentOptions) {
   var str = '',
-      btnStr = getBackButton('Features Top', 'doOptionsBack', serviceId, ''),
+      btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId, ''),
       recorder = showRecorderFeatureList.recorder || {},
       imageSizes = currentOptions.imageSizes,
       previewSizes = currentOptions.previewSizes,
@@ -429,7 +429,7 @@ function doPreviewStart(serviceId, target) {
   initAll();
   setTitle('Preview');
 
-  var btnStr = getBackButton('Features Top', 'doPreviewBack', serviceId);
+  var btnStr = getBackButton('Recorder Features', 'doPreviewBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -458,7 +458,7 @@ function doTakePhoto(serviceId, target) {
   var sessionKey = currentClientId;
 
   var str = '';
-  str += getBackButton('Features Top', 'doTakephotoBack', serviceId, sessionKey);
+  str += getBackButton('Recorder Features', 'doTakephotoBack', serviceId, sessionKey);
   reloadHeader(str);
   reloadFooter(str);
 
@@ -602,7 +602,7 @@ function refreshImg(uri, id) {
 function doMediaRecord(serviceId, target) {
   initAll();
 
-  var btnStr = getBackButton('Features Top', 'doRecordMediaBack', serviceId, '');
+  var btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
