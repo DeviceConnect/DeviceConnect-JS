@@ -6,174 +6,301 @@
  */
 
 /**
- * MediastreamRecording Menu
+ * MediaStream Recordingプロファイルのメニューを表示する.
  *
  * @param {String} serviceId サービスID
  */
 function showMediastreamRecording(serviceId) {
   showMediastreamRecording.serviceId = serviceId;
 
-  initAll();
+  doGetMediaRecorderList(serviceId, {
+    onrecorders: function(recorders) {
+      showRecorderList(serviceId, recorders);
+    },
+    onerror: function(errorCode, errorMessage) {
+      showRecorderList(serviceId);
+    }
+  });
+}
 
-  var btnStr = getBackButton('Device Top', 'doMediaStreamRecordingBack',
-                          serviceId, '');
+function showRecorderList(serviceId, recorders) {
+  var btnStr = getBackButton('Device Top', 'doMediaStreamRecordingBack', serviceId, ''),
+      list = '',
+      i, r;
+
+  showRecorderList.recorders = recorders;
+
+  initAll();
+  setTitle('Media Recorder List');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
-  if (myDeviceName.indexOf('Sony Camera') != -1) {
-    setTitle('MediastreamRecording Profile(Sony Camera)');
-
-    str += '<li><a href="javascript:doPreparePreview(\'' +
-            serviceId + '\');">Preview</a></li>';
-    str += '<li><a href="javascript:doTakePhoto(\'' +
-            serviceId + '\');">Take Photo</a></li>';
-
-  } else {
-    setTitle('MediastreamRecording Profile');
-
-    str += '<li><a href="javascript:doPreparePreview(\'' +
-            serviceId + '\');">Preview</a></li>';
-    str += '<li><a href="javascript:doTakePhoto(\'' +
-            serviceId + '\');">Take Photo</a></li>';
-    str += '<li><a href="javascript:doMediaRecord(\'' +
-            serviceId + '\',\'video\');">Record Video</a></li>';
-    str += '<li><a href="javascript:doMediaRecord(\'' +
-            serviceId + '\',\'audio\');">Record Audio</a></li>';
-  }
-
-  str += '<div data-role="popup" id="popupPreviewSettings" data-history="false" style="font-size:10pt">' +
-         '<div data-role="header"><h3>I/O Settings</h3></div>' +
-         '<div data-role="main" style="padding:12px;">' +
-         '<p><button class="ui-btn" onclick="javascript:doChangeRecorderOptions();">Start</button></p>' +
-         '<hr>' +
-         '<p>Set empty if you use default.</p>' + 
-         '<hr>' +
-         '<h4>Input</h4>' +
-         '<div class="ui-field-contain"><label for="preview-input-width" id="input-width"></label><input id="preview-input-width" name="preview-input-width" type="text" /></div>' +
-         '<div class="ui-field-contain"><label for="preview-input-height" id="input-height"></label><input id="preview-input-height" name="preview-input-height" type="text" /></div>' +
-         '<h4>Output</h4>' +
-         '<div class="ui-field-contain"><label for="preview-output-width">Width (1px ~)</label><input id="preview-output-width" name="preview-output-width" type="text" /></div>' +
-         '<div class="ui-field-contain"><label for="preview-output-height">Height (1px ~)</label><input id="preview-output-height" name="preview-output-height" type="text" /></div>' +
-         '<div class="ui-field-contain"><label for="preview-output-max-fps">Max Frame Rate (Unit: fps)</label><input id="preview-output-max-fps" name="preview-output-max-fps" type="text" /></div>' +
-         '</div>' +
-         '</div>';
-
-  reloadList(str);
-
-  if ($('#preview-output-max-fps').val() === '') {
-    $('#preview-output-max-fps').val('10');
-  }
-}
-
-function doPreparePreview(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastream_recording');
-  builder.setAttribute('mediarecorder');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.get(uri, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
-    }
-
-    var recorder = selectRecorder(json.recorders);
-    if (recorder === null) {
-      doPreviewStart(serviceId);
-      return;
-    }
-
-    $('#preview-input-width').val(String(recorder.imageWidth));
-    $('#preview-input-height').val(String(recorder.imageHeight));
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('mediastream_recording');
-    builder.setAttribute('options');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-
-    if (DEBUG) {
-      console.log('Uri:' + uri)
-    }
-
-    dConnect.get(uri, null, function(json) {
-      if (DEBUG) {
-        console.log('Response: ', json);
-      }
-
-      var w = json.imageWidth;
-      var h = json.imageHeight;
-
-      $('#input-width').text('Width (' + w.min + 'px ~ ' + w.max + 'px)');
-      $('#input-height').text('Height (' + h.min + 'px ~ ' + h.max + 'px)');
-      $('#popupPreviewSettings').popup('open');
-    }, function(errorCode, errorMessage) {
-      // Options API GETがサポートされていない等、
-      // エラーが発生した場合はデフォルト設定でプレビューを開始する.
-      doPreviewStart(serviceId);
-    });
-  }, function(errorCode, errorMessage) {
-    // MediaRecorder API GETがサポートされていない等、
-    // エラーが発生した場合はデフォルト設定でプレビューを開始する.
-    doPreviewStart(serviceId);
-  });
-
-  function selectRecorder(recorders) {
-    var i, recorder;
+  if (recorders !== undefined) {
     for (i = 0; i < recorders.length; i++) {
-      recorder = recorders[i];
-      if (recorder.mimeType === 'video/x-mjpeg') {
-        return recorder;
-      }
+      r = recorders[i];
+      list += '<li><a href="javascript:showRecorderFeatureListByIndex(\'' + serviceId + '\', \'' + i + '\');">' + r.name + '</a></li>';
     }
-    return null;
   }
+  list += '<li><a href="javascript:showRecorderFeatureListByIndex(\'' + serviceId + '\');">&lt;Use Default&gt;</a></li>';
+  reloadList(list);
 }
 
-/**
- * レコーダーのオプションを変更する.
- */
-function doChangeRecorderOptions() {
-  var serviceId = showMediastreamRecording.serviceId;
-
-  var imageWidth = $('#preview-input-width').val();
-  var imageHeight = $('#preview-input-height').val();
-  if (imageWidth === '' || imageHeight === '') {
-    doPreviewStart(serviceId);
+function showRecorderFeatureListByIndex(serviceId, index) {
+  var recorder;
+  if (index !== undefined && showRecorderList.recorders !== undefined) {
+    recorder = showRecorderList.recorders[index];
   }
+  showRecorderFeatureList(serviceId, recorder);
+}
 
+function showRecorderFeatureListByTarget(serviceId, target) {
+  var recorder, i;
+  if (target !== undefined && showRecorderList.recorders !== undefined) {
+    for (i = 0; i < showRecorderList.recorders.length; i++) {
+      if (target === showRecorderList.recorders[i].id) {
+        recorder = showRecorderList.recorders[i];
+        break;
+      }
+    }
+  }
+  showRecorderFeatureList(serviceId, recorder);
+}
+
+function showRecorderFeatureList(serviceId, recorder) {
+  showRecorderFeatureList.recorder = recorder;
+
+  var btnStr = getBackButton('Recorder List', 'doFeatureListBack', serviceId, ''),
+      list = '',
+      contents = '';
+
+  initAll();
+  
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  if (recorder !== undefined) {
+    setTitle('Media Recorder - ' + recorder.name);
+    list += '<li><a href="javascript:doPreviewStart(\'' + serviceId + '\', \'' + recorder.id + '\');">Preview</a></li>';
+    list += '<li><a href="javascript:doTakePhoto(\'' + serviceId + '\', \'' + recorder.id + '\');">Take Photo</a></li>';
+    list += '<li><a href="javascript:doMediaRecord(\'' + serviceId + '\', \'' + recorder.id + '\');">Record</a></li>';
+    list += '<li><a href="javascript:doRecorderOptions(\'' + serviceId + '\', \'' + recorder.id + '\');">Recorder Options</a></li>';
+    list += '<li><a href="javascript:showRecorderInfo(\'' + serviceId + '\');">Recorder Info</a></li>';
+  } else {
+    setTitle('Media Recorder - Default Recorder');
+    list += '<li><a href="javascript:doPreviewStart(\'' + serviceId + '\');">Preview</a></li>';
+    list += '<li><a href="javascript:doTakePhoto(\'' + serviceId + '\');">Take Photo</a></li>';
+    list += '<li><a href="javascript:doMediaRecord(\'' + serviceId + '\');">Record</a></li>';
+  }
+  reloadList(list);
+}
+
+function showRecorderInfo(serviceId) {
+  var btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId, ''),
+      contents = '',
+      recorder = showRecorderFeatureList.recorder;
+
+  initAll();
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+  if (recorder !== undefined) {
+    contents += '<b>id:</b> ' + recorder.id + '<br>';
+    contents += '<b>name:</b> ' + recorder.name + '<br>';
+    contents += '<b>state:</b> ' + recorder.state + '<br>';
+    contents += '<b>imageWidth:</b> ' + recorder.imageWidth + '<br>';
+    contents += '<b>imageHeight:</b> ' + recorder.imageHeight + '<br>';
+    contents += '<b>previewWidth:</b> ' + recorder.previewWidth + '<br>';
+    contents += '<b>previewHeight:</b> ' + recorder.previewHeight + '<br>';
+    contents += '<b>previewMaxFrameRate:</b> ' + recorder.previewMaxFrameRate + '<br>';
+  }
+  reloadContent(contents);
+}
+
+function doRecorderOptions(serviceId, target) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('options');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('imageWidth', imageWidth);
-  builder.addParameter('imageHeight', imageHeight);
-  builder.addParameter('mimeType', 'video/x-mjpeg');
+  if (target !== null && target !== undefined) {
+    builder.addParameter('target', target);
+  }
   var uri = builder.build();
 
+  dConnect.get(uri, null, function(json) {
+    showOptionList(serviceId, target, json);
+  }, function(errorCode, errorMessage) {
+    showError('GET mediastream_recording/options', errorCode, errorMessage);
+  });
+}
+
+function showOptionList(serviceId, target, currentOptions) {
+  var str = '',
+      btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId, ''),
+      recorder = showRecorderFeatureList.recorder || {},
+      imageSizes = currentOptions.imageSizes,
+      previewSizes = currentOptions.previewSizes,
+      mimeTypes = currentOptions.mimeType,
+      i, item, option;
+
+  initAll();
+  setTitle('Media Recorder Options');
+  
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  str += '<center>';
+  if (imageSizes !== undefined) {
+    str += '<b>Image Sizes:</b>';
+    str += '<select name="selectImageSizes">';
+    for (i = 0; i < imageSizes.length; i++) {
+      item = imageSizes[i];
+      option = item.width + 'x' + item.height;
+      if (recorder.imageWidth !== undefined && recorder.imageHeight !== undefined
+        && item.width === recorder.imageWidth && item.height === recorder.imageHeight) {
+        str += '<option value="' + i  + '" selected>' + option + '</options>';
+      } else {
+        str += '<option value="' + i  + '">' + option + '</options>';
+      }
+    }
+    str += '</select><br>';
+  }
+  if (previewSizes !== undefined) {
+    str += '<b>Preview Sizes:</b>';
+    str += '<select name="selectPreviewSizes">';
+    for (i = 0; i < previewSizes.length; i++) {
+      item = previewSizes[i];
+      option = item.width + ' x ' + item.height;
+      if (recorder.previewWidth !== undefined && recorder.previewHeight !== undefined
+        && item.width === recorder.previewWidth && item.height === recorder.previewHeight) {
+        str += '<option value="' + i  + '" selected>' + option + '</options>';
+      } else {
+        str += '<option value="' + i  + '">' + option + '</options>';
+      }
+    }
+    str += '</select><br>';
+
+    str += '<b>Preview Max Frame Rate (fps):</b>';
+    str += '<input id="textMaxFrameRate" type="text" value="' + 
+            ((recorder.previewMaxFrameRate !== undefined) ? recorder.previewMaxFrameRate : '') + '"></input><br>';
+  }
+  if (mimeTypes != undefined) {
+    str += '<b>MIME Type:</b>';
+    str += '<select name="selectMimeType">';
+    for (i = 0; i < mimeTypes.length; i++) {
+      item = mimeTypes[i];
+      if (recorder.mimeType !== undefined && item === recorder.mimeType) {
+        str += '<option value="' + i  + '" selected>' + item + '</options>';
+      } else {
+        str += '<option value="' + i  + '">' + item + '</options>';
+      }
+    }
+    str += '</select><br>';
+  }
+  str += '<button id="submitOptions">Put Options</button>';
+  str += '</center>';
+  reloadContent(str);
+
+  $('#submitOptions').on('click', function(e) {
+    var op = {};
+    op.serviceId = serviceId;
+    op.target = target;
+    op.mimeType = mimeTypes[0];
+
+    // imageSizes
+    if (imageSizes !== undefined) {
+      var imageSizeIndex = $('[name=selectImageSizes]').val();
+      var imageSize = imageSizes[imageSizeIndex];
+      op.imagewWidth = imageSize.width;
+      op.imageHeight = imageSize.height;
+    }
+
+    // previewSizes
+    if (previewSizes !== undefined) {
+      var previewSizeIndex = $('[name=selectPreviewSizes]').val();
+      var previewSize = previewSizes[previewSizeIndex];
+      op.previewWidth = previewSize.width;
+      op.previewHeight = previewSize.height;
+
+      // previewMaxFrameRate
+      var frameRate = $('#textMaxFrameRate').val();
+      op.previewMaxFrameRate = frameRate !== '' ? frameRate : undefined;
+    }
+
+    // mimeType
+    if (mimeTypes !== undefined) {
+      var mimeTypeIndex = $('[name=selectMimeType]').val();
+      op.mimeType = mimeTypes[mimeTypeIndex];
+    }
+
+    doChangeRecorderOptions(op);
+  });
+}
+
+/**
+ * レコーダーのオプションを変更する.
+ * @param {String} op オプション
+ */
+function doChangeRecorderOptions(op) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastream_recording');
+  builder.setAttribute('options');
+  builder.setServiceId(op.serviceId);
+  builder.setAccessToken(accessToken);
+  if (op.target !== undefined) {
+    builder.addParameter('target', op.target);
+  }
+  if (op.imageWidth !== undefined) {
+    builder.addParameter('imageWidth', op.imageWidth);
+  }
+  if (op.imageHeight !== undefined) {
+    builder.addParameter('imageHeight', op.imageHeight);
+  }
+  if (op.previewWidth !== undefined) {
+    builder.addParameter('previewWidth', op.previewWidth);
+  }
+  if (op.previewHeight !== undefined) {
+    builder.addParameter('previewHeight', op.previewHeight);
+  }
+  if (op.previewMaxFrameRate !== undefined) {
+    builder.addParameter('previewMaxFrameRate', op.previewMaxFrameRate);
+  }
+  if (op.mimeType !== undefined) {
+    builder.addParameter('mimeType', op.mimeType);
+  }
+  var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
   }
 
+  showLoading();
   dConnect.put(uri, null, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-    doPreviewStart(serviceId);
+
+    doGetMediaRecorder(op.serviceId, op.target, {
+      onrecorder: function(recorder) {
+        closeLoading();
+
+        if (recorder === undefined) {
+          alert('ERROR: ' + target + ' is not found.');
+          return;
+        }
+
+        showRecorderFeatureList.recorder = recorder;
+        alert("Success. Media Recorder options was set.");
+      },
+      onerror: function(errorCode, errorMessage) {
+        closeLoading()
+        alert('ERROR: Failed to reload options: ' + errorMessage);
+      }
+    });
   }, function(errorCode, errorMessage) {
     // Options API PUTがサポートされていない等、
     // エラーが発生した場合はデフォルト設定でプレビューを開始する.
+    closeLoading();
     console.log('ERROR: PUT /mediastream_recording/options: errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    alert('Preview setting was failed.\nSo, Preview will started with default setting.');
-    doPreviewStart(serviceId);
+    alert('ERROR: Failed to put options: ' + errorMessage);
   });
 }
 
@@ -181,29 +308,21 @@ function doChangeRecorderOptions() {
  * previewを開始する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  */
-function doRegisterPreview(serviceId) {
+function doRegisterPreview(serviceId, target) {
   if (doRegisterPreview.refreshTimerId != undefined) {
     clearInterval(doRegisterPreview.refreshTimerId);
     doRegisterPreview.refreshTimerId = undefined;
   }
-  var previewWidth = $('#preview-output-width').val();
-  var previewHeight = $('#preview-output-height').val();
-  var previewMaxFps = $('#preview-output-max-fps').val();
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('preview');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  if (previewWidth !== '') {
-    builder.addParameter('width', previewWidth);
-  }
-  if (previewHeight !== '') {
-    builder.addParameter('height', previewHeight);
-  }
-  if (previewMaxFps !== '') {
-    builder.addParameter('maxFrameRate', previewMaxFps);
+  if (target !== null && target !== undefined) {
+    builder.addParameter('target', target);
   }
   var uri = builder.build();
 
@@ -269,8 +388,9 @@ function doRegisterPreview(serviceId) {
  * previewを終了する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} recorder レコーダー
  */
-function doUnregisterPreview(serviceId) {
+function doUnregisterPreview(serviceId, recorder) {
   if (doRegisterPreview.refreshTimerId != undefined) {
     clearInterval(doRegisterPreview.refreshTimerId);
     doRegisterPreview.refreshTimerId = undefined;
@@ -281,6 +401,9 @@ function doUnregisterPreview(serviceId) {
   builder.setAttribute('preview');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (recorder !== null && recorder !== undefined) {
+    builder.addParameter('target', recorder.id);
+  }
   var uri = builder.build();
 
   if (DEBUG) {
@@ -297,22 +420,16 @@ function doUnregisterPreview(serviceId) {
 }
 
 /**
- * Previewの開始
+ * プレビューを開始する.
  *
  * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  */
-
-function doPreviewStart(serviceId) {
-  $('#popupPreviewSettings').popup("close");
-
-  var sessionKey = currentClientId;
-
+function doPreviewStart(serviceId, target) {
   initAll();
-
   setTitle('Preview');
 
-  var btnStr = getBackButton('MediaStreamRecording Top',
-                      'doPreviewBack', serviceId, sessionKey);
+  var btnStr = getBackButton('Recorder Features', 'doPreviewBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -323,15 +440,16 @@ function doPreviewStart(serviceId) {
   str += '</center><br>';
   reloadContent(str);
 
-  doRegisterPreview(serviceId);
+  doRegisterPreview(serviceId, target);
 }
 
 /**
  * Take Photo
  *
  * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  */
-function doTakePhoto(serviceId) {
+function doTakePhoto(serviceId, target) {
 
   initAll();
 
@@ -340,9 +458,9 @@ function doTakePhoto(serviceId) {
   var sessionKey = currentClientId;
 
   var str = '';
-  str += getBackButton('MediaStreamRecording Top',
-                  'doTakephotoBack', serviceId, sessionKey);
+  str += getBackButton('Recorder Features', 'doTakephotoBack', serviceId, sessionKey);
   reloadHeader(str);
+  reloadFooter(str);
 
   var str = '';
   str += makeInputText('onPhoto', 'onPhoto', 'onPhoto')
@@ -352,17 +470,16 @@ function doTakePhoto(serviceId) {
   str += takePhotoButton(serviceId);
 
   reloadContent(str);
-
-  var str = '';
-  str += getBackButton('MediaStreamRecording Top',
-                    'doTakephotoBack', serviceId, sessionKey);
-  reloadFooter(str);
+  
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
   builder.setAttribute('takephoto');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (target !== null && target !== undefined) {
+    builder.addParameter('target', target);
+  }
   var uri = builder.build();
 
   if (DEBUG) {
@@ -395,22 +512,48 @@ function doTakePhoto(serviceId) {
  * @param {String} sessionKey セッションキー
  */
 function doTakephotoBack(serviceId, sessionKey) {
+  var recorder = showRecorderFeatureList.recorder;
   doUnregisterOnPhoto(serviceId, sessionKey);
-  showMediastreamRecording(serviceId);
-}
-
-function doPreviewStop(serviceId, sessionKey) {
-  doUnregisterPreview(serviceId);
+  showRecorderFeatureList(serviceId, recorder);
 }
 
 /**
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doPreviewBack(serviceId, sessionKey) {
-  doUnregisterPreview(serviceId);
+function doPreviewBack(serviceId) {
+  var recorder = showRecorderFeatureList.recorder;
+  doUnregisterPreview(serviceId, recorder);
+  showRecorderFeatureList(serviceId, recorder);
+}
+
+/**
+ * Backボタン
+ *
+ * @param {String} serviceId サービスID
+ */
+function doRecordMediaBack(serviceId) {
+  var recorder = showRecorderFeatureList.recorder;
+  showRecorderFeatureList(serviceId, recorder);
+}
+
+/**
+ * Backボタン
+ *
+ * @param {String} serviceId サービスID
+ */
+function doOptionsBack(serviceId) {
+  var recorder = showRecorderFeatureList.recorder;
+  showRecorderFeatureList(serviceId, recorder);
+}
+
+/**
+ * Backボタン
+ *
+ * @param {String} serviceId サービスID
+ */
+function doFeatureListBack(serviceId) {
   showMediastreamRecording(serviceId);
 }
 
@@ -418,19 +561,8 @@ function doPreviewBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEYY
  */
-function doRecordMediaBack(serviceId, sessionKey) {
-  showMediastreamRecording(serviceId);
-}
-
-/**
- * Backボタン
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
- */
-function doMediaStreamRecordingBack(serviceId, sessionKey) {
+function doMediaStreamRecordingBack(serviceId) {
   searchSystem(serviceId);
 }
 
@@ -462,51 +594,54 @@ function refreshImg(uri, id) {
 }
 
 /**
- * Media Recorder Target指定実行
+ * 指定したレコーダーでレコーディングを開始する.
  *
  * @param {String} serviceId サービスID
- * @param {String} target メディアの種類。video、またはaudioを指定する
+ * @param {String} target レコーダーID
  */
 function doMediaRecord(serviceId, target) {
   initAll();
 
-  var btnStr = getBackButton('MediaStreamRecording Top', 'doRecordMediaBack', serviceId, '');
+  var btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   setTitle('Recording, now');
 
-　doGetMediaRecorder(serviceId, target, {
-    onrecorder: function(recorder) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile('mediastream_recording');
-      builder.setAttribute('record');
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      if (recorder !== undefined) {
-        builder.addParameter('target', recorder.id);
-      }
-      var uri = builder.build();
-
-      if (DEBUG) {
-        console.log('Uri: ' + uri);
-      }
-
-      dConnect.post(uri, null, null, function(json) {
-        if (DEBUG) {
-          console.log('Response: ', json);
-        }
-
-        reloadContent(mediaStopButton(serviceId));
-      }, function(errorCode, errorMessage) {
-        showError('POST mediastream_recording/record', errorCode, errorMessage);
-      });
+　sendRecordRequest(serviceId, target, {
+    onsuccess: function() {
+      reloadContent(mediaStopButton(serviceId));
     },
-
     onerror: function(errorCode, errorMessage) {
-      showError('POST mediastream_recording/mediarecorder', errorCode, errorMessage);
+      showError('POST mediastream_recording/record', errorCode, errorMessage);
     }
   });
+
+  function sendRecordRequest(serviceId, target, cb) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('mediastream_recording');
+    builder.setAttribute('record');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    if (target !== null && target !== undefined) {
+      builder.addParameter('target', target);
+    }
+    var uri = builder.build();
+
+    if (DEBUG) {
+      console.log('Uri: ' + uri);
+    }
+
+    dConnect.post(uri, null, null, function(json) {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+
+      cb.onsuccess();
+    }, function(errorCode, errorMessage) {
+      cb.onerror(errorCode, errorMessage);
+    });
+  }
 }
 
 /**
@@ -536,10 +671,35 @@ function doMediaStop(serviceId) {
 }
 
 /**
- * レコーダー情報を取得する.
+ * レコーダー情報リストを取得する.
  *
  * @param {String} serviceId サービスID
- * @param {String} target メディアの種類。video、またはaudioを指定する
+ * @param {Object} callback レコーダー情報リスト取得処理のコールバック
+ */
+function doGetMediaRecorderList(serviceId, callback) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastream_recording');
+  builder.setAttribute('mediarecorder');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    callback.onrecorders(json.recorders);
+  }, callback.onerror);
+}
+
+/**
+ * 特定のレコーダー情報を取得する.
+ *
+ * @param {String} serviceId サービスID
+ * @param {String} target レコーダーID
  * @param {Object} callback レコーダー情報取得処理のコールバック
  */
 function doGetMediaRecorder(serviceId, target, callback) {
@@ -568,15 +728,6 @@ function doGetMediaRecorder(serviceId, target, callback) {
         break;
       }
     }
-    if (targetRecorder === undefined) {
-      for (var i = 0; i < recorders.length; i++) {
-        var recorder = recorders[i];
-        if (recorder.mimeType && recorder.mimeType.indexOf(target) !== -1) {
-          targetRecorder = recorder;
-          break;
-        }
-      }
-    }
     callback.onrecorder(targetRecorder);
   }, callback.onerror);
 }
@@ -592,22 +743,6 @@ function mediaStopButton(serviceId) {
   str += '<input data-icon="stop"  ';
   str += 'onclick="javascript:doMediaStop(\'' +
           serviceId + '\');" type="button" value="Stop"/>';
-  str += '</center>';
-  return str;
-}
-
-/**
- * メディアの停止
- *
- * @param {String} serviceId サービスID
- */
-function previewStopButton(serviceId, sessionKey) {
-  var str = '';
-  str += '<center>';
-  str += '<input data-icon="stop"  ';
-  str += 'onclick="javascript:doPreviewStop(\'' +
-          serviceId + '\', \'' + sessionKey +
-          '\');" type="button" value="Stop"/>';
   str += '</center>';
   return str;
 }

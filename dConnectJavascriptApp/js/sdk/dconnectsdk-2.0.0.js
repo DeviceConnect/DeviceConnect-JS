@@ -63,7 +63,7 @@ var dConnect = (function(parent, global) {
    * ハイブリッドアプリとしてのオリジン.
    * @private
    * @type {String}
-   * @see setExtendedOrigin 
+   * @see setExtendedOrigin
    */
   var extendedOrigin;
   /**
@@ -195,7 +195,7 @@ var dConnect = (function(parent, global) {
       /** エラーコード: サーバの状態異常エラー. */
       ILLEGAL_SERVER_STATE: 17,
       /** エラーコード: 不正オリジンエラー. */
-      INVALID_ORIGIN: 18,
+      INVALID_ORIGIN: 18
     },
 
     /**
@@ -678,6 +678,8 @@ var dConnect = (function(parent, global) {
       ATTR_UNMUTETRACK: 'unmutetrack',
       /** アトリビュート: options */
       ATTR_OPTIONS: 'options',
+      /** アトリビュート: preview */
+      ATTR_PREVIEW: 'preview',
       /** アトリビュート: onphoto */
       ATTR_ON_PHOTO: 'onphoto',
       /** アトリビュート: ondataavailable */
@@ -699,10 +701,34 @@ var dConnect = (function(parent, global) {
       PARAM_IMAGE_WIDTH: 'imageWidth',
       /** パラメータ: imageHeight */
       PARAM_IMAGE_HEIGHT: 'imageHeight',
+      /** パラメータ: previewWidth */
+      PARAM_PREVIEW_WIDTH: 'previewWidth',
+      /** パラメータ: previewHeight */
+      PARAM_PREVIEW_HEIGHT: 'previewHeight',
+      /** パラメータ: previewMaxFrameRate */
+      PARAM_PREVIEW_MAX_FRAME_RATE: 'previewMaxFrameRate',
+      /** パラメータ: audio */
+      PARAM_AUDIO: 'audio',
+      /** パラメータ: channels */
+      PARAM_CHANNELS: 'channels',
+      /** パラメータ: sampleRate */
+      PARAM_SAMPLE_RATE: 'sampleRate',
+      /** パラメータ: sampleSize */
+      PARAM_SAMPLE_SIZE: 'sampleSize',
+      /** パラメータ: blockSize */
+      PARAM_BLOCK_SIZE: 'blockSize',
       /** パラメータ: mimeType */
       PARAM_MIME_TYPE: 'mimeType',
       /** パラメータ: config */
       PARAM_CONFIG: 'config',
+      /** パラメータ: imageSizes */
+      PARAM_IMAGE_SIZES: 'imageSizes',
+      /** パラメータ: previewSizes */
+      PARAM_PREVIEW_SIZES: 'previewSizes',
+      /** パラメータ: width */
+      PARAM_WIDTH: 'width',
+      /** パラメータ: height */
+      PARAM_HEIGHT: 'height',
       /** パラメータ: timeslice */
       PARAM_TIME_SLICE: 'timeslice',
       /** パラメータ: settings */
@@ -1561,7 +1587,7 @@ var dConnect = (function(parent, global) {
             if (count == devices.length) {
               success_cb(result);
             } else {
-              dConnect.getSystemDeviceInfo(devices[count].id, accessToken, 
+              dConnect.getSystemDeviceInfo(devices[count].id, accessToken,
                 function(json) {
                   if (json.supports) {
                     for (var i = 0; i < json.supports.length; i++) {
@@ -1589,7 +1615,7 @@ var dConnect = (function(parent, global) {
      * @param {String} サービスID
      * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
      * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
-     */    
+     */
     var getSystemDeviceInfo = function(serviceId, accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.serviceinformation.PROFILE_NAME);
