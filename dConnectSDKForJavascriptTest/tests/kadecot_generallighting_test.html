@@ -74,7 +74,20 @@
 
   <script>
     QUnit.jUnitReport = function(report) {
-        console.log(report.xml);
+      console.log(report.xml);
+      var now = new Date();
+
+      saveTestResult('kadecot_generallighting_test_'
+                + now.getFullYear()  +
+                (now.getMonth() + 1) +
+                now.getDate() +
+                now.getHours() +
+                now.getMinutes() +
+                now.getSeconds()
+                + '.xml', new Blob([report.xml], {'type': 'text/xml'}));
+
+
+
     };
   </script>
 </body>
