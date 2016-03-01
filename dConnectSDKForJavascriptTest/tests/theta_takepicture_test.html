@@ -5,7 +5,10 @@
   <title>Device Connect Javascript Test(Theta)</title>
   <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
 </head>
-<body>
+<body onload="load();">
+<button style="padding:10px;" type="button" name="スタート"
+        onclick="testStart();">Thetaと接続したら押してください
+</button>
   <div id="images"style="position:absolute;">
     <img crossorigin="anonymous" id="image" width="240">
     <img id="preview" width="240">
@@ -66,6 +69,12 @@
 
 
   <script>
+    function load() {
+      QUnit.config.autostart = false;
+    }
+    function testStart() {
+      QUnit.start();
+    }
     QUnit.jUnitReport = function(report) {
       console.log(report.xml);
       var now = new Date();

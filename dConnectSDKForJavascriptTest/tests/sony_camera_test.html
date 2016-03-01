@@ -5,7 +5,10 @@
   <title>Device Connect Javascript Test(Sony Camera)</title>
   <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
 </head>
-<body>
+<body onload="load();">
+<button style="padding:10px;" type="button" name="スタート"
+        onclick="testStart();">SonyCameraと接続したら押してください
+</button>
   <div id="images"style="position:absolute;">
     <img crossorigin="anonymous" id="image" width="240">
     <img id="preview" width="240">
@@ -21,14 +24,14 @@
     * </p>
     */
   var DEVICE_NAME = "Sony Camera";
+
   </script>
-  
+
   <script src="../qunit/qunit-1.15.0.js"></script>
   <script src="../qunit/qunit-reporter-junit.js"></script>
   <script src="../dconnectsdk-2.0.0.js"></script>
   <script src="../dconnect-test-config.js"></script>
   <script src="../dconnect-test-util.js"></script>
-
   <script src="profiles/battery_normal.js"></script>
   <script src="profiles/battery_abnormal.js"></script>
   <script src="profiles/canvas_normal.js"></script>
@@ -67,21 +70,29 @@
   <script src="extra_profiles/camera_normal.js"></script>
   <script src="extra_profiles/camera_abnormal.js"></script>
 
+
   <script>
+    function load() {
+      QUnit.config.autostart = false;
+    }
+    function testStart() {
+      QUnit.start();
+    }
     QUnit.jUnitReport = function(report) {
       console.log(report.xml);
       var now = new Date();
 
       saveTestResult('sony_camera_test_'
-                + now.getFullYear()  +
-                (now.getMonth() + 1) +
-                now.getDate() +
-                now.getHours() +
-                now.getMinutes() +
-                now.getSeconds()
-                + '.xml', new Blob([report.xml], {'type': 'text/xml'}));
+              + now.getFullYear() +
+              (now.getMonth() + 1) +
+              now.getDate() +
+              now.getHours() +
+              now.getMinutes() +
+              now.getSeconds()
+              + '.xml', new Blob([report.xml], {'type': 'text/xml'}));
 
     };
+
   </script>
 </body>
 </html>
