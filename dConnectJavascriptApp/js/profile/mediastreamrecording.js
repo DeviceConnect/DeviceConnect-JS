@@ -470,7 +470,10 @@ function doTakePhoto(serviceId, target) {
   str += takePhotoButton(serviceId);
 
   reloadContent(str);
-  
+
+  doRegisterOnPhoto(serviceId, sessionKey);
+    dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+  });
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastream_recording');
@@ -500,9 +503,6 @@ function doTakePhoto(serviceId, target) {
     closeLoading();
   });
 
-  doRegisterOnPhoto(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-  });
 }
 
 /**
