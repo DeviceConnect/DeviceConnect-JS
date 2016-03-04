@@ -71,11 +71,14 @@ function searchSystem(serviceId, deviceName) {
  */
 function checkDevicePlugins() {
   initAll();
+  closeLoading();
+  showLoading();
 
   dConnect.getSystemInfo(accessToken, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
+    closeLoading();
 
     var str = '';
     for (var i = 0; i < json.plugins.length; i++) {
@@ -89,7 +92,18 @@ function checkDevicePlugins() {
     listHtml.innerHTML = str;
     $('ul.listSetting').listview('refresh');
   }, function(errorCode, errorMessage) {
-    alert('Failed to get system info.');
+    closeLoading();
+    if (errorCode == 12 || errorCode == 13 || errorCode == 15) {
+      showLoading('Awaiting Your Approval...');
+      authorization(function() {
+        checkDevicePlugins();
+      }, function() {
+        closeLoading();
+        location.hash = 'demo';
+      });
+    } else {
+      alert('Failed to get system info.');
+    }
   });
 }
 

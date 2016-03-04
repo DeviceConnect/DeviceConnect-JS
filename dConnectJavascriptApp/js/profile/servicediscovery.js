@@ -56,7 +56,12 @@ function searchDevice2() {
   }, function(errorCode, errorMessage) {
     closeLoading();
     if (errorCode == 12 || errorCode == 13 || errorCode == 15) {
-      authorization(searchDevice);
+      showLoading('Awaiting Your Approval...');
+      authorization(function() {
+        searchDevice();
+      }, function() {
+        closeLoading();
+      });
     } else {
       alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
     }
