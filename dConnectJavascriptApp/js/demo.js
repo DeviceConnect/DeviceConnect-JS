@@ -146,7 +146,7 @@ function startManager(onavailable) {
 /**
  * Local OAuthのアクセストークンを取得する.
  */
-function authorization(callback) {
+function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
               'battery', 'connect', 'deviceorientation', 'file_descriptor',
               'file', 'media_player', 'mediastream_recording', 'notification',
@@ -184,9 +184,14 @@ function authorization(callback) {
         }
       },
       function(errorCode, errorMessage) {
-        alert('Failed to get accessToken.');
-        if (callback) {
-          callback();
+        if (confirm('Failed to get accessToken. Do you try again?')) {
+          if (callback) {
+            callback();
+          }
+        } else {
+          if (oncalcel) {
+            oncalcel();
+          }
         }
       });
 }

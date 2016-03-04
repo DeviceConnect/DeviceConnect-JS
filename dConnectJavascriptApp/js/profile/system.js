@@ -71,19 +71,14 @@ function searchSystem(serviceId, deviceName) {
  */
 function checkDevicePlugins() {
   initAll();
+  closeLoading();
+  showLoading();
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('system');
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  dConnect.getSystemInfo(accessToken, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
+    closeLoading();
 
     var str = '';
     for (var i = 0; i < json.plugins.length; i++) {
@@ -96,6 +91,19 @@ function checkDevicePlugins() {
     var listHtml = document.getElementById('listSetting');
     listHtml.innerHTML = str;
     $('ul.listSetting').listview('refresh');
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    if (errorCode == 12 || errorCode == 13 || errorCode == 15) {
+      showLoading('Awaiting Your Approval...');
+      authorization(function() {
+        checkDevicePlugins();
+      }, function() {
+        closeLoading();
+        location.hash = 'demo';
+      });
+    } else {
+      alert('Failed to get system info.');
+    }
   });
 }
 
@@ -109,6 +117,7 @@ function launchDevicePlugin(pluginId) {
   builder.setInterface('device');
   builder.setAttribute('wakeup');
   builder.addParameter('pluginId', pluginId);
+  builder.setAccessToken(accessToken);
   var uri = builder.build();
 
   if (DEBUG) {
@@ -119,5 +128,7 @@ function launchDevicePlugin(pluginId) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
+  }, function(errorCode, errorMessage) {
+    alert('Failed to show the settings window.');
   });
 }

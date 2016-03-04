@@ -7,10 +7,12 @@
 
 /**
  * show loading.
+ * @param {String} msg message shown on dialog
  */
-function showLoading() {
+function showLoading(msg) {
+  msg = msg || 'Loading';
   $.mobile.loading('show', {
-    text: 'Loading',
+    text: msg,
     textVisible: true,
     theme: 'b',
     textonly: false
