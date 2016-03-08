@@ -198,3 +198,59 @@ function createCurrentDateString() {
     })(now.getTimezoneOffset());
   return dateString;
 }
+// テスト結果を端末に保存する
+function saveTestResult(result, blob) {
+  searchHostService(function(accessToken, serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.file.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.file.ATTR_SEND);
+    var formData = new FormData();
+    formData.append('serviceId', serviceId);
+    formData.append('accessToken', accessToken);
+    formData.append('path', '/' + result);
+    formData.append('mimeType', 'text/xml');
+    formData.append('data', blob);
+    var uri = builder.build();
+    dConnect.post(uri, null, formData, function(json) {
+      alert('save test data!! for ' + result);
+    }, function(errorCode, errorMessage) {
+      alert('failure!! save test data for ' + result + " " + errorMessage);
+    });
+
+  }, function(errorCode, errorMessage) {
+    alert('failure!!! save test data for ' + result);
+  });
+};
+
+function searchHost(services) {
+  var re = new RegExp('Host', 'i');
+
+  for (var i = 0; i < services.length; i++) {
+    var service = services[i];
+    if (service.name.match(re)) {
+      return service.id;
+    }
+  }
+  return null;
+};
+
+function getHostServiceId(func) {
+  dConnect.discoverDevices(mAccessToken, function(json) {
+      mServiceId = searchHost(json.services);
+      func(mAccessToken, mServiceId);
+    },
+    function(errorCode, errorMessage) {
+      func(errorCode, 'Error: ' + errorMessage);
+    }
+  );
+};
+
+function searchHostService(successCallback, errorCallback) {
+  getHostServiceId(function(accessToken, serviceId) {
+    if (accessToken == null || serviceId == null) {
+      errorCallback(-2, 'Device not found.');
+    } else {
+      successCallback(accessToken, serviceId);
+    }
+  });
+};
