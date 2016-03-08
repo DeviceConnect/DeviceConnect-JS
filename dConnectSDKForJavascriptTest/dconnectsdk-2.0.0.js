@@ -1612,7 +1612,8 @@ var dConnect = (function(parent, global) {
     /**
      * Service Information APIへの簡易アクセスを提供する。
      * @memberOf dConnect
-     * @param {String} サービスID
+     * @param {String} serviceId サービスID
+     * @param {String} accessToken アクセストークン
      * @param {dConnect.HTTPSuccessCallback} success_cb 成功時コールバック。
      * @param {dConnect.HTTPFailCallback} error_cb 失敗時コールバック。
      */
@@ -1628,12 +1629,14 @@ var dConnect = (function(parent, global) {
     /**
      * System APIへの簡易アクセスを提供する。
      * @memberOf dConnect
+     * @param {String} accessToken アクセストークン
      * @param {Function} success_cb 成功時コールバック。
      * @param {Function} error_cb 失敗時コールバック。
      */
-    var getSystemInfo = function(success_cb, error_cb) {
+    var getSystemInfo = function(accessToken, success_cb, error_cb) {
         var builder = new parent.URIBuilder();
         builder.setProfile(parent.constants.system.PROFILE_NAME);
+        builder.setAccessToken(accessToken);
         parent.sendRequest('GET', builder.build(), null, null, success_cb, error_cb);
     };
     parent.getSystemInfo = getSystemInfo;
