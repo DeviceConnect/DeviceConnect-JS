@@ -210,7 +210,7 @@ function showOptionList(serviceId, target, currentOptions) {
     if (imageSizes !== undefined) {
       var imageSizeIndex = $('[name=selectImageSizes]').val();
       var imageSize = imageSizes[imageSizeIndex];
-      op.imagewWidth = imageSize.width;
+      op.imageWidth = imageSize.width;
       op.imageHeight = imageSize.height;
     }
 
