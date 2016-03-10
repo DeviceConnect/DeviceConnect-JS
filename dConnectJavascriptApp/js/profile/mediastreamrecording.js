@@ -111,6 +111,12 @@ function showRecorderInfo(serviceId) {
     contents += '<b>previewWidth:</b> ' + recorder.previewWidth + '<br>';
     contents += '<b>previewHeight:</b> ' + recorder.previewHeight + '<br>';
     contents += '<b>previewMaxFrameRate:</b> ' + recorder.previewMaxFrameRate + '<br>';
+    if (recorder.audio) {
+      contents += '<b>channels:</b> ' + recorder.audio.channels + '<br>';
+      contents += '<b>sampleRate:</b> ' + recorder.audio.sampleRate + '<br>';
+      contents += '<b>sampleSize:</b> ' + recorder.audio.sampleSize + '<br>';
+      contents += '<b>blockSize:</b> ' + recorder.audio.blockSize + '<br>';
+    }
   }
   reloadContent(contents);
 }
@@ -340,7 +346,10 @@ function doRegisterPreview(serviceId, target) {
     }, {
         queue : false
     });
-
+    if (json.audio) {
+      registerAudioSocket(json.audio.uri);
+      return;
+    }
     var myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
     $('#preview-uri').html(myUri);
@@ -593,6 +602,10 @@ function refreshImg(uri, id) {
   }
 }
 
+
+
+
+
 /**
  * 指定したレコーダーでレコーディングを開始する.
  *
@@ -815,4 +828,76 @@ function doUnregisterOnPhoto(serviceId, sessionKey) {
   dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
     alert(errorMessage);
   });
+}
+
+
+var ws;
+var ctx = new (window.AudioContext || window.webkitAudioContext);
+var initial_delay_sec = 0;
+var scheduled_time = 0;
+
+function playChunk(audio_src, scheduled_time) {
+  if (audio_src.start) {
+    audio_src.start(scheduled_time);
+  } else {
+    audio_src.noteOn(scheduled_time);
+  }
+}
+
+function playAudioStream(audio_f32) {
+  console.log("DATA: " + audio_f32.length);
+
+  var audio_buf = ctx.createBuffer(1, audio_f32.length, 44100);
+  var audio_src = ctx.createBufferSource();
+  var current_time = ctx.currentTime;
+
+  audio_buf.getChannelData(0).set(audio_f32);
+
+  audio_src.buffer = audio_buf;
+  audio_src.connect(ctx.destination);
+
+  if (current_time < scheduled_time) {
+    playChunk(audio_src, scheduled_time);
+    scheduled_time += audio_buf.duration;
+  } else {
+    playChunk(audio_src, current_time);
+    scheduled_time = current_time + audio_buf.duration + initial_delay_sec;
+  }
+}
+
+function registerAudioSocket(uri) {
+  var wsUrl = uri.replace("http", "ws");
+  ws = new WebSocket(wsUrl.replace('localhost', ip));
+  ws.binaryType = "arraybuffer";
+
+  ws.open = function() {
+    console.log("open");
+  }
+
+  ws.onclose = function() {
+    console.log("close");
+  }
+
+  ws.onerror = function(e) {
+    console.log(String(e));
+  }
+
+  ws.onmessage = function(evt) {
+    console.log("onmessage: " + evt.data.constructor);
+
+    if (evt.data.constructor !== ArrayBuffer) {
+      return;
+    }
+   //playAudioStream(new Int16Array(evt.data));
+
+    var audio = new Int16Array(evt.data);
+    var len = audio.length;
+
+    var audioFloat32 = new Float32Array(len);
+    for (var i = 0; i < len; i++) {
+      audioFloat32[i] = audio[i] / 32768.0;
+    }
+    playAudioStream(audioFloat32);
+  };
+
 }
