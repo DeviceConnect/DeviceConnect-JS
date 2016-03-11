@@ -27,50 +27,6 @@ function getLightId(success_cb, error_cb) {
   });
 }
 
-
-/**
- * lightIdを指定しないでライト点灯リクエストを送る。
- * <h3>【HTTP通信】</h3>
- * <p id='test'>
- * Method: POST<br/>
- * Path: /light?serviceId=xxx&accessToken=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id='expected'>
- * ・resultに1が返ること。<br/>
- * </p>
- */
-LightProfileAbnormalTest.lightOnAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('lightOnAbnormalTest001',
-    LightProfileAbnormalTest.lightOnAbnormalTest001);
-
 /**
  * 存在しないlightIdを指定してライト点灯リクエストを送る。
  * <h3>【HTTP通信】</h3>
@@ -83,7 +39,7 @@ QUnit.asyncTest('lightOnAbnormalTest001',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest002 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -109,8 +65,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest002',
-    LightProfileAbnormalTest.lightOnAbnormalTest002);
+QUnit.asyncTest('lightOnAbnormalTest001',
+    LightProfileAbnormalTest.lightOnAbnormalTest001);
 
 /**
  * brightnessに全角文字を指定してライト点灯リクエストを送る。
@@ -124,7 +80,7 @@ QUnit.asyncTest('lightOnAbnormalTest002',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest003 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest002 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -155,8 +111,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnomalTest003',
-    LightProfileAbnormalTest.lightOnAbnormalTest003);
+QUnit.asyncTest('lightOnAbnomalTest002',
+    LightProfileAbnormalTest.lightOnAbnormalTest002);
 
 /**
  * brightnessに半角文字を指定してライト点灯リクエストを送る。
@@ -170,7 +126,7 @@ QUnit.asyncTest('lightOnAbnomalTest003',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest004 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest003 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -201,8 +157,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest004',
-    LightProfileAbnormalTest.lightOnAbnormalTest004);
+QUnit.asyncTest('lightOnAbnormalTest003',
+    LightProfileAbnormalTest.lightOnAbnormalTest003);
 
 /**
  * brightnessに特殊文字を指定してライト点灯リクエストを送る。
@@ -216,7 +172,7 @@ QUnit.asyncTest('lightOnAbnormalTest004',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest005 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest004 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -247,8 +203,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest005',
-    LightProfileAbnormalTest.lightOnAbnormalTest005);
+QUnit.asyncTest('lightOnAbnormalTest004',
+    LightProfileAbnormalTest.lightOnAbnormalTest004);
 
 /**
  * brightnessに仕様範囲外の数値を指定してライト点灯リクエストを送る。
@@ -262,7 +218,7 @@ QUnit.asyncTest('lightOnAbnormalTest005',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest006 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest005 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -290,8 +246,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest006',
-    LightProfileAbnormalTest.lightOnAbnormalTest006);
+QUnit.asyncTest('lightOnAbnormalTest005',
+    LightProfileAbnormalTest.lightOnAbnormalTest005);
 
 /**
  * brightnessにマイナスの数値を指定してライト点灯リクエストを送る。
@@ -305,7 +261,7 @@ QUnit.asyncTest('lightOnAbnormalTest006',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest007 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest006 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -333,8 +289,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest007',
-    LightProfileAbnormalTest.lightOnAbnormalTest007);
+QUnit.asyncTest('lightOnAbnormalTest006',
+    LightProfileAbnormalTest.lightOnAbnormalTest006);
 
 /**
  * brightnessに空文字を指定してライト点灯リクエストを送る。
@@ -348,7 +304,7 @@ QUnit.asyncTest('lightOnAbnormalTest007',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest007 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -376,8 +332,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest008',
-    LightProfileAbnormalTest.lightOnAbnormalTest008);
+QUnit.asyncTest('lightOnAbnormalTest007',
+    LightProfileAbnormalTest.lightOnAbnormalTest007);
 
 /**
  * colorに全角文字を指定してライト点灯リクエストを送る。
@@ -391,7 +347,7 @@ QUnit.asyncTest('lightOnAbnormalTest008',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -423,8 +379,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest009',
-    LightProfileAbnormalTest.lightOnAbnormalTest009);
+QUnit.asyncTest('lightOnAbnormalTest008',
+    LightProfileAbnormalTest.lightOnAbnormalTest008);
 
 /**
  * colorに半角文字を指定してライト点灯リクエストを送る。
@@ -438,7 +394,7 @@ QUnit.asyncTest('lightOnAbnormalTest009',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -469,8 +425,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest010',
-    LightProfileAbnormalTest.lightOnAbnormalTest010);
+QUnit.asyncTest('lightOnAbnormalTest009',
+    LightProfileAbnormalTest.lightOnAbnormalTest009);
 
 /**
  * colorに特殊文字を指定してライト点灯リクエストを送る。
@@ -484,7 +440,7 @@ QUnit.asyncTest('lightOnAbnormalTest010',
  * ・resultに1が返ること。<br/>
  * </p>
  */
-LightProfileAbnormalTest.lightOnAbnormalTest011 = function(assert) {
+LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
   getLightId(function(accessToken, serviceId, json) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('light');
@@ -515,8 +471,8 @@ LightProfileAbnormalTest.lightOnAbnormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest011',
-    LightProfileAbnormalTest.lightOnAbnormalTest011);
+QUnit.asyncTest('lightOnAbnormalTest010',
+    LightProfileAbnormalTest.lightOnAbnormalTest010);
 
 /**
  * 存在しないlightIdを指定してライトステータス変更リクエストを送る。
