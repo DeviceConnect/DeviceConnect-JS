@@ -866,8 +866,9 @@ function playAudioStream(audio_f32) {
 }
 
 function registerAudioSocket(uri) {
-  var wsUrl = uri.replace("http", "ws");
-  ws = new WebSocket(wsUrl.replace('localhost', ip));
+  var wsUrl = uri.replace('localhost', ip);
+  $('#preview-uri').html(wsUrl);
+  ws = new WebSocket(wsUrl.replace("http", "ws"));
   ws.binaryType = "arraybuffer";
 
   ws.open = function() {
