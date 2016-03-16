@@ -352,7 +352,7 @@ function doRegisterPreview(serviceId, target) {
     }
     var myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
-    $('#preview-uri').html(myUri);
+    $('#preview-uri').text(myUri);
     var img = $('#preview');
     if (img) {
       img.error(function() {
@@ -867,7 +867,7 @@ function playAudioStream(audio_f32) {
 
 function registerAudioSocket(uri) {
   var wsUrl = uri.replace('localhost', ip);
-  $('#preview-uri').html(wsUrl);
+  $('#preview-uri').text(wsUrl);
   ws = new WebSocket(wsUrl.replace("http", "ws"));
   ws.binaryType = "arraybuffer";
 
