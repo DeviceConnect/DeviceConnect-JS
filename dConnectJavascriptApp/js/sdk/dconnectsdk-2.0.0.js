@@ -1489,6 +1489,10 @@ var dConnect = (function(parent, global) {
           }
         }
 
+        if (method.toUpperCase() === 'DELETE'
+            && (data === undefined || data === null)) {
+          data = '';
+        }
         xhr.send(data);
       }
       // HEADERS_RECEIVED: send() が呼び出され、ヘッダーとステータスが通った。
