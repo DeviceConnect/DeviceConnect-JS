@@ -290,7 +290,7 @@ function doRegisterOnWatchFile(serviceId, sessionKey) {
     }
     var json = JSON.parse(message);
     if (json.profile === 'file_descriptor') {
-      document.fileDescriptorForm.event.value = json.file.curr;
+      document.fileDescriptorForm.path.value = json.file.curr;
       if (DEBUG) {
         console.log(json.file.curr);
       }

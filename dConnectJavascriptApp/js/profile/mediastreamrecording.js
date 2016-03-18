@@ -476,7 +476,7 @@ function doTakePhoto(serviceId, target) {
   str += '<center>';
   str += '<img src="./css/images/cameraWait.png" width="100%" id="photo">';
   str += '</center><br>';
-  str += takePhotoButton(serviceId);
+  str += takePhotoButton(serviceId, target);
 
   reloadContent(str);
 
@@ -765,12 +765,12 @@ function mediaStopButton(serviceId) {
  *
  * @param {String} serviceId サービスID
  */
-function takePhotoButton(serviceId) {
+function takePhotoButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
   str += 'onclick="javascript:doTakePhoto(\'' +
-          serviceId + '\');" type="button" value="takePhoto"/>';
+          serviceId + '\', \'' + target + '\');" type="button" value="takePhoto"/>';
   str += '</center>';
   return str;
 }
