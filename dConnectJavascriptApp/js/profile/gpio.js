@@ -48,7 +48,7 @@ function showGPIO(serviceId) {
 
             str += '<tr>';
             str += '<td>';
-            str += i;
+            str += i + '(D' + i + ')';
             str += '</td>';
             str += '<td>';
 
@@ -80,7 +80,7 @@ function showGPIO(serviceId) {
 
             str += '<tr>';
             str += '<td>';
-            str += 'A' + d;
+            str +=  i + '(A' + d + ')';
             str += '</td>';
             str += '<td>';
             str += '<select id="' + i + '" onChange=\"doGPIOExport(\'' + serviceId + '\',this)\">';
