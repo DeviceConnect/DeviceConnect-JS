@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Device Connect Javascript Test(GPIO)</title>
+  <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
+</head>
+<body>
+  <div id="images"style="position:absolute;">
+    <img crossorigin="anonymous" id="image" width="240">
+    <img id="preview" width="240">
+    <canvas id="canvas" width="120" height="120" ></canvas>
+  </div>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script type="text/javascript">
+   /**
+    * テストを行うデバイス名を定義する.
+    * <p>
+    * undefineやnullの場合には、テストプラグインを使用する。
+    * </p>
+    */
+  var DEVICE_NAME = "FABO Device";
+  </script>
+
+  <script src="../qunit/qunit-1.15.0.js"></script>
+  <script src="../qunit/qunit-reporter-junit.js"></script>
+  <script src="../dconnectsdk-2.0.0.js"></script>
+  <script src="../dconnect-test-config.js"></script>
+  <script src="../dconnect-test-util.js"></script>
+
+  <script src="profiles/service_discovery_normal.js"></script>
+  <script src="profiles/service_discovery_abnormal.js"></script>
+  <script src="profiles/serviceinformation_normal.js"></script>
+  <script src="profiles/serviceinformation_abnormal.js"></script>
+  
+  <script src="extra_profiles/gpio_normal.js"></script>
+
+  <script>
+    QUnit.jUnitReport = function(report) {
+      console.log(report.xml);
+      var now = new Date();
+
+      saveTestResult('gpio_test_'
+              + now.getFullYear()  +
+              (now.getMonth() + 1) +
+              now.getDate() +
+              now.getHours() +
+              now.getMinutes() +
+              now.getSeconds()
+              + '.xml', new Blob([report.xml], {'type': 'text/xml'}));
+
+    };
+  </script>
+</body>
+</html>
