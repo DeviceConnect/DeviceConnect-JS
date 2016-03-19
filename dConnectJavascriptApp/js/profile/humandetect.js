@@ -99,6 +99,10 @@ function getBodyDetectForm(serviceId, sessionKey) {
   str += '<label for="maxHeight">maxHeight</label>';
   str += '<input type="text" id="body_maxHeight" size="10" maxlength="10">';
   str += '</div>';
+  str += '<div>';
+  str += '<label for="interval">interval</label>';
+  str += '<input type="text" id="body_interval" size="10" maxlength="10">';
+  str += '</div>';
   // end of div(optionvalues)
   str += '</div>';
   // -------------------------------------------------------
@@ -177,7 +181,7 @@ function doHumanDetectBodyRegist(serviceId, sessionKey) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(sessionKey);
-  addBodyOptionParameter(builder);
+  addBodyOptionParameter(builder, 'body');
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -274,6 +278,11 @@ function getHandDetectForm(serviceId, sessionKey) {
   str += '<label for="maxHeight">maxHeight</label>';
   str += '<input type="text" id="hand_maxHeight" size="10" maxlength="10">';
   str += '</div>';
+  // interval
+  str += '<div>';
+  str += '<label for="interval">interval</label>';
+  str += '<input type="text" id="hand_interval" size="10" maxlength="10">';
+  str += '</div>';
   // end of div(optionvalues)
   str += '</div>';
   // -------------------------------------------------------
@@ -350,7 +359,7 @@ function doHumanDetectHandRegist(serviceId, sessionKey) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(sessionKey);
-  addHandOptionParameter(builder);
+  addHandOptionParameter(builder, 'hand');
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
