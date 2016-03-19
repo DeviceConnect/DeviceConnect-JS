@@ -481,7 +481,9 @@ function doTakePhoto(serviceId, target) {
   reloadContent(str);
 
   doRegisterOnPhoto(serviceId, sessionKey);
-    dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+    console.log("Failed to connect websocket. errorCode=" + errorCode + " errorMessage=" + errorMessage);
   });
 
   var builder = new dConnect.URIBuilder();
@@ -507,6 +509,8 @@ function doTakePhoto(serviceId, target) {
     myUri = myUri.replace('localhost', ip);
     refreshImg(myUri, 'photo');
     closeLoading();
+
+    $('#onPhoto').val(json.uri);
   }, function(errorCode, errorMessage) {
     showError('POST mediastream_recording/takephoto', errorCode, errorMessage);
     closeLoading();
