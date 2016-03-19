@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-var versionRev = 'V2.0.0 Rev.9';
+var versionRev = 'V2.0.0 Rev.10';
 /** Client ID. */
 var currentClientId = null;
 /** AccessTonen. */
@@ -155,7 +155,7 @@ function authorization(callback, oncalcel) {
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectional_image',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
-               'airconditioner');
+               'airconditioner','gpio');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -309,5 +309,7 @@ function searchProfile(serviceId, profile) {
     showTV(serviceId);
   } else if (profile === 'airconditioner') {
     showAirConditioner(serviceId);
+  } else if (profile === 'gpio') {
+    showGPIO(serviceId);
   }
 }
