@@ -1085,7 +1085,8 @@ QUnit.asyncTest('gpioNormalTest028',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /gpio/digital/4?serviceId=xxxx&accessToken=xxx&value=1<br/>
+ * Path: /gpio/digital/4<br/>
+ * POST value: serviceId=xxxx&accessToken=xxx&value=1<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
