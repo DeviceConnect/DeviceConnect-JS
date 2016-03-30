@@ -476,12 +476,14 @@ function doTakePhoto(serviceId, target) {
   str += '<center>';
   str += '<img src="./css/images/cameraWait.png" width="100%" id="photo">';
   str += '</center><br>';
-  str += takePhotoButton(serviceId);
+  str += takePhotoButton(serviceId, target);
 
   reloadContent(str);
 
   doRegisterOnPhoto(serviceId, sessionKey);
-    dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+
+  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+    console.log("Failed to connect websocket. errorCode=" + errorCode + " errorMessage=" + errorMessage);
   });
 
   var builder = new dConnect.URIBuilder();
@@ -507,6 +509,8 @@ function doTakePhoto(serviceId, target) {
     myUri = myUri.replace('localhost', ip);
     refreshImg(myUri, 'photo');
     closeLoading();
+
+    $('#onPhoto').val(json.uri);
   }, function(errorCode, errorMessage) {
     showError('POST mediastream_recording/takephoto', errorCode, errorMessage);
     closeLoading();
@@ -765,12 +769,12 @@ function mediaStopButton(serviceId) {
  *
  * @param {String} serviceId サービスID
  */
-function takePhotoButton(serviceId) {
+function takePhotoButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
   str += 'onclick="javascript:doTakePhoto(\'' +
-          serviceId + '\');" type="button" value="takePhoto"/>';
+          serviceId + '\', \'' + target + '\');" type="button" value="takePhoto"/>';
   str += '</center>';
   return str;
 }
