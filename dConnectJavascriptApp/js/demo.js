@@ -49,6 +49,7 @@ function init() {
       dConnect.setAntiSpoofing(true);
   }
   dConnect.setHost(ip);
+  dConnect.setSSLEnabled(location.protocol === 'https:');
   openWebsocketIfNeeded();
   searchDevice();
 }
