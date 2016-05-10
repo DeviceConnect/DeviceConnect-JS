@@ -2344,9 +2344,13 @@ var dConnect = (function(parent, global) {
     }
     if (this.params) {
       var p = '';
+      var param;
       for (var key in this.params) {
-          p += (p.length == 0) ? '?' : '&';
-          p += encodeURIComponent(key) + '=' + encodeURIComponent(this.params[key]);
+          param = this.params[key]
+          if (param !== null && param !== undefined) {
+            p += (p.length == 0) ? '?' : '&';
+            p += encodeURIComponent(key) + '=' + encodeURIComponent(param);
+          }
       }
       uri += p;
     }
