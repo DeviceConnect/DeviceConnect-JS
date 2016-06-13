@@ -15,7 +15,7 @@ var DriveControllerProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -25,7 +25,7 @@ var DriveControllerProfileNormalTest = {};
 DriveControllerProfileNormalTest.moveNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -57,7 +57,7 @@ QUnit.asyncTest('moveNormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -67,7 +67,7 @@ QUnit.asyncTest('moveNormalTest001',
 DriveControllerProfileNormalTest.moveNormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -99,7 +99,7 @@ QUnit.asyncTest('moveNormalTest002',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -109,7 +109,7 @@ QUnit.asyncTest('moveNormalTest002',
 DriveControllerProfileNormalTest.moveNormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -141,7 +141,7 @@ QUnit.asyncTest('moveNormalTest003',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -151,7 +151,7 @@ QUnit.asyncTest('moveNormalTest003',
 DriveControllerProfileNormalTest.moveNormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -183,7 +183,7 @@ QUnit.asyncTest('moveNormalTest004',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -193,7 +193,7 @@ QUnit.asyncTest('moveNormalTest004',
 DriveControllerProfileNormalTest.moveNormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -225,7 +225,7 @@ QUnit.asyncTest('moveNormalTest005',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -235,7 +235,7 @@ QUnit.asyncTest('moveNormalTest005',
 DriveControllerProfileNormalTest.moveNormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -267,7 +267,7 @@ QUnit.asyncTest('moveNormalTest006',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -277,7 +277,7 @@ QUnit.asyncTest('moveNormalTest006',
 DriveControllerProfileNormalTest.moveNormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -309,7 +309,7 @@ QUnit.asyncTest('moveNormalTest007',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -319,7 +319,7 @@ QUnit.asyncTest('moveNormalTest007',
 DriveControllerProfileNormalTest.moveNormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -351,7 +351,7 @@ QUnit.asyncTest('moveNormalTest008',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -361,7 +361,7 @@ QUnit.asyncTest('moveNormalTest008',
 DriveControllerProfileNormalTest.moveNormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -393,7 +393,7 @@ QUnit.asyncTest('moveNormalTest009',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -403,7 +403,7 @@ QUnit.asyncTest('moveNormalTest009',
 DriveControllerProfileNormalTest.moveNormalTest010 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -435,7 +435,7 @@ QUnit.asyncTest('moveNormalTest010',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -445,7 +445,7 @@ QUnit.asyncTest('moveNormalTest010',
 DriveControllerProfileNormalTest.moveNormalTest011 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -477,7 +477,7 @@ QUnit.asyncTest('moveNormalTest011',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -487,7 +487,7 @@ QUnit.asyncTest('moveNormalTest011',
 DriveControllerProfileNormalTest.moveNormalTest012 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -519,7 +519,7 @@ QUnit.asyncTest('moveNormalTest012',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -529,7 +529,7 @@ QUnit.asyncTest('moveNormalTest012',
 DriveControllerProfileNormalTest.moveNormalTest013 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -561,7 +561,7 @@ QUnit.asyncTest('moveNormalTest013',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /drive_controller/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/stop?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -571,7 +571,7 @@ QUnit.asyncTest('moveNormalTest013',
 DriveControllerProfileNormalTest.stopNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('stop');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -601,7 +601,7 @@ QUnit.asyncTest('stopNormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -611,7 +611,7 @@ QUnit.asyncTest('stopNormalTest001',
 DriveControllerProfileNormalTest.rotateNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -642,7 +642,7 @@ QUnit.asyncTest('rotateNormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -652,7 +652,7 @@ QUnit.asyncTest('rotateNormalTest001',
 DriveControllerProfileNormalTest.rotateNormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -683,7 +683,7 @@ QUnit.asyncTest('rotateNormalTest002',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -693,7 +693,7 @@ QUnit.asyncTest('rotateNormalTest002',
 DriveControllerProfileNormalTest.rotateNormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -724,7 +724,7 @@ QUnit.asyncTest('rotateNormalTest003',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -734,7 +734,7 @@ QUnit.asyncTest('rotateNormalTest003',
 DriveControllerProfileNormalTest.rotateNormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);

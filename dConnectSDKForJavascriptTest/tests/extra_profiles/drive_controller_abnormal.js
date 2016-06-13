@@ -16,7 +16,7 @@ var DriveControllerProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=0.5<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -26,7 +26,7 @@ var DriveControllerProfileAbnormalTest = {};
 DriveControllerProfileAbnormalTest.moveAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -63,7 +63,7 @@ QUnit.asyncTest('moveAbnormalTest001(get not support method.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=0.5<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -73,7 +73,7 @@ QUnit.asyncTest('moveAbnormalTest001(get not support method.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -110,7 +110,7 @@ QUnit.asyncTest('moveAbnormalTest002(put not support method.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=0.5<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -120,7 +120,7 @@ QUnit.asyncTest('moveAbnormalTest002(put not support method.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -157,7 +157,7 @@ QUnit.asyncTest('moveAbnormalTest003(delete not support method.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -167,7 +167,7 @@ QUnit.asyncTest('moveAbnormalTest003(delete not support method.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -202,7 +202,7 @@ QUnit.asyncTest('moveAbnormalTest004(angle and speed not set)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle='かきくけこ'&speed='あいうえお'<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle='かきくけこ'&speed='あいうえお'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -212,7 +212,7 @@ QUnit.asyncTest('moveAbnormalTest004(angle and speed not set)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -249,7 +249,7 @@ QUnit.asyncTest('moveAbnormalTest005(Set string in angle and speed.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=12345&speed=67890<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=12345&speed=67890<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -259,7 +259,7 @@ QUnit.asyncTest('moveAbnormalTest005(Set string in angle and speed.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -296,7 +296,7 @@ QUnit.asyncTest('moveAbnormalTest006(Set big number in angle and speed.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle='abc'&speed='def'<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle='abc'&speed='def'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -306,7 +306,7 @@ QUnit.asyncTest('moveAbnormalTest006(Set big number in angle and speed.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -343,7 +343,7 @@ QUnit.asyncTest('moveAbnormalTest007(Set a string in angle and speed.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=-90&speed=0.1<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=-90&speed=0.1<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -353,7 +353,7 @@ QUnit.asyncTest('moveAbnormalTest007(Set a string in angle and speed.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -390,7 +390,7 @@ QUnit.asyncTest('moveAbnormalTest008(Set -90 in angle, set 0.1 in speed.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=-90&speed=0.5<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=-90&speed=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -400,7 +400,7 @@ QUnit.asyncTest('moveAbnormalTest008(Set -90 in angle, set 0.1 in speed.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -437,7 +437,7 @@ QUnit.asyncTest('moveAbnormalTest009(Set -90 in angle, set 0.5 in speed.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=0&speed=-0.8<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=0&speed=-0.8<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -447,7 +447,7 @@ QUnit.asyncTest('moveAbnormalTest009(Set -90 in angle, set 0.5 in speed.)',
 DriveControllerProfileAbnormalTest.moveAbnormalTest010 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -484,7 +484,7 @@ QUnit.asyncTest('moveAbnormalTest010()',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=-90&speed=1.0<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=-90&speed=1.0<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -494,7 +494,7 @@ QUnit.asyncTest('moveAbnormalTest010()',
 DriveControllerProfileAbnormalTest.moveAbnormalTest011 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -531,7 +531,7 @@ QUnit.asyncTest('moveAbnormalTest011',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=10000&speed=0.8<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=10000&speed=0.8<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -541,7 +541,7 @@ QUnit.asyncTest('moveAbnormalTest011',
 DriveControllerProfileAbnormalTest.moveAbnormalTest012 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -578,7 +578,7 @@ QUnit.asyncTest('moveAbnormalTest012',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=90.5&speed=0.8<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=90.5&speed=0.8<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -588,7 +588,7 @@ QUnit.asyncTest('moveAbnormalTest012',
 DriveControllerProfileAbnormalTest.moveAbnormalTest013 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -625,7 +625,7 @@ QUnit.asyncTest('moveAbnormalTest013',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=100<br/>
+ * Path: /drivecontroller/move?serviceId=xxxx&accessToken=xxx&angle=90&speed=100<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -635,7 +635,7 @@ QUnit.asyncTest('moveAbnormalTest013',
 DriveControllerProfileAbnormalTest.moveAbnormalTest014 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('move');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -672,7 +672,7 @@ QUnit.asyncTest('moveAbnormalTest014(Calling a post method with angle=90, speed=
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /drive_controller/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/stop?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -682,7 +682,7 @@ QUnit.asyncTest('moveAbnormalTest014(Calling a post method with angle=90, speed=
 DriveControllerProfileAbnormalTest.stopAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('stop');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -717,7 +717,7 @@ QUnit.asyncTest('stopAbnormalTest001(Calling a get method that does not support.
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/stop?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -727,7 +727,7 @@ QUnit.asyncTest('stopAbnormalTest001(Calling a get method that does not support.
 DriveControllerProfileAbnormalTest.stopAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('stop');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -762,7 +762,7 @@ QUnit.asyncTest('stopAbnormalTest002(Calling a put method that does not support.
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/stop?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -772,7 +772,7 @@ QUnit.asyncTest('stopAbnormalTest002(Calling a put method that does not support.
 DriveControllerProfileAbnormalTest.stopAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('stop');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -807,7 +807,7 @@ QUnit.asyncTest('stopAbnormalTest003(Calling a post method that does not support
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=90<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=90<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -817,7 +817,7 @@ QUnit.asyncTest('stopAbnormalTest003(Calling a post method that does not support
 DriveControllerProfileAbnormalTest.rotateAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -853,7 +853,7 @@ QUnit.asyncTest('rotateAbnormalTest001(Calling a get method that does not suppor
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=90<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=90<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -863,7 +863,7 @@ QUnit.asyncTest('rotateAbnormalTest001(Calling a get method that does not suppor
 DriveControllerProfileAbnormalTest.rotateAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -899,7 +899,7 @@ QUnit.asyncTest('rotateAbnormalTest002(Calling a post method that does not suppo
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=90<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=90<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -909,7 +909,7 @@ QUnit.asyncTest('rotateAbnormalTest002(Calling a post method that does not suppo
 DriveControllerProfileAbnormalTest.rotateAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -945,7 +945,7 @@ QUnit.asyncTest('rotateAbnormalTest003(Calling a delete method that does not sup
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -955,7 +955,7 @@ QUnit.asyncTest('rotateAbnormalTest003(Calling a delete method that does not sup
 DriveControllerProfileAbnormalTest.rotateAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -990,7 +990,7 @@ QUnit.asyncTest('rotateAbnormalTest004(Calling a put method without setting of a
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle='あいうえお'<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle='あいうえお'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1000,7 +1000,7 @@ QUnit.asyncTest('rotateAbnormalTest004(Calling a put method without setting of a
 DriveControllerProfileAbnormalTest.rotateAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -1036,7 +1036,7 @@ QUnit.asyncTest('rotateAbnormalTest005(Calling a put method with angle=あいう
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=12345<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=12345<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1046,7 +1046,7 @@ QUnit.asyncTest('rotateAbnormalTest005(Calling a put method with angle=あいう
 DriveControllerProfileAbnormalTest.rotateAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -1082,7 +1082,7 @@ QUnit.asyncTest('rotateAbnormalTest006(Calling a put method with angle=12345.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle='abc'<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle='abc'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1092,7 +1092,7 @@ QUnit.asyncTest('rotateAbnormalTest006(Calling a put method with angle=12345.)',
 DriveControllerProfileAbnormalTest.rotateAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -1128,7 +1128,7 @@ QUnit.asyncTest('rotateAbnormalTest007(Calling a put method with angle=abc.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=-90<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=-90<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1138,7 +1138,7 @@ QUnit.asyncTest('rotateAbnormalTest007(Calling a put method with angle=abc.)',
 DriveControllerProfileAbnormalTest.rotateAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -1174,7 +1174,7 @@ QUnit.asyncTest('rotateAbnormalTest008(Calling a put method with angle=-90.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=90.5<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=90.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1184,7 +1184,7 @@ QUnit.asyncTest('rotateAbnormalTest008(Calling a put method with angle=-90.)',
 DriveControllerProfileAbnormalTest.rotateAbnormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -1220,7 +1220,7 @@ QUnit.asyncTest('rotateAbnormalTest009(Calling a put method with angle=90.5.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /drive_controller/rotate?serviceId=xxxx&accessToken=xxx&angle=900<br/>
+ * Path: /drivecontroller/rotate?serviceId=xxxx&accessToken=xxx&angle=900<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -1230,7 +1230,7 @@ QUnit.asyncTest('rotateAbnormalTest009(Calling a put method with angle=90.5.)',
 DriveControllerProfileAbnormalTest.rotateAbnormalTest010 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('drive_controller');
+        builder.setProfile('drivecontroller');
         builder.setAttribute('rotate');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);

@@ -149,12 +149,12 @@ function startManager(onavailable) {
  */
 function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connect', 'deviceorientation', 'file_descriptor',
-              'file', 'media_player', 'mediastream_recording', 'notification',
+              'battery', 'connect', 'deviceorientation', 'filedescriptor',
+              'file', 'mediaplayer', 'mediastreamrecording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
-              'remote_controller', 'drive_controller', 'mhealth', 'sphero',
+              'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetect', 'keyevent', 'omnidirectional_image',
+              'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio');
   dConnect.authorization(scopes, 'Demo Web Site',
@@ -248,17 +248,17 @@ function searchProfile(serviceId, profile) {
     showNotification(serviceId);
   } else if (profile === 'vibration') {
     showVibration(serviceId);
-  } else if (profile === 'mediastream_recording') {
+  } else if (profile === 'mediastreamrecording') {
     showMediastreamRecording(serviceId);
   } else if (profile === 'deviceorientation') {
     showDeviceOrientation(serviceId);
-  } else if (profile === 'drive_controller') {
+  } else if (profile === 'drivecontroller') {
     showDriveController(serviceId);
-  } else if (profile === 'remote_controller') {
+  } else if (profile === 'remotecontroller') {
     showRemoteController(serviceId);
   } else if (profile === 'file') {
     showFile(serviceId);
-  } else if (profile === 'file_descriptor') {
+  } else if (profile === 'filedescriptor') {
     showFileDescriptor(serviceId);
   } else if (profile === 'light') {
     showSearchLight(serviceId);
@@ -268,7 +268,7 @@ function searchProfile(serviceId, profile) {
     showConnect(serviceId);
   } else if (profile === 'settings') {
     showSetting(serviceId);
-  } else if (profile === 'media_player') {
+  } else if (profile === 'mediaplayer') {
     showMediaPlayer(serviceId);
   } else if (profile === 'battery') {
     showBattery(serviceId);
@@ -296,7 +296,7 @@ function searchProfile(serviceId, profile) {
     showKeyEvent(serviceId);
   } else if (profile === 'videochat') {
     showVideoChat(serviceId);
-  } else if (profile === 'omnidirectional_image') {
+  } else if (profile === 'omnidirectionalimage') {
     showOmnidirectionalImage(serviceId);
   } else if (profile === 'serviceinformation') {
     showServiceInformation(serviceId);
