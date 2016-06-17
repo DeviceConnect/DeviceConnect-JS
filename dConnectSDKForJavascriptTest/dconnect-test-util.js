@@ -79,7 +79,11 @@ function getAccessToken(func) {
       'powermeter',
       'tv',
       'airconditioner',
-      'gpio'
+      'gpio',
+      'ecg',
+      'stressEstimation',
+      'poseEstimation',
+      'walkState'
   );
 
   dConnect.authorization(scopes,

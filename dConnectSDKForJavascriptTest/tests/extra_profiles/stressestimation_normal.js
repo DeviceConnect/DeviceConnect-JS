@@ -1,4 +1,4 @@
-module("Health Profile Normal Test", {
+module("StressEstimation Profile Normal Test", {
     setup: function () {
         init();
     }
@@ -6,17 +6,17 @@ module("Health Profile Normal Test", {
 
 
 /**
- * Healthプロファイルの正常系テストを行うクラス。
+ * StressEstimationプロファイルの正常系テストを行うクラス。
  * @class
  */
-var HealthProfileNormalTest = {};
+var StressEstimationProfileNormalTest = {};
 
 /**
- * 心拍数を取得するテストを行う。
+ * ストレス推定を取得するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /health/heart?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /stressEstimation/onStressEstimation?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -24,18 +24,18 @@ var HealthProfileNormalTest = {};
  * ・heartの値が返ってくること。<br/>
  * </p>
  */
-HealthProfileNormalTest.heartNormalTest = function (assert) {
+StressEstimationProfileNormalTest.stressNormalTest = function (assert) {
     searchTestService(function (accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile("health");
-        builder.setAttribute("heart");
+        builder.setProfile("stressEstimation");
+        builder.setAttribute("onStressEstimation");
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
         dConnect.get(uri, null,
             function (json) {
                 assert.ok(true, "result=" + json.result);
-                assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
+                assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
                 QUnit.start();
             },
             function (errorCode, errorMessage) {
@@ -49,14 +49,14 @@ HealthProfileNormalTest.heartNormalTest = function (assert) {
         QUnit.start();
     });
 }
-QUnit.asyncTest("heart", HealthProfileNormalTest.heartNormalTest);
+QUnit.asyncTest("stress", StressEstimationProfileNormalTest.stressNormalTest);
 
 /**
- * Healthプロファイルのheartrateの登録と解除を行うテストを行う。
+ * StressEstimationプロファイルのheartrateの登録と解除を行うテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /health/heart?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /stressEstimation/onStressEstimation?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -64,18 +64,18 @@ QUnit.asyncTest("heart", HealthProfileNormalTest.heartNormalTest);
  * ・イベント通知が送られてくること。<br/>
  * </p>
  */
-HealthProfileNormalTest.heartEventNormalTest001 = function (assert) {
+StressEstimationProfileNormalTest.stressEventNormalTest001 = function (assert) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile("health");
-    builder.setAttribute("heart");
+    builder.setProfile("stressEstimation");
+    builder.setAttribute("onStressEstimation");
     openWebsocket(builder, assert, 10000, function (message) {
         var json = JSON.parse(message);
-        if (json.profile === "health" && json.attribute === "heart") {
+        if (json.profile === "stressEstimation" && json.attribute === "onStressEstimation") {
             assert.ok(true, message);
-            assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
+            assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
             return true;
         }
         return false;
     });
 }
-QUnit.asyncTest("heartEventNormalTest001", HealthProfileNormalTest.heartEventNormalTest001);
+QUnit.asyncTest("StressEventNormalTest001", StressEstimationProfileNormalTest.stressEventNormalTest001);
