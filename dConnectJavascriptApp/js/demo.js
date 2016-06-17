@@ -156,7 +156,8 @@ function authorization(callback, oncalcel) {
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectional_image',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
-               'airconditioner','gpio');
+               'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
+               'walkState');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -312,5 +313,13 @@ function searchProfile(serviceId, profile) {
     showAirConditioner(serviceId);
   } else if (profile === 'gpio') {
     showGPIO(serviceId);
+  } else if (profile === 'ecg') {
+    showECGProfile(serviceId);
+  } else if (profile === 'stressEstimation') {
+    showStressEstimationProfile(serviceId);
+  } else if (profile === 'poseEstimation') {
+    showPoseEstimationProfile(serviceId);
+  } else if (profile === 'walkState') {
+    showWalkStateProfile(serviceId);
   }
 }
