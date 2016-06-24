@@ -39,6 +39,10 @@ function showPoseEstimation(serviceId) {
         ' id="button" value="Get PoseEstimation"' +
         ' onclick="javascript:doGetPoseEstimation(\'' +
         serviceId + '\');"/><br>';
+  str += '<div>';
+  str += '<label for="interval">interval</label>';
+  str += '<input type="text" id="interval" size="10" maxlength="10">';
+  str += '</div>';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Register Event"' +
         ' onclick="javascript:doRegisterPoseEstimation(\'' +
@@ -116,6 +120,7 @@ function unregisterPoseEstimation(serviceId) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(currentClientId);
+  builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
   if (DEBUG) {
