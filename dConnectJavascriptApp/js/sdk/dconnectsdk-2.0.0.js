@@ -399,7 +399,7 @@ var dConnect = (function(parent, global) {
     file_descriptor: {
       // Profile name
       /** プロファイル名。 */
-      PROFILE_NAME: 'file_descriptor',
+      PROFILE_NAME: 'filedescriptor',
 
       // Attribute
       /** アトリビュート: open */
@@ -538,15 +538,15 @@ var dConnect = (function(parent, global) {
     media_player: {
       // Profile name
       /** プロファイル名。 */
-      PROFILE_NAME: 'media_player',
+      PROFILE_NAME: 'mediaplayer',
 
       // Attribute
       /** アトリビュート: media */
       ATTR_MEDIA: 'media',
-      /** アトリビュート: media_list */
-      ATTR_MEDIA_LIST: 'media_list',
-      /** アトリビュート: play_status */
-      ATTR_PLAY_STATUS: 'play_status',
+      /** アトリビュート: medialist */
+      ATTR_MEDIA_LIST: 'medialist',
+      /** アトリビュート: playstatus */
+      ATTR_PLAY_STATUS: 'playstatus',
       /** アトリビュート: play */
       ATTR_PLAY: 'play',
       /** アトリビュート: stop */
@@ -657,7 +657,7 @@ var dConnect = (function(parent, global) {
     media_stream_recording: {
       // Profile name
       /** プロファイル名。 */
-      PROFILE_NAME: 'mediastream_recording',
+      PROFILE_NAME: 'mediastreamrecording',
 
       // Attribute
       /** アトリビュート: mediarecorder */
@@ -2216,7 +2216,7 @@ var dConnect = (function(parent, global) {
    * <li>servicediscovery</li>
    * <li>system</li>
    * <li>battery</li>
-   * <li>mediastream_recording</li>
+   * <li>mediastreamrecording</li>
    * </ul>
    * などなど。
    * </p>

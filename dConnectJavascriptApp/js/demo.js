@@ -149,12 +149,12 @@ function startManager(onavailable) {
  */
 function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connect', 'deviceorientation', 'file_descriptor',
-              'file', 'media_player', 'mediastream_recording', 'notification',
+              'battery', 'connect', 'deviceorientation', 'filedescriptor',
+              'file', 'mediaplayer', 'mediastreamrecording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
-              'remote_controller', 'drive_controller', 'mhealth', 'sphero',
+              'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetect', 'keyevent', 'omnidirectional_image',
+              'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio');
   dConnect.authorization(scopes, 'Demo Web Site',
@@ -238,79 +238,93 @@ function getCookie(name) {
 }
 
 /**
+ * プロファイル名を比較(大小文字の違いがあっても一致とみなす).
+ * 
+ * @param {String} profile 比較するプロファイル名
+ * @param {String} cmpProfile 比較されるプロファイル名
+ * 
+ * @return 0以外 一致する
+ * @return 0 一致しない
+ * 
+ */
+function isEqualToProfile(profile, cmpProfile) {
+  return profile.toLowerCase() == cmpProfile.toLowerCase();
+}
+
+/**
  * プロファイルごとの分岐.
  *
  * @param {String} serviceId サービスID
  * @param {String} profile プロファイル名
  */
 function searchProfile(serviceId, profile) {
-  if (profile === 'notification') {
+  if (isEqualToProfile(profile, dConnect.constants.notification.PROFILE_NAME)) {
     showNotification(serviceId);
-  } else if (profile === 'vibration') {
+  } else if (isEqualToProfile(profile, dConnect.constants.vibration.PROFILE_NAME)) {
     showVibration(serviceId);
-  } else if (profile === 'mediastream_recording') {
+  } else if (isEqualToProfile(profile, dConnect.constants.media_stream_recording.PROFILE_NAME)) {
     showMediastreamRecording(serviceId);
-  } else if (profile === 'deviceorientation') {
+  } else if (isEqualToProfile(profile, dConnect.constants.device_orientation.PROFILE_NAME)) {
     showDeviceOrientation(serviceId);
-  } else if (profile === 'drive_controller') {
+  } else if (isEqualToProfile(profile, 'drivecontroller')) {
     showDriveController(serviceId);
-  } else if (profile === 'remote_controller') {
+  } else if (isEqualToProfile(profile, 'remotecontroller')) {
     showRemoteController(serviceId);
-  } else if (profile === 'file') {
+  } else if (isEqualToProfile(profile, dConnect.constants.file.PROFILE_NAME)) {
     showFile(serviceId);
-  } else if (profile === 'file_descriptor') {
+  } else if (isEqualToProfile(profile, dConnect.constants.file_descriptor.PROFILE_NAME)) {
     showFileDescriptor(serviceId);
-  } else if (profile === 'light') {
+  } else if (isEqualToProfile(profile, 'light')) {
     showSearchLight(serviceId);
-  } else if (profile === 'phone') {
+  } else if (isEqualToProfile(profile, dConnect.constants.phone.PROFILE_NAME)) {
     showPhone(serviceId);
-  } else if (profile === 'connect') {
+  } else if (isEqualToProfile(profile, dConnect.constants.connect.PROFILE_NAME)) {
     showConnect(serviceId);
-  } else if (profile === 'settings') {
+  } else if (isEqualToProfile(profile, dConnect.constants.settings.PROFILE_NAME)) {
     showSetting(serviceId);
-  } else if (profile === 'media_player') {
+  } else if (isEqualToProfile(profile, dConnect.constants.media_player.PROFILE_NAME)) {
     showMediaPlayer(serviceId);
-  } else if (profile === 'battery') {
+  } else if (isEqualToProfile(profile, dConnect.constants.battery.PROFILE_NAME)) {
     showBattery(serviceId);
-  } else if (profile === 'camera') {
+  } else if (isEqualToProfile(profile, 'camera')) {
     showCamera(serviceId);
-  } else if (profile === 'dice') {
+  } else if (isEqualToProfile(profile, 'dice')) {
     showDice(serviceId);
-  } else if (profile === 'mhealth') {
+  } else if (isEqualToProfile(profile, 'mhealth')) {
     showMhealth(serviceId);
-  } else if (profile === 'temperature') {
+  } else if (isEqualToProfile(profile, 'temperature')) {
     showTemperature(serviceId);
-  } else if (profile === 'proximity') {
+  } else if (isEqualToProfile(profile, dConnect.constants.proximity.PROFILE_NAME)) {
     showProximity(serviceId);
-  } else if (profile === 'sphero') {
+  } else if (isEqualToProfile(profile, 'sphero')) {
     showSphero(serviceId);
-  } else if (profile === 'canvas') {
+  } else if (isEqualToProfile(profile, dConnect.constants.canvas.PROFILE_NAME)) {
     showCanvas(serviceId);
-  } else if (profile === 'health') {
+  } else if (isEqualToProfile(profile, 'health')) {
     showHealth(serviceId);
-  } else if (profile === 'touch') {
+  } else if (isEqualToProfile(profile, dConnect.constants.touch.PROFILE_NAME)) {
     showTouch(serviceId);
-  } else if (profile === 'humandetect') {
+  } else if (isEqualToProfile(profile, 'humandetect')) {
     showHumanDetect(serviceId);
-  } else if (profile === 'keyevent') {
+  } else if (isEqualToProfile(profile, dConnect.constants.keyevent.PROFILE_NAME)) {
     showKeyEvent(serviceId);
-  } else if (profile === 'videochat') {
+  } else if (isEqualToProfile(profile, 'videochat')) {
     showVideoChat(serviceId);
-  } else if (profile === 'omnidirectional_image') {
+  } else if (isEqualToProfile(profile, 'omnidirectionalimage')) {
     showOmnidirectionalImage(serviceId);
-  } else if (profile === 'serviceinformation') {
+  } else if (isEqualToProfile(profile, dConnect.constants.serviceinformation.PROFILE_NAME)) {
     showServiceInformation(serviceId);
-  } else if (profile === 'humidity') {
+  } else if (isEqualToProfile(profile, 'humidity')) {
     showHumidity(serviceId);
-  } else if (profile === 'illuminance') {
+  } else if (isEqualToProfile(profile, 'illuminance')) {
     showIlluminance(serviceId);
-  } else if (profile === 'powermeter') {
+  } else if (isEqualToProfile(profile, 'powermeter')) {
     showPowerMeter(serviceId);
-  } else if (profile === 'tv') {
+  } else if (isEqualToProfile(profile, 'tv')) {
     showTV(serviceId);
-  } else if (profile === 'airconditioner') {
+  } else if (isEqualToProfile(profile, 'airconditioner')) {
     showAirConditioner(serviceId);
-  } else if (profile === 'gpio') {
+  } else if (isEqualToProfile(profile, 'gpio')) {
     showGPIO(serviceId);
   }
 }

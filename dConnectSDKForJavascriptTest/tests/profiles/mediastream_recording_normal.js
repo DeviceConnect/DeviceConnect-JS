@@ -62,7 +62,7 @@ MediaStreamRecordingProfileNormalTest.stop = function(accessToken, serviceId) {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /mediastream_recording/mediarecorder?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/mediarecorder?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -100,7 +100,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /mediastream_recording/options?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/options?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -137,7 +137,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/options?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/options?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -205,7 +205,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/takephoto?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/takephoto?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -259,7 +259,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastream_recording/record?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/record?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -314,7 +314,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/mutetrack?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/mutetrack?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -352,7 +352,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/umnmutetrack?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/umnmutetrack?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -390,7 +390,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/pause?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/pause?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -445,7 +445,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/stop?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/stop?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -486,7 +486,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -521,7 +521,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/preview?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/preview?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -558,7 +558,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /mediastream_recording/preview?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediastreamrecording/preview?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -595,7 +595,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastream_recording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

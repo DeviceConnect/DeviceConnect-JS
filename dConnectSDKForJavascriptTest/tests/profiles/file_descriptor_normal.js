@@ -111,7 +111,7 @@ FileDescriptorProfileNormalTest.close = function(fileName) {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&flag='r'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&flag='r'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -147,7 +147,7 @@ QUnit.asyncTest('openNormalTest001', FileDescriptorProfileNormalTest.openNormalT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/close?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'<br/>
+ * Path: /filedescriptor/close?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -182,7 +182,7 @@ QUnit.asyncTest('closeNormalTest001', FileDescriptorProfileNormalTest.closeNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='rw'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='rw'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -218,7 +218,7 @@ QUnit.asyncTest('openNormalTest002', FileDescriptorProfileNormalTest.openNormalT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -263,7 +263,7 @@ QUnit.asyncTest('writeNormalTest001', FileDescriptorProfileNormalTest.writeNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=0&media='writeNormalTest002'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=0&media='writeNormalTest002'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -308,7 +308,7 @@ QUnit.asyncTest('writeNormalTest002', FileDescriptorProfileNormalTest.writeNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=0&length=10<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=0&length=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -346,7 +346,7 @@ QUnit.asyncTest('readNormalTest001', FileDescriptorProfileNormalTest.readNormalT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/close?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'<br/>
+ * Path: /filedescriptor/close?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -381,7 +381,7 @@ QUnit.asyncTest('closeNormalTest002', FileDescriptorProfileNormalTest.closeNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /file_descriptor/onwatchfile?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/onwatchfile?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -409,7 +409,7 @@ QUnit.asyncTest('onWatchFileNormalTest001', FileDescriptorProfileNormalTest.onWa
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/onwatchfile?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/onwatchfile?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

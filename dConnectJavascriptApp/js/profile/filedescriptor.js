@@ -89,7 +89,7 @@ function doOpenFile(serviceId) {
   reloadFooter(btnStr);
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('open');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -125,7 +125,7 @@ function doOpenFile(serviceId) {
     str += getCloseHtml(serviceId, sessionKey);
     reloadContent(str);
   }, function(errorCode, errorMessage) {
-    showError('file_descriptor/open', errorCode, errorMessage);
+    showError('filedescriptor/open', errorCode, errorMessage);
   });
 }
 
@@ -161,7 +161,7 @@ function doWriteFile(serviceId, sessionKey) {
         }
       }
     }
-    showError('PUT file_descriptor/write', obj.errorCode, obj.errorMessage);
+    showError('PUT filedescriptor/write', obj.errorCode, obj.errorMessage);
   };
   xhr.send(formData);
 }
@@ -179,7 +179,7 @@ function doReadFile(serviceId, sessionKey) {
   var flag = document.fileDescriptorReadForm.flag.value;
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('read');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -210,7 +210,7 @@ function doReadFile(serviceId, sessionKey) {
 
     reloadContent(str);
   }, function(errorCode, errorMessage) {
-    showError('GET file_descriptor/read', errorCode, errorMessage);
+    showError('GET filedescriptor/read', errorCode, errorMessage);
   });
 }
 
@@ -224,7 +224,7 @@ function doCloseFile(serviceId, sessionKey) {
   var path = document.fileDescriptorReadForm.path.value;
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('close');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -239,7 +239,7 @@ function doCloseFile(serviceId, sessionKey) {
     setTitle('Close');
     showFileDescriptor(serviceId, sessionKey);
   }, function(errorCode, errorMessage) {
-    showError('PUT file_descriptor/close', errorCode, errorMessage);
+    showError('PUT filedescriptor/close', errorCode, errorMessage);
   });
 }
 
@@ -251,7 +251,7 @@ function doCloseFile(serviceId, sessionKey) {
  */
 function doGetOnWatchFile(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('onwatchfile');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -275,7 +275,7 @@ function doGetOnWatchFile(serviceId) {
  */
 function doRegisterOnWatchFile(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('onwatchfile');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -289,7 +289,7 @@ function doRegisterOnWatchFile(serviceId, sessionKey) {
       console.log('Event-Message: ' + message);
     }
     var json = JSON.parse(message);
-    if (json.profile === 'file_descriptor') {
+    if (json.profile === 'filedescriptor') {
       document.fileDescriptorForm.path.value = json.file.curr;
       if (DEBUG) {
         console.log(json.file.curr);
@@ -312,7 +312,7 @@ function doRegisterOnWatchFile(serviceId, sessionKey) {
  */
 function doUnregisterOnWatchFile(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('onwatchfile');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -340,7 +340,7 @@ function doUnregisterOnWatchFile(serviceId, sessionKey) {
  */
 function getFileWriteHtml(serviceId, path, flag, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('file_descriptor');
+  builder.setProfile('filedescriptor');
   builder.setAttribute('write');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
