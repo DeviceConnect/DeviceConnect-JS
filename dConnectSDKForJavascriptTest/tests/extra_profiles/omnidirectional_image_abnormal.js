@@ -12,7 +12,7 @@ module('OmnidirectionalImageProfileAbnormalTest', {
 
 function startRoiView(option) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('omnidirectional_image');
+  builder.setProfile('omnidirectionalimage');
   builder.setAttribute('roi');
   builder.setServiceId(option.serviceId);
   builder.setAccessToken(option.accessToken);
@@ -33,7 +33,7 @@ function startRoiView(option) {
 
 function stopRoiView(option) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('omnidirectional_image');
+  builder.setProfile('omnidirectionalimage');
   builder.setAttribute('roi');
   builder.setServiceId(option.serviceId);
   builder.setAccessToken(option.accessToken);
@@ -67,7 +67,7 @@ var OmnidirectionalImageProfileAbnormalTest = {};
 OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setAttribute('roi');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
@@ -111,7 +111,7 @@ QUnit.asyncTest('putStartRoiViewAbnormalTest001',
 OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setAttribute('roi');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
@@ -156,7 +156,7 @@ QUnit.asyncTest('putStartRoiViewAbnormalTest002',
 OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setAttribute('roi');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
@@ -200,7 +200,7 @@ QUnit.asyncTest('getStartRoiViewAbnormalTest001',
 OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setAttribute('roi');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
@@ -245,7 +245,7 @@ QUnit.asyncTest('getStartRoiViewAbnormalTest002',
 OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setAttribute('roi');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
@@ -289,7 +289,7 @@ QUnit.asyncTest('deleteStopRoiViewAbnormalTest001',
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setInterface('roi');
     builder.setAttribute('settings');
     builder.setServiceId(serviceId);
@@ -334,7 +334,7 @@ QUnit.asyncTest('putRoiViewSettingsParamUriAbnormalTest001',
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectional_image');
+    builder.setProfile('omnidirectionalimage');
     builder.setInterface('roi');
     builder.setAttribute('settings');
     builder.setServiceId(serviceId);
@@ -382,7 +382,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001 
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -440,7 +440,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001 
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -498,7 +498,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001 
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -556,7 +556,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -614,7 +614,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -672,7 +672,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -730,7 +730,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -788,7 +788,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -846,7 +846,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -904,7 +904,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -962,7 +962,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1020,7 +1020,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1078,7 +1078,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1136,7 +1136,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1194,7 +1194,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1252,7 +1252,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1310,7 +1310,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1368,7 +1368,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1426,7 +1426,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1484,7 +1484,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1542,7 +1542,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1600,7 +1600,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTes
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);
@@ -1658,7 +1658,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001
     assert: assert,
     onsuccess: function(uri) {
       var builder = new dConnect.URIBuilder();
-      builder.setProfile('omnidirectional_image');
+      builder.setProfile('omnidirectionalimage');
       builder.setInterface('roi');
       builder.setAttribute('settings');
       builder.setServiceId(option.serviceId);

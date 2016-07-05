@@ -16,7 +16,7 @@ var MediaPlayerProfileAbnormalTest = {};
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -56,7 +56,7 @@ QUnit.asyncTest('medialistAbnormalTest001(Calling a put method that does not sup
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -96,7 +96,7 @@ QUnit.asyncTest('mediaListAbnormalTest002(Calling a post method that does not su
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -136,7 +136,7 @@ QUnit.asyncTest('mediaListAbnormalTest003(Calling a delete method that does not 
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&order='desc'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&order='desc'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -177,7 +177,7 @@ QUnit.asyncTest('mediaListAbnormalTest004(order is desc)', MediaPlayerProfileAbn
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&order='!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&order='!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -218,7 +218,7 @@ QUnit.asyncTest('mediaListAbnormalTest005(order is special characters.)', MediaP
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&limit=-1<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&limit=-1<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -259,7 +259,7 @@ QUnit.asyncTest('mediaListAbnormalTest006(limit is minus(-1))', MediaPlayerProfi
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&limit=10.6<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&limit=10.6<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -300,7 +300,7 @@ QUnit.asyncTest('mediaListAbnormalTest007(limit is float(10.6))', MediaPlayerPro
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&limit='this is a test.'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&limit='this is a test.'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -341,7 +341,7 @@ QUnit.asyncTest('mediaListAbnormalTest008(limit is string)', MediaPlayerProfileA
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&offset=-1<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&offset=-1<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -382,7 +382,7 @@ QUnit.asyncTest('mediaListAbnormalTest010(offest is -1)', MediaPlayerProfileAbno
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&offset=2.5<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&offset=2.5<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -423,7 +423,7 @@ QUnit.asyncTest('mediaListAbnormalTest011(offest is float(2.5))', MediaPlayerPro
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxxx&offset='this is test.'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxxx&offset='this is test.'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -464,7 +464,7 @@ QUnit.asyncTest('mediaListAbnormalTest012(offest is string)', MediaPlayerProfile
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -504,7 +504,7 @@ QUnit.asyncTest('mediaAbnormalTest001(Calling a post method that does not suppor
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -544,7 +544,7 @@ QUnit.asyncTest('mediaAbnormalTest002(Calling a delete method that does not supp
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxx&mediaId=''<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxx&mediaId=''<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -585,7 +585,7 @@ QUnit.asyncTest('mediaAbnormalTest003(mediaId is empty.)', MediaPlayerProfileAbn
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxxmediaId='!\"#$%&'()-^¥@[;:],./__?><}*+{`|~=s'<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxxmediaId='!\"#$%&'()-^¥@[;:],./__?><}*+{`|~=s'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -626,7 +626,7 @@ QUnit.asyncTest('mediaAbnormalTest004(mediaId is specail charactors.)', MediaPla
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -666,7 +666,7 @@ QUnit.asyncTest('mediaAbnormalTest005(mediaId is omitted)', MediaPlayerProfileAb
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxx&mediaId='media_test'<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxx&mediaId='media_test'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -707,7 +707,7 @@ QUnit.asyncTest('mediaAbnormalTest006(mediaId is not exist.)', MediaPlayerProfil
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/play?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/play?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -747,7 +747,7 @@ QUnit.asyncTest('PlayAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/play?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/play?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -787,7 +787,7 @@ QUnit.asyncTest('PlayAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/play?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/play?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -870,7 +870,7 @@ function playMedia(success_cb, error_cb) {
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/pause?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/pause?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -910,7 +910,7 @@ QUnit.asyncTest('PauseAbnormalTest001', MediaPlayerProfileAbnormalTest.PauseAbno
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/pause?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/pause?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -950,7 +950,7 @@ QUnit.asyncTest('PauseAbnormalTest002', MediaPlayerProfileAbnormalTest.PauseAbno
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/pause?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/pause?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -990,7 +990,7 @@ QUnit.asyncTest('PauseAbnormalTest003', MediaPlayerProfileAbnormalTest.PauseAbno
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/resume?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/resume?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1030,7 +1030,7 @@ QUnit.asyncTest('ResumeAbnormalTest001', MediaPlayerProfileAbnormalTest.ResumeAb
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/resume?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/resume?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1070,7 +1070,7 @@ QUnit.asyncTest('ResumeAbnormalTest002', MediaPlayerProfileAbnormalTest.ResumeAb
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/resume?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/resume?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1110,7 +1110,7 @@ QUnit.asyncTest('ResumeAbnormalTest003', MediaPlayerProfileAbnormalTest.ResumeAb
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/stop?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/stop?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1150,7 +1150,7 @@ QUnit.asyncTest('StopAbnormalTest001', MediaPlayerProfileAbnormalTest.StopAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/stop?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/stop?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1190,7 +1190,7 @@ QUnit.asyncTest('StopAbnormalTest002', MediaPlayerProfileAbnormalTest.StopAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/stop?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/stop?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1230,7 +1230,7 @@ QUnit.asyncTest('StopAbnormalTest003', MediaPlayerProfileAbnormalTest.StopAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx?<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx?<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1288,7 +1288,7 @@ QUnit.asyncTest('PlayStatusAbnormalTest001', MediaPlayerProfileAbnormalTest.Play
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1346,7 +1346,7 @@ QUnit.asyncTest('PlayStatusAbnormalTest002', MediaPlayerProfileAbnormalTest.Play
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/play_status?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/playStatus?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1404,7 +1404,7 @@ QUnit.asyncTest('PlayStatusAbnormalTest003', MediaPlayerProfileAbnormalTest.Play
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&mediaId='ZZZZZZZ'<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&mediaId='ZZZZZZZ'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1463,7 +1463,7 @@ QUnit.asyncTest('seekAbnormalTest001', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: DELETE<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&mediaId='ZZZZZZZ'<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&mediaId='ZZZZZZZ'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1522,7 +1522,7 @@ QUnit.asyncTest('seekAbnormalTest002', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&position=10.5<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&position=10.5<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1598,7 +1598,7 @@ QUnit.asyncTest('seekAbnormalTest003', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&position=-10<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&position=-10<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1674,7 +1674,7 @@ QUnit.asyncTest('seekAbnormalTest004', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&position=100000000<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&position=100000000<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1750,7 +1750,7 @@ QUnit.asyncTest('seekAbnormalTest005', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&position='this is a test.'<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&position='this is a test.'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1826,7 +1826,7 @@ QUnit.asyncTest('seekAbnormalTest006', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxxx&position='!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}'<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxxx&position='!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}'<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1902,7 +1902,7 @@ QUnit.asyncTest('seekAbnormalTest007', MediaPlayerProfileAbnormalTest.seekAbnorm
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: POST<br/>
- * Path: /media_player/mute?serviceId=xxxx&accessToken=xxxx<br/>
+ * Path: /mediaplayer/mute?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -1942,7 +1942,7 @@ QUnit.asyncTest('muteAbnormalTest001', MediaPlayerProfileAbnormalTest.muteAbnorm
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/volume?serviceId=xxx&accessToken=xxx&volume=-1<br/>
+ * Path: /mediaplayer/volume?serviceId=xxx&accessToken=xxx&volume=-1<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1982,7 +1982,7 @@ QUnit.asyncTest('volumeAbnormalTest001', MediaPlayerProfileAbnormalTest.volumeAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/volume?serviceId=xxx&accessToken=xxx&volume=10<br/>
+ * Path: /mediaplayer/volume?serviceId=xxx&accessToken=xxx&volume=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2022,7 +2022,7 @@ QUnit.asyncTest('volumeAbnormalTest002', MediaPlayerProfileAbnormalTest.volumeAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/volume?serviceId=xxx&accessToken=xxx&volume='this is a test.'<br/>
+ * Path: /mediaplayer/volume?serviceId=xxx&accessToken=xxx&volume='this is a test.'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2062,7 +2062,7 @@ QUnit.asyncTest('volumeAbnormalTest003', MediaPlayerProfileAbnormalTest.volumeAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/volume?serviceId=xxx&accessToken=xxx&volume='!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}'<br/>
+ * Path: /mediaplayer/volume?serviceId=xxx&accessToken=xxx&volume='!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2102,7 +2102,7 @@ QUnit.asyncTest('volumeAbnormalTest004', MediaPlayerProfileAbnormalTest.volumeAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /media_player/volume?serviceId=xxx&accessToken=xxx&volume=0.5<br/>
+ * Path: /mediaplayer/volume?serviceId=xxx&accessToken=xxx&volume=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2142,7 +2142,7 @@ QUnit.asyncTest('volumeAbnormalTest005', MediaPlayerProfileAbnormalTest.volumeAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /media_player/volume?serviceId=xxx&accessToken=xxx&volume=0.5<br/>
+ * Path: /mediaplayer/volume?serviceId=xxx&accessToken=xxx&volume=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2182,7 +2182,7 @@ QUnit.asyncTest('volumeAbnormalTest006', MediaPlayerProfileAbnormalTest.volumeAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/onstatuschange?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/onstatuschange?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2223,7 +2223,7 @@ QUnit.asyncTest('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /media_player/onstatuschange?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/onstatuschange?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

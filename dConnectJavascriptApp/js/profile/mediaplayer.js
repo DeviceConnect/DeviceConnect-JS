@@ -54,8 +54,8 @@ function doMediaList(serviceId) {
   reloadHeader(str);
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
-  builder.setAttribute('media_list');
+  builder.setProfile('mediaplayer');
+  builder.setAttribute('medialist');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -78,7 +78,7 @@ function doMediaList(serviceId) {
     reloadList(str);
   }, function(errorCode, errorMessage) {
     closeLoading();
-    showError('media_player/media_list', errorCode, errorMessage);
+    showError('mediaplayer/medialist', errorCode, errorMessage);
   });
 }
 
@@ -121,7 +121,7 @@ function doMediaPlayerBack(serviceId, sessionKey) {
  */
 function doRegisterOnStatusChange(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('onstatuschange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -176,7 +176,7 @@ function doRegisterOnStatusChange(serviceId, sessionKey) {
  */
 function doUnregisterOnStatusChange(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('onstatuschange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -304,7 +304,7 @@ function doMedia(serviceId, id, seek) {
  */
 function doMediaPlayerMediaPut(serviceId, id, callback) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('media');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -319,13 +319,13 @@ function doMediaPlayerMediaPut(serviceId, id, callback) {
       setTitle('MediaPlayer');
       initListView();
     } else {
-      showError('PUT media_player/media', json);
+      showError('PUT mediaplayer/media', json);
     }
     if (callback) {
       callback();
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/media', errorCode, errorMessage);
+    showError('PUT mediaplayer/media', errorCode, errorMessage);
   });
 }
 /**
@@ -336,7 +336,7 @@ function doMediaPlayerMediaPut(serviceId, id, callback) {
  */
 function doMediaPlayerMediaGet(serviceId, id) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('media');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -361,7 +361,7 @@ function doMediaPlayerMediaGet(serviceId, id) {
           doMedia(serviceId, id, seek);
         });
       }, function(errorCode, errorMessage) {
-        showError('GET media_player/media', errorCode, errorMessage);
+        showError('GET mediaplayer/media', errorCode, errorMessage);
       });
     });
   } else {
@@ -375,7 +375,7 @@ function doMediaPlayerMediaGet(serviceId, id) {
       }
       doMedia(serviceId, id, seek);
     }, function(errorCode, errorMessage) {
-      showError('GET media_player/media', errorCode, errorMessage);
+      showError('GET mediaplayer/media', errorCode, errorMessage);
     });
   }
 }
@@ -389,7 +389,7 @@ function doMediaPlayerMediaGet(serviceId, id) {
  */
 function doMediaPlayerPlay(serviceId, id, callback) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('play');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -402,13 +402,13 @@ function doMediaPlayerPlay(serviceId, id, callback) {
     if (json.result == 0) {
 
     } else {
-      showError('PUT media_player/play', json);
+      showError('PUT mediaplayer/play', json);
     }
     if (callback) {
       callback();
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/play', errorCode, errorMessage);
+    showError('PUT mediaplayer/play', errorCode, errorMessage);
   });
 }
 
@@ -420,7 +420,7 @@ function doMediaPlayerPlay(serviceId, id, callback) {
  */
 function doMediaPlayerResume(serviceId, id) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('resume');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -434,7 +434,7 @@ function doMediaPlayerResume(serviceId, id) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/resume', errorCode, errorMessage);
+    showError('PUT mediaplayer/resume', errorCode, errorMessage);
   });
 }
 
@@ -445,7 +445,7 @@ function doMediaPlayerResume(serviceId, id) {
  */
 function doMediaPlayerStop(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('stop');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -459,7 +459,7 @@ function doMediaPlayerStop(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/stop', errorCode, errorMessage);
+    showError('PUT mediaplayer/stop', errorCode, errorMessage);
   });
 }
 
@@ -470,7 +470,7 @@ function doMediaPlayerStop(serviceId) {
  */
 function doMediaPlayerPause(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('pause');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -484,7 +484,7 @@ function doMediaPlayerPause(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/pause', errorCode, errorMessage);
+    showError('PUT mediaplayer/pause', errorCode, errorMessage);
   });
 }
 
@@ -497,7 +497,7 @@ function doMediaPlayerSeekPut(serviceId) {
   var pos = $('#mediaPlayerSeek').val();
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('seek');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -512,7 +512,7 @@ function doMediaPlayerSeekPut(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/seek', errorCode, errorMessage);
+    showError('PUT mediaplayer/seek', errorCode, errorMessage);
   });
 }
 
@@ -525,7 +525,7 @@ function doMediaPlayerVolumePut(serviceId) {
   var level = $('#mediaPlayerVolume').val() / 100;
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('volume');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -540,7 +540,7 @@ function doMediaPlayerVolumePut(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/volume', errorCode, errorMessage);
+    showError('PUT mediaplayer/volume', errorCode, errorMessage);
   });
 }
 
@@ -551,7 +551,7 @@ function doMediaPlayerVolumePut(serviceId) {
  */
 function doMediaPlayerVolumeGet(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('volume');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -570,7 +570,7 @@ function doMediaPlayerVolumeGet(serviceId) {
     $('#mediaPlayerVolumePut').button('enable');
     $('#mediaPlayerVolumePut').button('refresh');
   }, function(errorCode, errorMessage) {
-    showError('GET media_player/volume', errorCode, errorMessage);
+    showError('GET mediaplayer/volume', errorCode, errorMessage);
   });
 }
 
@@ -582,7 +582,7 @@ function doMediaPlayerVolumeGet(serviceId) {
  */
 function doMediaPlayerMuteChange(serviceId, isMute) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('mute');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -603,7 +603,7 @@ function doMediaPlayerMuteChange(serviceId, isMute) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError(method + ' media_player/mute', errorCode, errorMessage);
+    showError(method + ' mediaplayer/mute', errorCode, errorMessage);
   });
 }
 
@@ -615,7 +615,7 @@ function doMediaPlayerMuteChange(serviceId, isMute) {
  */
 function doMediaPlayerMuteGet(serviceId, mediaId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('mute');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -631,13 +631,13 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
       $('#mediaPlayerMuteStatus').slider('enable');
       $('#mediaPlayerMuteStatus').slider('refresh');
     } else {
-      showError('GET media_player/mute', json);
+      showError('GET mediaplayer/mute', json);
     }
     if (myDeviceName.indexOf('Chromecast') == -1) {
       doMediaPlayerMediaPut(serviceId, mediaId);
     }
   }, function(errorCode, errorMessage) {
-    showError('GET media_player/mute', errorCode, errorMessage);
+    showError('GET mediaplayer/mute', errorCode, errorMessage);
     doMediaPlayerMediaPut(serviceId, mediaId);
   });
 }
@@ -651,7 +651,7 @@ function doMediaPlayerSeekPut(serviceId) {
   var pos = $('#mediaPlayerSeek').val();
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('seek');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -666,7 +666,7 @@ function doMediaPlayerSeekPut(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT media_player/seek', errorCode, errorMessage);
+    showError('PUT mediaplayer/seek', errorCode, errorMessage);
   });
 }
 
@@ -677,7 +677,7 @@ function doMediaPlayerSeekPut(serviceId) {
  */
 function doMediaPlayerSeekGet(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
+  builder.setProfile('mediaplayer');
   builder.setAttribute('seek');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -696,7 +696,7 @@ function doMediaPlayerSeekGet(serviceId) {
     $('#mediaPlayerSeekPut').button('enable');
     $('#mediaPlayerSeekPut').button('refresh');
   }, function(errorCode, errorMessage) {
-    showError('GET media_player/seek', errorCode, errorMessage);
+    showError('GET mediaplayer/seek', errorCode, errorMessage);
   });
 }
 
@@ -707,8 +707,8 @@ function doMediaPlayerSeekGet(serviceId) {
  */
 function doMediaPlayerStatusGet(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('media_player');
-  builder.setAttribute('play_status');
+  builder.setProfile('mediaplayer');
+  builder.setAttribute('playstatus');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -722,7 +722,7 @@ function doMediaPlayerStatusGet(serviceId) {
     }
     $('#status').val(json.status);
   }, function(errorCode, errorMessage) {
-    showError('GET media_player/volume', errorCode, errorMessage);
+    showError('GET mediaplayer/volume', errorCode, errorMessage);
   });
 }
 
