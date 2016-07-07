@@ -88,7 +88,7 @@ function authorization(){
 
 
        dConnect.authorization(scopes, myAppName,
-        function(clientId, clientSecret, newAccessToken) {
+        function(clientId, newAccessToken) {
                 // accessToken
                 myAccessToken = newAccessToken;
 
@@ -115,7 +115,7 @@ function searchDevice() {
             // サービスIDを取得する。
             // 名前などから使用するサービスを取得する。
             for (var i = 0; i < json.services.length; i++) {
-                if (json.services[i].name == "HOST") {
+                if (json.services[i].name == "Host") {
                     myServiceId = json.services[i].id;
                 }
             }

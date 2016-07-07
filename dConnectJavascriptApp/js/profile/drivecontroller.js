@@ -70,7 +70,7 @@ function doDriveRotate(serviceId) {
   var angle = document.formDrive.userRotate.value;
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('drive_controller');
+  builder.setProfile('drivecontroller');
   builder.setAttribute('rotate');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -85,7 +85,7 @@ function doDriveRotate(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('PUT drive_controller/rotate', errorCode, errorMessage);
+    showError('PUT drivecontroller/rotate', errorCode, errorMessage);
   });
 
 }
@@ -97,7 +97,7 @@ function doDriveRotate(serviceId) {
  */
 function doDriveStop(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('drive_controller');
+  builder.setProfile('drivecontroller');
   builder.setAttribute('stop');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -111,7 +111,7 @@ function doDriveStop(serviceId) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('DELETE drive_controller/stop', errorCode, errorMessage);
+    showError('DELETE drivecontroller/stop', errorCode, errorMessage);
   });
 }
 
@@ -126,7 +126,7 @@ function doDriveMove(serviceId, angle) {
   var mPower = body / 100;
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('drive_controller');
+  builder.setProfile('drivecontroller');
   builder.setServiceId(serviceId);
   builder.setAttribute('move');
   builder.setAccessToken(accessToken);
@@ -142,6 +142,6 @@ function doDriveMove(serviceId, angle) {
       console.log('Response: ', json);
     }
   }, function(errorCode, errorMessage) {
-    showError('POST drive_controller/move', errorCode, errorMessage);
+    showError('POST drivecontroller/move', errorCode, errorMessage);
   });
 }

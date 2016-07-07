@@ -41,7 +41,7 @@ function doRemoteControllerSend(serviceId) {
   var message = document.getElementById('menu').innerHTML;
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('remote_controller');
+  builder.setProfile('remotecontroller');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('message', message);
@@ -57,7 +57,7 @@ function doRemoteControllerSend(serviceId) {
 
     closeLoading();
   }, function(errorCode, errorMessage) {
-    showError('POST remote_controller', errorCode, errorMessage);
+    showError('POST remotecontroller', errorCode, errorMessage);
     closeLoading();
   });
 }
@@ -82,7 +82,7 @@ function doRemoteControllerGet(serviceId) {
   showLoading();
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('remote_controller');
+  builder.setProfile('remotecontroller');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -110,7 +110,7 @@ function doRemoteControllerGet(serviceId) {
     reloadContent(str);
     closeLoading();
   }, function(errorCode, errorMessage) {
-    showError('GET remote_controller', errorCode, errorMessage);
+    showError('GET remotecontroller', errorCode, errorMessage);
     closeLoading();
   });
 }

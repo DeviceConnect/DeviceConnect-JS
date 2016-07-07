@@ -141,7 +141,7 @@ function showOmnidirectionalImage(serviceId) {
     searchTHETA({
       onfound: function(theta) {
         var uri = new dConnect.URIBuilder()
-          .setProfile('mediastream_recording')
+          .setProfile('mediastreamrecording')
           .setAttribute('takephoto')
           .setServiceId(theta.id)
           .setAccessToken(accessToken)
@@ -192,7 +192,7 @@ function showOmnidirectionalImage(serviceId) {
       return;
     }
     var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectional_image')
+      .setProfile('omnidirectionalimage')
       .setInterface('roi')
       .setAttribute('settings')
       .setServiceId(serviceId)
@@ -295,7 +295,7 @@ function showOmnidirectionalImage(serviceId) {
     }
 
     var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectional_image')
+      .setProfile('omnidirectionalimage')
       .setAttribute('roi')
       .setServiceId(serviceId)
       .setAccessToken(accessToken)
@@ -330,7 +330,7 @@ function showOmnidirectionalImage(serviceId) {
     clearRefreshTimer();
 
     var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectional_image')
+      .setProfile('omnidirectionalimage')
       .setAttribute('roi')
       .setServiceId(serviceId)
       .setAccessToken(accessToken)
@@ -392,7 +392,7 @@ function showOmnidirectionalImage(serviceId) {
     var width = option.pattern.name === 'width' ? num : defaultWidth;
     var height = option.pattern.name === 'height' ? num : defaultHeight;
     var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectional_image')
+      .setProfile('omnidirectionalimage')
       .setInterface('roi')
       .setAttribute('settings')
       .setServiceId(serviceId)

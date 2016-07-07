@@ -15,7 +15,7 @@ var RemoteControllerProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -26,7 +26,7 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest001 =
     function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.addParameter('message', '');
     builder.setAccessToken(accessToken);
@@ -58,7 +58,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -68,7 +68,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest001',
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -99,7 +99,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest002',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx&message=123456789<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx&message=123456789<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -109,7 +109,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest002',
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.addParameter('message', 123456789);
     builder.setAccessToken(accessToken);
@@ -141,7 +141,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest003',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx&message="あいうえおあいうえおあいうえお..."<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx&message="あいうえおあいうえおあいうえお..."<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -151,7 +151,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest003',
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile('remote_controller');
+        builder.setProfile('remotecontroller');
         builder.setServiceId(serviceId);
         builder.addParameter('message',
             'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -192,7 +192,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest004',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx&message="abcdefgabcdefgabcdefgabcdefg..."<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx&message="abcdefgabcdefgabcdefgabcdefg..."<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -202,7 +202,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest004',
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.addParameter('message',
         'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
@@ -239,7 +239,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest005',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx&message="!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()..."<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx&message="!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()..."<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -249,7 +249,7 @@ QUnit.asyncTest('remoteControllerAbnormalTest005',
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.addParameter('message',
         '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
