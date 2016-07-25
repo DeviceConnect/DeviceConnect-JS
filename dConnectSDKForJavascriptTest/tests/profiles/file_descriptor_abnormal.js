@@ -66,7 +66,7 @@ FileDescriptorProfileAbnormalTest.closeFile = function(fileName) {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -106,7 +106,7 @@ QUnit.asyncTest('openAbnormalTest001(Calling a put method that does not support.
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -146,7 +146,7 @@ QUnit.asyncTest('openAbnormalTest002(Calling a post method that does not support
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -186,7 +186,7 @@ QUnit.asyncTest('openAbnormalTest003(Calling a delete method that does not suppo
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&flag='r'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&flag='r'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -241,7 +241,7 @@ QUnit.asyncTest('openAbnormalTest004(Test_r.txt is already opened.)', FileDescri
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&flag='rw'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&flag='rw'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -283,7 +283,7 @@ QUnit.asyncTest('openAbnormalTest005(Test_r.txt is already opened.)', FileDescri
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='r'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='r'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -337,7 +337,7 @@ QUnit.asyncTest('openAbnormalTest006(Test_rw.txt is already opened.)', FileDescr
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='rw'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='rw'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -387,7 +387,7 @@ QUnit.asyncTest('openAbnormalTest007(Test_rw.txt is already opened.)', FileDescr
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='abcdef'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='abcdef'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -429,7 +429,7 @@ QUnit.asyncTest('openAbnormalTest008()', FileDescriptorProfileAbnormalTest.openA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='あいうえお'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='あいうえお'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -471,7 +471,7 @@ QUnit.asyncTest('openAbnormalTest009()', FileDescriptorProfileAbnormalTest.openA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='#$%&()'<br/>
+ * Path: /filedescriptor/open?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&flag='#$%&()'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -513,7 +513,7 @@ QUnit.asyncTest('openAbnormalTest010()', FileDescriptorProfileAbnormalTest.openA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -553,7 +553,7 @@ QUnit.asyncTest('writeAbnormalTest001(Calling a get method that does not support
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -593,7 +593,7 @@ QUnit.asyncTest('writeAbnormalTest002(Calling a post method that does not suppor
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -633,7 +633,7 @@ QUnit.asyncTest('writeAbnormalTest003(Calling a delete method that does not supp
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=-10&media='writeAbnormalTest001'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=-10&media='writeAbnormalTest001'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -682,7 +682,7 @@ QUnit.asyncTest('writeAbnormalTest004()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=10.5&media='writeAbnormalTest001'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=10.5&media='writeAbnormalTest001'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -732,7 +732,7 @@ QUnit.asyncTest('writeAbnormalTest005()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&position=10&media='writeAbnormalTest001'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&position=10&media='writeAbnormalTest001'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -780,7 +780,7 @@ QUnit.asyncTest('writeAbnormalTest006()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=10<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='/test_rw.txt'&position=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -828,7 +828,7 @@ QUnit.asyncTest('writeAbnormalTest007()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&position=-10<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&position=-10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -875,7 +875,7 @@ QUnit.asyncTest('writeAbnormalTest008()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='<>:*?"/\\|'&position=10&media='writeAbnormalTest001'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='<>:*?"/\\|'&position=10&media='writeAbnormalTest001'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -923,7 +923,7 @@ QUnit.asyncTest('writeAbnormalTest009()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/write?serviceId=xxxx&accessToken=xxx&path='test_r.txt'&position=10&media='writeAbnormalTest001'<br/>
+ * Path: /filedescriptor/write?serviceId=xxxx&accessToken=xxx&path='test_r.txt'&position=10&media='writeAbnormalTest001'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -992,7 +992,7 @@ QUnit.asyncTest('writeAbnormalTest010()', FileDescriptorProfileAbnormalTest.writ
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1032,7 +1032,7 @@ QUnit.asyncTest('readAbnormalTest001(Calling a put method that does not support.
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1072,7 +1072,7 @@ QUnit.asyncTest('readAbnormalTest002(Calling a post method that does not support
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1112,7 +1112,7 @@ QUnit.asyncTest('readAbnormalTest003(Calling a delete method that does not suppo
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&position=0&length=-10<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&position=0&length=-10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1155,7 +1155,7 @@ QUnit.asyncTest('readAbnormalTest004()', FileDescriptorProfileAbnormalTest.readA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&position=0&length=10.5<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&position=0&length=10.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1198,7 +1198,7 @@ QUnit.asyncTest('readAbnormalTest005()', FileDescriptorProfileAbnormalTest.readA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx&position=0&length=10<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx&position=0&length=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1240,7 +1240,7 @@ QUnit.asyncTest('readAbnormalTest006()', FileDescriptorProfileAbnormalTest.readA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&position=0<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx&path='/test_r.txt'&position=0<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1282,7 +1282,7 @@ QUnit.asyncTest('readAbnormalTest007()', FileDescriptorProfileAbnormalTest.readA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/read?serviceId=xxxx&accessToken=xxx&position=0<br/>
+ * Path: /filedescriptor/read?serviceId=xxxx&accessToken=xxx&position=0<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1323,7 +1323,7 @@ QUnit.asyncTest('readAbnormalTest008()', FileDescriptorProfileAbnormalTest.readA
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/close?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/close?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1363,7 +1363,7 @@ QUnit.asyncTest('closeAbnormalTest001(Calling a get method that does not support
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /file_descriptor/close?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/close?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1403,7 +1403,7 @@ QUnit.asyncTest('closeAbnormalTest002(Calling a post method that does not suppor
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /file_descriptor/close?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/close?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1443,7 +1443,7 @@ QUnit.asyncTest('closeAbnormalTest003(Calling a delete method that does not supp
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file_descriptor/close?serviceId=xxxx&accessToken=xxx&path='/0000'<br/>
+ * Path: /filedescriptor/close?serviceId=xxxx&accessToken=xxx&path='/0000'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1486,7 +1486,7 @@ QUnit.asyncTest('closeAbnormalTest004()', FileDescriptorProfileAbnormalTest.clos
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /file_descriptor/onwatchfile?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /filedescriptor/onwatchfile?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

@@ -15,7 +15,7 @@ var RemoteControllerProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -26,7 +26,7 @@ var RemoteControllerProfileNormalTest = {};
 RemoteControllerProfileNormalTest.remoteControllerNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -53,7 +53,7 @@ QUnit.asyncTest('remoteControllerNormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /remote_controller?serviceId=xxx&accessToken=xxx&message=xxx<br/>
+ * Path: /remotecontroller?serviceId=xxx&accessToken=xxx&message=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -63,7 +63,7 @@ QUnit.asyncTest('remoteControllerNormalTest001',
 RemoteControllerProfileNormalTest.remoteControllerNormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
-    builder.setProfile('remote_controller');
+    builder.setProfile('remotecontroller');
     builder.setServiceId(serviceId);
     builder.addParameter('message',
         '{\"format\":\"raw\",\"freq\":38,\"data\":' +

@@ -21,7 +21,7 @@ var MediaPlayerProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -57,7 +57,7 @@ QUnit.asyncTest('mediaListNormalTest001(get)', MediaPlayerProfileNormalTest.medi
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='audio/mpeg'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&mimeType='audio/mpeg'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -94,7 +94,7 @@ QUnit.asyncTest('mediaListNormalTest002', MediaPlayerProfileNormalTest.mediaList
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='video/mp4'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&mimeType='video/mp4'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -131,7 +131,7 @@ QUnit.asyncTest('mediaListNormalTest003', MediaPlayerProfileNormalTest.mediaList
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType=1<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&mimeType=1<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -168,7 +168,7 @@ QUnit.asyncTest('mediaListNormalTest004(mimeType is number.)', MediaPlayerProfil
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&mimeType='abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz....'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&mimeType='abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz....'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -205,7 +205,7 @@ QUnit.asyncTest('mediaListNormalTest005(mimeType is long string.)', MediaPlayerP
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&order='duration,asc'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&order='duration,asc'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -247,7 +247,7 @@ QUnit.asyncTest('mediaListNormalTest006(order is duration,asc)', MediaPlayerProf
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&order='duration,desc'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&order='duration,desc'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -289,7 +289,7 @@ QUnit.asyncTest('mediaListNormalTest007(order is duration,desc)', MediaPlayerPro
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&query='a'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&query='a'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -326,7 +326,7 @@ QUnit.asyncTest('mediaListNormalTest008(query is special characters.)', MediaPla
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&query=1<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&query=1<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -363,7 +363,7 @@ QUnit.asyncTest('mediaListNormalTest009(query is number)', MediaPlayerProfileNor
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&query='abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz....'<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&query='abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz....'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -400,7 +400,7 @@ QUnit.asyncTest('mediaListNormalTest010(query is long string)', MediaPlayerProfi
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&limit=0.<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&limit=0.<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -436,7 +436,7 @@ QUnit.asyncTest('mediaListNormalTest011(limit is 0)', MediaPlayerProfileNormalTe
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&limit=10.<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&limit=10.<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -472,7 +472,7 @@ QUnit.asyncTest('mediaListNormalTest012(limit is 10)', MediaPlayerProfileNormalT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -507,7 +507,7 @@ QUnit.asyncTest('mediaListNormalTest013(limit is 10)', MediaPlayerProfileNormalT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxx&accessToken=xxx&offset=3<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxx&accessToken=xxx&offset=3<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -544,7 +544,7 @@ QUnit.asyncTest('mediaListNormalTest014(offset is 3)', MediaPlayerProfileNormalT
  * <p id="test">
  * 【HTTP通信】<br/>
  * Method: GET<br/>
- * Path: /media_player/media_list?serviceId=xxxxaccessToken=xxxx&offset=10000000<br/>
+ * Path: /mediaplayer/medialist?serviceId=xxxxaccessToken=xxxx&offset=10000000<br/>
  * </p>
  * <p id="expected">
  * 【期待する動作】<br/>
@@ -586,7 +586,7 @@ QUnit.asyncTest('mediaListNormalTest015(offest is big number)', MediaPlayerProfi
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -627,7 +627,7 @@ QUnit.asyncTest('mediaNormalTest001(get)', MediaPlayerProfileNormalTest.mediaNor
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -668,7 +668,7 @@ QUnit.asyncTest('mediaNormalTest002(put)', MediaPlayerProfileNormalTest.mediaNor
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/play?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/play?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -721,8 +721,8 @@ QUnit.asyncTest('playNormalTest001(put)', MediaPlayerProfileNormalTest.playNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/pause?serviceId=xxx<br/>
- *       /media_player/stop?serviceId=xxx<br/>
+ * Path: /mediaplayer/pause?serviceId=xxx<br/>
+ *       /mediaplayer/stop?serviceId=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -822,7 +822,7 @@ QUnit.asyncTest('pauseAndResumeNormalTest001(put)', MediaPlayerProfileNormalTest
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/stop?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -859,7 +859,7 @@ QUnit.asyncTest('stopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.stop
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -900,7 +900,7 @@ QUnit.asyncTest('audiomediaNormalTest002(put)', MediaPlayerProfileNormalTest.aud
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
+ * Path: /mediaplayer/media?serviceId=xxxx&accessToken=xxx&mediaId=xxxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -941,7 +941,7 @@ QUnit.asyncTest('audiomediaNormalTest001(get)', MediaPlayerProfileNormalTest.aud
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/play?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/play?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -994,8 +994,8 @@ QUnit.asyncTest('audioplayNormalTest001(put)', MediaPlayerProfileNormalTest.audi
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/pause?serviceId=xxx<br/>
- *       /media_player/stop?serviceId=xxx<br/>
+ * Path: /mediaplayer/pause?serviceId=xxx<br/>
+ *       /mediaplayer/stop?serviceId=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1063,7 +1063,7 @@ QUnit.asyncTest('audiopauseAndResumeNormalTest001(put)', MediaPlayerProfileNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/stop?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/stop?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1104,7 +1104,7 @@ QUnit.asyncTest('audiostopMediaNormalTest001(put)', MediaPlayerProfileNormalTest
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/play_status?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/playstatus?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1157,7 +1157,7 @@ QUnit.asyncTest('playStatusNormalTest001(get)', MediaPlayerProfileNormalTest.pla
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1213,7 +1213,7 @@ QUnit.asyncTest('seekNormalTest001(get)', MediaPlayerProfileNormalTest.seekNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxx&pos=10<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxx&pos=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1267,7 +1267,7 @@ QUnit.asyncTest('seekNormalTest002(put)', MediaPlayerProfileNormalTest.seekNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1323,7 +1323,7 @@ QUnit.asyncTest('seekNormalTest003(get)', MediaPlayerProfileNormalTest.seekNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxxx&accessToken=xxx&pos=10<br/>
+ * Path: /mediaplayer/seek?serviceId=xxxx&accessToken=xxx&pos=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1377,7 +1377,7 @@ QUnit.asyncTest('seekNormalTest004(put)', MediaPlayerProfileNormalTest.seekNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/mute?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/mute?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1430,7 +1430,7 @@ QUnit.asyncTest('mute(get)', MediaPlayerProfileNormalTest.muteNormalTest001);
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/mute?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/mute?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1499,7 +1499,7 @@ QUnit.asyncTest('muteNormalTest002(put)', MediaPlayerProfileNormalTest.muteNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /media_player/mute?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/mute?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1578,7 +1578,7 @@ QUnit.asyncTest('muteNormalTest003(delete)', MediaPlayerProfileNormalTest.muteNo
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/seek?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/seek?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1631,7 +1631,7 @@ QUnit.asyncTest('volumeNormalTest001(get)', MediaPlayerProfileNormalTest.volumeN
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /media_player/seek?serviceId=xxx&accessToken=xxx&volume=0.5<br/>
+ * Path: /mediaplayer/seek?serviceId=xxx&accessToken=xxx&volume=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1688,7 +1688,7 @@ QUnit.asyncTest('volume(put)', MediaPlayerProfileNormalTest.volumeNormalTest002)
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /media_player/onstatuschange?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /mediaplayer/onstatuschange?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
