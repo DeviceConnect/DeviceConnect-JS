@@ -19,7 +19,7 @@ var GPIOProfileAbnormalTest = {};
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest001 = function(assert) {
@@ -37,7 +37,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest001 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -63,7 +63,7 @@ QUnit.asyncTest('gpioAbnormalTest001',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest002 = function(assert) {
@@ -81,7 +81,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest002 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -107,7 +107,7 @@ QUnit.asyncTest('gpioAbnormalTest002',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに4が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest003 = function(assert) {
@@ -125,7 +125,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest003 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 4) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -152,7 +152,7 @@ QUnit.asyncTest('gpioAbnormalTest003',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest004 = function(assert) {
@@ -171,7 +171,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest004 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -335,7 +335,7 @@ QUnit.asyncTest('gpioAbnormalTest007',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest008 = function(assert) {
@@ -354,7 +354,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest008 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -518,7 +518,7 @@ QUnit.asyncTest('gpioAbnormalTest011',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest012 = function(assert) {
@@ -537,7 +537,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest012 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -572,7 +572,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest013 = function(assert) {
         var builder = new dConnect.URIBuilder();
         builder.setProfile('gpio');
         builder.setInterface('analog');
-        builder.setAttribute('15');
+        builder.setAttribute('3');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
@@ -617,7 +617,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest014 = function(assert) {
         var builder = new dConnect.URIBuilder();
         builder.setProfile('gpio');
         builder.setInterface('analog');
-        builder.setAttribute('15');
+        builder.setAttribute('3');
         builder.addParameter('value', 300);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -663,7 +663,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest015 = function(assert) {
         var builder = new dConnect.URIBuilder();
         builder.setProfile('gpio');
         builder.setInterface('analog');
-        builder.setAttribute('15');
+        builder.setAttribute('3');
         builder.addParameter('value', 'aaaa');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
@@ -700,7 +700,7 @@ QUnit.asyncTest('gpioAbnormalTest015',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest016 = function(assert) {
@@ -718,7 +718,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest016 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -744,7 +744,7 @@ QUnit.asyncTest('gpioAbnormalTest016',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに4が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest017 = function(assert) {
@@ -761,7 +761,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest017 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 4) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -787,7 +787,7 @@ QUnit.asyncTest('gpioAbnormalTest017',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest018 = function(assert) {
@@ -805,7 +805,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest018 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 10) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -831,7 +831,7 @@ QUnit.asyncTest('gpioAbnormalTest018',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに4が返ってくること。<br/>
+ * ・errorCodeに8が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest019 = function(assert) {
@@ -849,7 +849,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest019 = function(assert) {
               QUnit.start();
             },
             function(errorCode, errorMessage) {
-              if (errorCode == 4) {
+              if (errorCode == 8) {
                 assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
               } else {
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
