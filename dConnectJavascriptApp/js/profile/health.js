@@ -185,7 +185,6 @@ function doHealthAllBack(serviceId, sessionKey) {
 function showResponseHealth(json) {
   // HeartRate
   if (json.heart.rate) {
-    console.log("TEST2");
     $('#rateValue').val(json.heart.rate.value);
     $('#rateMDERFloat').val(json.heart.rate.mderFloat);
     $('#rateType').val(json.heart.rate.type);
