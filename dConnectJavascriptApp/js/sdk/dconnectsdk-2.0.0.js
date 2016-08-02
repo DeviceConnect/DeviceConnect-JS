@@ -1679,7 +1679,7 @@ var dConnect = (function(parent, global) {
             throw new TypeError("2nd argument must be a function for callback.");
         }
         parent.put(uri, null, null, function(json) {
-            eventListener[uri] = event_cb;
+            eventListener[uri.toLowerCase()] = event_cb;
             if (success_cb) {
                 success_cb();
             }
@@ -1700,7 +1700,7 @@ var dConnect = (function(parent, global) {
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
         parent.delete(uri, null, function(json) {
-            delete eventListener[uri];
+            delete eventListener[uri.toLowerCase()];
             if (success_cb) {
                 success_cb();
             }
@@ -1961,6 +1961,7 @@ var dConnect = (function(parent, global) {
         uri += '/';
         uri += json.attribute;
       }
+      uri = uri.toLowerCase();
       for (var key in eventListener) {
         if (key.lastIndexOf(uri) > 0) {
           if (eventListener[key] != null &&
