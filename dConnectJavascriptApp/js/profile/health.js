@@ -35,6 +35,38 @@ function showHeartRate(serviceId) {
   closeLoading();
 
   var str = '';
+  str += makeInputText('HeartRate', 'heartRate', 'HeartRate');
+  str += '<input data-role="button" type="button" name="button"' +
+    ' id="button" value="Get Heart Rate"' +
+    ' onclick="javascript:doGetHeartRateOld(\'' +
+    serviceId + '\');"/><br>';
+  str += '<input data-role="button" type="button" name="button"' +
+    ' id="button" value="Register Event"' +
+    ' onclick="javascript:doRegisterHeartRateOld(\'' +
+    serviceId + '\');"/><br>';
+  str += '<input data-role="button" type="button" name="button"' +
+    ' id="button" value="Unregister Event"' +
+    ' onclick="javascript:unregisterHeartRateOld(\'' +
+    serviceId + '\');"/><br>';
+  str += '<hr>';
+  str += '<input data-role="button" type="button" name="button"' +
+    ' id="button" value="Get Heart Rate"' +
+    ' onclick="javascript:doGetHeartRate(\'' +
+    serviceId + '\');"/><br>';
+  str += '<div>';
+  str += '<label for="interval">interval</label>';
+  str += '<input type="text" id="interval" size="10" maxlength="10">';
+  str += '</div>';
+  str += '<input data-role="button" type="button" name="button"' +
+    ' id="button" value="Register Event"' +
+    ' onclick="javascript:doRegisterHeartRate(\'' +
+    serviceId + '\');"/><br>';
+  str += '<input data-role="button" type="button" name="button"' +
+    ' id="button" value="Unregister Event"' +
+    ' onclick="javascript:unregisterHeartRate(\'' +
+    serviceId + '\');"/><br>';
+  str += '<hr>';
+
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get Heart Rate"' +
         ' onclick="javascript:doGetHeartRate(\'' +
@@ -232,4 +264,79 @@ function showResponseHealth(json) {
     $('#batteryLevel').val(json.heart.device.batteryLevel);
   }
 
+}
+
+function doGetHeartRateOld(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('health');
+  builder.setAttribute('heartrate');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+
+  closeLoading();
+  showLoading();
+
+  dConnect.get(uri, null, function(json) {
+    closeLoading();
+    $('#heartRate').val(json.heartRate);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  });
+}
+
+function doRegisterHeartRateOld(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('health');
+  builder.setAttribute('heartrate');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(currentClientId);
+
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+
+  dConnect.addEventListener(uri, function(message) {
+    if (DEBUG) {
+      console.log('Event-Message: ' + message);
+    }
+
+    var json = JSON.parse(message);
+    $('#heartRate').val(json.heartRate);
+  }, function() {
+    if (DEBUG) {
+      console.log('Success to add event listener.');
+    }
+  }, function(errorCode, errorMessage) {
+    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  });
+}
+
+function unregisterHeartRateOld(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('health');
+  builder.setAttribute('heartrate');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.setSessionKey(currentClientId);
+
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+
+  dConnect.removeEventListener(uri, function() {
+    if (DEBUG) {
+      console.log('Success to add event listener.');
+    }
+  }, function(errorCode, errorMessage) {
+    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  });
 }
