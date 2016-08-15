@@ -35,6 +35,7 @@ function showHeartRate(serviceId) {
   closeLoading();
 
   var str = '';
+  str += "<h2>HeartRate Old</h2>"
   str += makeInputText('HeartRate', 'heartRate', 'HeartRate');
   str += '<input data-role="button" type="button" name="button"' +
     ' id="button" value="Get Heart Rate"' +
@@ -49,24 +50,7 @@ function showHeartRate(serviceId) {
     ' onclick="javascript:unregisterHeartRateOld(\'' +
     serviceId + '\');"/><br>';
   str += '<hr>';
-  str += '<input data-role="button" type="button" name="button"' +
-    ' id="button" value="Get Heart Rate"' +
-    ' onclick="javascript:doGetHeartRate(\'' +
-    serviceId + '\');"/><br>';
-  str += '<div>';
-  str += '<label for="interval">interval</label>';
-  str += '<input type="text" id="interval" size="10" maxlength="10">';
-  str += '</div>';
-  str += '<input data-role="button" type="button" name="button"' +
-    ' id="button" value="Register Event"' +
-    ' onclick="javascript:doRegisterHeartRate(\'' +
-    serviceId + '\');"/><br>';
-  str += '<input data-role="button" type="button" name="button"' +
-    ' id="button" value="Unregister Event"' +
-    ' onclick="javascript:unregisterHeartRate(\'' +
-    serviceId + '\');"/><br>';
-  str += '<hr>';
-
+  str += "<h2>HeartRate New</h2>"
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get Heart Rate"' +
         ' onclick="javascript:doGetHeartRate(\'' +
