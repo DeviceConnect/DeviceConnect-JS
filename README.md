@@ -95,7 +95,7 @@ function authorization(){
 
 
        dConnect.authorization(scopes, myAppName,
-        function(clientId, clientSecret, newAccessToken) {
+        function(clientId, newAccessToken) {
                 // accessToken
                 myAccessToken = newAccessToken;
 
@@ -122,7 +122,7 @@ function searchDevice() {
             // Get the service ID.
             // To get the service you want to use from such as the name.
             for (var i = 0; i < json.services.length; i++) {
-                if (json.services[i].name == "HOST") {
+                if (json.services[i].name == "Host") {
                     myServiceId = json.services[i].id;
                 }
             }
