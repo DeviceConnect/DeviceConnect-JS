@@ -33,7 +33,7 @@ var _tests = [
                                 .setAccessToken(accessToken())
                                 .build();
                 var onsuccess = function(json) {
-                    assert.ok(false, 'success');
+                    assert.ok(true, 'success');
                     QUnit.start();
                 };
                 var onerror = function(code, message) {

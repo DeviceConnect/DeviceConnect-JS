@@ -627,7 +627,7 @@ function doMediaRecord(serviceId, target) {
 
 　sendRecordRequest(serviceId, target, {
     onsuccess: function() {
-      reloadContent(mediaStopButton(serviceId));
+      reloadContent(mediaStopButton(serviceId, target));
     },
     onerror: function(errorCode, errorMessage) {
       showError('POST mediastreamrecording/record', errorCode, errorMessage);
@@ -666,12 +666,15 @@ function doMediaRecord(serviceId, target) {
  *
  * @param {String} serviceId サービスID
  */
-function doMediaStop(serviceId) {
+function doMediaStop(serviceId, target) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastreamrecording');
   builder.setAttribute('stop');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  if (target !== null && target !== undefined) {
+    builder.addParameter('target', target);
+  }
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -753,13 +756,14 @@ function doGetMediaRecorder(serviceId, target, callback) {
  * メディアの停止
  *
  * @param {String} serviceId サービスID
+ * @param {String} target 動作させているデバイスのターゲット
  */
-function mediaStopButton(serviceId) {
+function mediaStopButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
   str += 'onclick="javascript:doMediaStop(\'' +
-          serviceId + '\');" type="button" value="Stop"/>';
+          serviceId + '\', \'' + target + '\');" type="button" value="Stop"/>';
   str += '</center>';
   return str;
 }
