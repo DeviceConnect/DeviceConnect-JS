@@ -282,7 +282,6 @@ function vcMakeEventUriBuilder(serviceId, sessionKey, attribute){
   builder.setProfile('videochat');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   builder.setAttribute(attribute);
   return builder;
 }

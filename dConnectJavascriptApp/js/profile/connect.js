@@ -307,7 +307,6 @@ function doRegisterWifiChangeEvent(serviceId, sessionKey) {
   builder.setAttribute('onwifichange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -342,7 +341,6 @@ function doRegisterBluetoothChangeEvent(serviceId, sessionKey) {
   builder.setAttribute('onbluetoothchange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -391,7 +389,6 @@ function doUnregisterWifiChangeEvent(serviceId, sessionKey) {
   builder.setAttribute('onwifichange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -414,7 +411,6 @@ function doUnregisterBluetoothChangeEvent(serviceId, sessionKey) {
   builder.setAttribute('onbluetoothchange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);

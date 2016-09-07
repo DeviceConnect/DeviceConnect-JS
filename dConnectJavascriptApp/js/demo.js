@@ -82,13 +82,20 @@ function startManagerAndDemo() {
 }
 
 function openWebsocketIfNeeded() {
-  if (!dConnect.isConnectedWebSocket()) {
-    dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
-      console.log('Failed to open websocket: ' + errorCode + ' - ' + errorMessage);
+  if (!dConnect.isWebSocketReady()) {
+    if (dConnect.isConnectedWebSocket()) {
+      dConnect.disconnectWebSocket();
+    }
+    dConnect.connectWebSocket(accessToken, function(code, message) {
+      if (code >= 2) {
+        console.error('Received websocket error: ' + code + ' - ' + message);
+      } else {
+        console.log('Received websocket event: ' + code + ' - ' + message);
+      }
     });
     console.log('WebSocket opened.');
   } else {
-    console.log('WebSocket has opened already.');
+    console.log('WebSocket is ready.');
   }
 }
 
@@ -174,7 +181,7 @@ function authorization(callback, oncalcel) {
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
         }
-        dConnect.connectWebSocket(currentClientId, function(code, message) {
+        dConnect.connectWebSocket(accessToken, function(code, message) {
           console.log("WebSocket. [code: " + code + ", message: " + message + "]");
         });
 

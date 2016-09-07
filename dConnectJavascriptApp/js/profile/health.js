@@ -82,7 +82,6 @@ function doRegisterHeartRate(serviceId) {
   builder.setAttribute('heartrate');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {
@@ -111,7 +110,6 @@ function unregisterHeartRate(serviceId) {
   builder.setAttribute('heartrate');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {

@@ -347,7 +347,6 @@ function doRegisterOnChangeEvent(serviceId) {
     builder.setAttribute("");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey(sessionKey);
     var uri = builder.build();
 
     dConnect.addEventListener(uri,
@@ -391,7 +390,6 @@ function doUnregisterOnChangeEvent(serviceId) {
     builder.setAttribute("");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey(sessionKey);
     var uri = builder.build();
 
     dConnect.removeEventListener(uri, function() {
