@@ -327,18 +327,15 @@ function searchProfile(serviceId, profile) {
     showAirConditioner(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'gpio')) {
     showGPIO(serviceId);
-<<<<<<< HEAD
-  } else if (profile === 'ecg') {
+  } else if (isEqualToStringIgnoreCase(profile, 'ecg')) {
     showECGProfile(serviceId);
-  } else if (profile === 'stressEstimation') {
+  } else if (isEqualToStringIgnoreCase(profile, 'stressEstimation')) {
     showStressEstimationProfile(serviceId);
-  } else if (profile === 'poseEstimation') {
+  } else if (isEqualToStringIgnoreCase(profile, 'poseEstimation')) {
     showPoseEstimationProfile(serviceId);
-  } else if (profile === 'walkState') {
+  } else if (isEqualToStringIgnoreCase(profile, 'walkState')) {
     showWalkStateProfile(serviceId);
-=======
   } else if (isEqualToStringIgnoreCase(profile, 'messagehook')) {
     showMessageHook(serviceId);
->>>>>>> master
   }
 }
