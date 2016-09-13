@@ -157,7 +157,7 @@ function authorization(callback, oncalcel) {
               'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-               'walkState');
+               'walkState', 'messagehook');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -240,13 +240,13 @@ function getCookie(name) {
 
 /**
  * 文字列を比較(大小文字の違いがあっても一致とみなす).
- * 
+ *
  * @param {String} string 比較する文字列
  * @param {String} cmpString 比較される文字列
- * 
+ *
  * @return 0以外 一致する
  * @return 0 一致しない
- * 
+ *
  */
 function isEqualToStringIgnoreCase(string, cmpString) {
   return string.toLowerCase() == cmpString.toLowerCase();
@@ -327,6 +327,7 @@ function searchProfile(serviceId, profile) {
     showAirConditioner(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'gpio')) {
     showGPIO(serviceId);
+<<<<<<< HEAD
   } else if (profile === 'ecg') {
     showECGProfile(serviceId);
   } else if (profile === 'stressEstimation') {
@@ -335,5 +336,9 @@ function searchProfile(serviceId, profile) {
     showPoseEstimationProfile(serviceId);
   } else if (profile === 'walkState') {
     showWalkStateProfile(serviceId);
+=======
+  } else if (isEqualToStringIgnoreCase(profile, 'messagehook')) {
+    showMessageHook(serviceId);
+>>>>>>> master
   }
 }
