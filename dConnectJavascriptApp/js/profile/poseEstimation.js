@@ -91,6 +91,7 @@ function doRegisterPoseEstimation(serviceId) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(currentClientId);
+  builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
   if (DEBUG) {
@@ -120,7 +121,6 @@ function unregisterPoseEstimation(serviceId) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.setSessionKey(currentClientId);
-  builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
   if (DEBUG) {
