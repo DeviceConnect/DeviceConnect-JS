@@ -22,6 +22,8 @@ var loadFlag = false;
 var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = '';
+/** サービス一覧のキャッシュ. */
+var cachedServices = [];
 
 /**
  * 初期化処理.
