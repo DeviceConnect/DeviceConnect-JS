@@ -156,7 +156,8 @@ function authorization(callback, oncalcel) {
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
-               'airconditioner','gpio','messagehook');
+               'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
+               'walkState', 'messagehook');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -326,6 +327,14 @@ function searchProfile(serviceId, profile) {
     showAirConditioner(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'gpio')) {
     showGPIO(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'ecg')) {
+    showECGProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'stressEstimation')) {
+    showStressEstimationProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'poseEstimation')) {
+    showPoseEstimationProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'walkState')) {
+    showWalkStateProfile(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'messagehook')) {
     showMessageHook(serviceId);
   }
