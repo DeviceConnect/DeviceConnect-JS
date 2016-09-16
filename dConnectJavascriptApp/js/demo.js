@@ -63,6 +63,18 @@ function isAndroid() {
 }
 
 /**
+ * Device Connect Managerを停止後、トップ画面に戻る.
+ */
+function stopManagerAndDemo() {
+  dConnect.stopManager('server');
+  location.hash = '#home';
+  if (DEBUG) {
+    console.log('URL: ' + location.href);
+  }
+}
+
+
+/**
  * Device Connect Managerを起動後、デモ画面に遷移する.
  */
 function startManagerAndDemo() {
@@ -114,7 +126,7 @@ function startManager(onavailable) {
       case dConnect.constants.ErrorCode.ACCESS_FAILED:
         if (!requested) {
           requested = true;
-          dConnect.startManager();
+          dConnect.startManager('server');
           alert('Requested to start Device Connect Manager.');
 
           var userAgent = navigator.userAgent.toLowerCase();
