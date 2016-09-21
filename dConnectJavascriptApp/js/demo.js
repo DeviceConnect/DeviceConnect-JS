@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-var versionRev = 'V2.0.0 Rev.10';
+var versionRev = 'V2.1.0 Rev.10';
 /** Client ID. */
 var currentClientId = null;
 /** AccessTonen. */
@@ -29,6 +29,8 @@ var cachedServices = [];
  * 初期化処理.
  */
 function init() {
+  console.log('Origin = [' + location.origin + ']');
+
   currentClientId = Math.random().toString(36).slice(-8);
 
   // Versionを表示
@@ -38,7 +40,7 @@ function init() {
   ip = getIpString();
 
   // accessTokenをcookieから取得
-  accessToken = getCookie('accessToken' + ip);
+  accessToken = loadAccessToken();
 
   // 接続先IPアドレスをページに表示
   $('#host').html('connecting:' + ip);
@@ -54,6 +56,32 @@ function init() {
   dConnect.setSSLEnabled(location.protocol === 'https:');
   openWebsocketIfNeeded();
   searchDevice();
+}
+
+/**
+ * Cookieに保存していたアクセストークンを取得する.
+ * <p>
+ * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
+ * </p>
+ * @return アクセストークン. 未保存の場合はnull
+ */
+function loadAccessToken() {
+  return getCookie(accessTokenKey());
+}
+
+/**
+ * Cookieにアクセストークンを取得する.
+ * <p>
+ * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
+ * </p>
+ * @param accessToken アクセストークン
+ */
+function storeAccessToken(accessToken) {
+  document.cookie = accessTokenKey() + '=' + accessToken;
+}
+
+function accessTokenKey() {
+  return 'accessToken' + ip + decodeURIComponent(location.origin);
 }
 
 /**
@@ -178,7 +206,7 @@ function authorization(callback, oncalcel) {
         console.log('accessToken:' + accessToken);
 
         // add cookie
-        document.cookie = 'accessToken' + ip + '=' + accessToken;
+        storeAccessToken(accessToken);
 
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
