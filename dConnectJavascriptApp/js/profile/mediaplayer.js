@@ -125,7 +125,6 @@ function doRegisterOnStatusChange(serviceId, sessionKey) {
   builder.setAttribute('onstatuschange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -180,7 +179,6 @@ function doUnregisterOnStatusChange(serviceId, sessionKey) {
   builder.setAttribute('onstatuschange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);

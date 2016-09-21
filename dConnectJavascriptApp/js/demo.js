@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-var versionRev = 'V2.0.0 Rev.10';
+var versionRev = 'V2.1.0 Rev.10';
 /** Client ID. */
 var currentClientId = null;
 /** AccessTonen. */
@@ -22,11 +22,15 @@ var loadFlag = false;
 var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = '';
+/** サービス一覧のキャッシュ. */
+var cachedServices = [];
 
 /**
  * 初期化処理.
  */
 function init() {
+  console.log('Origin = [' + location.origin + ']');
+
   currentClientId = Math.random().toString(36).slice(-8);
 
   // Versionを表示
@@ -36,7 +40,7 @@ function init() {
   ip = getIpString();
 
   // accessTokenをcookieから取得
-  accessToken = getCookie('accessToken' + ip);
+  accessToken = loadAccessToken();
 
   // 接続先IPアドレスをページに表示
   $('#host').html('connecting:' + ip);
@@ -52,6 +56,32 @@ function init() {
   dConnect.setSSLEnabled(location.protocol === 'https:');
   openWebsocketIfNeeded();
   searchDevice();
+}
+
+/**
+ * Cookieに保存していたアクセストークンを取得する.
+ * <p>
+ * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
+ * </p>
+ * @return アクセストークン. 未保存の場合はnull
+ */
+function loadAccessToken() {
+  return getCookie(accessTokenKey());
+}
+
+/**
+ * Cookieにアクセストークンを取得する.
+ * <p>
+ * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
+ * </p>
+ * @param accessToken アクセストークン
+ */
+function storeAccessToken(accessToken) {
+  document.cookie = accessTokenKey() + '=' + accessToken;
+}
+
+function accessTokenKey() {
+  return 'accessToken' + ip + decodeURIComponent(location.origin);
 }
 
 /**
@@ -82,13 +112,20 @@ function startManagerAndDemo() {
 }
 
 function openWebsocketIfNeeded() {
-  if (!dConnect.isConnectedWebSocket()) {
-    dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
-      console.log('Failed to open websocket: ' + errorCode + ' - ' + errorMessage);
+  if (!dConnect.isWebSocketReady()) {
+    if (dConnect.isConnectedWebSocket()) {
+      dConnect.disconnectWebSocket();
+    }
+    dConnect.connectWebSocket(accessToken, function(code, message) {
+      if (code >= 2) {
+        console.error('Received websocket error: ' + code + ' - ' + message);
+      } else {
+        console.log('Received websocket event: ' + code + ' - ' + message);
+      }
     });
     console.log('WebSocket opened.');
   } else {
-    console.log('WebSocket has opened already.');
+    console.log('WebSocket is ready.');
   }
 }
 
@@ -170,12 +207,12 @@ function authorization(callback, oncalcel) {
         console.log('accessToken:' + accessToken);
 
         // add cookie
-        document.cookie = 'accessToken' + ip + '=' + accessToken;
+        storeAccessToken(accessToken);
 
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
         }
-        dConnect.connectWebSocket(currentClientId, function(code, message) {
+        dConnect.connectWebSocket(accessToken, function(code, message) {
           console.log("WebSocket. [code: " + code + ", message: " + message + "]");
         });
 
