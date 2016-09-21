@@ -193,7 +193,8 @@ function authorization(callback, oncalcel) {
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
-               'airconditioner','gpio');
+               'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
+               'walkState', 'messagehook');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -276,13 +277,13 @@ function getCookie(name) {
 
 /**
  * 文字列を比較(大小文字の違いがあっても一致とみなす).
- * 
+ *
  * @param {String} string 比較する文字列
  * @param {String} cmpString 比較される文字列
- * 
+ *
  * @return 0以外 一致する
  * @return 0 一致しない
- * 
+ *
  */
 function isEqualToStringIgnoreCase(string, cmpString) {
   return string.toLowerCase() == cmpString.toLowerCase();
@@ -363,5 +364,15 @@ function searchProfile(serviceId, profile) {
     showAirConditioner(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'gpio')) {
     showGPIO(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'ecg')) {
+    showECGProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'stressEstimation')) {
+    showStressEstimationProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'poseEstimation')) {
+    showPoseEstimationProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'walkState')) {
+    showWalkStateProfile(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'messagehook')) {
+    showMessageHook(serviceId);
   }
 }
