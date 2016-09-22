@@ -795,7 +795,6 @@ function doRegisterOnPhoto(serviceId, sessionKey) {
   builder.setAttribute('onphoto');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
 
   var uri = builder.build();
   if (DEBUG) {
@@ -827,7 +826,6 @@ function doUnregisterOnPhoto(serviceId, sessionKey) {
   builder.setAttribute('onphoto');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)

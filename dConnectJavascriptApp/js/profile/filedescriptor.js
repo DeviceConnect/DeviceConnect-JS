@@ -279,7 +279,6 @@ function doRegisterOnWatchFile(serviceId, sessionKey) {
   builder.setAttribute('onwatchfile');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -316,7 +315,6 @@ function doUnregisterOnWatchFile(serviceId, sessionKey) {
   builder.setAttribute('onwatchfile');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);

@@ -179,7 +179,6 @@ function doRegisterOnDice(serviceId, sessionKey) {
   builder.setAttribute('ondice');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri);
@@ -215,7 +214,6 @@ function doUnregisterOnDice(serviceId, sessionKey) {
   builder.setAttribute('ondice');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri);
@@ -263,7 +261,6 @@ function doRegisterOnMagnetometer(serviceId, sessionKey) {
   builder.setAttribute('onmagnetometer');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri);
@@ -302,7 +299,6 @@ function doUnregisterOnMagnetometer(serviceId, sessionKey) {
   builder.setAttribute('onmagnetometer');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri);

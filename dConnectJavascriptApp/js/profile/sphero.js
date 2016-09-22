@@ -255,7 +255,6 @@ function doRegisterOnQuaternion(serviceId, sessionKey) {
   builder.setAttribute('onquaternion');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log(uri);
@@ -295,7 +294,6 @@ function doUnregisterOnQuaternion(serviceId, sessionKey) {
   builder.setAttribute('onquaternion');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -351,7 +349,6 @@ function doRegisterOnLocator(serviceId, sessionKey) {
   builder.setAttribute('onlocator');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -390,7 +387,6 @@ function doUnregisterOnLocator(serviceId, sessionKey) {
   builder.setAttribute('onlocator');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri);
@@ -449,7 +445,6 @@ function doRegisterOnCollision(serviceId, sessionKey) {
   builder.setAttribute('oncollision');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -495,7 +490,6 @@ function doUnregisterOnCollision(serviceId, sessionKey) {
   builder.setAttribute('oncollision');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey',  sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)

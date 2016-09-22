@@ -180,7 +180,6 @@ function doRegisterChargingEvent(serviceId, sessionKey) {
   builder.setAttribute('onchargingchange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
 
   if (DEBUG) {
@@ -220,7 +219,6 @@ function doUnregisterChargingEvent(serviceId, sessionKey) {
   builder.setAttribute('onchargingchange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -243,7 +241,6 @@ function doRegisterBatteryChangeEvent(serviceId, sessionKey) {
   builder.setAttribute('onbatterychange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -285,7 +282,6 @@ function doUnregisterBatteryChangeEvent(serviceId, sessionKey) {
   builder.setAttribute('onbatterychange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);

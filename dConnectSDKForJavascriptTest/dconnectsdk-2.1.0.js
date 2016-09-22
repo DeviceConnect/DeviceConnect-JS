@@ -82,8 +82,15 @@ var dConnect = (function(parent, global) {
 
   /**
    * WebSocketが開いているかどうかを示すフラグ.
+   * 
+   * 注意: 開いている場合でも、isEstablishedWebSocketがfalseの場合は、
+   * イベントを受信できない.
    */
   var isOpenedWebSocket = false;
+  /**
+   * WebSocketでイベントを受信可能な状態であるかどうかを示すフラグ.
+   */
+  var isEstablishedWebSocket = false;
   /**
    * WebSocketを再接続するタイマー.
    */
@@ -1718,7 +1725,7 @@ var dConnect = (function(parent, global) {
      * @param {Function] error_cb イベント登録失敗コールバック
      *
      * @example
-     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
+     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&clientId=yyy&accessToken=zzz";
      * dConnect.addEventListener(uri, event_cb, success_cb, error_cb);
      */
     var addEventListener = function(uri, event_cb, success_cb, error_cb) {
@@ -1742,7 +1749,7 @@ var dConnect = (function(parent, global) {
      * @param {Function] error_cb イベント登録解除失敗コールバック
      *
      * @example
-     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
+     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&clientId=yyy&accessToken=zzz";
      * dConnect.removeEventListener(uri, success_cb, error_cb);
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
@@ -1967,35 +1974,45 @@ var dConnect = (function(parent, global) {
    * 切断してから、再度接続処理を行って下さい。
    * </p>
    * @memberOf dConnect
-   * @param {!String} sessionKey Device Connect側に要求したいイベント用WebSocketの識別子
+   * @param {!String} accessToken Device Connectシステムから取得したアクセストークン
    * @param cb WebSocketの開閉イベントを受け取るコールバック関数
    *
    * @example
    * // Websocketを開く
-   * dConnect.connectWebSocket(sessionKey, function(eventCode, message) {
+   * dConnect.connectWebSocket(accessToken, function(eventCode, message) {
      * });
    *
    */
-  var connectWebSocket = function(sessionKey, cb) {
+  var connectWebSocket = function(accessToken, cb) {
     if (websocket) {
       return;
     }
     var scheme = sslEnabled ? 'wss' : 'ws';
     websocket = new WebSocket(scheme + '://' + host + ':' +
-                              port + '/websocket');
+                              port + '/gotapi/websocket');
     websocket.onopen = function(e) {
       isOpenedWebSocket = true;
 
-      startMonitoringWebsocket(sessionKey, cb);
+      startMonitoringWebsocket(accessToken, cb);
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
-      websocket.send('{"sessionKey":"' + sessionKey + '"}');
+      websocket.send('{"accessToken":"' + accessToken + '"}');
       if (cb) {
         cb(0, 'open');
       }
     };
     websocket.onmessage = function(msg) {
       var json = JSON.parse(msg.data);
+      if (!isEstablishedWebSocket) {
+        if (json.result === 0) {
+          isEstablishedWebSocket = true;
+          cb(-1, 'established');
+        } else {
+          cb(2 + json.errorCode, json.errorMessage);
+        }
+        return;
+      }
+
       var uri = '/gotapi/';
       if (json.profile) {
         uri += json.profile;
@@ -2025,6 +2042,7 @@ var dConnect = (function(parent, global) {
     }
     websocket.onclose = function(e) {
       isOpenedWebSocket = false;
+      isEstablishedWebSocket = false;
       websocket = undefined;
       if (cb) {
         cb(1, 'close');
@@ -2033,11 +2051,11 @@ var dConnect = (function(parent, global) {
   };
   parent.connectWebSocket = connectWebSocket;
 
-  var startMonitoringWebsocket = function(sessionKey, cb) {
+  var startMonitoringWebsocket = function(accessToken, cb) {
     if (reconnectingTimerId === undefined) {
       reconnectingTimerId = setInterval(function() {
         if (!isConnectedWebSocket()) {
-          connectWebSocket(sessionKey, cb);
+          connectWebSocket(accessToken, cb);
         }
       }, 1000);
     }
@@ -2059,6 +2077,7 @@ var dConnect = (function(parent, global) {
       stopMonitoringWebsocket();
 
       isOpenedWebSocket = false;
+      isEstablishedWebSocket = false;
       websocket.close();
       websocket = undefined;
     }
@@ -2073,6 +2092,15 @@ var dConnect = (function(parent, global) {
     return websocket != undefined && isOpenedWebSocket;
   }
   parent.isConnectedWebSocket = isConnectedWebSocket;
+
+  /**
+   * Websocketでイベントを受信可能な状態かチェックする.
+   * @return 可能な場合にはtrue、それ以外はfalse
+   */
+  var isWebSocketReady = function() {
+    return isConnectedWebSocket() && isEstablishedWebSocket;
+  }
+  parent.isWebSocketReady = isWebSocketReady;
 
   /**
    * カスタムURIスキームを作成するための抽象的なユーティリティクラス.
@@ -2353,6 +2381,7 @@ var dConnect = (function(parent, global) {
    * @memberOf dConnect.URIBuilder
    * @param {String} sessionKey セッションキー
    * @return {URIBuilder} 自分自身のインスタンス
+   * @deprecated
    */
   URIBuilder.prototype.setSessionKey = function(sessionKey) {
     this.params['sessionKey'] = sessionKey;

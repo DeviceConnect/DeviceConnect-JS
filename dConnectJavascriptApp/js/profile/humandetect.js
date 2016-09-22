@@ -180,7 +180,6 @@ function doHumanDetectBodyRegist(serviceId, sessionKey) {
   builder.setAttribute('onbodydetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   addBodyOptionParameter(builder, 'body');
   var uri = builder.build();
   if (DEBUG) {
@@ -208,7 +207,6 @@ function doHumanDetectBodyUnregister(serviceId, sessionKey) {
   builder.setAttribute('onbodydetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -358,7 +356,6 @@ function doHumanDetectHandRegist(serviceId, sessionKey) {
   builder.setAttribute('onhanddetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   addHandOptionParameter(builder, 'hand');
   var uri = builder.build();
   if (DEBUG) {
@@ -386,7 +383,6 @@ function doHumanDetectHandUnregister(serviceId, sessionKey) {
   builder.setAttribute('onhanddetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -650,7 +646,6 @@ function doHumanDetectFaceRegist(serviceId, sessionKey) {
   builder.setAttribute('onfacedetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   addFaceOptionParameter(builder, 'face');
   var uri = builder.build();
   if (DEBUG) {
@@ -678,7 +673,6 @@ function doHumanDetectFaceUnregister(serviceId, sessionKey) {
   builder.setAttribute('onfacedetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);

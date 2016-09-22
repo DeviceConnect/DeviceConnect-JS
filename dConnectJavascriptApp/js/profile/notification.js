@@ -107,7 +107,6 @@ function doRegisterNotificationShow(serviceId, sessionKey) {
   builder.setAttribute('onshow');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
 
   var uri = builder.build();
   if (DEBUG) {
@@ -140,7 +139,6 @@ function doUnregisterNotificationShow(serviceId, sessionKey) {
   builder.setAttribute('onshow');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -163,7 +161,6 @@ function doRegisterNotificationClick(serviceId, sessionKey) {
   builder.setAttribute('onclick');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -194,7 +191,6 @@ function doUnregisterNotificationClick(serviceId, sessionKey) {
   builder.setAttribute('onclick');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -216,7 +212,6 @@ function doRegisterNotificationClose(serviceId, sessionKey) {
   builder.setAttribute('onclose');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -246,7 +241,6 @@ function doUnregisterNotificationClose(serviceId, sessionKey) {
   builder.setAttribute('onclose');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -268,7 +262,6 @@ function doRegisterNotificationError(serviceId, sessionKey) {
   builder.setAttribute('onerror');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
@@ -297,7 +290,6 @@ function doUnregisterNotificationError(serviceId, sessionKey) {
   builder.setAttribute('onerror');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)

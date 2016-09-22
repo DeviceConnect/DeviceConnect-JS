@@ -1,5 +1,5 @@
 /**
- @preserve Device Connect SDK for Javascript v2.0.0
+ @preserve Device Connect SDK Library v2.1.0
  Copyright (c) 2014 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
@@ -82,8 +82,15 @@ var dConnect = (function(parent, global) {
 
   /**
    * WebSocketが開いているかどうかを示すフラグ.
+   * 
+   * 注意: 開いている場合でも、isEstablishedWebSocketがfalseの場合は、
+   * イベントを受信できない.
    */
   var isOpenedWebSocket = false;
+  /**
+   * WebSocketでイベントを受信可能な状態であるかどうかを示すフラグ.
+   */
+  var isEstablishedWebSocket = false;
   /**
    * WebSocketを再接続するタイマー.
    */
@@ -1273,20 +1280,24 @@ var dConnect = (function(parent, global) {
    * Activityの実装依存とする.
    * </p>
    * @private
-   * @param state 起動画面を出すか出さないか
    */
-  var startManagerForAndroid = function(state) {
+  var startManagerForAndroid = function() {
     _currentHmacKey = isEnabledAntiSpoofing() ?
                         generateRandom(HMAC_KEY_BYTES) : '';
     var urlScheme = new AndroidURISchemeBuilder();
     var url;
     var origin = encodeURIComponent(location.origin);
-    if (state === undefined) {
-        state = '';
-    }
-    url = uriSchemeName + '://start/' + state
+    if (isFirefox()) {
+      url = uriSchemeName + '://start/'
               + '?origin=' + origin
               + '&key=' + _currentHmacKey;
+    } else {
+      urlScheme.setPath('start');
+      urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
+      urlScheme.addParameter('S.origin', origin);
+      urlScheme.addParameter('S.key', _currentHmacKey);
+      url = urlScheme.build();
+    }
     location.href = url;
   };
 
@@ -1295,74 +1306,23 @@ var dConnect = (function(parent, global) {
    * @private
    */
   var startManagerForIOS = function() {
-    window.location.href = uriSchemeName + '://start?url=' +
+    window.location.href = uriSchemeName + ':' +
                   encodeURIComponent(window.location.href);
   };
 
   /**
    * Device Connect Managerを起動する.
    * @memberOf dConnect
-   * @param state 起動画面を出すか出さないか
    */
-  var startManager = function(state) {
+  var startManager = function() {
     var userAgent = navigator.userAgent.toLowerCase();
     if (userAgent.indexOf('android') > -1) {
-      startManagerForAndroid(state);
+      startManagerForAndroid();
     } else if (userAgent.search(/iphone|ipad|ipod/) > -1) {
       startManagerForIOS();
     }
   };
   parent.startManager = startManager;
-
-  /**
-   * Android端末上でDevice Connect Managerを停止する.
-   * <p>
-   * 注意: 停止に成功した場合、停止用Intentを受信するためのActivity起動する.
-   * つまり、このときWebブラウザがバックグラウンドに移動するので注意.
-   * そのActivityの消えるタイミング(自動的に消えるか、もしくはユーザー操作で消すのか)は
-   * Activityの実装依存とする.
-   * </p>
-   * @private
-   * @param state 起動画面を出すか出さないか
-   */
-  var stopManagerForAndroid = function(state) {
-    _currentHmacKey = isEnabledAntiSpoofing() ?
-                        generateRandom(HMAC_KEY_BYTES) : '';
-    var urlScheme = new AndroidURISchemeBuilder();
-    var url;
-    var origin = encodeURIComponent(location.origin);
-    if (state === undefined) {
-        state = '';
-    }
-    url = uriSchemeName + '://stop/' + state
-              + '?origin=' + origin
-              + '&key=' + _currentHmacKey;
-    location.href = url;
-  };
-
-  /**
-   * iOS端末上でDevice Connect Managerを停止する.
-   * @private
-   */
-  var stopManagerForIOS = function() {
-    window.location.href = uriSchemeName + '://stop';
-  };
-
-  /**
-   * Device Connect Managerを停止する.
-   * @memberOf dConnect
-   * @param state 停止画面を出すか出さないか
-   */
-  var stopManager = function(state) {
-    var userAgent = navigator.userAgent.toLowerCase();
-    if (userAgent.indexOf('android') > -1) {
-      stopManagerForAndroid(state);
-    } else if (userAgent.search(/iphone|ipad|ipod/) > -1) {
-      stopManagerForIOS();
-    }
-  };
-  parent.stopManager = stopManager;
-
 
   /**
    * 指定されたURIにリクエストパラメータを追加する.
@@ -1718,7 +1678,7 @@ var dConnect = (function(parent, global) {
      * @param {Function] error_cb イベント登録失敗コールバック
      *
      * @example
-     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
+     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&clientId=yyy&accessToken=zzz";
      * dConnect.addEventListener(uri, event_cb, success_cb, error_cb);
      */
     var addEventListener = function(uri, event_cb, success_cb, error_cb) {
@@ -1742,7 +1702,7 @@ var dConnect = (function(parent, global) {
      * @param {Function] error_cb イベント登録解除失敗コールバック
      *
      * @example
-     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&sessionKey=yyy";
+     * var uri = "http://localhost:4035/gotapi/battery/onchargingchange?device=xxx&clientId=yyy&accessToken=zzz";
      * dConnect.removeEventListener(uri, success_cb, error_cb);
      */
     var removeEventListener = function(uri, success_cb, error_cb) {
@@ -1967,35 +1927,45 @@ var dConnect = (function(parent, global) {
    * 切断してから、再度接続処理を行って下さい。
    * </p>
    * @memberOf dConnect
-   * @param {!String} sessionKey Device Connect側に要求したいイベント用WebSocketの識別子
+   * @param {!String} accessToken Device Connectシステムから取得したアクセストークン
    * @param cb WebSocketの開閉イベントを受け取るコールバック関数
    *
    * @example
    * // Websocketを開く
-   * dConnect.connectWebSocket(sessionKey, function(eventCode, message) {
+   * dConnect.connectWebSocket(accessToken, function(eventCode, message) {
      * });
    *
    */
-  var connectWebSocket = function(sessionKey, cb) {
+  var connectWebSocket = function(accessToken, cb) {
     if (websocket) {
       return;
     }
     var scheme = sslEnabled ? 'wss' : 'ws';
     websocket = new WebSocket(scheme + '://' + host + ':' +
-                              port + '/websocket');
+                              port + '/gotapi/websocket');
     websocket.onopen = function(e) {
       isOpenedWebSocket = true;
 
-      startMonitoringWebsocket(sessionKey, cb);
+      startMonitoringWebsocket(accessToken, cb);
 
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
-      websocket.send('{"sessionKey":"' + sessionKey + '"}');
+      websocket.send('{"accessToken":"' + accessToken + '"}');
       if (cb) {
         cb(0, 'open');
       }
     };
     websocket.onmessage = function(msg) {
       var json = JSON.parse(msg.data);
+      if (!isEstablishedWebSocket) {
+        if (json.result === 0) {
+          isEstablishedWebSocket = true;
+          cb(-1, 'established');
+        } else {
+          cb(2 + json.errorCode, json.errorMessage);
+        }
+        return;
+      }
+
       var uri = '/gotapi/';
       if (json.profile) {
         uri += json.profile;
@@ -2025,6 +1995,7 @@ var dConnect = (function(parent, global) {
     }
     websocket.onclose = function(e) {
       isOpenedWebSocket = false;
+      isEstablishedWebSocket = false;
       websocket = undefined;
       if (cb) {
         cb(1, 'close');
@@ -2033,11 +2004,11 @@ var dConnect = (function(parent, global) {
   };
   parent.connectWebSocket = connectWebSocket;
 
-  var startMonitoringWebsocket = function(sessionKey, cb) {
+  var startMonitoringWebsocket = function(accessToken, cb) {
     if (reconnectingTimerId === undefined) {
       reconnectingTimerId = setInterval(function() {
         if (!isConnectedWebSocket()) {
-          connectWebSocket(sessionKey, cb);
+          connectWebSocket(accessToken, cb);
         }
       }, 1000);
     }
@@ -2059,6 +2030,7 @@ var dConnect = (function(parent, global) {
       stopMonitoringWebsocket();
 
       isOpenedWebSocket = false;
+      isEstablishedWebSocket = false;
       websocket.close();
       websocket = undefined;
     }
@@ -2073,6 +2045,15 @@ var dConnect = (function(parent, global) {
     return websocket != undefined && isOpenedWebSocket;
   }
   parent.isConnectedWebSocket = isConnectedWebSocket;
+
+  /**
+   * Websocketでイベントを受信可能な状態かチェックする.
+   * @return 可能な場合にはtrue、それ以外はfalse
+   */
+  var isWebSocketReady = function() {
+    return isConnectedWebSocket() && isEstablishedWebSocket;
+  }
+  parent.isWebSocketReady = isWebSocketReady;
 
   /**
    * カスタムURIスキームを作成するための抽象的なユーティリティクラス.
@@ -2353,6 +2334,7 @@ var dConnect = (function(parent, global) {
    * @memberOf dConnect.URIBuilder
    * @param {String} sessionKey セッションキー
    * @return {URIBuilder} 自分自身のインスタンス
+   * @deprecated
    */
   URIBuilder.prototype.setSessionKey = function(sessionKey) {
     this.params['sessionKey'] = sessionKey;
