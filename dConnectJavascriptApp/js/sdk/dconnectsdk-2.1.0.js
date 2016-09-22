@@ -1,5 +1,5 @@
 /**
- @preserve Device Connect SDK Library v0.1.0
+ @preserve Device Connect SDK Library v2.1.0
  Copyright (c) 2014 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
@@ -1272,6 +1272,7 @@ var dConnect = (function(parent, global) {
   }
 
   /**
+  /**
    * Android端末上でDevice Connect Managerを起動する.
    * <p>
    * 注意: 起動に成功した場合、起動用Intentを受信するためのActivity起動する.
@@ -1369,7 +1370,6 @@ var dConnect = (function(parent, global) {
     }
   };
   parent.stopManager = stopManager;
-
 
   /**
    * 指定されたURIにリクエストパラメータを追加する.

@@ -96,7 +96,7 @@ function isAndroid() {
  * Device Connect Managerを停止後、トップ画面に戻る.
  */
 function stopManagerAndDemo() {
-  dConnect.stopManager('server');
+  dConnect.stopManager('activity');
   location.hash = '#home';
   if (DEBUG) {
     console.log('URL: ' + location.href);
@@ -163,7 +163,7 @@ function startManager(onavailable) {
       case dConnect.constants.ErrorCode.ACCESS_FAILED:
         if (!requested) {
           requested = true;
-          dConnect.startManager('server');
+          dConnect.startManager('activity');
           alert('Requested to start Device Connect Manager.');
 
           var userAgent = navigator.userAgent.toLowerCase();
