@@ -318,7 +318,7 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest002 = function(assert) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       QUnit.start();
     }, function(errorCode, errorMessage) {
-      if (errorCode == 3) {
+      if (errorCode == 8) {
         assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
       } else if (checkErrorCode(errorCode)) {
         assert.ok(true, 'not support');
