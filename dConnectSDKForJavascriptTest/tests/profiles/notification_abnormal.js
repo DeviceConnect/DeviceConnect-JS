@@ -391,7 +391,7 @@ NotificationProfileAbnormalTest.onClickAbnormalTest001 = function(assert) {
 QUnit.asyncTest('onClickAbnormalTest001', NotificationProfileAbnormalTest.onClickAbnormalTest001);
 
 /**
- * 定義されていないPOSTメソッドでClick検知イベントにアクセスするテストを行う。
+ * 定義されていないGETメソッドでClick検知イベントにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
