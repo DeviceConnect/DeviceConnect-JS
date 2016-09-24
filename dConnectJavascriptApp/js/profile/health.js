@@ -144,7 +144,6 @@ function doRegisterHeartRate(serviceId) {
   builder.setAttribute('heart');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
   builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
@@ -173,7 +172,6 @@ function unregisterHeartRate(serviceId) {
   builder.setAttribute('heart');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {
@@ -280,7 +278,6 @@ function doRegisterHeartRateOld(serviceId) {
   builder.setAttribute('heartrate');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {
@@ -309,7 +306,6 @@ function unregisterHeartRateOld(serviceId) {
   builder.setAttribute('heartrate');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {

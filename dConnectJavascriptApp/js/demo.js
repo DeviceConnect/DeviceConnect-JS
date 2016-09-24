@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-var versionRev = 'V2.0.0 Rev.10';
+var versionRev = 'V2.1.0 Rev.10';
 /** Client ID. */
 var currentClientId = null;
 /** AccessTonen. */
@@ -22,11 +22,15 @@ var loadFlag = false;
 var DEBUG = true;
 /** デバイス名をキャッシュ */
 var myDeviceName = '';
+/** サービス一覧のキャッシュ. */
+var cachedServices = [];
 
 /**
  * 初期化処理.
  */
 function init() {
+  console.log('Origin = [' + location.origin + ']');
+
   currentClientId = Math.random().toString(36).slice(-8);
 
   // Versionを表示
@@ -36,7 +40,7 @@ function init() {
   ip = getIpString();
 
   // accessTokenをcookieから取得
-  accessToken = getCookie('accessToken' + ip);
+  accessToken = loadAccessToken();
 
   // 接続先IPアドレスをページに表示
   $('#host').html('connecting:' + ip);
@@ -55,12 +59,50 @@ function init() {
 }
 
 /**
+ * Cookieに保存していたアクセストークンを取得する.
+ * <p>
+ * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
+ * </p>
+ * @return アクセストークン. 未保存の場合はnull
+ */
+function loadAccessToken() {
+  return getCookie(accessTokenKey());
+}
+
+/**
+ * Cookieにアクセストークンを取得する.
+ * <p>
+ * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
+ * </p>
+ * @param accessToken アクセストークン
+ */
+function storeAccessToken(accessToken) {
+  document.cookie = accessTokenKey() + '=' + accessToken;
+}
+
+function accessTokenKey() {
+  return 'accessToken' + ip + decodeURIComponent(location.origin);
+}
+
+/**
  * ユーザエージェントがAndroidであることを確認する.
  */
 function isAndroid() {
   var userAgent = window.navigator.userAgent.toLowerCase();
   return (userAgent.indexOf('android') != -1);
 }
+
+/**
+ * Device Connect Managerを停止後、トップ画面に戻る.
+ */
+function stopManagerAndDemo() {
+  dConnect.stopManager('activity');
+  location.hash = '#home';
+  if (DEBUG) {
+    console.log('URL: ' + location.href);
+  }
+}
+
 
 /**
  * Device Connect Managerを起動後、デモ画面に遷移する.
@@ -82,13 +124,20 @@ function startManagerAndDemo() {
 }
 
 function openWebsocketIfNeeded() {
-  if (!dConnect.isConnectedWebSocket()) {
-    dConnect.connectWebSocket(currentClientId, function(errorCode, errorMessage) {
-      console.log('Failed to open websocket: ' + errorCode + ' - ' + errorMessage);
+  if (!dConnect.isWebSocketReady()) {
+    if (dConnect.isConnectedWebSocket()) {
+      dConnect.disconnectWebSocket();
+    }
+    dConnect.connectWebSocket(accessToken, function(code, message) {
+      if (code >= 2) {
+        console.error('Received websocket error: ' + code + ' - ' + message);
+      } else {
+        console.log('Received websocket event: ' + code + ' - ' + message);
+      }
     });
     console.log('WebSocket opened.');
   } else {
-    console.log('WebSocket has opened already.');
+    console.log('WebSocket is ready.');
   }
 }
 
@@ -114,7 +163,7 @@ function startManager(onavailable) {
       case dConnect.constants.ErrorCode.ACCESS_FAILED:
         if (!requested) {
           requested = true;
-          dConnect.startManager();
+          dConnect.startManager('activity');
           alert('Requested to start Device Connect Manager.');
 
           var userAgent = navigator.userAgent.toLowerCase();
@@ -170,12 +219,12 @@ function authorization(callback, oncalcel) {
         console.log('accessToken:' + accessToken);
 
         // add cookie
-        document.cookie = 'accessToken' + ip + '=' + accessToken;
+        storeAccessToken(accessToken);
 
         if (dConnect.isConnectedWebSocket()) {
           dConnect.disconnectWebSocket();
         }
-        dConnect.connectWebSocket(currentClientId, function(code, message) {
+        dConnect.connectWebSocket(accessToken, function(code, message) {
           console.log("WebSocket. [code: " + code + ", message: " + message + "]");
         });
 

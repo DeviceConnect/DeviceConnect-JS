@@ -154,7 +154,6 @@ function doRegisterOnConnect(serviceId, sessionKey) {
   builder.setAttribute('onconnect');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri);
@@ -187,7 +186,6 @@ function doUnregisterOnConnect(serviceId, sessionKey) {
   builder.setAttribute('onconnect');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri:' + uri)
