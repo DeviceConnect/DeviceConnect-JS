@@ -56,7 +56,7 @@ QUnit.asyncTest("stress", StressEstimationProfileNormalTest.stressNormalTest);
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /stressEstimation/onStressEstimation?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /stressEstimation/onStressEstimation?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

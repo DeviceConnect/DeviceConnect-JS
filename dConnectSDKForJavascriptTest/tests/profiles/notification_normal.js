@@ -352,7 +352,7 @@ QUnit.asyncTest('notifyNormalTest008(delete)', NotificationProfileNormalTest.not
  * <p>
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /notification/onclick?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /notification/onclick?serviceId=xxxx<br/>
  * </p>
  * <p>
  * 【期待する動作】<br/>
@@ -381,7 +381,7 @@ QUnit.asyncTest('onClickNormalTest001', NotificationProfileNormalTest.onClickNor
  * <p>
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /notification/onshow?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /notification/onshow?serviceId=xxxx<br/>
  * </p>
  * <p>
  * 【期待する動作】<br/>
@@ -410,7 +410,7 @@ QUnit.asyncTest('onShowNormalTest001', NotificationProfileNormalTest.onShowNorma
  * <p>
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /notification/onclose?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /notification/onclose?serviceId=xxxx<br/>
  * </p>
  * <p>
  * 【期待する動作】<br/>

@@ -159,7 +159,7 @@ QUnit.asyncTest('setModeNormnalTest003(mode is 2(sound))', PhoneProfileNormalTes
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /phone/onconnect?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /phone/onconnect?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

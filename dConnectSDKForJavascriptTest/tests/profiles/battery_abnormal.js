@@ -612,7 +612,7 @@ QUnit.asyncTest('chargingAbnormalTest003(Calling a delete method that does not s
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /battery/onbatterychange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /battery/onbatterychange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -627,7 +627,6 @@ BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001 = function(assert) {
         builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -654,7 +653,7 @@ QUnit.asyncTest('onBatteryChangeAbnormalTest001', BatteryProfileAbnormalTest.onB
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /battery/onbatterychange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /battery/onbatterychange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -669,7 +668,6 @@ BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002 = function(assert) {
         builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -696,7 +694,7 @@ QUnit.asyncTest('onBatteryChangeAbnormalTest002', BatteryProfileAbnormalTest.onB
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /battery/onchargingchange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /battery/onchargingchange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -711,7 +709,6 @@ BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001 = function(assert) {
         builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -738,7 +735,7 @@ QUnit.asyncTest('onChargingChangeAbnormalTest001', BatteryProfileAbnormalTest.on
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /battery/onchargingchange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /battery/onchargingchange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -753,7 +750,6 @@ BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002 = function(assert) {
         builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));

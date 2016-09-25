@@ -16,7 +16,7 @@ var DeviceOrientationProfileNormalTest = {};
  * <p>
  * 【HTTP通信】<br/>
  * Method: PUT<br/>
- * Path: /deviceorientation/ondeviceorientation?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /deviceorientation/ondeviceorientation?serviceId=xxxx<br/>
  * </p>
  * <p>
  * 【期待する動作】<br/>
@@ -45,7 +45,7 @@ QUnit.asyncTest('ondeviceorientationNormalTest001', DeviceOrientationProfileNorm
  * <h3>【HTTP通信】</h3>
  * <p id = "test">
  * Method: GET
- * Path: /deviceorientation/ondeviceorientation?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br />
+ * Path: /deviceorientation/ondeviceorientation?serviceId=xxxx&accessToken=xxx<br />
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

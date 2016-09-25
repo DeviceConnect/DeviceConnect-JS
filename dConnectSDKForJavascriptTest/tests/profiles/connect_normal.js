@@ -120,7 +120,7 @@ QUnit.asyncTest('wifiNormalTest002', ConnectProfileNormalTest.wifiNormalTest002)
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /connect/onwifichange?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /connect/onwifichange?serviceId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -259,7 +259,7 @@ QUnit.asyncTest('bluetoothNormalTest003', ConnectProfileNormalTest.bluetoothNorm
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /connect/onbluetoothchange?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /connect/onbluetoothchange?serviceId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -470,7 +470,7 @@ QUnit.asyncTest('nfcNormalTest003', ConnectProfileNormalTest.nfcNormalTest003);
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /connect/onnfcchange?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /connect/onnfcchange?serviceId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -609,7 +609,7 @@ QUnit.asyncTest('bleNormalTest003', ConnectProfileNormalTest.bleNormalTest003);
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /connect/onblechange?serviceId=xxxx&sessionKey=xxxxx<br/>
+ * Path: /connect/onblechange?serviceId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

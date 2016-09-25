@@ -15,7 +15,7 @@ var DiceProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /dice/ondice?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /dice/ondice?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -43,7 +43,7 @@ QUnit.asyncTest('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /dice/magnetometer/onmagnetometer?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /dice/magnetometer/onmagnetometer?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
