@@ -486,7 +486,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -595,7 +595,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

@@ -15,7 +15,7 @@ var DiceProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /dice/ondice?serviceId=xxxx&accessToken=xxxx&sessionKey=xxxx<br/>
+ * Path: /dice/ondice?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -29,7 +29,6 @@ DiceProfileAbnormalTest.onDiceAbnormalTest001 = function(assert) {
         builder.setAttribute('ondice');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.addParameter('sessionKey', 'test');
         var uri = builder.build();
         dConnect.post(uri, null, null,
             function(json) {
@@ -62,7 +61,7 @@ QUnit.asyncTest('onDiceAbnormalTest001(post not support method)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /dice/onmagnetometer?serviceId=xxxx&accessToken=xxxx&sessionKey=xxxx<br/>
+ * Path: /dice/onmagnetometer?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -76,7 +75,6 @@ DiceProfileAbnormalTest.onMagnetometerAbnormalTest001 = function(assert) {
         builder.setAttribute('onmagnetometer');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.addParameter('sessionKey', 'test');
         var uri = builder.build();
         dConnect.post(uri, null, null,
             function(json) {
@@ -108,7 +106,7 @@ QUnit.asyncTest('onMagnetometerAbnormalTest001(post not support method.)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /dice/ondice?serviceId=xxxx&accessToken=xxxx&sessionKey=xxxx<br/>
+ * Path: /dice/ondice?serviceId=xxxx&accessToken=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -122,7 +120,6 @@ DiceProfileAbnormalTest.onMagnetometerAbnormalTest002 = function(assert) {
         builder.setAttribute('onmagnetometer');
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.addParameter('sessionKey', 'test');
         var uri = builder.build();
         dConnect.get(uri, null,
             function(json) {

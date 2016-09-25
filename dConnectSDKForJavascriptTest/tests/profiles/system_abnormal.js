@@ -393,7 +393,7 @@ SystemProfileAbnormalTest.onEventsAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.system.ATTRI_EVENTS);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -434,7 +434,7 @@ SystemProfileAbnormalTest.onEventsAbnormalTest002 = function(assert) {
     builder.setAttribute(dConnect.constants.system.ATTRI_EVENTS);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));

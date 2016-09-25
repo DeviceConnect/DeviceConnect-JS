@@ -16,7 +16,7 @@ var HumanDetectProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /humandetect/onbodydetection?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /humandetect/onbodydetection?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -45,7 +45,7 @@ QUnit.asyncTest('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onB
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /humandetect/onhanddetection?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /humandetect/onhanddetection?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -74,7 +74,7 @@ QUnit.asyncTest('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onH
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /humandetect/onfacedetection?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /humandetect/onfacedetection?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

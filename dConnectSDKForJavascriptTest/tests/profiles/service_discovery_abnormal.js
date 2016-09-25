@@ -131,7 +131,7 @@ QUnit.asyncTest('getServiceDiscoveryAbnormalTest003', ServiceDiscoveryProfileAbn
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /servicediscovery/onservicechange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /servicediscovery/onservicechange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -145,7 +145,7 @@ ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest001 = function(as
         builder.setAttribute(dConnect.constants.servicediscovery.ATTR_ON_SERVICE_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
               assert.ok(false, "json: " + JSON.stringify(json));
@@ -172,7 +172,7 @@ QUnit.asyncTest('onServiceChangeAbnormalTest001', ServiceDiscoveryProfileAbnorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /servicediscovery/onservicechange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /servicediscovery/onservicechange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -186,7 +186,7 @@ ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest002 = function(as
         builder.setAttribute(dConnect.constants.servicediscovery.ATTR_ON_SERVICE_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
               assert.ok(false, "json: " + JSON.stringify(json));

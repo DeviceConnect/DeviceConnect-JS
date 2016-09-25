@@ -15,7 +15,7 @@ var HumanDetectProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /humandetect/error?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /humandetect/error?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -32,7 +32,6 @@ HumanDetectProfileAbnormalTest.onCallErrorPostApiAbnormalTest001 = function(asse
     builder.setAttribute(ATTR_ERROR);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -59,7 +58,7 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest001(post)', HumanDetectProfileAbn
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /humandetect/error?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /humandetect/error?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -76,7 +75,6 @@ HumanDetectProfileAbnormalTest.onCallErrorPutApiAbnormalTest001 = function(asser
     builder.setAttribute(ATTR_ERROR);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -103,7 +101,7 @@ QUnit.asyncTest('onCallErrorPutApiAbnormalTest001(post)', HumanDetectProfileAbno
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: DELETE<br/>
- * Path: /humandetect/error?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /humandetect/error?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -120,7 +118,6 @@ HumanDetectProfileAbnormalTest.onCallErrorDeleteApiAbnormalTest001 = function(as
     builder.setAttribute(ATTR_ERROR);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));

@@ -15,7 +15,7 @@ var TouchProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /touch/ontouch?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouch?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -30,7 +30,7 @@ TouchProfileAbnormalTest.onTouchAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -57,7 +57,7 @@ QUnit.asyncTest('onTouchAbnormalTest001(post)', TouchProfileAbnormalTest.onTouch
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /touch/ontouchstart?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchstart?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -72,7 +72,7 @@ TouchProfileAbnormalTest.onTouchStartAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_START);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -99,7 +99,7 @@ QUnit.asyncTest('onTouchStartAbnormalTest001(post)', TouchProfileAbnormalTest.on
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /touch/ontouchend?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchend?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -114,7 +114,7 @@ TouchProfileAbnormalTest.onTouchEndAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_END);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -141,7 +141,7 @@ QUnit.asyncTest('onTouchEndAbnormalTest001(post)', TouchProfileAbnormalTest.onTo
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /touch/ondoubletap?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ondoubletap?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -156,7 +156,7 @@ TouchProfileAbnormalTest.onDoubleTapAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.touch.ATTR_ON_DOUBLE_TAP);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -184,7 +184,7 @@ QUnit.asyncTest('onDoubleTapAbnormalTest001(post)', TouchProfileAbnormalTest.onD
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /touch/ontouchmove?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchmove?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -199,7 +199,7 @@ TouchProfileAbnormalTest.onTouchMoveAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_MOVE);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -227,7 +227,7 @@ QUnit.asyncTest('onTouchMoveAbnormalTest001(post)', TouchProfileAbnormalTest.onT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /touch/ontouchcancel?serviceId=xxxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchcancel?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -242,7 +242,7 @@ TouchProfileAbnormalTest.onTouchCancelAbnormalTest001 = function(assert) {
     builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CANCEL);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
