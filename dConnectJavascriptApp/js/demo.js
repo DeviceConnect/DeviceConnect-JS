@@ -206,7 +206,7 @@ function authorization(callback, oncalcel) {
               'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-               'walkState', 'messagehook', 'atmosphericPressure);
+               'walkState', 'messagehook', 'atmosphericPressure');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -388,4 +388,5 @@ function searchProfile(serviceId, profile) {
     showMessageHook(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'atmosphericPressure')) {
     showAtmosphericPressure(serviceId);
+  }
 }
