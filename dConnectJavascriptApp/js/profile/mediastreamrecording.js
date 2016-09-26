@@ -762,8 +762,13 @@ function mediaStopButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
-  str += 'onclick="javascript:doMediaStop(\'' +
+  if (target !== undefined && target !== null) {
+    str += 'onclick="javascript:doMediaStop(\'' +
           serviceId + '\', \'' + target + '\');" type="button" value="Stop"/>';
+  } else {
+    str += 'onclick="javascript:doMediaStop(\'' +
+          serviceId + '\');" type="button" value="Stop"/>';
+  }
   str += '</center>';
   return str;
 }
