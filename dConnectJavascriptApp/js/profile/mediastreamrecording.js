@@ -762,8 +762,13 @@ function mediaStopButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
-  str += 'onclick="javascript:doMediaStop(\'' +
+  if (target !== undefined && target !== null) {
+    str += 'onclick="javascript:doMediaStop(\'' +
           serviceId + '\', \'' + target + '\');" type="button" value="Stop"/>';
+  } else {
+    str += 'onclick="javascript:doMediaStop(\'' +
+          serviceId + '\');" type="button" value="Stop"/>';
+  }
   str += '</center>';
   return str;
 }
@@ -777,8 +782,13 @@ function takePhotoButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
-  str += 'onclick="javascript:doTakePhoto(\'' +
+  if (target !== undefined && target !== null) {
+      str += 'onclick="javascript:doTakePhoto(\'' +
           serviceId + '\', \'' + target + '\');" type="button" value="takePhoto"/>';
+  } else {
+      str += 'onclick="javascript:doTakePhoto(\'' +
+          serviceId + '\');" type="button" value="takePhoto"/>';
+  }
   str += '</center>';
   return str;
 }
