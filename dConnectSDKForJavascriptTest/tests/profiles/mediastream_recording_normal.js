@@ -481,41 +481,7 @@ MediaStreamRecordingProfileNormalTest.stopNormalTest001 = function(assert) {
 if (IS_TEST_STATUS != 'picture') {
   QUnit.asyncTest('stopNormalTest001', MediaStreamRecordingProfileNormalTest.stopNormalTest001);
 }
-/**
- * プレビュー通知イベントを登録するテストを行う。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: PUT<br/>
- * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileNormalTest.onDataAvailableNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
-  img.style.visibility = 'visible';
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_DATA_AVAILABLE);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.media_stream_recording.PROFILE_NAME &&
-        json.attribute === dConnect.constants.media_stream_recording.ATTR_ON_DATA_AVAILABLE) {
-      var media = json.media;
-      var img = document.getElementById('preview');
-      img.src = json.uri;
-      assert.ok(true, 'uri=' + media.uri);
-      return true;
-    }
-    return false;
-  });
-};
-if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onDataAvailableNormalTest001', MediaStreamRecordingProfileNormalTest.onDataAvailableNormalTest001);
-}
 /**
  * プレビューを開始するテストを行う。
  * <h3>【HTTP通信】</h3>
