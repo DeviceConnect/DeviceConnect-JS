@@ -83,7 +83,8 @@ function getAccessToken(func) {
       'ecg',
       'stressEstimation',
       'poseEstimation',
-      'walkState'
+      'walkState',
+      'messageHook'
   );
 
   dConnect.authorization(scopes,
