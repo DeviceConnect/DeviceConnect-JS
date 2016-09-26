@@ -1,9 +1,12 @@
 module('File Profile Normal Test', {
   setup: function() {
     init();
-    for (var i = 0; i < 10; i++) {
-      FileProfileNormalTest.saveFile(i + '.jpg');
-    }
+    searchTestService(function(accessToken, serviceId) {
+        for (var i = 0; i < 10; i++) {
+            FileProfileNormalTest.createFile(i + '.jpg', accessToken, serviceId);
+        }
+    }, function(errorCode, errorMessage) {
+    });
   }
 });
 
@@ -14,8 +17,7 @@ module('File Profile Normal Test', {
 
 var FileProfileNormalTest = {};
 
-FileProfileNormalTest.saveFile = function(fileName) {
-  searchTestService(function(accessToken, serviceId) {
+FileProfileNormalTest.createFile = function(fileName, accessToken, serviceId, success_cb, error_cb) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.file.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.file.ATTR_SEND);
@@ -23,36 +25,40 @@ FileProfileNormalTest.saveFile = function(fileName) {
     var formData = new FormData();
     formData.append('serviceId', serviceId);
     formData.append('accessToken', accessToken);
-    formData.append('path', '/' + fileName);
+    formData.append('path', fileName);
     formData.append('mimeType', 'image/jpeg');
     formData.append('data', blob);
     var uri = builder.build();
     dConnect.post(uri, null, formData, function(json) {
-      console.log('success!! for ' + fileName);
+        if (success_cb) {
+            success_cb(accessToken, serviceId);
+        }
     }, function(errorCode, errorMessage) {
-      console.log('failure!! for ' + fileName);
+        if (error_cb) {
+            error_cb(errorCode, errorMessage);
+        }
     });
-
-  }, function(errorCode, errorMessage) {
-    console.log('failure!! for ' + fileName);
-  });
 };
 
-FileProfileNormalTest.makeDir = function(dirName) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.file.ATTR_MKDIR);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.file.PARAM_PATH, dirName);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
+FileProfileNormalTest.saveFile = function(fileName, success_cb, error_cb) {
+    searchTestService(function(accessToken, serviceId) {
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.file.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.file.ATTR_MKDIR);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        builder.addParameter(dConnect.constants.file.PARAM_PATH, '/dir1');
+        var uri = builder.build();
+        dConnect.post(uri, null, null, function(json) {
+            FileProfileNormalTest.createFile(fileName, accessToken, serviceId, success_cb, error_cb); 
+        }, function(errorCode, errorMessage) {
+            error_cb(errorCode, errorMessage);
+        });
     }, function(errorCode, errorMessage) {
+        error_cb(errorCode, errorMessage);
     });
-  }, function(errorCode, errorMessage) {
-  });
 };
+
 
 FileProfileNormalTest.removeFile = function(fileName) {
   searchTestService(function(accessToken, serviceId) {
@@ -750,9 +756,7 @@ if (IS_TEST_STATUS == 'none') {
  * </p>
  */
 FileProfileNormalTest.removeNormalTest001 = function(assert) {
-  FileProfileNormalTest.makeDir('/dir1');
-  FileProfileNormalTest.saveFile('/dir1/rm_test.jpg');
-  searchTestService(function(accessToken, serviceId) {
+    FileProfileNormalTest.saveFile('/dir1/rm_test.jpg', function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.file.PROFILE_NAME);
         builder.setAttribute(dConnect.constants.file.ATTR_REMOVE);
