@@ -777,8 +777,13 @@ function takePhotoButton(serviceId, target) {
   var str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
-  str += 'onclick="javascript:doTakePhoto(\'' +
+  if (target !== undefined && target !== null) {
+      str += 'onclick="javascript:doTakePhoto(\'' +
           serviceId + '\', \'' + target + '\');" type="button" value="takePhoto"/>';
+  } else {
+      str += 'onclick="javascript:doTakePhoto(\'' +
+          serviceId + '\');" type="button" value="takePhoto"/>';
+  }
   str += '</center>';
   return str;
 }
