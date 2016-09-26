@@ -772,7 +772,7 @@ FileProfileNormalTest.removeNormalTest001 = function(assert) {
               QUnit.start();
             });
       }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
 };
