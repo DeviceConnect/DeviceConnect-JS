@@ -1980,7 +1980,7 @@ var dConnect = (function(parent, global) {
    * @example
    * // Websocketを開く
    * dConnect.connectWebSocket(accessToken, function(eventCode, message) {
-     * });
+   * });
    *
    */
   var connectWebSocket = function(accessToken, cb) {
@@ -1993,8 +1993,6 @@ var dConnect = (function(parent, global) {
     websocket.onopen = function(e) {
       isOpenedWebSocket = true;
 
-      startMonitoringWebsocket(accessToken, cb);
-
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
       websocket.send('{"accessToken":"' + accessToken + '"}');
       if (cb) {
@@ -2006,6 +2004,7 @@ var dConnect = (function(parent, global) {
       if (!isEstablishedWebSocket) {
         if (json.result === 0) {
           isEstablishedWebSocket = true;
+          startMonitoringWebsocket(accessToken, cb);
           cb(-1, 'established');
         } else {
           cb(2 + json.errorCode, json.errorMessage);
