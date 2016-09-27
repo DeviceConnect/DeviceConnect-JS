@@ -173,6 +173,8 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
         assert.ok(true, 'Profile not support');
       } else if (errorCode == 4) {
         assert.ok(true, 'Attribute not support');
+      } else if (errorCode == 14) {
+        assert.ok(true, 'Request is out of scope');
       } else {
         assert.ok(false,
             'Failed to add the event listener. errorCode=' + errorCode +
