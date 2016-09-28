@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Device Connect Javascript Test(Linkingビーコン)</title>
+  <title>Device Connect Javascript Test(SlackMessageHook)</title>
   <link rel="stylesheet" href="../qunit/qunit-1.15.0.css">
 </head>
 <body>
@@ -20,7 +20,23 @@
     * undefineやnullの場合には、テストプラグインを使用する。
     * </p>
     */
-  var DEVICE_NAME = "32822";
+  var DEVICE_NAME = "SlackMessageHook";
+  
+  /**
+   * テストを行うSlackアカウントのチャンネルIDを定義する.
+   * <p>
+   * 事前にチャンネルを用意して、IDを入力すること。
+   * </p>
+   */
+  var SLACK_CHANNEL_ID = '';
+  
+  /**
+   * リソース送信テストに使用するリソースのURIを定義する.
+   * <p>
+   * 事前にURIを入力すること。
+   * </p>
+   */
+  var SLACK_TEST_RESOURCE_URI = '';
   </script>
 
   <script src="../qunit/qunit-1.15.0.js"></script>
@@ -28,6 +44,9 @@
   <script src="../dconnectsdk-2.1.0.js"></script>
   <script src="../dconnect-test-config.js"></script>
   <script src="../dconnect-test-util.js"></script>
+
+  <script src="extra_profiles/messagehook_abnormal.js"></script>
+  <script src="extra_profiles/messagehook_normal.js"></script>
 
   <script src="extra_profiles/atmosphericPressure_normal.js"></script>
   <script src="extra_profiles/atmosphericPressure_abnormal.js"></script>
@@ -84,7 +103,7 @@
       console.log(report.xml);
       var now = new Date();
 
-      saveTestResult('linking_test_'
+      saveTestResult('slack_test_'
               + now.getFullYear()  +
               (now.getMonth() + 1) +
               now.getDate() +

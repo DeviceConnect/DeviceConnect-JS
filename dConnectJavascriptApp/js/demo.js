@@ -48,14 +48,20 @@ function init() {
   // Tokenをページに表示
   $('#token').html('accessToken:' + accessToken);
 
+  showWebSocketState('Closed');
+
   if (isAndroid() &&
     location.href.indexOf('file:///') == -1) {
       dConnect.setAntiSpoofing(true);
   }
   dConnect.setHost(ip);
   dConnect.setSSLEnabled(location.protocol === 'https:');
-  openWebsocketIfNeeded();
+  openWebsocketIfNeeded(accessToken);
   searchDevice();
+}
+
+function showWebSocketState(state) {
+  $('#websocket').html('WebSocket: ' + state);
 }
 
 /**
@@ -114,7 +120,6 @@ function startManagerAndDemo() {
     if (DEBUG) {
       console.log('Manager has been available already. version=' + apiVersion);
     }
-    openWebsocketIfNeeded();
     location.hash = "";
     location.hash = '#demo';
     if (DEBUG) {
@@ -123,22 +128,53 @@ function startManagerAndDemo() {
   });
 }
 
-function openWebsocketIfNeeded() {
+var _onWebSocketMessage = function(code, message) {
+  console.log('_onWebSocketMessage: code = ' + code + ', message = ' + message);
+  var state;
+  switch (code) {
+    case -1:
+      state = 'OK';
+      break;
+    case 0:
+      state = 'Please wait...';
+      break;
+    case 1:
+      state = 'Closed';
+      break;
+    case 3:
+      state = 'Error (AccessToken is required.)';
+      break;
+    case 4:
+      state = 'Error (Origin is not specfied.)';
+      break;
+    case 5:
+      state = 'Please authorize.';
+      break;
+    default:
+      break;
+  }
+  if (state !== undefined) {
+    showWebSocketState(state);
+  }
+}
+
+function openWebsocketIfNeeded(key) {
   if (!dConnect.isWebSocketReady()) {
     if (dConnect.isConnectedWebSocket()) {
       dConnect.disconnectWebSocket();
     }
-    dConnect.connectWebSocket(accessToken, function(code, message) {
-      if (code >= 2) {
-        console.error('Received websocket error: ' + code + ' - ' + message);
-      } else {
-        console.log('Received websocket event: ' + code + ' - ' + message);
-      }
-    });
+    dConnect.connectWebSocket(key, _onWebSocketMessage);
     console.log('WebSocket opened.');
   } else {
     console.log('WebSocket is ready.');
   }
+}
+
+function reopenWebSocket(key) {
+  if (dConnect.isConnectedWebSocket()) {
+    dConnect.disconnectWebSocket();
+  }
+  dConnect.connectWebSocket(key, _onWebSocketMessage);
 }
 
 /**
@@ -216,20 +252,15 @@ function authorization(callback, oncalcel) {
         accessToken = newAccessToken;
 
         // debug log
-        console.log('accessToken:' + accessToken);
+        console.log('accessToken: ' + newAccessToken);
 
         // add cookie
-        storeAccessToken(accessToken);
+        storeAccessToken(newAccessToken);
 
-        if (dConnect.isConnectedWebSocket()) {
-          dConnect.disconnectWebSocket();
-        }
-        dConnect.connectWebSocket(accessToken, function(code, message) {
-          console.log("WebSocket. [code: " + code + ", message: " + message + "]");
-        });
+        reopenWebSocket(newAccessToken);
 
         // rewrite html
-        $('#token').html('accessToken:' + accessToken);
+        $('#token').html('accessToken:' + newAccessToken);
         if (callback) {
           callback();
         }

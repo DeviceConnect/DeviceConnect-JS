@@ -95,7 +95,6 @@ function doRegisterECG(serviceId) {
   builder.setAttribute('onECG');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
   builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
@@ -125,7 +124,6 @@ function unregisterECG(serviceId) {
   builder.setAttribute('onECG');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {

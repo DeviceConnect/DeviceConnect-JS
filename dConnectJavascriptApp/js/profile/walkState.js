@@ -94,7 +94,6 @@ function doRegisterWalkState(serviceId) {
   builder.setAttribute('onWalkState');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
   builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
@@ -124,7 +123,6 @@ function unregisterWalkState(serviceId) {
   builder.setAttribute('onWalkState');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {
