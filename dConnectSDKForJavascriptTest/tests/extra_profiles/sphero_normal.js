@@ -188,7 +188,7 @@ SpheroProfileNormalTest.onCollisionNormalTest002 = function(assert) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('sphero');
     builder.setInterface('collision');
-    builder.setAttribute('oncolision');
+    builder.setAttribute('oncollision');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
