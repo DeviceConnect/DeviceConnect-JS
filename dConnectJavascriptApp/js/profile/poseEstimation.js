@@ -85,12 +85,15 @@ function doGetPoseEstimation(serviceId) {
 }
 
 function doRegisterPoseEstimation(serviceId) {
+  var intervalParam = $('#interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('poseEstimation');
   builder.setAttribute('onPoseEstimation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('interval', $('#interval').val());
+  if (intervalParam !== '') {
+    builder.addParameter('interval', intervalParam);
+  }
 
   var uri = builder.build();
   if (DEBUG) {

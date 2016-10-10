@@ -90,12 +90,15 @@ function doGetECG(serviceId) {
 }
 
 function doRegisterECG(serviceId) {
+  var intervalParam = $('#interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('ecg');
   builder.setAttribute('onECG');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('interval', $('#interval').val());
+  if (intervalParam !== '') {
+    builder.addParameter('interval', intervalParam);
+  }
 
   var uri = builder.build();
   if (DEBUG) {
