@@ -120,12 +120,15 @@ function doDeviceOrientationGet(serviceId) {
  * DeviceOrientation Event
  */
 function doDeviceOrientationRegist(serviceId, sessionKey) {
+  var intervalParam = $('#set_interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('deviceorientation');
   builder.setAttribute('ondeviceorientation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('interval', $('#set_interval').val());
+  if (intervalParam !== '') {
+    builder.addParameter('interval', intervalParam);
+  }
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
