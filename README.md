@@ -190,7 +190,7 @@ If you already have opened a Websocket, you do not need to do this.<br>
 Websocket of state, can be confirmed using dConnect.isConnectedWebSocket ().<br><br>
 
 ```
-dConnect.connectWebSocket('sessionKey', function(eventCode, message) {
+dConnect.connectWebSocket('accessToken', function(eventCode, message) {
     if (eventCode == 0) {
          // Open
     } else if (eventCode == 1) {
@@ -210,7 +210,6 @@ For example, if the Battery devices to get events when obtaining an event when n
     builder.setAttribute("onchargingchange");
     builder.setServiceId(myServiceId);
     builder.setAccessToken(myAccessToken);
-    builder.setSessionKey(mySessionKey);
     var uri = builder.build();
 
     dConnect.addEventListener(uri,
@@ -245,7 +244,6 @@ If you want to stop the use of events, and delete events as follows.<br>
     builder.setAttribute("onchargingchange");
     builder.setServiceId(myServiceId);
     builder.setAccessToken(myAccessToken);
-    builder.setSessionKey(sessionKey);
     var uri = builder.build();
 
     dConnect.removeEventListener(uri,
