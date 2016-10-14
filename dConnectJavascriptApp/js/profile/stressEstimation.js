@@ -85,12 +85,15 @@ function doGetStressEstimation(serviceId) {
 }
 
 function doRegisterStressEstimation(serviceId) {
+  var intervalParam = $('#interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('stressEstimation');
   builder.setAttribute('onStressEstimation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('interval', $('#interval').val());
+  if (intervalParam !== '') {
+    builder.addParameter('interval', intervalParam);
+  }
 
   var uri = builder.build();
   if (DEBUG) {

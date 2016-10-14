@@ -139,13 +139,16 @@ function doGetHeartRate(serviceId) {
 }
 
 function doRegisterHeartRate(serviceId) {
+  var intervalParam = $('#interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('health');
   builder.setAttribute('heart');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('interval', $('#interval').val());
-
+  if (intervalParam !== '') {
+    builder.addParameter('interval', intervalParam);
+  }
+  
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
