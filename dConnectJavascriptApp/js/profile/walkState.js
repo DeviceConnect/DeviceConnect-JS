@@ -89,12 +89,15 @@ function doGetWalkState(serviceId) {
 }
 
 function doRegisterWalkState(serviceId) {
+  var intervalParam = $('#interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('walkState');
   builder.setAttribute('onWalkState');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('interval', $('#interval').val());
+  if (intervalParam !== '') {
+    builder.addParameter('interval', intervalParam);
+  }
 
   var uri = builder.build();
   if (DEBUG) {
