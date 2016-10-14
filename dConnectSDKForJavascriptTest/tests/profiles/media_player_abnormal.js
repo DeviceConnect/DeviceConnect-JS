@@ -2196,7 +2196,7 @@ MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest001 = function(assert) 
         builder.setAttribute(dConnect.constants.media_player.ATTR_ON_STATUS_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2237,7 +2237,7 @@ MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest002 = function(assert) 
         builder.setAttribute(dConnect.constants.media_player.ATTR_ON_STATUS_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));

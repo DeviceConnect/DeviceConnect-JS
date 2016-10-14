@@ -787,11 +787,7 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
       });
     }, 3 * 1000);
   }, function(errorCode, errorMessage, supported) {
-    if (!supported) {
-      assert.equal(errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    } else {
-      assert.equal(errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE, 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    }
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
 
     if (supported) {

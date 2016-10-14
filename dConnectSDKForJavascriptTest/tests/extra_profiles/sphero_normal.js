@@ -15,7 +15,7 @@ var SpheroProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /sphero/onquaternion?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /sphero/onquaternion?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -44,7 +44,7 @@ QUnit.asyncTest('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternio
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /sphero/onquaternion?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /sphero/onquaternion?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -81,7 +81,7 @@ QUnit.asyncTest('onQuaternionNormalTest002', SpheroProfileNormalTest.onQuaternio
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /sphero/onlocator?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /sphero/onlocator?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -110,7 +110,7 @@ QUnit.asyncTest('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /sphero/onlocator?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /sphero/onlocator?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -147,7 +147,7 @@ QUnit.asyncTest('onLocatorNormalTest002', SpheroProfileNormalTest.onLocatorNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /sphero/oncollision?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /sphero/oncollision?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -176,7 +176,7 @@ QUnit.asyncTest('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionN
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /sphero/oncollision?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /sphero/oncollision?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

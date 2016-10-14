@@ -15,7 +15,7 @@ var SpheroProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /sphero/onquaternion?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /sphero/onquaternion?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -31,7 +31,6 @@ SpheroProfileAbnormalTest.onQuaternionAbnormalTest001 = function(assert) {
     builder.setAttribute('onquaternion');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -60,7 +59,7 @@ QUnit.asyncTest('onQuaternionAbnormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /sphero/onlocator?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /sphero/onlocator?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -76,7 +75,6 @@ SpheroProfileAbnormalTest.onLocatorAbnormalTest001 = function(assert) {
     builder.setAttribute('onlocator');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -105,7 +103,7 @@ QUnit.asyncTest('onLocatorAbnormalTest001',
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /sphero/oncollision?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /sphero/oncollision?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -121,7 +119,7 @@ SpheroProfileAbnormalTest.onCollisionAbnormalTest001 = function(assert) {
     builder.setAttribute('oncollision');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));

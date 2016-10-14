@@ -15,7 +15,7 @@ var DeviceOrientationProfileAbnormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id = "test">
  * Method: POST
- * Path: /deviceorientation/ondeviceorientation?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br />
+ * Path: /deviceorientation/ondeviceorientation?serviceId=xxxx&accessToken=xxx<br />
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -31,7 +31,7 @@ DeviceOrientationProfileAbnormalTest.onDeviceOrientationAbnormalTest002 = functi
         builder.setAttribute(dConnect.constants.device_orientation.ATTR_ON_DEVICE_ORIENTATION);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
               assert.ok(false, 'json: ' + JSON.stringify(json));

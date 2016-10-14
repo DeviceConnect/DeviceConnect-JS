@@ -395,7 +395,8 @@ FileDescriptorProfileNormalTest.onWatchFileNormalTest001 = function(assert) {
   builder.setAttribute(dConnect.constants.file_descriptor.ATTR_ON_WATCH_FILE);
   openWebsocket(builder, assert, 10000, function(message) {
     var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.file_descriptor.PROFILE_NAME && json.attribute === dConenct.constants.file_descriptor.ATTR_ON_WATCH_FILE) {
+    if (json.profile === dConnect.constants.file_descriptor.PROFILE_NAME && 
+    	json.attribute === dConenct.constants.file_descriptor.ATTR_ON_WATCH_FILE) {
       assert.ok(true, message);
       return true;
     }

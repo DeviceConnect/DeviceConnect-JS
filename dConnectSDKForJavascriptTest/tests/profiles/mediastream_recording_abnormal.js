@@ -2328,7 +2328,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2342,7 +2342,7 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest001 = function(assert
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_PHOTO);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
           assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2370,7 +2370,7 @@ if (IS_TEST_STATUS != 'record') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2384,7 +2384,7 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002 = function(assert
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_PHOTO);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
           assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2407,94 +2407,13 @@ MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002 = function(assert
 if (IS_TEST_STATUS != 'record') {
   QUnit.asyncTest('onPhotoAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002);
 }
-/**
- * SessionKeyがない状態で写真撮影イベントを登録する異常系テスト。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: PUT<br/>
- * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_PHOTO);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('onPhotoAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest003);
-}
-/**
- * SessionKeyがない状態で写真撮影イベントを解除する異常系テスト。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: DELETE<br/>
- * Path: /mediastreamrecording/onphoto?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_PHOTO);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('onPhotoAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest004);
-}
+
 /**
  * 定義されていないGETメソッドで録画状態変化取得イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /mediastreamrecording/onrecordingchangeserviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/onrecordingchangeserviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2508,7 +2427,7 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest001 = funct
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
           assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2536,7 +2455,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastreamrecording/onrecordingchange?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/onrecordingchange?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2550,7 +2469,7 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002 = funct
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
           assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2573,94 +2492,13 @@ MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002 = funct
 if (IS_TEST_STATUS != 'picture') {
   QUnit.asyncTest('onRecordingChangeAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002);
 }
-/**
- * SessionKeyがない状態で録画状態変化通知イベントを登録する異常系テスト。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: PUT<br/>
- * Path: /mediastreamrecording/onrecordingchange?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onRecordingChangeAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest003);
-}
-/**
- * SessionKeyがない状態で録画状態変化通知イベントを解除する異常系テスト。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: DELETE<br/>
- * Path: /mediastreamrecording/onrecordingchange?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onRecordingChangeAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest004);
-}
+
 /**
  * 定義されていないGETメソッドで録画プレビュー通知イベントにアクセスする異常系テスト。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2674,7 +2512,7 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest001 = functio
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_DATA_AVAILABLE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.get(uri, null, function(json) {
           assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2702,7 +2540,7 @@ if (IS_TEST_STATUS != 'picture') {
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -2716,7 +2554,7 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest002 = functio
         builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_DATA_AVAILABLE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
-        builder.setSessionKey('test');
+        
         var uri = builder.build();
         dConnect.post(uri, null, null, function(json) {
           assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2739,88 +2577,7 @@ MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest002 = functio
 if (IS_TEST_STATUS != 'record') {
   QUnit.asyncTest('onDataAvailableAbnormalTest002', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest002);
 }
-/**
- * SessionKeyがない状態で録画プレビュー通知イベントを登録する異常系テスト。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: PUT<br/>
- * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_DATA_AVAILABLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onDataAvailableAbnormalTest003(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest003);
-}
-/**
- * SessionKeyがない状態で録画プレビュー通知イベントを解除する異常系テスト。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: DELETE<br/>
- * Path: /mediastreamrecording/ondataavailable?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultが0であること。
- * </p>
- */
-MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_DATA_AVAILABLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onDataAvailableAbnormalTest004(SessionKey does not exist.)', MediaStreamRecordingProfileAbnormalTest.onDataAvailableAbnormalTest004);
-}
+
 /**
  * 定義されていないGETメソッドでプレビューAPIリクエストを行う。
  * <h3>【HTTP通信】</h3>

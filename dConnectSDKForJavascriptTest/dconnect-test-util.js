@@ -83,7 +83,8 @@ function getAccessToken(func) {
       'ecg',
       'stressEstimation',
       'poseEstimation',
-      'walkState'
+      'walkState',
+      'messageHook'
   );
 
   dConnect.authorization(scopes,
@@ -129,15 +130,15 @@ function searchTestService(successCallback, errorCallback) {
 function openWebsocketInternal(func) {
   getTestServiceId(function(accessToken, serviceId) {
     if (accessToken == null || serviceId == null) {
-      func(null, null, null);
+      func(null, null);
     } else {
       if (dConnect.isConnectedWebSocket()) {
-        func(accessToken, serviceId, mClientId);
+        func(accessToken, serviceId);
       } else {
-        dConnect.connectWebSocket(mClientId,
+        dConnect.connectWebSocket(accessToken,
           function(errorCode, errorMessage) {
             if (errorCode === 0) {
-              func(accessToken, serviceId, mClientId);
+              func(accessToken, serviceId);
             }
           });
       }
@@ -147,10 +148,9 @@ function openWebsocketInternal(func) {
 
 function openWebsocket(builder, assert, timeout, eventCallback) {
   var eventCount = 0;
-  openWebsocketInternal(function(accessToken, serviceId, sessionKey) {
+  openWebsocketInternal(function(accessToken, serviceId) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey(sessionKey);
     var uri = builder.build();
     dConnect.addEventListener(uri, function(message) {
       var ret = eventCallback(message);
@@ -173,6 +173,8 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
         assert.ok(true, 'Profile not support');
       } else if (errorCode == 4) {
         assert.ok(true, 'Attribute not support');
+      } else if (errorCode == 14) {
+        assert.ok(true, 'Request is out of scope');
       } else {
         assert.ok(false,
             'Failed to add the event listener. errorCode=' + errorCode +

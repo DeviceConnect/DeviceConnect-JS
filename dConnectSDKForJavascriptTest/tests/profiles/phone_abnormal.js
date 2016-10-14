@@ -443,7 +443,7 @@ QUnit.asyncTest('setAbnormalTest004(mode is special characters)', PhoneProfileAb
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /phone/onconnect?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /phone/onconnect?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -483,7 +483,7 @@ QUnit.asyncTest('onConnectAbnormalTest001(Calling a delete method that does not 
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /phone/call?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /phone/call?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -497,7 +497,7 @@ PhoneProfileAbnormalTest.onConnectAbnormalTest002 = function(assert) {
     builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));

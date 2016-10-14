@@ -216,7 +216,7 @@ QUnit.asyncTest('batteryNormalTest001', BatteryProfileNormalTest.batteryNormalTe
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /battery/onbatterychange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /battery/onbatterychange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -244,7 +244,7 @@ QUnit.asyncTest('onBatteryChangeNormalTest001', BatteryProfileNormalTest.onBatte
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /battery/onchargingchange?serviceId=xxxx&accessToken=xxx&sessionKey=xxxxx<br/>
+ * Path: /battery/onchargingchange?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

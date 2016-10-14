@@ -15,7 +15,7 @@ var TouchProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /touch/ontouch?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouch?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -42,7 +42,7 @@ QUnit.asyncTest('onTouchNormalTest001', TouchProfileNormalTest.onTouchNormalTest
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /touch/ontouchstart?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchstart?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -69,7 +69,7 @@ QUnit.asyncTest('onTouchStartNormalTest001', TouchProfileNormalTest.onTouchStart
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /touch/ontouchend?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchend?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -96,7 +96,7 @@ QUnit.asyncTest('onTouchEndNormalTest001', TouchProfileNormalTest.onTouchEndNorm
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /touch/ondoubletap?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ondoubletap?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -123,7 +123,7 @@ QUnit.asyncTest('onDoubleTapNormalTest001', TouchProfileNormalTest.onDoubleTapNo
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /touch/ontouchmove?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchmove?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -150,7 +150,7 @@ QUnit.asyncTest('onTouchMoveNormalTest001', TouchProfileNormalTest.onTouchMoveNo
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /touch/ontouchcancel?serviceId=xxx&accessToken=xxx&sessionKey=xxx<br/>
+ * Path: /touch/ontouchcancel?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">

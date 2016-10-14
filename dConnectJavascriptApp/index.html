@@ -56,6 +56,7 @@
     <script src="./js/profile/poseEstimation.js" type="text/javascript"></script>
     <script src="./js/profile/walkState.js" type="text/javascript"></script>
     <script src="./js/profile/messagehook.js" type="text/javascript"></script>
+    <script src="./js/profile/atmosphericPressure.js" type="text/javascript"></script>
     <script src="./js/sdk/util.js" type="text/javascript"></script>
     <script src="./js/demo.js" type="text/javascript"></script>
 
@@ -111,6 +112,8 @@
             <div id="host" style="font-size:xx-small"></div>
             <!-- AccessToken -->
             <div id="token" style="font-size:xx-small"></div>
+            <!-- WebSocket接続状態 -->
+            <div id="websocket" style="font-size:xx-small"></div>
 
             <div data-role="controlgroup" data-type="horizontal">
                 <input data-icon="gear" data-inline="true" data-mini="true" onclick="javascript:checkDeviceConnect();" type="button" value="Check" />

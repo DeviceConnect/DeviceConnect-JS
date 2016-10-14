@@ -177,99 +177,12 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003 = function(asser
 QUnit.asyncTest('integratedPowerValueAbnormalTest003(Calling a delete method that does not support.)',
     PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003);
 
-    /// null
-    /// undefined
     /// 数字
     /// 英字
     /// 日本語
     /// 記号
     /// 1000文字
 
-/**
- * nullで日付を指定して積算電力量にアクセスするテストを行う。
- * <h3>【HTTP通信】</h3>
- * <p id='test'>
- * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=null<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id='expected'>
- * ・resultに1が返ってくること。<br/>
- * </p>
- */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('date', null);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('integratedPowerValueAbnormalTest003(date is null.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003);
-
-/**
- * undefinedで日付を指定して積算電力量にアクセスするテストを行う。
- * <h3>【HTTP通信】</h3>
- * <p id='test'>
- * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=undefined<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id='expected'>
- * ・resultに1が返ってくること。<br/>
- * </p>
- */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('date', undefined);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('integratedPowerValueAbnormalTest004(date is undefined.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest004);
 
 /**
  * 数字で日付を指定して積算電力量にアクセスするテストを行う。

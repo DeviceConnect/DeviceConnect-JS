@@ -536,11 +536,15 @@ function doFileSend(serviceId) {
 
   var myForm = document.getElementById('fileForm');
   var myFormData = new FormData(myForm);
-  if (myFormData.get('uri') === '') {
-    myFormData.delete('uri');
+  
+  try {
+    if (myFormData.get('uri') === '') {
+      myFormData.delete('uri');
+    }
+  } catch (e) {
   }
-  var myXhr = new XMLHttpRequest();
 
+  var myXhr = new XMLHttpRequest();
   myXhr.open(myForm.method, myForm.action, true);
   myXhr.onreadystatechange = function() {
     if (myXhr.readyState === 4) {

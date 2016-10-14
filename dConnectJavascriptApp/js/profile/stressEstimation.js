@@ -90,7 +90,6 @@ function doRegisterStressEstimation(serviceId) {
   builder.setAttribute('onStressEstimation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
   builder.addParameter('interval', $('#interval').val());
 
   var uri = builder.build();
@@ -120,7 +119,6 @@ function unregisterStressEstimation(serviceId) {
   builder.setAttribute('onStressEstimation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(currentClientId);
 
   var uri = builder.build();
   if (DEBUG) {

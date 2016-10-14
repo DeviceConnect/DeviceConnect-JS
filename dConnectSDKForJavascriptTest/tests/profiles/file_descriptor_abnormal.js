@@ -1500,7 +1500,7 @@ FileDescriptorProfileAbnormalTest.onWatchFileAbnormalTest001 = function(assert) 
     builder.setAttribute(dConnect.constants.file_descriptor.ATTR_ON_WATCH_FILE);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.setSessionKey('test');
+    
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
