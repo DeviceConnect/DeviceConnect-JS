@@ -21,7 +21,7 @@ function init() {
 }
 
 function checkErrorCode(errorCode) {
-  return errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
+  return errorCode == 14 || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
       || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION
       || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE;
 }
@@ -79,7 +79,11 @@ function getAccessToken(func) {
       'powermeter',
       'tv',
       'airconditioner',
-      'gpio'
+      'gpio',
+      'ecg',
+      'stressEstimation',
+      'poseEstimation',
+      'walkState'
   );
 
   dConnect.authorization(scopes,
