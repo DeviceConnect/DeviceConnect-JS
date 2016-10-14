@@ -258,7 +258,6 @@ function doDownRegist(serviceId, sessionKey) {
   builder.setAttribute('ondown');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -289,7 +288,6 @@ function doUpRegist(serviceId, sessionKey) {
   builder.setAttribute('onup');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -321,7 +319,6 @@ function doDownUnregister(serviceId, sessionKey) {
   builder.setAttribute('ondown');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -342,7 +339,6 @@ function doUpUnregister(serviceId, sessionKey) {
   builder.setAttribute('onup');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);

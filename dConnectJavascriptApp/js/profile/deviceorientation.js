@@ -125,7 +125,6 @@ function doDeviceOrientationRegist(serviceId, sessionKey) {
   builder.setAttribute('ondeviceorientation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   builder.addParameter('interval', $('#set_interval').val());
   var uri = builder.build();
   if (DEBUG) {
@@ -159,7 +158,6 @@ function doDeviceOrientationUnregister(serviceId, sessionKey) {
   builder.setAttribute('ondeviceorientation');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);

@@ -190,7 +190,6 @@ function doRegisterDeviceProximity(serviceId, sessionKey) {
   builder.setAttribute('ondeviceproximity');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) { console.log('Uri:' +  uri); }
   dConnect.addEventListener(uri, function(message) {
@@ -222,7 +221,6 @@ function doUnregisterDeviceProximity(serviceId, sessionKey) {
   builder.setAttribute('ondeviceproximity');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) { console.log('Uri:' +  uri); }
   dConnect.removeEventListener(uri, function() {
@@ -263,7 +261,6 @@ function doRegisterUserProximity(serviceId, sessionKey) {
   builder.setAttribute('onuserproximity');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) { console.log('Uri:' +  uri); }
   dConnect.addEventListener(uri, function(message) {
@@ -291,7 +288,6 @@ function doUnregisterUserProximity(serviceId, sessionKey) {
   builder.setAttribute('onuserproximity');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.addParameter('sessionKey', sessionKey);
   var uri = builder.build();
   if (DEBUG) { console.log('Uri:' +  uri); }
   dConnect.removeEventListener(uri, function() {

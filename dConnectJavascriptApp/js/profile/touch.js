@@ -1089,7 +1089,6 @@ function doTouchRegist(serviceId, sessionKey) {
   builder.setAttribute('ontouch');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -1189,7 +1188,6 @@ function doTouchStartRegist(serviceId, sessionKey) {
   builder.setAttribute('ontouchstart');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -1289,7 +1287,6 @@ function doTouchEndRegist(serviceId, sessionKey) {
   builder.setAttribute('ontouchend');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -1389,7 +1386,6 @@ function doDoubleTapRegist(serviceId, sessionKey) {
   builder.setAttribute('ondoubletap');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -1424,7 +1420,6 @@ function doTouchMoveRegist(serviceId, sessionKey) {
   builder.setAttribute('ontouchmove');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -1524,7 +1519,6 @@ function doTouchCancelRegist(serviceId, sessionKey) {
   builder.setAttribute('ontouchcancel');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -1625,7 +1619,6 @@ function doTouchUnregister(serviceId, sessionKey) {
   builder.setAttribute('ontouch');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -1646,7 +1639,6 @@ function doTouchStartUnregister(serviceId, sessionKey) {
   builder.setAttribute('ontouchstart');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -1667,7 +1659,6 @@ function doTouchEndUnregister(serviceId, sessionKey) {
   builder.setAttribute('ontouchend');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -1688,7 +1679,6 @@ function doDoubleTapUnregister(serviceId, sessionKey) {
   builder.setAttribute('ondoubletap');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -1709,7 +1699,6 @@ function doTouchMoveUnregister(serviceId, sessionKey) {
   builder.setAttribute('ontouchmove');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -1730,7 +1719,6 @@ function doTouchCancelUnregister(serviceId, sessionKey) {
   builder.setAttribute('ontouchcancel');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
