@@ -20,6 +20,16 @@ function init() {
   QUnit.config.testTimeout = TEST_TIMEOUT;
 }
 
+
+function sleep(ms) {
+    var d1 = new Date().getTime();
+    var d2 = new Date().getTime();
+    while( d2 < (d1 + ms) ) {
+        d2 = new Date().getTime();
+    }
+    return;
+}
+
 function checkErrorCode(errorCode) {
   return errorCode == 14 || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
       || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION

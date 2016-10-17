@@ -415,7 +415,8 @@ function showOmnidirectionalImage(serviceId) {
         }, 500);
       },
       function(errorCode, errorMessage) {
-        alert('ERROR: Failed to send settings param.');
+        console.log(errorCode + ":" + errorMessage);
+        alert('ERROR: Failed to send settings param.'+ errorCode + ":" + errorMessage);
       });
 
     $('#omniImg').css('width', width + 'px');
