@@ -132,7 +132,7 @@ function showOmnidirectionalImage(serviceId) {
 
 
   // XXXX: For debug
-  omniUri = 'http://192.168.1.59:8080/R0010162.JPG';
+  omniUri = 'http://192.168.1.15:8080/R0010162.JPG';
   $('#omniUri').val(omniUri);
 
   showOmniImageUpdatedDate();
@@ -400,7 +400,7 @@ function showOmnidirectionalImage(serviceId) {
       .addParameter('uri', roiUri)
       .addParameter('width', width.toString())
       .addParameter('height', height.toString())
-      .addParameter(option.pattern.name, num.toString())
+      .addParameter(option.pattern.name, parseFloat(num.toString()).toFixed(3))
       .build();
     dConnect.put(uri, null, null,
       function(json) {
@@ -415,7 +415,8 @@ function showOmnidirectionalImage(serviceId) {
         }, 500);
       },
       function(errorCode, errorMessage) {
-        alert('ERROR: Failed to send settings param.');
+        console.log(errorCode + ":" + errorMessage);
+        alert('ERROR: Failed to send settings param.'+ errorCode + ":" + errorMessage);
       });
 
     $('#omniImg').css('width', width + 'px');
