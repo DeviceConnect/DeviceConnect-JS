@@ -1419,7 +1419,7 @@ MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        sleep(3 * 1000);
+        sleep(2 * 1000);
         dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
           QUnit.start();
@@ -1436,7 +1436,7 @@ MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        sleep(3 * 1000);
+        sleep(2 * 1000);
          dConnect.put(uri, null, null, function(json) {
              assert.ok(true, 'result=' + json.result);
              QUnit.start();
@@ -1453,7 +1453,7 @@ MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      sleep(3 * 1000);
+      sleep(2 * 1000);
       dConnect.put(uri, null, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
@@ -1518,7 +1518,7 @@ MediaPlayerProfileNormalTest.muteNormalTest003 = function(assert) {
             builder.setServiceId(serviceId);
             builder.setAccessToken(accessToken);
             var uri = builder.build();
-            sleep(3 * 1000);
+            sleep(2 * 1000);
             dConnect.put(uri, null, null, function(json) {
               assert.ok(true, 'result=' + json.result);
               QUnit.start();
@@ -1539,7 +1539,7 @@ MediaPlayerProfileNormalTest.muteNormalTest003 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      sleep(3 * 1000);
+      sleep(2 * 1000);
       dConnect.put(uri, null, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
@@ -1584,7 +1584,7 @@ MediaPlayerProfileNormalTest.volumeNormalTest001 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      sleep(3 * 1000);
+      sleep(2 * 1000);
       dConnect.put(uri, null, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
