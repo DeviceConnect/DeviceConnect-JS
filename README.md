@@ -194,7 +194,7 @@ dConnect.connectWebSocket('accessToken',function(eventCode, message) {
     if (eventCode == 0) {
          // During authorized the connected WebSocket. Events are not yet able to receive.
     } else if (eventCode == -1) {
-         // Pre-approval. Events can be received.
+         // Approved. Events can be received.
     }else if (eventCode == 1) {
          // close
     } else {
