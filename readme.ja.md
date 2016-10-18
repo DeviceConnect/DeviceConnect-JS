@@ -185,8 +185,10 @@ Websocketの状態は、dConnect.isConnectedWebSocket()を用いて確認する�
 ```
 dConnect.connectWebSocket('accessToken', function(eventCode, message) {
     if (eventCode == 0) {
-         // オープン
-    } else if (eventCode == 1) {
+         // 接続されたWebSocketを認可中。イベントはまだ受信できない。
+    } else if (eventCode == -1) {
+         // 認可済み。イベント受信可能。
+    }else if (eventCode == 1) {
          // クローズ
     } else {
          // エラー
