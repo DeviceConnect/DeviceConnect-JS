@@ -10,6 +10,7 @@ module('MediaPlayer Profile Normal Test', {
   }
 });
 
+
 /**
  * MediaPlayerProfileのテストを行うクラス。
  * @class
@@ -686,25 +687,20 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
-
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
@@ -732,7 +728,7 @@ QUnit.asyncTest('playNormalTest001(put)', MediaPlayerProfileNormalTest.playNorma
  */
 MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
   playVideoMedia(function(accessToken, serviceId) {
-    setTimeout(function() {
+     sleep(3 * 1000);
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
@@ -741,7 +737,6 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
       var uri = builder.build();
       dConnect.put(uri, null, null, function(json) {
         assert.ok(true, 'pause ok. result=' + json.result);
-
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
         builder.setAttribute(dConnect.constants.media_player.ATTR_RESUME);
@@ -758,25 +753,20 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
           } else {
             assert.ok(true, 'resume ok. result=' + json.result);
           }
-          QUnit.start();
-
           var builder = new dConnect.URIBuilder();
           builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
           builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          setTimeout(function() {
-            dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-          }, 3 * 1000);
-          QUnit.stop();
-
+          sleep(3 * 1000);
+          dConnect.put(uri, null, null, function(json) {
+            assert.ok(true, 'result=' + json.result);
+            QUnit.start();
+          }, function(errorCode, errorMessage) {
+            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+            QUnit.start();
+          });
         }, function(errorCode, errorMessage) {
           assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
           QUnit.start();
@@ -785,11 +775,9 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-    }, 3 * 1000);
   }, function(errorCode, errorMessage, supported) {
     assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
-
     if (supported) {
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
@@ -797,16 +785,14 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }
 
   });
@@ -834,15 +820,14 @@ MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    setTimeout(function() {
-      dConnect.put(uri, null, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
-    }, 3 * 1000);
+    sleep(3 * 1000);
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+    });
   }, function(errorCode, errorMessage, supported) {
     assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
@@ -955,25 +940,20 @@ MediaPlayerProfileNormalTest.audioplayNormalTest001 = function(assert) {
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
-
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
@@ -1001,7 +981,7 @@ QUnit.asyncTest('audioplayNormalTest001(put)', MediaPlayerProfileNormalTest.audi
  */
 MediaPlayerProfileNormalTest.audiopauseAndResumeNormalTest001 = function(assert) {
   playAudioMedia(function(accessToken, serviceId) {
-    setTimeout(function() {
+      sleep(3 * 1000);
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
@@ -1019,24 +999,20 @@ MediaPlayerProfileNormalTest.audiopauseAndResumeNormalTest001 = function(assert)
         var uri = builder.build();
         dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'resume ok. result=' + json.result);
-          QUnit.start();
-
           var builder = new dConnect.URIBuilder();
           builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
           builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          setTimeout(function() {
-            dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-          }, 3 * 1000);
-          QUnit.stop();
+          sleep(3 * 1000);
+          dConnect.put(uri, null, null, function(json) {
+            assert.ok(true, 'result=' + json.result);
+            QUnit.start();
+          }, function(errorCode, errorMessage) {
+            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+            QUnit.start();
+          });
 
         }, function(errorCode, errorMessage) {
           assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
@@ -1046,7 +1022,6 @@ MediaPlayerProfileNormalTest.audiopauseAndResumeNormalTest001 = function(assert)
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-    }, 3 * 1000);
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
@@ -1118,24 +1093,20 @@ MediaPlayerProfileNormalTest.playStatusNormalTest001 = function(assert) {
     dConnect.get(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       assert.ok(true, 'status=' + json.status);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
 
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
@@ -1163,7 +1134,7 @@ QUnit.asyncTest('playStatusNormalTest001(get)', MediaPlayerProfileNormalTest.pla
  */
 MediaPlayerProfileNormalTest.seekNormalTest001 = function(assert) {
   playVideoMedia(function(accessToken, serviceId, json) {
-    setTimeout(function() {
+     sleep(MEDIA_TIMEOUT * 1000);
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
@@ -1173,7 +1144,6 @@ MediaPlayerProfileNormalTest.seekNormalTest001 = function(assert) {
       dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         assert.ok(json.pos >= 0, 'pos=' + json.pos);
-        QUnit.start();
 
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
@@ -1181,22 +1151,18 @@ MediaPlayerProfileNormalTest.seekNormalTest001 = function(assert) {
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        setTimeout(function() {
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, 3 * 1000);
-        QUnit.stop();
-
+        sleep(3 * 1000);
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
       }, function(errorCode, errorMessage) {
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-    }, MEDIA_TIMEOUT * 1000);
   }, function(errorCode, errorMessage, supported) {
     assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
@@ -1228,25 +1194,19 @@ MediaPlayerProfileNormalTest.seekNormalTest002 = function(assert) {
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
-
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
@@ -1273,7 +1233,7 @@ QUnit.asyncTest('seekNormalTest002(put)', MediaPlayerProfileNormalTest.seekNorma
  */
 MediaPlayerProfileNormalTest.seekNormalTest003 = function(assert) {
   playAudioMedia(function(accessToken, serviceId, json) {
-    setTimeout(function() {
+      sleep(MEDIA_TIMEOUT * 1000);
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
@@ -1283,30 +1243,24 @@ MediaPlayerProfileNormalTest.seekNormalTest003 = function(assert) {
       dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         assert.ok(json.pos >= 0, 'pos=' + json.pos);
-        QUnit.start();
-
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
         builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        setTimeout(function() {
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, 3 * 1000);
-        QUnit.stop();
-
+        sleep(3 * 1000);
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
       }, function(errorCode, errorMessage) {
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-    }, MEDIA_TIMEOUT * 1000);
   }, function(errorCode, errorMessage, supported) {
     assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
@@ -1338,24 +1292,20 @@ MediaPlayerProfileNormalTest.seekNormalTest004 = function(assert) {
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
 
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
@@ -1391,28 +1341,37 @@ MediaPlayerProfileNormalTest.muteNormalTest001 = function(assert) {
     dConnect.get(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.mute != undefined, 'mute=' + json.mute);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
 
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     });
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -1441,48 +1400,68 @@ MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    setTimeout(function() {
-      dConnect.put(uri, null, null, function(res) {
-        assert.ok(true, 'put ok. result=' + res.result);
+    sleep(MEDIA_TIMEOUT * 1000);
+    dConnect.put(uri, null, null, function(res) {
+      assert.ok(true, 'put ok. result=' + res.result);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(3 * 1000);
+      dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'get ok. result=' + json.result);
+        assert.ok(json.mute == true, 'mute=' + json.mute);
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        setTimeout(function() {
-          dConnect.get(uri, null, function(json) {
-            assert.ok(true, 'get ok. result=' + json.result);
-            assert.ok(json.mute == true, 'mute=' + json.mute);
-            QUnit.start();
+        sleep(2 * 1000);
+        dConnect.put(uri, null, null, function(json) {
+          assert.ok(true, 'result=' + json.result);
+          QUnit.start();
+        }, function(errorCode, errorMessage) {
+          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          QUnit.start();
+        });
 
-            var builder = new dConnect.URIBuilder();
-            builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-            builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-            builder.setServiceId(serviceId);
-            builder.setAccessToken(accessToken);
-            var uri = builder.build();
-            setTimeout(function() {
-              dConnect.put(uri, null, null, function(json) {
-                assert.ok(true, 'result=' + json.result);
-                QUnit.start();
-              }, function(errorCode, errorMessage) {
-                assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-                QUnit.start();
-              });
-            }, 3 * 1000);
-            QUnit.stop();
-
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, 3 * 1000);
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        var builder = new dConnect.URIBuilder();
+        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+        builder.setServiceId(serviceId);
+        builder.setAccessToken(accessToken);
+        var uri = builder.build();
+        sleep(2 * 1000);
+         dConnect.put(uri, null, null, function(json) {
+             assert.ok(true, 'result=' + json.result);
+             QUnit.start();
+         }, function(errorCode, errorMessage) {
+             assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+             QUnit.start();
+         });
+      });
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(2 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
       }, function(errorCode, errorMessage) {
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-    }, MEDIA_TIMEOUT * 1000);
+    });
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
@@ -1510,58 +1489,65 @@ MediaPlayerProfileNormalTest.muteNormalTest003 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    setTimeout(function() {
+    sleep(MEDIA_TIMEOUT * 1000);
+    dConnect.delete(uri, null, function(res) {
+      assert.ok(true, 'delete ok. result=' + res.result);
 
-      dConnect.delete(uri, null, function(res) {
-        assert.ok(true, 'delete ok. result=' + res.result);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(3 * 1000);
+      dConnect.get(uri, null, function(json) {
+        if (json.result === dConnect.constants.RESULT_ERROR) {
+          if (supported) {
+            assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
+          } else {
+            assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
+          }
+          QUnit.start();
+        } else {
+            assert.ok(true, 'get ok. result=' + json.result);
+            assert.ok(json.mute == false, 'mute=' + json.mute);
 
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        setTimeout(function() {
-          dConnect.get(uri, null, function(json) {
-            if (json.result === dConnect.constants.RESULT_ERROR) {
-              if (supported) {
-                assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
-              } else {
-                assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
-              }
-            } else {
-              assert.ok(true, 'get ok. result=' + json.result);
-              assert.ok(json.mute == false, 'mute=' + json.mute);
-
-              var builder = new dConnect.URIBuilder();
-              builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-              builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-              builder.setServiceId(serviceId);
-              builder.setAccessToken(accessToken);
-              var uri = builder.build();
-              setTimeout(function() {
-                dConnect.put(uri, null, null, function(json) {
-                  assert.ok(true, 'result=' + json.result);
-                  QUnit.start();
-                }, function(errorCode, errorMessage) {
-                  assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-                  QUnit.start();
-                });
-              }, 3 * 1000);
-              QUnit.stop();
-
-            }
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, 3 * 1000);
+            var builder = new dConnect.URIBuilder();
+            builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+            builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+            builder.setServiceId(serviceId);
+            builder.setAccessToken(accessToken);
+            var uri = builder.build();
+            sleep(2 * 1000);
+            dConnect.put(uri, null, null, function(json) {
+              assert.ok(true, 'result=' + json.result);
+              QUnit.start();
+            }, function(errorCode, errorMessage) {
+              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+              QUnit.start();
+            });
+        }
       }, function(errorCode, errorMessage) {
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-    }, MEDIA_TIMEOUT * 1000);
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(2 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    });
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
@@ -1592,28 +1578,35 @@ MediaPlayerProfileNormalTest.volumeNormalTest001 = function(assert) {
     dConnect.get(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.volume >= 0, 'volume=' + json.volume);
-      QUnit.start();
-
       var builder = new dConnect.URIBuilder();
       builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
       builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      setTimeout(function() {
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      }, 3 * 1000);
-      QUnit.stop();
-
+      sleep(2 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
     });
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
@@ -1643,35 +1636,40 @@ MediaPlayerProfileNormalTest.volumeNormalTest002 = function(assert) {
     builder.setAccessToken(accessToken);
     builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, 0.5);
     var uri = builder.build();
-    setTimeout(function() {
+    sleep(MEDIA_TIMEOUT * 1000);
+    dConnect.put(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(3 * 1000);
       dConnect.put(uri, null, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
-
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        setTimeout(function() {
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, 3 * 1000);
-        QUnit.stop();
-
       }, function(errorCode, errorMessage) {
         assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
         QUnit.start();
       });
-      QUnit.start();
-    }, MEDIA_TIMEOUT * 1000);
-    QUnit.stop();
+    }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      var uri = builder.build();
+      sleep(3 * 1000);
+      dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      }, function(errorCode, errorMessage) {
+        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+        QUnit.start();
+      });
+    });
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
@@ -1718,6 +1716,7 @@ function getVideoMediaList(success_cb, error_cb) {
     builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
+    builder.addParameter(dConnect.constants.media_player.PARAM_MIME_TYPE, 'video/');
     builder.addParameter(dConnect.constants.media_player.PARAM_ORDER, 'duration,desc');
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
@@ -1728,32 +1727,31 @@ function getVideoMediaList(success_cb, error_cb) {
 
 function setVideoMedia(success_cb, error_cb) {
   getVideoMediaList(function(accessToken, serviceId, list) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, list.media[0].mediaId);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      success_cb(accessToken, serviceId, json);
-    }, error_cb);
+      var builder = new dConnect.URIBuilder();
+      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+      builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
+      builder.setServiceId(serviceId);
+      builder.setAccessToken(accessToken);
+      builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, list.media[0].mediaId);
+      var uri = builder.build();
+      dConnect.put(uri, null, null, function(json) {
+        success_cb(accessToken, serviceId, json);
+      }, error_cb);
   }, error_cb);
 }
 
 function playVideoMedia(success_cb, error_cb) {
   setVideoMedia(function(accessToken, serviceId) {
-    setTimeout(function() {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
-        success_cb(accessToken, serviceId, json);
-      }, error_cb);
-    }, 1 * 1000);
+    sleep(1 * 1000);
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      success_cb(accessToken, serviceId, json);
+    }, error_cb);
   }, error_cb);
 }
 
@@ -1790,17 +1788,16 @@ function setAudioMedia(success_cb, error_cb) {
 
 function playAudioMedia(success_cb, error_cb) {
   setAudioMedia(function(accessToken, serviceId) {
-    setTimeout(function() {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
-        success_cb(accessToken, serviceId, json);
-      }, error_cb);
-    }, 1 * 1000);
+    sleep(1 * 1000);
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
+    builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    var uri = builder.build();
+    dConnect.put(uri, null, null, function(json) {
+      success_cb(accessToken, serviceId, json);
+    }, error_cb);
   }, error_cb);
 }
 
