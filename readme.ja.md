@@ -183,10 +183,12 @@ Device ConnectのEventを使用するには、基本的には以下の手順に�
 Websocketの状態は、dConnect.isConnectedWebSocket()を用いて確認することができます。<br><br>
 
 ```
-dConnect.connectWebSocket('sessionKey', function(eventCode, message) {
+dConnect.connectWebSocket('accessToken', function(eventCode, message) {
     if (eventCode == 0) {
-         // オープン
-    } else if (eventCode == 1) {
+         // 接続されたWebSocketを認可中。イベントはまだ受信できない。
+    } else if (eventCode == -1) {
+         // 認可済み。イベント受信可能。
+    }else if (eventCode == 1) {
          // クローズ
     } else {
          // エラー
@@ -203,7 +205,6 @@ dConnect.connectWebSocket('sessionKey', function(eventCode, message) {
     builder.setAttribute("onchargingchange");
     builder.setServiceId(myServiceId);
     builder.setAccessToken(myAccessToken);
-    builder.setSessionKey(mySessionKey);
     var uri = builder.build();
 
     dConnect.addEventListener(uri,
@@ -238,7 +239,6 @@ dConnect.connectWebSocket('sessionKey', function(eventCode, message) {
     builder.setAttribute("onchargingchange");
     builder.setServiceId(myServiceId);
     builder.setAccessToken(myAccessToken);
-    builder.setSessionKey(sessionKey);
     var uri = builder.build();
 
     dConnect.removeEventListener(uri,
