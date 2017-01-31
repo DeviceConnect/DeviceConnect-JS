@@ -202,7 +202,12 @@ var dConnect = (function(parent, global) {
       /** エラーコード: サーバの状態異常エラー. */
       ILLEGAL_SERVER_STATE: 17,
       /** エラーコード: 不正オリジンエラー. */
-      INVALID_ORIGIN: 18
+      INVALID_ORIGIN: 18,
+      /** エラーコード: 不正URLエラー. */
+      INVALID_URL: 19,
+      /** エラーコード: 不正Profileエラー. */
+      INVALID_PROFILE: 20
+
     },
 
     /**
