@@ -359,8 +359,8 @@ function searchProfile(serviceId, profile) {
     showSearchLight(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.phone.PROFILE_NAME)) {
     showPhone(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connect.PROFILE_NAME)) {
-    showConnect(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connection.PROFILE_NAME)) {
+    showConnection(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.settings.PROFILE_NAME)) {
     showSetting(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_player.PROFILE_NAME)) {
