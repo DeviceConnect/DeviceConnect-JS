@@ -1,6 +1,6 @@
 /**
- @preserve Device Connect SDK Library v2.1.0
- Copyright (c) 2014 NTT DOCOMO,INC.
+ @preserve Device Connect SDK Library v2.2.0
+ Copyright (c) 2017 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
