@@ -234,7 +234,7 @@ function startManager(onavailable) {
  */
 function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connect', 'deviceorientation', 'filedescriptor',
+              'battery', 'connection', 'deviceorientation', 'filedescriptor',
               'file', 'mediaplayer', 'mediastreamrecording', 'notification',
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
