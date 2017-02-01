@@ -55,7 +55,7 @@ function getAccessToken(func) {
       'authorization',
       'battery',
       'canvas',
-      'connect',
+      'connection',
       'deviceorientation',
       'filedescriptor',
       'file',
