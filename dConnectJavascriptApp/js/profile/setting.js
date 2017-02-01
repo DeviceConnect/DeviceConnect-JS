@@ -114,7 +114,9 @@ function showSetting(serviceId) {
     finishCount = 1;
   } else {
     doCheckDate(serviceId);
-    doCheckVolume(serviceId);
+    for (var i = 1; i < VOLUME_TYPE_OTHER; i++) {
+      doCheckVolume(serviceId, i);
+    }
     doCheckbrightness(serviceId);
     doCheckSleep(serviceId);
     finishCount = 4;
@@ -219,15 +221,17 @@ function doSettingBack(serviceId, sessionKey) {
  * Get volume from Setting profile.
  *
  * @param {String} serviceId サービスID
+ * @param {int} kind Volumeのタイプ
  */
-function doCheckVolume(serviceId) {
+function doCheckVolume(serviceId, kind) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('setting');
-  builder.setAttribute('volume');
   builder.setInterface('sound');
+  builder.setAttribute('volume');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
+  builder.addParameter('kind', kind);
   var uri = builder.build();
 
   if (DEBUG) {
@@ -241,27 +245,29 @@ function doCheckVolume(serviceId) {
 
   dConnect.get(uri, null, function(json) {
     if (DEBUG) {
-      console.log('Response: ', json);
+      console.log('Response1: ', json);
     }
-
-    $('#volumeAlerm').val((json.volumes[0].alerm * 100));
-    $('#volumeAlerm').slider('refresh');
-
-    $('#volumeCall').val((json.volumes[1].call * 100));
-    $('#volumeCall').slider('refresh');
-
-    $('#volumeRingtone').val((json.volumes[2].ringtone * 100));
-    $('#volumeRingtone').slider('refresh');
-
-    $('#volumeMail').val((json.volumes[3].mail * 100));
-    $('#volumeMail').slider('refresh');
-
-    $('#volumeMediaplayer').val((json.volumes[4].mediaplayer * 100));
-    $('#volumeMediaplayer').slider('refresh');
-
+    if (kind == VOLUME_TYPE_ALERM) {
+      $('#volumeAlerm').val((json.level * 100));
+      $('#volumeAlerm').slider('refresh');
+    } else if (kind == VOLUME_TYPE_CALL) {
+      $('#volumeCall').val((json.level * 100));
+      $('#volumeCall').slider('refresh');
+    } else if (kind == VOLUME_TYPE_RINGTONE) {
+      $('#volumeRingtone').val((json.level * 100));
+      $('#volumeRingtone').slider('refresh');
+    } else if (kind == VOLUME_TYPE_MAIL) {
+      $('#volumeMail').val((json.level * 100));
+      $('#volumeMail').slider('refresh');
+    } else if (kind == VOLUME_TYPE_MEDIA_PLAYER) {
+      $('#volumeMediaplayer').val((json.level * 100));
+      $('#volumeMediaplayer').slider('refresh');
+    } else {
+      // no op VOLUME_TYPE_OTHER
+    }
     oncomplete();
   }, function(errorCode, errorMessage) {
-    showError('GET setting/volume/sound', errorCode, errorMessage);
+    showError('GET setting/sound/volume', errorCode, errorMessage);
     oncomplete();
   });
 }

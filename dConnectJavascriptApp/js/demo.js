@@ -361,7 +361,7 @@ function searchProfile(serviceId, profile) {
     showPhone(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connect.PROFILE_NAME)) {
     showConnect(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.settings.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.setting.PROFILE_NAME)) {
     showSetting(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_player.PROFILE_NAME)) {
     showMediaPlayer(serviceId);
