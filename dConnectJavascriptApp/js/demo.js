@@ -236,7 +236,7 @@ function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
               'battery', 'connect', 'deviceorientation', 'filedescriptor',
               'file', 'mediaplayer', 'mediastreamrecording', 'notification',
-              'phone', 'proximity', 'settings', 'vibration', 'light',
+              'phone', 'proximity', 'setting', 'vibration', 'light',
               'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',

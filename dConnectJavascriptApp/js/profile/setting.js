@@ -1,5 +1,5 @@
 /**
- settings.js
+ setting.js
  Copyright (c) 2014 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
@@ -22,7 +22,7 @@ function showSetting(serviceId) {
 
   initAll();
 
-  setTitle('Settings Profile');
+  setTitle('Setting Profile');
 
   var btnStr = '';
   btnStr += getBackButton('Device Top', 'doSettingBack', serviceId, '');
@@ -89,11 +89,11 @@ function showSetting(serviceId) {
             serviceId + '\',5);" id="volumeSetMediaplayer"' +
             ' value="Set volume of Media Player"  />';
 
-    str += '<label for="slider-0">Light:</label>';
-    str += '<input type="range" name="slider" id="light" value="25"' +
+    str += '<label for="slider-0">brightness:</label>';
+    str += '<input type="range" name="slider" id="brightness" value="25"' +
             ' min="0" max="100"  />';
-    str += '<input type="button" id="lightSet" onclick="doSetLight(\'' +
-            serviceId + '\');" value="Set light"  />';
+    str += '<input type="button" id="brightnessSet" onclick="doSetbrightness(\'' +
+            serviceId + '\');" value="Set Brightness"  />';
 
     str += '<label for="slider-0">Sleep:</label>';
     str += '<input type="text" value="" id="sleep" name="sleep" >';
@@ -115,7 +115,7 @@ function showSetting(serviceId) {
   } else {
     doCheckDate(serviceId);
     doCheckVolume(serviceId);
-    doCheckLight(serviceId);
+    doCheckbrightness(serviceId);
     doCheckSleep(serviceId);
     finishCount = 4;
   }
@@ -145,7 +145,7 @@ function doSetDate(serviceId) {
   alert(newDateStr);
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setAttribute('date');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -164,7 +164,7 @@ function doSetDate(serviceId) {
     alert('Success: set date');
     doCheckDate(serviceId);
   }, function(errorCode, errorMessage) {
-    showError('PUT settings/date', errorCode, errorMessage);
+    showError('PUT setting/date', errorCode, errorMessage);
   });
 
 }
@@ -177,7 +177,7 @@ function doSetDate(serviceId) {
 function doCheckDate(serviceId) {
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setAttribute('date');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -223,7 +223,7 @@ function doSettingBack(serviceId, sessionKey) {
 function doCheckVolume(serviceId) {
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setAttribute('volume');
   builder.setInterface('sound');
   builder.setServiceId(serviceId);
@@ -267,15 +267,15 @@ function doCheckVolume(serviceId) {
 }
 
 /**
- * Get display light value
+ * Get display brightness value
  *
  * @param {String} serviceId サービスID
  */
-function doCheckLight(serviceId) {
+function doCheckbrightness(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setInterface('display');
-  builder.setAttribute('light');
+  builder.setAttribute('brightness');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -294,26 +294,26 @@ function doCheckLight(serviceId) {
       console.log('Response: ', json);
     }
 
-    $('#light').val((json.level * 100));
-    $('#light').slider('refresh');
+    $('#brightness').val((json.level * 100));
+    $('#brightness').slider('refresh');
     oncomplete();
   }, function(errorCode, errorMessage) {
-    showError('GET setting/display/light', errorCode, errorMessage);
+    showError('GET setting/display/brightness', errorCode, errorMessage);
     oncomplete();
   });
 }
 
 /**
- * Set display light value
+ * Set display brightness value
  *
  * @param {String} serviceId サービスID
  */
-function doSetLight(serviceId) {
-  var level = $('#light').val() / 100;
+function doSetbrightness(serviceId) {
+  var level = $('#brightness').val() / 100;
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setInterface('display');
-  builder.setAttribute('light');
+  builder.setAttribute('brightness');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('level', level);
@@ -329,7 +329,7 @@ function doSetLight(serviceId) {
     }
     alert('success');
   }, function(errorCode, errorMessage) {
-    showError('PUT settings/display/light', errorCode, errorMessage);
+    showError('PUT setting/display/brightness', errorCode, errorMessage);
   });
 }
 
@@ -342,7 +342,7 @@ function doSetSleep(serviceId) {
   var time = $('#sleep').val();
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setInterface('display');
   builder.setAttribute('sleep');
   builder.setServiceId(serviceId);
@@ -360,7 +360,7 @@ function doSetSleep(serviceId) {
     }
     alert('success');
   }, function(errorCode, errorMessage) {
-    showError('PUT settings/display/sleep', errorCode, errorMessage);
+    showError('PUT setting/display/sleep', errorCode, errorMessage);
   });
 }
 
@@ -372,7 +372,7 @@ function doSetSleep(serviceId) {
 function doCheckSleep(serviceId) {
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setInterface('display');
   builder.setAttribute('sleep');
   builder.setServiceId(serviceId);
@@ -395,7 +395,7 @@ function doCheckSleep(serviceId) {
     $('#sleep').val(json.time);
     oncomplete();
   }, function(errorCode, errorMessage) {
-    showError('GET settings/volume/sound', errorCode, errorMessage);
+    showError('GET setting/volume/sound', errorCode, errorMessage);
     oncomplete();
   });
 }
@@ -446,7 +446,7 @@ function doChangeSoundLevel(serviceId, type) {
  */
 function doSetSoundLevel(type, serviceId, level) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('settings');
+  builder.setProfile('setting');
   builder.setAttribute('volume');
   builder.setInterface('sound');
   builder.setServiceId(serviceId);
@@ -465,6 +465,6 @@ function doSetSoundLevel(type, serviceId, level) {
     }
     alert('success');
   }, function(errorCode, errorMessage) {
-    showError('PUT settings/volume/sound', errorCode, errorMessage);
+    showError('PUT setting/volume/sound', errorCode, errorMessage);
   });
 }
