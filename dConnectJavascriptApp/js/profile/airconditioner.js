@@ -314,7 +314,7 @@ function doAirConditionerOnOff(serviceId, isSwitch) {
 function getAirConditionerPowerSavingStatus(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('operationpowersaving');
+  builder.setAttribute('powersaving');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -332,7 +332,7 @@ function getAirConditionerPowerSavingStatus(serviceId) {
     closeLoading();
 
     var str = '';
-    str += json.operationpowersaving;
+    str += json.powersaving;
     $('#idPowerSavingStatus').val(str);
     PowerSaving = str;
   }, function(errorCode, errorMessage) {
@@ -353,9 +353,9 @@ function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('operationpowersaving');
+  builder.setAttribute('powersaving');
   builder.setServiceId(serviceId);
-  builder.addParameter('operationpowersaving', isSwitch);
+  builder.addParameter('powersaving', isSwitch);
   builder.setAccessToken(accessToken);
 
   var uri = builder.build();
@@ -392,7 +392,7 @@ function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
 function getAirConditionerOperationModeSettingStatus(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('operationmodesetting');
+  builder.setAttribute('modesetting');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -410,7 +410,7 @@ function getAirConditionerOperationModeSettingStatus(serviceId) {
     closeLoading();
 
     var str = '';
-    str += json.operationmodesetting;
+    str += json.modesetting;
     $('#idOperationModeStatus').val(str);
     OperationMode = str;
   }, function(errorCode, errorMessage) {
@@ -431,9 +431,9 @@ function doAirConditionerOperationModeSettingSet(serviceId, mode) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('operationmodesetting');
+  builder.setAttribute('modesetting');
   builder.setServiceId(serviceId);
-  builder.addParameter('operationmodesetting', mode);
+  builder.addParameter('modesetting', mode);
   builder.setAccessToken(accessToken);
 
   var uri = builder.build();
@@ -455,7 +455,7 @@ function doAirConditionerOperationModeSettingSet(serviceId, mode) {
 
   var errorCallback = function(errorCode, errorMessage) {
     closeLoading();
-    showError('OperationModeSettingSet Air Conditioner', errorCode, errorMessage);
+    showError('ModeSettingSet Air Conditioner', errorCode, errorMessage);
     getAirConditionerOperationModeSettingStatus(serviceId);
   };
 
@@ -509,7 +509,7 @@ function getAirConditionerTemperatureValueStatus(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('temperaturevalue');
+  builder.setAttribute('temperature');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -527,7 +527,7 @@ function getAirConditionerTemperatureValueStatus(serviceId) {
     closeLoading();
 
     var str = '';
-    str += json.temperaturevalue;
+    str += json.temperature;
     $('#idTemperatureValueStatus').val(str);
     $('#idTemperatureValue').val(str);
     Temperature = str;
@@ -549,9 +549,9 @@ function doAirConditionerTemperatureValueSet(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('temperaturevalue');
+  builder.setAttribute('temperature');
   builder.setServiceId(serviceId);
-  builder.addParameter('temperaturevalue', Temperature);
+  builder.addParameter('temperature', Temperature);
   builder.setAccessToken(accessToken);
 
   var uri = builder.build();
@@ -589,7 +589,7 @@ function getAirConditionerAirFlowValueStatus(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('airflowvalue');
+  builder.setAttribute('airflow');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -607,9 +607,9 @@ function getAirConditionerAirFlowValueStatus(serviceId) {
     closeLoading();
 
     var str = '';
-    str += (json.airflowvalue) * 100;
+    str += (json.airflow) * 100;
     $('#idAirFlowValueStatus').val(str);
-    $('#idAirFlowValue').val(str).slider('refresh');
+    $('#idAirFlow').val(str).slider('refresh');
     AirFlow = str;
     if (json.airflowauto === ("true")) {
       AirFlowAuto = true;
@@ -636,7 +636,7 @@ function doAirConditionerAirFlowValueSet(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
-  builder.setAttribute('airflowvalue');
+  builder.setAttribute('airflow');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   
@@ -648,9 +648,9 @@ function doAirConditionerAirFlowValueSet(serviceId) {
   } else {
     builder.addParameter('airflowauto', "false");
     if (AirFlow == 0) {
-      builder.addParameter('airflowvalue', 0);
+      builder.addParameter('airflow', 0);
     } else {
-      builder.addParameter('airflowvalue', AirFlow/100);
+      builder.addParameter('airflow', AirFlow/100);
     }
   }
 
