@@ -56,18 +56,18 @@ QUnit.asyncTest('powermeterAbnormalTest001(Calling a post method that does not s
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest001 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -90,26 +90,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest001 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest001(Calling a put method that does not support.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest001);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test001(Calling a put method that does not support.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test001);
 
 /**
  * 定義されていないPOSTメソッドで積算電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest002 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -132,26 +132,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest002 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest002(Calling a post method that does not support.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest002);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test002(Calling a post method that does not support.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test002);
 
 /**
  * 定義されていないDELETEメソッドで積算電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -174,8 +174,8 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest003(Calling a delete method that does not support.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest003);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test003(Calling a delete method that does not support.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test003);
 
     /// 数字
     /// 英字
@@ -189,18 +189,18 @@ QUnit.asyncTest('integratedPowerValueAbnormalTest003(Calling a delete method tha
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=1234<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx?date=1234<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest005 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('date', '1234');
@@ -224,26 +224,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest005 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest005(date is number.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest005);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test005(date is number.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test005);
 
 /**
  * 英字で日付を指定して積算電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=abc<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx?date=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest006 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('date', 'abc');
@@ -267,26 +267,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest006 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest006(date is alphabet.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest006);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test006(date is alphabet.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test006);
 
 /**
  * 日本語で日付を指定して積算電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=あいう<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx?date=あいう<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest007 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('date', 'あいう');
@@ -310,26 +310,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest007 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest007(date is hiragana.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest007);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test007(date is hiragana.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test007);
 
 /**
  * 記号で日付を指定して積算電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx?date=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest008 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('date', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
@@ -353,26 +353,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest008 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest008(date is symbol.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest008);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test008(date is symbol.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test008);
 
 /**
  * 1000文字で日付を指定して積算電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx?date=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx?date=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest009 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('date', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
@@ -396,26 +396,26 @@ PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest009 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueAbnormalTest009(date is limit.)',
-    PowerMeterProfileNormalTest.integratedPowerValueAbnormalTest009);
+QUnit.asyncTest('integratedPowerAbnormalTest001Test009(date is limit.)',
+    PowerMeterProfileNormalTest.integratedPowerAbnormalTest001Test009);
 
 /**
  * 定義されていないPUTメソッドで瞬間電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /powermeter/instantaneouspowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/instantaneouspower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest001 = function(assert) {
+PowerMeterProfileNormalTest.instantaneousPowerAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('instantaneouspowervalue');
+    builder.setAttribute('instantaneouspower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -438,26 +438,26 @@ PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest001 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerValueAbnormalTest001(Calling a put method that does not support.)',
-    PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest001);
+QUnit.asyncTest('instantaneousPowerAbnormalTest001(Calling a put method that does not support.)',
+    PowerMeterProfileNormalTest.instantaneousPowerAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドで瞬間電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /powermeter/instantaneouspowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/instantaneouspower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest002 = function(assert) {
+PowerMeterProfileNormalTest.instantaneousPowerAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('instantaneouspowervalue');
+    builder.setAttribute('instantaneouspower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -480,26 +480,26 @@ PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest002 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerValueAbnormalTest002(Calling a post method that does not support.)',
-    PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest002);
+QUnit.asyncTest('instantaneousPowerAbnormalTest002(Calling a post method that does not support.)',
+    PowerMeterProfileNormalTest.instantaneousPowerAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドで瞬間電力量にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /powermeter/instantaneouspowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/instantaneouspower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest003 = function(assert) {
+PowerMeterProfileNormalTest.instantaneousPowerAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('instantaneouspowervalue');
+    builder.setAttribute('instantaneouspower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -522,5 +522,5 @@ PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest003 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerValueAbnormalTest003(Calling a delete method that does not support.)',
-    PowerMeterProfileNormalTest.instantaneousPowerValueAbnormalTest003);
+QUnit.asyncTest('instantaneousPowerAbnormalTest003(Calling a delete method that does not support.)',
+    PowerMeterProfileNormalTest.instantaneousPowerAbnormalTest003);
