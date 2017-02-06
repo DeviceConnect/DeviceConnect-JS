@@ -36,12 +36,12 @@ function showAirConditioner(serviceId) {
   reloadHeader(btnStr);
   reloadFooter(btnStr);
   
-  getAirConditionerTemperatureValueStatus(serviceId);
+  getAirConditionerTemperatureStatus(serviceId);
   getAirConditionerPowerStatus(serviceId);
   getAirConditionerPowerSavingStatus(serviceId);
-  getAirConditionerOperationModeSettingStatus(serviceId);
+  getAirConditionerModeSettingStatus(serviceId);
   getAirConditionerRoomTemperatureStatus(serviceId);
-  getAirConditionerAirFlowValueStatus(serviceId);
+  getAirConditionerAirFlowStatus(serviceId);
   
   var str = '';
   str += '<form name="AirConditionerForm">';
@@ -65,17 +65,17 @@ function showAirConditioner(serviceId) {
   str += '<div>';
   str += '<label for="idOperationModeStatus">Operation Mode:</label>';
   str += '<input type="text" id="idOperationModeStatus" width="100%" value="'+ OperationMode + '" readonly>';
-  str += '<input type="button" onclick="doAirConditionerOperationModeSettingSet(\'' +
+  str += '<input type="button" onclick="doAirConditionerModeSetting(\'' +
   serviceId + '\', \'Automatic\');" value="Automatic" name="Automatic" >';
-  str += '<input type="button" onclick="doAirConditionerOperationModeSettingSet(\'' +
+  str += '<input type="button" onclick="doAirConditionerModeSetting(\'' +
   serviceId + '\', \'AirCirculator\');" value="AirCirculator" name="AirCirculator" >';
-  str += '<input type="button" onclick="doAirConditionerOperationModeSettingSet(\'' +
+  str += '<input type="button" onclick="doAirConditionerModeSetting(\'' +
   serviceId + '\', \'Cooling\');" value="Cooling" name="Cooling" >';
-  str += '<input type="button" onclick="doAirConditionerOperationModeSettingSet(\'' +
+  str += '<input type="button" onclick="doAirConditionerModeSetting(\'' +
   serviceId + '\', \'Heating\');" value="Heating" name="Heating" >';
-  str += '<input type="button" onclick="doAirConditionerOperationModeSettingSet(\'' +
+  str += '<input type="button" onclick="doAirConditionerModeSetting(\'' +
   serviceId + '\', \'Dehumidification\');" value="Dehumidification" name="Dehumidification" >';
-  str += '<input type="button" onclick="doAirConditionerOperationModeSettingSet(\'' +
+  str += '<input type="button" onclick="doAirConditionerModeSetting(\'' +
   serviceId + '\', \'Other\');" value="Other" name="Other" >';
   str += '</div>';
 
@@ -86,30 +86,30 @@ function showAirConditioner(serviceId) {
   str += '</div>';
 
   str += '<div>';
-  str += '<label for="idTemperatureValueStatus">Temperature Value (℃):</label>';
-  str += '<input type="text" id="idTemperatureValueStatus" width="100%" value="'+ Temperature + '" readonly>';
-  str += '<input id="idTemperatureValue" name="idTemperatureValue" type="range" min="' +
+  str += '<label for="idTemperatureStatus">Temperature Value (℃):</label>';
+  str += '<input type="text" id="idTemperatureStatus" width="100%" value="'+ Temperature + '" readonly>';
+  str += '<input id="idTemperature" name="idTemperature" type="range" min="' +
            TemperatureMin + '" max="' + TemperatureMax + 
-           '" step="1" onchange="showTemperatureValue()" value="'+ Temperature + '" />';
-  str += '<input type="button" onclick="doAirConditionerTemperatureValueSet(\'' + serviceId + '\');" value="Set Temperature Value" >';
+           '" step="1" onchange="showTemperature()" value="'+ Temperature + '" />';
+  str += '<input type="button" onclick="doAirConditionerSetTemperatureValue(\'' + serviceId + '\');" value="Set Temperature Value" >';
   str += '</div>';
 
   str += '<div>';
-  str += '<label for="idAirFlowValueStatus">Air Flow Value:';
-  str += '<input type="text" id="idAirFlowValueStatus" width="100%" value="'+ AirFlow + '" readonly /></label>';
+  str += '<label for="idAirFlowStatus">Air Flow Value:';
+  str += '<input type="text" id="idAirFlowStatus" width="100%" value="'+ AirFlow + '" readonly /></label>';
   str += '</div>';
 
   str += '<div>';
   str += '<br>';
-  str += '<input type="checkbox" id="idAirFlowValueAutoCheck" name="AirFlowAutoCheck" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air Flow Automatic';
+  str += '<input type="checkbox" id="idAirFlowAutoCheck" name="AirFlowAutoCheck" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air Flow Automatic';
   str += '<br>';
   str += '</div>';
 
   str += '<div>';
-  str += '<input id="idAirFlowValue" name="idAirFlowValue" type="range" min="' +
+  str += '<input id="idAirFlow" name="idAirFlow" type="range" min="' +
            AirFlowMin + '" max="' + AirFlowMax + 
-           '" step="1" onchange="showAirFlowValue()" value="'+ AirFlow + '" />';
-  str += '<input type="button" onclick="doAirConditionerAirFlowValueSet(\'' + serviceId + '\');" value="Set Air Flow Value" >';
+           '" step="1" onchange="showAirFlow()" value="'+ AirFlow + '" />';
+  str += '<input type="button" onclick="doAirConditionerSetAirFlow(\'' + serviceId + '\');" value="Set Air Flow Value" >';
   str += '</div>';
 
   str += '<div>';
@@ -123,14 +123,14 @@ function showAirConditioner(serviceId) {
   reloadList(str);
 }
 
-function showTemperatureValue() {
-  console.log('showTemperatureValue: ', $('#idTemperatureValue').val());
-  Temperature = $('#idTemperatureValue').val();
+function showTemperature() {
+  console.log('showTemperature: ', $('#idTemperature').val());
+  Temperature = $('#idTemperature').val();
 }
 
-function showAirFlowValue() {
-  console.log('showAirFlowValue: ', $('#idAirFlowValue').val());
-  AirFlow = $('#idAirFlowValue').val();
+function showAirFlow() {
+  console.log('showAirFlow: ', $('#idAirFlow').val());
+  AirFlow = $('#idAirFlow').val();
 }
 
 /**
@@ -389,7 +389,7 @@ function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
  * Get Air Conditioner operation mode setting status.
  * @param {String} serviceId Service ID.
  */
-function getAirConditionerOperationModeSettingStatus(serviceId) {
+function getAirConditionerModeSettingStatus(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
   builder.setAttribute('modesetting');
@@ -427,7 +427,7 @@ function getAirConditionerOperationModeSettingStatus(serviceId) {
  * @param {String} serviceId service ID
  * @param {String} mode Operation Mode
  */
-function doAirConditionerOperationModeSettingSet(serviceId, mode) {
+function doAirConditionerModeSetting(serviceId, mode) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
@@ -450,13 +450,13 @@ function doAirConditionerOperationModeSettingSet(serviceId, mode) {
     }
 
     closeLoading();
-    getAirConditionerOperationModeSettingStatus(serviceId);
+    getAirConditionerModeSettingStatus(serviceId);
   };
 
   var errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('ModeSettingSet Air Conditioner', errorCode, errorMessage);
-    getAirConditionerOperationModeSettingStatus(serviceId);
+    getAirConditionerModeSettingStatus(serviceId);
   };
 
   dConnect.put(uri, null, null, successCallback, errorCallback);
@@ -505,7 +505,7 @@ function getAirConditionerRoomTemperatureStatus(serviceId) {
  * Get Air Conditioner temperature value status.
  * @param {String} serviceId Service ID.
  */
-function getAirConditionerTemperatureValueStatus(serviceId) {
+function getAirConditionerTemperatureStatus(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
@@ -528,14 +528,14 @@ function getAirConditionerTemperatureValueStatus(serviceId) {
 
     var str = '';
     str += json.temperature;
-    $('#idTemperatureValueStatus').val(str);
-    $('#idTemperatureValue').val(str);
+    $('#idTemperatureStatus').val(str);
+    $('#idTemperature').val(str);
     Temperature = str;
   }, function(errorCode, errorMessage) {
     closeLoading();
     var str = '';
     str += 'Unknown';
-    $('#idTemperatureValueStatus').val(str);
+    $('#idTemperatureStatus').val(str);
     Temperature = str;
   });
 }
@@ -545,7 +545,7 @@ function getAirConditionerTemperatureValueStatus(serviceId) {
  * @param {String} serviceId service ID
  * @param {String} value Temperature Value
  */
-function doAirConditionerTemperatureValueSet(serviceId) {
+function doAirConditionerSetTemperatureValue(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
@@ -568,13 +568,13 @@ function doAirConditionerTemperatureValueSet(serviceId) {
     }
 
     closeLoading();
-    getAirConditionerTemperatureValueStatus(serviceId);
+    getAirConditionerTemperatureStatus(serviceId);
   };
 
   var errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('TemperatureValueSet Air Conditioner', errorCode, errorMessage);
-    getAirConditionerTemperatureValueStatus(serviceId);
+    getAirConditionerTemperatureStatus(serviceId);
   };
 
   dConnect.put(uri, null, null, successCallback, errorCallback);
@@ -585,7 +585,7 @@ function doAirConditionerTemperatureValueSet(serviceId) {
  * Get Air Conditioner air flow value status.
  * @param {String} serviceId Service ID.
  */
-function getAirConditionerAirFlowValueStatus(serviceId) {
+function getAirConditionerAirFlowStatus(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
@@ -608,22 +608,22 @@ function getAirConditionerAirFlowValueStatus(serviceId) {
 
     var str = '';
     str += (json.airflow) * 100;
-    $('#idAirFlowValueStatus').val(str);
+    $('#idAirFlowStatus').val(str);
     $('#idAirFlow').val(str).slider('refresh');
     AirFlow = str;
     if (json.airflowauto === ("true")) {
       AirFlowAuto = true;
-      document.AirConditionerForm.elements["idAirFlowValueAutoCheck"].checked = true;
-      $('#idAirFlowValueStatus').val("Automatic");
+      document.AirConditionerForm.elements["idAirFlowAutoCheck"].checked = true;
+      $('#idAirFlowStatus').val("Automatic");
     } else {
       AirFlowAuto = false;
-      document.AirConditionerForm.elements["idAirFlowValueAutoCheck"].checked = false;
+      document.AirConditionerForm.elements["idAirFlowAutoCheck"].checked = false;
     }
    }, function(errorCode, errorMessage) {
     closeLoading();
     var str = '';
     str += 'Unknown';
-    $('#idAirFlowValueStatus').val(str);
+    $('#idAirFlowStatus').val(str);
     AirFlow = str;
   });
 }
@@ -632,7 +632,7 @@ function getAirConditionerAirFlowValueStatus(serviceId) {
  * Set Air Flow Value.
  * @param {String} serviceId service ID
  */
-function doAirConditionerAirFlowValueSet(serviceId) {
+function doAirConditionerSetAirFlow(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('airconditioner');
@@ -640,10 +640,10 @@ function doAirConditionerAirFlowValueSet(serviceId) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   
-  var AirFlow = Number($('#idAirFlowValue').val());
+  var AirFlow = Number($('#idAirFlow').val());
   console.log('AirFlow: ', AirFlow);
 
-  if ($('#idAirFlowValueAutoCheck:checked').val()) {
+  if ($('#idAirFlowAutoCheck:checked').val()) {
     builder.addParameter('airflowauto', "true");
   } else {
     builder.addParameter('airflowauto', "false");
@@ -668,13 +668,13 @@ function doAirConditionerAirFlowValueSet(serviceId) {
     }
 
     closeLoading();
-    getAirConditionerAirFlowValueStatus(serviceId);
+    getAirConditionerAirFlowStatus(serviceId);
   };
 
   var errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('AirFlowValueSet Air Conditioner', errorCode, errorMessage);
-    getAirConditionerAirFlowValueStatus(serviceId);
+    getAirConditionerAirFlowStatus(serviceId);
   };
 
   dConnect.put(uri, null, null, successCallback, errorCallback);
