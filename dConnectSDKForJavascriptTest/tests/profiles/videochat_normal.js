@@ -538,38 +538,38 @@ VideoChatProfileNormalTest.callNormalTest005 = function(assert) {
 QUnit.asyncTest('callNormalTest005(audio is false)', VideoChatProfileNormalTest.callNormalTest005);
 
 /**
- * incomingイベント登録するテストを行う。
+ * onincomingイベント登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /videochat/incoming?serviceId=xxxx&accessToken=xxxx&config=xxxx<br/>
+ * Path: /videochat/onincoming?serviceId=xxxx&accessToken=xxxx&config=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultに0が返ってくること。<br/>
- * ・メッセージにincomingのイベントが通知されること。<br/>
- * ・incomingのイベントにaddressIdが格納されていること。<br/>
- * ・incomingのイベントにnameが格納されていること。<br/>
+ * ・メッセージにonincomingのイベントが通知されること。<br/>
+ * ・onincomingのイベントにaddressIdが格納されていること。<br/>
+ * ・onincomingのイベントにnameが格納されていること。<br/>
  * </p>
  */
-VideoChatProfileNormalTest.incomingNormalTest001 = function(assert) {
+VideoChatProfileNormalTest.onincomingNormalTest001 = function(assert) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile("videochat");
-  builder.setAttribute("incoming");
+  builder.setAttribute("onincoming");
   builder.addParameter("config", VIDEOCHAT_CONFIG);
   openWebsocket(builder, assert, 10 * 1000, function(message) {
     var json = JSON.parse(message);
-    if (json.profile === "videochat" && json.attribute === "incoming") {
-      assert.ok(json.incoming != undefined, "incoming=" + json.incoming);
-      assert.ok(json.incoming.name != undefined, "incoming.name=" + json.incoming.name);
-      assert.ok(json.incoming.addressId != undefined, "incoming.addressId=" + json.incoming.addressId);
+    if (json.profile === "videochat" && json.attribute === "onincoming") {
+      assert.ok(json.onincoming != undefined, "onincoming=" + json.onincoming);
+      assert.ok(json.onincoming.name != undefined, "onincoming.name=" + json.onincoming.name);
+      assert.ok(json.onincoming.addressId != undefined, "onincoming.addressId=" + json.onincoming.addressId);
       return true;
     }
     assert.ok(false, "message=" + message);
     return false;
   });
 };
-QUnit.asyncTest('incomingNormalTest001(event)', VideoChatProfileNormalTest.incomingNormalTest001);
+QUnit.asyncTest('onincomingNormalTest001(event)', VideoChatProfileNormalTest.onincomingNormalTest001);
 
 /**
  * oncallイベント登録するテストを行う。
@@ -614,31 +614,31 @@ VideoChatProfileNormalTest.oncallNormalTest001 = function(assert) {
 QUnit.asyncTest('oncallNormalTest001(event)', VideoChatProfileNormalTest.oncallNormalTest001);
 
 /**
- * hangupイベント登録するテストを行う。
+ * onhangupイベント登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /videochat/hangup?serviceId=xxxx&accessToken=xxxx&config=xxxx<br/>
+ * Path: /videochat/onhangup?serviceId=xxxx&accessToken=xxxx&config=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultに0が返ってくること。<br/>
  * ・メッセージにoncallのイベントが通知されること。<br/>
- * ・hangupのイベントにaddressIdが格納されていること。<br/>
- * ・hangupのイベントにnameが格納されていること。<br/>
+ * ・onhangupのイベントにaddressIdが格納されていること。<br/>
+ * ・onhangupのイベントにnameが格納されていること。<br/>
  * </p>
  */
-VideoChatProfileNormalTest.hangupNormalTest001 = function(assert) {
+VideoChatProfileNormalTest.onhangupNormalTest001 = function(assert) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile("videochat");
-  builder.setAttribute("hangup");
+  builder.setAttribute("onhangup");
   builder.addParameter("config", VIDEOCHAT_CONFIG);
   openWebsocket(builder, assert, 10 * 1000, function(message) {
     var json = JSON.parse(message);
-    if (json.profile === "videochat" && json.attribute === "hangup") {
-      assert.ok(json.hangup != undefined, "hangup=" + json.hangup);
-      assert.ok(json.hangup.name != undefined, "hangup.name=" + json.hangup.name);
-      assert.ok(json.hangup.addressId != undefined, "hangup.addressId=" + json.hangup.addressId);
+    if (json.profile === "videochat" && json.attribute === "onhangup") {
+      assert.ok(json.onhangup != undefined, "onhangup=" + json.onhangup);
+      assert.ok(json.onhangup.name != undefined, "onhangup.name=" + json.onhangup.name);
+      assert.ok(json.onhangup.addressId != undefined, "onhangup.addressId=" + json.onhangup.addressId);
       return true;
     }
     assert.ok(false, "message=" + message);
@@ -653,5 +653,5 @@ VideoChatProfileNormalTest.hangupNormalTest001 = function(assert) {
     });
   }, 500);
 };
-QUnit.asyncTest('hangupNormalTest001(event)', VideoChatProfileNormalTest.hangupNormalTest001);
+QUnit.asyncTest('onhangupNormalTest001(event)', VideoChatProfileNormalTest.onhangupNormalTest001);
 
