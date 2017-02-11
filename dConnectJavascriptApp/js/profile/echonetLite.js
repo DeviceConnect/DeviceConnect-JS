@@ -25,7 +25,7 @@ function showECHONETLite(serviceId) {
   str += '<label for="idGetEPC">ECHONET Property (EPC):</label>';
   str += '<input type="text" id="idGetEPC" width="100%" value="" />';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
-           ' onclick="doGetENLEPC(\'' + serviceId + '\');"/>';
+           ' onclick="doGetECHONETLiteEPC(\'' + serviceId + '\');"/>';
   str += '<label for="idGetEDT">ECHONET Property Data (EDT):</label>';
   str += '<input type="text" id="idGetEDT" width="100%" value="" readonly />';
   str += '</div>';
