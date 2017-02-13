@@ -69,7 +69,7 @@ EchonetLiteProfileNormalTest.propertyNormalTest002 = function(assert) {
     builder.setAttribute('property');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80,0x8F');
+    builder.addParameter('epc', '0x80,0x81');
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
           assert.ok(true, 'result=' + json.result);
@@ -111,7 +111,7 @@ EchonetLiteProfileNormalTest.propertyNormalTest003 = function(assert) {
     builder.setAttribute('property');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
+    builder.addParameter('epc', '0x80,0x81,0x82');
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
           assert.ok(true, 'result=' + json.result);
@@ -121,10 +121,6 @@ EchonetLiteProfileNormalTest.propertyNormalTest003 = function(assert) {
           assert.ok(true, 'value=' + json.properties[1].epc);
           assert.ok(true, 'epc=' + json.properties[2].epc);
           assert.ok(true, 'value=' + json.properties[2].epc);
-          assert.ok(true, 'epc=' + json.properties[3].epc);
-          assert.ok(true, 'value=' + json.properties[3].epc);
-          assert.ok(true, 'epc=' + json.properties[4].epc);
-          assert.ok(true, 'value=' + json.properties[4].epc);
           QUnit.start();
         },
     function(errorCode, errorMessage) {
