@@ -90,34 +90,24 @@ function doOnOff(serviceId, isSwitch) {
 
   closeLoading();
   showLoading();
-
-  var str = '';
-  str += '<br>';
-
   var successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-    powerUI(str, serviceId);
+    getPowerStatus(serviceId);
   };
 
   var errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('PowerOnOff ', errorCode, errorMessage);
-    var str = '';
-    str += '<br>';
-    str += '電源: UNKOWN';
-
-    powerUI(str, serviceId);
+    getPowerStatus(serviceId);
   };
 
   if (isSwitch == 'ON') {
-    str += '電源: ON';
     dConnect.put(uri, null, null, successCallback, errorCallback);
   } else {
-    str += '電源: OFF';
     dConnect.delete(uri, null, successCallback, errorCallback);
   }
 
