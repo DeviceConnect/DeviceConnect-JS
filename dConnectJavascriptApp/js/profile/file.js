@@ -73,7 +73,6 @@ function doFileGetUriFromPath(serviceId, path) {
   var path = $('#path').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('receive');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -360,7 +359,6 @@ function doMediaPlay(serviceId, path) {
 function doDeleteFile(serviceId, path) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('remove');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -400,7 +398,7 @@ function doMKDir(serviceId) {
   }
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('mkdir');
+  builder.setAttribute('directory');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -442,7 +440,7 @@ function doMKDir(serviceId) {
 function doRMDir(serviceId, dir) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('rmdir');
+  builder.setAttribute('directory');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', dir);
@@ -492,7 +490,6 @@ function showFileSend(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('send');
   var uri = builder.build();
 
   if (DEBUG) {
@@ -584,7 +581,6 @@ function doImageShow(serviceId, path) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('receive');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
