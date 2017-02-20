@@ -186,7 +186,7 @@ function doGeolocationRegist(serviceId, sessionKey) {
 
     var json = JSON.parse(message);
     if (json.position) {
-      setDeviceOrientation(json);
+      setGeolocation(json);
     }
   }, function() {
     if (DEBUG) {
