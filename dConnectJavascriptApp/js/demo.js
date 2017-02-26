@@ -239,7 +239,7 @@ function authorization(callback, oncalcel) {
               'phone', 'proximity', 'settings', 'vibration', 'light',
               'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
+              'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
                'walkState', 'messagehook', 'atmosphericPressure');
@@ -385,8 +385,8 @@ function searchProfile(serviceId, profile) {
     showHealth(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.touch.PROFILE_NAME)) {
     showTouch(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, 'humandetect')) {
-    showHumanDetect(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'humandetection')) {
+    showHumanDetection(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.keyevent.PROFILE_NAME)) {
     showKeyEvent(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'videochat')) {
