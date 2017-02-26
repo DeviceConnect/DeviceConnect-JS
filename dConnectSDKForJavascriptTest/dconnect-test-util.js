@@ -81,7 +81,7 @@ function getAccessToken(func) {
       'sphero',
       'temperature',
       'health',
-      'humandetect',
+      'humandetection',
       'videochat',
       'omnidirectionalimage',
       'humidity',
