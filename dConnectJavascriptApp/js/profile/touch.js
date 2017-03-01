@@ -1265,7 +1265,7 @@ function doTouchChangeEventBack(serviceId, sessionKey) {
   showTouch(serviceId);
 }
 /**
- * Touch Event Regist
+ * Touch Event Register.
  */
 function doTouchRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1364,7 +1364,7 @@ function doTouchRegister(serviceId, sessionKey) {
 }
 
 /**
- * Touch Start Event Regist
+ * Touch Start Event Register.
  */
 function doTouchStartRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1463,7 +1463,7 @@ function doTouchStartRegister(serviceId, sessionKey) {
 }
 
 /**
- * Touch End Event Regist
+ * Touch End Event Register.
  */
 function doTouchEndRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1562,7 +1562,7 @@ function doTouchEndRegister(serviceId, sessionKey) {
 }
 
 /**
- * Double Tap Event Regist
+ * Double Tap Event Register.
  */
 function doDoubleTapRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1596,7 +1596,7 @@ function doDoubleTapRegister(serviceId, sessionKey) {
 }
 
 /**
- * Touch Move Event Regist
+ * Touch Move Event Register.
  */
 function doTouchMoveRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1695,7 +1695,7 @@ function doTouchMoveRegister(serviceId, sessionKey) {
 }
 
 /**
- * Touch Cancel Event Regist
+ * Touch Cancel Event Register.
  */
 function doTouchCancelRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
@@ -1794,7 +1794,7 @@ function doTouchCancelRegister(serviceId, sessionKey) {
 }
 
 /**
- * Touch Change Event Regist
+ * Touch Change Event Register.
  */
 function doTouchChangeRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();

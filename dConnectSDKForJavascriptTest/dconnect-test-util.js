@@ -208,10 +208,10 @@ function createCurrentDateString() {
     ("0" + now.getMinutes()).slice (-2) + ":" +
     ("0" + now.getSeconds()).slice (-2) +
     (function (offset){
-    	var z = (offset < 0) ? "+" : "-";
-    	offset = Math.abs(offset);
-    	z +=  ("0" + (offset / 60)).slice(-2) + ":" + ("0" + (offset % 60)).slice(-2);
-    	return z;
+      var z = (offset < 0) ? "+" : "-";
+      offset = Math.abs(offset);
+      z +=  ("0" + (offset / 60)).slice(-2) + ":" + ("0" + (offset % 60)).slice(-2);
+      return z;
     })(now.getTimezoneOffset());
   return dateString;
 }
