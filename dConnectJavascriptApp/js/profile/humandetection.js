@@ -12,7 +12,7 @@ var deleteMode;
  */
 function showHumanDetection(serviceId) {
   initAll();
-  setTitle('Human Detect Profile');
+  setTitle('Human Detection Profile');
 
   var sessionKey = currentClientId;
   var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
