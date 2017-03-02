@@ -864,12 +864,12 @@ FileProfileNormalTest.moveNormalTest001 = function(assert) {
         QUnit.start();
       });
     }, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
       QUnit.start();
     });
 
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -911,11 +911,11 @@ FileProfileNormalTest.moveNormalTest002 = function(assert) {
             QUnit.start();
           });
     }, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -959,16 +959,16 @@ FileProfileNormalTest.moveNormalTest003 = function(assert) {
                 QUnit.start();
               });
       }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
         QUnit.start();
       });
 
     }, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -1079,7 +1079,7 @@ FileProfileNormalTest.mkdirNormalTest001 = function(assert) {
               QUnit.start();
             });
       }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
         FileProfileAbnormalTest.rmdir('mkdirNormalTest001');
         QUnit.start();
       });
@@ -1116,7 +1116,7 @@ FileProfileNormalTest.mkdirNormalTest002 = function(assert) {
               QUnit.start();
             });
       }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
         QUnit.start();
       });
 };
@@ -1152,7 +1152,7 @@ FileProfileNormalTest.rmdirNormalTest002 = function(assert) {
               QUnit.start();
             });
       }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
         QUnit.start();
       });
 };
