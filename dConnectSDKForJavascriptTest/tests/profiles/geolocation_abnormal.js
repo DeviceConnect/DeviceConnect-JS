@@ -26,7 +26,7 @@ GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest001 = function(assert)
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
         builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
+        builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
