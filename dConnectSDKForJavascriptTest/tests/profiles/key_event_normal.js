@@ -87,7 +87,7 @@ KeyEventProfileNormalTest.onkeychangeNormalTest001 = function(assert) {
   openWebsocket(builder, assert, 5000, function(message) {
     var json = JSON.parse(message);
     if (json.profile === dConnect.constants.keyevent.PROFILE_NAME && 
-        json.attribute === dConnect.constants.keyevent.ATTR_ON_UP) {
+        json.attribute === dConnect.constants.keyevent.ATTR_ON_KEY_CHANGE) {
       assert.ok(true, message);
       return true;
     }
