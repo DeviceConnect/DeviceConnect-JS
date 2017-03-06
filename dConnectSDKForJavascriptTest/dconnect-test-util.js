@@ -94,7 +94,8 @@ function getAccessToken(func) {
       'stressEstimation',
       'poseEstimation',
       'walkState',
-      'messageHook'
+      'messageHook',
+      'echonetLite'
   );
 
   dConnect.authorization(scopes,
