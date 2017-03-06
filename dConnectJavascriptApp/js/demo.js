@@ -234,9 +234,9 @@ function startManager(onavailable) {
  */
 function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connect', 'deviceorientation', 'filedescriptor',
+              'battery', 'connection', 'deviceorientation', 'filedescriptor',
               'file', 'mediaplayer', 'mediastreamrecording', 'notification',
-              'phone', 'proximity', 'settings', 'vibration', 'light',
+              'phone', 'proximity', 'setting', 'vibration', 'light',
               'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
               'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
@@ -360,9 +360,9 @@ function searchProfile(serviceId, profile) {
     showSearchLight(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.phone.PROFILE_NAME)) {
     showPhone(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connect.PROFILE_NAME)) {
-    showConnect(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.settings.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connection.PROFILE_NAME)) {
+    showConnection(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.setting.PROFILE_NAME)) {
     showSetting(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_player.PROFILE_NAME)) {
     showMediaPlayer(serviceId);
