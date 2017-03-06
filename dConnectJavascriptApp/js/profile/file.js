@@ -7,7 +7,10 @@
 
 var currentPath = '/';
 var deleteMode;
-
+const FILE_MODE_NORMAL = 1;
+const FILE_MODE_DELETE = 2;
+const FILE_TYPE_FOLDER = '0';
+const FILE_TYPE_FILE = '1';
 /**
  * Fileプロファイルのメニューを表示する.
  *
@@ -23,23 +26,120 @@ function showFile(serviceId) {
 
   var str = '';
   var path = '/';
-  if (myDeviceName.indexOf('Pebble') != -1) {
-    str += '<li><a href="javascript:showFileSend(\'' +
-          serviceId + '\');" value="send">File Send</a></li>';
-  } else if (myDeviceName.indexOf('SmartWatch') != -1) {
-    str += '<li><a href="javascript:showFileSend(\'' +
-          serviceId + '\');" value="send">File Send</a></li>';
-  } else {
-    str += '<li><a href="javascript:showFileList(\'' +
-          serviceId + '\',\'' + path +
-          '\');" value="list">File Manager</a></li>';
-    str += '<li><a href="javascript:showFileSend(\'' +
-          serviceId + '\');" value="send">File Send</a></li>';
-    str += '<li><a href="javascript:showFileReceive(\'' +
-          serviceId + '\',\'' + path +
-          '\');" value="send">File Receive</a></li>';
-  }
+  str += '<li><a href="javascript:showFileList(\'' +
+        serviceId + '\',\'' + path +
+        '\');" value="list">File Manager</a></li>';
+  str += '<li><a href="javascript:showFileSend(\'' +
+        serviceId + '\');" value="send">File Send</a></li>';
+  str += '<li><a href="javascript:showFileReceive(\'' +
+        serviceId + '\');" value="receive">File Receive</a></li>';
+  str += '<li><a href="javascript:showFileMove(\'' +
+        serviceId + '\');" value="move">File Move</a></li>';
+  str += '<li><a href="javascript:showMoveDirectory(\'' +
+        serviceId + '\');" value="mvDir">Move Directory</a></li>';
   reloadList(str);
+}
+
+/**
+ * ファイルの移動。
+ *
+ * @param {String} serviceId サービスID
+ */
+function showFileMove(serviceId) {
+  initAll();
+
+  var btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId, '');
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += makeSelectBoolean('forceOverwrite');
+  str += makeInputText('oldPath', 'oldPath', 'oldPath');
+  str += makeInputText('newPath', 'newPath', 'newPath');
+  str += '<input type="button" onclick="javascript:doFileMove(\'' +
+        serviceId + '\');" value="Move File" type="button" >';
+  reloadContent(str);
+}
+
+/**
+ * URIからファイルを移動。
+ *
+ * @param {String} serviceId サービスID
+ */
+function doFileMove(serviceId) {
+  var forceOverwrite = $('#forceOverwrite').val();
+  var oldPath = $('#oldPath').val();
+  var newPath = $('#newPath').val();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('file');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('oldPath', oldPath);
+  builder.addParameter('newPath', newPath);
+  builder.addParameter('forceOverwrite', forceOverwrite);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+
+  dConnect.put(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    alert(oldPath + 'を' + 'へ' + newPath + '移動しました。');
+  }, function(errorCode, errorMessage) {
+    showError('PUT file', errorCode, errorMessage);
+  });
+}
+/**
+ * ディレクトリの移動。
+ *
+ * @param {String} serviceId サービスID
+ */
+function showMoveDirectory(serviceId) {
+  initAll();
+
+  var btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId, '');
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
+  var str = '';
+  str += makeInputText('oldPath', 'oldPath', 'oldPath');
+  str += makeInputText('newPath', 'newPath', 'newPath');
+  str += '<input type="button" onclick="javascript:doDirectoryMove(\'' +
+        serviceId + '\');" value="Move Directory" type="button" >';
+  reloadContent(str);
+}
+
+/**
+ * URIからディレクトリを移動。
+ *
+ * @param {String} serviceId サービスID
+ */
+function doDirectoryMove(serviceId) {
+  var oldPath = $('#oldPath').val();
+  var newPath = $('#newPath').val();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('file');
+  builder.setAttribute('directory');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('oldPath', oldPath);
+  builder.addParameter('newPath', newPath);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+
+  dConnect.put(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+
+    alert(oldPath + 'を' + 'へ' + newPath + '移動しました。');
+  }, function(errorCode, errorMessage) {
+    showError('PUT file/directory', errorCode, errorMessage);
+  });
 }
 
 /**
@@ -56,10 +156,9 @@ function showFileReceive(serviceId, path) {
   reloadFooter(btnStr);
 
   var str = '';
-  str += makeInputText('path', 'path', 'path')
+  str += makeInputText('path', 'path', 'path');
   str += '<input type="button" onclick="javascript:doFileGetUriFromPath(\'' +
-        serviceId + '\',\'' + path +
-        '\');" value="Get URI from PATH" type="button" >';
+        serviceId + '\');" value="Get URI from PATH" type="button" >';
   reloadContent(str);
 }
 
@@ -67,13 +166,11 @@ function showFileReceive(serviceId, path) {
  * PathからURIを取得
  *
  * @param {String} serviceId サービスID
- * @param {String} path パス
  */
-function doFileGetUriFromPath(serviceId, path) {
+function doFileGetUriFromPath(serviceId) {
   var path = $('#path').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('receive');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -169,7 +266,7 @@ function showFileList(serviceId, path, mode) {
       console.log('Response: ', json);
     }
 
-    if (mode === 2) {
+    if (mode === FILE_MODE_DELETE) {
       setTitle('File list(Delete Mode)', 'red');
     } else {
       setTitle('File list', 'black');
@@ -187,7 +284,7 @@ function showFileList(serviceId, path, mode) {
               ' onclick="javascript:doMKDir(\'' + serviceId +
               '\');" type="button" value="mkdir"/>';
 
-    if (mode != 2) {
+    if (mode != FILE_MODE_DELETE) {
       reloadMenu(cmdStr);
     }
 
@@ -195,11 +292,11 @@ function showFileList(serviceId, path, mode) {
     for (var i = 0; i < json.files.length; i++) {
       var iconName = getFileIcon(json.files[i].mimeType,
                     json.files[i].fileType);
-      if (json.files[i].fileType == '1') {
+      if (json.files[i].fileType == FILE_TYPE_FILE) {
         listStr += '<li>';
         listStr += '<a href="javascript:doFileAction(\'' + serviceId +
                   '\',\'' + json.files[i].path + '\',\'dir/folder\');"  >';
-        if (mode == 2) {
+        if (mode == FILE_MODE_DELETE) {
           listStr += '<img src="css/images/icon_del.png">';
         }
         listStr += '<img src=\'' + iconName + '\' >' +
@@ -210,7 +307,7 @@ function showFileList(serviceId, path, mode) {
                   serviceId + '\',\'' + json.files[i].path +
                   '\',\'' + json.files[i].mimeType +
                   '\');"  >';
-        if (mode == 2) {
+        if (mode == FILE_MODE_DELETE) {
           listStr += '<img src="css/images/icon_del.png">';
         }
         listStr += '<img src=\'' + iconName + '\' >' +
@@ -233,7 +330,7 @@ function showFileList(serviceId, path, mode) {
 function changeDeleteMode(serviceId) {
   setTitle('File list(Delete Mode)', 'red');
 
-  showFileList(serviceId, currentPath, 2);
+  showFileList(serviceId, currentPath, FILE_MODE_DELETE);
 
   var cmdStr = '';
   cmdStr += '<input data-icon="folder" data-inline="true"' +
@@ -260,7 +357,7 @@ function changeNormalMode(serviceId) {
   deleteMode = false;
   setTitle('File list', 'black');
 
-  showFileList(serviceId, currentPath, 1);
+  showFileList(serviceId, currentPath, FILE_MODE_NORMAL);
 
   var cmdStr = '';
   cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true"' +
@@ -283,7 +380,7 @@ function changeNormalMode(serviceId) {
  * @return {String} アイコンのURI
  */
 function getFileIcon(mimeType, fileType) {
-  if (fileType == '1') {
+  if (fileType == FILE_TYPE_FILE) {
     iconName = 'css/images/icon_folder.png';
   } else if ((mimeType == 'audio/mpeg') || (mimeType == 'audio/x-wav') ||
       (mimeType == 'audio/x-ms-wma') || (mimeType == 'audio/mp3') ||
@@ -312,7 +409,7 @@ function getFileIcon(mimeType, fileType) {
 function doFileAction(serviceId, path, mimeType) {
   if (deleteMode) {
     if (mimeType == 'dir/folder') {
-      doRMDir(serviceId, path);
+      doRMDir(serviceId, path, false);
     } else {
       doDeleteFile(serviceId, path, mimeType);
     }
@@ -348,7 +445,7 @@ function doFileAction(serviceId, path, mimeType) {
 function doMediaPlay(serviceId, path) {
   var sessionKey = currentClientId;
   doRegisterOnStatusChange(serviceId, sessionKey);
-  doMediaPlayer(serviceId, path, 2);
+  doMediaPlayer(serviceId, path, FILE_MODE_DELETE);
 }
 
 /**
@@ -360,7 +457,6 @@ function doMediaPlay(serviceId, path) {
 function doDeleteFile(serviceId, path) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('remove');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -400,7 +496,7 @@ function doMKDir(serviceId) {
   }
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('mkdir');
+  builder.setAttribute('directory');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -410,9 +506,9 @@ function doMKDir(serviceId) {
   }
 
   var oncomplete = function() {
-    var fileMode = 1;
+    var fileMode = FILE_MODE_NORMAL;
     if (deleteMode) {
-      fileMode = 2;
+      fileMode = FILE_MODE_DELETE;
     }
     if (deleteMode) {
       changeDeleteMode(serviceId);
@@ -438,23 +534,25 @@ function doMKDir(serviceId) {
  *
  * @param {String} serviceId サービスID
  * @param {String} dir ディレクトリ名
+ * @param {Boolean} forceRemove 強制削除フラグ
  */
-function doRMDir(serviceId, dir) {
+function doRMDir(serviceId, dir, forceRemove) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('rmdir');
+  builder.setAttribute('directory');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', dir);
+  builder.addParameter('forceRemove', forceRemove);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
   }
 
   var oncomplete = function() {
-    var fileMode = 2;
+    var fileMode = FILE_MODE_DELETE;
     if (deleteMode) {
-      fileMode = 1;
+      fileMode = FILE_MODE_NORMAL;
     }
     console.log("file:" + fileMode);
 
@@ -473,7 +571,14 @@ function doRMDir(serviceId, dir) {
     alert('rmdir ' + dir);
     oncomplete();
   }, function(errorCode, errorMessage) {
-    showError('DELETE file/rmdir', errorCode, errorMessage);
+    if (errorCode == 16) {   //Illegal device state.
+      if(window.confirm('削除に失敗しました。ディレクトリの中にファイルがあります。全て削除しますか？')) {
+         doRMDir(serviceId, dir, true);
+         return;
+      }
+    } else {
+       showError('DELETE file/rmdir', errorCode, errorMessage);
+    }
     oncomplete();
   });
 }
@@ -492,7 +597,6 @@ function showFileSend(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('send');
   var uri = builder.build();
 
   if (DEBUG) {
@@ -503,8 +607,8 @@ function showFileSend(serviceId) {
   str += '<form action="' + uri + '" method="POST"' +
         ' enctype="multipart/form-data" id="fileForm"><br>';
   str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
-  str += '<input type="hidden" name="accessToken" value="' +
-        accessToken + '"/>';
+  str += '<input type="hidden" name="accessToken" value="' + accessToken + '"/>';
+  str += makeSelectBoolean('forceOverwrite');
   str += makeInputText('path', 'path', 'path');
   str += makeInputText('uri', 'uri', 'uri');
   str += '<input type="file" name="data" id="data"/>';
@@ -584,7 +688,6 @@ function doImageShow(serviceId, path) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('file');
-  builder.setAttribute('receive');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('path', path);
@@ -617,4 +720,20 @@ function doImageShow(serviceId, path) {
  */
 function doImageShowBack(serviceId, sessionKey) {
   showFileList(serviceId, currentPath);
+}
+
+/**
+ * Selectタグによる選択用のUIの作成.
+ * 
+ */
+function makeSelectBoolean(typeName) {
+  var btnStr = '';
+  btnStr += '<div data-role="fieldcontain">';
+  btnStr += '  <label for="boolean">' + typeName +':</label>';
+  btnStr += '  <select id="' + typeName + '" name="' + typeName + '">';
+  btnStr += '    <option value="false">false</option>';
+  btnStr += '    <option value="true">true</option>';
+  btnStr += '  </select>';
+  btnStr += '</div>';
+  return btnStr;
 }
