@@ -1,5 +1,5 @@
 /**
- humandetect.js
+ humandetection.js
  Copyright (c) 2015 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
@@ -10,9 +10,9 @@ var deleteMode;
 /**
  * DeviceOrientation
  */
-function showHumanDetect(serviceId) {
+function showHumanDetection(serviceId) {
   initAll();
-  setTitle('Human Detect Profile');
+  setTitle('Human Detection Profile');
 
   var sessionKey = currentClientId;
   var btnStr = getBackButton('Device Top', 'doHumanDetectBack',
@@ -21,6 +21,8 @@ function showHumanDetect(serviceId) {
   reloadFooter(btnStr);
 
   var str = '';
+  str += getHumanDetectForm(serviceId, sessionKey);
+  str += '<hr>';
   str += getBodyDetectForm(serviceId, sessionKey);
   str += '<hr>';
   str += getHandDetectForm(serviceId, sessionKey);
@@ -39,6 +41,155 @@ function showHumanDetect(serviceId) {
 function doHumanDetectBack(serviceId, sessionKey) {
   searchSystem(serviceId);
 }
+
+
+// ----------------------------------------------------------------
+// Human Detect
+// ----------------------------------------------------------------
+
+/**
+ * get human detect form.
+ */
+function getHumanDetectForm(serviceId, sessionKey) {
+  var str = '';
+  // body
+  str += '<h1>Human</h1>';
+  // -------------------------------------------------------
+  // get,register,unregister
+  str += '<div>';
+  str += '  <input data-icon=\"search\" onclick=\"doHumanDetectHumanGet(\'' +
+          serviceId + '\')\" type=\"button\" value=\"Get\" />';
+  str += '</div>';
+  str += '<fieldset class=\"ui-grid-a\">';
+  str += '  <div class=\"ui-block-a\">';
+  str += '    <input data-icon=\"search\" ' +
+          'onclick=\"doHumanDetectHumanRegister(\'' +
+          serviceId + '\', \'' + sessionKey + '\')\"' +
+          ' type=\"button\" value=\"Register\" />';
+  str += '  </div>';
+  str += '  <div class=\"ui-block-b\">';
+  str += '    <input data-icon=\"search\"' +
+          ' onclick=\"doHumanDetectHumanUnregister(\'' +
+          serviceId + '\', \'' + sessionKey +
+          '\')\" type=\"button\" value=\"Unregister\" />';
+  str += '  </div>';
+  str += '</fieldset>';
+  str += '<div>';
+  str += '<label for="interval">interval</label>';
+  str += '<input type="text" id="human_interval" size="10" maxlength="10">';
+  str += '</div>';
+  // end of div(optionvalues)
+  str += '</div>';
+  // -------------------------------------------------------
+  str += '<br>';
+  str += '<div>';
+  str += '<form  name="humanDetectForm">';
+  str += 'Response:<br>';
+  str += '<div id="humanDetectResponse" width="100%" height="100"></div>';
+  str += '</form>';
+  str += '</div>';
+
+  return str;
+}
+
+/**
+ * set human detect response.
+ */
+function setHumanDetectResponse(json) {
+  var eventInfo = '[' + getStrTime() + ']' + '<br>';
+  eventInfo += getHumanDetectResponseString(json);
+  $('#humanDetectResponse').html(eventInfo);
+}
+
+/**
+ * get human option parameter.
+ */
+function addHumanOptionParameter(builder, section) {
+
+  // interval
+  var optionParams = ['interval'];
+  for (var index in optionParams) {
+    var optionParam = optionParams[index];
+    var optionParamValue = $('#' + section + '_' + optionParam).val();
+    if (optionParamValue && optionParamValue.length > 0) {
+      builder.addParameter(optionParam, optionParamValue);
+    }
+  }
+}
+
+/**
+ * Human Detect GET.
+ */
+function doHumanDetectHumanGet(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetection');
+  builder.setAttribute('ondetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  addHumanOptionParameter(builder, 'human');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri: ' + uri);
+  }
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    closeLoading();
+    setHumanDetectResponse(json);
+  }, function(errorCode, errorMessage) {
+    closeLoading();
+    showError('GET ondetection', errorCode, errorMessage);
+  });
+  showLoading();
+}
+
+/**
+ * Human Detect EVENT Register.
+ */
+function doHumanDetectHumanRegister(serviceId, sessionKey) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetection');
+  builder.setAttribute('ondetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  addHumanOptionParameter(builder, 'human');
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    setHumanDetectResponse(json);
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * Human Detect Event Unregister
+ */
+function doHumanDetectHumanUnregister(serviceId, sessionKey) {
+
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humandetection');
+  builder.setAttribute('ondetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri : ' + uri);
+  }
+
+  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
 
 // ----------------------------------------------------------------
 // Body Detect
@@ -60,7 +211,7 @@ function getBodyDetectForm(serviceId, sessionKey) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
-          'onclick=\"doHumanDetectBodyRegist(\'' +
+          'onclick=\"doHumanDetectBodyRegister(\'' +
           serviceId + '\', \'' + sessionKey + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
@@ -148,9 +299,8 @@ function addBodyOptionParameter(builder, section) {
  */
 function doHumanDetectBodyGet(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
-  builder.setInterface('detection');
-  builder.setAttribute('body');
+  builder.setProfile('humandetection');
+  builder.setAttribute('onbodydetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   addBodyOptionParameter(builder, 'body');
@@ -174,9 +324,9 @@ function doHumanDetectBodyGet(serviceId) {
 /**
  * Body Detect EVENT Register.
  */
-function doHumanDetectBodyRegist(serviceId, sessionKey) {
+function doHumanDetectBodyRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
+  builder.setProfile('humandetection');
   builder.setAttribute('onbodydetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -203,7 +353,7 @@ function doHumanDetectBodyRegist(serviceId, sessionKey) {
 function doHumanDetectBodyUnregister(serviceId, sessionKey) {
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
+  builder.setProfile('humandetection');
   builder.setAttribute('onbodydetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -237,7 +387,7 @@ function getHandDetectForm(serviceId, sessionKey) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
-          'onclick=\"doHumanDetectHandRegist(\'' +
+          'onclick=\"doHumanDetectHandRegister(\'' +
           serviceId + '\', \'' + sessionKey + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
@@ -324,9 +474,8 @@ function addHandOptionParameter(builder, section) {
  */
 function doHumanDetectHandGet(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
-  builder.setInterface('detection');
-  builder.setAttribute('hand');
+  builder.setProfile('humandetection');
+  builder.setAttribute('onhanddetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   addHandOptionParameter(builder, 'hand');
@@ -350,9 +499,9 @@ function doHumanDetectHandGet(serviceId) {
 /**
  * Hand Detect EVENT Register.
  */
-function doHumanDetectHandRegist(serviceId, sessionKey) {
+function doHumanDetectHandRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
+  builder.setProfile('humandetection');
   builder.setAttribute('onhanddetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -379,7 +528,7 @@ function doHumanDetectHandRegist(serviceId, sessionKey) {
 function doHumanDetectHandUnregister(serviceId, sessionKey) {
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
+  builder.setProfile('humandetection');
   builder.setAttribute('onhanddetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -413,7 +562,7 @@ function getFaceDetectForm(serviceId, sessionKey) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
-          'onclick=\"doHumanDetectFaceRegist(\'' +
+          'onclick=\"doHumanDetectFaceRegister(\'' +
           serviceId + '\', \'' + sessionKey + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
@@ -614,9 +763,8 @@ function addFaceOptionParameter(builder, section) {
  */
 function doHumanDetectFaceGet(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
-  builder.setInterface('detection');
-  builder.setAttribute('face');
+  builder.setProfile('humandetection');
+  builder.setAttribute('onfacedetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   addFaceOptionParameter(builder, 'face');
@@ -640,9 +788,9 @@ function doHumanDetectFaceGet(serviceId) {
 /**
  * Face Detect EVENT Register.
  */
-function doHumanDetectFaceRegist(serviceId, sessionKey) {
+function doHumanDetectFaceRegister(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
+  builder.setProfile('humandetection');
   builder.setAttribute('onfacedetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -669,7 +817,7 @@ function doHumanDetectFaceRegist(serviceId, sessionKey) {
 function doHumanDetectFaceUnregister(serviceId, sessionKey) {
 
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetect');
+  builder.setProfile('humandetection');
   builder.setAttribute('onfacedetection');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -709,6 +857,9 @@ function getHumanDetectResponseString(json) {
   if (json.faceDetects) {
     str += 'faceDetects=' + json.faceDetects.length + '<br>';
     str += getDetectsResponseString(json.faceDetects);
+  }
+  if (json.humanDetect) {
+    str += 'humanDetect=' + json.humanDetect.exist + '<br>';
   }
   return str;
 }
