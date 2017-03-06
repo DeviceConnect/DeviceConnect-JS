@@ -59,7 +59,7 @@ QUnit.asyncTest('channelTest001', MessageHookProfileNormalTest.channelTest001);
 MessageHookProfileNormalTest.messageTest001 = function(assert) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('messageHook');
-    builder.setAttribute('message');
+    builder.setAttribute('onmessage');
     openWebsocket(builder, assert, 5000, function(message) {
         var json = JSON.parse(message);
         if (json.profile === 'messageHook' && json.attribute === 'message') {

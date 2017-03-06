@@ -35,7 +35,7 @@ function showHeartRate(serviceId) {
   closeLoading();
 
   var str = '';
-  str += "<h2>HeartRate Old</h2>"
+  str += "<h2>HeartRate /health/heartrate</h2>"
   str += makeInputText('HeartRate', 'heartRate', 'HeartRate');
   str += '<input data-role="button" type="button" name="button"' +
     ' id="button" value="Get Heart Rate"' +
@@ -50,10 +50,10 @@ function showHeartRate(serviceId) {
     ' onclick="javascript:unregisterHeartRateOld(\'' +
     serviceId + '\');"/><br>';
   str += '<hr>';
-  str += "<h2>HeartRate New</h2>"
+  str += "<h2>HeartRate /health/heart</h2>"
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get Heart Rate"' +
-        ' onclick="javascript:doGetHeartRate(\'' +
+        ' onclick="javascript:doGetHeartrateDefault(\'' +
         serviceId + '\');"/><br>';
   str += '<div>';
   str += '<label for="interval">interval</label>';
@@ -61,11 +61,29 @@ function showHeartRate(serviceId) {
   str += '</div>';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Register Event"' +
-        ' onclick="javascript:doRegisterHeartRate(\'' +
+        ' onclick="javascript:doRegisterHeartrateDefault(\'' +
         serviceId + '\');"/><br>';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Unregister Event"' +
-        ' onclick="javascript:unregisterHeartRate(\'' +
+        ' onclick="javascript:doUnregisterHeartrateDefault(\'' +
+        serviceId + '\');"/><br>';
+  str += '<hr>';
+  str += "<h2>HeartRate /health/onHeart</h2>"
+  str += '<input data-role="button" type="button" name="button"' +
+        ' id="button" value="Get onHeart Rate"' +
+        ' onclick="javascript:doGetHeartrateOnHeart(\'' +
+        serviceId + '\');"/><br>';
+  str += '<div>';
+  str += '<label for="interval">interval</label>';
+  str += '<input type="text" id="interval" size="10" maxlength="10">';
+  str += '</div>';
+  str += '<input data-role="button" type="button" name="button"' +
+        ' id="button" value="Register Event"' +
+        ' onclick="javascript:doRegisterHeartrateOnHeart(\'' +
+        serviceId + '\');"/><br>';
+  str += '<input data-role="button" type="button" name="button"' +
+        ' id="button" value="Unregister Event"' +
+        ' onclick="javascript:doUnregisterHeartrateOnHeart(\'' +
         serviceId + '\');"/><br>';
   str += '<hr>';
   str += '<h2>Heart Rate</h2>';
@@ -114,10 +132,36 @@ function showHeartRate(serviceId) {
   reloadContent(str);
 }
 
-function doGetHeartRate(serviceId) {
+function doGetHeartrateDefault(serviceId) {
+  doGetHeartRate(serviceId, 'heart');
+}
+
+function doRegisterHeartrateDefault(serviceId) {
+  doRegisterHeartRate(serviceId, 'heart');
+}
+
+function doUnregisterHeartrateDefault(serviceId) {
+  unregisterHeartRate(serviceId, 'heart');
+}
+
+function doGetHeartrateOnHeart(serviceId) {
+  doGetHeartRate(serviceId, 'onheart');
+}
+
+function doRegisterHeartrateOnHeart(serviceId) {
+  doRegisterHeartRate(serviceId, 'onheart');
+}
+
+function doUnregisterHeartrateOnHeart(serviceId) {
+  unregisterHeartRate(serviceId, 'onheart');
+}
+
+
+
+function doGetHeartRate(serviceId, attribute) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('health');
-  builder.setAttribute('heart');
+  builder.setAttribute(attribute);
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
 
@@ -138,11 +182,11 @@ function doGetHeartRate(serviceId) {
   });
 }
 
-function doRegisterHeartRate(serviceId) {
+function doRegisterHeartRate(serviceId, attribute) {
   var intervalParam = $('#interval').val();
   var builder = new dConnect.URIBuilder();
   builder.setProfile('health');
-  builder.setAttribute('heart');
+  builder.setAttribute(attribute);
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   if (intervalParam !== '') {
@@ -169,10 +213,10 @@ function doRegisterHeartRate(serviceId) {
   });
 }
 
-function unregisterHeartRate(serviceId) {
+function unregisterHeartRate(serviceId, attribute) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('health');
-  builder.setAttribute('heart');
+  builder.setAttribute(attribute);
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
 
