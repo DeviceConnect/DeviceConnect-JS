@@ -1047,6 +1047,8 @@ var dConnect = (function(parent, global) {
       ATTR_ON_TOUCH_CANCEL: 'ontouchcancel',
       /** アトリビュート: ondoubletap */
       ATTR_ON_DOUBLE_TAP: 'ondoubletap',
+      /** アトリビュート: ontouchchange */
+      ATTR_ON_TOUCH_CHANGE: 'ontouchchange',
 
       // Parameter
       /** パラメータ: touch */
