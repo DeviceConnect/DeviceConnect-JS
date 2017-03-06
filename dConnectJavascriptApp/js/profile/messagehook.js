@@ -178,7 +178,8 @@ function doSendMessage(serviceId, channelId) {
 
 
 /**
- * DeviceOrientation
+ * メッセージの取得.
+ * @param {String} serviceId サービスID
  */
 function showGetMessage(serviceId) {
   initAll();
@@ -198,7 +199,7 @@ function showGetMessage(serviceId) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
-          'onclick=\"doGetMessageRegist(\'' +
+          'onclick=\"doGetMessageRegister(\'' +
           serviceId + '\', \'' + sessionKey + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
@@ -226,7 +227,7 @@ function showGetMessageBack(serviceId, sessionKey) {
 
 
 /**
- * Channel Listを取得する.
+ * Message一覧を取得する.
  *
  * @param {String} serviceId サービスID
  */
@@ -237,7 +238,7 @@ function doGetMessage(serviceId) {
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('messagehook');
-  builder.setAttribute('message');
+  builder.setAttribute('onmessage');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
@@ -251,32 +252,26 @@ function doGetMessage(serviceId) {
       console.log('Response: ', json);
     }
     closeLoading();
-    var str = '';
-    for (var i = 0; i < json.messages.length; i++) {
-      str += '<li>[' + json.messages[i].channelId + '] ' + json.messages[i].from + ": " + json.messages[i].text + '</li>';
-    }
-    reloadList(str);
+    updateMessage(json);
   }, function(errorCode, errorMessage) {
     closeLoading();
     showError('messagehook/message', errorCode, errorMessage);
   });
 }
 
-
 /**
  * イベント登録
  */
-function doGetMessageRegist(serviceId, sessionKey) {
+function doGetMessageRegister(serviceId, sessionKey) {
   if (messagehook_registerd) {
     return;
   }
   messagehook_messages = [];
   var builder = new dConnect.URIBuilder();
   builder.setProfile('messagehook');
-  builder.setAttribute('message');
+  builder.setAttribute('onmessage');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri: ' + uri);
@@ -286,22 +281,12 @@ function doGetMessageRegist(serviceId, sessionKey) {
     if (DEBUG) {
       console.log('Event-Message:' + message)
     }
-
     var json = JSON.parse(message);
-    messagehook_messages.unshift(json.message);
-    if (messagehook_messages.length > 10) {
-      messagehook_messages.pop();
-    }
-    var str = '';
-    for (var i = 0; i < messagehook_messages.length; i++) {
-      var msg = messagehook_messages[i];
-      str += '<li>[' + msg.channelId + '] ' + msg.from + ": " + msg.text + '</li>';
-    }
-    reloadList(str);
+    updateMessage(json);
   }, function() {
     messagehook_registerd = true;
     if (DEBUG) {
-      console.log('Successed register Get Message Envent.');
+      console.log('Successed register Get Message Event.');
     }
   }, function(errorCode, errorMessage) {
     alert('errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -317,10 +302,9 @@ function doGetMessageUnregister(serviceId, sessionKey) {
   }
   var builder = new dConnect.URIBuilder();
   builder.setProfile('messagehook');
-  builder.setAttribute('message');
+  builder.setAttribute('onmessage');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  builder.setSessionKey(sessionKey);
   var uri = builder.build();
   if (DEBUG) {
     console.log('Uri : ' + uri);
@@ -333,4 +317,21 @@ function doGetMessageUnregister(serviceId, sessionKey) {
   }, function(errorCode, errorMessage) {
     alert(errorMessage);
   });
+}
+
+
+/**
+* メッセージの更新.
+**/
+function updateMessage(json) {
+    messagehook_messages.unshift(json.message);
+    if (messagehook_messages.length > 10) {
+      messagehook_messages.pop();
+    }
+    var str = '';
+    for (var i = 0; i < messagehook_messages.length; i++) {
+      var msg = messagehook_messages[i];
+      str += '<li>[' + msg.channelId + '] ' + msg.from + ": " + msg.text + '</li>';
+    }
+    reloadList(str);
 }

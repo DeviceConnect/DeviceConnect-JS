@@ -1328,11 +1328,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest017 = function(assert) {
 QUnit.asyncTest('callAbnormalTest017(Calling a put method that does not support.)', VideoChatProfileAbnormalTest.callAbnormalTest017);
 
 /**
- * 定義されていないPUTメソッドでincomingにアクセスするテストを行う。
+ * 定義されていないPUTメソッドでonincomingにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /videochat/incoming?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
+ * Path: /videochat/onincoming?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1340,11 +1340,11 @@ QUnit.asyncTest('callAbnormalTest017(Calling a put method that does not support.
  * ・errorCodeに10が返ってくること。<br/>
  * </p>
  */
-VideoChatProfileAbnormalTest.incomingAbnormalTest001 = function(assert) {
+VideoChatProfileAbnormalTest.onincomingAbnormalTest001 = function(assert) {
   findAddress(function(accessToken, serviceId, addresses) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("videochat");
-    builder.setAttribute("incoming");
+    builder.setAttribute("onincoming");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("config", VIDEOCHAT_CONFIG);
@@ -1362,14 +1362,14 @@ VideoChatProfileAbnormalTest.incomingAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('incomingAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.incomingAbnormalTest001);
+QUnit.asyncTest('OnincomingAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.onincomingAbnormalTest001);
 
 /**
- * 定義されていないPOSTメソッドでincomingにアクセスするテストを行う。
+ * 定義されていないPOSTメソッドでonincomingにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /videochat/incoming?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
+ * Path: /videochat/onincoming?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1377,11 +1377,11 @@ QUnit.asyncTest('incomingAbnormalTest001(Calling a get method that does not supp
  * ・errorCodeに10が返ってくること。<br/>
  * </p>
  */
-VideoChatProfileAbnormalTest.incomingAbnormalTest002 = function(assert) {
+VideoChatProfileAbnormalTest.onincomingAbnormalTest002 = function(assert) {
   findAddress(function(accessToken, serviceId, addresses) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("videochat");
-    builder.setAttribute("incoming");
+    builder.setAttribute("onincoming");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("config", VIDEOCHAT_CONFIG);
@@ -1399,7 +1399,7 @@ VideoChatProfileAbnormalTest.incomingAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('incomingAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.incomingAbnormalTest002);
+QUnit.asyncTest('OnincomingAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.onincomingAbnormalTest002);
 
 /**
  * 定義されていないPUTメソッドでoncallにアクセスするテストを行う。
@@ -1436,7 +1436,7 @@ VideoChatProfileAbnormalTest.oncallAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('oncallAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest001);
+QUnit.asyncTest('OncallAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでoncallにアクセスするテストを行う。
@@ -1473,15 +1473,15 @@ VideoChatProfileAbnormalTest.oncallAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('oncallAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest002);
+QUnit.asyncTest('OncallAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest002);
 
 
 /**
- * 定義されていないPUTメソッドでhangupにアクセスするテストを行う。
+ * 定義されていないPUTメソッドでonhangupにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /videochat/hangup?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
+ * Path: /videochat/onhangup?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1489,11 +1489,11 @@ QUnit.asyncTest('oncallAbnormalTest002(Calling a post method that does not suppo
  * ・errorCodeに10が返ってくること。<br/>
  * </p>
  */
-VideoChatProfileAbnormalTest.hangupAbnormalTest001 = function(assert) {
+VideoChatProfileAbnormalTest.onhangupAbnormalTest001 = function(assert) {
   findAddress(function(accessToken, serviceId, addresses) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("videochat");
-    builder.setAttribute("hangup");
+    builder.setAttribute("onhangup");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("config", VIDEOCHAT_CONFIG);
@@ -1511,14 +1511,14 @@ VideoChatProfileAbnormalTest.hangupAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('hangupAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.hangupAbnormalTest001);
+QUnit.asyncTest('OnhangupAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.onhangupAbnormalTest001);
 
 /**
- * 定義されていないPOSTメソッドでhangupにアクセスするテストを行う。
+ * 定義されていないPOSTメソッドでonhangupにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /videochat/hangup?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
+ * Path: /videochat/onhangup?serviceId=xxxx&accessToken=xxxx&config=xxxx&addressId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -1526,11 +1526,11 @@ QUnit.asyncTest('hangupAbnormalTest001(Calling a get method that does not suppor
  * ・errorCodeに10が返ってくること。<br/>
  * </p>
  */
-VideoChatProfileAbnormalTest.hangupAbnormalTest002 = function(assert) {
+VideoChatProfileAbnormalTest.onhangupAbnormalTest002 = function(assert) {
   findAddress(function(accessToken, serviceId, addresses) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile("videochat");
-    builder.setAttribute("hangup");
+    builder.setAttribute("onhangup");
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter("config", VIDEOCHAT_CONFIG);
@@ -1548,6 +1548,6 @@ VideoChatProfileAbnormalTest.hangupAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('hangupAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.hangupAbnormalTest002);
+QUnit.asyncTest('OnhangupAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.onhangupAbnormalTest002);
 
 

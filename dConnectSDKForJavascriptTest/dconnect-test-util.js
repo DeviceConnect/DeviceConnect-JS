@@ -55,7 +55,7 @@ function getAccessToken(func) {
       'authorization',
       'battery',
       'canvas',
-      'connect',
+      'connection',
       'deviceorientation',
       'filedescriptor',
       'file',
@@ -67,7 +67,7 @@ function getAccessToken(func) {
       'notification',
       'phone',
       'proximity',
-      'settings',
+      'setting',
       'system',
       'touch',
       'vibration',
@@ -81,7 +81,7 @@ function getAccessToken(func) {
       'sphero',
       'temperature',
       'health',
-      'humandetect',
+      'humandetection',
       'videochat',
       'omnidirectionalimage',
       'humidity',
@@ -94,7 +94,8 @@ function getAccessToken(func) {
       'stressEstimation',
       'poseEstimation',
       'walkState',
-      'messageHook'
+      'messageHook',
+      'echonetLite'
   );
 
   dConnect.authorization(scopes,
