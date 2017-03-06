@@ -234,7 +234,7 @@ function startManager(onavailable) {
  */
 function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connect', 'deviceorientation', 'filedescriptor',
+              'battery', 'connection', 'deviceorientation', 'filedescriptor',
               'file', 'mediaplayer', 'mediastreamrecording', 'notification',
               'phone', 'proximity', 'setting', 'vibration', 'light',
               'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
@@ -359,8 +359,8 @@ function searchProfile(serviceId, profile) {
     showSearchLight(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.phone.PROFILE_NAME)) {
     showPhone(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connect.PROFILE_NAME)) {
-    showConnect(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connection.PROFILE_NAME)) {
+    showConnection(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.setting.PROFILE_NAME)) {
     showSetting(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_player.PROFILE_NAME)) {
