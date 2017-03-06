@@ -324,14 +324,14 @@ var dConnect = (function(parent, global) {
     },
 
     /**
-     * Connectプロファイルの定数
+     * Connectionプロファイルの定数
      * @namespace
      * @type {Object.<String, String>}
      */
-    connect: {
+    connection: {
       // Profile Name
       /** プロファイル名。 */
-      PROFILE_NAME: 'connect',
+      PROFILE_NAME: 'connection',
 
       // Interface
       /** インターフェース: bluetooth */
@@ -991,14 +991,14 @@ var dConnect = (function(parent, global) {
     },
 
     /**
-     * Settingsプロファイルの定数
+     * Settingプロファイルの定数
      * @namespace
      * @type {Object.<String, (String|Number)>}
      */
-    settings: {
+    setting: {
       // Profile name
       /** プロファイル名。 */
-      PROFILE_NAME: 'settings',
+      PROFILE_NAME: 'setting',
 
       // Interface
       /** インターフェース: sound */
@@ -1011,8 +1011,8 @@ var dConnect = (function(parent, global) {
       ATTR_VOLUME: 'volume',
       /** アトリビュート: date */
       ATTR_DATE: 'date',
-      /** アトリビュート: light */
-      ATTR_LIGHT: 'light',
+      /** アトリビュート: brightness */
+      ATTR_BRIGHTNESS: 'brightness',
       /** アトリビュート: sleep */
       ATTR_SLEEP: 'sleep',
 

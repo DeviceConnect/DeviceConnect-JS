@@ -124,24 +124,24 @@ QUnit.asyncTest('powerOffNormalTest001(get)',
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueNormalTest001 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
           assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+          assert.ok(true, 'integratedpower=' + json.integratedpower);
           QUnit.start();
         },
     function(errorCode, errorMessage) {
@@ -154,33 +154,33 @@ PowerMeterProfileNormalTest.integratedPowerValueNormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueNormalTest001(get)',
-    PowerMeterProfileNormalTest.integratedPowerValueNormalTest001);
+QUnit.asyncTest('integratedPowerNormalTest001(get)',
+    PowerMeterProfileNormalTest.integratedPowerNormalTest001);
 
 /**
  * 日付を指定して積算電力量を取得するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /powermeter/integratedpowervalue?serviceId=xxxx&accessToken=xxx>date=yyyy-MM-ddThh:mm:ssZ<br/>
+ * Path: /powermeter/integratedpower?serviceId=xxxx&accessToken=xxx>date=yyyy-MM-ddThh:mm:ssZ<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.integratedPowerValueNormalTest002 = function(assert) {
+PowerMeterProfileNormalTest.integratedPowerNormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('integratedpowervalue');
+    builder.setAttribute('integratedpower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('date', createCurrentDateString());
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
           assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+          assert.ok(true, 'integratedpower=' + json.integratedpower);
           QUnit.start();
         },
     function(errorCode, errorMessage) {
@@ -193,32 +193,32 @@ PowerMeterProfileNormalTest.integratedPowerValueNormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerValueNormalTest002(date is now)',
-    PowerMeterProfileNormalTest.integratedPowerValueNormalTest002);
+QUnit.asyncTest('integratedPowerNormalTest002(date is now)',
+    PowerMeterProfileNormalTest.integratedPowerNormalTest002);
 
 /**
  * 瞬間電力量を取得するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: GET<br/>
- * Path: /powermeter/instantaneous?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /powermeter/instantaneouspower?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-PowerMeterProfileNormalTest.instantaneousPowerValueNormalTest001 = function(assert) {
+PowerMeterProfileNormalTest.instantaneousPowerNormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('powermeter');
-    builder.setAttribute('instantaneouspowervalue');
+    builder.setAttribute('instantaneouspower');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
     dConnect.get(uri, null, function(json) {
           assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'instantaneouspowervalue=' + json.instantaneouspowervalue);
+          assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
           QUnit.start();
         },
     function(errorCode, errorMessage) {
@@ -231,5 +231,5 @@ PowerMeterProfileNormalTest.instantaneousPowerValueNormalTest001 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerValueNormalTest001(get)',
-    PowerMeterProfileNormalTest.instantaneousPowerValueNormalTest001);
+QUnit.asyncTest('instantaneousPowerNormalTest001(get)',
+    PowerMeterProfileNormalTest.instantaneousPowerNormalTest001);

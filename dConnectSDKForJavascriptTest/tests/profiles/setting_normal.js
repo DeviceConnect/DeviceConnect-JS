@@ -1,11 +1,11 @@
-module('Settings Profile Normal Test', {
+module('Setting Profile Normal Test', {
   setup: function() {
     init();
   }
 });
 
 /**
- * Settingsプロファイルの正常系テストを行うクラス。
+ * Settingプロファイルの正常系テストを行うクラス。
  * @class
  */
 var SettingProfileNormalTest = {};
@@ -15,7 +15,7 @@ var SettingProfileNormalTest = {};
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /settings/volume?serviceId=xxxx&kind=x<br/>
+ * Path: /setting/volume?serviceId=xxxx&kind=x<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -33,9 +33,9 @@ SettingProfileNormalTest.volumeNormalTest001 = function(assert) {
             QUnit.start();
           } else {
             var builder = new dConnect.URIBuilder();
-            builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-            builder.setInterface(dConnect.constants.settings.INTERFACE_SOUND);
-            builder.setAttribute(dConnect.constants.settings.ATTR_VOLUME);
+            builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+            builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+            builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
             builder.setServiceId(serviceId);
             builder.setAccessToken(accessToken);
             builder.addParameter('kind', testKind[count]);
@@ -64,7 +64,7 @@ QUnit.asyncTest('volumeNormalTest001(get)', SettingProfileNormalTest.volumeNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /settings/volume?serviceId=xxxx&kind=x&level=1.0<br/>
+ * Path: /setting/volume?serviceId=xxxx&kind=x&level=1.0<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -82,9 +82,9 @@ SettingProfileNormalTest.volumeNormalTest002 = function(assert) {
             QUnit.start();
           } else {
             var builder = new dConnect.URIBuilder();
-            builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-            builder.setInterface(dConnect.constants.settings.INTERFACE_SOUND);
-            builder.setAttribute(dConnect.constants.settings.ATTR_VOLUME);
+            builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+            builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+            builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
             builder.setServiceId(serviceId);
             builder.setAccessToken(accessToken);
             builder.addParameter('kind', testKind[count]);
@@ -94,9 +94,9 @@ SettingProfileNormalTest.volumeNormalTest002 = function(assert) {
                   assert.ok(true, 'put ok. result=' + json.result + ' kind=' + testKindName[count]);
 
                   var builder = new dConnect.URIBuilder();
-                  builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-                  builder.setInterface(dConnect.constants.settings.INTERFACE_SOUND);
-                  builder.setAttribute(dConnect.constants.settings.ATTR_VOLUME);
+                  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+                  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+                  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
                   builder.setServiceId(serviceId);
                   builder.setAccessToken(accessToken);
                   builder.addParameter('kind', testKind[count]);
@@ -130,7 +130,7 @@ QUnit.asyncTest('volumeNormalTest002(put)', SettingProfileNormalTest.volumeNorma
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /settings/date?serviceId=xxxx<br/>
+ * Path: /setting/date?serviceId=xxxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -142,8 +142,8 @@ SettingProfileNormalTest.dateNormalTest001 = function(assert) {
   var count = 0;
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.settings.ATTR_DATE);
+        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
@@ -168,7 +168,7 @@ QUnit.asyncTest('dateNormalTest001(get)', SettingProfileNormalTest.dateNormalTes
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /settings/date?serviceId=xxxx&date='yyyy-MM-ddThh:mm:ssZ'<br/>
+ * Path: /setting/date?serviceId=xxxx&date='yyyy-MM-ddThh:mm:ssZ'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -179,8 +179,8 @@ SettingProfileNormalTest.dateNormalTest002 = function(assert) {
   var count = 0;
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.settings.ATTR_DATE);
+        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+        builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         builder.addParameter('date', createCurrentDateString());
@@ -205,20 +205,20 @@ QUnit.asyncTest('dateNormalTest002(put)', SettingProfileNormalTest.dateNormalTes
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /settings/light?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /setting/display/brightness?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-SettingProfileNormalTest.lightNormalTest001 = function(assert) {
+SettingProfileNormalTest.brightnessNormalTest001 = function(assert) {
   var count = 0;
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.settings.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.settings.ATTR_LIGHT);
+        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
@@ -236,27 +236,27 @@ SettingProfileNormalTest.lightNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightNormalTest001(get)', SettingProfileNormalTest.lightNormalTest001);
+QUnit.asyncTest('brightnessNormalTest001(get)', SettingProfileNormalTest.brightnessNormalTest001);
 
 /**
  * バックライトの輝度を設定する。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /settings/date?serviceId=xxx&accessToken=xxx&level=0.5<br/>
+ * Path: /setting/display/brightness?serviceId=xxx&accessToken=xxx&level=0.5<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultに0が返ってくること。<br/>
  * </p>
  */
-SettingProfileNormalTest.lightNormalTest002 = function(assert) {
+SettingProfileNormalTest.brightnessNormalTest002 = function(assert) {
   var count = 0;
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.settings.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.settings.ATTR_LIGHT);
+        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         builder.addParameter('level', 0.5);
@@ -265,9 +265,9 @@ SettingProfileNormalTest.lightNormalTest002 = function(assert) {
               assert.ok(true, 'result=' + json.result);
 
               var builder = new dConnect.URIBuilder();
-              builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-              builder.setInterface(dConnect.constants.settings.INTERFACE_DISPLAY);
-              builder.setAttribute(dConnect.constants.settings.ATTR_LIGHT);
+              builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+              builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+              builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
               builder.setServiceId(serviceId);
               builder.setAccessToken(accessToken);
               var uri = builder.build();
@@ -290,14 +290,14 @@ SettingProfileNormalTest.lightNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('lightNormalTest002(put)', SettingProfileNormalTest.lightNormalTest002);
+QUnit.asyncTest('brightnessNormalTest002(put)', SettingProfileNormalTest.brightnessNormalTest002);
 
 /**
  * スリープ状態に入るまでの設定時間を取得する。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /settings/sleep?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /setting/display/sleep?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -308,9 +308,9 @@ SettingProfileNormalTest.sleepNormalTest001 = function(assert) {
   var count = 0;
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.settings.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.settings.ATTR_SLEEP);
+        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
@@ -335,7 +335,7 @@ QUnit.asyncTest('sleepNormalTest001(get)', SettingProfileNormalTest.sleepNormalT
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
- * Path: /settings/sleep?serviceId=xxx&accessToken=xxx&time=50000~60000<br/>
+ * Path: /setting/display/sleep?serviceId=xxx&accessToken=xxx&time=50000~60000<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -346,9 +346,9 @@ SettingProfileNormalTest.sleepNormalTest002 = function(assert) {
   var sleep = 50000 + Math.floor(Math.random() * 10000);
   searchTestService(function(accessToken, serviceId) {
         var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.settings.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.settings.ATTR_SLEEP);
+        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         builder.addParameter('time', sleep);
@@ -356,9 +356,9 @@ SettingProfileNormalTest.sleepNormalTest002 = function(assert) {
         dConnect.put(uri, null, null, function(json) {
               assert.ok(true, 'put ok. result=' + json.result + ' time=[' + sleep + ']');
               var builder = new dConnect.URIBuilder();
-              builder.setProfile(dConnect.constants.settings.PROFILE_NAME);
-              builder.setInterface(dConnect.constants.settings.INTERFACE_DISPLAY);
-              builder.setAttribute(dConnect.constants.settings.ATTR_SLEEP);
+              builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+              builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+              builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
               builder.setServiceId(serviceId);
               builder.setAccessToken(accessToken);
               var uri = builder.build();
