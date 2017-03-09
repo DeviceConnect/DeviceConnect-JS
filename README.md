@@ -1,4 +1,4 @@
-Click [here](https://github.com/DeviceConnect/DeviceConnect-JS/blob/master/readme.en.md) for a description of English.
+Click [here](readme.en.md) for a description of English.
 
 # DeviceConnect-JS について
 Device Connect JSはJavaScript版のDeviceConnectのライブラリ用レポジトリになります。<br>
@@ -29,4 +29,4 @@ iOS上にDevice Connectプラットホームをサンプル実装したレポジ
 iOS端末で、Device Connectを動作させたい場合には、このレポジトリからソースコードを取得してビルドを行います。
 
 # <a name="section3">ライブラリの使い方</a>
-DeviceConnect-JSの使い方については、[Wiki](https://github.com/TakayukiHoshi1984/DeviceConnect-JS/wiki/HTML5Application-Manual-20)を参照してください。
+DeviceConnect-JSの使い方については、[Wiki](https://github.com/DeviceConnect/DeviceConnect-JS/wiki/HTML5Application-Manual-20)を参照してください。
