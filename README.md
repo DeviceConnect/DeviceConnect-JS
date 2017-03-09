@@ -1,4 +1,4 @@
-Click [here](https://github.com/DeviceConnect/DeviceConnect-JS/blob/master/readme.en.md) for a description of English.
+Click [here](readme.en.md) for a description of English.
 
 # DeviceConnect-JS について
 Device Connect JSはJavaScript版のDeviceConnectのライブラリ用レポジトリになります。<br>

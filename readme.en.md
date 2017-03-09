@@ -1,9 +1,9 @@
-日本語説明は[こちら](https://github.com/DeviceConnect/DeviceConnect-JS/README.md)
+日本語説明は[こちら](README.md)
 
 # About DeviceConnect JS
 
-Device Connect JS will be in the library for the repository of DeviceConnect of JavaScript version.<br>
-<br><br>
+Device Connect JS will be in the library for the repository of DeviceConnect of JavaScript version.
+
 In this guide I will continue to discuss the following.<br>
 
 * [Project description](#section1)
