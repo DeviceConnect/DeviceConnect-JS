@@ -55,9 +55,8 @@ function getAccessToken(func) {
       'authorization',
       'battery',
       'canvas',
-      'connect',
+      'connection',
       'deviceorientation',
-      'filedescriptor',
       'file',
       'keyevent',
       'mediaplayer',
@@ -67,7 +66,7 @@ function getAccessToken(func) {
       'notification',
       'phone',
       'proximity',
-      'settings',
+      'setting',
       'system',
       'touch',
       'vibration',
@@ -81,7 +80,7 @@ function getAccessToken(func) {
       'sphero',
       'temperature',
       'health',
-      'humandetect',
+      'humandetection',
       'videochat',
       'omnidirectionalimage',
       'humidity',
@@ -95,7 +94,8 @@ function getAccessToken(func) {
       'poseEstimation',
       'walkState',
       'messageHook',
-      'geolocation'
+      'geolocation',
+      'echonetLite'
   );
 
   dConnect.authorization(scopes,
@@ -209,10 +209,10 @@ function createCurrentDateString() {
     ("0" + now.getMinutes()).slice (-2) + ":" +
     ("0" + now.getSeconds()).slice (-2) +
     (function (offset){
-    	var z = (offset < 0) ? "+" : "-";
-    	offset = Math.abs(offset);
-    	z +=  ("0" + (offset / 60)).slice(-2) + ":" + ("0" + (offset % 60)).slice(-2);
-    	return z;
+      var z = (offset < 0) ? "+" : "-";
+      offset = Math.abs(offset);
+      z +=  ("0" + (offset / 60)).slice(-2) + ":" + ("0" + (offset % 60)).slice(-2);
+      return z;
     })(now.getTimezoneOffset());
   return dateString;
 }

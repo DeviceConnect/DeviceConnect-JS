@@ -32,12 +32,12 @@ function showPowerMeter(serviceId) {
   str += '<input name="newDate" id="newDate" type="text" data-role="datebox" data-options=\'{"mode":"datebox"}\' />';
   str += '<input name="newTime" id="newTime" type="text" data-role="datebox" data-options=\'{"mode":"timebox"}\' />';
 
-  str += makeInputText('IntegratedPowerValue', 'integrated-powervalue', 'integrated-powervalue');
-  str += pmMakeButton('GetIntegratedPowerValue','doPowerMeterGetIntegratedPowerValue',serviceId);
+  str += makeInputText('IntegratedPower', 'integrated-power', 'integrated-power');
+  str += pmMakeButton('GetIntegratedPower','doPowerMeterGetIntegratedPower',serviceId);
   str += '<hr>';
 
-  str += makeInputText('InstantaneousPowerValue', 'instantaneous-powervalue', 'instantaneous-powervalue');
-  str += pmMakeButton('GetInstantaneousPowerValue','doPowerMeterGetInstantaneousPowerValue',serviceId);
+  str += makeInputText('InstantaneousPower', 'instantaneous-power', 'instantaneous-power');
+  str += pmMakeButton('GetInstantaneousPower','doPowerMeterGetInstantaneousPower',serviceId);
   str += '<hr>';
 
   reloadContent(str);
@@ -62,8 +62,8 @@ function doPowerMeterDeletePowerOff(serviceId){
   dConnect.delete(builder.build(),null,pmLoggingSuccess,pmAlertError);
 }
 
-function doPowerMeterGetIntegratedPowerValue(serviceId){
-  var builder = pmMakeUriBuilder(serviceId,'integratedpowervalue');
+function doPowerMeterGetIntegratedPower(serviceId){
+  var builder = pmMakeUriBuilder(serviceId,'integratedpower');
 
   var newDate = $('#newDate').val();
   var newTime = $('#newTime').val();
@@ -74,21 +74,21 @@ function doPowerMeterGetIntegratedPowerValue(serviceId){
   }
 
   var successCallback = function (json){
-    var integra = json.integratedpowervalue;
+    var integra = json.integratedpower;
     var total = 0;
     jQuery.each(integra,function(i,value){
       total+=value;
     });
-    $('#integrated-powervalue').val(total);
+    $('#integrated-power').val(total);
   };
   dConnect.get(builder.build(), null, successCallback, pmAlertError);
 }
 
-function doPowerMeterGetInstantaneousPowerValue(serviceId){
-  var builder = pmMakeUriBuilder(serviceId,'instantaneouspowervalue');
+function doPowerMeterGetInstantaneousPower(serviceId){
+  var builder = pmMakeUriBuilder(serviceId,'instantaneouspower');
   var successCallback = function (json){
     console.log('Response: ', json);
-    $('#instantaneous-powervalue').val(json.instantaneouspowervalue);
+    $('#instantaneous-power').val(json.instantaneouspower);
   };
   dConnect.get(builder.build(), null, successCallback, pmAlertError);
 }

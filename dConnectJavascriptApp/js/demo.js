@@ -234,15 +234,16 @@ function startManager(onavailable) {
  */
 function authorization(callback, oncalcel) {
   var scopes = Array('servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connect', 'deviceorientation', 'filedescriptor',
+              'battery', 'connection', 'deviceorientation', 'filedescriptor',
               'file', 'mediaplayer', 'mediastreamrecording', 'notification',
-              'phone', 'proximity', 'settings', 'vibration', 'light',
+              'phone', 'proximity', 'setting', 'vibration', 'light',
               'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
               'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetect', 'keyevent', 'omnidirectionalimage',
+              'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-               'walkState', 'messagehook', 'atmosphericPressure', 'geolocation');
+               'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
+               'echonetLite', 'power');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -353,15 +354,13 @@ function searchProfile(serviceId, profile) {
     showRemoteController(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.file.PROFILE_NAME)) {
     showFile(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.file_descriptor.PROFILE_NAME)) {
-    showFileDescriptor(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'light')) {
     showSearchLight(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.phone.PROFILE_NAME)) {
     showPhone(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connect.PROFILE_NAME)) {
-    showConnect(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.settings.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connection.PROFILE_NAME)) {
+    showConnection(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.setting.PROFILE_NAME)) {
     showSetting(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_player.PROFILE_NAME)) {
     showMediaPlayer(serviceId);
@@ -385,8 +384,8 @@ function searchProfile(serviceId, profile) {
     showHealth(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.touch.PROFILE_NAME)) {
     showTouch(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, 'humandetect')) {
-    showHumanDetect(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'humandetection')) {
+    showHumanDetection(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.keyevent.PROFILE_NAME)) {
     showKeyEvent(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'videochat')) {
@@ -421,5 +420,9 @@ function searchProfile(serviceId, profile) {
     showAtmosphericPressure(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'geolocation')) {
     showGeolocation(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'power')) {
+    showPower(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'echonetLite')) {
+    showECHONETLite(serviceId);
   }
 }

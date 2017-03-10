@@ -10,6 +10,35 @@ module('HumanDetect Profile Normal Test', {
  */
 var HumanDetectProfileNormalTest = {};
 
+/**
+ * 人体検出通知イベントの登録と解除のテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT, DELETE<br/>
+ * Path: /humandetect/ondetection?serviceId=xxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が蹴ってくること。
+ * </p>
+ */
+HumanDetectProfileNormalTest.onDetectionNormalTest001 = function(assert) {
+  var PROFILE_NAME = 'humandetect';
+  var ATTR_ON_DETECTION = 'ondetection';
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(PROFILE_NAME);
+  builder.setAttribute(ATTR_ON_DETECTION);
+  openWebsocket(builder, assert, 10000, function(message) {
+    var json = JSON.parse(message);
+    if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_DETECTION) {
+      assert.ok(true, message);
+      return true;
+    }
+    return false;
+  });
+};
+QUnit.asyncTest('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionNormalTest001);
+
 
 /**
  * 人体検出通知イベントの登録と解除のテストを行う。
