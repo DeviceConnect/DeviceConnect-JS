@@ -373,7 +373,7 @@ function searchProfile(serviceId, profile) {
   } else if (isEqualToStringIgnoreCase(profile, 'mhealth')) {
     showMhealth(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'temperature')) {
-    showTemperature(serviceId);
+    showTemperatureProfile(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.proximity.PROFILE_NAME)) {
     showProximity(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'sphero')) {

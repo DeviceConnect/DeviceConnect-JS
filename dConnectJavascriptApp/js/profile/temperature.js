@@ -11,7 +11,7 @@
  *
  * @param {String} serviceId サービスID
  */
-function showTemperature(serviceId) {
+function showTemperatureProfile(serviceId) {
   initAll();
   setTitle('Temperature Profile');
 
@@ -38,9 +38,10 @@ function showGetTemperature(serviceId, html) {
   setTitle('Temperature Profile');
 
   var btnStr = '';
-  btnStr += getBackButton('Temperature Top', 'doTemperatureMenuBack', serviceId, '');
+  btnStr = getBackButton('Temperature Top', 'doTemperatureMenuBack', serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
+  btnStr = '';
   btnStr += '<h2>Temperature Info</h2>';
   btnStr += html
   btnStr += '<div data-role="fieldcontain">';
@@ -170,7 +171,7 @@ function setTemperature(serviceId) {
  * @param {String} sessionKey セッションKEY
  */
 function doTemperatureMenuBack(serviceId, sessionKey) {
-  showTemperature(serviceId);
+  showTemperatureProfile(serviceId);
 }
 
 
