@@ -685,7 +685,6 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       var builder = new dConnect.URIBuilder();
