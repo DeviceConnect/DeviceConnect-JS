@@ -1553,9 +1553,7 @@ var dConnect = (function(parent, global) {
 
         // 既にcontent-typeヘッダーが存在する場合には追加しない
         if (!isExistContentType) {
-          if (method.toUpperCase() === 'PUT' ||  method.toUpperCase() === 'POST') {
-            xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-          }
+          xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
         }
 
         if (method.toUpperCase() === 'DELETE'
