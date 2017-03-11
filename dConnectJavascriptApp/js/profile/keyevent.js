@@ -55,8 +55,8 @@ function showOnKeyChange(serviceId) {
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
            ' onclick="doGetOnKeyChange(\'' + serviceId + '\');"/>';
   str += '<input type="text" id="state" width="100%">';
-  str += '<input type="text" id="idD" width="100%">';
-  str += '<input type="text" id="configD" width="100%">';
+  str += '<input type="text" id="idDU" width="100%">';
+  str += '<input type="text" id="configDU" width="100%">';
   str += '</form>';
   reloadContent(str);
 }
@@ -83,13 +83,13 @@ function doGetOnKeyChange(serviceId) {
     }
 
     closeLoading();
-    $('#idD').val('');
-    $('#configD').val('');
-
+    $('#idDU').val('');
+    $('#configDU').val('');
+    $('#state').val('');
     if (json.keyevent) {
       $('#state').val('State :' + json.keyevent.state);
-      $('#idD').val('KeyID: ' + json.keyevent.id);
-      $('#configD').val('config: ' + json.keyevent.config);
+      $('#idDU').val('KeyID: ' + json.keyevent.id);
+      $('#configDU').val('config: ' + json.keyevent.config);
     }
   }, function(errorCode, errorMessage) {
     showError('GET onkeychange', errorCode, errorMessage);

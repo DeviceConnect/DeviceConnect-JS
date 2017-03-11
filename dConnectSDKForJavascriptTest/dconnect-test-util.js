@@ -221,7 +221,6 @@ function saveTestResult(result, blob) {
   searchHostService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.file.ATTR_SEND);
     var formData = new FormData();
     formData.append('serviceId', serviceId);
     formData.append('accessToken', accessToken);
