@@ -1069,7 +1069,7 @@ function doGetOnTouchChange(serviceId) {
       case 9: $('#idC9').val(''); break;
       }
     }
-
+    $('#state').val('');
     if (json.touch) {
       $('#state').val('state: ' + json.touch.state);
       if (json.touch.touches) {
@@ -1888,6 +1888,7 @@ function doTouchChangeRegister(serviceId, sessionKey) {
           case 9: $('#idC9').val(''); break;
           }
         }
+
       }
     }
   }, null, function(errorCode, errorMessage) {
