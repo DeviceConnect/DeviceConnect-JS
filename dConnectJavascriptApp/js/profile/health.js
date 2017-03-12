@@ -75,7 +75,7 @@ function showHeartRate(serviceId) {
         serviceId + '\');"/><br>';
   str += '<div>';
   str += '<label for="interval">interval</label>';
-  str += '<input type="text" id="interval" size="10" maxlength="10">';
+  str += '<input type="text" id="onInterval" size="10" maxlength="10">';
   str += '</div>';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Register Event"' +
@@ -184,6 +184,11 @@ function doGetHeartRate(serviceId, attribute) {
 
 function doRegisterHeartRate(serviceId, attribute) {
   var intervalParam = $('#interval').val();
+  if (attribute == 'onheart') {
+    intervalParam = $('#onInterval').val();
+  } else {
+    intervalParam = $('#interval').val();
+  }
   var builder = new dConnect.URIBuilder();
   builder.setProfile('health');
   builder.setAttribute(attribute);
