@@ -1525,9 +1525,13 @@ var dConnect = (function(parent, global) {
     xhr.onreadystatechange = function() {
       // OPENED: open()が呼び出されて、まだsend()が呼び出されてない。
       if (xhr.readyState === 1) {
+        var isExistContentType = false;
         for (var key in header) {
           try {
             xhr.setRequestHeader(key.toLowerCase(), header[key]);
+            if (key.toLowerCase() === 'content-type') {
+              isExistContentType = true;
+            }
           } catch (e) {
             if (typeof errorCallback === 'function') {
               errorCallback(xhr.readyState, xhr.status);
@@ -1545,6 +1549,11 @@ var dConnect = (function(parent, global) {
             }
             return;
           }
+        }
+
+        // content-typeヘッダーが存在する場合には追加しない
+        if (!isExistContentType) {
+          xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
         }
 
         if (method.toUpperCase() === 'DELETE'
