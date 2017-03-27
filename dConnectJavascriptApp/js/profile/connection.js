@@ -1,19 +1,19 @@
 /**
- connect.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ connection.js
+ Copyright (c) 2017 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
 
 /**
- * Connect Menu
+ * Connection Menu
  *
  * @param {String} serviceId サービスID
  */
-function showConnect(serviceId) {
+function showConnection(serviceId) {
   initAll();
   var sessionKey = currentClientId;
-  setTitle('Connect Profile');
+  setTitle('Connection Profile');
 
   var btnStr = getBackButton('Device Top', 'doSettingBack',
                   serviceId, sessionKey);
@@ -61,7 +61,7 @@ function showConnect(serviceId) {
  */
 function doCheckBluetooth(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('bluetooth');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -82,7 +82,7 @@ function doCheckBluetooth(serviceId) {
       }
     });
   }, function(errorCode, errorMessage) {
-    showError('connect/bluetooth', errorCode, errorMessage);
+    showError('connection/bluetooth', errorCode, errorMessage);
   });
 }
 
@@ -93,7 +93,7 @@ function doCheckBluetooth(serviceId) {
  */
 function doCheckBLE(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('ble');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -114,7 +114,7 @@ function doCheckBLE(serviceId) {
       }
     });
   }, function(errorCode, errorMessage) {
-    showError('GET connect/ble', errorCode, errorMessage);
+    showError('GET connection/ble', errorCode, errorMessage);
   });
 }
 
@@ -125,7 +125,7 @@ function doCheckBLE(serviceId) {
  */
 function doCheckWifi(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('wifi');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -146,7 +146,7 @@ function doCheckWifi(serviceId) {
       }
     });
   }, function(errorCode, errorMessage) {
-    showError('GET connect/wifi', errorCode, errorMessage);
+    showError('GET connection/wifi', errorCode, errorMessage);
   });
 }
 
@@ -157,7 +157,7 @@ function doCheckWifi(serviceId) {
  */
 function doCheckNfc(serviceId) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('nfc');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -178,7 +178,7 @@ function doCheckNfc(serviceId) {
       }
     });
   }, function(errorCode, errorMessage) {
-    showError('GET connect/nfc', errorCode, errorMessage);
+    showError('GET connection/nfc', errorCode, errorMessage);
   });
 }
 
@@ -232,7 +232,7 @@ function doConnectNfc(serviceId, connect) {
  */
 function doDeviceOn(type, serviceId, connect) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute(type);
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -252,7 +252,7 @@ function doDeviceOn(type, serviceId, connect) {
         changeSlider(type, 1);
       }
     }, function(errorCode, errorMessage) {
-      showError('PUT connect/' + type, errorCode, errorMessage);
+      showError('PUT connection/' + type, errorCode, errorMessage);
       changeSlider(type, 0);
     });
   } else {
@@ -267,7 +267,7 @@ function doDeviceOn(type, serviceId, connect) {
         changeSlider(type, 0);
       }
     }, function(errorCode, errorMessage) {
-      showError('DELETE connect/' + type, errorCode, errorMessage);
+      showError('DELETE connection/' + type, errorCode, errorMessage);
       changeSlider(type, 1);
     });
   }
@@ -303,7 +303,7 @@ function changeSlider(name, status) {
  */
 function doRegisterWifiChangeEvent(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('onwifichange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -337,7 +337,7 @@ function doRegisterWifiChangeEvent(serviceId, sessionKey) {
  */
 function doRegisterBluetoothChangeEvent(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('onbluetoothchange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -385,7 +385,7 @@ function doSettingBack(serviceId, sessionKey) {
  */
 function doUnregisterWifiChangeEvent(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('onwifichange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
@@ -407,7 +407,7 @@ function doUnregisterWifiChangeEvent(serviceId, sessionKey) {
  */
 function doUnregisterBluetoothChangeEvent(serviceId, sessionKey) {
   var builder = new dConnect.URIBuilder();
-  builder.setProfile('connect');
+  builder.setProfile('connection');
   builder.setAttribute('onbluetoothchange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
