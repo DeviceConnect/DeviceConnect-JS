@@ -56,21 +56,21 @@ QUnit.asyncTest('airconditionerAbnormalTest001(Calling a post method that does n
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=PowerSaving<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=PowerSaving<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest001 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', 'PowerSaving');
+    builder.addParameter('powersaving', 'PowerSaving');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -91,29 +91,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest001 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest001(Calling a post method that does not support.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest001);
+QUnit.asyncTest('powerSavingAbnormalTest001(Calling a post method that does not support.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドで節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=PowerSaving<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=PowerSaving<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest002 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', 'PowerSaving');
+    builder.addParameter('powersaving', 'PowerSaving');
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -134,8 +134,8 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest002 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest002(Calling a delete method that does not support.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest002);
+QUnit.asyncTest('powerSavingAbnormalTest002(Calling a delete method that does not support.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest002);
 
     /// null
     /// undefined
@@ -150,21 +150,21 @@ QUnit.asyncTest('operationPowerSavingAbnormalTest002(Calling a delete method tha
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=null<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=null<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest003 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', null);
+    builder.addParameter('powersaving', null);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -184,29 +184,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest003 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest003(operationpowersaving is null.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest003);
+QUnit.asyncTest('powerSavingAbnormalTest003(operationpowersaving is null.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest003);
 
 /**
  * undefinedで節電動作を指定して節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=undefined<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=undefined<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest004 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', undefined);
+    builder.addParameter('powersaving', undefined);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -226,29 +226,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest004 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest004(operationpowersaving is undefined.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest004);
+QUnit.asyncTest('powerSavingAbnormalTest004(operationpowersaving is undefined.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest004);
 
 /**
  * 数字で節電動作を指定して節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=1234<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=1234<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest005 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', '1234');
+    builder.addParameter('powersaving', '1234');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -268,29 +268,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest005 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest005(operationpowersaving is number.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest005);
+QUnit.asyncTest('powerSavingAbnormalTest005(operationpowersaving is number.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest005);
 
 /**
  * 英字で節電動作を指定して節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=abc<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest006 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', 'abc');
+    builder.addParameter('powersaving', 'abc');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -310,29 +310,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest006 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest006(operationpowersaving is alphabet.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest006);
+QUnit.asyncTest('powerSavingAbnormalTest006(operationpowersaving is alphabet.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest006);
 
 /**
  * 日本語で節電動作を指定して節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=あいう<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=あいう<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest007 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', 'あいう');
+    builder.addParameter('powersaving', 'あいう');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -352,29 +352,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest007 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest007(operationpowersaving is hiragana.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest007);
+QUnit.asyncTest('powerSavingAbnormalTest007(operationpowersaving is hiragana.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest007);
 
 /**
  * 特殊記号で節電動作を指定して節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationpowersaving=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&powersaving=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest008 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+    builder.addParameter('powersaving', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -394,15 +394,15 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest008 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest008(operationpowersaving is symbol.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest008);
+QUnit.asyncTest('powerSavingAbnormalTest008(operationpowersaving is symbol.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest008);
 
 /**
  * 1000文字で節電動作を指定して節電動作設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&
 operationpowersaving=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
  * </p>
  * <h3>【期待する動作】</h3>
@@ -410,14 +410,14 @@ operationpowersaving=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefg
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest009 = function(assert) {
+AirConditionerProfileAbnormalTest.powerSavingAbnormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationpowersaving');
+    builder.setAttribute('powersaving');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationpowersaving', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+    builder.addParameter('powersaving', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -437,29 +437,29 @@ AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest009 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationPowerSavingAbnormalTest009(operationpowersaving is limit.)',
-    AirConditionerProfileAbnormalTest.operationPowerSavingAbnormalTest009);
+QUnit.asyncTest('powerSavingAbnormalTest009(operationpowersaving is limit.)',
+    AirConditionerProfileAbnormalTest.powerSavingAbnormalTest009);
 
 /**
  * 定義されていないPOSTメソッドで運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /airconditioner/operationmodesetting?serviceId=xxxx&accessToken=xxx&operationmodesetting=Automatic<br/>
+ * Path: /airconditioner/modesetting?serviceId=xxxx&accessToken=xxx&modesetting=Automatic<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest001 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', 'Automatic');
+    builder.addParameter('modesetting', 'Automatic');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -480,29 +480,29 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest001 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest001(Calling a post method that does not support.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest001);
+QUnit.asyncTest('ModeSettingAbnormalTest001(Calling a post method that does not support.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドで運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /airconditioner/operationmodesetting?serviceId=xxxx&accessToken=xxx&operationmodesetting=Automatic<br/>
+ * Path: /airconditioner/modesetting?serviceId=xxxx&accessToken=xxx&modesetting=Automatic<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest002 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', 'Automatic');
+    builder.addParameter('modesetting', 'Automatic');
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -523,8 +523,8 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest002 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest002(Calling a delete method that does not support.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest002);
+QUnit.asyncTest('ModeSettingAbnormalTest002(Calling a delete method that does not support.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest002);
 
     /// null
     /// undefined
@@ -539,21 +539,21 @@ QUnit.asyncTest('operationModeSettingAbnormalTest002(Calling a delete method tha
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationmodesetting=null<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&modesetting=null<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest003 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', null);
+    builder.addParameter('modesetting', null);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -573,29 +573,29 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest003 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest003(operationmodesetting is null.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest003);
+QUnit.asyncTest('ModeSettingAbnormalTest003(operationmodesetting is null.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest003);
 
 /**
  * undefinedで運転モードを指定して運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationmodesetting=undefined<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&modesetting=undefined<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest004 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', undefined);
+    builder.addParameter('modesetting', undefined);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -615,29 +615,29 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest004 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest004(operationmodesetting is undefined.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest004);
+QUnit.asyncTest('ModeSettingAbnormalTest004(operationmodesetting is undefined.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest004);
 
 /**
  * 数字で運転モードを指定して運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx?operationmodesetting=1234<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx?operationmodesetting=1234<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest005 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', '1234');
+    builder.addParameter('modesetting', '1234');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -657,29 +657,29 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest005 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest005(operationmodesetting is number.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest005);
+QUnit.asyncTest('ModeSettingAbnormalTest005(operationmodesetting is number.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest005);
 
 /**
  * 英字で運転モードを指定して運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx?&operationmodesetting=abc<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx?&modesetting=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest006 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', 'abc');
+    builder.addParameter('modesetting', 'abc');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -699,29 +699,29 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest006 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest006(operationmodesetting is alphabet.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest006);
+QUnit.asyncTest('ModeSettingAbnormalTest006(operationmodesetting is alphabet.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest006);
 
 /**
  * 日本語で運転モードを指定して運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationmodesetting=あいう<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&modesetting=あいう<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest007 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', 'あいう');
+    builder.addParameter('modesetting', 'あいう');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -741,29 +741,29 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest007 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest007(operationmodesetting is hiragana.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest007);
+QUnit.asyncTest('ModeSettingAbnormalTest007(operationmodesetting is hiragana.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest007);
 
 /**
  * 特殊記号で運転モードを指定して運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx&operationmodesetting=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx&modesetting=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest008 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+    builder.addParameter('modesetting', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -783,15 +783,15 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest008 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest008(operationmodesetting is symbol.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest008);
+QUnit.asyncTest('ModeSettingAbnormalTest008(operationmodesetting is symbol.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest008);
 
 /**
  * 1000文字で運転モードを指定して運転モード設定にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/operationpowersaving?serviceId=xxxx&accessToken=xxx?
+ * Path: /airconditioner/powersaving?serviceId=xxxx&accessToken=xxx?
 operationmodesetting=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
  * </p>
  * <h3>【期待する動作】</h3>
@@ -799,14 +799,14 @@ operationmodesetting=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefg
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest009 = function(assert) {
+AirConditionerProfileAbnormalTest.modeSettingAbnormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('operationmodesetting');
+    builder.setAttribute('modesetting');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('operationmodesetting', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+    builder.addParameter('modesetting', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -826,8 +826,8 @@ AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest009 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('operationModeSettingAbnormalTest009(operationmodesetting is limit.)',
-    AirConditionerProfileAbnormalTest.operationModeSettingAbnormalTest009);
+QUnit.asyncTest('ModeSettingAbnormalTest009(operationmodesetting is limit.)',
+    AirConditionerProfileAbnormalTest.modeSettingAbnormalTest009);
 
 /**
  * 定義されていないPUTメソッドで室内温度計測値にアクセスするテストを行う。
@@ -960,21 +960,21 @@ QUnit.asyncTest('roomTemperatureAbnormalTest003(Calling a delete method that doe
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=25<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=25<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest001 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', '25');
+    builder.addParameter('temperature', '25');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -995,29 +995,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest001 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest001(Calling a post method that does not support.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest001);
+QUnit.asyncTest('temperatureAbnormalTest001(Calling a post method that does not support.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドで温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=25<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=25<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest002 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', '25');
+    builder.addParameter('temperature', '25');
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1038,8 +1038,8 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest002 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest002(Calling a delete method that does not support.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest002);
+QUnit.asyncTest('temperatureAbnormalTest002(Calling a delete method that does not support.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest002);
 
     /// null
     /// undefined
@@ -1054,21 +1054,21 @@ QUnit.asyncTest('temperatureValueAbnormalTest002(Calling a delete method that do
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=null<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=null<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest003 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', null);
+    builder.addParameter('temperature', null);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1088,29 +1088,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest003 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest003(temperaturevalue is null.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest003);
+QUnit.asyncTest('temperatureAbnormalTest003(temperature is null.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest003);
 
 /**
  * undefinedで温度設定を指定して温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=undefined<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=undefined<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest004 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', undefined);
+    builder.addParameter('temperature', undefined);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1130,29 +1130,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest004 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest004(temperaturevalue is undefined.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest004);
+QUnit.asyncTest('temperatureAbnormalTest004(temperature is undefined.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest004);
 
 /**
  * 数字で温度設定を指定して温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=1234<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=1234<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest005 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', '1234');
+    builder.addParameter('temperature', '1234');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1172,29 +1172,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest005 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest005(temperaturevalue is number.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest005);
+QUnit.asyncTest('temperatureAbnormalTest005(temperature is number.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest005);
 
 /**
  * 英字で温度設定を指定して温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=abc<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest006 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', 'abc');
+    builder.addParameter('temperature', 'abc');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1214,29 +1214,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest006 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest006(temperaturevalue is alphabet.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest006);
+QUnit.asyncTest('temperatureAbnormalTest006(temperature is alphabet.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest006);
 
 /**
  * 日本語で温度設定を指定して温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=あいう<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=あいう<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest007 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', 'あいう');
+    builder.addParameter('temperature', 'あいう');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1256,29 +1256,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest007 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest007(temperaturevalue is hiragana.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest007);
+QUnit.asyncTest('temperatureAbnormalTest007(temperature is hiragana.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest007);
 
 /**
  * 特殊記号で温度設定を指定して温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&temperaturevalue=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&temperature=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest008 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+    builder.addParameter('temperature', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1298,15 +1298,15 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest008 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest008(temperaturevalue is symbol.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest008);
+QUnit.asyncTest('temperatureAbnormalTest008(temperature is symbol.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest008);
 
 /**
  * 1000文字で温度設定を指定して温度設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/temperaturevalue?serviceId=xxxx&accessToken=xxx&
+ * Path: /airconditioner/temperature?serviceId=xxxx&accessToken=xxx&
 temperaturevalue=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
  * </p>
  * <h3>【期待する動作】</h3>
@@ -1314,14 +1314,14 @@ temperaturevalue=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijk
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest009 = function(assert) {
+AirConditionerProfileAbnormalTest.temperatureAbnormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('temperaturevalue');
+    builder.setAttribute('temperature');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('temperaturevalue', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+    builder.addParameter('temperature', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1341,29 +1341,29 @@ AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest009 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureValueAbnormalTest009(temperaturevalue is limit.)',
-    AirConditionerProfileAbnormalTest.temperatureValueAbnormalTest009);
+QUnit.asyncTest('temperatureAbnormalTest009(temperature is limit.)',
+    AirConditionerProfileAbnormalTest.temperatureAbnormalTest009);
 
 /**
  * 定義されていないPOSTメソッドで風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=0.51<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=0.51<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest001 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest001 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', '0.51');
+    builder.addParameter('airflow', '0.51');
     var uri = builder.build();
     dConnect.post(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1384,29 +1384,29 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest001(Calling a post method that does not support.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest001);
+QUnit.asyncTest('airflowAbnormalTest001(Calling a post method that does not support.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドで風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: DELETE<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=0.51<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=0.51<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest002 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest002 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', '0.51');
+    builder.addParameter('airflow', '0.51');
     var uri = builder.build();
     dConnect.delete(uri, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1427,8 +1427,8 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest002(Calling a delete method that does not support.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest002);
+QUnit.asyncTest('airflowAbnormalTest002(Calling a delete method that does not support.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest002);
 
     /// null
     /// undefined
@@ -1443,21 +1443,21 @@ QUnit.asyncTest('airflowValueAbnormalTest002(Calling a delete method that does n
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalueserviceId=xxxx&accessToken=xxx&airflowvalue=null<br/>
+ * Path: /airconditioner/airflowserviceId=xxxx&accessToken=xxx&airflow=null<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest003 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest003 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', null);
+    builder.addParameter('airflow', null);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1477,29 +1477,29 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest003(airflowvalue is null.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest003);
+QUnit.asyncTest('airflowAbnormalTest003(airflow is null.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest003);
 
 /**
  * undefinedで風量設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=undefined<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=undefined<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest004 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest004 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', undefined);
+    builder.addParameter('airflow', undefined);
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1519,29 +1519,29 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest004(airflowvalue is undefined.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest004);
+QUnit.asyncTest('airflowAbnormalTest004(airflow is undefined.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest004);
 
 /**
  * 数字で風量設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=1234<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=1234<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest005 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest005 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', '1234');
+    builder.addParameter('airflow', '1234');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1561,29 +1561,29 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest005(airflowvalue is number.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest005);
+QUnit.asyncTest('airflowAbnormalTest005(airflow is number.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest005);
 
 /**
  * 英字で風量設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=abc<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest006 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest006 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', 'abc');
+    builder.addParameter('airflow', 'abc');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1603,29 +1603,29 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest006 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest006(airflowvalue is alphabet.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest006);
+QUnit.asyncTest('airflowAbnormalTest006(airflow is alphabet.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest006);
 
 /**
  * 日本語で風量設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=あいう<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=あいう<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest007 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest007 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', 'あいう');
+    builder.addParameter('airflow', 'あいう');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1645,29 +1645,29 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest007 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest007(airflowvalue is hiragana.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest007);
+QUnit.asyncTest('airflowAbnormalTest007(airflow is hiragana.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest007);
 
 /**
  * 特殊記号で風量設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowvalue=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflow=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest008 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest008 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+    builder.addParameter('airflow', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1687,30 +1687,30 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest008 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest008(airflowvalue is symbol.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest008);
+QUnit.asyncTest('airflowAbnormalTest008(airflow is symbol.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest008);
 
 /**
  * 1000文字で風量設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&
-airflowvalue=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&
+airflow=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest009 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest009 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter('airflowvalue', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+    builder.addParameter('airflow', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -1730,26 +1730,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest009 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest009(airflowvalue is limit.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest009);
+QUnit.asyncTest('airflowAbnormalTest009(airflow is limit.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest009);
 
 /**
  * nullで風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalueserviceId=xxxx&accessToken=xxx&airflowauto=null<br/>
+ * Path: /airconditioner/airflowserviceId=xxxx&accessToken=xxx&airflowauto=null<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest010 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest010 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', null);
@@ -1772,26 +1772,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest010 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest010(airflowauto is null.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest010);
+QUnit.asyncTest('airflowAbnormalTest010(airflowauto is null.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest010);
 
 /**
  * undefinedで風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=undefined<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=undefined<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest011 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest011 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', undefined);
@@ -1814,26 +1814,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest011 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest011(airflowauto is undefined.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest011);
+QUnit.asyncTest('airflowAbnormalTest011(airflowauto is undefined.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest011);
 
 /**
  * 数字で風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=1234<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=1234<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest012 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest012 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', '1234');
@@ -1856,26 +1856,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest012 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest012(airflowauto is number.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest012);
+QUnit.asyncTest('airflowAbnormalTest012(airflowauto is number.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest012);
 
 /**
  * 英字で風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=abc<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest013 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest013 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', 'abc');
@@ -1898,26 +1898,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest013 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest013(airflowauto is alphabet.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest013);
+QUnit.asyncTest('airflowAbnormalTest013(airflowauto is alphabet.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest013);
 
 /**
  * 日本語で風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=あいう<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=あいう<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest014 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest014 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', 'あいう');
@@ -1940,26 +1940,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest014 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest014(airflowauto is hiragana.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest014);
+QUnit.asyncTest('airflowAbnormalTest014(airflowauto is hiragana.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest014);
 
 /**
  * 特殊記号で風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest015 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest015 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
@@ -1982,15 +1982,15 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest015 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest015(airflowauto is symbol.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest015);
+QUnit.asyncTest('airflowAbnormalTest015(airflowauto is symbol.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest015);
 
 /**
  * 1000文字で風量自動モード設定を指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&
 airflowauto=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl<br/>
  * </p>
  * <h3>【期待する動作】</h3>
@@ -1998,11 +1998,11 @@ airflowauto=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnop
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest016 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest016 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
@@ -2025,26 +2025,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest016 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest016(airflowauto is limit.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest016);
+QUnit.asyncTest('airflowAbnormalTest016(airflowauto is limit.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest016);
 
 /**
  * falseで風量自動モード設定を指定、風量設定を指定せずに風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=false<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=false<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest017 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest017 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', 'false');
@@ -2067,26 +2067,26 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest017 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest017(airflowauto is false, airflowvalue is not set.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest017);
+QUnit.asyncTest('airflowAbnormalTest017(airflowauto is false, airflowvalue is not set.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest017);
 
 /**
  * 風量自動モード設定、風量設定を指定せずに風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest018 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest018 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
@@ -2108,30 +2108,30 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest018 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest018(airflowauto, airflowvalue is not set.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest018);
+QUnit.asyncTest('airflowAbnormalTest018(airflowauto, airflowvalue is not set.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest018);
 
 /**
  * falseで風量自動モード設定を指定、風量設定を指定範囲外指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=false&airflowvalue=1.51<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=false&airflow=1.51<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest019 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest019 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', 'false');
-    builder.addParameter('airflowvalue', '1.51');
+    builder.addParameter('airflow', '1.51');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2151,30 +2151,30 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest019 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest019(airflowauto is false, airflowvalue is out of range.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest019);
+QUnit.asyncTest('airflowAbnormalTest019(airflowauto is false, airflowvalue is out of range.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest019);
 
 /**
  * falseで風量自動モード設定を指定、風量設定を指定範囲外指定して風量設定値にアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: PUT<br/>
- * Path: /airconditioner/airflowvalue?serviceId=xxxx&accessToken=xxx&airflowauto=false&airflowvalue=-1.51<br/>
+ * Path: /airconditioner/airflow?serviceId=xxxx&accessToken=xxx&airflowauto=false&airflow=-1.51<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-AirConditionerProfileAbnormalTest.airflowValueAbnormalTest020 = function(assert) {
+AirConditionerProfileAbnormalTest.airflowAbnormalTest020 = function(assert) {
   searchTestService(function(accessToken, serviceId) {
     var builder = new dConnect.URIBuilder();
     builder.setProfile('airconditioner');
-    builder.setAttribute('airflowvalue');
+    builder.setAttribute('airflow');
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('airflowauto', 'false');
-    builder.addParameter('airflowvalue', '-1.51');
+    builder.addParameter('airflow', '-1.51');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2194,8 +2194,8 @@ AirConditionerProfileAbnormalTest.airflowValueAbnormalTest020 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowValueAbnormalTest020(airflowauto is false, airflowvalue is out of range.)',
-    AirConditionerProfileAbnormalTest.airflowValueAbnormalTest020);
+QUnit.asyncTest('airflowAbnormalTest020(airflowauto is false, airflowvalue is out of range.)',
+    AirConditionerProfileAbnormalTest.airflowAbnormalTest020);
 
 /**
  * 定義されていないPOSTメソッドでECHONET Lite プロパティにアクセスするテストを行う。
@@ -2614,7 +2614,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest010 = function(assert) 
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('epc', null);
-    builder.addParameter('value', '49');
+    builder.addParameter('', '49');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -2657,7 +2657,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest011 = function(assert) 
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     builder.addParameter('epc', undefined);
-    builder.addParameter('value', '49');
+    builder.addParameter('', '49');
     var uri = builder.build();
     dConnect.put(uri, null, null, function(json) {
       assert.ok(false, 'json: ' + JSON.stringify(json));
