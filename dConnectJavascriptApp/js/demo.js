@@ -242,7 +242,7 @@ function authorization(callback, oncalcel) {
               'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-               'walkState', 'messagehook', 'atmosphericPressure',
+               'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
                'echonetLite', 'power');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
@@ -418,6 +418,8 @@ function searchProfile(serviceId, profile) {
     showMessageHook(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'atmosphericPressure')) {
     showAtmosphericPressure(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'geolocation')) {
+    showGeolocation(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'power')) {
     showPower(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'echonetLite')) {

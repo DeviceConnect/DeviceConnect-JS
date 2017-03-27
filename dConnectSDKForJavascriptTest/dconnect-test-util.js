@@ -94,6 +94,7 @@ function getAccessToken(func) {
       'poseEstimation',
       'walkState',
       'messageHook',
+      'geolocation',
       'echonetLite'
   );
 
