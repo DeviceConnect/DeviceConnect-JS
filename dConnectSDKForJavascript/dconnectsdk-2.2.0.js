@@ -462,7 +462,8 @@ var dConnect = (function(parent, global) {
       ATTR_ON_DOWN: 'ondown',
       /** アトリビュート: onup */
       ATTR_ON_UP: 'onup',
-
+      /** アトリビュート: onkeychange */
+      ATTR_ON_KEY_CHANGE: 'onkeychange',
       // Parameter
       /** パラメータ: keyevent */
       PARAM_KEY_EVENT: 'keyevent',
