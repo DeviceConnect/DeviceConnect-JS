@@ -57,7 +57,6 @@ function getAccessToken(func) {
       'canvas',
       'connection',
       'deviceorientation',
-      'filedescriptor',
       'file',
       'keyevent',
       'mediaplayer',
