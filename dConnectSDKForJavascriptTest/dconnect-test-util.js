@@ -67,7 +67,7 @@ function getAccessToken(func) {
       'notification',
       'phone',
       'proximity',
-      'settings',
+      'setting',
       'system',
       'touch',
       'vibration',
