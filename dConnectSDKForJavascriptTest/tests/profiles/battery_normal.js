@@ -113,11 +113,7 @@ BatteryProfileNormalTest.chargingTimeNormalTest001 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
     if (json.result === dConnect.constants.RESULT_ERROR) {
-      if (supported) {
-        assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
-      } else {
-        assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
-      }
+      assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
     } else {
       assert.ok(true, 'result=' + json.result);
       assert.ok((json.chargingTime != undefined && json.chargingTime >= 0), 'chargingTime=' + json.chargingTime);
