@@ -23,24 +23,21 @@ var GeolocationProfileAbnormalTest = {};
  * </p>
  */
 GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage= ' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onWatchPositionAbnormalTest001(Calling a get method that does not support.)', 
     GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest001);
@@ -59,31 +56,28 @@ QUnit.asyncTest('onWatchPositionAbnormalTest001(Calling a get method that does n
  */
 
 GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage= ' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onWatchPositionAbnormalTest002(Calling a post method that does not support.)', 
     GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest002);
@@ -101,28 +95,25 @@ QUnit.asyncTest('onWatchPositionAbnormalTest002(Calling a post method that does 
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -142,29 +133,25 @@ QUnit.asyncTest('currentPositionAbnormalTest001(Calling a put method that does n
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest002 = function(assert) {
-  var count = 0;
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -184,29 +171,25 @@ QUnit.asyncTest('currentPositionAbnormalTest002(Calling a post method that does 
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest003 = function(assert) {
-  var count = 0;
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
