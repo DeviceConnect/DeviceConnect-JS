@@ -24,25 +24,22 @@ var ConnectionProfileNormalTest = {};
  * </p>
  */
 ConnectionProfileNormalTest.wifiTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              assert.ok(json.enable !== undefined, 'enable=' + json.enable);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.enable !== undefined, 'enable=' + json.enable);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiTest001);
@@ -60,24 +57,21 @@ QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiTest001);
  * </p>
  */
 ConnectionProfileNormalTest.wifiNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiNormalTest001);
 
@@ -94,24 +88,21 @@ QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiNormalTest0
  * </p>
  */
 ConnectionProfileNormalTest.wifiNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('wifiNormalTest002', ConnectionProfileNormalTest.wifiNormalTest002);
 
@@ -161,25 +152,22 @@ QUnit.asyncTest('onwifichangeNormalTest001', ConnectionProfileNormalTest.onWific
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              assert.ok(json.enable !== undefined, 'enable=' + json.enable);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.enable !== undefined, 'enable=' + json.enable);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('bluetoothNormalTest001', ConnectionProfileNormalTest.bluetoothNormalTest001);
@@ -197,24 +185,21 @@ QUnit.asyncTest('bluetoothNormalTest001', ConnectionProfileNormalTest.bluetoothN
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('bluetoothNormalTest002', ConnectionProfileNormalTest.bluetoothNormalTest002);
@@ -232,24 +217,21 @@ QUnit.asyncTest('bluetoothNormalTest002', ConnectionProfileNormalTest.bluetoothN
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('bluetoothNormalTest003', ConnectionProfileNormalTest.bluetoothNormalTest003);
@@ -299,25 +281,22 @@ QUnit.asyncTest('onBluetoothChangeNormalTest003', ConnectionProfileNormalTest.on
  * </p>
  */
 ConnectionProfileNormalTest.discoverableNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
-        builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
+  builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('discoverableNormalTest001', ConnectionProfileNormalTest.discoverableNormalTest001);
@@ -335,25 +314,22 @@ QUnit.asyncTest('discoverableNormalTest001', ConnectionProfileNormalTest.discove
  * </p>
  */
 ConnectionProfileNormalTest.discoverableNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
-        builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
+  builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('discoverableNormalTest002', ConnectionProfileNormalTest.discoverableNormalTest002);
@@ -372,25 +348,22 @@ QUnit.asyncTest('discoverableNormalTest002', ConnectionProfileNormalTest.discove
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              assert.ok(json.enable !== undefined, 'enable=' + json.enable);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.enable !== undefined, 'enable=' + json.enable);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('nfcNormalTest001', ConnectionProfileNormalTest.nfcNormalTest001);
@@ -408,24 +381,21 @@ QUnit.asyncTest('nfcNormalTest001', ConnectionProfileNormalTest.nfcNormalTest001
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('nfcNormalTest002', ConnectionProfileNormalTest.nfcNormalTest002);
@@ -443,24 +413,21 @@ QUnit.asyncTest('nfcNormalTest002', ConnectionProfileNormalTest.nfcNormalTest002
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('nfcNormalTest003', ConnectionProfileNormalTest.nfcNormalTest003);
@@ -511,25 +478,22 @@ QUnit.asyncTest('onNfcChangeNormalTest001', ConnectionProfileNormalTest.onNfcCha
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              assert.ok(json.enable != undefined, 'enable=' + json.enable);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.enable != undefined, 'enable=' + json.enable);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('bleNormalTest001', ConnectionProfileNormalTest.bleNormalTest001);
@@ -547,24 +511,21 @@ QUnit.asyncTest('bleNormalTest001', ConnectionProfileNormalTest.bleNormalTest001
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('bleNormalTest002', ConnectionProfileNormalTest.bleNormalTest002);
@@ -582,24 +543,21 @@ QUnit.asyncTest('bleNormalTest002', ConnectionProfileNormalTest.bleNormalTest002
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 
 QUnit.asyncTest('bleNormalTest003', ConnectionProfileNormalTest.bleNormalTest003);

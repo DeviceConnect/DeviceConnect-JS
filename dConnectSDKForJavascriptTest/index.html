@@ -195,7 +195,12 @@ function onInit() {
 }
 
 function searchDevice() {
-    getServiceId(function(services) {
+    getServiceId(function(result, services) {
+        if (result == 1) {
+            _AccessToken = undefined;
+            searchDevice();
+            return;
+        }
       var serviceIdDiv = document.getElementById("selectServiceId");
       var str = '<select id="type">';
       for (var i = 0; i < services.length; i++) {
@@ -278,17 +283,14 @@ function getDiscoveryAccessToken(func) {
 function getServiceId(func) {
   if (_AccessToken == null) {
     getDiscoveryAccessToken(func);
-  } else if (_Services == null) {
+  } else {
     dConnect.discoverDevices(_AccessToken, function(json) {
-        _Services = json.services;
-        func(_Services);
+        func(json.result, json.services);
       },
       function(errorCode, errorMessage) {
-        func('Error: ' + errorMessage);
+        func(1, errorMessage);
       }
     );
-  } else {
-    func(_Services);
   }
 }
 function onTestClick(uri) {
