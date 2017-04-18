@@ -69,34 +69,31 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest001 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest001');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.put(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.put(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -121,36 +118,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest002 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest002');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -175,34 +169,31 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest003 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest003');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 100);
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 100);
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -227,34 +218,31 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest004 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest004');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', '100');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', '100');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -279,34 +267,31 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest005 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest005');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'あいうえお');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'あいうえお');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -331,34 +316,31 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest006 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest006');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'abcdefg');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'abcdefg');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -383,34 +365,31 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest007 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest007');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', '!"#$%&\'()-^¥@[;:],./__?<}*+{`|~=');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', '!"#$%&\'()-^¥@[;:],./__?<}*+{`|~=');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -435,36 +414,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest008 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest008');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('x', 'あいうえお');
-    formData.append('y', 0);
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('x', 'あいうえお');
+  formData.append('y', 0);
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -490,36 +466,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest009 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest009');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('x', 'abcdefg');
-    formData.append('y', 0);
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('x', 'abcdefg');
+  formData.append('y', 0);
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -544,36 +517,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest010 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest010');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('x', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    formData.append('y', 0);
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('x', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+  formData.append('y', 0);
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -598,36 +568,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest011 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest011');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('x', 0);
-    formData.append('y', 'あいうえお');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('x', 0);
+  formData.append('y', 'あいうえお');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -652,36 +619,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest012 = function(assert) {
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest012');
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('x', 0);
-    formData.append('y', 'abcdefg');
-    formData.append('data', blob);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('x', 0);
+  formData.append('y', 'abcdefg');
+  formData.append('data', blob);
 
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -705,37 +669,33 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest013 = function(assert) {
   img.style.visibility = 'visible';
 
   var blob = CanvasProfileAbnormalTest.draw('drawImageAbnormalTest013');
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
 
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  var formData = new FormData();
+  formData.append('serviceId', serviceId);
+  formData.append('accessToken', accessToken);
+  formData.append('filename', 'test.png');
+  formData.append('mimeType', 'image/png');
+  formData.append('x', 0);
+  formData.append('y', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
+  formData.append('data', blob);
 
-    var formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('accessToken', accessToken);
-    formData.append('filename', 'test.png');
-    formData.append('mimeType', 'image/png');
-    formData.append('x', 0);
-    formData.append('y', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
-    formData.append('data', blob);
-
-    var uri = builder.build();
-    dConnect.post(uri, null, formData, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, formData, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -755,29 +715,26 @@ QUnit.asyncTest('drawImageAbnormalTest013', CanvasProfileAbnormalTest.drawImageA
  * </p>
  */
 CanvasProfileAbnormalTest.drawImageAbnormalTest014 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('uri', 'abcdefg');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('uri', 'abcdefg');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -797,29 +754,26 @@ QUnit.asyncTest('drawImageAbnormalTest014', CanvasProfileAbnormalTest.drawImageA
  * </p>
  */
 CanvasProfileAbnormalTest.drawImageAbnormalTest015 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('uri', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('uri', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };

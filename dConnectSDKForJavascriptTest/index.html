@@ -265,9 +265,9 @@ function getDiscoveryAccessToken(func) {
       'Device Connect Javascript Test',
       function(clientId, accessToken) {
         _AccessToken = accessToken;
-        _ClientId = clientId;
         document.cookie = 'accessToken=' + accessToken;
 
+        _ClientId = clientId;
         getServiceId(func);
       },
       function(errorCode, errorMessage) {
