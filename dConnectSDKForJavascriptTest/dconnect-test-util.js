@@ -139,22 +139,18 @@ function searchTestService(successCallback, errorCallback) {
 }
 
 function openWebsocketInternal(func) {
-  getTestServiceId(function(accessToken, serviceId) {
-    if (accessToken == null || serviceId == null) {
-      func(null, null);
-    } else {
-      if (dConnect.isConnectedWebSocket()) {
-        func(accessToken, serviceId);
-      } else {
-        dConnect.connectWebSocket(accessToken,
-          function(errorCode, errorMessage) {
-            if (errorCode === 0) {
-              func(accessToken, serviceId);
-            }
-          });
-      }
-    }
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  if (dConnect.isConnectedWebSocket()) {
+    func(accessToken, serviceId);
+  } else {
+    dConnect.connectWebSocket(accessToken,
+      function(errorCode, errorMessage) {
+        if (errorCode === 0) {
+          func(accessToken, serviceId);
+        }
+      });
+  }
 }
 
 function openWebsocket(builder, assert, timeout, eventCallback) {
@@ -271,3 +267,11 @@ function searchHostService(successCallback, errorCallback) {
     }
   });
 };
+
+function getCurrentServiceId() {
+  return getQueryString()['serviceId'];
+}
+
+function getCurrentAccessToken() {
+  return getQueryString()['accessToken'];
+}
