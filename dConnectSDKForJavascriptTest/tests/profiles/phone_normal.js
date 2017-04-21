@@ -23,24 +23,21 @@ var PhoneProfileNormalTest = {};
  * </p>
  */
 PhoneProfileNormalTest.callNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode) || errorCode == 16,
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode) || errorCode == 16,
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -59,24 +56,21 @@ QUnit.asyncTest('callTest001', PhoneProfileNormalTest.callNormalTest001);
  * </p>
  */
 PhoneProfileNormalTest.setModeNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_MODE, dConnect.constants.phone.PHONE_MODE_SILENT);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_MODE, dConnect.constants.phone.PHONE_MODE_SILENT);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -95,24 +89,21 @@ QUnit.asyncTest('setModeNormalTest(mode is 0(silent))', PhoneProfileNormalTest.s
  * </p>
  */
 PhoneProfileNormalTest.setModeNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_MODE, dConnect.constants.phone.PHONE_MODE_MANNER);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_MODE, dConnect.constants.phone.PHONE_MODE_MANNER);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -131,24 +122,21 @@ QUnit.asyncTest('setModeNormalTest002(mode is 1(manner))', PhoneProfileNormalTes
  * </p>
  */
 PhoneProfileNormalTest.setModeNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_MODE, dConnect.constants.phone.PHONE_MODE_SOUND);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_MODE, dConnect.constants.phone.PHONE_MODE_SOUND);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

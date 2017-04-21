@@ -24,31 +24,28 @@ var NotificationProfileAbnormalTest = {};
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, -1);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(-1).)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, -1);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(-1).)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -67,30 +64,27 @@ QUnit.asyncTest('notifyAbnormalTest001(type is invalid parameter(-1).)', Notific
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(-1).)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(-1).)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -109,31 +103,28 @@ QUnit.asyncTest('notifyAbnormalTest002(omitted type.)', NotificationProfileAbnor
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, 'test');
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(test).)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, 'test');
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(test).)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -152,31 +143,28 @@ QUnit.asyncTest('notifyAbnormalTest003(type is invalid parameter(test).)', Notif
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a put method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a put method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -195,31 +183,28 @@ QUnit.asyncTest('notifyAbnormalTest004(Calling a put method that does not suppor
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -238,29 +223,26 @@ QUnit.asyncTest('notifyAbnormalTest005(Calling a get method that does not suppor
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, 'this is a test.');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, 'this is a test.');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -279,28 +261,25 @@ QUnit.asyncTest('notifyAbnormalTest006(notificationId is not exist.)', Notificat
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest007 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -319,29 +298,26 @@ QUnit.asyncTest('notifyAbnormalTest007(omitted notificationId)', NotificationPro
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest008 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, '');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, '');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -360,31 +336,28 @@ QUnit.asyncTest('notifyAbnormalTest008(notificationId is empty.)', NotificationP
  * </p>
  */
 NotificationProfileAbnormalTest.onClickAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -403,33 +376,30 @@ QUnit.asyncTest('onClickAbnormalTest001', NotificationProfileAbnormalTest.onClic
  * </p>
  */
 NotificationProfileAbnormalTest.onClickAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 3) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-   });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
     QUnit.start();
-  });
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+ });
 };
 QUnit.asyncTest('onClickAbnormalTest002', NotificationProfileAbnormalTest.onClickAbnormalTest002);
 
@@ -446,31 +416,28 @@ QUnit.asyncTest('onClickAbnormalTest002', NotificationProfileAbnormalTest.onClic
  * </p>
  */
 NotificationProfileAbnormalTest.onShowAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -489,31 +456,28 @@ QUnit.asyncTest('onShowAbnormalTest001', NotificationProfileAbnormalTest.onShowA
  * </p>
  */
 NotificationProfileAbnormalTest.onShowAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 3) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -533,31 +497,28 @@ QUnit.asyncTest('onShowAbnormalTest002', NotificationProfileAbnormalTest.onShowA
  * </p>
  */
 NotificationProfileAbnormalTest.onCloseAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 3) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -576,31 +537,28 @@ QUnit.asyncTest('onCloseAbnormalTest001', NotificationProfileAbnormalTest.onClos
  * </p>
  */
 NotificationProfileAbnormalTest.onCloseAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, "json: " + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 3) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };

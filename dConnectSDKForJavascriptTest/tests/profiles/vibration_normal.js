@@ -24,22 +24,19 @@ var VibrationProfileNormalTest = {};
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -58,24 +55,21 @@ QUnit.asyncTest('vibrateNormalTest001(put)', VibrationProfileNormalTest.vibrateN
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,'
-    + '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-   }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,'
+  + '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+ }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -95,23 +89,20 @@ QUnit.asyncTest('vibrateNormalTest002', VibrationProfileNormalTest.vibrateNormal
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '1000000000');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '1000000000');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -130,23 +121,20 @@ QUnit.asyncTest('VibrateNormalTest003(pattern is big number.)', VibrationProfile
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '0');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '0');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -166,23 +154,20 @@ QUnit.asyncTest('vibrateNormalTest004(pattern is zero.)', VibrationProfileNormal
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('pattern', '');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('pattern', '');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -202,22 +187,19 @@ QUnit.asyncTest('vibrateNormalTest005(pattern is empty.)', VibrationProfileNorma
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId, supported) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

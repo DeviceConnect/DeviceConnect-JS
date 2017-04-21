@@ -23,24 +23,21 @@ var SystemProfileNormalTest = {};
  * </p>
  */
 SystemProfileNormalTest.systemTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(true, 'version=' + json.version);
-      assert.ok(json.supports !== undefined, 'supports is ok.');
-      assert.ok(json.plugins !== undefined, 'pluginId is ok.');
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'version=' + json.version);
+    assert.ok(json.supports !== undefined, 'supports is ok.');
+    assert.ok(json.plugins !== undefined, 'pluginId is ok.');
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -59,23 +56,20 @@ QUnit.asyncTest('systemTest001(get)', SystemProfileNormalTest.systemTest001);
  * </p>
  */
 SystemProfileNormalTest.systemWakeupTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-    builder.setInterface(dConnect.constants.system.INTERFACE_DEVICE);
-    builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("pluginId", serviceId);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.system.INTERFACE_DEVICE);
+  builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
+  builder.setAccessToken(accessToken);
+  builder.addParameter("pluginId", serviceId);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
