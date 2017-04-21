@@ -248,9 +248,9 @@ function searchHost(services) {
 };
 
 function getHostServiceId(func) {
-  dConnect.discoverDevices(mAccessToken, function(json) {
+  dConnect.discoverDevices(getCurrentAccessToken(), function(json) {
       mServiceId = searchHost(json.services);
-      func(mAccessToken, mServiceId);
+      func(getCurrentAccessToken(), mServiceId);
     },
     function(errorCode, errorMessage) {
       func(errorCode, 'Error: ' + errorMessage);
