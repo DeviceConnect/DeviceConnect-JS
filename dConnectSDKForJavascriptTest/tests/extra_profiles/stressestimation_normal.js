@@ -25,29 +25,24 @@ var StressEstimationProfileNormalTest = {};
  * </p>
  */
 StressEstimationProfileNormalTest.stressNormalTest = function (assert) {
-    searchTestService(function (accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile("stressEstimation");
-        builder.setAttribute("onStressEstimation");
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function (json) {
-                assert.ok(true, "result=" + json.result);
-                assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
-                QUnit.start();
-            },
-            function (errorCode, errorMessage) {
-                assert.ok(checkErrorCode(errorCode),
-                    'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-                QUnit.start();
-            });
-    },
-    function (errorCode, errorMessage) {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile("stressEstimation");
+  builder.setAttribute("onStressEstimation");
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function (json) {
+      assert.ok(true, "result=" + json.result);
+      assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
+      QUnit.start();
+  },
+  function (errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode),
+          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+      QUnit.start();
+  });
 }
 QUnit.asyncTest("stress", StressEstimationProfileNormalTest.stressNormalTest);
 
