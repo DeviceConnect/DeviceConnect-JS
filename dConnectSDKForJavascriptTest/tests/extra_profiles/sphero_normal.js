@@ -52,25 +52,21 @@ QUnit.asyncTest('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternio
  * </p>
  */
 SpheroProfileNormalTest.onQuaternionNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('sphero');
-    builder.setInterface('quaternion');
-    builder.setAttribute('onquaternion');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('sphero');
+  builder.setInterface('quaternion');
+  builder.setAttribute('onquaternion');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false,
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -118,25 +114,21 @@ QUnit.asyncTest('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNorma
  * </p>
  */
 SpheroProfileNormalTest.onLocatorNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('sphero');
-    builder.setInterface('locator');
-    builder.setAttribute('onlocator');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('sphero');
+  builder.setInterface('locator');
+  builder.setAttribute('onlocator');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false,
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -184,25 +176,21 @@ QUnit.asyncTest('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionN
  * </p>
  */
 SpheroProfileNormalTest.onCollisionNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('sphero');
-    builder.setInterface('collision');
-    builder.setAttribute('oncollision');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('sphero');
+  builder.setInterface('collision');
+  builder.setAttribute('oncollision');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false,
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
