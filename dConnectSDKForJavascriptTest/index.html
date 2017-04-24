@@ -203,9 +203,20 @@ function searchDevice() {
         }
       var serviceIdDiv = document.getElementById("selectServiceId");
       var str = '<select id="type">';
+      var index = 0;
+      var serviceId;
+      var data = getCookies();
+      if (data['serviceId']) {
+          serviceId = data['serviceId'];
+      }
+
       for (var i = 0; i < services.length; i++) {
         var service = services[i];
-        str += '<option value="' + service.id + '">' + service.name + '</option>';
+        str += '<option value="' + service.id;
+        if (serviceId === service.id) {
+            str += '" selected="true';
+        }
+        str += '">' + service.name + '</option>';
       }
       str += '</select>';
       serviceIdDiv.innerHTML = str;
@@ -304,7 +315,9 @@ function onTestClick(uri) {
        alert('LocalOAuthをONにし、アクセストークンを取得してください。');
        return;
     }
+
     document.cookie = 'ip=' + ip;
+    document.cookie = 'serviceId=' + serviceId;
     location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + _AccessToken;
 }
 

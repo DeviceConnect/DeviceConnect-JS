@@ -8,22 +8,20 @@ var VIDEOCHAT_CALL_TIME = 4000;
 
 function findAddress(success_cb, error_cb) {
   setTimeout(function() {
-    searchTestService(function(accessToken, serviceId) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile("videochat");
-      builder.setAttribute("address");
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter("config", VIDEOCHAT_CONFIG);
-      var uri = builder.build();
-      dConnect.get(uri, null, function(json) {
-        success_cb(accessToken, serviceId, json.addresses);
-      }, function(errorCode, errorMessage) {
-        error_cb(errorCode, errorMessage);
-      });
-    }, function(errorCode, errorMessage) {
-      error_cb(errorCode, errorMessage);
-    });
+    var accessToken = getCurrentAccessToken();
+    var serviceId = getCurrentServiceId();
+		var builder = new dConnect.URIBuilder();
+		builder.setProfile("videochat");
+		builder.setAttribute("address");
+		builder.setServiceId(serviceId);
+		builder.setAccessToken(accessToken);
+		builder.addParameter("config", VIDEOCHAT_CONFIG);
+		var uri = builder.build();
+		dConnect.get(uri, null, function(json) {
+			success_cb(accessToken, serviceId, json.addresses);
+		}, function(errorCode, errorMessage) {
+			error_cb(errorCode, errorMessage);
+		});
   }, 1000);
 }
 
@@ -86,27 +84,24 @@ var VideoChatProfileNormalTest = {};
  * </p>
  */
 VideoChatProfileNormalTest.profileNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("videochat");
-    builder.setAttribute("profile");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("config", VIDEOCHAT_CONFIG);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.name != undefined, 'name=' + json.name);
-      assert.ok(json.addressId != undefined, 'addressId=' + json.addressId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+	var accessToken = getCurrentAccessToken();
+	var serviceId = getCurrentServiceId();
+	var builder = new dConnect.URIBuilder();
+	builder.setProfile("videochat");
+	builder.setAttribute("profile");
+	builder.setServiceId(serviceId);
+	builder.setAccessToken(accessToken);
+	builder.addParameter("config", VIDEOCHAT_CONFIG);
+	var uri = builder.build();
+	dConnect.get(uri, null, function(json) {
+		assert.ok(true, 'result=' + json.result);
+		assert.ok(json.name != undefined, 'name=' + json.name);
+		assert.ok(json.addressId != undefined, 'addressId=' + json.addressId);
+		QUnit.start();
+	}, function(errorCode, errorMessage) {
+		assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+		QUnit.start();
+	});
 };
 QUnit.asyncTest('profileNormalTest001(get)', VideoChatProfileNormalTest.profileNormalTest001);
 
@@ -124,40 +119,37 @@ QUnit.asyncTest('profileNormalTest001(get)', VideoChatProfileNormalTest.profileN
  */
 VideoChatProfileNormalTest.profileNormalTest002 = function(assert) {
   var TEST_NAME = "TestName_" + new Date().getTime();
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("videochat");
-    builder.setAttribute("profile");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("config", VIDEOCHAT_CONFIG);
-    builder.addParameter("name", TEST_NAME)
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile("videochat");
-      builder.setAttribute("profile");
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter("config", VIDEOCHAT_CONFIG);
-      var uri = builder.build();
-      dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.equal(json.name, TEST_NAME, 'name=' + json.name);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-        QUnit.start();
-      });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+	var accessToken = getCurrentAccessToken();
+	var serviceId = getCurrentServiceId();
+	var builder = new dConnect.URIBuilder();
+	builder.setProfile("videochat");
+	builder.setAttribute("profile");
+	builder.setServiceId(serviceId);
+	builder.setAccessToken(accessToken);
+	builder.addParameter("config", VIDEOCHAT_CONFIG);
+	builder.addParameter("name", TEST_NAME)
+	var uri = builder.build();
+	dConnect.put(uri, null, null, function(json) {
+		assert.ok(true, 'result=' + json.result);
+		var builder = new dConnect.URIBuilder();
+		builder.setProfile("videochat");
+		builder.setAttribute("profile");
+		builder.setServiceId(serviceId);
+		builder.setAccessToken(accessToken);
+		builder.addParameter("config", VIDEOCHAT_CONFIG);
+		var uri = builder.build();
+		dConnect.get(uri, null, function(json) {
+			assert.ok(true, 'result=' + json.result);
+			assert.equal(json.name, TEST_NAME, 'name=' + json.name);
+			QUnit.start();
+		}, function(errorCode, errorMessage) {
+			assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+			QUnit.start();
+		});
+	}, function(errorCode, errorMessage) {
+		assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+		QUnit.start();
+	});
 };
 QUnit.asyncTest('profileNormalTest002(put)', VideoChatProfileNormalTest.profileNormalTest002);
 
@@ -175,26 +167,23 @@ QUnit.asyncTest('profileNormalTest002(put)', VideoChatProfileNormalTest.profileN
  * </p>
  */
 VideoChatProfileNormalTest.addressNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("videochat");
-    builder.setAttribute("address");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("config", VIDEOCHAT_CONFIG);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+	var accessToken = getCurrentAccessToken();
+	var serviceId = getCurrentServiceId();
+	var builder = new dConnect.URIBuilder();
+	builder.setProfile("videochat");
+	builder.setAttribute("address");
+	builder.setServiceId(serviceId);
+	builder.setAccessToken(accessToken);
+	builder.addParameter("config", VIDEOCHAT_CONFIG);
+	var uri = builder.build();
+	dConnect.get(uri, null, function(json) {
+		assert.ok(true, 'result=' + json.result);
+		assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
+		QUnit.start();
+	}, function(errorCode, errorMessage) {
+		assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+		QUnit.start();
+	});
 };
 QUnit.asyncTest('addressNormalTest001(get)', VideoChatProfileNormalTest.addressNormalTest001);
 
@@ -212,48 +201,45 @@ QUnit.asyncTest('addressNormalTest001(get)', VideoChatProfileNormalTest.addressN
  * </p>
  */
 VideoChatProfileNormalTest.addressNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("videochat");
-    builder.setAttribute("address");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("config", VIDEOCHAT_CONFIG);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
-      
-      var address = json.addresses[0];
-      
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile("videochat");
-      builder.setAttribute("address");
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter("config", VIDEOCHAT_CONFIG);
-      builder.addParameter("addressId", address.addressId)
-      var uri = builder.build();
-      dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
-        assert.equal(json.addresses.length, 1, 'addresses.length=' + json.addresses.length);
-        assert.equal(json.addresses[0].name, address.name, 'name=' + json.addresses[0].name);
-        assert.equal(json.addresses[0].addressId, address.addressId, 'addressId=' + json.addresses[0].addressId);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-        QUnit.start();
-      });
-      
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+	var accessToken = getCurrentAccessToken();
+	var serviceId = getCurrentServiceId();
+	var builder = new dConnect.URIBuilder();
+	builder.setProfile("videochat");
+	builder.setAttribute("address");
+	builder.setServiceId(serviceId);
+	builder.setAccessToken(accessToken);
+	builder.addParameter("config", VIDEOCHAT_CONFIG);
+	var uri = builder.build();
+	dConnect.get(uri, null, function(json) {
+		assert.ok(true, 'result=' + json.result);
+		assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
+		
+		var address = json.addresses[0];
+		
+		var builder = new dConnect.URIBuilder();
+		builder.setProfile("videochat");
+		builder.setAttribute("address");
+		builder.setServiceId(serviceId);
+		builder.setAccessToken(accessToken);
+		builder.addParameter("config", VIDEOCHAT_CONFIG);
+		builder.addParameter("addressId", address.addressId)
+		var uri = builder.build();
+		dConnect.get(uri, null, function(json) {
+			assert.ok(true, 'result=' + json.result);
+			assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
+			assert.equal(json.addresses.length, 1, 'addresses.length=' + json.addresses.length);
+			assert.equal(json.addresses[0].name, address.name, 'name=' + json.addresses[0].name);
+			assert.equal(json.addresses[0].addressId, address.addressId, 'addressId=' + json.addresses[0].addressId);
+			QUnit.start();
+		}, function(errorCode, errorMessage) {
+			assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+			QUnit.start();
+		});
+		
+	}, function(errorCode, errorMessage) {
+		assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+		QUnit.start();
+	});
 };
 QUnit.asyncTest('addressNormalTest002(addressId is set)', VideoChatProfileNormalTest.addressNormalTest002);
 
