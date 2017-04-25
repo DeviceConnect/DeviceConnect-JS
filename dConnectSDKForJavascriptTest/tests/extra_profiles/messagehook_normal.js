@@ -23,24 +23,21 @@ var MessageHookProfileNormalTest = {};
  * </p>
  */
 MessageHookProfileNormalTest.channelTest001 = function(assert) {
-    searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('messageHook');
-        builder.setAttribute('channel');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-        }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-        });
-    }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('messageHook');
+  builder.setAttribute('channel');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+  }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+  });
 };
 QUnit.asyncTest('channelTest001', MessageHookProfileNormalTest.channelTest001);
 
@@ -85,26 +82,23 @@ QUnit.asyncTest('messageTest001', MessageHookProfileNormalTest.messageTest001);
  * </p>
  */
 MessageHookProfileNormalTest.messageTest002 = function(assert) {
-    searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('messageHook');
-        builder.setAttribute('message');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('channelId', SLACK_CHANNEL_ID);
-        builder.addParameter('text', 'qunitテストメッセージ');
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-        }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-        });
-    }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('messageHook');
+  builder.setAttribute('message');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('channelId', SLACK_CHANNEL_ID);
+  builder.addParameter('text', 'qunitテストメッセージ');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+  }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+  });
 };
 QUnit.asyncTest('messageTest002', MessageHookProfileNormalTest.messageTest002);
 
@@ -121,27 +115,24 @@ QUnit.asyncTest('messageTest002', MessageHookProfileNormalTest.messageTest002);
  * </p>
  */
 MessageHookProfileNormalTest.messageTest003 = function(assert) {
-    searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('messageHook');
-        builder.setAttribute('message');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('channelId', SLACK_CHANNEL_ID);
-        builder.addParameter('text', 'リソース付きのテストメッセージ');
-        builder.addParameter('resource', SLACK_TEST_RESOURCE_URI);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-        }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-        });
-    }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('messageHook');
+  builder.setAttribute('message');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('channelId', SLACK_CHANNEL_ID);
+  builder.addParameter('text', 'リソース付きのテストメッセージ');
+  builder.addParameter('resource', SLACK_TEST_RESOURCE_URI);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+  }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+  });
 };
 QUnit.asyncTest('messageTest003', MessageHookProfileNormalTest.messageTest003);
 
@@ -158,35 +149,32 @@ QUnit.asyncTest('messageTest003', MessageHookProfileNormalTest.messageTest003);
  * </p>
  */
 MessageHookProfileNormalTest.messageTest004 = function(assert) {
-    searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('messageHook');
-        builder.setAttribute('message');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('channelId', SLACK_CHANNEL_ID);
-        builder.addParameter('text', '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-        '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789');
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-        }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-        });
-    }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('messageHook');
+  builder.setAttribute('message');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('channelId', SLACK_CHANNEL_ID);
+  builder.addParameter('text', '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' + 
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+  '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+  }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+  });
 };
 QUnit.asyncTest('messageTest004', MessageHookProfileNormalTest.messageTest004);
 
@@ -203,25 +191,22 @@ QUnit.asyncTest('messageTest004', MessageHookProfileNormalTest.messageTest004);
  * </p>
  */
 MessageHookProfileNormalTest.messageTest005 = function(assert) {
-    searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('messageHook');
-        builder.setAttribute('message');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('channelId', SLACK_CHANNEL_ID);
-        builder.addParameter('text', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-        }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-        });
-    }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('messageHook');
+  builder.setAttribute('message');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('channelId', SLACK_CHANNEL_ID);
+  builder.addParameter('text', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+      assert.ok(true, 'result=' + json.result);
+      QUnit.start();
+  }, function(errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      QUnit.start();
+  });
 };
 QUnit.asyncTest('messageTest005', MessageHookProfileNormalTest.messageTest005);
