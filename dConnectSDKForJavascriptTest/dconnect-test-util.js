@@ -1,7 +1,6 @@
 var mAccessToken = null;
 var mClientId = null;
 var mServiceId = null;
-
 function init() {
   dConnect.setExtendedOrigin("http://localhost:4035/");
   if (DEVICE_CONNECT_HOST) {
@@ -10,10 +9,6 @@ function init() {
 
   if (TEST_TIMEOUT == undefined) {
     TEST_TIMEOUT = 10000;
-  }
-
-  if (DEVICE_NAME == undefined) {
-    DEVICE_NAME = 'Test Success Device';
   }
 
   QUnit.config.autostart = false;

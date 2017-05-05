@@ -3,9 +3,6 @@ var MEDIA_TIMEOUT = 3;
 module('MediaPlayer Profile Normal Test', {
   setup: function() {
     TEST_TIMEOUT = 120000;
-    if (DEVICE_NAME === "Chromecast") {
-      MEDIA_TIMEOUT = 40;
-    }
     init();
   }
 });
@@ -652,7 +649,6 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       var builder = new dConnect.URIBuilder();
@@ -661,7 +657,6 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       var uri = builder.build();
-      sleep(3 * 1000);
       dConnect.put(uri, null, null, function(json) {
         assert.ok(true, 'result=' + json.result);
         QUnit.start();
