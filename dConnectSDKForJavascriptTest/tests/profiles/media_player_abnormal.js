@@ -1185,7 +1185,7 @@ MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest001 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(3 * 1000);
+    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
@@ -1237,7 +1237,7 @@ MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest002 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(3 * 1000);
+    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
@@ -1289,7 +1289,7 @@ MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(3 * 1000);
+    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
@@ -1297,7 +1297,6 @@ MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003 = function(assert) {
       assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
       QUnit.start();
     });
-
   });
 };
 QUnit.asyncTest('PlayStatusAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003);
@@ -1342,7 +1341,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest001 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(3 * 1000);
+    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
@@ -1393,7 +1392,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest002 = function(assert) {
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
     var uri = builder.build();
-    sleep(3 * 1000);
+    sleep(1 * 1000);
     dConnect.put(uri, null, null, function(json) {
       assert.ok(true, 'result=' + json.result);
       QUnit.start();
@@ -1436,7 +1435,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest003 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1459,7 +1458,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest003 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1505,7 +1504,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest004 = function(assert) {
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        sleep(3 * 1000);
+        sleep(1 * 1000);
         dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
           QUnit.start();
@@ -1527,7 +1526,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest004 = function(assert) {
         builder.setServiceId(serviceId);
         builder.setAccessToken(accessToken);
         var uri = builder.build();
-        sleep(3 * 1000);
+        sleep(1 * 1000);
         dConnect.put(uri, null, null, function(json) {
           assert.ok(true, 'result=' + json.result);
           QUnit.start();
@@ -1573,7 +1572,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest005 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1595,7 +1594,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest005 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1641,7 +1640,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest006 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1663,7 +1662,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest006 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1709,7 +1708,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest007 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
@@ -1731,7 +1730,7 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest007 = function(assert) {
           builder.setServiceId(serviceId);
           builder.setAccessToken(accessToken);
           var uri = builder.build();
-          sleep(3 * 1000);
+          sleep(1 * 1000);
           dConnect.put(uri, null, null, function(json) {
             assert.ok(true, 'result=' + json.result);
             QUnit.start();
