@@ -1,51 +1,9 @@
 var mAccessToken = null;
 var mClientId = null;
 var mServiceId = null;
-function init() {
-  dConnect.setExtendedOrigin("http://localhost:4035/");
-  if (DEVICE_CONNECT_HOST) {
-    dConnect.setHost(DEVICE_CONNECT_HOST);
-  }
 
-  if (TEST_TIMEOUT == undefined) {
-    TEST_TIMEOUT = 10000;
-  }
-
-  QUnit.config.autostart = false;
-  QUnit.config.testTimeout = TEST_TIMEOUT;
-}
-
-
-function sleep(ms) {
-    var d1 = new Date().getTime();
-    var d2 = new Date().getTime();
-    while( d2 < (d1 + ms) ) {
-        d2 = new Date().getTime();
-    }
-    return;
-}
-
-function checkErrorCode(errorCode) {
-  return errorCode == 14 || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
-      || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION
-      || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE;
-}
-
-function searchTestDevice(services) {
-  var re = new RegExp(DEVICE_NAME, 'i');
-
-  for (var i = 0; i < services.length; i++) {
-    var service = services[i];
-    console.log('services: ' + services + ', name: ' + service.name);
-    if (service.name.match(re)) {
-      return service.id;
-    }
-  }
-  return null;
-}
-
-function getAccessToken(func) {
-  var scopes = Array(
+function initScopes() {
+  return Array(
       // core profile
       'authorization',
       'battery',
@@ -90,10 +48,79 @@ function getAccessToken(func) {
       'walkState',
       'messageHook',
       'geolocation',
-      'echonetLite'
-  );
+      'echonetLite',
+      'atmosphericPressure'
 
-  dConnect.authorization(scopes,
+  );
+}
+function containsScope(profile) {
+  for (var i = 0; i < mScopes.length; i++) {
+    if (mScope[i] == profile) {
+      return true;
+    }
+  }
+  return false;
+}
+function appendScope(uri) {
+  var elm = document.createElement('a');
+  elm.href = uri;
+
+  var p = elm.pathname.split('/');
+  if (p.length < 3) {
+    return;
+  }
+  if (!containsScope(p[2])) {
+    mScopes.push(p[2]);
+  }
+}
+var mScopes = initScopes();
+
+
+function init() {
+  dConnect.setExtendedOrigin("http://localhost:4035/");
+  if (DEVICE_CONNECT_HOST) {
+    dConnect.setHost(DEVICE_CONNECT_HOST);
+  }
+
+  if (TEST_TIMEOUT == undefined) {
+    TEST_TIMEOUT = 10000;
+  }
+
+  QUnit.config.autostart = false;
+  QUnit.config.testTimeout = TEST_TIMEOUT;
+}
+
+
+function sleep(ms) {
+    var d1 = new Date().getTime();
+    var d2 = new Date().getTime();
+    while( d2 < (d1 + ms) ) {
+        d2 = new Date().getTime();
+    }
+    return;
+}
+
+function checkErrorCode(errorCode) {
+  return errorCode == 14 || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
+      || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION
+      || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE;
+}
+
+function searchTestDevice(services) {
+  var re = new RegExp(DEVICE_NAME, 'i');
+
+  for (var i = 0; i < services.length; i++) {
+    var service = services[i];
+    console.log('services: ' + services + ', name: ' + service.name);
+    if (service.name.match(re)) {
+      return service.id;
+    }
+  }
+  return null;
+}
+
+function getAccessToken(func) {
+  dConnect.authorization(mScopes,
       'Device Connect Javascript Test',
       function(clientId, accessToken) {
         mAccessToken = accessToken;
@@ -132,6 +159,80 @@ function searchTestService(successCallback, errorCallback) {
     }
   });
 }
+
+function searchDevice() {
+    getServiceId(function(result, services) {
+        if (result == 1) {
+            mAccessToken = undefined;
+            searchDevice();
+            return;
+        }
+      var serviceIdDiv = document.getElementById("selectServiceId");
+      var str = '<select id="type">';
+      var index = 0;
+      var serviceId;
+      var data = getCookies();
+      if (data['serviceId']) {
+          serviceId = data['serviceId'];
+      }
+
+      for (var i = 0; i < services.length; i++) {
+        var service = services[i];
+        str += '<option value="' + service.id;
+        if (serviceId === service.id) {
+            str += '" selected="true';
+        }
+        str += '">' + service.name + '</option>';
+      }
+      str += '</select>';
+      serviceIdDiv.innerHTML = str;
+    });
+}
+
+
+function getDiscoveryAccessToken(func) {
+  dConnect.setExtendedOrigin("http://localhost:4035/");
+  var ip = document.forms.form1.ip.value;
+  dConnect.setHost(ip);
+  dConnect.authorization(mScopes,
+      'Device Connect Javascript Test',
+      function(clientId, accessToken) {
+        mAccessToken = accessToken;
+        document.cookie = 'accessToken=' + accessToken;
+        mClientId = clientId;
+        getServiceId(func);
+      },
+      function(errorCode, errorMessage) {
+        func(null, null);
+      }
+  );
+}
+function getServiceId(func) {
+  if (mAccessToken == null) {
+    getDiscoveryAccessToken(func);
+  } else {
+    dConnect.discoverDevices(mAccessToken, function(json) {
+        func(json.result, json.services);
+      },
+      function(errorCode, errorMessage) {
+        func(1, errorMessage);
+      }
+    );
+  }
+}
+function getCookies() {
+    var result = new Array();
+    var allcookies = document.cookie;
+    if (allcookies != '') {
+        var cookies = allcookies.split('; ');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].split('=');
+            result[cookie[0]] = decodeURIComponent(cookie[1]);
+        }
+    }
+    return result;
+}
+
 
 function openWebsocketInternal(func) {
   var accessToken = getCurrentAccessToken();

@@ -29,7 +29,6 @@ AirConditionerProfileAbnormalTest.airconditionerAbnormalTest001 = function(asser
   builder.setProfile('airconditioner');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-alert(serviceId);
   var uri = builder.build();
   dConnect.post(uri, null, null, function(json) {
     assert.ok(false, 'json: ' + JSON.stringify(json));

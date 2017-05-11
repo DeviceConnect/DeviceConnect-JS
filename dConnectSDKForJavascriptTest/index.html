@@ -8,6 +8,7 @@
 </head>
 <body onload="onInit();">
   <script src="dconnectsdk-2.2.0.js"></script>
+  <script src="dconnect-test-util.js"></script>
 <H1>IP設定</H1>
 <form name="form1" id="form1" action="">
 <table border="0">
@@ -180,8 +181,6 @@
 </table>
 </body>
 <script type="text/javascript">
-var _AccessToken = null;
-var _ClientId = null;
 var _Services = null;
 function onInit() {
     var data = getCookies();
@@ -189,121 +188,12 @@ function onInit() {
         document.forms.form1.ip.value = data['ip'];
     }
     if (data['accessToken']) {
-        _AccessToken = data['accessToken'];
+        mAccessToken = data['accessToken'];
     }
     searchDevice();
 }
 
-function searchDevice() {
-    getServiceId(function(result, services) {
-        if (result == 1) {
-            _AccessToken = undefined;
-            searchDevice();
-            return;
-        }
-      var serviceIdDiv = document.getElementById("selectServiceId");
-      var str = '<select id="type">';
-      var index = 0;
-      var serviceId;
-      var data = getCookies();
-      if (data['serviceId']) {
-          serviceId = data['serviceId'];
-      }
 
-      for (var i = 0; i < services.length; i++) {
-        var service = services[i];
-        str += '<option value="' + service.id;
-        if (serviceId === service.id) {
-            str += '" selected="true';
-        }
-        str += '">' + service.name + '</option>';
-      }
-      str += '</select>';
-      serviceIdDiv.innerHTML = str;
-    });
-}
-
-
-function getDiscoveryAccessToken(func) {
-  dConnect.setExtendedOrigin("http://localhost:4035/");
-  var ip = document.forms.form1.ip.value;
-  dConnect.setHost(ip);
-
-  var scopes = Array(
-      // core profile
-      'authorization',
-      'battery',
-      'canvas',
-      'connection',
-      'deviceorientation',
-      'file',
-      'keyevent',
-      'mediaplayer',
-      'mediastreamrecording',
-      'serviceinformation',
-      'servicediscovery',
-      'notification',
-      'phone',
-      'proximity',
-      'setting',
-      'system',
-      'touch',
-      'vibration',
-
-      // extra profile
-      'camera',
-      'dice',
-      'drivecontroller',
-      'light',
-      'remotecontroller',
-      'sphero',
-      'temperature',
-      'health',
-      'humandetection',
-      'videochat',
-      'omnidirectionalimage',
-      'humidity',
-      'illuminance',
-      'powermeter',
-      'tv',
-      'airconditioner',
-      'gpio',
-      'ecg',
-      'stressEstimation',
-      'poseEstimation',
-      'walkState',
-      'messageHook',
-      'geolocation',
-      'echonetLite'
-  );
-
-  dConnect.authorization(scopes,
-      'Device Connect Javascript Test',
-      function(clientId, accessToken) {
-        _AccessToken = accessToken;
-        document.cookie = 'accessToken=' + accessToken;
-
-        _ClientId = clientId;
-        getServiceId(func);
-      },
-      function(errorCode, errorMessage) {
-        func(null, null);
-      }
-  );
-}
-function getServiceId(func) {
-  if (_AccessToken == null) {
-    getDiscoveryAccessToken(func);
-  } else {
-    dConnect.discoverDevices(_AccessToken, function(json) {
-        func(json.result, json.services);
-      },
-      function(errorCode, errorMessage) {
-        func(1, errorMessage);
-      }
-    );
-  }
-}
 function onTestClick(uri) {
     var ip = document.forms.form1.ip.value;
     var serviceId = document.forms.form1.type.value;
@@ -321,17 +211,6 @@ function onTestClick(uri) {
     location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + _AccessToken;
 }
 
-function getCookies() {
-    var result = new Array();
-    var allcookies = document.cookie;
-    if (allcookies != '') {
-        var cookies = allcookies.split('; ');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].split('=');
-            result[cookie[0]] = decodeURIComponent(cookie[1]);
-        }
-    }
-    return result;
-}
+
 </script>
 </html>
