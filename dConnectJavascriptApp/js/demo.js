@@ -163,6 +163,7 @@ function openWebsocketIfNeeded(key) {
     if (dConnect.isConnectedWebSocket()) {
       dConnect.disconnectWebSocket();
     }
+    dConnect.setExtendedOrigin("file://");
     dConnect.connectWebSocket(key, _onWebSocketMessage);
     console.log('WebSocket opened.');
   } else {
