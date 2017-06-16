@@ -25,8 +25,8 @@ function showDriveController(serviceId) {
   str += '<center>';
   str += '<form name="formDrive">';
   str += '<label for="slider-0">Power:</label>';
-  str += '<input type="range" name="power" id="power" value="80"' +
-        ' min="0" max="100"  />';
+  str += '<input type="range" name="power" id="power" value="0"' +
+        ' min="-100" max="100"  />';
   str += '<input type="button" data-icon="arrow-u" onclick="doDriveMove(\'' +
         serviceId + '\', 0);" value=" "  data-inline="true" ' +
         'data-iconpos="top" ><br>';
