@@ -43,7 +43,7 @@ function showDriveController(serviceId) {
         '  data-iconpos="bottom"><br>';
   str += 'angle:';
   str += '<input type="range" name="userRotate" id="userRotate"' +
-          ' value="80" min="0" max="360"  />';
+          ' value="0" min="-360" max="360"  />';
   str += '<input type="button" onclick="doDriveRotate(\'' +
         serviceId + '\');" value="Rotate" >';
   str += '</form>';
