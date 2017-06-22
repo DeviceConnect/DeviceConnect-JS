@@ -1551,11 +1551,14 @@ var dConnect = (function(parent, global) {
           }
         }
 
-        // 既にcontent-typeヘッダーが存在する場合には追加しない
-        if (!isExistContentType) {
+        // content-typeヘッダーが存在する場合には追加しない
+        // dataが FormDataの場合にはマルチパートになるので、ヘッダーを付加しない。
+        if (!isExistContentType && !(data instanceof FormData)) {
           xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
         }
 
+        // PC版のChromeブラウザにおいて、DELETEでボディにnullやundefinedを
+        // 指定するとレスポンスが返ってこないことがあったので、空文字を入れる。
         if (method.toUpperCase() === 'DELETE'
             && (data === undefined || data === null)) {
           data = '';

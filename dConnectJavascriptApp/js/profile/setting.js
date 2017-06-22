@@ -49,7 +49,7 @@ function showSetting(serviceId) {
           ' data-role="datebox" data-options=\'{"mode":"timebox"}\' />';
     str += '<input type="button" onclick="doSetDate(\'' +
           serviceId + '\',1);" id="setDate" value="Set date"  />';
-  }  else if (myDeviceName.indexOf('F-PLUG') != -1) {
+  }  else if (myDeviceName.indexOf('FPLUG') != -1) {
     str += '<center>Date</center><br>';
     str += makeInputText('DeviceTime', 'deviceDate', 'deviceDate');
     str += '<input name="newDate" id="newDate" type="text"' +
