@@ -54,6 +54,10 @@ function init() {
     location.href.indexOf('file:///') == -1) {
       dConnect.setAntiSpoofing(true);
   }
+  // ファイルから直接開かれた場合には、originを格納
+  if (location.origin == 'file://') {
+    dConnect.setExtendedOrigin('file://');
+  }
   dConnect.setHost(ip);
   dConnect.setSSLEnabled(location.protocol === 'https:');
   openWebsocketIfNeeded(accessToken);
@@ -243,7 +247,7 @@ function authorization(callback, oncalcel) {
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
                'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-               'echonetLite', 'power');
+               'echonetLite', 'power', 'fabo');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -424,5 +428,7 @@ function searchProfile(serviceId, profile) {
     showPower(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'echonetLite')) {
     showECHONETLite(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'fabo')) {
+    showFaBo(serviceId);
   }
 }
