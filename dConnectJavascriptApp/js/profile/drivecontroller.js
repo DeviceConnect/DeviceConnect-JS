@@ -13,7 +13,6 @@
 function showDriveController(serviceId) {
 
   initAll();
-
   setTitle('Drive Controller Profile');
 
   var btnStr = '';
@@ -24,31 +23,26 @@ function showDriveController(serviceId) {
   var str = '';
   str += '<center>';
   str += '<form name="formDrive">';
-  str += '<label for="slider-0">Power:</label>';
-  str += '<input type="range" name="power" id="power" value="0"' +
-        ' min="-100" max="100"  />';
-  str += '<input type="button" data-icon="arrow-u" onclick="doDriveMove(\'' +
-        serviceId + '\', 0);" value=" "  data-inline="true" ' +
-        'data-iconpos="top" ><br>';
-  str += '<input type="button" data-icon="arrow-l" onclick="doDriveMove(\'' +
-        serviceId + '\', 270);" value=" "  data-inline="true"' +
-        ' data-iconpos="left">';
-  str += '<input type="button" onclick="doDriveStop(\'' + serviceId +
-        '\');" value="*"  data-inline="true"  >';
-  str += '<input type="button" data-icon="arrow-r" onclick="doDriveMove(\'' +
-        serviceId + '\', 90);" value=" " data-inline="true"' +
-        '  data-iconpos="right"><br>';
-  str += '<input type="button" data-icon="arrow-d" onclick="doDriveMove(\'' +
-        serviceId + '\', 180);" value=" " data-inline="true"' +
-        '  data-iconpos="bottom"><br>';
-  str += 'angle:';
-  str += '<input type="range" name="userRotate" id="userRotate"' +
-          ' value="0" min="-360" max="360"  />';
-  str += '<input type="button" onclick="doDriveRotate(\'' +
-        serviceId + '\');" value="Rotate" >';
+  str += '<div id="power">';
+  str += '<label for="slider-0">Power:';
+  str += '<input type="range" name="power" id="power" value="0" min="-100" max="100" />';
+  str += '</label>';
+  str += '<label for="slider-1">Angle:';
+  str += '<input type="range" name="rotation" id="rotation" value="0" min="-360" max="360" onmouseup="doDriveRotate(\'' + serviceId + '\')" />';
+  str += '</label>';
+  str += '</div>';
+  str += '<input type="button" data-icon="forbidden" onclick="doDriveStop(\'' + serviceId + '\');" value="停止"  data-inline="true">';
   str += '</form>';
   str += '</center>';
   reloadContent(str);
+
+  $("#power").on("slidestop", "#power", function() {
+    doDriveMove(serviceId);
+  })
+
+  $("#power").on("slidestop", "#rotation", function() {
+    doDriveRotate(serviceId);
+  })
 }
 
 /**
@@ -67,7 +61,7 @@ function doDriveControllerBack(serviceId, sessionKey) {
  * @param {String} serviceId サービスID
  */
 function doDriveRotate(serviceId) {
-  var angle = document.formDrive.userRotate.value;
+  var angle = document.formDrive.rotation.value;
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('drivecontroller');
@@ -87,7 +81,6 @@ function doDriveRotate(serviceId) {
   }, function(errorCode, errorMessage) {
     showError('PUT drivecontroller/rotate', errorCode, errorMessage);
   });
-
 }
 
 /**
@@ -116,27 +109,25 @@ function doDriveStop(serviceId) {
 }
 
 /**
- * 操作する
+ * 移動します.
  *
- * @param {String}serviceId サービスID
- * @param {String}angle 操作する方向
+ * @param {String} serviceId サービスID
  */
-function doDriveMove(serviceId, angle) {
-  var body = document.formDrive.power.value;
-  var mPower = body / 100;
+function doDriveMove(serviceId) {
+  var power = (document.formDrive.power.value) / 100;
+  var angle = document.formDrive.rotation.value;
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('drivecontroller');
   builder.setServiceId(serviceId);
   builder.setAttribute('move');
   builder.setAccessToken(accessToken);
+  builder.addParameter('speed', power);
   builder.addParameter('angle', angle);
-  builder.addParameter('speed', mPower);
   var uri = builder.build();
   if (DEBUG) {
     console.log('doDriveMove:' + uri);
   }
-
   dConnect.post(uri, null, null, function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
