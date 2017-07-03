@@ -188,6 +188,26 @@ function showAddProfile(serviceId, jsonText) {
         {
             name : 'DeviceOrientation(3AXIS) #201',
             type : 102
+        },
+        {
+            name : 'Temperature(I2C) #207',
+            type : 103
+        },
+        {
+            name : 'Humidity(I2C) #208',
+            type : 104
+        },
+        {
+            name : 'Proximity(I2C) #205',
+            type : 105
+        },
+        {
+            name : 'Illuminace(I2C) #217',
+            type : 106
+        },
+        {
+            name : 'AtmosphericPressure(I2C) #204',
+            type : 107
         }
     ];
 
