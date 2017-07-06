@@ -23,34 +23,27 @@ var DiceProfileAbnormalTest = {};
  * </p>
  */
 DiceProfileAbnormalTest.onDiceAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('dice');
-        builder.setAttribute('ondice');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function(json) {
-              assert.ok(false, 'result=' + json.result);
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 3) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('dice');
+  builder.setAttribute('ondice');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onDiceAbnormalTest001(post not support method)',
     DiceProfileAbnormalTest.onDiceAbnormalTest001);
@@ -69,34 +62,27 @@ QUnit.asyncTest('onDiceAbnormalTest001(post not support method)',
  * </p>
  */
 DiceProfileAbnormalTest.onMagnetometerAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('dice');
-        builder.setAttribute('onmagnetometer');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function(json) {
-              assert.ok(false, 'result=' + json.result);
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 3) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('dice');
+  builder.setAttribute('onmagnetometer');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onMagnetometerAbnormalTest001(post not support method.)',
     DiceProfileAbnormalTest.onMagnetometerAbnormalTest001);
@@ -114,34 +100,27 @@ QUnit.asyncTest('onMagnetometerAbnormalTest001(post not support method.)',
  * </p>
  */
 DiceProfileAbnormalTest.onMagnetometerAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('dice');
-        builder.setAttribute('onmagnetometer');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'result=' + json.result);
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('dice');
+  builder.setAttribute('onmagnetometer');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onMagnetometerAbnormalTest002(get not support method.)',
     DiceProfileAbnormalTest.onMagnetometerAbnormalTest002);

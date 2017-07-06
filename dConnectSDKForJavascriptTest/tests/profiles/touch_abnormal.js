@@ -24,29 +24,26 @@ var TouchProfileAbnormalTest = {};
  * </p>
  */
 TouchProfileAbnormalTest.onTouchAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -66,29 +63,26 @@ QUnit.asyncTest('onTouchAbnormalTest001(post)', TouchProfileAbnormalTest.onTouch
  * </p>
  */
 TouchProfileAbnormalTest.onTouchStartAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_START);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_START);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -108,29 +102,26 @@ QUnit.asyncTest('onTouchStartAbnormalTest001(post)', TouchProfileAbnormalTest.on
  * </p>
  */
 TouchProfileAbnormalTest.onTouchEndAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_END);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_END);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -150,29 +141,26 @@ QUnit.asyncTest('onTouchEndAbnormalTest001(post)', TouchProfileAbnormalTest.onTo
  * </p>
  */
 TouchProfileAbnormalTest.onDoubleTapAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_DOUBLE_TAP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_DOUBLE_TAP);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -193,29 +181,26 @@ QUnit.asyncTest('onDoubleTapAbnormalTest001(post)', TouchProfileAbnormalTest.onD
  * </p>
  */
 TouchProfileAbnormalTest.onTouchMoveAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_MOVE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_MOVE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -236,29 +221,26 @@ QUnit.asyncTest('onTouchMoveAbnormalTest001(post)', TouchProfileAbnormalTest.onT
  * </p>
  */
 TouchProfileAbnormalTest.onTouchCancelAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CANCEL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CANCEL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -279,29 +261,26 @@ QUnit.asyncTest('onTouchCancelAbnormalTest001(post)', TouchProfileAbnormalTest.o
  * </p>
  */
 TouchProfileAbnormalTest.onTouchChangeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CHANGE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };

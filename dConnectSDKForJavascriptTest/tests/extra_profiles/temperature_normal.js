@@ -23,26 +23,22 @@ var TemperatureProfileNormalTest = {};
  * </p>
  */
 TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'temperature=' + json.temperature);
-          assert.ok(true, 'type=' + json.type);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(true, 'temperature=' + json.temperature);
+        assert.ok(true, 'type=' + json.type);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -62,25 +58,21 @@ QUnit.asyncTest('temperatureNormalTest001',
  * </p>
  */
 TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', '25');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', '25');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

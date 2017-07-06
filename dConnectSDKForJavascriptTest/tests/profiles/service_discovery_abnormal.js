@@ -23,29 +23,20 @@ var ServiceDiscoveryProfileAbnormalTest = {};
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, "json: " + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode),
-                  'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        if (errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('getServiceDiscoveryAbnormalTest001', ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest001);
 
@@ -62,29 +53,20 @@ QUnit.asyncTest('getServiceDiscoveryAbnormalTest001', ServiceDiscoveryProfileAbn
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, "json: " + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode),
-                  'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        if (errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('getServiceDiscoveryAbnormalTest002', ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest002);
 
@@ -101,28 +83,25 @@ QUnit.asyncTest('getServiceDiscoveryAbnormalTest002', ServiceDiscoveryProfileAbn
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, "json: " + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('getServiceDiscoveryAbnormalTest003', ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest003);
 
@@ -139,31 +118,28 @@ QUnit.asyncTest('getServiceDiscoveryAbnormalTest003', ServiceDiscoveryProfileAbn
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.servicediscovery.ATTR_ON_SERVICE_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, "json: " + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.servicediscovery.ATTR_ON_SERVICE_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onServiceChangeAbnormalTest001', ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest001);
 
@@ -180,30 +156,27 @@ QUnit.asyncTest('onServiceChangeAbnormalTest001', ServiceDiscoveryProfileAbnorma
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.servicediscovery.ATTR_ON_SERVICE_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(false, "json: " + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == dConnect.constants.ErrorCode.UNKNOWN_ATTRIBUTE) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.servicediscovery.ATTR_ON_SERVICE_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, "json: " + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == dConnect.constants.ErrorCode.UNKNOWN_ATTRIBUTE) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onServiceChangeAbnormalTest002', ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest002);

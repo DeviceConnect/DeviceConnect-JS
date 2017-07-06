@@ -24,28 +24,25 @@ var TemperatureProfileAbnormalTest = {};
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -65,28 +62,25 @@ QUnit.asyncTest('temperatureAbnormalTest001',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -116,30 +110,27 @@ QUnit.asyncTest('temperatureAbnormalTest002',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', null);
-    builder.addParameter('type', null);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', null);
+  builder.addParameter('type', null);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -160,30 +151,27 @@ QUnit.asyncTest('temperatureAbnormalTest003',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', undefined);
-    builder.addParameter('type', undefined);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', undefined);
+  builder.addParameter('type', undefined);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -204,30 +192,27 @@ QUnit.asyncTest('temperatureAbnormalTest004',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', 1234);
-    builder.addParameter('type', 1234);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', 1234);
+  builder.addParameter('type', 1234);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -247,30 +232,27 @@ QUnit.asyncTest('temperatureAbnormalTest005',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', '1234');
-    builder.addParameter('type', '1234');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', '1234');
+  builder.addParameter('type', '1234');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -291,30 +273,27 @@ QUnit.asyncTest('temperatureAbnormalTest006',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest007 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', 'abc');
-    builder.addParameter('type', 'abc');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', 'abc');
+  builder.addParameter('type', 'abc');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -335,30 +314,27 @@ QUnit.asyncTest('temperatureAbnormalTest007',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest008 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', 'あいう');
-    builder.addParameter('type', 'あいう');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', 'あいう');
+  builder.addParameter('type', 'あいう');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -378,30 +354,27 @@ QUnit.asyncTest('temperatureAbnormalTest008',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest009 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    builder.addParameter('type', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+  builder.addParameter('type', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -422,30 +395,27 @@ QUnit.asyncTest('temperatureAbnormalTest009',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest010 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('temperature', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    builder.addParameter('type', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('temperature', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+  builder.addParameter('type', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -466,29 +436,26 @@ QUnit.asyncTest('temperatureAbnormalTest010',
  * </p>
  */
 TemperatureProfileAbnormalTest.temperatureAbnormalTest011 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('temperature');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('type', '1');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('temperature');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('type', '1');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };

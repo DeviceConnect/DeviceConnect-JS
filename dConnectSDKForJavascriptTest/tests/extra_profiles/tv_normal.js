@@ -23,25 +23,21 @@ var TVProfileNormalTest = {};
  * </p>
  */
 TVProfileNormalTest.powerStatusNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('tv');
-        builder.setAccessToken(mAccessToken);
-        builder.setServiceId(mServiceId);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNormalTest001);
 
@@ -59,20 +55,16 @@ QUnit.asyncTest('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNo
  * </p>
  */
 TVProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -94,20 +86,16 @@ QUnit.asyncTest('TVPowerOnNormalTest001', TVProfileNormalTest.powerOnNormalTest0
  * </p>
  */
 TVProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -130,22 +118,18 @@ QUnit.asyncTest('TVPowerOffNormalTest001', TVProfileNormalTest.powerOffNormalTes
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '1');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '1');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -167,22 +151,18 @@ QUnit.asyncTest('TVChangeChannelTest001', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '2');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '2');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -204,22 +184,18 @@ QUnit.asyncTest('TVChangeChannelTest002', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest003 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '3');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '3');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -242,22 +218,18 @@ QUnit.asyncTest('TVChangeChannelTest003', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest004 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '4');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '4');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -279,22 +251,18 @@ QUnit.asyncTest('TVChangeChannelTest004', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest005 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '5');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '5');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -316,22 +284,18 @@ QUnit.asyncTest('TVChangeChannelTest005', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest006 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '6');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '6');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -354,22 +318,18 @@ QUnit.asyncTest('TVChangeChannelTest006', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest007 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '7');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '7');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -391,22 +351,18 @@ QUnit.asyncTest('TVChangeChannelTest007', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest008 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '8');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '8');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -428,22 +384,18 @@ QUnit.asyncTest('TVChangeChannelTest008', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest009 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '9');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '9');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -465,22 +417,18 @@ QUnit.asyncTest('TVChangeChannelTest009', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest010 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '10');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '10');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -502,22 +450,18 @@ QUnit.asyncTest('TVChangeChannelTest010', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest011 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '11');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '11');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -539,22 +483,18 @@ QUnit.asyncTest('TVChangeChannelTest011', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest012 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '12');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '12');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -576,22 +516,18 @@ QUnit.asyncTest('TVChangeChannelTest012', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest013 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'next');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'next');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -613,22 +549,18 @@ QUnit.asyncTest('TVChangeChannelTest013', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest014 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'previous');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'previous');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -650,22 +582,18 @@ QUnit.asyncTest('TVChangeChannelTest014', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeVolumeNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'up');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'up');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -688,22 +616,18 @@ QUnit.asyncTest('TVchangeVolumeNormalTest001', TVProfileNormalTest.changeVolumeN
  * </p>
  */
 TVProfileNormalTest.changeVolumeNormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'down');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'down');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -727,22 +651,18 @@ QUnit.asyncTest('TVchangeVolumeNormalTest002', TVProfileNormalTest.changeVolumeN
  * </p>
  */
 TVProfileNormalTest.changeBroadcastwaveNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select', 'DTV');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select', 'DTV');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -765,22 +685,18 @@ QUnit.asyncTest('TVchangeBroadcastwaveNormalTest001', TVProfileNormalTest.change
  * </p>
  */
 TVProfileNormalTest.changeBroadcastwaveNormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select', 'BS');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select', 'BS');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -803,22 +719,18 @@ QUnit.asyncTest('TVchangeBroadcastwaveNormalTest002', TVProfileNormalTest.change
  * </p>
  */
 TVProfileNormalTest.changeBroadcastwaveNormalTest003 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select', 'CS');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select', 'CS');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -841,21 +753,17 @@ QUnit.asyncTest('TVchangeBroadcastwaveNormalTest003', TVProfileNormalTest.change
  * </p>
  */
 TVProfileNormalTest.muteOnNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('mute');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('mute');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -878,21 +786,17 @@ QUnit.asyncTest('TVmuteOnNormalTest001', TVProfileNormalTest.muteOnNormalTest001
  * </p>
  */
 TVProfileNormalTest.muteOffNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('mute');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('mute');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -916,22 +820,18 @@ QUnit.asyncTest('TVmuteOffNormalTest001', TVProfileNormalTest.muteOffNormalTest0
  * </p>
  */
 TVProfileNormalTest.getEchonetLitePropertyNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128,129');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128,129');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -954,23 +854,19 @@ QUnit.asyncTest('GetEchonetLitePropertyNormalTest001', TVProfileNormalTest.getEc
  * </p>
  */
 TVProfileNormalTest.setEchonetLitePropertyNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);

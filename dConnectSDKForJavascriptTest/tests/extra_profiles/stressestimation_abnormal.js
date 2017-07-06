@@ -24,33 +24,28 @@ var StressEstimationProfileAbnormalTest = {};
  * </p>
  */
 StressEstimationProfileAbnormalTest.stressAbormalTest = function (assert) {
-    searchTestService(function (accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile("stressEstimation");
-        builder.setAttribute("onStressEstimation");
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function (json) {
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                QUnit.start();
-            },
-            function (errorCode, errorMessage) {
-                if (errorCode == 8) {
-                    assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                } else if (checkErrorCode(errorCode)) {
-                    assert.ok(true, 'not support');
-                } else {
-                    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                }
-                QUnit.start();
-            });
-    },
-    function (errorCode, errorMessage) {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile("stressEstimation");
+  builder.setAttribute("onStressEstimation");
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function (json) {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      QUnit.start();
+  },
+  function (errorCode, errorMessage) {
+      if (errorCode == 8) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+      } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      }
+      QUnit.start();
+  });
 }
 QUnit.asyncTest("stress", StressEstimationProfileAbnormalTest.stressAbormalTest);
 

@@ -22,30 +22,27 @@ var EchonetLiteProfileAbnormalTest = {};
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    },
-    function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -65,30 +62,27 @@ QUnit.asyncTest('propertyAbnormalTestt001(Calling a post method that does not su
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    },
-    function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -116,29 +110,26 @@ QUnit.asyncTest('propertyAbnormalTest002(Calling a delete method that does not s
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', null);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', null);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -158,29 +149,26 @@ QUnit.asyncTest('propertyAbnormalTest003(epc is null.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', undefined);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', undefined);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -200,29 +188,26 @@ QUnit.asyncTest('propertyAbnormalTest004(epc is undefined.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '1234');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '1234');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -242,29 +227,26 @@ QUnit.asyncTest('propertyAbnormalTest005(epc is number.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', 'abc');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', 'abc');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -284,29 +266,26 @@ QUnit.asyncTest('propertyAbnormalTest006(epc is alphabet.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest007 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', 'あいう');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', 'あいう');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -326,29 +305,26 @@ QUnit.asyncTest('propertyAbnormalTest007(epc is hiragana.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest008 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -369,29 +345,26 @@ epc=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest009 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -419,30 +392,27 @@ QUnit.asyncTest('propertyAbnormalTest009(epc is limit.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest010 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', null);
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', null);
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -462,30 +432,27 @@ QUnit.asyncTest('propertyAbnormalTest010(epc is null.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest011 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', undefined);
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', undefined);
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -505,30 +472,27 @@ QUnit.asyncTest('propertyAbnormalTest011(epc is undefined.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest012 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '1234');
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '1234');
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -548,30 +512,27 @@ QUnit.asyncTest('propertyAbnormalTest012(epc is number.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest013 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', 'abc');
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', 'abc');
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -591,30 +552,27 @@ QUnit.asyncTest('propertyAbnormalTest013(epc is alphabet.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest014 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', 'あいう');
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', 'あいう');
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -634,30 +592,27 @@ QUnit.asyncTest('propertyAbnormalTest014(epc is hiragana.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest015 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -678,30 +633,27 @@ epc=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest016 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    builder.addParameter('value', '49');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+  builder.addParameter('value', '49');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -729,30 +681,27 @@ QUnit.asyncTest('propertyAbnormalTest016(epc is limit.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest017 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', '');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', '');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -772,30 +721,27 @@ QUnit.asyncTest('propertyAbnormalTest017(value is null.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest018 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', undefined);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', undefined);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -815,30 +761,27 @@ QUnit.asyncTest('propertyAbnormalTest018(value is undefined.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest019 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', '1234');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', '1234');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -858,30 +801,27 @@ QUnit.asyncTest('propertyAbnormalTest019(value is out of range.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest020 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', '-1234');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', '-1234');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -901,30 +841,27 @@ QUnit.asyncTest('propertyAbnormalTest020(value is out of range.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest021 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', 'abc');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', 'abc');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -944,30 +881,27 @@ QUnit.asyncTest('propertyAbnormalTest021(value is alphabet.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest022 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', 'あいう');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', 'あいう');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -987,30 +921,27 @@ QUnit.asyncTest('propertyAbnormalTest022(value is hiragana.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest023 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1031,30 +962,27 @@ value=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuv
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest024 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('epc', '0x80');
-    builder.addParameter('value', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('epc', '0x80');
+  builder.addParameter('value', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1074,28 +1002,25 @@ QUnit.asyncTest('propertyAbnormalTest024(value is limit.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest025 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('echonetLite');
-    builder.setAttribute('property');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('echonetLite');
+  builder.setAttribute('property');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };

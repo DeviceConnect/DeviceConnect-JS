@@ -7,12 +7,22 @@
   <link rel="stylesheet" href="qunit/qunit-1.15.0.css">
 </head>
 <body onload="onInit();">
+  <script src="dconnectsdk-2.2.0.js"></script>
+  <script src="dconnect-test-util.js"></script>
 <H1>IP設定</H1>
 <form name="form1" id="form1" action="">
 <table border="0">
   <tr>
     <td align="right"><b> IP：</b></td>
     <td><input type="text" name="ip" value="localhost" size="30"></td>
+  </tr>
+  <tr>
+    <td align="right"><b> ServiceId：</b></td>
+    <td>
+      <div id="selectServiceId">
+      </div>
+      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="searchDevice();"/>
+    </td>
   </tr>
 </table>
 </form>
@@ -171,30 +181,36 @@
 </table>
 </body>
 <script type="text/javascript">
+var _Services = null;
 function onInit() {
     var data = getCookies();
     if (data['ip']) {
         document.forms.form1.ip.value = data['ip'];
     }
+    if (data['accessToken']) {
+        mAccessToken = data['accessToken'];
+    }
+    searchDevice();
 }
+
 
 function onTestClick(uri) {
     var ip = document.forms.form1.ip.value;
+    var serviceId = document.forms.form1.type.value;
+    if (!serviceId) {
+       alert('サービスIDを選択してください。');
+       return;
+    }
+    if (!_AccessToken) {
+       alert('LocalOAuthをONにし、アクセストークンを取得してください。');
+       return;
+    }
+
     document.cookie = 'ip=' + ip;
-    location.href = uri + '?ip=' + ip;
+    document.cookie = 'serviceId=' + serviceId;
+    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + _AccessToken;
 }
 
-function getCookies() {
-    var result = new Array();
-    var allcookies = document.cookie;
-    if (allcookies != '') {
-        var cookies = allcookies.split('; ');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].split('=');
-            result[cookie[0]] = decodeURIComponent(cookie[1]);
-        }
-    }
-    return result;
-}
+
 </script>
 </html>

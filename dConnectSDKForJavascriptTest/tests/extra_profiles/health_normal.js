@@ -25,29 +25,24 @@ var HealthProfileNormalTest = {};
  * </p>
  */
 HealthProfileNormalTest.heartNormalTest = function (assert) {
-    searchTestService(function (accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile("health");
-        builder.setAttribute("heart");
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function (json) {
-                assert.ok(true, "result=" + json.result);
-                assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
-                QUnit.start();
-            },
-            function (errorCode, errorMessage) {
-                assert.ok(checkErrorCode(errorCode),
-                    'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-                QUnit.start();
-            });
-    },
-    function (errorCode, errorMessage) {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile("health");
+  builder.setAttribute("heart");
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function (json) {
+      assert.ok(true, "result=" + json.result);
+      assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
+      QUnit.start();
+  },
+  function (errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode),
+          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+      QUnit.start();
+  });
 }
 QUnit.asyncTest("heart", HealthProfileNormalTest.heartNormalTest);
 
@@ -96,29 +91,24 @@ QUnit.asyncTest("heartEventNormalTest001", HealthProfileNormalTest.heartEventNor
  * </p>
  */
 HealthProfileNormalTest.onheartNormalTest = function (assert) {
-    searchTestService(function (accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile("health");
-        builder.setAttribute("onHeart");
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function (json) {
-                assert.ok(true, "result=" + json.result);
-                assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
-                QUnit.start();
-            },
-            function (errorCode, errorMessage) {
-                assert.ok(checkErrorCode(errorCode),
-                    'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-                QUnit.start();
-            });
-    },
-    function (errorCode, errorMessage) {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile("health");
+  builder.setAttribute("onHeart");
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function (json) {
+      assert.ok(true, "result=" + json.result);
+      assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
+      QUnit.start();
+  },
+  function (errorCode, errorMessage) {
+      assert.ok(checkErrorCode(errorCode),
+          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+      QUnit.start();
+  });
 }
 QUnit.asyncTest("onHeart", HealthProfileNormalTest.onheartNormalTest);
 

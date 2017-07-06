@@ -65,31 +65,27 @@ var OmnidirectionalImageProfileAbnormalTest = {};
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setAttribute('roi');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setAttribute('roi');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -109,32 +105,28 @@ QUnit.asyncTest('putStartRoiViewAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setAttribute('roi');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('source', 'http://localhost:4035/xxxxx');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setAttribute('roi');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('source', 'http://localhost:4035/xxxxx');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -154,31 +146,27 @@ QUnit.asyncTest('putStartRoiViewAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setAttribute('roi');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setAttribute('roi');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -198,32 +186,28 @@ QUnit.asyncTest('getStartRoiViewAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setAttribute('roi');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('source', 'http://localhost:4035/xxxxx');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setAttribute('roi');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('source', 'http://localhost:4035/xxxxx');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -243,31 +227,27 @@ QUnit.asyncTest('getStartRoiViewAbnormalTest002',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setAttribute('roi');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setAttribute('roi');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -287,32 +267,28 @@ QUnit.asyncTest('deleteStopRoiViewAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setInterface('roi');
-    builder.setAttribute('settings');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setInterface('roi');
+  builder.setAttribute('settings');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -332,33 +308,29 @@ QUnit.asyncTest('putRoiViewSettingsParamUriAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('omnidirectionalimage');
-    builder.setInterface('roi');
-    builder.setAttribute('settings');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('uri', 'http://localhost:9000/xxxxx');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode +
-        ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('omnidirectionalimage');
+  builder.setInterface('roi');
+  builder.setAttribute('settings');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('uri', 'http://localhost:9000/xxxxx');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode +
+      ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -410,15 +382,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001 
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamXAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001);
@@ -468,15 +436,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001 
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamYAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001);
@@ -526,15 +490,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001 
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamZAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001);
@@ -584,15 +544,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest001);
@@ -642,15 +598,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest002);
@@ -700,15 +652,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest003);
@@ -758,15 +706,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest001);
@@ -816,15 +760,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest002);
@@ -874,15 +814,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest003);
@@ -932,15 +868,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest001);
@@ -990,15 +922,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest002);
@@ -1048,15 +976,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest003);
@@ -1106,15 +1030,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest001);
@@ -1164,15 +1084,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest002);
@@ -1222,15 +1138,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest003);
@@ -1280,15 +1192,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamSphereSizeAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnormalTest001);
@@ -1338,15 +1246,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamSphereSizeAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnormalTest002);
@@ -1396,15 +1300,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamWidthAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest001);
@@ -1454,15 +1354,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamWidthAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest002);
@@ -1512,15 +1408,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamHeightAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTest001);
@@ -1570,15 +1462,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamHeightAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTest002);
@@ -1628,15 +1516,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTes
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamStereoAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTest001);
@@ -1686,15 +1570,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001
     }
   };
   this.option = option;
-  searchTestService(function(accessToken, serviceId) {
-    option.serviceId = serviceId;
-    option.accessToken = accessToken;
-    startRoiView(option);
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode +
-    ', errorMessage=' + errorMessage);
-    QUnit.start();
-  });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  option.serviceId = serviceId;
+  option.accessToken = accessToken;
+  startRoiView(option);
 };
 QUnit.asyncTest('putRoiViewSettingsParamVrAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001);

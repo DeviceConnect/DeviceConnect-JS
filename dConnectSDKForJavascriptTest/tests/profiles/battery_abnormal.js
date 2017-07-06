@@ -23,29 +23,26 @@ var BatteryProfileAbnormalTest = {};
  * </p>
  */
 BatteryProfileAbnormalTest.allAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('allAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.allAbnormalTest001);
 
@@ -62,29 +59,26 @@ QUnit.asyncTest('allAbnormalTest001(Calling a put method that does not support.)
  * </p>
  */
 BatteryProfileAbnormalTest.allAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('allAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.allAbnormalTest002);
 
@@ -101,29 +95,26 @@ QUnit.asyncTest('allAbnormalTest002(Calling a post method that does not support.
  * </p>
  */
 BatteryProfileAbnormalTest.allAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('allAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.allAbnormalTest003);
 
@@ -140,30 +131,27 @@ QUnit.asyncTest('allAbnormalTest003(Calling a delete method that does not suppor
  * </p>
  */
 BatteryProfileAbnormalTest.levelAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('levelAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.levelAbnormalTest001);
 
@@ -180,30 +168,27 @@ QUnit.asyncTest('levelAbnormalTest001(Calling a put method that does not support
  * </p>
  */
 BatteryProfileAbnormalTest.levelAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('levelAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.levelAbnormalTest002);
 
@@ -220,30 +205,27 @@ QUnit.asyncTest('levelAbnormalTest002(Calling a post method that does not suppor
  * </p>
  */
 BatteryProfileAbnormalTest.levelAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
         QUnit.start();
-      });
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('levelAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.levelAbnormalTest003);
 
@@ -260,30 +242,27 @@ QUnit.asyncTest('levelAbnormalTest003(Calling a delete method that does not supp
  * </p>
  */
 BatteryProfileAbnormalTest.chargingTimeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('chargingTimeAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.chargingTimeAbnormalTest001);
 
@@ -300,30 +279,27 @@ QUnit.asyncTest('chargingTimeAbnormalTest001(Calling a put method that does not 
  * </p>
  */
 BatteryProfileAbnormalTest.chargingTimeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('chargingTimeAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.chargingTimeAbnormalTest002);
 
@@ -340,30 +316,27 @@ QUnit.asyncTest('chargingTimeAbnormalTest002(Calling a post method that does not
  * </p>
  */
 BatteryProfileAbnormalTest.chargingTimeAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('chargingTimeAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.chargingTimeAbnormalTest003);
 
@@ -380,30 +353,27 @@ QUnit.asyncTest('chargingTimeAbnormalTest003(Calling a delete method that does n
  * </p>
  */
 BatteryProfileAbnormalTest.dischargingTimeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('dischargingTimeAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.dischargingTimeAbnormalTest001);
 
@@ -420,30 +390,27 @@ QUnit.asyncTest('dischargingTimeAbnormalTest001(Calling a put method that does n
  * </p>
  */
 BatteryProfileAbnormalTest.dischargingTimeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('dischargingTimeAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.dischargingTimeAbnormalTest002);
 
@@ -460,30 +427,27 @@ QUnit.asyncTest('dischargingTimeAbnormalTest002(Calling a post method that does 
  * </p>
  */
 BatteryProfileAbnormalTest.dischargingTimeAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('dischargingTimeAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.dischargingTimeAbnormalTest003);
 
@@ -500,30 +464,27 @@ QUnit.asyncTest('dischargingTimeAbnormalTest003(Calling a delete method that doe
  * </p>
  */
 BatteryProfileAbnormalTest.batteryAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('chargingAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest001);
 
@@ -540,30 +501,27 @@ QUnit.asyncTest('chargingAbnormalTest001(Calling a put method that does not supp
  * </p>
  */
 BatteryProfileAbnormalTest.batteryAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('chargingAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest002);
 
@@ -580,30 +538,27 @@ QUnit.asyncTest('chargingAbnormalTest002(Calling a post method that does not sup
  * </p>
  */
 BatteryProfileAbnormalTest.batteryAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('chargingAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest003);
 
@@ -621,30 +576,27 @@ QUnit.asyncTest('chargingAbnormalTest003(Calling a delete method that does not s
  * </p>
  */
 BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onBatteryChangeAbnormalTest001', BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001);
 
@@ -662,30 +614,27 @@ QUnit.asyncTest('onBatteryChangeAbnormalTest001', BatteryProfileAbnormalTest.onB
  * </p>
  */
 BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onBatteryChangeAbnormalTest002', BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002);
 
@@ -703,30 +652,27 @@ QUnit.asyncTest('onBatteryChangeAbnormalTest002', BatteryProfileAbnormalTest.onB
  * </p>
  */
 BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onChargingChangeAbnormalTest001', BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001);
 
@@ -744,29 +690,26 @@ QUnit.asyncTest('onChargingChangeAbnormalTest001', BatteryProfileAbnormalTest.on
  * </p>
  */
 BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('onChargingChangeAbnormalTest002', BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002);

@@ -25,27 +25,24 @@ var NotificationProfileNormalTest = {};
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 0(call))');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 0(call))');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -65,27 +62,24 @@ QUnit.asyncTest('notifyNormalTest001(type is 0(call))', NotificationProfileNorma
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_MAIL);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 1(mail))');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_MAIL);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 1(mail))');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -105,27 +99,24 @@ QUnit.asyncTest('notifyNormalTest002(type is 1(mail))', NotificationProfileNorma
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_SMS);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 2(sms))');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_SMS);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 2(sms))');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -145,27 +136,24 @@ QUnit.asyncTest('notifyNormalTest003(type is 2(sms))', NotificationProfileNormal
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_EVENT);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 3(event))');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_EVENT);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 3(event))');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -185,28 +173,25 @@ QUnit.asyncTest('notifyNormalTest004(type is 3(event))', NotificationProfileNorm
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    var data = 'body=' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお';
-    data += '&tag=';
-    data += 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお';
-    var uri = builder.build();
-    dConnect.post(uri, null, data, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  var data = 'body=' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお';
+  data += '&tag=';
+  data += 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお';
+  var uri = builder.build();
+  dConnect.post(uri, null, data, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -226,28 +211,25 @@ QUnit.asyncTest('notifyNormalTest005(body and tag is long string.)', Notificatio
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, "!\"#$&'()0=~|'{}@`*+;<,.>/_");
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, "!\"#$&'()0=~|'{}@`*+;<,.>/_");
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, "!\"#$&'()0=~|'{}@`*+;<,.>/_");
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, "!\"#$&'()0=~|'{}@`*+;<,.>/_");
 
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -267,27 +249,24 @@ QUnit.asyncTest('notifyNormalTest006(body and tag is special characters.)', Noti
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest007 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 1);
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 2);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 1);
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 2);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -306,42 +285,39 @@ QUnit.asyncTest('notifyNormalTest007(body and tag is numerical value.)', Notific
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest008 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
+  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(delete)');
+  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'notificationId=' + json.notificationId);
+
     var builder = new dConnect.URIBuilder();
     builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
     builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
     builder.setServiceId(serviceId);
     builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-    builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(delete)');
-    builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
+    builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, json.notificationId);
     var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
+    dConnect.delete(uri, null, function(json) {
       assert.ok(true, 'result=' + json.result);
-      assert.ok(true, 'notificationId=' + json.notificationId);
-
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, json.notificationId);
-      var uri = builder.build();
-      dConnect.delete(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+      QUnit.start();
     }, function(errorCode, errorMessage) {
       assert.ok(checkErrorCode(errorCode),
         'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
       QUnit.start();
     });
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

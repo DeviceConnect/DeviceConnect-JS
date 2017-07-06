@@ -23,28 +23,25 @@ var PhoneProfileAbnormalTest = {};
  * <p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -63,49 +60,46 @@ QUnit.asyncTest('callAbnormalTest001(omitted phoneNumber)', PhoneProfileAbnormal
  * <p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER,
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000' +
-      '00000000000000000000000000000000000000000000000000');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER,
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000' +
+    '00000000000000000000000000000000000000000000000000');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -124,29 +118,26 @@ QUnit.asyncTest('callAbnormalTest002(phoneNumber is long string)', PhoneProfileA
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'");
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'");
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -165,29 +156,26 @@ QUnit.asyncTest('callAbnormalTest003(phoneNumber is special characters)', PhoneP
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 3) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -206,29 +194,26 @@ QUnit.asyncTest('callAbnormalTest004(Calling a get method that does not support'
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -247,29 +232,26 @@ QUnit.asyncTest('callAbnormalTest005(Calling a put method that does not support'
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -288,28 +270,25 @@ QUnit.asyncTest('callAbnormalTest006(Calling a delete method that does not suppo
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -328,29 +307,26 @@ QUnit.asyncTest('setModeAbnormalTest001(omitted mode)', PhoneProfileAbnormalTest
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_MODE, -1);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_MODE, -1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -369,29 +345,26 @@ QUnit.asyncTest('setModeAbnormalTest002(mode is invalid(-1))', PhoneProfileAbnor
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_MODE, 'test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_MODE, 'test');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -410,29 +383,26 @@ QUnit.asyncTest('setModeAbnormalTest003(mode is string)', PhoneProfileAbnormalTe
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.phone.PARAM_MODE, "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'");
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter(dConnect.constants.phone.PARAM_MODE, "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'");
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -451,28 +421,25 @@ QUnit.asyncTest('setAbnormalTest004(mode is special characters)', PhoneProfileAb
  * </p>
  */
 PhoneProfileAbnormalTest.onConnectAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -491,29 +458,26 @@ QUnit.asyncTest('onConnectAbnormalTest001(Calling a delete method that does not 
  * </p>
  */
 PhoneProfileAbnormalTest.onConnectAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };

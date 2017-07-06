@@ -26,28 +26,25 @@ var HumanDetectionProfileAbnormalTest = {};
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001 = function(assert) {
   var PROFILE_NAME = 'humanDetection';
   var ATTR_ERROR = 'onDetection';
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(PROFILE_NAME);
-    builder.setAttribute(ATTR_ERROR);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(PROFILE_NAME);
+  builder.setAttribute(ATTR_ERROR);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -69,28 +66,25 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest001(post)', HumanDetectionProfile
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002 = function(assert) {
   var PROFILE_NAME = 'humanDetection';
   var ATTR_ERROR = 'onBodyDetection';
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(PROFILE_NAME);
-    builder.setAttribute(ATTR_ERROR);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(PROFILE_NAME);
+  builder.setAttribute(ATTR_ERROR);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -111,28 +105,25 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest002(post)', HumanDetectionProfile
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(assert) {
   var PROFILE_NAME = 'humanDetection';
   var ATTR_ERROR = 'onHandDetection';
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(PROFILE_NAME);
-    builder.setAttribute(ATTR_ERROR);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(PROFILE_NAME);
+  builder.setAttribute(ATTR_ERROR);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -154,28 +145,25 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfile
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(assert) {
   var PROFILE_NAME = 'humanDetection';
   var ATTR_ERROR = 'onFaceDetection';
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(PROFILE_NAME);
-    builder.setAttribute(ATTR_ERROR);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(PROFILE_NAME);
+  builder.setAttribute(ATTR_ERROR);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -194,35 +182,30 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfile
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('humanIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001);
@@ -240,35 +223,29 @@ QUnit.asyncTest('humanIntervalAbnormalTest001(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('humanIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002);
@@ -286,44 +263,38 @@ QUnit.asyncTest('humanIntervalAbnormalTest002(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('humanIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003);
@@ -341,44 +312,38 @@ QUnit.asyncTest('humanIntervalAbnormalTest003(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('humanIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004);
@@ -396,44 +361,38 @@ QUnit.asyncTest('humanIntervalAbnormalTest004(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('humanIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005);
@@ -453,35 +412,30 @@ QUnit.asyncTest('humanIntervalAbnormalTest005(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001);
@@ -499,35 +453,29 @@ QUnit.asyncTest('bodyIntervalAbnormalTest001(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002);
@@ -545,44 +493,38 @@ QUnit.asyncTest('bodyIntervalAbnormalTest002(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003);
@@ -600,44 +542,38 @@ QUnit.asyncTest('bodyIntervalAbnormalTest003(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004);
@@ -655,44 +591,38 @@ QUnit.asyncTest('bodyIntervalAbnormalTest004(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005);
@@ -711,35 +641,30 @@ QUnit.asyncTest('bodyIntervalAbnormalTest005(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001);
@@ -757,35 +682,29 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest001(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002);
@@ -803,44 +722,38 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest002(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003);
@@ -858,44 +771,38 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest003(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004);
@@ -913,44 +820,38 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest004(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005);
@@ -969,35 +870,30 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest005(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001);
@@ -1015,35 +911,29 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002);
@@ -1061,44 +951,38 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003);
@@ -1116,44 +1000,38 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004);
@@ -1171,44 +1049,38 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005);
@@ -1227,35 +1099,30 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001);
@@ -1273,35 +1140,29 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest001(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002);
@@ -1319,44 +1180,38 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest002(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003);
@@ -1374,44 +1229,38 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest003(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004);
@@ -1429,44 +1278,38 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest004(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005);
@@ -1484,35 +1327,30 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest005(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001);
@@ -1530,35 +1368,29 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002);
@@ -1576,44 +1408,38 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003);
@@ -1631,44 +1457,38 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004);
@@ -1686,44 +1506,38 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onBodyDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onBodyDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005);
@@ -1743,35 +1557,30 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001);
@@ -1789,35 +1598,29 @@ QUnit.asyncTest('handIntervalAbnormalTest001(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002);
@@ -1835,44 +1638,38 @@ QUnit.asyncTest('handIntervalAbnormalTest002(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003);
@@ -1890,44 +1687,38 @@ QUnit.asyncTest('handIntervalAbnormalTest003(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004);
@@ -1945,44 +1736,38 @@ QUnit.asyncTest('handIntervalAbnormalTest004(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005);
@@ -2001,35 +1786,30 @@ QUnit.asyncTest('handIntervalAbnormalTest005(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001);
@@ -2047,35 +1827,29 @@ QUnit.asyncTest('handMinWidthAbnormalTest001(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002);
@@ -2093,44 +1867,38 @@ QUnit.asyncTest('handMinWidthAbnormalTest002(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003);
@@ -2148,44 +1916,38 @@ QUnit.asyncTest('handMinWidthAbnormalTest003(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004);
@@ -2203,44 +1965,38 @@ QUnit.asyncTest('handMinWidthAbnormalTest004(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005);
@@ -2259,35 +2015,30 @@ QUnit.asyncTest('handMinWidthAbnormalTest005(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001);
@@ -2305,35 +2056,29 @@ QUnit.asyncTest('handMaxWidthAbnormalTest001(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002);
@@ -2351,44 +2096,38 @@ QUnit.asyncTest('handMaxWidthAbnormalTest002(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003);
@@ -2406,44 +2145,38 @@ QUnit.asyncTest('handMaxWidthAbnormalTest003(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004);
@@ -2461,44 +2194,38 @@ QUnit.asyncTest('handMaxWidthAbnormalTest004(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005);
@@ -2517,35 +2244,30 @@ QUnit.asyncTest('handMaxWidthAbnormalTest005(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001);
@@ -2563,35 +2285,29 @@ QUnit.asyncTest('handMinHeightAbnormalTest001(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002);
@@ -2609,44 +2325,38 @@ QUnit.asyncTest('handMinHeightAbnormalTest002(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003);
@@ -2664,44 +2374,38 @@ QUnit.asyncTest('handMinHeightAbnormalTest003(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004);
@@ -2719,44 +2423,38 @@ QUnit.asyncTest('handMinHeightAbnormalTest004(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005);
@@ -2774,35 +2472,30 @@ QUnit.asyncTest('handMinHeightAbnormalTest005(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001);
@@ -2820,35 +2513,29 @@ QUnit.asyncTest('handMaxHeightAbnormalTest001(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002);
@@ -2866,44 +2553,38 @@ QUnit.asyncTest('handMaxHeightAbnormalTest002(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003);
@@ -2921,44 +2602,38 @@ QUnit.asyncTest('handMaxHeightAbnormalTest003(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004);
@@ -2976,44 +2651,38 @@ QUnit.asyncTest('handMaxHeightAbnormalTest004(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onHandDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onHandDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('handMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005);
@@ -3033,35 +2702,30 @@ QUnit.asyncTest('handMaxHeightAbnormalTest005(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001);
@@ -3079,35 +2743,29 @@ QUnit.asyncTest('faceIntervalAbnormalTest001(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002);
@@ -3125,44 +2783,38 @@ QUnit.asyncTest('faceIntervalAbnormalTest002(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003);
@@ -3180,44 +2832,38 @@ QUnit.asyncTest('faceIntervalAbnormalTest003(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004);
@@ -3235,44 +2881,38 @@ QUnit.asyncTest('faceIntervalAbnormalTest004(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('interval',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('interval',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005);
@@ -3291,35 +2931,30 @@ QUnit.asyncTest('faceIntervalAbnormalTest005(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001);
@@ -3337,35 +2972,29 @@ QUnit.asyncTest('faceMinWidthAbnormalTest001(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002);
@@ -3383,44 +3012,38 @@ QUnit.asyncTest('faceMinWidthAbnormalTest002(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003);
@@ -3438,44 +3061,38 @@ QUnit.asyncTest('faceMinWidthAbnormalTest003(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004);
@@ -3493,44 +3110,38 @@ QUnit.asyncTest('faceMinWidthAbnormalTest004(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minWidth',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minWidth',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005);
@@ -3549,35 +3160,30 @@ QUnit.asyncTest('faceMinWidthAbnormalTest005(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001);
@@ -3595,35 +3201,29 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002);
@@ -3641,44 +3241,38 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003);
@@ -3696,44 +3290,38 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004);
@@ -3751,44 +3339,38 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxWidth',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxWidth',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005);
@@ -3807,35 +3389,30 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001);
@@ -3853,35 +3430,29 @@ QUnit.asyncTest('faceMinHeightAbnormalTest001(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002);
@@ -3899,44 +3470,38 @@ QUnit.asyncTest('faceMinHeightAbnormalTest002(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003);
@@ -3954,44 +3519,38 @@ QUnit.asyncTest('faceMinHeightAbnormalTest003(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004);
@@ -4009,44 +3568,38 @@ QUnit.asyncTest('faceMinHeightAbnormalTest004(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('minHeight',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('minHeight',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005);
@@ -4064,35 +3617,30 @@ QUnit.asyncTest('faceMinHeightAbnormalTest005(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001);
@@ -4110,35 +3658,29 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002);
@@ -4156,44 +3698,38 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003);
@@ -4211,44 +3747,38 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004);
@@ -4266,44 +3796,38 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('maxHeight',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('maxHeight',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005);
@@ -4322,35 +3846,30 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('eyeThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('eyeThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001);
@@ -4368,35 +3887,29 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('eyeThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('eyeThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002);
@@ -4414,44 +3927,38 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('eyeThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('eyeThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003);
@@ -4469,44 +3976,38 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('eyeThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('eyeThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004);
@@ -4524,44 +4025,38 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('eyeThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('eyeThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005);
@@ -4580,35 +4075,30 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('noseThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('noseThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceNoseThresholdAbnormalTest001(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001);
@@ -4626,35 +4116,29 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest001(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('noseThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('noseThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceNoseThresholdAbnormalTest002(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002);
@@ -4672,44 +4156,38 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest002(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('noseThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('noseThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceNoseThresholdAbnormalTest003(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003);
@@ -4727,44 +4205,38 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest003(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('noseThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('noseThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceNoseThresholdAbnormalTest004(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004);
@@ -4782,44 +4254,38 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest004(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('noseThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('noseThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceNoseThresholdAbnormalTest005(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005);
@@ -4838,35 +4304,30 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest005(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('mouthThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('mouthThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001);
@@ -4884,35 +4345,29 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('mouthThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('mouthThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002);
@@ -4930,44 +4385,37 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('mouthThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('mouthThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003);
@@ -4985,44 +4433,38 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('mouthThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('mouthThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004);
@@ -5040,44 +4482,38 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('mouthThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('mouthThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005);
@@ -5096,35 +4532,30 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('blinkThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('blinkThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001);
@@ -5142,35 +4573,29 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('blinkThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('blinkThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002);
@@ -5188,44 +4613,38 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('blinkThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('blinkThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003);
@@ -5243,44 +4662,38 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('blinkThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('blinkThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004);
@@ -5298,44 +4711,38 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('blinkThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('blinkThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005);
@@ -5354,35 +4761,30 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('ageThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('ageThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001);
@@ -5400,35 +4802,29 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('ageThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('ageThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002);
@@ -5446,44 +4842,38 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('ageThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('ageThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003);
@@ -5501,44 +4891,38 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('ageThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('ageThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004);
@@ -5556,44 +4940,38 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('ageThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('ageThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005);
@@ -5612,35 +4990,30 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('genderThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('genderThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGenderThresholdAbnormalTest001(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001);
@@ -5658,35 +5031,29 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest001(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('genderThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('genderThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGenderThresholdAbnormalTest002(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002);
@@ -5704,44 +5071,38 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest002(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('genderThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('genderThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGenderThresholdAbnormalTest003(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003);
@@ -5759,44 +5120,38 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest003(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('genderThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('genderThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGenderThresholdAbnormalTest004(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004);
@@ -5814,44 +5169,38 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest004(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('genderThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('genderThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGenderThresholdAbnormalTest005(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005);
@@ -5870,35 +5219,30 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest005(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('faceDirectionThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('faceDirectionThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001);
@@ -5916,35 +5260,30 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('faceDirectionThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('faceDirectionThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
+
 };
 QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002);
@@ -5962,44 +5301,38 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('faceDirectionThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('faceDirectionThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003);
@@ -6017,44 +5350,38 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('faceDirectionThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('faceDirectionThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004);
@@ -6072,44 +5399,38 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('faceDirectionThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('faceDirectionThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005);
@@ -6128,35 +5449,30 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('gazeThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('gazeThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGazeThresholdAbnormalTest001(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001);
@@ -6174,35 +5490,29 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest001(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('gazeThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('gazeThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGazeThresholdAbnormalTest002(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002);
@@ -6220,44 +5530,38 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest002(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('gazeThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('gazeThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGazeThresholdAbnormalTest003(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003);
@@ -6275,44 +5579,38 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest003(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('gazeThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('gazeThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGazeThresholdAbnormalTest004(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004);
@@ -6330,44 +5628,38 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest004(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('gazeThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('gazeThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceGazeThresholdAbnormalTest005(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005);
@@ -6386,35 +5678,30 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest005(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('expressionThreshold',
-            1000000000000000000000000000000000000000000000000000000000);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('expressionThreshold',
+      1000000000000000000000000000000000000000000000000000000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceExpressionThresholdAbnormalTest001(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001);
@@ -6432,35 +5719,29 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest001(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('expressionThreshold', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('expressionThreshold', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceExpressionThresholdAbnormalTest002(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002);
@@ -6478,44 +5759,38 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest002(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('expressionThreshold',
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-            'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('expressionThreshold',
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceExpressionThresholdAbnormalTest003(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003);
@@ -6533,44 +5808,38 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest003(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('expressionThreshold',
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg' +
-            'abcdefgabcdefgabcdefgabcdefg');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('expressionThreshold',
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceExpressionThresholdAbnormalTest004(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004);
@@ -6588,44 +5857,38 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest004(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('humanDetection');
-        builder.setAttribute('onFaceDetection');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('expressionThreshold',
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-            '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-        var uri = builder.build();
-        dConnect.get(uri, null,
-            function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      },
-      function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('humanDetection');
+  builder.setAttribute('onFaceDetection');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('expressionThreshold',
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  },
+  function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('faceExpressionThresholdAbnormalTest005(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005);
