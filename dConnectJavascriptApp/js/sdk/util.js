@@ -128,7 +128,7 @@ function setContents(id, contents) {
  */
 function reloadList(str) {
   setContents('#list', str);
-  $('#list').listview('refresh');
+  $('#list').listview().listview('refresh');
 }
 
 /**
