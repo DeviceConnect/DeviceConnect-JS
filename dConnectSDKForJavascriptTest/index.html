@@ -201,14 +201,14 @@ function onTestClick(uri) {
        alert('サービスIDを選択してください。');
        return;
     }
-    if (!_AccessToken) {
+    if (!mAccessToken) {
        alert('LocalOAuthをONにし、アクセストークンを取得してください。');
        return;
     }
 
     document.cookie = 'ip=' + ip;
     document.cookie = 'serviceId=' + serviceId;
-    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + _AccessToken;
+    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + mAccessToken;
 }
 
 

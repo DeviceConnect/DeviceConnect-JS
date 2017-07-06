@@ -204,12 +204,12 @@ QUnit.asyncTest('gpioAbnormalTest005',
     GPIOProfileAbnormalTest.gpioAbnormalTest005);
 
 /**
- * modeの値を1,2,3以外に設定.
+ * modeの値を1,2,3,4以外に設定.
  * <h3>【HTTP通信】</h3>
  * <p id='test'>
  * Method: POST<br/>
  * Path: /gpio/export/19
- * POST Value: serviceId=xxxx&accessToken=xxx&mode=4<br/>
+ * POST Value: serviceId=xxxx&accessToken=xxx&mode=10<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
@@ -223,7 +223,7 @@ GPIOProfileAbnormalTest.gpioAbnormalTest006 = function(assert) {
   builder.setProfile('gpio');
   builder.setInterface('export');
   builder.setAttribute('19');
-  builder.addParameter('mode', 4);
+  builder.addParameter('mode', 10);
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
