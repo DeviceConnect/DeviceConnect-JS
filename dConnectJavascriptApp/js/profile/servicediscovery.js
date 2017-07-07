@@ -53,6 +53,8 @@ function searchDevice2() {
       }, function() {
         closeLoading();
       });
+    } else {
+      alert('Error: code=' + errorCode + ', messsage=\"' + errorMessage + '\"');
     }
   });
 }
