@@ -61,7 +61,6 @@ function init() {
   dConnect.setHost(ip);
   dConnect.setSSLEnabled(location.protocol === 'https:');
   openWebsocketIfNeeded(accessToken);
-  searchDevice();
 }
 
 function showWebSocketState(state) {
@@ -126,6 +125,8 @@ function startManagerAndDemo() {
     }
     location.hash = "";
     location.hash = '#demo';
+    searchDevice();
+
     if (DEBUG) {
       console.log('URL: ' + location.href);
     }
