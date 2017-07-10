@@ -208,6 +208,10 @@ function showAddProfile(serviceId, jsonText) {
         {
             name : 'AtmosphericPressure(I2C) #204',
             type : 107
+        },
+        {
+            name : 'Proximity(I2C) LIDARLite v3',
+            type : 108
         }
     ];
 

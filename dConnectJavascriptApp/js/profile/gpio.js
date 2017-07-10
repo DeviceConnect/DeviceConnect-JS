@@ -56,9 +56,9 @@ function showGPIO(serviceId) {
             str += '</td>';
             str += '<td width=250>';
             str += '<center>';
-            str += '<div class=\'pinNo' + i + 'Value\' data-role="content" id=\'pinNo' + i + 'Value\' data-theme="a">';
-            str += '<input id=\'pinNo' + i + '\' data-icon="power" data-inline="true" data-mini="true" ';
-            str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', ' + i + ',1);" ';
+            str += '<div class=\'pinNo' + i + 'Value\' data-role="content" id=\'pinNoD' + i + 'Value\' data-theme="a">';
+            str += '<input id=\'pinNoD' + i + '\' data-icon="power" data-inline="true" data-mini="true" ';
+            str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'D' + i + '\',1);" ';
             str += 'type="button" value="HIGH" /><br>';
             str += '</center>';
             str += '</div>';
@@ -115,7 +115,7 @@ function doGPIOBack(serviceId, sessionKey) {
 function doGPIOExport(serviceId, obj) {
     var selectMode = obj.options[obj.selectedIndex].value;
 
-    var pin = obj.id;
+    var pin = 'D' + obj.id;
     var builder = new dConnect.URIBuilder();
     builder.setProfile("gpio");
     builder.setInterface("export");
@@ -137,7 +137,7 @@ function doGPIOExport(serviceId, obj) {
                 doGPIODigitalRead(serviceId, pin);
             } else if (selectMode == 1) {
                 str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
-                str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', ' + pin + ',1);"';
+                str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',1);"';
                 str += 'type="button" value="HIGH" />';
                 str += '<br>';
                 setContents(tagIdValue, str);
@@ -298,7 +298,7 @@ function doGPIODigitalWrite(serviceId, pin, value) {
                 if (json.result == 0) {
                 	var str = "";
                     str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
-                	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', ' + pin + ',0);"';
+                	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',0);"';
                 	str += 'type="button" value="LOW" />';
                 	str += '<br>';
                 	setContents(tagIdValue, str);
@@ -314,7 +314,7 @@ function doGPIODigitalWrite(serviceId, pin, value) {
                 if (json.result == 0) {
                     var str = "";
                     str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
-                	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', ' + pin + ',1);"';
+                	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',1);"';
                 	str += 'type="button" value="HIGH" />';
                 	str += '<br>';
                 	setContents(tagIdValue, str);
