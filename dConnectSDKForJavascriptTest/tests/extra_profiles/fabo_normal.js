@@ -302,7 +302,7 @@ QUnit.asyncTest('postFaBoServiceNormalTest001', FaBoProfileNormalTest.postFaBoSe
  * ・プロファイルを更新できること。<br/>
  * </p>
  */
-FaBoProfileNormalTest.putFaBoServiceNormalTest001 = function(assert) {
+FaBoProfileNormalTest.putFaBoProfileNormalTest001 = function(assert) {
     FaBoProfileNormalTest.createFaBoProfile(function(vid, json) {
         var builder = new dConnect.URIBuilder();
         builder.setProfile('fabo');
@@ -320,7 +320,7 @@ FaBoProfileNormalTest.putFaBoServiceNormalTest001 = function(assert) {
                 QUnit.start();
             },
             function(errorCode, errorMessage) {
-                FaBoProfileNormalTest.deleteFaBoService(json.vid);
+                FaBoProfileNormalTest.deleteFaBoService(vid);
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
                 QUnit.start();
             });
@@ -329,7 +329,7 @@ FaBoProfileNormalTest.putFaBoServiceNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('putFaBoServiceNormalTest001', FaBoProfileNormalTest.putFaBoServiceNormalTest001);
+QUnit.asyncTest('putFaBoProfileNormalTest001', FaBoProfileNormalTest.putFaBoProfileNormalTest001);
 
 
 /**
