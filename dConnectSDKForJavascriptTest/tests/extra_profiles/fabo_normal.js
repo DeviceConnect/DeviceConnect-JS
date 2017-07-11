@@ -122,7 +122,6 @@ FaBoProfileNormalTest.postFaBoServiceNormalTest001 = function(assert) {
             QUnit.start();
         },
         function(errorCode, errorMessage) {
-            FaBoProfileNormalTest.deleteFaBoService(json.vid);
             assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
             QUnit.start();
         });
@@ -159,7 +158,7 @@ FaBoProfileNormalTest.putFaBoServiceNormalTest001 = function(assert) {
                 QUnit.start();
             },
             function(errorCode, errorMessage) {
-                FaBoProfileNormalTest.deleteFaBoService(json.vid);
+                FaBoProfileNormalTest.deleteFaBoService(vid);
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
                 QUnit.start();
             });
@@ -236,7 +235,7 @@ FaBoProfileNormalTest.getFaBoProfileNormalTest001 = function(assert) {
                 QUnit.start();
             },
             function(errorCode, errorMessage) {
-                FaBoProfileNormalTest.deleteFaBoService(json.vid);
+                FaBoProfileNormalTest.deleteFaBoService(vid);
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
                 QUnit.start();
             });
@@ -279,7 +278,7 @@ FaBoProfileNormalTest.postFaBoServiceNormalTest001 = function(assert) {
                 QUnit.start();
             },
             function(errorCode, errorMessage) {
-                FaBoProfileNormalTest.deleteFaBoService(json.vid);
+                FaBoProfileNormalTest.deleteFaBoService(vid);
                 assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
                 QUnit.start();
             });
