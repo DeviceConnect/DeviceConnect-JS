@@ -41,7 +41,7 @@ QUnit.asyncTest('ondeviceorientationNormalTest001', DeviceOrientationProfileNorm
 
 
 /**
- * ジャイロセンサーの値を取得するテストを行なう。
+ * DeviceOrientationの値を取得するテストを行なう。
  * <h3>【HTTP通信】</h3>
  * <p id = "test">
  * Method: GET
@@ -54,24 +54,21 @@ QUnit.asyncTest('ondeviceorientationNormalTest001', DeviceOrientationProfileNorm
  * </p>
  */
 DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.device_orientation.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.device_orientation.ATTR_ON_DEVICE_ORIENTATION);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage= ' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.device_orientation.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.device_orientation.ATTR_ON_DEVICE_ORIENTATION);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('ondeviceorientationNormalTest002',
     DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest002);

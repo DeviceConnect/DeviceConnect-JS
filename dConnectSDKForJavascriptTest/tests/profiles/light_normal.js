@@ -11,23 +11,20 @@ module('LightProfileNormalTest', {
 var LightProfileNormalTest = {};
 
 function getLightId(successCallback, errorCallback) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('light');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              successCallback(accessToken, serviceId, json);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              errorCallback(errorCode, errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        errorCallback(errorCode, errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('light');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    successCallback(accessToken, serviceId, json);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    errorCallback(errorCode, errorMessage);
+    QUnit.start();
+  });
 }
 
 /**
@@ -43,25 +40,21 @@ function getLightId(successCallback, errorCallback) {
  * </p>
  */
 LightProfileNormalTest.getLightIdNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('light');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result + ", light:" + json.lights[0].lightId);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode),
-              'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-          QUnit.start();
-        });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('light');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result + ", light:" + json.lights[0].lightId);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('getLightIdNormalTest001(get)', LightProfileNormalTest.getLightIdNormalTest001);
 

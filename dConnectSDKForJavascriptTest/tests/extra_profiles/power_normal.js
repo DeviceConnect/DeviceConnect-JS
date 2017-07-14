@@ -23,25 +23,21 @@ var PowerProfileNormalTest = {};
  * </p>
  */
 PowerProfileNormalTest.powerStatusNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('power');
-        builder.setAccessToken(mAccessToken);
-        builder.setServiceId(mServiceId);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('power');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('GetPowerStatusNormalTest001', PowerProfileNormalTest.powerStatusNormalTest001);
 
@@ -59,20 +55,16 @@ QUnit.asyncTest('GetPowerStatusNormalTest001', PowerProfileNormalTest.powerStatu
  * </p>
  */
 PowerProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('power');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('power');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
@@ -94,20 +86,16 @@ QUnit.asyncTest('PowerPowerOnNormalTest001', PowerProfileNormalTest.powerOnNorma
  * </p>
  */
 PowerProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('power');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('power');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ' errorMessage=' + errorMessage);

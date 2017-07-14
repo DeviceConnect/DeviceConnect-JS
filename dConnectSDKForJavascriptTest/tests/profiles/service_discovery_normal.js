@@ -23,23 +23,19 @@ var ServiceDiscoveryProfileNormalTest = {};
  * </p>
  */
 ServiceDiscoveryProfileNormalTest.serviceDiscoveryNormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
-        builder.setAccessToken(mAccessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(true, 'result=' + json.result);
-              assert.ok(json.services != undefined, 'services=' + JSON.stringify(json.services));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.servicediscovery.PROFILE_NAME);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(json.services != undefined, 'services=' + JSON.stringify(json.services));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('serviceDiscoveryNormalTest001', ServiceDiscoveryProfileNormalTest.serviceDiscoveryNormalTest001);
 

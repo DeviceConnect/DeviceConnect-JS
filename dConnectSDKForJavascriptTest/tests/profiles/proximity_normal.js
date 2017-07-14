@@ -83,22 +83,19 @@ QUnit.asyncTest('onUserProximityNormalTest001', ProximityProfileNormalTest.onUse
  * </p>
  */
 ProximityProfileNormalTest.onUserProximityNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.proximity.ATTR_ON_USER_PROXIMITY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(json.proximity != undefined, JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.proximity.ATTR_ON_USER_PROXIMITY);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(json.proximity != undefined, JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
     QUnit.start();
   });
 };

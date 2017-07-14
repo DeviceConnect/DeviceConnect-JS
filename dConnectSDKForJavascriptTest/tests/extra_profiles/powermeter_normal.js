@@ -23,24 +23,21 @@ var PowerMeterProfileNormalTest = {};
  * </p>
  */
 PowerMeterProfileNormalTest.getPowerStateNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'powerstate=' + json.powerMeter);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('powermeter');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(true, 'powerstate=' + json.powerMeter);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -60,23 +57,20 @@ QUnit.asyncTest('getPowerStateNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('powermeter');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -96,23 +90,20 @@ QUnit.asyncTest('powerOnNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('powermeter');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -132,25 +123,22 @@ QUnit.asyncTest('powerOffNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setAttribute('integratedpower');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'integratedpower=' + json.integratedpower);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('powermeter');
+  builder.setAttribute('integratedpower');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -170,26 +158,23 @@ QUnit.asyncTest('integratedPowerNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setAttribute('integratedpower');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('date', createCurrentDateString());
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'integratedpower=' + json.integratedpower);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('powermeter');
+  builder.setAttribute('integratedpower');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('date', createCurrentDateString());
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };
@@ -209,25 +194,22 @@ QUnit.asyncTest('integratedPowerNormalTest002(date is now)',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousPowerNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('powermeter');
-    builder.setAttribute('instantaneouspower');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('powermeter');
+  builder.setAttribute('instantaneouspower');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

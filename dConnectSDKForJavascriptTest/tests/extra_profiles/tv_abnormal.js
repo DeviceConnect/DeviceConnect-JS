@@ -23,30 +23,26 @@ var TVProfileAbnormalTest = {};
  * </p>
  */
 TVProfileAbnormalTest.powerStatusAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('tv');
-        builder.setAccessToken(mAccessToken);
-        builder.setServiceId(mServiceId);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 8) {
-            assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, "not support");
-          } else {
-            assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          }
-          QUnit.start();
-        });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('GetPowerStatusAbnormalTest001', TVProfileAbnormalTest.powerStatusAbnormalTest001);
 
@@ -65,30 +61,26 @@ QUnit.asyncTest('GetPowerStatusAbnormalTest001', TVProfileAbnormalTest.powerStat
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '1');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '1');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -107,30 +99,26 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest001', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '1');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '1');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -149,30 +137,26 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest002', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest003 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '2');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '2');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -192,33 +176,29 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest003', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest004 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning',
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -237,34 +217,29 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest004', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest005 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning',
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning',
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -283,34 +258,29 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest005', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest006 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning',
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning',
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -330,30 +300,26 @@ QUnit.asyncTest('TVChangeChannelAbnoramlTest006', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest007 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', '-1');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', '-1');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -372,30 +338,26 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest007', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest008 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', 10000000000000000000000);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', 10000000000000000000000);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -414,30 +376,26 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest008', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest009 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('tuning', 1.5);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('tuning', 1.5);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -456,33 +414,29 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest009', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest010 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control',
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -501,33 +455,29 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest010', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest011 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control',
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control',
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -546,33 +496,29 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest011', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest012 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('channel');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control',
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('channel');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control',
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -592,30 +538,26 @@ QUnit.asyncTest('TVChangeChannelAbnormalTest012', TVProfileAbnormalTest.changeCh
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'up');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'up');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -635,30 +577,26 @@ QUnit.asyncTest('TVchangeVolumeAbnormalTest001', TVProfileAbnormalTest.changeVol
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'up');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'up');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -677,30 +615,26 @@ QUnit.asyncTest('TVchangeVolumeAbnormalTest002', TVProfileAbnormalTest.changeVol
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest003 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control', 'up');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control', 'up');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -719,33 +653,29 @@ QUnit.asyncTest('TVchangeVolumeAbnormalTest003', TVProfileAbnormalTest.changeVol
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest004 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control',
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -764,33 +694,29 @@ QUnit.asyncTest('TVchangeVolumeAbnormalTest004', TVProfileAbnormalTest.changeVol
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest005 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control',
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control',
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -810,33 +736,29 @@ QUnit.asyncTest('TVchangeVolumeAbnormalTest005', TVProfileAbnormalTest.changeVol
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest006 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('volume');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('control',
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('volume');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('control',
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -857,30 +779,26 @@ QUnit.asyncTest('TVchangeVolumeAbnormalTest006', TVProfileAbnormalTest.changeVol
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select', 'DTV');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select', 'DTV');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -900,30 +818,26 @@ QUnit.asyncTest('TVchangeBroadcastwaveAbnormalTest001', TVProfileAbnormalTest.ch
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select', 'DTV');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select', 'DTV');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -943,30 +857,26 @@ QUnit.asyncTest('TVchangeBroadcastwaveAbnormalTest002', TVProfileAbnormalTest.ch
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest003 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select', 'DTV');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select', 'DTV');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -986,33 +896,29 @@ QUnit.asyncTest('TVchangeBroadcastwaveAbnormalTest003', TVProfileAbnormalTest.ch
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest004 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select',
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1032,33 +938,29 @@ QUnit.asyncTest('TVchangeBroadcastwaveAbnormalTest004', TVProfileAbnormalTest.ch
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest005 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select',
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select',
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1077,33 +979,29 @@ QUnit.asyncTest('TVchangeBroadcastwaveAbnormalTest005', TVProfileAbnormalTest.ch
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest006 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('broadcastwave');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('select',
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('broadcastwave');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('select',
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1125,29 +1023,25 @@ QUnit.asyncTest('TVchangeBroadcastwaveAbnormalTest006', TVProfileAbnormalTest.ch
  * </p>
  */
 TVProfileAbnormalTest.muteOnAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('mute');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('mute');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1167,29 +1061,25 @@ QUnit.asyncTest('TVmuteOnAbnormalTest001', TVProfileAbnormalTest.muteOnAbnormalT
  * </p>
  */
 TVProfileAbnormalTest.muteOffAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('mute');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('mute');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1212,30 +1102,26 @@ QUnit.asyncTest('TVmuteOffAbnormalTest001', TVProfileAbnormalTest.muteOffAbnorma
  * </p>
  */
 TVProfileAbnormalTest.echonetLitePropertyAbnormalTest001 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128,129');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128,129');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1255,30 +1141,26 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest001', TVProfileAbnormalTest.echo
  * </p>
  */
 TVProfileAbnormalTest.echonetLitePropertyAbnormalTest002 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128,129');
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 8) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, "not support");
-      } else {
-        assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128,129');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 8) {
+      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, "not support");
+    } else {
+      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1299,33 +1181,29 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest002', TVProfileAbnormalTest.echo
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest003 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc',
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1346,33 +1224,29 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest003', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest004 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc',
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc',
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1393,33 +1267,29 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest004', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest005 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc',
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc',
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1440,30 +1310,26 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest005', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest006 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc','128,-1,129');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc','128,-1,129');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1484,30 +1350,26 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest006', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest007 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc','128,0.5,129');
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc','128,0.5,129');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1528,34 +1390,30 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest007', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest008 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value',
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえお');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1576,34 +1434,30 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest008', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest009 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value',
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg' + 'abcdefgabcdefg' +
-      'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value',
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg' + 'abcdefgabcdefg' +
+    'abcdefgabcdefg');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1624,34 +1478,30 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest009', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest010 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value',
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-      '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value',
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+    '#$%?<>?#$%&<>?');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1671,31 +1521,27 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest010', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest011 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value','-1');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value','-1');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1715,31 +1561,27 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest011', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest012 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value','10000000000000000000000');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value','10000000000000000000000');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1760,31 +1602,27 @@ QUnit.asyncTest('EchonetLitePropertyAbnormalTest012', TVProfileNormalTest.echone
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest013 = function(assert) {
-  searchTestService(function(mAccessToken, mServiceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('tv');
-    builder.setAttribute('enlproperty');
-    builder.setAccessToken(mAccessToken);
-    builder.setServiceId(mServiceId);
-    builder.addParameter('epc', '128');
-    builder.addParameter('value','0.5');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('tv');
+  builder.setAttribute('enlproperty');
+  builder.setAccessToken(accessToken);
+  builder.setServiceId(serviceId);
+  builder.addParameter('epc', '128');
+  builder.addParameter('value','0.5');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };

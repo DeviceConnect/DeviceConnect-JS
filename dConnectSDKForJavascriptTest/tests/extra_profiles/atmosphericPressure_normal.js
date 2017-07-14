@@ -23,26 +23,23 @@ var AtmosphericPressureProfileNormalTest = {};
  * </p>
  */
 AtmosphericPressureProfileNormalTest.atmosphericPressureNormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('atmosphericPressure');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(true, 'atmosphericPressure=' + json.atmosphericPressure);
-          assert.ok(true, 'timeStamp=' + json.timeStamp);
-          assert.ok(true, 'timeStampString=' + json.timeStampString);
-          QUnit.start();
-        },
-    function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('atmosphericPressure');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+        assert.ok(true, 'result=' + json.result);
+        assert.ok(true, 'atmosphericPressure=' + json.atmosphericPressure);
+        assert.ok(true, 'timeStamp=' + json.timeStamp);
+        assert.ok(true, 'timeStampString=' + json.timeStampString);
+        QUnit.start();
+      },
+  function(errorCode, errorMessage) {
+    assert.ok(checkErrorCode(errorCode),
+        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
     QUnit.start();
   });
 };

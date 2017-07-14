@@ -23,32 +23,29 @@ var SettingProfileAbnormalTest = {};
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', -1);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', -1);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
+  }, function(errorCode, errorMessage) {
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
+    QUnit.start();
+  });
 };
 QUnit.asyncTest('volumeAbnormalTest001(get)(kind is -1)', SettingProfileAbnormalTest.volumeAbnormalTest001);
 
@@ -65,30 +62,27 @@ QUnit.asyncTest('volumeAbnormalTest001(get)(kind is -1)', SettingProfileAbnormal
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 'this is a test.');
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 'this is a test.');
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -107,29 +101,26 @@ QUnit.asyncTest('volumeAbnormalTest002(get)(kind is string)', SettingProfileAbno
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -148,30 +139,27 @@ QUnit.asyncTest('volumeAbnormalTest003(get)(omitted kind.)', SettingProfileAbnor
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest004 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -190,30 +178,27 @@ QUnit.asyncTest('volumeAbnormalTest004(get)(kind is special characters.)', Setti
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest005 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 10000000);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 10000000);
+  var uri = builder.build();
+  dConnect.get(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -232,31 +217,28 @@ QUnit.asyncTest('volumeAbnormalTest005(get)(kind is big number.)', SettingProfil
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest006 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', -1);
-        builder.addParameter('level', 1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', -1);
+  builder.addParameter('level', 1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -275,31 +257,28 @@ QUnit.asyncTest('volumeAbnormalTest006(put)(kind is -1.)', SettingProfileAbnorma
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest007 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 'this is a test.');
-        builder.addParameter('level', 1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 'this is a test.');
+  builder.addParameter('level', 1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -318,31 +297,28 @@ QUnit.asyncTest('volumeAbnormalTest007(put)(kind is string.)', SettingProfileAbn
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest008 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-        builder.addParameter('level', 1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
+  builder.addParameter('level', 1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -361,31 +337,28 @@ QUnit.asyncTest('volumeAbnormalTest008(put)(kind is special characters.)', Setti
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest009 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 10000000);
-        builder.addParameter('level', 1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 10000000);
+  builder.addParameter('level', 1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -404,31 +377,28 @@ QUnit.asyncTest('volumeAbnormalTest009(put)(kind is big number.)', SettingProfil
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest010 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        builder.addParameter('level', -1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  builder.addParameter('level', -1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -447,31 +417,28 @@ QUnit.asyncTest('volumeAbnormalTest010(put)(level is -1.)', SettingProfileAbnorm
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest011 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        builder.addParameter('level', 100);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  builder.addParameter('level', 100);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -490,31 +457,28 @@ QUnit.asyncTest('volumeAbnormalTest011(put)(level is 100.)', SettingProfileAbnor
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest012 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        builder.addParameter('level', 'this is a test.');
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  builder.addParameter('level', 'this is a test.');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -533,31 +497,28 @@ QUnit.asyncTest('volumeAbnormalTest012(put)(level is string.)', SettingProfileAb
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest013 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        builder.addParameter('level', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  builder.addParameter('level', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -576,30 +537,27 @@ QUnit.asyncTest('volumeAbnormalTest013(put)(level is special characters.)', Sett
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest014 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -618,31 +576,28 @@ QUnit.asyncTest('volumeAbnormalTest014(put)(level is special characters.)', Sett
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest015 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        builder.addParameter('level', 1);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  builder.addParameter('level', 1);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -661,31 +616,28 @@ QUnit.asyncTest('volumeAbnormalTest015(Calling a post method that does not suppo
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest016 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-        builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('kind', 1);
-        builder.addParameter('level', 1);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
+  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('kind', 1);
+  builder.addParameter('level', 1);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -704,29 +656,26 @@ QUnit.asyncTest('volumeAbnormalTest016(Calling a delete method that does not sup
  * </p>
  */
 SettingProfileAbnormalTest.dateAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('date', '');
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('date', '');
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -745,29 +694,26 @@ QUnit.asyncTest('dateAbnormalTest001(Calling a post method that does not support
  * </p>
  */
 SettingProfileAbnormalTest.dateAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('date', '');
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('date', '');
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -786,30 +732,27 @@ QUnit.asyncTest('dateAbnormalTest002(Calling a delete method that does not suppo
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('level', -1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('level', -1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -828,30 +771,27 @@ QUnit.asyncTest('lightAbnormalTest001(level is -1)', SettingProfileAbnormalTest.
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('level', 'this is a test.');
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('level', 'this is a test.');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        } else if (checkErrorCode(errorCode)) {
+          assert.ok(true, 'not support');
+        } else {
+          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+        }
     QUnit.start();
   });
 };
@@ -870,31 +810,27 @@ QUnit.asyncTest('lightAbnormalTest002(level is string)', SettingProfileAbnormalT
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest003 = function(assert) {
-  var count = 0;
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('level', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('level', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -913,31 +849,27 @@ QUnit.asyncTest('lightAbnormalTest003(level is special characters.)', SettingPro
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest004 = function(assert) {
-  var count = 0;
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('level', 100000);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('level', 100000);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -956,32 +888,30 @@ QUnit.asyncTest('lightAbnormalTest004(level is big number.)', SettingProfileAbno
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest001 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('time', -1);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('time', -1);
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
+
 };
 QUnit.asyncTest('sleepAbnormalTest001(time is -1)', SettingProfileAbnormalTest.sleepAbnormalTest001);
 
@@ -998,30 +928,27 @@ QUnit.asyncTest('sleepAbnormalTest001(time is -1)', SettingProfileAbnormalTest.s
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest002 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('time', 'this is a test');
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert(false, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('time', 'this is a test');
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert(false, 'result=' + json.result);
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1040,30 +967,27 @@ QUnit.asyncTest('sleepAbnormalTest002(time is string)', SettingProfileAbnormalTe
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest003 = function(assert) {
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('time', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, 'not support');
-              } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-              }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('time', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
+  var uri = builder.build();
+  dConnect.put(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 10) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1082,31 +1006,27 @@ QUnit.asyncTest('sleepAbnormalTest003(time is special characters.)', SettingProf
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest004 = function(assert) {
-  var count = 0;
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('time',1000);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('time',1000);
+  var uri = builder.build();
+  dConnect.post(uri, null, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
@@ -1125,31 +1045,27 @@ QUnit.asyncTest('sleepAbnormalTest004(Calling a post method that does not suppor
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest005 = function(assert) {
-  var count = 0;
-  searchTestService(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('time',1000);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 3) {
-            assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, 'not support');
-          } else {
-            assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          }
-          QUnit.start();
-        });
+  var accessToken = getCurrentAccessToken();
+  var serviceId = getCurrentServiceId();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
+  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
+  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  builder.addParameter('time',1000);
+  var uri = builder.build();
+  dConnect.delete(uri, null, function(json) {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    QUnit.start();
   }, function(errorCode, errorMessage) {
-    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    if (errorCode == 3) {
+      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    } else if (checkErrorCode(errorCode)) {
+      assert.ok(true, 'not support');
+    } else {
+      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+    }
     QUnit.start();
   });
 };
