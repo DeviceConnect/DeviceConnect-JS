@@ -13,15 +13,20 @@
 <form name="form1" id="form1" action="">
 <table border="0">
   <tr>
-    <td align="right"><b> IP：</b></td>
-    <td><input type="text" name="ip" value="localhost" size="30"></td>
+    <td align="right"><b> IP:</b></td>
+    <td>
+      <input type="text" name="ip" value="localhost" size="30" onkeydown="return onInputTextEnter(event);">
+    </td>
+    <td>
+      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="searchDevice();"/>
+    </td>
   </tr>
   <tr>
-    <td align="right"><b> ServiceId：</b></td>
+    <td align="right"><b> サービス:</b></td>
     <td>
-      <div id="selectServiceId">
-      </div>
-      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="searchDevice();"/>
+      <div id="selectServiceId"></div>
+    </td>
+    <td>
     </td>
   </tr>
 </table>
@@ -181,7 +186,18 @@
 </table>
 </body>
 <script type="text/javascript">
-var _Services = null;
+
+function onInputTextEnter(evt) {
+  evt = (evt) ? evt : event; 
+  var charCode=(evt.charCode) ? evt.charCode : ((evt.which) ? evt.which : evt.keyCode);
+  if ((Number(charCode) == 13 || Number(charCode) == 3)) {
+    searchDevice();
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function onInit() {
     var data = getCookies();
     if (data['ip']) {
@@ -193,7 +209,6 @@ function onInit() {
     searchDevice();
 }
 
-
 function onTestClick(uri) {
     var ip = document.forms.form1.ip.value;
     var serviceId = document.forms.form1.type.value;
@@ -201,16 +216,15 @@ function onTestClick(uri) {
        alert('サービスIDを選択してください。');
        return;
     }
-    if (!_AccessToken) {
+    if (!mAccessToken) {
        alert('LocalOAuthをONにし、アクセストークンを取得してください。');
        return;
     }
 
     document.cookie = 'ip=' + ip;
     document.cookie = 'serviceId=' + serviceId;
-    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + _AccessToken;
+    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + mAccessToken;
 }
-
 
 </script>
 </html>

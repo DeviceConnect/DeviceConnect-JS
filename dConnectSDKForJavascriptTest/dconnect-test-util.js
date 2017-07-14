@@ -49,7 +49,8 @@ function initScopes() {
       'messageHook',
       'geolocation',
       'echonetLite',
-      'atmosphericPressure'
+      'atmosphericPressure',
+      'fabo'
 
   );
 }
