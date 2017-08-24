@@ -50,7 +50,10 @@ function initScopes() {
       'geolocation',
       'echonetLite',
       'atmosphericPressure',
-      'fabo'
+      'fabo',
+      'mouse',
+      'keyboard',
+      'hogp'
 
   );
 }

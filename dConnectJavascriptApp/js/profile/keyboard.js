@@ -147,6 +147,7 @@ function sendAscii(serviceId) {
     builder.addParameter('string', string);
     
     var uri = builder.build();
+    console.log(uri);
     dConnect.post(uri, null, null, function(json) {
         console.log('success');
     }, function(errorCode, errorMessage) {

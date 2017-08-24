@@ -9,6 +9,7 @@ var mMouseLastX;
 var mMouseLastY;
 var mStartTime;
 var mDragFlag = false;
+var mMouseMode;
 
 /* Show Mouse page */
 function showMouse(serviceId) {
@@ -58,6 +59,8 @@ function showMouse(serviceId) {
     $("#hogpBox").bind('touchcancel', function(event) {
         onMouseUp(serviceId, event);
     });
+
+    getMouseMode(serviceId);
 }
 
 function onMouseDown(serviceId, event) {
@@ -83,7 +86,7 @@ function onMouseMove(serviceId, event) {
 
     var original = event.originalEvent;
     var x, y;
-    if(original.changedTouches) {
+    if (original.changedTouches) {
         x = original.changedTouches[0].pageX;
         y = original.changedTouches[0].pageY;
     } else {
@@ -91,11 +94,16 @@ function onMouseMove(serviceId, event) {
         y = event.pageY;
     }
 
+    if (mMouseMode == 'absolute') {
+        dx = Math.round(event.offsetX) / 320.0;
+        dy = Math.round(event.offsetY) / 320.0;
+    } else {
+        dx = Math.round(x - mMouseLastX) / 127.0;
+        dy = Math.round(y - mMouseLastY) / 127.0;
+    }
+
     $("#mouseOutputX").html("Ｘ座標：" + x);
     $("#mouseOutputY").html("Ｙ座標：" + y);
-
-    dx = Math.round(x - mMouseLastX);
-    dy = Math.round(y - mMouseLastY);
 
     sendMouseMove(serviceId, dx, dy);
 
@@ -134,6 +142,22 @@ function sendMouseClick(serviceId, button) {
         console.log('success');
     }, function(errorCode, errorMessage) {
         console.log('Failed to send move pointer. message=' + errorMessage);
+    });
+}
+
+function getMouseMode(serviceId) {
+    var builder = new dConnect.URIBuilder();
+    builder.setProfile('mouse');
+    builder.setServiceId(serviceId);
+    builder.setAccessToken(accessToken);
+    
+    var uri = builder.build();
+    dConnect.get(uri, null, function(json) {
+        console.log('success');
+        console.log(json);
+        mMouseMode = json.mouse.type;
+    }, function(errorCode, errorMessage) {
+        console.log('Failed to get mouse info. message=' + errorMessage);
     });
 }
 
