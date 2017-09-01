@@ -323,9 +323,6 @@ function doPostAddProfile(serviceId, vid, type, pins) {
     }
 
     var uri = builder.build();
-
-console.log("AAAA " + uri);
-
     dConnect.post(uri, null, null, function(json) {
         doGetVirtualServiceList(serviceId, function(services) {
             for (var i = 0; i < services.length; i++) {

@@ -251,7 +251,7 @@ function authorization(callback, oncalcel) {
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
                'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-               'echonetLite', 'power', 'fabo');
+               'echonetLite', 'power', 'fabo', 'mouse', 'keyboard');
   dConnect.authorization(scopes, 'Demo Web Site',
       function(clientId, newAccessToken) {
         // Client ID
@@ -434,5 +434,9 @@ function searchProfile(serviceId, profile) {
     showECHONETLite(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'fabo')) {
     showFaBo(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'mouse')) {
+    showMouse(serviceId);
+  } else if (isEqualToStringIgnoreCase(profile, 'keyboard')) {
+    showKeyboard(serviceId);
   }
 }
