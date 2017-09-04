@@ -39,38 +39,6 @@ SpheroProfileNormalTest.onQuaternionNormalTest001 = function(assert) {
 };
 QUnit.asyncTest('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternionNormalTest001);
 
-/**
- * onquaternionにGETでアクセスするテストを行う。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: GET<br/>
- * Path: /sphero/onquaternion?serviceId=xxx&accessToken=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultに0が返ること。<br/>
- * </p>
- */
-SpheroProfileNormalTest.onQuaternionNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('quaternion');
-  builder.setAttribute('onquaternion');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('onQuaternionNormalTest002', SpheroProfileNormalTest.onQuaternionNormalTest002);
 
 /**
  * Spheroプロファイルのonlocatorイベント登録と解除のテストを行う。
@@ -101,38 +69,6 @@ SpheroProfileNormalTest.onLocatorNormalTest001 = function(assert) {
 };
 QUnit.asyncTest('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNormalTest001);
 
-/**
- * onquaternionにGETでアクセスするテストを行う。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: GET<br/>
- * Path: /sphero/onlocator?serviceId=xxx&accessToken=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultに0が返ること。<br/>
- * </p>
- */
-SpheroProfileNormalTest.onLocatorNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('locator');
-  builder.setAttribute('onlocator');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('onLocatorNormalTest002', SpheroProfileNormalTest.onLocatorNormalTest002);
 
 /**
  * Spheroプロファイルのoncollisionイベント登録と解除のテストを行う。
@@ -163,35 +99,3 @@ SpheroProfileNormalTest.onCollisionNormalTest001 = function(assert) {
 };
 QUnit.asyncTest('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionNormalTest001);
 
-/**
- * onquaternionにGETでアクセスするテストを行う。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: GET<br/>
- * Path: /sphero/oncollision?serviceId=xxx&accessToken=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultに0が返ること。<br/>
- * </p>
- */
-SpheroProfileNormalTest.onCollisionNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('onCollisionNormalTest002', SpheroProfileNormalTest.onCollisionNormalTest002);
