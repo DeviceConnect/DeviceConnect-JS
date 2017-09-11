@@ -307,14 +307,16 @@ NotificationProfileNormalTest.notifyNormalTest008 = function(assert) {
     builder.setAccessToken(accessToken);
     builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, json.notificationId);
     var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
-    });
+    setTimeout(function() {
+		dConnect.delete(uri, null, function(json) {
+		  assert.ok(true, 'result=' + json.result);
+		  QUnit.start();
+		}, function(errorCode, errorMessage) {
+		  assert.ok(checkErrorCode(errorCode),
+			'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+		  QUnit.start();
+		});
+	}, 5000);
   }, function(errorCode, errorMessage) {
     assert.ok(checkErrorCode(errorCode),
       'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
