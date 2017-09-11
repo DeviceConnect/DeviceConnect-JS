@@ -131,7 +131,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest001 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -170,7 +170,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest002 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -209,7 +209,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest003 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -248,7 +248,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest004 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -287,7 +287,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest005 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -326,7 +326,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest006 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -365,7 +365,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest007 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -404,7 +404,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest008 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpowervalue=' + json.integratedpowervalue);
+        assert.ok(true, 'integratedpower=' + json.integratedpower);
         assert.ok(true, 'unit=' + json.unit);
         assert.ok(true, 'count=' + json.count);
         assert.ok(true, 'powerFlow=' + json.powerFlow);
@@ -442,7 +442,7 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest001 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'instantaneouspowervalue=' + json.instantaneouspowervalue);
+        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
         assert.ok(true, 'unit=' + json.unit);
         QUnit.start();
       },
@@ -479,7 +479,7 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest002 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'instantaneouspowervalue=' + json.instantaneouspowervalue);
+        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
         assert.ok(true, 'unit=' + json.unit);
         QUnit.start();
       },
@@ -516,7 +516,7 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest003 = function(assert) {
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'instantaneouspowervalue=' + json.instantaneouspowervalue);
+        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
         assert.ok(true, 'unit=' + json.unit);
         QUnit.start();
       },
@@ -552,9 +552,9 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest001 = function(assert)
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'rphase=' + json.instantaneouscurrentvalue.rphase);
-        assert.ok(true, 'tphase=' + json.instantaneouscurrentvalue.tphase);
-        assert.ok(true, 'unit=' + json.instantaneouscurrentvalue.unit);
+        assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
+        assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
+        assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
         QUnit.start();
       },
   function(errorCode, errorMessage) {
@@ -590,9 +590,9 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest002 = function(assert)
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'rphase=' + json.instantaneouscurrentvalue.rphase);
-        assert.ok(true, 'tphase=' + json.instantaneouscurrentvalue.tphase);
-        assert.ok(true, 'unit=' + json.instantaneouscurrentvalue.unit);
+        assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
+        assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
+        assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
         QUnit.start();
       },
   function(errorCode, errorMessage) {
@@ -628,9 +628,9 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest003 = function(assert)
   var uri = builder.build();
   dConnect.get(uri, null, function(json) {
         assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'rphase=' + json.instantaneouscurrentvalue.rphase);
-        assert.ok(true, 'tphase=' + json.instantaneouscurrentvalue.tphase);
-        assert.ok(true, 'unit=' + json.instantaneouscurrentvalue.unit);
+        assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
+        assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
+        assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
         QUnit.start();
       },
   function(errorCode, errorMessage) {
