@@ -91,7 +91,7 @@ LightProfileNormalTest.lightOnNormalTest001 = function(assert) {
       }
       setTimeout(function() {
         QUnit.start();
-      }, 3000);
+      }, 5000);
     } else {
       QUnit.start();
     }
@@ -137,7 +137,7 @@ LightProfileNormalTest.statusChangeNormalTest001 = function(assert) {
       }
       setTimeout(function() {
         QUnit.start();
-      }, 3000);
+      }, 5000);
     } else {
       QUnit.start();
     }
