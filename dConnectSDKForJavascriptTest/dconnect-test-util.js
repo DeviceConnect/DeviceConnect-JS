@@ -53,7 +53,8 @@ function initScopes() {
       'fabo',
       'mouse',
       'keyboard',
-      'hogp'
+      'hogp',
+      'device'
 
   );
 }
