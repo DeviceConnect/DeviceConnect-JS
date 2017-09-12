@@ -146,10 +146,10 @@ function doPowerMeterGetIntegratedPower(serviceId){
   }
 
   var successCallback = function (json){
-    $('#integrated-power').val(json.integratedpowervalue);
+    $('#integrated-power').val(json.integratedpower);
     $('#integrated-power-unit').val(json.unit);
     $('#integrated-power-count').val(json.count);
-    $('#integrated-power-powerflow').val(json.powerflow);
+    $('#integrated-power-powerflow').val(json.powerFlow);
   };
   dConnect.get(builder.build(), null, successCallback, pmAlertError);
 }
@@ -164,7 +164,7 @@ function doPowerMeterGetInstantaneousPower(serviceId){
 
   var successCallback = function (json){
     console.log('Response: ', json);
-    $('#instantaneous-power').val(json.instantaneouspowervalue);
+    $('#instantaneous-power').val(json.instantaneouspower);
     $('#instantaneous-power-unit').val(json.unit);
   };
   dConnect.get(builder.build(), null, successCallback, pmAlertError);
@@ -180,9 +180,9 @@ function doPowerMeterGetInstantaneousCurrent(serviceId){
 
   var successCallback = function (json){
     console.log('Response: ', json);
-    $('#instantaneous-current-r').val(json.instantaneouscurrentvalue.rphase);
-    $('#instantaneous-current-t').val(json.instantaneouscurrentvalue.tphase);
-    $('#instantaneous-current-unit').val(json.instantaneouscurrentvalue.unit);
+    $('#instantaneous-current-r').val(json.instantaneouscurrent.rphase);
+    $('#instantaneous-current-t').val(json.instantaneouscurrent.tphase);
+    $('#instantaneous-current-unit').val(json.instantaneouscurrent.unit);
   };
   dConnect.get(builder.build(), null, successCallback, pmAlertError);
 }
