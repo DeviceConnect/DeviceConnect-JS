@@ -480,7 +480,7 @@ function doTakePhoto(serviceId, target) {
 
   reloadContent(str);
 
-  doRegisterOnPhoto(serviceId, sessionKey);
+  doRegisterOnPhoto(serviceId);
 
   dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
     console.log("Failed to connect websocket. errorCode=" + errorCode + " errorMessage=" + errorMessage);
@@ -526,7 +526,7 @@ function doTakePhoto(serviceId, target) {
  */
 function doTakephotoBack(serviceId, sessionKey) {
   var recorder = showRecorderFeatureList.recorder;
-  doUnregisterOnPhoto(serviceId, sessionKey);
+  doUnregisterOnPhoto(serviceId);
   showRecorderFeatureList(serviceId, recorder);
 }
 
@@ -548,6 +548,7 @@ function doPreviewBack(serviceId) {
  */
 function doRecordMediaBack(serviceId) {
   var recorder = showRecorderFeatureList.recorder;
+  doUnregisterOnRecordingChange(serviceId);
   showRecorderFeatureList(serviceId, recorder);
 }
 
@@ -617,17 +618,17 @@ function refreshImg(uri, id) {
  * @param {String} target レコーダーID
  */
 function doMediaRecord(serviceId, target) {
+  doRegisterOnRecordingChange(serviceId);
   initAll();
-
   var btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId, '');
   reloadHeader(btnStr);
+  reloadContent(mediaStopButton(serviceId, target));
   reloadFooter(btnStr);
 
   setTitle('Recording, now');
 
 　sendRecordRequest(serviceId, target, {
     onsuccess: function() {
-      reloadContent(mediaStopButton(serviceId, target));
     },
     onerror: function(errorCode, errorMessage) {
       showError('POST mediastreamrecording/record', errorCode, errorMessage);
@@ -684,7 +685,6 @@ function doMediaStop(serviceId, target) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-    showMediastreamRecording(serviceId);
   }, function(errorCode, errorMessage) {
     showError('PUT mediastreamrecording/stop', errorCode, errorMessage);
   });
@@ -760,7 +760,20 @@ function doGetMediaRecorder(serviceId, target, callback) {
  */
 function mediaStopButton(serviceId, target) {
   var str = '';
+  str += makeInputText('State', 'state', 'state');
+  str += makeInputText('URI', 'uri', 'uri');
+  str += makeInputText('Path', 'path', 'path');
+  str += makeInputText('MimeType', 'mimeType', 'mimeType');
+  str += makeInputText('ErrorMessage', 'errorMessage', 'errorMessage');
   str += '<center>';
+  str += '<input data-icon="play"  ';
+    if (target !== undefined && target !== null) {
+    str += 'onclick="javascript:doMediaRecord(\'' +
+          serviceId + '\', \'' + target + '\');" type="button" value="Record"/>';
+  } else {
+    str += 'onclick="javascript:doMediaRecord(\'' +
+          serviceId + '\');" type="button" value="Record"/>';
+  }
   str += '<input data-icon="stop"  ';
   if (target !== undefined && target !== null) {
     str += 'onclick="javascript:doMediaStop(\'' +
@@ -772,7 +785,6 @@ function mediaStopButton(serviceId, target) {
   str += '</center>';
   return str;
 }
-
 /**
  * 写真の撮影
  *
@@ -797,9 +809,8 @@ function takePhotoButton(serviceId, target) {
  * onPhotoイベントの登録
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションキー
  */
-function doRegisterOnPhoto(serviceId, sessionKey) {
+function doRegisterOnPhoto(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastreamrecording');
   builder.setAttribute('onphoto');
@@ -828,12 +839,69 @@ function doRegisterOnPhoto(serviceId, sessionKey) {
  * onPhotoイベントの解除
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションキー
  */
-function doUnregisterOnPhoto(serviceId, sessionKey) {
+function doUnregisterOnPhoto(serviceId) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastreamrecording');
   builder.setAttribute('onphoto');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
+  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+
+/**
+ * onRecordingChangeイベントの登録
+ *
+ * @param {String} serviceId サービスID
+ */
+function doRegisterOnRecordingChange(serviceId, cb) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastreamrecording');
+  builder.setAttribute('onRecordingChange');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+
+  var uri = builder.build();
+  if (DEBUG) {
+    console.log('Uri:' + uri)
+  }
+
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message)
+    }
+
+    var json = JSON.parse(message);
+    $('#state').val(json.media.state);
+    $('#uri').val(json.media.uri);
+    $('#path').val(json.media.path);
+    $('#mimeType').val(json.media.mimeType);
+    if (json.media.errorMessage) {
+	    $('#errorMessage').val(json.media.errorMessage);
+	}
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+/**
+ * onRecordingChangeイベントの解除
+ *
+ * @param {String} serviceId サービスID
+ */
+function doUnregisterOnRecordingChange(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('mediastreamrecording');
+  builder.setAttribute('onRecordingChange');
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   var uri = builder.build();
