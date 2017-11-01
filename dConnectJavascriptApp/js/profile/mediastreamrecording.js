@@ -480,40 +480,41 @@ function doTakePhoto(serviceId, target) {
 
   reloadContent(str);
 
-  doRegisterOnPhoto(serviceId);
+  doRegisterOnPhoto(serviceId, function() {
+	  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
+		console.log("Failed to connect websocket. errorCode=" + errorCode + " errorMessage=" + errorMessage);
+	  });
 
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-    console.log("Failed to connect websocket. errorCode=" + errorCode + " errorMessage=" + errorMessage);
-  });
+	  var builder = new dConnect.URIBuilder();
+	  builder.setProfile('mediastreamrecording');
+	  builder.setAttribute('takephoto');
+	  builder.setServiceId(serviceId);
+	  builder.setAccessToken(accessToken);
+	  if (target !== null && target !== undefined) {
+		builder.addParameter('target', target);
+	  }
+	  var uri = builder.build();
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('takephoto');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  if (target !== null && target !== undefined) {
-    builder.addParameter('target', target);
-  }
-  var uri = builder.build();
+	  if (DEBUG) {
+		console.log('Uri: ' + uri)
+	  }
 
-  if (DEBUG) {
-    console.log('Uri: ' + uri)
-  }
+	  dConnect.post(uri, null, null, function(json) {
+		if (DEBUG) {
+		  console.log('Response: ', json);
+		}
 
-  dConnect.post(uri, null, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
-    }
+		var myUri = json.uri;
+		myUri = myUri.replace('localhost', ip);
+		refreshImg(myUri, 'photo');
+		closeLoading();
 
-    var myUri = json.uri;
-    myUri = myUri.replace('localhost', ip);
-    refreshImg(myUri, 'photo');
-    closeLoading();
-
-    $('#onPhoto').val(json.uri);
-  }, function(errorCode, errorMessage) {
-    showError('POST mediastreamrecording/takephoto', errorCode, errorMessage);
-    closeLoading();
+		$('#onPhoto').val(json.uri);
+	
+	  }, function(errorCode, errorMessage) {
+		showError('POST mediastreamrecording/takephoto', errorCode, errorMessage);
+		closeLoading();
+	  });
   });
 
 }
@@ -618,48 +619,50 @@ function refreshImg(uri, id) {
  * @param {String} target レコーダーID
  */
 function doMediaRecord(serviceId, target) {
-  doRegisterOnRecordingChange(serviceId);
-  initAll();
-  var btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId, '');
-  reloadHeader(btnStr);
-  reloadContent(mediaStopButton(serviceId, target));
-  reloadFooter(btnStr);
+  doRegisterOnRecordingChange(serviceId, function() {
+	  initAll();
+	  var btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId, '');
+	  reloadHeader(btnStr);
+	  reloadContent(mediaStopButton(serviceId, target));
+	  reloadFooter(btnStr);
 
-  setTitle('Recording, now');
+	  setTitle('Recording, now');
 
-　sendRecordRequest(serviceId, target, {
-    onsuccess: function() {
-    },
-    onerror: function(errorCode, errorMessage) {
-      showError('POST mediastreamrecording/record', errorCode, errorMessage);
-    }
+	　sendRecordRequest(serviceId, target, {
+		onsuccess: function() {
+		},
+		onerror: function(errorCode, errorMessage) {
+		  showError('POST mediastreamrecording/record', errorCode, errorMessage);
+		}
+	  });
+
+	  function sendRecordRequest(serviceId, target, cb) {
+		var builder = new dConnect.URIBuilder();
+		builder.setProfile('mediastreamrecording');
+		builder.setAttribute('record');
+		builder.setServiceId(serviceId);
+		builder.setAccessToken(accessToken);
+		if (target !== null && target !== undefined) {
+		  builder.addParameter('target', target);
+		}
+		var uri = builder.build();
+
+		if (DEBUG) {
+		  console.log('Uri: ' + uri);
+		}
+
+		dConnect.post(uri, null, null, function(json) {
+		  if (DEBUG) {
+			console.log('Response: ', json);
+		  }
+
+		  cb.onsuccess();
+		}, function(errorCode, errorMessage) {
+		  cb.onerror(errorCode, errorMessage);
+		});
+	  }
+
   });
-
-  function sendRecordRequest(serviceId, target, cb) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('mediastreamrecording');
-    builder.setAttribute('record');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    if (target !== null && target !== undefined) {
-      builder.addParameter('target', target);
-    }
-    var uri = builder.build();
-
-    if (DEBUG) {
-      console.log('Uri: ' + uri);
-    }
-
-    dConnect.post(uri, null, null, function(json) {
-      if (DEBUG) {
-        console.log('Response: ', json);
-      }
-
-      cb.onsuccess();
-    }, function(errorCode, errorMessage) {
-      cb.onerror(errorCode, errorMessage);
-    });
-  }
 }
 
 /**
@@ -760,7 +763,7 @@ function doGetMediaRecorder(serviceId, target, callback) {
  */
 function mediaStopButton(serviceId, target) {
   var str = '';
-  str += makeInputText('State', 'state', 'state');
+  str += makeInputText('Status', 'status', 'status');
   str += makeInputText('URI', 'uri', 'uri');
   str += makeInputText('Path', 'path', 'path');
   str += makeInputText('MimeType', 'mimeType', 'mimeType');
@@ -809,8 +812,9 @@ function takePhotoButton(serviceId, target) {
  * onPhotoイベントの登録
  *
  * @param {String} serviceId サービスID
+ * @param {Function} cb イベント登録後に実行される関数
  */
-function doRegisterOnPhoto(serviceId) {
+function doRegisterOnPhoto(serviceId, cb) {
   var builder = new dConnect.URIBuilder();
   builder.setProfile('mediastreamrecording');
   builder.setAttribute('onphoto');
@@ -830,8 +834,16 @@ function doRegisterOnPhoto(serviceId) {
 
     var json = JSON.parse(message);
     $('#onPhoto').val(json.photo.path + ':' + json.photo.mimeType);
-  }, null, function(errorCode, errorMessage) {
+
+  }, function() {
+    if (cb) {
+    	cb();
+    }
+  }, function(errorCode, errorMessage) {
     alert(errorMessage);
+    if (cb) {
+    	cb();
+    }
   });
 }
 
@@ -881,15 +893,22 @@ function doRegisterOnRecordingChange(serviceId, cb) {
     }
 
     var json = JSON.parse(message);
-    $('#state').val(json.media.state);
+    $('#status').val(json.media.status);
     $('#uri').val(json.media.uri);
     $('#path').val(json.media.path);
     $('#mimeType').val(json.media.mimeType);
     if (json.media.errorMessage) {
 	    $('#errorMessage').val(json.media.errorMessage);
 	}
-  }, null, function(errorCode, errorMessage) {
+  }, function() {
+  	if (cb) {
+  		cb();
+  	}
+   }, function(errorCode, errorMessage) {
     alert(errorMessage);
+    if (cb) {
+  		cb();
+  	}
   });
 }
 
