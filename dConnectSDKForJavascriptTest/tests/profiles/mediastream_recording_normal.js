@@ -525,7 +525,7 @@ if (IS_TEST_STATUS != 'record') {
   QUnit.asyncTest('previewNormalTest002', MediaStreamRecordingProfileNormalTest.previewNormalTest002);
 }
 /**
- * プレビュー通知イベントを登録するテストを行う。
+ * 写真撮影通知イベントを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT<br/>
@@ -563,4 +563,36 @@ MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001 = function(assert) {
 };
 if (IS_TEST_STATUS != 'record') {
   QUnit.asyncTest('onPhotoNormalTest001', MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001);
+}
+
+/**
+ * 録画通知イベントを登録するテストを行う。
+ * <h3>【HTTP通信】</h3>
+ * <p id="test">
+ * Method: PUT<br/>
+ * Path: /mediastreamrecording/onrecordingchange?serviceId=xxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultが0であること。
+ * ・撮影イベントが送られてくること。
+ * </p>
+ */
+MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001 = function(assert) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
+  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE);
+  openWebsocket(builder, assert, 10000, function(message) {
+    var json = JSON.parse(message);
+    if (json.profile === dConnect.constants.media_stream_recording.PROFILE_NAME &&
+        json.attribute === dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE) {
+	  assert.ok(true, message);
+      return true;
+    }
+    assert.ok(false, message);
+    return false;
+  });
+};
+if (IS_TEST_STATUS != 'picture') {
+  QUnit.asyncTest('onRecordingChangeNormalTest001', MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001);
 }
