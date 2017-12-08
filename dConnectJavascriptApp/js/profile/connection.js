@@ -15,7 +15,7 @@ function showConnection(serviceId) {
   var sessionKey = currentClientId;
   setTitle('Connection Profile');
 
-  var btnStr = getBackButton('Device Top', 'doSettingBack',
+  var btnStr = getBackButton('Device Top', 'doConnectionBack',
                   serviceId, sessionKey);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
@@ -371,7 +371,7 @@ function doRegisterBluetoothChangeEvent(serviceId, sessionKey) {
  * serviceId {String}サービスID
  * sessionKey {String}セッションKEY
  */
-function doSettingBack(serviceId, sessionKey) {
+function doConnectionBack(serviceId, sessionKey) {
   doUnregisterWifiChangeEvent(serviceId, sessionKey);
   doUnregisterBluetoothChangeEvent(serviceId, sessionKey);
   searchSystem(serviceId);
