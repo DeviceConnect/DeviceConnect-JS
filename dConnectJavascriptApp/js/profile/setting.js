@@ -40,15 +40,6 @@ function showSetting(serviceId) {
           ' data-role="datebox" data-options=\'{"mode":"timebox"}\' />';
     str += '<input type="button" onclick="doSetDate(\'' +
             serviceId + '\',1);" id="setDate" value="Set date"  />';
-  } else if (myDeviceName.indexOf('Sony Camera') != -1) {
-    str += '<center>Date</center><br>';
-    str += makeInputText('DeviceTime', 'deviceDate', 'deviceDate');
-    str += '<input name="newDate" id="newDate" type="text"' +
-          ' data-role="datebox" data-options=\'{"mode":"datebox"}\' />'
-    str += '<input name="newTime" id="newTime" type="text"' +
-          ' data-role="datebox" data-options=\'{"mode":"timebox"}\' />';
-    str += '<input type="button" onclick="doSetDate(\'' +
-          serviceId + '\',1);" id="setDate" value="Set date"  />';
   }  else if (myDeviceName.indexOf('FPLUG') != -1) {
     str += '<center>Date</center><br>';
     str += makeInputText('DeviceTime', 'deviceDate', 'deviceDate');
@@ -143,7 +134,7 @@ function doSetDate(serviceId) {
   var newDate = $('#newDate').val();
   var newTime = $('#newTime').val();
 
-  var newDateStr = newDate + 'T' + newTime + ':00+0900';
+  var newDateStr = newDate + 'T' + newTime + ':00+09:00';
   alert(newDateStr);
 
   var builder = new dConnect.URIBuilder();
@@ -207,15 +198,6 @@ function doCheckDate(serviceId) {
   });
 }
 
-/**
- * Backボタン
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
- */
-function doSettingBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
 
 /**
  * Get volume from Setting profile.

@@ -157,7 +157,8 @@ function showOnCollision(serviceId) {
   str += '</fieldset>';
   str += '<form  name="spheroForm">';
   str += 'Collision<br>';
-  str += makeInputText('Timestamp',  'time',  'time');
+  str += makeInputText('TimeStamp',  'time',  'time');
+  str += makeInputText('TimeStampString',  'timeString',  'timeString');
   str += makeInputText('Speed',  'speed',  'speed');
   str += makeInputText('Power:X',  'px',  'px');
   str += makeInputText('Power:Y',  'py',  'py');
@@ -419,7 +420,8 @@ function doGetOnCollision(serviceId) {
 
   dConnect.get(uri, null, function(json) {
     if (json.collision) {
-      $('#time').val(json.collision.impactTimestamp);
+      $('#time').val(json.collision.impactTimeStamp);
+      $('#timeString').val(json.collision.impactTimeStampString);
       $('#speed').val(json.collision.impactSpeed);
       $('#px').val(json.collision.impactPower.x);
       $('#py').val(json.collision.impactPower.y);
@@ -458,7 +460,8 @@ function doRegisterOnCollision(serviceId, sessionKey) {
 
     var json = JSON.parse(message);
     if (json.collision) {
-      $('#time').val(json.collision.impactTimestamp);
+      $('#time').val(json.collision.impactTimeStamp);
+      $('#timeString').val(json.collision.impactTimeStampString);
       $('#speed').val(json.collision.impactSpeed);
       $('#px').val(json.collision.impactPower.x);
       $('#py').val(json.collision.impactPower.y);
