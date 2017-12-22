@@ -28,7 +28,7 @@ function showCamera(serviceId) {
   str += '</SELECT>';
   str += '<label for="movement">Magnification:</label>';
   str += '<SELECT id="movement">';
-  str += '<OPTION value="start">Max</OPTION>';
+  str += '<OPTION value="max">Max</OPTION>';
   str += '<OPTION value="1shot">1shot</OPTION>';
   str += '</SELECT>';
   str += '<br>';
@@ -47,7 +47,7 @@ function showCamera(serviceId) {
       str = 'Min';
     }
     if (str) {
-      $('#movement').children('[value=start]').html(str);
+      $('#movement').children('[value=max]').html(str);
       $('#movement').selectmenu('refresh', true);
     }
   });
