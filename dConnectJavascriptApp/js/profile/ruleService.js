@@ -416,8 +416,8 @@ function doSetDateTimeParam() {
   localStorage.triggerIntervalUnit = document.forms.DateTimeForm.patternUnit.value;
   localStorage.triggerIntervalReferenceTime = 'noSetting';
   localStorage.trigger_rest = 'Date&Time';
-  if (localStorage.triggerActioin != null) {
-    localStorage.removeItem(triggerActioin);
+  if (localStorage.triggerAction != null) {
+    localStorage.removeItem(triggerAction);
   }
   if (localStorage.triggerParameter != null) {
 　　  localStorage.removeItem(triggerParameter);
@@ -437,7 +437,7 @@ function doSetDateTimeParam() {
     console.log('triggerIntervalUnit         : ', localStorage.triggerIntervalUnit);
     console.log('triggerIntervalReferenceTime: ', localStorage.triggerIntervalReferenceTime);
     console.log('trigger_rest                : ', localStorage.trigger_rest);
-    console.log('triggerActioin              : ', localStorage.triggerActioin);
+    console.log('triggerAction               : ', localStorage.triggerAction);
     console.log('triggerParameter            : ', localStorage.triggerParameter);
     console.log('comparisonLeft              : ', localStorage.comparisonLeft);
     console.log('comparisonLeftDataType      : ', localStorage.comparisonLeftDataType);
@@ -893,7 +893,7 @@ function doSetBatteryTriggerParam(serviceId) {
   }
   localStorage.trigger_rest = patternRest;
 
-  localStorage.triggerActioin = 'GET';
+  localStorage.triggerAction = 'GET';
   localStorage.triggerParameter_serviceId = serviceId;
   if (localStorage.triggerParameter_others != null) {
     localStorage.removeItem(triggerParameter_others);
@@ -940,7 +940,7 @@ function doSetBatteryTriggerParam(serviceId) {
     console.log('triggerIntervalUnit         : ', localStorage.triggerIntervalUnit);
     console.log('triggerIntervalReferenceTime: ', localStorage.triggerIntervalReferenceTime);
     console.log('trigger_rest                : ', localStorage.trigger_rest);
-    console.log('triggerActioin              : ', localStorage.triggerActioin);
+    console.log('triggerAction               : ', localStorage.triggerAction);
     console.log('triggerParameter_serviceId  : ', localStorage.triggerParameter_serviceId);
     console.log('triggerParameter_others     : ', localStorage.triggerParameter_others);
     console.log('comparisonLeft              : ', localStorage.comparisonLeft);
@@ -1052,7 +1052,7 @@ function doSetDeviceOrientationTriggerParam(serviceId) {
   localStorage.triggerIntervalReferenceTime = document.DeviceOrientationForm.triggerStartTiming.options[index].value;
 
   localStorage.trigger_rest = document.forms.DeviceOrientationForm.patternRest.value;
-  localStorage.triggerActioin = 'GET';
+  localStorage.triggerAction = 'GET';
   localStorage.triggerParameter_serviceId = serviceId;
   if (localStorage.triggerParameter_others != null) {
     localStorage.removeItem(triggerParameter_others);
@@ -1086,7 +1086,7 @@ function doSetDeviceOrientationTriggerParam(serviceId) {
     console.log('triggerIntervalUnit         : ', localStorage.triggerIntervalUnit);
     console.log('triggerIntervalReferenceTime: ', localStorage.triggerIntervalReferenceTime);
     console.log('trigger_rest                : ', localStorage.trigger_rest);
-    console.log('triggerActioin              : ', localStorage.triggerActioin);
+    console.log('triggerAction               : ', localStorage.triggerAction);
     console.log('triggerParameter_serviceId  : ', localStorage.triggerParameter_serviceId);
     console.log('triggerParameter_others     : ', localStorage.triggerParameter_others);
     console.log('comparisonLeft              : ', localStorage.comparisonLeft);
@@ -1195,7 +1195,7 @@ function doSetGeolocationTriggerParam(serviceId) {
   localStorage.triggerIntervalReferenceTime = document.GeolocationForm.triggerStartTiming.options[index].value;
 
   localStorage.trigger_rest = document.forms.GeolocationForm.patternRest.value;
-  localStorage.triggerActioin = 'GET';
+  localStorage.triggerAction = 'GET';
   localStorage.triggerParameter_serviceId = serviceId;
   if (localStorage.triggerParameter_others != null) {
     localStorage.removeItem(triggerParameter_others);
@@ -1229,7 +1229,7 @@ function doSetGeolocationTriggerParam(serviceId) {
     console.log('triggerIntervalUnit         : ', localStorage.triggerIntervalUnit);
     console.log('triggerIntervalReferenceTime: ', localStorage.triggerIntervalReferenceTime);
     console.log('trigger_rest                : ', localStorage.trigger_rest);
-    console.log('triggerActioin              : ', localStorage.triggerActioin);
+    console.log('triggerAction               : ', localStorage.triggerAction);
     console.log('triggerParameter_serviceId  : ', localStorage.triggerParameter_serviceId);
     console.log('triggerParameter_others     : ', localStorage.triggerParameter_others);
     console.log('comparisonLeft              : ', localStorage.comparisonLeft);
@@ -1331,7 +1331,7 @@ function doSetProximityTriggerParam(serviceId) {
 
   localStorage.trigger_rest = document.forms.ProximityForm.patternRest.value;
 
-  localStorage.triggerActioin = 'GET';
+  localStorage.triggerAction = 'GET';
   localStorage.triggerParameter_serviceId = serviceId;
   if (localStorage.triggerParameter_others != null) {
     localStorage.removeItem(triggerParameter_others);
@@ -1355,7 +1355,7 @@ function doSetProximityTriggerParam(serviceId) {
     console.log('triggerIntervalUnit         : ', localStorage.triggerIntervalUnit);
     console.log('triggerIntervalReferenceTime: ', localStorage.triggerIntervalReferenceTime);
     console.log('trigger_rest                : ', localStorage.trigger_rest);
-    console.log('triggerActioin              : ', localStorage.triggerActioin);
+    console.log('triggerAction               : ', localStorage.triggerAction);
     console.log('triggerParameter_serviceId  : ', localStorage.triggerParameter_serviceId);
     console.log('triggerParameter_others     : ', localStorage.triggerParameter_others);
     console.log('comparisonLeft              : ', localStorage.comparisonLeft);
@@ -2133,19 +2133,28 @@ function doCerateRuleOperation(ruleServiceId) {
     builder.addParameter('delayOccurrence', localStorage.delayOccurrence);
   }
   
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri: ' + uri); }
-  
-  document.getElementById('ruleConfirmationRuleSettingLogText').value += 'Request:\nUri: ' + uri + '\n\n';
-  
-  dConnect.post(uri, null, null, function(json) {
-    if (DEBUG) { console.log('Response: ', json); }
-    var str = JSON.stringify(json, null, ' ');
-    document.getElementById('ruleConfirmationRuleSettingLogText').value += 'Response:\n' + str + '\n\n';
-    doSetRuleDescription(ruleServiceId);    
-  }, function(errorCode, errorMessage) {
-    showError('POST ruleService', errorCode, errorMessage);
-  });
+  if (localStorage.operationIndex == null &&
+      localStorage.operation_rest == null &&
+      localStorage.operationAction == null &&
+      localStorage.operationParameter_serviceId == null &&
+      localStorage.operationParameter_others == null &&
+      localStorage.delayOccurrence == null) {
+    doSetRuleDescription(ruleServiceId);
+  } else {
+    var uri = builder.build();
+    if (DEBUG) { console.log('Uri: ' + uri); }
+    
+    document.getElementById('ruleConfirmationRuleSettingLogText').value += 'Request:\nUri: ' + uri + '\n\n';
+    
+    dConnect.post(uri, null, null, function(json) {
+      if (DEBUG) { console.log('Response: ', json); }
+      var str = JSON.stringify(json, null, ' ');
+      document.getElementById('ruleConfirmationRuleSettingLogText').value += 'Response:\n' + str + '\n\n';
+      doSetRuleDescription(ruleServiceId);
+    }, function(errorCode, errorMessage) {
+      showError('POST ruleService', errorCode, errorMessage);
+    });
+  }
 }
 
 function doSetRuleDescription(ruleServiceId) {
