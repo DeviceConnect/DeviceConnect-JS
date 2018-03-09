@@ -67,7 +67,7 @@ CameraProfileNormalTest.zoomNormalTest001 = function(assert) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('direction', 'in');
-  builder.addParameter('movement', 'start');
+  builder.addParameter('movement', 'in-start');
   var uri = builder.build();
   dConnect.put(uri, null, null, function(json) {
     assert.ok(true,
@@ -79,7 +79,7 @@ CameraProfileNormalTest.zoomNormalTest001 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       builder.addParameter('direction', 'in');
-      builder.addParameter('movement', 'stop');
+      builder.addParameter('movement', 'in-stop');
       var uri = builder.build();
       dConnect.put(uri, null, null,
           function(json) {
@@ -159,7 +159,7 @@ CameraProfileNormalTest.zoomNormalTest003 = function(assert) {
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
   builder.addParameter('direction', 'out');
-  builder.addParameter('movement', 'start');
+  builder.addParameter('movement', 'in-start');
   var uri = builder.build();
   dConnect.put(uri, null, null, function(json) {
     assert.ok(true,
@@ -171,7 +171,7 @@ CameraProfileNormalTest.zoomNormalTest003 = function(assert) {
       builder.setServiceId(serviceId);
       builder.setAccessToken(accessToken);
       builder.addParameter('direction', 'out');
-      builder.addParameter('movement', 'stop');
+      builder.addParameter('movement', 'in-stop');
       var uri = builder.build();
       dConnect.put(uri, null, null,
           function(json) {
