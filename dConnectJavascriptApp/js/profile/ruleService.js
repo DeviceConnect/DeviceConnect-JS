@@ -1343,10 +1343,10 @@ function doSetProximityTriggerParam(serviceId) {
     return;
   }
   localStorage.comparisonRight = comparisonRight;
-  localStorage.comparisonRightDataType = 'TypeString';
+  localStorage.comparisonRightDataType = 'TypeBoolean';
   
   localStorage.comparisonLeft = document.forms.ProximityForm.patternLeft.value;
-  localStorage.comparisonLeftDataType = 'TypeJsonString';
+  localStorage.comparisonLeftDataType = 'TypeJsonBoolean';
   
   localStorage.comparison = document.forms.ProximityForm.patternComparison.value;
   
