@@ -63,6 +63,7 @@
     <script src="./js/profile/mouse.js" type="text/javascript"></script>
     <script src="./js/profile/keyboard.js" type="text/javascript"></script>
     <script src="./js/profile/device.js" type="text/javascript"></script>
+    <script src="./js/profile/ruleService.js" type="text/javascript"></script>
     <script src="./js/sdk/util.js" type="text/javascript"></script>
     <script src="./js/demo.js" type="text/javascript"></script>
 
@@ -111,6 +112,11 @@
         <div data-role="header" data-theme="b">
             <a data-ajax="false" data-icon="home" onclick="stopManagerAndDemo()" >Close</a>
             <a data-ajax="false" data-icon="gear" href="#setting">Setting</a>
+            <h1 id="version"></h1>
+        </div>
+        <div data-role="header" data-theme="b">
+            <a data-ajax="false" href=""></a>
+            <a data-ajax="false" data-icon="gear" href="#rule">ルール管理</a>
             <h1 id="version"></h1>
         </div>
         <div style="text-align:center">
@@ -221,6 +227,211 @@
                     <a data-role="button" href="#page3">Cancel</a>
                 </form>
             </div>
+        </div>
+    </div>
+
+
+    <!-- ルール管理ページ -->
+    <div id="rule" data-role="page">
+        <div data-role="header" data-theme="b">
+            <a href="#demo" data-ajax="false" data-icon="back">Back</a>
+            <h1>ルール管理</h1>
+        </div>
+
+        <ul class="list" data-role="listview" id="rulemenu">
+            <li><a href="javascript:searchDeviceRuleEngine()" value="">ルール一覧</a></li>
+            <li><a href="javascript:showRuleCreate()" value="">ルール生成</a></li>
+            <li><a href="javascript:searchRuleError()" value="">エラーログ</a></li>
+        </ul>
+
+        <div id="log">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- ルール一覧ページ -->
+    <div id="rulelist" data-role="page">
+        <div id ='rulelistheader'>
+            <div data-role="header" data-theme="b">
+                <a href="#rule" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール一覧</h1>
+            </div>
+        </div>
+
+        <div id="contents">
+        </div>
+
+        <ul class="rulelistview" data-role="listview" id="rulelistview">
+        </ul>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- ルール詳細ページ -->
+    <div id="ruledetails" data-role="page">
+        <div data-role="header" data-theme="b">
+            <a href="javascript:searchDeviceRuleEngine()" data-ajax="false" data-icon="back">Back</a>
+            <h1>ルール詳細</h1>
+        </div>
+
+        <textarea id="logdetailsText" cols="40" rows="40" maxlength="80" readonly="readonly"></textarea>
+        <div id="buttongroup" data-role="controlgroup" data-type="horizontal">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- ルール生成ページ -->
+    <div id="rulecreate" data-role="page">
+        <div id ='rulecreateheader'>
+            <div data-role="header" data-theme="b">
+                <a href="#rule" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール生成</h1>
+            </div>
+        </div>
+        <div id="subtitle" data-role="header" data-theme="b">
+        </div>
+
+        <div id="rulecreatecontents">
+        </div>
+
+        <ul class="list" data-role="listview" id="rulecreatepage">
+        </ul>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- ANDルール生成ページ -->
+    <div id="andrulecreate" data-role="page">
+        <div id ='andrulecreateheader'>
+            <div data-role="header" data-theme="b">
+                <a href="#rule" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール生成</h1>
+            </div>
+        </div>
+        <div id="subtitle" data-role="header" data-theme="b">
+        </div>
+
+        <ul class="list" data-role="listview" id="andrulecreatepage">
+        </ul>
+
+        <div id="andrulecreatecontents">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- プロファイル選択ページ -->
+    <div id="selectprofile" data-role="page">
+        <div id ='selectprofileheader'>
+            <div data-role="header" data-theme="b">
+                <a href="javascript:showRuleCreate()" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール生成</h1>
+            </div>
+        </div>
+        <div id="selectprofilesubtitle" data-role="header" data-theme="b">
+        </div>
+
+        <ul class="list" data-role="listview" id="selectprofilepage">
+        </ul>
+
+        <div id="selectprofilecontents">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- トリガー設定ページ -->
+    <div id="settrigger" data-role="page">
+        <div id ='settriggerheader'>
+            <div data-role="header" data-theme="b">
+                <a href="#rulelist" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール生成</h1>
+            </div>
+        </div>
+        <div id="settriggersubtitle" data-role="header" data-theme="b">
+        </div>
+
+        <div id="settriggercontents">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- オペレーション設定ページ -->
+    <div id="setoperation" data-role="page">
+        <div id ='setoperationheader'>
+            <div data-role="header" data-theme="b">
+                <a href="#rulelist" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール生成</h1>
+            </div>
+        </div>
+        <div id="setoperationsubtitle" data-role="header" data-theme="b">
+        </div>
+
+        <div id="setoperationcontents">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- ルール設定条件確認ページ -->
+    <div id="ruleconfirmation" data-role="page">
+        <div id ='ruleconfirmationheader'>
+            <div data-role="header" data-theme="b">
+                <a href="javascript:history.go(-1)" data-ajax="false" data-icon="back">Back</a>
+                <h1>ルール生成</h1>
+            </div>
+        </div>
+        <div id="ruleconfirmationsubtitle" data-role="header" data-theme="b">
+        </div>
+
+        <div id="ruleconfirmationcontents">
+        </div>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
+        </div>
+    </div>
+
+
+    <!-- エラー一覧ページ -->
+    <div id="errorlist" data-role="page">
+        <div data-role="header" data-theme="b">
+            <a href="#rule" data-ajax="false" data-icon="back">Back</a>
+            <h1>エラーログ</h1>
+        </div>
+
+        <ul class="list" data-role="listview" id="errorlistview">
+        </ul>
+
+        <div data-role="footer" data-theme="b">
+            <h4>Device Connect UIApp</h4>
         </div>
     </div>
 </body>
