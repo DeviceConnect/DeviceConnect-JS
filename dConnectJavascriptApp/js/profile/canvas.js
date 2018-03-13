@@ -129,8 +129,12 @@ function doCanvasDrawImage(serviceId, fileFormId) {
   var myForm = document.getElementById(fileFormId);
   var myFormData = new FormData(myForm);
   var myXhr = new XMLHttpRequest();
-  if (!myFormData.get('mode')) {
-    myFormData.delete('mode');
+  try {
+    if (!myFormData.get('mode')) {
+      myFormData.delete('mode');
+    }
+  } catch (e) {
+    // Safariなどでは、FormData#append以外はサポートしていないため、エラーが出る
   }
   myXhr.open(myForm.method, myForm.action, true);
   myXhr.onreadystatechange = function() {
