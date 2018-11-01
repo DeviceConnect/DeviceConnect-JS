@@ -110,6 +110,7 @@ function showRecorderInfo(serviceId) {
     contents += '<b>imageHeight:</b> ' + recorder.imageHeight + '<br>';
     contents += '<b>previewWidth:</b> ' + recorder.previewWidth + '<br>';
     contents += '<b>previewHeight:</b> ' + recorder.previewHeight + '<br>';
+    contents += '<b>previewBitRate:</b> ' + recorder.previewBitRate + '<br>';
     contents += '<b>previewMaxFrameRate:</b> ' + recorder.previewMaxFrameRate + '<br>';
     if (recorder.audio) {
       contents += '<b>channels:</b> ' + recorder.audio.channels + '<br>';
@@ -185,6 +186,10 @@ function showOptionList(serviceId, target, currentOptions) {
     }
     str += '</select><br>';
 
+    str += '<b>Preview Bit Rate (fps):</b>';
+    str += '<input id="textBitRate" type="text" value="' + 
+            ((recorder.previewBitRate !== undefined) ? recorder.previewBitRate : '') + '"></input><br>';
+
     str += '<b>Preview Max Frame Rate (fps):</b>';
     str += '<input id="textMaxFrameRate" type="text" value="' + 
             ((recorder.previewMaxFrameRate !== undefined) ? recorder.previewMaxFrameRate : '') + '"></input><br>';
@@ -227,6 +232,10 @@ function showOptionList(serviceId, target, currentOptions) {
       op.previewWidth = previewSize.width;
       op.previewHeight = previewSize.height;
 
+      // bitrate
+      var bitrate = $('#textBitRate').val();
+      op.previewBitRate = bitrate !== '' ? bitrate : undefined;
+
       // previewMaxFrameRate
       var frameRate = $('#textMaxFrameRate').val();
       op.previewMaxFrameRate = frameRate !== '' ? frameRate : undefined;
@@ -266,6 +275,9 @@ function doChangeRecorderOptions(op) {
   }
   if (op.previewHeight !== undefined) {
     builder.addParameter('previewHeight', op.previewHeight);
+  }
+  if (op.previewBitRate !== undefined) {
+    builder.addParameter('previewBitRate', op.previewBitRate);
   }
   if (op.previewMaxFrameRate !== undefined) {
     builder.addParameter('previewMaxFrameRate', op.previewMaxFrameRate);
