@@ -23,9 +23,9 @@ function showPhone(serviceId) {
 
   var str = '';
   str += '<li><a href="javascript:showPhoneCall(\'' + serviceId +
-          '\');" value="Call">phone/call</a></li>';
+          '\');" value="Call">Call</a></li>';
   str += '<li><a href="javascript:showPhoneSetting(\'' + serviceId +
-          '\');" value="Setting">phone/set</a></li>';
+          '\');" value="Setting">Setting</a></li>';
   reloadList(str);
 }
 
@@ -37,7 +37,6 @@ function showPhone(serviceId) {
  */
 function doPhoneCallBack(serviceId, sessionKey) {
   showPhone(serviceId);
-  doUnregisterOnConnect(serviceId, sessionKey);
 }
 
 /**
@@ -60,7 +59,7 @@ function showPhoneCall(serviceId) {
 
   initAll();
 
-  setTitle('Phone Profile(Call)');
+  setTitle('Phone Profile (Call)');
 
   var btnStr = '';
   btnStr += getBackButton('Phone TOP', 'doPhoneCallBack',
@@ -68,19 +67,177 @@ function showPhoneCall(serviceId) {
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
-  str += '<form action="" method="POST" name="phoneForm">';
-  str += makeInputText('Status', 'status', 'status');
-  str += makeInputText('Phone Number', 'phone', 'phone');
-  str += '</form>';
-  str += '<input onclick="javascript:doPhoneCall(\'' + serviceId +
-        '\');" type="button" value="Call"/>';
+  var str = ''; 
+  str += '<label for="callStateGet">Call State (Get):</label>';
+  str += '<div data-role="controlgroup" data-type="horizontal">';
+  str += '  <input type="text" id="callStateGet" data-wrapper-class="controlgroup-textinput ui-btn">';
+  str += '  <button onclick="javascript:getCallState(\'' + serviceId + '\')">Get</button>';
+  str += '</div>';
+  str += '<label for="callStateEvent">Call State (Event):</label>';
+  str += '  <div data-role="controlgroup" data-type="horizontal">';
+  str += '  <input type="text" id="callStateEvent" data-wrapper-class="controlgroup-textinput ui-btn">';
+  str += '  <button onclick="javascript:registerCallStateEvent(\'' + serviceId + '\')">Register</button>';
+  str += '  <button onclick="javascript:unregisterCallStateEvent(\'' + serviceId + '\')">Unregister</button>';
+  str += '</div>';
+  str += '<label for="phoneNumber">Phone Number:</label>';
+  str += '<div data-role="controlgroup" data-type="horizontal">';
+  str += '  <input type="text" id="phoneNumber" data-wrapper-class="controlgroup-textinput ui-btn">';
+  str += '  <button onclick="javascript:acceptCall(\'' + serviceId + '\')">Accept</button>';
+  str += '  <button onclick="javascript:rejectCall(\'' + serviceId + '\')">Reject</button>';
+  str += '  <button onclick="javascript:endCall(\'' + serviceId + '\')">End</button>';
+  str += '  <button onclick="javascript:doPhoneCall(\'' + serviceId + '\')">Call</button>';
+  str += '</div>';
   reloadContent(str);
 
-  doRegisterOnConnect(serviceId, sessionKey);
   dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
   });
 
+}
+
+function getCallState(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('phone');
+  builder.setAttribute('callState');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri);
+  }
+
+  dConnect.get(uri, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    if (json.state) {
+      $('#callStateGet').val(json.state);
+    }
+    if (json.phoneNumber) {
+      $('#phoneNumber').val(json.phoneNumber);
+    }
+  }, function(errorCode, errorMessage) {
+    showError('phone/callState', errorCode, errorMessage);
+  });
+}
+
+function registerCallStateEvent(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('phone');
+  builder.setAttribute('onCallStateChange');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri);
+  }
+  dConnect.addEventListener(uri, function(message) {
+    // イベントメッセージが送られてくる
+    if (DEBUG) {
+      console.log('Event-Message:' + message);
+    }
+    var json = JSON.parse(message);
+    if (json.state) {
+      $('#callStateEvent').val(json.state);
+    }
+    if (json.phoneNumber) {
+      $('#phoneNumber').val(json.phoneNumber);
+    }
+  }, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+function unregisterCallStateEvent(serviceId) {
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('phone');
+  builder.setAttribute('onCallStateChange');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri);
+  }
+  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
+    alert(errorMessage);
+  });
+}
+
+function acceptCall(serviceId) {
+  var phoneNumber = $('#phoneNumber').val();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('phone');
+  builder.setAttribute('acceptCall');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  if (phoneNumber !== '') {
+    builder.addParameter('phoneNumber', phoneNumber);
+  }
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri);
+  }
+
+  dConnect.post(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+  }, function(errorCode, errorMessage) {
+    showError('phone/acceptCall', errorCode, errorMessage);
+  });
+}
+
+function rejectCall(serviceId) {
+  var phoneNumber = $('#phoneNumber').val();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('phone');
+  builder.setAttribute('rejectCall');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  if (phoneNumber !== '') {
+    builder.addParameter('phoneNumber', phoneNumber);
+  }
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri);
+  }
+
+  dConnect.post(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+  }, function(errorCode, errorMessage) {
+    showError('phone/rejectCall', errorCode, errorMessage);
+  });
+}
+
+function endCall(serviceId) {
+  var phoneNumber = $('#phoneNumber').val();
+  var builder = new dConnect.URIBuilder();
+  builder.setProfile('phone');
+  builder.setAttribute('endCall');
+  builder.setServiceId(serviceId);
+  builder.setAccessToken(accessToken);
+  if (phoneNumber !== '') {
+    builder.addParameter('phoneNumber', phoneNumber);
+  }
+  var uri = builder.build();
+
+  if (DEBUG) {
+    console.log('Uri:' + uri);
+  }
+
+  dConnect.post(uri, null, null, function(json) {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+  }, function(errorCode, errorMessage) {
+    showError('phone/endCall', errorCode, errorMessage);
+  });
 }
 
 /**
@@ -118,8 +275,7 @@ function showPhoneSetting(serviceId) {
  */
 function doPhoneCall(serviceId) {
 
-  var form = document.getElementsByName('phoneForm');
-  var phoneNumber = $('#phone').val();
+  var phoneNumber = $('#phoneNumber').val();
 
   var builder = new dConnect.URIBuilder();
   builder.setProfile('phone');
@@ -139,60 +295,6 @@ function doPhoneCall(serviceId) {
     }
   }, function(errorCode, errorMessage) {
     showError('phone/call', errorCode, errorMessage);
-  });
-}
-
-/**
- * onCloseイベントの登録
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションキー
- */
-function doRegisterOnConnect(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('onconnect');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-  dConnect.addEventListener(uri, function(message) {
-    // イベントメッセージが送られてくる
-    if (DEBUG) {
-      console.log('Event-Message:' + message);
-    }
-
-    var json = JSON.parse(message);
-    if (json.phoneStatus.state == '0') {
-      $('#status').val(json.phoneStatus.phoneNumber + ' Calling');
-    }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
-  });
-}
-
-/**
- * onConnectイベントの解除
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションキー
- */
-function doUnregisterOnConnect(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('onconnect');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
   });
 }
 
