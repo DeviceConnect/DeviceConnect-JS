@@ -106,7 +106,10 @@ function sleep(ms) {
 }
 
 function checkErrorCode(errorCode) {
-  return errorCode == 14 || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
+  return errorCode == dConnect.constants.ErrorCode.UNKNOWN_ATTRIBUTE
+      || errorCode == dConnect.constants.ErrorCode.SCOPE
+      || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ATTRIBUTE
+      || errorCode == dConnect.constants.ErrorCode.NOT_FOUND_SERVICE
       || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_ACTION
       || errorCode == dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE;
 }
@@ -281,6 +284,8 @@ function openWebsocket(builder, assert, timeout, eventCallback) {
         assert.ok(true, 'Profile not support');
       } else if (errorCode == 4) {
         assert.ok(true, 'Attribute not support');
+      } else if (errorCode == 8) {
+        assert.ok(true, 'API not support');
       } else if (errorCode == 14) {
         assert.ok(true, 'Request is out of scope');
       } else {
