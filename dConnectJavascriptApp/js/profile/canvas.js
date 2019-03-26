@@ -81,6 +81,7 @@ function showCanvasDrawImage(serviceId) {
 
   str += makeInputText('path', 'path', 'path');
   str += makeInputText('uri', 'uri', 'uri');
+  str += makeInputText('MIME-Type', 'mimeType', 'mimeType');
   str += '<input type="file" name="data" id="data"/>';
 
   str += '<label>mode:</label>';
