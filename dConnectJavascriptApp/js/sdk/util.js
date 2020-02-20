@@ -73,7 +73,7 @@ function initMenu() {
  * 処理のタイトル(色)
  */
 function setTitle(msg, color) {
-  var titleHtml = document.getElementById('title');
+  let titleHtml = document.getElementById('title');
   titleHtml.style.backgroundColor = color;
   titleHtml.innerHTML = '<center><b>' + msg + '</b></center>';
 }
@@ -82,7 +82,7 @@ function setTitle(msg, color) {
  * Profile Listのリンク.
  */
 function getProfileListLink(serviceId) {
-  var str = '';
+  let str = '';
 
   str += '<center>';
   str += '<input data-icon="home" data-inline="true"'
@@ -96,15 +96,14 @@ function getProfileListLink(serviceId) {
 /**
  * Backのリンク.
  */
-function getBackButton(name, doBackFunction, serviceId, sessionKey) {
-  var str = '';
+function getBackButton(name, doBackFunction, serviceId) {
+  let str = '';
 
   str += '<hr>';
   str += '<center>';
   str += '<input data-icon="home" data-inline="true"' +
       'data-mini="true" onclick="javascript:' +
-       doBackFunction + '(\'' + serviceId + '\', \'' +
-       sessionKey + '\');" type="button" value="' + name + '"/>';
+       doBackFunction + '(\'' + serviceId + '\');" type="button" value="' + name + '"/>';
   str += '</center>';
   str += '<hr>';
 
@@ -112,7 +111,7 @@ function getBackButton(name, doBackFunction, serviceId, sessionKey) {
 }
 
 function setContents(id, contents) {
-  var tag = $(id);
+  let tag = $(id);
   tag.html(contents).trigger('create');
   if (contents && contents.length > 0) {
     tag.show();
@@ -199,7 +198,7 @@ function initAll() {
  * @param {String}name name=の値
  */
 function makeInputText(keyName, id, name) {
-  var str = '';
+  let str = '';
 
   str += '<div data-role="fieldcontain">';
   str += '  <label for=" ' + name + ' ">' + keyName + ':</label>';
@@ -211,14 +210,14 @@ function makeInputText(keyName, id, name) {
 
 /**
  * Select の生成.
- * 
+ *
  * @param {String}keyName HTMLに表示する文字列
  * @param {String}id id=の値
  * @param {String}name name=の値
  * @returns {String}
  */
 function makeSelectOption(keyName, id, name) {
-  var str = '';
+  let str = '';
 
   str += '<div data-role="fieldcontain">';
   str += '  <label for="' + name + '">' + keyName + ':</label>';
@@ -238,7 +237,7 @@ function makeSelectOption(keyName, id, name) {
  * @param {String} errorMessage エラーメッセージ
  */
 function showError(profileName, errorCode, errorMessage) {
-  if (errorCode === dConnect.constants.ErrorCode.NOT_FOUND_CLIENT_ID) {
+  if (errorCode === dConnectSDK.constants.errorCode.NOT_FOUND_CLIENT_ID) {
     alert(profileName + ' API\n アクセストークンが不正です。再取得してください。');
   } else {
     alert(profileName + ' API\n errorMessage:' + errorMessage +

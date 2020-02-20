@@ -1,12 +1,12 @@
 /**
  videochat.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
 
-var _skywayApiKey = "[ YOUR API KEY ]";
-var _skywayDomain = "[ YOUR DOMAIN ]";
+let _skywayApiKey = "[ YOUR API KEY ]";
+let _skywayDomain = "[ YOUR DOMAIN ]";
 /**
  * Show VideoChat Menu
  *
@@ -16,13 +16,11 @@ function showVideoChat(serviceId) {
   initAll();
   setTitle('VideoChat Profile');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Device Top', 'doVideoChatBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
 
   str += makeInputText('Name', 'profile-name', 'profile-name');
   str += makeInputText('AddressId', 'profile-addressId', 'profile-addressId');
@@ -56,7 +54,7 @@ function showVideoChat(serviceId) {
 
   str += makeInputText('IncomingName', 'incoming-name', 'incoming-name');
   str += makeInputText('IncomingAddressId', 'incoming-addressId', 'incoming-addressId');
-  str += vcMakeEventButton('Incoming','VideoChatIncomingEvent',serviceId,sessionKey);
+  str += vcMakeEventButton('Incoming','VideoChatIncomingEvent',serviceId);
 
   str += '<hr>';
 
@@ -64,12 +62,12 @@ function showVideoChat(serviceId) {
   str += makeInputText('OnCallAddressId', 'oncall-addressId', 'oncall-addressId');
   str += makeInputText('OnCallVideo', 'oncall-video', 'oncall-video');
   str += makeInputText('OnCallAudio', 'oncall-audio', 'oncall-audio');
-  str += vcMakeEventButton('OnCall','VideoChatOnCallEvent',serviceId,sessionKey);
+  str += vcMakeEventButton('OnCall','VideoChatOnCallEvent',serviceId);
 
   str += '<hr>';
 
   str += makeInputText('HangupAddressId', 'hangup-addressId', 'hangup-addressId');
-  str += vcMakeEventButton('Hangup','VideoChatHangupEvent',serviceId,sessionKey);
+  str += vcMakeEventButton('Hangup','VideoChatHangupEvent',serviceId);
 
   reloadContent(str);
 }
@@ -79,33 +77,33 @@ function vcAddAddressId(id, name, selected) {
 }
 
 function doVideoChatGetProfile(serviceId){
-  var builder = vcMakeUriBuilder(serviceId,'profile');
-  builder.addParameter('config', vcMakeConfig());
-  var successCallback = function (json){
+  let params = vcMakeUriBuilder(serviceId,'profile');
+  params['config'] = vcMakeConfig();
+  let successCallback = function (json){
     console.log('Response: ', json);
     $('#profile-name').val(json.name);
     $('#profile-addressId').val(json.addressId);
   };
-  dConnect.get(builder.build(), null, successCallback, vcAlertError);
+  sdk.get(params).then(json => { successCallback(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doVideoChatUpdateProfile(serviceId){
-  var name = $('#update-name').val();
+  let name = $('#update-name').val();
   console.log('update-name:'+name);
-  var builder = vcMakeUriBuilder(serviceId,'profile');
-  builder.addParameter('name', name);
-  dConnect.put(builder.build(),null,null,vcLoggingSuccess,vcAlertError);
+  let params = vcMakeUriBuilder(serviceId,'profile');
+  params['name'] = name;
+  sdk.put(params).then(json => { vcLoggingSuccess(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doVideoChatGetAddress(serviceId) {
-  var builder = vcMakeUriBuilder(serviceId, 'address');
-  builder.addParameter('config', vcMakeConfig());
-  var successCallback = function (json) {
+  let params = vcMakeUriBuilder(serviceId, 'address');
+  params['config'] = vcMakeConfig();
+  let successCallback = function (json) {
     console.log('Response: ', json);
     if (json.addresses) {
       $('#get-address').empty();
       vcAddAddressId('', '', false);
-      for (var i = 0 ; i < json.addresses.length ; i++) {
+      for (let i = 0 ; i < json.addresses.length ; i++) {
         vcAddAddressId(json.addresses[i].addressId, json.addresses[i].name, i == 0);
       }
       if (json.addresses.length > 0) {
@@ -116,81 +114,74 @@ function doVideoChatGetAddress(serviceId) {
       $('#get-address').selectmenu('refresh');
     }
     $('#get-address').change(function() {
-      var val = $('#get-address').val();
+      let val = $('#get-address').val();
       $('#call-addressId').val(val);
       $('#callstop-addressId').val(val);
     });
   };
-  dConnect.get(builder.build(), null, successCallback, vcAlertError);
+  sdk.get(params).then(json => { successCallback(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doVideoChatCall(serviceId){
-  var addressId = $('#call-addressId').val();
-  var video = $('#call-video').val();
-  var audio = $('#call-audio').val();
+  let addressId = $('#call-addressId').val();
+  let video = $('#call-video').val();
+  let audio = $('#call-audio').val();
 
-  var builder = vcMakeUriBuilder(serviceId,'call');
-  builder.addParameter('addressId', addressId);
-  builder.addParameter('video', video);
-  builder.addParameter('audio', audio);
-  builder.addParameter('config', vcMakeConfig());
-  var successCallback = function(json){
+  let params = vcMakeUriBuilder(serviceId,'call');
+  params['addressId'] = addressId;
+  params['video'] = video;
+  params['audio'] = audio;
+  params['config'] = vcMakeConfig();
+
+  let successCallback = function(json){
     $('#call-result').val(json.result);
   };
-  dConnect.post(builder.build(),null,null,successCallback,vcAlertError);
+  sdk.post(params).then(json => { successCallback(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doVideoChatStopCall(serviceId){
-  var addressId = $('#callstop-addressId').val();
+  let addressId = $('#callstop-addressId').val();
 
-  var builder = vcMakeUriBuilder(serviceId,'call');
-  builder.addParameter('addressId', addressId);
-  builder.addParameter('config', vcMakeConfig());
-  var successCallback = function(json){
+  let params = vcMakeUriBuilder(serviceId,'call');
+  params['addressId'] = addressId;
+  params['config'] = vcMakeConfig();
+  let successCallback = function(json){
     $('#callstop-result').val(json.result);
   };
-  dConnect.delete(builder.build(),null,successCallback,vcAlertError);
+  sdk.delete(params).then(json => { successCallback(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
-function registVideoChatIncomingEvent(serviceId,sessionKey){
-  var builder = vcMakeEventUriBuilder(serviceId,sessionKey,'onincoming');
-  builder.addParameter('config', vcMakeConfig());
-  var eventCallback = function(message){
+function registVideoChatIncomingEvent(serviceId){
+  let params = vcMakeEventUriBuilder(serviceId,'onincoming');
+  params['config'] = vcMakeConfig();
+  let eventCallback = function(message){
     console.log('Event-Message:' + message);
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if(json.incoming){
       $('#incoming-name').val(json.incoming.name);
       $('#incoming-addressId').val(json.incoming.addressId);
 
       $('#call-addressId').val(json.incoming.addressId);
       $('#callstop-addressId').val(json.incoming.addressId);
-
-//      var video = $('#call-video').val();
-//      var audio = $('#call-audio').val();
-//      var builder = vcMakeUriBuilder(serviceId, 'call');
-//      builder.addParameter('addressId', json.incoming.addressId);
-//      builder.addParameter('video', video);
-//      builder.addParameter('audio', audio);
-//      builder.addParameter('config', vcMakeConfig());
-//      var successCallback = function(json) {};
-//      dConnect.post(builder.build(),null,null,successCallback,vcAlertError);
     }
   };
-  dConnect.addEventListener(builder.build(), eventCallback, vcEventRegistSuccess, vcAlertError);
+  sdk.addEventListener(params, message => {
+    eventCallback(message);
+  }).then(json => { vcEventRegistSuccess(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
-function unregistVideoChatIncomingEvent(serviceId,sessionKey){
-  var builder = vcMakeEventUriBuilder(serviceId,sessionKey,'onincoming');
-  builder.addParameter('config', vcMakeConfig());
-  dConnect.removeEventListener(builder.build(), vcEventUnregistSuccess, vcAlertError);
+function unregistVideoChatIncomingEvent(serviceId){
+  let params = vcMakeEventUriBuilder(serviceId,'onincoming');
+  params['config'] = vcMakeConfig();
+  sdk.removeEventListener(params).then(json => { vcEventUnregistSuccess(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
-function registVideoChatOnCallEvent(serviceId,sessionKey){
-  var builder = vcMakeEventUriBuilder(serviceId,sessionKey,'oncall');
-  builder.addParameter('config', vcMakeConfig());
-  var eventCallback = function(message){
+function registVideoChatOnCallEvent(serviceId){
+  let params = vcMakeEventUriBuilder(serviceId,'oncall');
+  params['config'] =  vcMakeConfig();
+  let eventCallback = function(message){
     console.log('Event-Message:' + message);
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     console.log(json);
     if(json.oncall){
       $('#oncall-name').val(json.oncall[0].name);
@@ -199,43 +190,35 @@ function registVideoChatOnCallEvent(serviceId,sessionKey){
       $('#oncall-audio').val(json.oncall[0].audio);
     }
   };
-  dConnect.addEventListener(builder.build(),eventCallback, vcEventRegistSuccess, vcAlertError);
+  sdk.addEventListener(params, message => { eventCallback(message);}).then(json => { vcEventRegistSuccess(json);}).catch(e => { vcAlertError(e.errorCode, e.errorMessage);});
 }
 
-function unregistVideoChatOnCallEvent(serviceId,sessionKey){
-  var builder = vcMakeEventUriBuilder(serviceId,sessionKey,'oncall');
-  builder.addParameter('config', vcMakeConfig());
-  dConnect.removeEventListener(builder.build(), vcEventUnregistSuccess, vcAlertError);
+function unregistVideoChatOnCallEvent(serviceId){
+  let params = vcMakeEventUriBuilder(serviceId,'oncall');
+  params['config'] = vcMakeConfig();
+  sdk.removeEventListener(params).then(json => {vcEventUnregistSuccess(json);}).catch(e => { vcAlertError(e.errorCode, e.errorMessage);});
 }
 
-function registVideoChatHangupEvent(serviceId,sessionKey){
-  var builder = vcMakeEventUriBuilder(serviceId,sessionKey,'onhangup');
-  builder.addParameter('config', vcMakeConfig());
-  var eventCallback = function(message){
+function registVideoChatHangupEvent(serviceId){
+  let params = vcMakeEventUriBuilder(serviceId,'onhangup');
+  params['config'] = vcMakeConfig();
+  let eventCallback = function(message){
     console.log('Event-Message:' + message);
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if(json.hangup){
       $('#hangup-addressId').val(json.hangup.addressId);
       $('#hangup-groupId').val(json.hangup.groupId);
     }
   };
-  dConnect.addEventListener(builder.build(),eventCallback, vcEventRegistSuccess, vcAlertError);
+  sdk.addEventListener(params, message => { eventCallback(message);}).then(json => { vcEventRegistSuccess(json);})
+      .catch(e => { vcAlertError(e.errorCode, e.errorMessage);});
 }
 
-function unregistVideoChatHangupEvent(serviceId,sessionKey){
-  var builder = vcMakeEventUriBuilder(serviceId,sessionKey,'onhangup');
-  builder.addParameter('config', vcMakeConfig());
-  dConnect.removeEventListener(builder.build(), vcEventUnregistSuccess, vcAlertError);
-}
-
-/**
- * Backボタン
- *
- * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
- */
-function doVideoChatBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
+function unregistVideoChatHangupEvent(serviceId){
+  let params = vcMakeEventUriBuilder(serviceId,'onhangup');
+  params['config'] = vcMakeConfig();
+  sdk.removeEventListener(params).then(json => { vcEventUnregistSuccess(json);})
+      .catch(e => { vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 //////common (vc = videochat)
@@ -245,12 +228,12 @@ function vcMakeConfig() {
 }
 
 function vcMakeButton(title,functionName,params) {
-  var paramStr = '';
+  let paramStr = '';
   if(params !== null && params.length > 0){
     if( typeof params === 'string' ) {
       params = [ params ];
     }
-    for (var i = 0;i<params.length;i++){
+    for (let i = 0;i<params.length;i++){
       paramStr += '\''+params[i]+'\'';
       paramStr += ',';
     }
@@ -260,7 +243,7 @@ function vcMakeButton(title,functionName,params) {
 }
 
 function vcMakeEventButton(title,functionName,serviceId,sessionKey){
-  var str = '<fieldset class="ui-grid-a">';
+  let str = '<fieldset class="ui-grid-a">';
   str += '<div class="ui-block-a"><input onclick="regist'+functionName+'(\''+serviceId+'\',\''+sessionKey+'\');" type="button" value="Regist'+title+'"/></div>';
   str += '<div class="ui-block-b"><input onclick="unregist'+functionName+'(\''+serviceId+'\',\''+sessionKey+'\');" type="button" value="Unregist'+title+'"/></div>';
   str += '</fieldset>';
@@ -268,21 +251,21 @@ function vcMakeEventButton(title,functionName,serviceId,sessionKey){
 }
 
 function vcMakeUriBuilder(serviceId, attribute){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('videochat');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.setAttribute(attribute);
-  return builder;
+  let params = {
+    profile: 'videochat',
+    serviceId: serviceId,
+    attribute: attribute
+  };
+  return params;
 }
 
-function vcMakeEventUriBuilder(serviceId, sessionKey, attribute){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('videochat');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.setAttribute(attribute);
-  return builder;
+function vcMakeEventUriBuilder(serviceId, attribute){
+  let params = {
+    profile: 'videochat',
+    serviceId: serviceId,
+    attribute: attribute
+  };
+  return params;
 }
 
 function vcEventRegistSuccess(){

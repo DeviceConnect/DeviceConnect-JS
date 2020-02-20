@@ -1,29 +1,26 @@
 /**
  demo.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
 
 /** Revision of this apps. */
-var versionRev = 'V2.1.0 Rev.10';
-/** Client ID. */
-var currentClientId = null;
-/** AccessTonen. */
-var accessToken = null;
+const versionRev = 'V2.2.0 Rev.1';
 /** IPアドレスを保持する. */
-var ip;
-/** 削除モード. */
-var deleteMode = false;
+let ip;
 /** 画像読み込み中Flag. */
-var loadFlag = false;
+let loadFlag = false;
 
 /** Logメッセージを表示 */
-var DEBUG = true;
+const DEBUG = true;
 /** デバイス名をキャッシュ */
-var myDeviceName = '';
+let myDeviceName = '';
 /** サービス一覧のキャッシュ. */
-var cachedServices = [];
+let cachedServices = [];
+
+/** dConnectSDKオブジェクト. */
+let sdk;
 
 /**
  * 初期化処理.
@@ -31,36 +28,45 @@ var cachedServices = [];
 function init() {
   console.log('Origin = [' + location.origin + ']');
 
-  currentClientId = Math.random().toString(36).slice(-8);
-
   // Versionを表示
   $('#version').html(versionRev);
 
   // 接続先ipアドレスを取得(指定がない場合は、localhost)
   ip = getIpString();
 
-  // accessTokenをcookieから取得
-  accessToken = loadAccessToken();
-
+  sdk = new dConnectSDK({
+      host: ip,
+      port: 4035,
+      appName: 'Demo Web Site',
+      scopes: ['servicediscovery', 'serviceinformation', 'system',
+                  'battery', 'connection', 'deviceorientation', 'filedescriptor',
+                  'file', 'mediaplayer', 'mediastreamrecording', 'notification',
+                  'phone', 'proximity', 'setting', 'vibration', 'light',
+                  'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
+                  'dice', 'temperature', 'camera', 'canvas', 'health',
+                  'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
+                   'tv', 'powermeter','humidity','illuminance', 'videochat',
+                   'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
+                   'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
+                   'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device']
+  });
   // 接続先IPアドレスをページに表示
   $('#host').html('connecting:' + ip);
 
-  // Tokenをページに表示
-  $('#token').html('accessToken:' + accessToken);
 
   showWebSocketState('Closed');
 
   if (isAndroid() &&
     location.href.indexOf('file:///') == -1) {
-      dConnect.setAntiSpoofing(true);
+      sdk.setAntiSpoofing(true);
   }
   // ファイルから直接開かれた場合には、originを格納
   if (location.origin == 'file://') {
-    dConnect.setExtendedOrigin('file://');
+    sdk.setExtendedOrigin('file://');
+  } else if (location.origin == 'https://') {
+    sdk.setSSLEnabled(true);
   }
-  dConnect.setHost(ip);
-  dConnect.setSSLEnabled(location.protocol === 'https:');
-  openWebsocketIfNeeded(accessToken);
+  openWebsocketIfNeeded();
 }
 
 function showWebSocketState(state) {
@@ -68,36 +74,10 @@ function showWebSocketState(state) {
 }
 
 /**
- * Cookieに保存していたアクセストークンを取得する.
- * <p>
- * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
- * </p>
- * @return アクセストークン. 未保存の場合はnull
- */
-function loadAccessToken() {
-  return getCookie(accessTokenKey());
-}
-
-/**
- * Cookieにアクセストークンを取得する.
- * <p>
- * 注: アクセストークンは本アプリのホスティングされるオリジンごとに作成、保存される.
- * </p>
- * @param accessToken アクセストークン
- */
-function storeAccessToken(accessToken) {
-  document.cookie = accessTokenKey() + '=' + accessToken;
-}
-
-function accessTokenKey() {
-  return 'accessToken' + ip + decodeURIComponent(location.origin);
-}
-
-/**
  * ユーザエージェントがAndroidであることを確認する.
  */
 function isAndroid() {
-  var userAgent = window.navigator.userAgent.toLowerCase();
+  const userAgent = window.navigator.userAgent.toLowerCase();
   return (userAgent.indexOf('android') != -1);
 }
 
@@ -105,7 +85,7 @@ function isAndroid() {
  * Device Connect Managerを停止後、トップ画面に戻る.
  */
 function stopManagerAndDemo() {
-  dConnect.stopManager('activity');
+  sdk.stopManager('activity');
   location.hash = '#home';
   if (DEBUG) {
     console.log('URL: ' + location.href);
@@ -133,15 +113,15 @@ function startManagerAndDemo() {
   });
 }
 
-var _onWebSocketMessage = function(code, message) {
+const _onWebSocketMessage = function(code, message) {
   console.log('_onWebSocketMessage: code = ' + code + ', message = ' + message);
-  var state;
+  let state;
   switch (code) {
     case -1:
       state = 'OK';
       break;
     case 0:
-      state = 'Please wait...';
+      state = 'WebSocket Open';
       break;
     case 1:
       state = 'Closed';
@@ -156,40 +136,52 @@ var _onWebSocketMessage = function(code, message) {
       state = 'Please authorize.';
       break;
     default:
+      state = message;
       break;
   }
+  // Tokenをページに表示
+  $('#token').html('accessToken:' + sdk.getAccessToken());
   if (state !== undefined) {
     showWebSocketState(state);
   }
+  closeLoading();
 }
 
-function openWebsocketIfNeeded(key) {
-  if (!dConnect.isWebSocketReady()) {
-    if (dConnect.isConnectedWebSocket()) {
-      dConnect.disconnectWebSocket();
+function openWebsocketIfNeeded() {
+  if (!sdk.isWebSocketReady()) {
+    if (sdk.isConnectedWebSocket()) {
+      sdk.disconnectWebSocket();
     }
     if (location.origin == 'file://') {
-      dConnect.setExtendedOrigin("file://");
+      sdk.setExtendedOrigin("file://");
     }
-    dConnect.connectWebSocket(key, _onWebSocketMessage);
+    sdk.connectWebSocket((state, message) => {
+      _onWebSocketMessage(state, message);
+    });
     console.log('WebSocket opened.');
   } else {
     console.log('WebSocket is ready.');
   }
 }
 
-function reopenWebSocket(key) {
-  if (dConnect.isConnectedWebSocket()) {
-    dConnect.disconnectWebSocket();
+function reopenWebSocket() {
+  if (sdk.isConnectedWebSocket()) {
+    sdk.disconnectWebSocket();
+    if (!sdk.isWebSocketReady()) {
+      sdk.connectWebSocket((state, message) => {
+        _onWebSocketMessage(state, message);
+      });
+    } else {
+      console.log('WebSocket is ready.');
+    }
   }
-  dConnect.connectWebSocket(key, _onWebSocketMessage);
 }
 
 /**
  * Device Connect Managerが起動していることを確認する.
  */
 function checkDeviceConnect() {
-  startManager(function(apiVersion) {
+  startManager(apiVersion => {
     alert('Device Connect API version:' + apiVersion);
   });
 }
@@ -200,17 +192,17 @@ function checkDeviceConnect() {
  *                すでに起動していた場合、または起動された場合に呼ばれる関数
  */
 function startManager(onavailable) {
-  var requested = false;
-  var appId = '994422987';
-  var errorCallback = function(errorCode, errorMessage) {
+  let requested = false;
+  let appId = '994422987';
+  let errorCallback = function(errorCode, errorMessage) {
     switch (errorCode) {
-      case dConnect.constants.ErrorCode.ACCESS_FAILED:
+      case dConnectSDK.constants.errorCode.ACCESS_FAILED:
         if (!requested) {
           requested = true;
-          dConnect.startManager('activity');
+          sdk.startManager('activity');
           alert('Requested to start Device Connect Manager.');
 
-          var userAgent = navigator.userAgent.toLowerCase();
+          let userAgent = navigator.userAgent.toLowerCase();
           if (userAgent.search(/iphone|ipad|ipod/) > -1) {
             setTimeout(function() {
               location.href = 'itmss://itunes.apple.com/us/app/devicewebapibrowser/id' +
@@ -219,13 +211,18 @@ function startManager(onavailable) {
           }
         }
         setTimeout(function() {
-          dConnect.checkDeviceConnect(onavailable, errorCallback);
+          sdk.checkDeviceConnect()
+           .then(json => {
+             onavailable(json);
+           }).catch(e => {
+             errorCallback(e.errorCode, e.errorMessage);
+           });
         }, 500);
         break;
-      case dConnect.constants.ErrorCode.INVALID_SERVER:
+      case dConnectSDK.constants.errorCode.INVALID_SERVER:
         alert('WARNING: Device Connect Manager may be spoofed.');
         break;
-      case dConnect.constants.ErrorCode.INVALID_ORIGIN:
+      case dConnectSDK.constants.errorCode.INVALID_ORIGIN:
         alert('WARNING: Origin of this app is invalid. Maybe the origin is not registered in whitelist.');
         break;
       default:
@@ -234,14 +231,19 @@ function startManager(onavailable) {
     }
   };
 
-  dConnect.checkDeviceConnect(onavailable, errorCallback);
+  sdk.checkDeviceConnect()
+   .then(json => {
+     onavailable(json);
+   }).catch(e => {
+     errorCallback(e.errorCode, e.errorMessage);
+   });
 }
 
 /**
  * Local OAuthのアクセストークンを取得する.
  */
-function authorization(callback, oncalcel) {
-  var scopes = Array('servicediscovery', 'serviceinformation', 'system',
+function authorization() {
+  const scopes = ['servicediscovery', 'serviceinformation', 'system',
               'battery', 'connection', 'deviceorientation', 'filedescriptor',
               'file', 'mediaplayer', 'mediastreamrecording', 'notification',
               'phone', 'proximity', 'setting', 'vibration', 'light',
@@ -251,40 +253,14 @@ function authorization(callback, oncalcel) {
                'tv', 'powermeter','humidity','illuminance', 'videochat',
                'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
                'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-               'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device');
-  dConnect.authorization(scopes, 'Demo Web Site',
-      function(clientId, newAccessToken) {
-        // Client ID
-        currentClientId = clientId;
-
-        // accessToken
-        accessToken = newAccessToken;
-
-        // debug log
-        console.log('accessToken: ' + newAccessToken);
-
-        // add cookie
-        storeAccessToken(newAccessToken);
-
-        reopenWebSocket(newAccessToken);
-
-        // rewrite html
-        $('#token').html('accessToken:' + newAccessToken);
-        if (callback) {
-          callback();
-        }
-      },
-      function(errorCode, errorMessage) {
-        if (confirm('Failed to get accessToken. Do you try again?')) {
-          if (callback) {
-            callback();
-          }
-        } else {
-          if (oncalcel) {
-            oncalcel();
-          }
-        }
-      });
+               'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device'];
+  sdk.authorization(scopes, 'Demo Web Site').then(accessToken => {
+    reopenWebSocket(accessToken);
+    $('#token').html('accessToken:' + accessToken);
+  }).catch(e => {
+    console.log("access error:" +e.toString());
+    $('#token').html('accessToken:' + e.toString());
+  });
 }
 
 /**
@@ -292,12 +268,12 @@ function authorization(callback, oncalcel) {
  */
 function getIpString() {
   if (1 < document.location.search.length) {
-    var query = document.location.search.substring(1);
-    var parameters = query.split('&');
-    for (var i = 0; i < parameters.length; i++) {
-      var element = parameters[i].split('=');
-      var paramName = decodeURIComponent(element[0]);
-      var paramValue = decodeURIComponent(element[1]);
+    const query = document.location.search.substring(1);
+    let parameters = query.split('&');
+    for (let i = 0; i < parameters.length; i++) {
+      let element = parameters[i].split('=');
+      let paramName = decodeURIComponent(element[0]);
+      let paramValue = decodeURIComponent(element[1]);
       if (paramName == 'ip') {
         return paramValue;
       }
@@ -306,26 +282,6 @@ function getIpString() {
   return 'localhost';
 }
 
-/**
- * Cookieに保存していた値を取得する.
- *
- * @param {String} name Cookie名
- */
-function getCookie(name) {
-  var result = null;
-  var cookieName = name + '=';
-  var allcookies = document.cookie;
-  var position = allcookies.indexOf(cookieName);
-  if (position != -1) {
-    var startIndex = position + cookieName.length;
-    var endIndex = allcookies.indexOf(';', startIndex);
-    if (endIndex == -1) {
-      endIndex = allcookies.length;
-    }
-    result = decodeURIComponent(allcookies.substring(startIndex, endIndex));
-  }
-  return result;
-}
 
 /**
  * 文字列を比較(大小文字の違いがあっても一致とみなす).
@@ -348,31 +304,31 @@ function isEqualToStringIgnoreCase(string, cmpString) {
  * @param {String} profile プロファイル名
  */
 function searchProfile(serviceId, profile) {
-  if (isEqualToStringIgnoreCase(profile, dConnect.constants.notification.PROFILE_NAME)) {
+  if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.notification.PROFILE_NAME)) {
     showNotification(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.vibration.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.vibration.PROFILE_NAME)) {
     showVibration(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_stream_recording.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME)) {
     showMediastreamRecording(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.device_orientation.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.deviceOrientation.PROFILE_NAME)) {
     showDeviceOrientation(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'drivecontroller')) {
     showDriveController(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'remotecontroller')) {
     showRemoteController(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.file.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.file.PROFILE_NAME)) {
     showFile(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'light')) {
     showSearchLight(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.phone.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.phone.PROFILE_NAME)) {
     showPhone(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.connection.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.connection.PROFILE_NAME)) {
     showConnection(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.setting.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.setting.PROFILE_NAME)) {
     showSetting(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.media_player.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.mediaPlayer.PROFILE_NAME)) {
     showMediaPlayer(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.battery.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.battery.PROFILE_NAME)) {
     showBattery(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'camera')) {
     showCamera(serviceId);
@@ -382,25 +338,25 @@ function searchProfile(serviceId, profile) {
     showMhealth(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'temperature')) {
     showTemperatureProfile(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.proximity.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.proximity.PROFILE_NAME)) {
     showProximity(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'sphero')) {
     showSphero(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.canvas.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.canvas.PROFILE_NAME)) {
     showCanvas(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'health')) {
     showHealth(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.touch.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.touch.PROFILE_NAME)) {
     showTouch(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'humandetection')) {
     showHumanDetection(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.keyevent.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.keyEvent.PROFILE_NAME)) {
     showKeyEvent(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'videochat')) {
     showVideoChat(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'omnidirectionalimage')) {
     showOmnidirectionalImage(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, dConnect.constants.serviceinformation.PROFILE_NAME)) {
+  } else if (isEqualToStringIgnoreCase(profile, dConnectSDK.constants.serviceInformation.PROFILE_NAME)) {
     showServiceInformation(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'humidity')) {
     showHumidity(serviceId);
