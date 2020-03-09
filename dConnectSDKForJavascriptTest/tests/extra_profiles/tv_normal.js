@@ -1,4 +1,4 @@
-module('TV Profile Normal Test', {
+QUnit.module('TV Profile Normal Test', {
   setup: function() {
     init();
   }
@@ -39,7 +39,7 @@ TVProfileNormalTest.powerStatusNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNormalTest001);
+QUnit.test('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNormalTest001);
 
 
 /**
@@ -71,7 +71,7 @@ TVProfileNormalTest.powerOnNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVPowerOnNormalTest001', TVProfileNormalTest.powerOnNormalTest001);
+QUnit.test('TVPowerOnNormalTest001', TVProfileNormalTest.powerOnNormalTest001);
 
 /**
  * スマートデバイスの電源をオフにする。
@@ -102,7 +102,7 @@ TVProfileNormalTest.powerOffNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVPowerOffNormalTest001', TVProfileNormalTest.powerOffNormalTest001);
+QUnit.test('TVPowerOffNormalTest001', TVProfileNormalTest.powerOffNormalTest001);
 
 
 /**
@@ -136,7 +136,7 @@ TVProfileNormalTest.changeChannelNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest001', TVProfileNormalTest.changeChannelNormalTest001);
+QUnit.test('TVChangeChannelTest001', TVProfileNormalTest.changeChannelNormalTest001);
 
 /**
  * スマートデバイスのチャンネルを2に変更する。
@@ -169,7 +169,7 @@ TVProfileNormalTest.changeChannelNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest002', TVProfileNormalTest.changeChannelNormalTest002);
+QUnit.test('TVChangeChannelTest002', TVProfileNormalTest.changeChannelNormalTest002);
 
 /**
  * スマートデバイスのチャンネルを3に変更する。
@@ -202,7 +202,7 @@ TVProfileNormalTest.changeChannelNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest003', TVProfileNormalTest.changeChannelNormalTest003);
+QUnit.test('TVChangeChannelTest003', TVProfileNormalTest.changeChannelNormalTest003);
 
 
 /**
@@ -236,7 +236,7 @@ TVProfileNormalTest.changeChannelNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest004', TVProfileNormalTest.changeChannelNormalTest004);
+QUnit.test('TVChangeChannelTest004', TVProfileNormalTest.changeChannelNormalTest004);
 
 /**
  * スマートデバイスのチャンネルを5に変更する。
@@ -269,7 +269,7 @@ TVProfileNormalTest.changeChannelNormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest005', TVProfileNormalTest.changeChannelNormalTest005);
+QUnit.test('TVChangeChannelTest005', TVProfileNormalTest.changeChannelNormalTest005);
 
 /**
  * スマートデバイスのチャンネルを6に変更する。
@@ -302,7 +302,7 @@ TVProfileNormalTest.changeChannelNormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest006', TVProfileNormalTest.changeChannelNormalTest006);
+QUnit.test('TVChangeChannelTest006', TVProfileNormalTest.changeChannelNormalTest006);
 
 
 /**
@@ -336,7 +336,7 @@ TVProfileNormalTest.changeChannelNormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest007', TVProfileNormalTest.changeChannelNormalTest007);
+QUnit.test('TVChangeChannelTest007', TVProfileNormalTest.changeChannelNormalTest007);
 
 /**
  * スマートデバイスのチャンネルを8に変更する。
@@ -369,7 +369,7 @@ TVProfileNormalTest.changeChannelNormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest008', TVProfileNormalTest.changeChannelNormalTest008);
+QUnit.test('TVChangeChannelTest008', TVProfileNormalTest.changeChannelNormalTest008);
 
 /**
  * スマートデバイスのチャンネルを9に変更する。
@@ -402,7 +402,7 @@ TVProfileNormalTest.changeChannelNormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest009', TVProfileNormalTest.changeChannelNormalTest009);
+QUnit.test('TVChangeChannelTest009', TVProfileNormalTest.changeChannelNormalTest009);
 
 /**
  * スマートデバイスのチャンネルを10に変更する。
@@ -435,7 +435,7 @@ TVProfileNormalTest.changeChannelNormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest010', TVProfileNormalTest.changeChannelNormalTest010);
+QUnit.test('TVChangeChannelTest010', TVProfileNormalTest.changeChannelNormalTest010);
 
 /**
  * スマートデバイスのチャンネルを11に変更する。
@@ -468,7 +468,7 @@ TVProfileNormalTest.changeChannelNormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest011', TVProfileNormalTest.changeChannelNormalTest011);
+QUnit.test('TVChangeChannelTest011', TVProfileNormalTest.changeChannelNormalTest011);
 
 /**
  * スマートデバイスのチャンネルを12に変更する。
@@ -501,7 +501,7 @@ TVProfileNormalTest.changeChannelNormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest012', TVProfileNormalTest.changeChannelNormalTest012);
+QUnit.test('TVChangeChannelTest012', TVProfileNormalTest.changeChannelNormalTest012);
 
 /**
  * スマートデバイスのチャンネルを次局に変更する。
@@ -534,7 +534,7 @@ TVProfileNormalTest.changeChannelNormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest013', TVProfileNormalTest.changeChannelNormalTest013);
+QUnit.test('TVChangeChannelTest013', TVProfileNormalTest.changeChannelNormalTest013);
 
 /**
  * スマートデバイスのチャンネルを前局に変更する。
@@ -567,7 +567,7 @@ TVProfileNormalTest.changeChannelNormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest014', TVProfileNormalTest.changeChannelNormalTest014);
+QUnit.test('TVChangeChannelTest014', TVProfileNormalTest.changeChannelNormalTest014);
 
 /**
  * スマートデバイスのボリュームを上げる。
@@ -600,7 +600,7 @@ TVProfileNormalTest.changeVolumeNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVchangeVolumeNormalTest001', TVProfileNormalTest.changeVolumeNormalTest001);
+QUnit.test('TVchangeVolumeNormalTest001', TVProfileNormalTest.changeVolumeNormalTest001);
 
 
 /**
@@ -634,7 +634,7 @@ TVProfileNormalTest.changeVolumeNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVchangeVolumeNormalTest002', TVProfileNormalTest.changeVolumeNormalTest002);
+QUnit.test('TVchangeVolumeNormalTest002', TVProfileNormalTest.changeVolumeNormalTest002);
 
 
 
@@ -669,7 +669,7 @@ TVProfileNormalTest.changeBroadcastwaveNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVchangeBroadcastwaveNormalTest001', TVProfileNormalTest.changeBroadcastwaveNormalTest001);
+QUnit.test('TVchangeBroadcastwaveNormalTest001', TVProfileNormalTest.changeBroadcastwaveNormalTest001);
 
 
 /**
@@ -703,7 +703,7 @@ TVProfileNormalTest.changeBroadcastwaveNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVchangeBroadcastwaveNormalTest002', TVProfileNormalTest.changeBroadcastwaveNormalTest002);
+QUnit.test('TVchangeBroadcastwaveNormalTest002', TVProfileNormalTest.changeBroadcastwaveNormalTest002);
 
 
 /**
@@ -737,7 +737,7 @@ TVProfileNormalTest.changeBroadcastwaveNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVchangeBroadcastwaveNormalTest003', TVProfileNormalTest.changeBroadcastwaveNormalTest003);
+QUnit.test('TVchangeBroadcastwaveNormalTest003', TVProfileNormalTest.changeBroadcastwaveNormalTest003);
 
 
 /**
@@ -770,7 +770,7 @@ TVProfileNormalTest.muteOnNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVmuteOnNormalTest001', TVProfileNormalTest.muteOnNormalTest001);
+QUnit.test('TVmuteOnNormalTest001', TVProfileNormalTest.muteOnNormalTest001);
 
 
 /**
@@ -803,7 +803,7 @@ TVProfileNormalTest.muteOffNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('TVmuteOffNormalTest001', TVProfileNormalTest.muteOffNormalTest001);
+QUnit.test('TVmuteOffNormalTest001', TVProfileNormalTest.muteOffNormalTest001);
 
 
 
@@ -838,7 +838,7 @@ TVProfileNormalTest.getEchonetLitePropertyNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('GetEchonetLitePropertyNormalTest001', TVProfileNormalTest.getEchonetLitePropertyNormalTest001);
+QUnit.test('GetEchonetLitePropertyNormalTest001', TVProfileNormalTest.getEchonetLitePropertyNormalTest001);
 
 
 /**
@@ -873,4 +873,4 @@ TVProfileNormalTest.setEchonetLitePropertyNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('SetEchonetLitePropertyNormalTest001', TVProfileNormalTest.setEchonetLitePropertyNormalTest001);
+QUnit.test('SetEchonetLitePropertyNormalTest001', TVProfileNormalTest.setEchonetLitePropertyNormalTest001);

@@ -1,4 +1,4 @@
-module('DeviceProfileAbnormalTest', {
+QUnit.module('DeviceProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -46,7 +46,7 @@ DeviceProfileAbnormalTest.pairingAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('pairingAbnormalTest001(Calling a get method that does not support.)',
+QUnit.test('pairingAbnormalTest001(Calling a get method that does not support.)',
     DeviceProfileAbnormalTest.pairingAbnormalTest001);
 
 /**
@@ -85,5 +85,5 @@ DeviceProfileAbnormalTest.pairingAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('pairingAbnormalTest002(Calling a put method that does not support.)',
+QUnit.test('pairingAbnormalTest002(Calling a put method that does not support.)',
     DeviceProfileAbnormalTest.pairingAbnormalTest002);

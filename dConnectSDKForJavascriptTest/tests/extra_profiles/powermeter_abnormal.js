@@ -1,4 +1,4 @@
-module('PowerMeterProfileAbnormalTest', {
+QUnit.module('PowerMeterProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ PowerMeterProfileAbnormalTest.powermeterAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('powermeterAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('powermeterAbnormalTest001(Calling a post method that does not support.)',
     PowerMeterProfileAbnormalTest.powermeterAbnormalTest001);
 
 /**
@@ -84,7 +84,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest001 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest001(Calling a put method that does not support.)',
+QUnit.test('integratedPowerAbnormalTest001(Calling a put method that does not support.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest001);
 
 /**
@@ -123,7 +123,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest002 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest002(Calling a post method that does not support.)',
+QUnit.test('integratedPowerAbnormalTest002(Calling a post method that does not support.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest002);
 
 /**
@@ -162,7 +162,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest003 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('integratedPowerAbnormalTest003(Calling a delete method that does not support.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest003);
 
     /// 数字
@@ -209,7 +209,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest004 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest004(date is number.)',
+QUnit.test('integratedPowerAbnormalTest004(date is number.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest004);
 
 /**
@@ -249,7 +249,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest005 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest005(date is alphabet.)',
+QUnit.test('integratedPowerAbnormalTest005(date is alphabet.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest005);
 
 /**
@@ -289,7 +289,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest006 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest006(date is hiragana.)',
+QUnit.test('integratedPowerAbnormalTest006(date is hiragana.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest006);
 
 /**
@@ -329,7 +329,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest007 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest007(date is symbol.)',
+QUnit.test('integratedPowerAbnormalTest007(date is symbol.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest007);
 
 /**
@@ -369,7 +369,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest008 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest008(date is limit.)',
+QUnit.test('integratedPowerAbnormalTest008(date is limit.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest008);
 
 /**
@@ -409,7 +409,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest009 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest009(unit is number.)',
+QUnit.test('integratedPowerAbnormalTest009(unit is number.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest009);
 
 /**
@@ -449,7 +449,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest010 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest010(unit is alphabet.)',
+QUnit.test('integratedPowerAbnormalTest010(unit is alphabet.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest010);
 
 /**
@@ -489,7 +489,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest011 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest011(unit is hiragana.)',
+QUnit.test('integratedPowerAbnormalTest011(unit is hiragana.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest011);
 
 /**
@@ -529,7 +529,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest012 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest012(unit is symbol.)',
+QUnit.test('integratedPowerAbnormalTest012(unit is symbol.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest012);
 
 /**
@@ -569,7 +569,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest013 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest013(unit is limit.)',
+QUnit.test('integratedPowerAbnormalTest013(unit is limit.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest013);
 
 /**
@@ -609,7 +609,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest014 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest014(count is number.)',
+QUnit.test('integratedPowerAbnormalTest014(count is number.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest014);
 
 /**
@@ -649,7 +649,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest015 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest015(count is alphabet.)',
+QUnit.test('integratedPowerAbnormalTest015(count is alphabet.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest015);
 
 /**
@@ -689,7 +689,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest016 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest016(count is hiragana.)',
+QUnit.test('integratedPowerAbnormalTest016(count is hiragana.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest016);
 
 /**
@@ -729,7 +729,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest017 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest017(count is symbol.)',
+QUnit.test('integratedPowerAbnormalTest017(count is symbol.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest017);
 
 /**
@@ -769,7 +769,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest018 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest018(count is limit.)',
+QUnit.test('integratedPowerAbnormalTest018(count is limit.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest018);
 
 /**
@@ -809,7 +809,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest019 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest019(powerFlow is number.)',
+QUnit.test('integratedPowerAbnormalTest019(powerFlow is number.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest019);
 
 /**
@@ -849,7 +849,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest020 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest020(powerFlow is alphabet.)',
+QUnit.test('integratedPowerAbnormalTest020(powerFlow is alphabet.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest020);
 
 /**
@@ -889,7 +889,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest021 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest021(powerFlow is hiragana.)',
+QUnit.test('integratedPowerAbnormalTest021(powerFlow is hiragana.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest021);
 
 /**
@@ -929,7 +929,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest022 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest022(powerFlow is symbol.)',
+QUnit.test('integratedPowerAbnormalTest022(powerFlow is symbol.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest022);
 
 /**
@@ -969,7 +969,7 @@ PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest023 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerAbnormalTest023(powerFlow is limit.)',
+QUnit.test('integratedPowerAbnormalTest023(powerFlow is limit.)',
     PowerMeterProfileAbnormalTest.integratedPowerAbnormalTest023);
 
 /**
@@ -1008,7 +1008,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest001 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest001(Calling a put method that does not support.)',
+QUnit.test('instantaneousPowerAbnormalTest001(Calling a put method that does not support.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest001);
 
 /**
@@ -1047,7 +1047,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest002 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest002(Calling a post method that does not support.)',
+QUnit.test('instantaneousPowerAbnormalTest002(Calling a post method that does not support.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest002);
 
 /**
@@ -1086,7 +1086,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest003 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('instantaneousPowerAbnormalTest003(Calling a delete method that does not support.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest003);
 
 /**
@@ -1126,7 +1126,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest004 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest004(unit is number.)',
+QUnit.test('instantaneousPowerAbnormalTest004(unit is number.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest004);
 
 /**
@@ -1166,7 +1166,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest005 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest005(unit is alphabet.)',
+QUnit.test('instantaneousPowerAbnormalTest005(unit is alphabet.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest005);
 
 /**
@@ -1206,7 +1206,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest006 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest006(unit is hiragana.)',
+QUnit.test('instantaneousPowerAbnormalTest006(unit is hiragana.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest006);
 
 /**
@@ -1246,7 +1246,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest007 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest007(unit is symbol.)',
+QUnit.test('instantaneousPowerAbnormalTest007(unit is symbol.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest007);
 
 /**
@@ -1286,7 +1286,7 @@ PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest008 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerAbnormalTest008(unit is limit.)',
+QUnit.test('instantaneousPowerAbnormalTest008(unit is limit.)',
     PowerMeterProfileAbnormalTest.instantaneousPowerAbnormalTest008);
 
 /**
@@ -1325,7 +1325,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest001 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest001(Calling a put method that does not support.)',
+QUnit.test('instantaneousCurrentAbnormalTest001(Calling a put method that does not support.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest001);
 
 /**
@@ -1364,7 +1364,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest002 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest002(Calling a post method that does not support.)',
+QUnit.test('instantaneousCurrentAbnormalTest002(Calling a post method that does not support.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest002);
 
 /**
@@ -1403,7 +1403,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest003 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('instantaneousCurrentAbnormalTest003(Calling a delete method that does not support.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest003);
 
 /**
@@ -1443,7 +1443,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest004 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest004(unit is number.)',
+QUnit.test('instantaneousCurrentAbnormalTest004(unit is number.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest004);
 
 /**
@@ -1483,7 +1483,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest005 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest005(unit is alphabet.)',
+QUnit.test('instantaneousCurrentAbnormalTest005(unit is alphabet.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest005);
 
 /**
@@ -1523,7 +1523,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest006 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest006(unit is hiragana.)',
+QUnit.test('instantaneousCurrentAbnormalTest006(unit is hiragana.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest006);
 
 /**
@@ -1563,7 +1563,7 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest007 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest007(unit is symbol.)',
+QUnit.test('instantaneousCurrentAbnormalTest007(unit is symbol.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest007);
 
 /**
@@ -1603,6 +1603,6 @@ PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest008 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentAbnormalTest008(unit is limit.)',
+QUnit.test('instantaneousCurrentAbnormalTest008(unit is limit.)',
     PowerMeterProfileAbnormalTest.instantaneousCurrentAbnormalTest008);
 

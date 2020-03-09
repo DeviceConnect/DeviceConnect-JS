@@ -1,4 +1,4 @@
-module('Keyboard Profile Normal Test', {
+QUnit.module('Keyboard Profile Normal Test', {
     setup: function() {
         init();
     }
@@ -39,7 +39,7 @@ KeyboardProfileNormalTest.keyboardTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest001', KeyboardProfileNormalTest.keyboardTest001);
+QUnit.test('keyboardTest001', KeyboardProfileNormalTest.keyboardTest001);
 
 /**
  * キーコードに0x04を送信するテストを行う。
@@ -70,7 +70,7 @@ KeyboardProfileNormalTest.keyboardTest002 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest002', KeyboardProfileNormalTest.keyboardTest002);
+QUnit.test('keyboardTest002', KeyboardProfileNormalTest.keyboardTest002);
 
 /**
  * キーコードに4,5を送信するテストを行う。
@@ -101,7 +101,7 @@ KeyboardProfileNormalTest.keyboardTest003 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest003', KeyboardProfileNormalTest.keyboardTest003);
+QUnit.test('keyboardTest003', KeyboardProfileNormalTest.keyboardTest003);
 
 /**
  * キーコードに0x04,5を送信するテストを行う。
@@ -132,7 +132,7 @@ KeyboardProfileNormalTest.keyboardTest004 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest004', KeyboardProfileNormalTest.keyboardTest004);
+QUnit.test('keyboardTest004', KeyboardProfileNormalTest.keyboardTest004);
 
 /**
  * モディファイアーキーSHIFT、キーコードに0x04を送信するテストを行う。
@@ -164,7 +164,7 @@ KeyboardProfileNormalTest.keyboardTest005 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest005', KeyboardProfileNormalTest.keyboardTest005);
+QUnit.test('keyboardTest005', KeyboardProfileNormalTest.keyboardTest005);
 
 
 /**
@@ -198,7 +198,7 @@ KeyboardProfileNormalTest.asciiTest001 = function(assert) {
   });
 
 };
-QUnit.asyncTest('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
+QUnit.test('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
 
 /**
  * ASCIIでABCを送信するテストを行う。
@@ -230,7 +230,7 @@ KeyboardProfileNormalTest.asciiTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
+QUnit.test('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
 
 /**
  * upArrowを送信するテストを行う。
@@ -261,7 +261,7 @@ KeyboardProfileNormalTest.upArrowTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('upArrowTest001', KeyboardProfileNormalTest.upArrowTest001);
+QUnit.test('upArrowTest001', KeyboardProfileNormalTest.upArrowTest001);
 
 
 /**
@@ -293,7 +293,7 @@ KeyboardProfileNormalTest.downArrowTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('downArrowTest001', KeyboardProfileNormalTest.downArrowTest001);
+QUnit.test('downArrowTest001', KeyboardProfileNormalTest.downArrowTest001);
 
 /**
  * leftArrowを送信するテストを行う。
@@ -324,7 +324,7 @@ KeyboardProfileNormalTest.leftArrowTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('leftArrowTest001', KeyboardProfileNormalTest.leftArrowTest001);
+QUnit.test('leftArrowTest001', KeyboardProfileNormalTest.leftArrowTest001);
 
 /**
  * rightArrowを送信するテストを行う。
@@ -355,7 +355,7 @@ KeyboardProfileNormalTest.rightArrowTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('rightArrowTest001', KeyboardProfileNormalTest.rightArrowTest001);
+QUnit.test('rightArrowTest001', KeyboardProfileNormalTest.rightArrowTest001);
 
 
 /**
@@ -387,7 +387,7 @@ KeyboardProfileNormalTest.enterTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('enterTest001', KeyboardProfileNormalTest.enterTest001);
+QUnit.test('enterTest001', KeyboardProfileNormalTest.enterTest001);
 
 
 /**
@@ -419,7 +419,7 @@ KeyboardProfileNormalTest.escTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('escTest001', KeyboardProfileNormalTest.escTest001);
+QUnit.test('escTest001', KeyboardProfileNormalTest.escTest001);
 
 
 /**
@@ -451,5 +451,5 @@ KeyboardProfileNormalTest.delTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('delTest001', KeyboardProfileNormalTest.delTest001);
+QUnit.test('delTest001', KeyboardProfileNormalTest.delTest001);
 

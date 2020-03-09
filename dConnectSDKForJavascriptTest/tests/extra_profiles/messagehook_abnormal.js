@@ -1,4 +1,4 @@
-module('MessageHook Profile Abnormal Test', {
+QUnit.module('MessageHook Profile Abnormal Test', {
     setup: function() {
         init();
     }
@@ -40,7 +40,7 @@ MessageHookProfileAbnormalTest.messageTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest001', MessageHookProfileAbnormalTest.messageTest001);
+QUnit.test('messageTest001', MessageHookProfileAbnormalTest.messageTest001);
 
 /**
  * チャンネルIDを設定せずに送信を取得するテストを行う。
@@ -72,7 +72,7 @@ MessageHookProfileAbnormalTest.messageTest002 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest002', MessageHookProfileAbnormalTest.messageTest002);
+QUnit.test('messageTest002', MessageHookProfileAbnormalTest.messageTest002);
 
 /**
  * チャンネルIDに適当な文字を設定して送信を取得するテストを行う。
@@ -105,7 +105,7 @@ MessageHookProfileAbnormalTest.messageTest003 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest003', MessageHookProfileAbnormalTest.messageTest003);
+QUnit.test('messageTest003', MessageHookProfileAbnormalTest.messageTest003);
 
 /**
  * resourceに適当な文字を設定して送信を取得するテストを行う。
@@ -139,7 +139,7 @@ MessageHookProfileAbnormalTest.messageTest004 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest004', MessageHookProfileAbnormalTest.messageTest004);
+QUnit.test('messageTest004', MessageHookProfileAbnormalTest.messageTest004);
 
 /**
  * textに空文字を設定して送信を取得するテストを行う。
@@ -172,7 +172,7 @@ MessageHookProfileAbnormalTest.messageTest005 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest005', MessageHookProfileAbnormalTest.messageTest005);
+QUnit.test('messageTest005', MessageHookProfileAbnormalTest.messageTest005);
 
 
 

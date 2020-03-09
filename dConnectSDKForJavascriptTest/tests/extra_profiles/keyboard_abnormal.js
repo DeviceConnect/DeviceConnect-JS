@@ -1,4 +1,4 @@
-module('Keyboard Profile Abnormal Test', {
+QUnit.module('Keyboard Profile Abnormal Test', {
     setup: function() {
         init();
     }
@@ -45,7 +45,7 @@ KeyboardProfileAbnormalTest.keyboardTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest001', KeyboardProfileAbnormalTest.keyboardTest001);
+QUnit.test('keyboardTest001', KeyboardProfileAbnormalTest.keyboardTest001);
 
 /**
  * キーコードにキーコード以外の文字列を指定して送信するテストを行う。
@@ -83,7 +83,7 @@ KeyboardProfileAbnormalTest.keyboardTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest002', KeyboardProfileAbnormalTest.keyboardTest002);
+QUnit.test('keyboardTest002', KeyboardProfileAbnormalTest.keyboardTest002);
 
 /**
  * キーコードを6個以上指定して送信するテストを行う。
@@ -121,7 +121,7 @@ KeyboardProfileAbnormalTest.keyboardTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest003', KeyboardProfileAbnormalTest.keyboardTest003);
+QUnit.test('keyboardTest003', KeyboardProfileAbnormalTest.keyboardTest003);
 
 /**
  * キーコードに大きい値(1234)を指定して送信するテストを行う。
@@ -159,7 +159,7 @@ KeyboardProfileAbnormalTest.keyboardTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest004', KeyboardProfileAbnormalTest.keyboardTest004);
+QUnit.test('keyboardTest004', KeyboardProfileAbnormalTest.keyboardTest004);
 
 /**
  * キーコードに大きい値(0x1234)を指定して送信するテストを行う。
@@ -197,7 +197,7 @@ KeyboardProfileAbnormalTest.keyboardTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest005', KeyboardProfileAbnormalTest.keyboardTest005);
+QUnit.test('keyboardTest005', KeyboardProfileAbnormalTest.keyboardTest005);
 
 /**
  * modifierに指定できない文字列を指定して送信するテストを行う。
@@ -236,7 +236,7 @@ KeyboardProfileAbnormalTest.keyboardTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest006', KeyboardProfileAbnormalTest.keyboardTest006);
+QUnit.test('keyboardTest006', KeyboardProfileAbnormalTest.keyboardTest006);
 
 /**
  * modifierに空文字列を指定して送信するテストを行う。
@@ -275,7 +275,7 @@ KeyboardProfileAbnormalTest.keyboardTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('keyboardTest007', KeyboardProfileAbnormalTest.keyboardTest007);
+QUnit.test('keyboardTest007', KeyboardProfileAbnormalTest.keyboardTest007);
 
 /**
  * asciiにstringを指定しないで送信するテストを行う。
@@ -313,7 +313,7 @@ KeyboardProfileAbnormalTest.asciiTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('asciiTest001', KeyboardProfileAbnormalTest.asciiTest001);
+QUnit.test('asciiTest001', KeyboardProfileAbnormalTest.asciiTest001);
 
 /**
  * asciiにstringに空文字を指定して送信するテストを行う。
@@ -352,5 +352,5 @@ KeyboardProfileAbnormalTest.asciiTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('asciiTest002', KeyboardProfileAbnormalTest.asciiTest002);
+QUnit.test('asciiTest002', KeyboardProfileAbnormalTest.asciiTest002);
 

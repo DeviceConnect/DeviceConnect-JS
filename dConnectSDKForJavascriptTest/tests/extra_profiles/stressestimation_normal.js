@@ -1,4 +1,4 @@
-module("StressEstimation Profile Normal Test", {
+QUnit.module("StressEstimation Profile Normal Test", {
     setup: function () {
         init();
     }
@@ -44,7 +44,7 @@ StressEstimationProfileNormalTest.stressNormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("stress", StressEstimationProfileNormalTest.stressNormalTest);
+QUnit.test("stress", StressEstimationProfileNormalTest.stressNormalTest);
 
 /**
  * StressEstimationプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -73,4 +73,4 @@ StressEstimationProfileNormalTest.stressEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("StressEventNormalTest001", StressEstimationProfileNormalTest.stressEventNormalTest001);
+QUnit.test("StressEventNormalTest001", StressEstimationProfileNormalTest.stressEventNormalTest001);

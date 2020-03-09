@@ -1,4 +1,4 @@
-module('Event Test', {
+QUnit.module('Event Test', {
   setup: function() {
     TEST_TIMEOUT = 120000;
     init();
@@ -30,7 +30,7 @@ EventTest.addEventTest001 = function(assert) {
     QUnit.start();
   }
 };
-QUnit.asyncTest('addEvent, non exist parameter.',
+QUnit.test('addEvent, non exist parameter.',
   EventTest.addEventTest001);
 
 /**
@@ -50,7 +50,7 @@ EventTest.addEventTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addEvent, uri "http://www.google.com".',
+QUnit.test('addEvent, uri "http://www.google.com".',
   EventTest.addEventTest002);
 
 
@@ -80,7 +80,7 @@ EventTest.addEventTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback null.',
+QUnit.test('addEvent, uri and eventCallback null.',
   EventTest.addEventTest011);
 
 /**
@@ -101,7 +101,7 @@ EventTest.addEventTest012 = function(assert) {
     });
 };
 
-QUnit.asyncTest('addEvent, uri null.', EventTest.addEventTest012);
+QUnit.test('addEvent, uri null.', EventTest.addEventTest012);
 
 
 /**
@@ -123,7 +123,7 @@ EventTest.addEventTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback null.',
+QUnit.test('addEvent, uri and successCallback, errorCallback null.',
   EventTest.addEventTest013);
 
 
@@ -152,7 +152,7 @@ EventTest.addEventTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback undefined.',
+QUnit.test('addEvent, uri and eventCallback undefined.',
   EventTest.addEventTest021);
 
 /**
@@ -173,7 +173,7 @@ EventTest.addEventTest022 = function(assert) {
   });
 };
 
-QUnit.asyncTest('addEvent, uri undefined.', EventTest.addEventTest022);
+QUnit.test('addEvent, uri undefined.', EventTest.addEventTest022);
 
 
 /**
@@ -195,7 +195,7 @@ EventTest.addEventTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback undefined.',
+QUnit.test('addEvent, uri and successCallback, errorCallback undefined.',
   EventTest.addEventTest023);
 
 /// 数字
@@ -223,7 +223,7 @@ EventTest.addEventTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback number.',
+QUnit.test('addEvent, uri and eventCallback number.',
   EventTest.addEventTest031);
 
 /**
@@ -244,7 +244,7 @@ EventTest.addEventTest032 = function(assert) {
   });
 };
 
-QUnit.asyncTest('addEvent, uri number.', EventTest.addEventTest032);
+QUnit.test('addEvent, uri number.', EventTest.addEventTest032);
 
 
 /**
@@ -266,7 +266,7 @@ EventTest.addEventTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback number.',
+QUnit.test('addEvent, uri and successCallback, errorCallback number.',
   EventTest.addEventTest033);
 
 /// 英字
@@ -294,7 +294,7 @@ EventTest.addEventTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback alphabet.',
+QUnit.test('addEvent, uri and eventCallback alphabet.',
   EventTest.addEventTest041);
 
 /**
@@ -316,7 +316,7 @@ EventTest.addEventTest042 = function(assert) {
   });
 };
 
-QUnit.asyncTest('addEvent, uri alphabet.', EventTest.addEventTest042);
+QUnit.test('addEvent, uri alphabet.', EventTest.addEventTest042);
 
 
 /**
@@ -338,7 +338,7 @@ EventTest.addEventTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback alphabet.',
+QUnit.test('addEvent, uri and successCallback, errorCallback alphabet.',
   EventTest.addEventTest043);
 
 
@@ -367,7 +367,7 @@ EventTest.addEventTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback hiragana.',
+QUnit.test('addEvent, uri and eventCallback hiragana.',
   EventTest.addEventTest051);
 
 /**
@@ -389,7 +389,7 @@ EventTest.addEventTest052 = function(assert) {
   });
 };
 
-QUnit.asyncTest('addEvent, uri hiragana.', EventTest.addEventTest052);
+QUnit.test('addEvent, uri hiragana.', EventTest.addEventTest052);
 
 
 /**
@@ -411,7 +411,7 @@ EventTest.addEventTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback hiragana.',
+QUnit.test('addEvent, uri and successCallback, errorCallback hiragana.',
   EventTest.addEventTest053);
 
 /// 記号
@@ -440,7 +440,7 @@ EventTest.addEventTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback symbol.',
+QUnit.test('addEvent, uri and eventCallback symbol.',
   EventTest.addEventTest061);
 
 /**
@@ -462,7 +462,7 @@ EventTest.addEventTest062 = function(assert) {
   });
 };
 
-QUnit.asyncTest('addEvent, uri symbol.', EventTest.addEventTest062);
+QUnit.test('addEvent, uri symbol.', EventTest.addEventTest062);
 
 
 /**
@@ -485,7 +485,7 @@ EventTest.addEventTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback symbol.',
+QUnit.test('addEvent, uri and successCallback, errorCallback symbol.',
   EventTest.addEventTest063);
 
 
@@ -515,7 +515,7 @@ EventTest.addEventTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback limit.',
+QUnit.test('addEvent, uri and eventCallback limit.',
   EventTest.addEventTest071);
 
 /**
@@ -537,7 +537,7 @@ EventTest.addEventTest072 = function(assert) {
   });
 };
 
-QUnit.asyncTest('addEvent, uri limit.', EventTest.addEventTest072);
+QUnit.test('addEvent, uri limit.', EventTest.addEventTest072);
 
 
 /**
@@ -561,7 +561,7 @@ EventTest.addEventTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback limit.',
+QUnit.test('addEvent, uri and successCallback, errorCallback limit.',
   EventTest.addEventTest073);
 
 
@@ -580,7 +580,7 @@ EventTest.removeEventTest001 = function(assert) {
     assert.ok(true, "Error");
     QUnit.start();
 };
-QUnit.asyncTest('removeEvent, non exist parameter.',
+QUnit.test('removeEvent, non exist parameter.',
   EventTest.removeEventTest001);
 
 /**
@@ -600,7 +600,7 @@ EventTest.removeEventTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('removeEvent, uri "http://www.google.com".',
+QUnit.test('removeEvent, uri "http://www.google.com".',
   EventTest.removeEventTest002);
 
 /// null
@@ -628,7 +628,7 @@ EventTest.removeEventTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri null.',
+QUnit.test('removeEvent, uri null.',
   EventTest.removeEventTest011);
 
 /**
@@ -651,7 +651,7 @@ EventTest.removeEventTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback null.',
+QUnit.test('removeEvent, uri and successCallback null.',
   EventTest.removeEventTest012);
 
 /**
@@ -673,7 +673,7 @@ EventTest.removeEventTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback null.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback null.',
   EventTest.removeEventTest013);
 
 /// undefined
@@ -700,7 +700,7 @@ EventTest.removeEventTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri undefined.',
+QUnit.test('removeEvent, uri undefined.',
   EventTest.removeEventTest021);
 
 /**
@@ -723,7 +723,7 @@ EventTest.removeEventTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback undefined.',
+QUnit.test('removeEvent, uri and successCallback undefined.',
   EventTest.removeEventTest022);
 
 /**
@@ -745,7 +745,7 @@ EventTest.removeEventTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback undefined.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback undefined.',
   EventTest.removeEventTest023);
 
 
@@ -774,7 +774,7 @@ EventTest.removeEventTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri number.',
+QUnit.test('removeEvent, uri number.',
   EventTest.removeEventTest031);
 
 /**
@@ -797,7 +797,7 @@ EventTest.removeEventTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback number.',
+QUnit.test('removeEvent, uri and successCallback number.',
   EventTest.removeEventTest032);
 
 /**
@@ -819,7 +819,7 @@ EventTest.removeEventTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback number.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback number.',
   EventTest.removeEventTest033);
 
 
@@ -848,7 +848,7 @@ EventTest.removeEventTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri alphabet.',
+QUnit.test('removeEvent, uri alphabet.',
   EventTest.removeEventTest041);
 
 /**
@@ -871,7 +871,7 @@ EventTest.removeEventTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback alphabet.',
+QUnit.test('removeEvent, uri and successCallback alphabet.',
   EventTest.removeEventTest042);
 
 /**
@@ -893,7 +893,7 @@ EventTest.removeEventTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback alphabet.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback alphabet.',
   EventTest.removeEventTest043);
 
 
@@ -922,7 +922,7 @@ EventTest.removeEventTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri hiragana.',
+QUnit.test('removeEvent, uri hiragana.',
   EventTest.removeEventTest051);
 
 /**
@@ -945,7 +945,7 @@ EventTest.removeEventTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback hiragana.',
+QUnit.test('removeEvent, uri and successCallback hiragana.',
   EventTest.removeEventTest052);
 
 /**
@@ -967,7 +967,7 @@ EventTest.removeEventTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback hiragana.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback hiragana.',
   EventTest.removeEventTest053);
 
 
@@ -996,7 +996,7 @@ EventTest.removeEventTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri symbol.',
+QUnit.test('removeEvent, uri symbol.',
   EventTest.removeEventTest061);
 
 /**
@@ -1020,7 +1020,7 @@ EventTest.removeEventTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback symbol.',
+QUnit.test('removeEvent, uri and successCallback symbol.',
   EventTest.removeEventTest062);
 
 /**
@@ -1043,7 +1043,7 @@ EventTest.removeEventTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback symbol.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback symbol.',
   EventTest.removeEventTest063);
 
 
@@ -1073,7 +1073,7 @@ EventTest.removeEventTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri limit.',
+QUnit.test('removeEvent, uri limit.',
   EventTest.removeEventTest071);
 
 /**
@@ -1097,7 +1097,7 @@ EventTest.removeEventTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback limit.',
+QUnit.test('removeEvent, uri and successCallback limit.',
   EventTest.removeEventTest072);
 
 /**
@@ -1121,7 +1121,7 @@ EventTest.removeEventTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback limit.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback limit.',
   EventTest.removeEventTest073);
 
 
@@ -1167,5 +1167,5 @@ EventTest.addEventTest999 = function(assert) {
 
 };
 
-QUnit.asyncTest('100 times the connect and disconnect of Websocket.',
+QUnit.test('100 times the connect and disconnect of Websocket.',
           EventTest.addEventTest999);

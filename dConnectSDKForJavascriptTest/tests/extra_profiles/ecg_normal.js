@@ -1,4 +1,4 @@
-module("ECG Profile Normal Test", {
+QUnit.module("ECG Profile Normal Test", {
     setup: function () {
         init();
     }
@@ -44,7 +44,7 @@ ECGProfileNormalTest.ecgNormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("ecg", ECGProfileNormalTest.ecgNormalTest);
+QUnit.test("ecg", ECGProfileNormalTest.ecgNormalTest);
 
 /**
  * ECGプロファイルのECGの登録と解除を行うテストを行う。
@@ -73,4 +73,4 @@ ECGProfileNormalTest.ecgEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("ECGEventNormalTest001", ECGProfileNormalTest.ecgEventNormalTest001);
+QUnit.test("ECGEventNormalTest001", ECGProfileNormalTest.ecgEventNormalTest001);

@@ -1,4 +1,4 @@
-module('HumidityProfileAbnormalTest', {
+QUnit.module('HumidityProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ HumidityProfileAbnormalTest.humidityAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('humidityAbnormalTest001',
+QUnit.test('humidityAbnormalTest001',
     HumidityProfileAbnormalTest.humidityAbnormalTest001);
 
 /**
@@ -83,7 +83,7 @@ HumidityProfileAbnormalTest.humidityAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('humidityAbnormalTest002',
+QUnit.test('humidityAbnormalTest002',
     HumidityProfileAbnormalTest.humidityAbnormalTest002);
 
 /**
@@ -121,5 +121,5 @@ HumidityProfileAbnormalTest.humidityAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('humidityAbnormalTest003',
+QUnit.test('humidityAbnormalTest003',
     HumidityProfileAbnormalTest.humidityAbnormalTest003);

@@ -1,4 +1,4 @@
-module('Mouse Profile Abnormal Test', {
+QUnit.module('Mouse Profile Abnormal Test', {
     setup: function() {
         init();
     }
@@ -46,7 +46,7 @@ MouseProfileAbnormalTest.mouseTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest001', MouseProfileAbnormalTest.mouseTest001);
+QUnit.test('mouseTest001', MouseProfileAbnormalTest.mouseTest001);
 
 /**
  * マウスのyに範囲外の値を送信するテストを行う。
@@ -84,7 +84,7 @@ MouseProfileAbnormalTest.mouseTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest002', MouseProfileAbnormalTest.mouseTest002);
+QUnit.test('mouseTest002', MouseProfileAbnormalTest.mouseTest002);
 
 /**
  * マウスのwheelに範囲外の値を送信するテストを行う。
@@ -122,7 +122,7 @@ MouseProfileAbnormalTest.mouseTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest003', MouseProfileAbnormalTest.mouseTest003);
+QUnit.test('mouseTest003', MouseProfileAbnormalTest.mouseTest003);
 
 /**
  * マウスのrightButtonにboolean以外を送信するテストを行う。
@@ -160,7 +160,7 @@ MouseProfileAbnormalTest.mouseTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest004', MouseProfileAbnormalTest.mouseTest004);
+QUnit.test('mouseTest004', MouseProfileAbnormalTest.mouseTest004);
 
 /**
  * マウスのleftButtonにboolean以外を送信するテストを行う。
@@ -198,7 +198,7 @@ MouseProfileAbnormalTest.mouseTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest005', MouseProfileAbnormalTest.mouseTest005);
+QUnit.test('mouseTest005', MouseProfileAbnormalTest.mouseTest005);
 
 /**
  * マウスのmiddleButtonにboolean以外を送信するテストを行う。
@@ -236,7 +236,7 @@ MouseProfileAbnormalTest.mouseTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest006', MouseProfileAbnormalTest.mouseTest006);
+QUnit.test('mouseTest006', MouseProfileAbnormalTest.mouseTest006);
 
 /**
  * マウスのxに文字列を送信するテストを行う。
@@ -274,7 +274,7 @@ MouseProfileAbnormalTest.mouseTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest007', MouseProfileAbnormalTest.mouseTest007);
+QUnit.test('mouseTest007', MouseProfileAbnormalTest.mouseTest007);
 
 /**
  * マウスのyに文字列を送信するテストを行う。
@@ -312,7 +312,7 @@ MouseProfileAbnormalTest.mouseTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest008', MouseProfileAbnormalTest.mouseTest008);
+QUnit.test('mouseTest008', MouseProfileAbnormalTest.mouseTest008);
 
 /**
  * マウスのyに文字列を送信するテストを行う。
@@ -350,7 +350,7 @@ MouseProfileAbnormalTest.mouseTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('mouseTest009', MouseProfileAbnormalTest.mouseTest009);
+QUnit.test('mouseTest009', MouseProfileAbnormalTest.mouseTest009);
 
 /**
  * クリックするボタンを指定しないで送信するテストを行う。
@@ -388,7 +388,7 @@ MouseProfileAbnormalTest.clickTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('clickTest001', MouseProfileAbnormalTest.clickTest001);
+QUnit.test('clickTest001', MouseProfileAbnormalTest.clickTest001);
 
 
 /**
@@ -428,7 +428,7 @@ MouseProfileAbnormalTest.clickTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('clickTest002', MouseProfileAbnormalTest.clickTest002);
+QUnit.test('clickTest002', MouseProfileAbnormalTest.clickTest002);
 
 /**
  * ダブルクリックするボタンを指定しないで送信するテストを行う。
@@ -466,7 +466,7 @@ MouseProfileAbnormalTest.doubleClickTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('doubleClickTest001', MouseProfileAbnormalTest.doubleClickTest001);
+QUnit.test('doubleClickTest001', MouseProfileAbnormalTest.doubleClickTest001);
 
 
 /**
@@ -506,4 +506,4 @@ MouseProfileAbnormalTest.doubleClickTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('doubleClickTest002', MouseProfileAbnormalTest.doubleClickTest002);
+QUnit.test('doubleClickTest002', MouseProfileAbnormalTest.doubleClickTest002);

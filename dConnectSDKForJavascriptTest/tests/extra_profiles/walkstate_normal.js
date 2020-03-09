@@ -1,4 +1,4 @@
-module("WalkState Profile Normal Test", {
+QUnit.module("WalkState Profile Normal Test", {
     setup: function () {
         init();
     }
@@ -44,7 +44,7 @@ WalkStateProfileNormalTest.walkNormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("walk", WalkStateProfileNormalTest.walkNormalTest);
+QUnit.test("walk", WalkStateProfileNormalTest.walkNormalTest);
 
 /**
  * WalkStateプロファイルのWalkStateの登録と解除を行うテストを行う。
@@ -73,4 +73,4 @@ WalkStateProfileNormalTest.walkEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("walkEventNormalTest001", WalkStateProfileNormalTest.walkEventNormalTest001);
+QUnit.test("walkEventNormalTest001", WalkStateProfileNormalTest.walkEventNormalTest001);

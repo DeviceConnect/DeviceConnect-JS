@@ -1,5 +1,5 @@
-module('Connection Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Connection Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Connection Profile Abnormal Test', {
  * Connectionプロファイルのテストを行うクラス。
  * @class
  */
-var ConnectionProfileAbnormalTest = {};
+let ConnectionProfileAbnormalTest = {};
 
 /**
  * 定義されていないメソッドでWi-Fiの接続状態にアクセスするテストを行う。
@@ -23,29 +23,21 @@ var ConnectionProfileAbnormalTest = {};
  * </p>
  */
 ConnectionProfileAbnormalTest.wifiAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_WIFI,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('wifiAbnormalTest001(Calling a post method that does not support.)', 
+QUnit.test('wifiAbnormalTest001(Calling a post method that does not support.)',
     ConnectionProfileAbnormalTest.wifiAbnormalTest001);
 
 /**
@@ -61,29 +53,21 @@ QUnit.asyncTest('wifiAbnormalTest001(Calling a post method that does not support
  * </p>
  */
 ConnectionProfileAbnormalTest.bluetoothAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('bluetoothAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('bluetoothAbnormalTest001(Calling a post method that does not support.)',
     ConnectionProfileAbnormalTest.bluetoothAbnormalTest001);
 
 /**
@@ -99,30 +83,22 @@ QUnit.asyncTest('bluetoothAbnormalTest001(Calling a post method that does not su
  * </p>
  */
 ConnectionProfileAbnormalTest.discoverableAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
-  builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
+    attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('discoverableAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('discoverableAbnormalTest001(Calling a post method that does not support.)',
     ConnectionProfileAbnormalTest.discoverableAbnormalTest001);
 
 /**
@@ -137,30 +113,22 @@ QUnit.asyncTest('discoverableAbnormalTest001(Calling a post method that does not
  * </p>
  */
 ConnectionProfileAbnormalTest.discoverableAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
-  builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
+    attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('discoverableAbnormalTest002(Calling a post method that does not support.)',
+QUnit.test('discoverableAbnormalTest002(Calling a post method that does not support.)',
     ConnectionProfileAbnormalTest.discoverableAbnormalTest002);
 
 /**
@@ -176,29 +144,21 @@ QUnit.asyncTest('discoverableAbnormalTest002(Calling a post method that does not
  * </p>
  */
 ConnectionProfileAbnormalTest.nfcAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_NFC,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('nfcAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('nfcAbnormalTest001(Calling a post method that does not support.)',
     ConnectionProfileAbnormalTest.nfcAbnormalTest001);
 
 /**
@@ -213,27 +173,19 @@ QUnit.asyncTest('nfcAbnormalTest001(Calling a post method that does not support.
  * </p>
  */
 ConnectionProfileAbnormalTest.bleAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('bleAbnormalTest001(Calling a post method that does not support.)', 
+QUnit.test('bleAbnormalTest001(Calling a post method that does not support.)',
     ConnectionProfileAbnormalTest.bleAbnormalTest001);

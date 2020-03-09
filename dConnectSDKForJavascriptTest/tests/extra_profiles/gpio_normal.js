@@ -1,4 +1,4 @@
-module('GPIOProfileNormalTest', {
+QUnit.module('GPIOProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -42,7 +42,7 @@ GPIOProfileNormalTest.gpioNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest003',
+QUnit.test('gpioNormalTest003',
     GPIOProfileNormalTest.gpioNormalTest003);
 
 /**
@@ -77,7 +77,7 @@ GPIOProfileNormalTest.gpioNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest004',
+QUnit.test('gpioNormalTest004',
     GPIOProfileNormalTest.gpioNormalTest004);
 
 /**
@@ -112,7 +112,7 @@ GPIOProfileNormalTest.gpioNormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest005',
+QUnit.test('gpioNormalTest005',
     GPIOProfileNormalTest.gpioNormalTest005);
 
 /**
@@ -147,7 +147,7 @@ GPIOProfileNormalTest.gpioNormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest006',
+QUnit.test('gpioNormalTest006',
     GPIOProfileNormalTest.gpioNormalTest006);
 
 /**
@@ -182,7 +182,7 @@ GPIOProfileNormalTest.gpioNormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest007',
+QUnit.test('gpioNormalTest007',
     GPIOProfileNormalTest.gpioNormalTest007);
 
 /**
@@ -217,7 +217,7 @@ GPIOProfileNormalTest.gpioNormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest008',
+QUnit.test('gpioNormalTest008',
     GPIOProfileNormalTest.gpioNormalTest008);
 
 /**
@@ -252,7 +252,7 @@ GPIOProfileNormalTest.gpioNormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest009',
+QUnit.test('gpioNormalTest009',
     GPIOProfileNormalTest.gpioNormalTest009);
 
 
@@ -288,7 +288,7 @@ GPIOProfileNormalTest.gpioNormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest010',
+QUnit.test('gpioNormalTest010',
     GPIOProfileNormalTest.gpioNormalTest010);
 
 
@@ -324,7 +324,7 @@ GPIOProfileNormalTest.gpioNormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest011',
+QUnit.test('gpioNormalTest011',
     GPIOProfileNormalTest.gpioNormalTest011);
 
 /**
@@ -359,7 +359,7 @@ GPIOProfileNormalTest.gpioNormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest012',
+QUnit.test('gpioNormalTest012',
     GPIOProfileNormalTest.gpioNormalTest012);
 
 /**
@@ -394,7 +394,7 @@ GPIOProfileNormalTest.gpioNormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest013',
+QUnit.test('gpioNormalTest013',
     GPIOProfileNormalTest.gpioNormalTest013);
 
 /**
@@ -429,7 +429,7 @@ GPIOProfileNormalTest.gpioNormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest014',
+QUnit.test('gpioNormalTest014',
     GPIOProfileNormalTest.gpioNormalTest014);
 
 /**
@@ -464,7 +464,7 @@ GPIOProfileNormalTest.gpioNormalTest015 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest015',
+QUnit.test('gpioNormalTest015',
     GPIOProfileNormalTest.gpioNormalTest015);
 
 /**
@@ -499,7 +499,7 @@ GPIOProfileNormalTest.gpioNormalTest016 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest016',
+QUnit.test('gpioNormalTest016',
     GPIOProfileNormalTest.gpioNormalTest016);
 
 /**
@@ -534,7 +534,7 @@ GPIOProfileNormalTest.gpioNormalTest017 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest017',
+QUnit.test('gpioNormalTest017',
     GPIOProfileNormalTest.gpioNormalTest017);
 
 /**
@@ -570,7 +570,7 @@ GPIOProfileNormalTest.gpioNormalTest018 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest018',
+QUnit.test('gpioNormalTest018',
     GPIOProfileNormalTest.gpioNormalTest018);
 
 /**
@@ -605,7 +605,7 @@ GPIOProfileNormalTest.gpioNormalTest019 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest019',
+QUnit.test('gpioNormalTest019',
     GPIOProfileNormalTest.gpioNormalTest019);
 
 /**
@@ -640,7 +640,7 @@ GPIOProfileNormalTest.gpioNormalTest020 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest020',
+QUnit.test('gpioNormalTest020',
     GPIOProfileNormalTest.gpioNormalTest020);
 
 /**
@@ -675,7 +675,7 @@ GPIOProfileNormalTest.gpioNormalTest021 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest021',
+QUnit.test('gpioNormalTest021',
     GPIOProfileNormalTest.gpioNormalTest021);
 
 /**
@@ -710,7 +710,7 @@ GPIOProfileNormalTest.gpioNormalTest022 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest022',
+QUnit.test('gpioNormalTest022',
     GPIOProfileNormalTest.gpioNormalTest022);
 
 /**
@@ -745,7 +745,7 @@ GPIOProfileNormalTest.gpioNormalTest023 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest023',
+QUnit.test('gpioNormalTest023',
     GPIOProfileNormalTest.gpioNormalTest023);
 
 /**
@@ -780,7 +780,7 @@ GPIOProfileNormalTest.gpioNormalTest024 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest024',
+QUnit.test('gpioNormalTest024',
     GPIOProfileNormalTest.gpioNormalTest024);
 
 /**
@@ -815,7 +815,7 @@ GPIOProfileNormalTest.gpioNormalTest025 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest025',
+QUnit.test('gpioNormalTest025',
     GPIOProfileNormalTest.gpioNormalTest025);
 
 /**
@@ -850,7 +850,7 @@ GPIOProfileNormalTest.gpioNormalTest026 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest026',
+QUnit.test('gpioNormalTest026',
     GPIOProfileNormalTest.gpioNormalTest026);
 
 /**
@@ -886,7 +886,7 @@ GPIOProfileNormalTest.gpioNormalTest027 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest027',
+QUnit.test('gpioNormalTest027',
     GPIOProfileNormalTest.gpioNormalTest027);
 
 /**
@@ -922,7 +922,7 @@ GPIOProfileNormalTest.gpioNormalTest028 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest028',
+QUnit.test('gpioNormalTest028',
     GPIOProfileNormalTest.gpioNormalTest028);
 
 /**
@@ -959,7 +959,7 @@ GPIOProfileNormalTest.gpioNormalTest029 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest029',
+QUnit.test('gpioNormalTest029',
     GPIOProfileNormalTest.gpioNormalTest029);
 
 /**
@@ -995,7 +995,7 @@ GPIOProfileNormalTest.gpioNormalTest030 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest030',
+QUnit.test('gpioNormalTest030',
     GPIOProfileNormalTest.gpioNormalTest030);
 
 /**
@@ -1031,7 +1031,7 @@ GPIOProfileNormalTest.gpioNormalTest031 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest031',
+QUnit.test('gpioNormalTest031',
     GPIOProfileNormalTest.gpioNormalTest031);
 
 /**
@@ -1067,7 +1067,7 @@ GPIOProfileNormalTest.gpioNormalTest032 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest032',
+QUnit.test('gpioNormalTest032',
     GPIOProfileNormalTest.gpioNormalTest032);
 
 /**
@@ -1103,7 +1103,7 @@ GPIOProfileNormalTest.gpioNormalTest033 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest033',
+QUnit.test('gpioNormalTest033',
     GPIOProfileNormalTest.gpioNormalTest033);
 
 /**
@@ -1139,7 +1139,7 @@ GPIOProfileNormalTest.gpioNormalTest034 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest033',
+QUnit.test('gpioNormalTest033',
     GPIOProfileNormalTest.gpioNormalTest033);
 
 /**
@@ -1175,7 +1175,7 @@ GPIOProfileNormalTest.gpioNormalTest034 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest034',
+QUnit.test('gpioNormalTest034',
     GPIOProfileNormalTest.gpioNormalTest034);
 
 /**
@@ -1211,7 +1211,7 @@ GPIOProfileNormalTest.gpioNormalTest035 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest035',
+QUnit.test('gpioNormalTest035',
     GPIOProfileNormalTest.gpioNormalTest035);
 
 /**
@@ -1247,7 +1247,7 @@ GPIOProfileNormalTest.gpioNormalTest036 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest036',
+QUnit.test('gpioNormalTest036',
     GPIOProfileNormalTest.gpioNormalTest036);
 
 /**
@@ -1283,7 +1283,7 @@ GPIOProfileNormalTest.gpioNormalTest037 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest037',
+QUnit.test('gpioNormalTest037',
     GPIOProfileNormalTest.gpioNormalTest037);
 
 /**
@@ -1319,7 +1319,7 @@ GPIOProfileNormalTest.gpioNormalTest038 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest038',
+QUnit.test('gpioNormalTest038',
     GPIOProfileNormalTest.gpioNormalTest038);
 
 /**
@@ -1355,7 +1355,7 @@ GPIOProfileNormalTest.gpioNormalTest039 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest039',
+QUnit.test('gpioNormalTest039',
     GPIOProfileNormalTest.gpioNormalTest039);
 
 /**
@@ -1391,7 +1391,7 @@ GPIOProfileNormalTest.gpioNormalTest040 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest040',
+QUnit.test('gpioNormalTest040',
     GPIOProfileNormalTest.gpioNormalTest040);
 
 /**
@@ -1427,7 +1427,7 @@ GPIOProfileNormalTest.gpioNormalTest041 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest041',
+QUnit.test('gpioNormalTest041',
     GPIOProfileNormalTest.gpioNormalTest041);
 
 /**
@@ -1463,7 +1463,7 @@ GPIOProfileNormalTest.gpioNormalTest042 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest042',
+QUnit.test('gpioNormalTest042',
     GPIOProfileNormalTest.gpioNormalTest042);
 
 /**
@@ -1499,7 +1499,7 @@ GPIOProfileNormalTest.gpioNormalTest043 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest043',
+QUnit.test('gpioNormalTest043',
     GPIOProfileNormalTest.gpioNormalTest043);
 
 /**
@@ -1535,7 +1535,7 @@ GPIOProfileNormalTest.gpioNormalTest044 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest044',
+QUnit.test('gpioNormalTest044',
     GPIOProfileNormalTest.gpioNormalTest044);
 
 /**
@@ -1571,7 +1571,7 @@ GPIOProfileNormalTest.gpioNormalTest045 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest045',
+QUnit.test('gpioNormalTest045',
     GPIOProfileNormalTest.gpioNormalTest045);
 
 /**
@@ -1607,7 +1607,7 @@ GPIOProfileNormalTest.gpioNormalTest046 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest046',
+QUnit.test('gpioNormalTest046',
     GPIOProfileNormalTest.gpioNormalTest046);
 
 /**
@@ -1643,7 +1643,7 @@ GPIOProfileNormalTest.gpioNormalTest047 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest047',
+QUnit.test('gpioNormalTest047',
     GPIOProfileNormalTest.gpioNormalTest047);
 
 /**
@@ -1679,7 +1679,7 @@ GPIOProfileNormalTest.gpioNormalTest048 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest048',
+QUnit.test('gpioNormalTest048',
     GPIOProfileNormalTest.gpioNormalTest048);
 
 /**
@@ -1715,7 +1715,7 @@ GPIOProfileNormalTest.gpioNormalTest049 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest049',
+QUnit.test('gpioNormalTest049',
     GPIOProfileNormalTest.gpioNormalTest049);
 
 /**
@@ -1751,7 +1751,7 @@ GPIOProfileNormalTest.gpioNormalTest050 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest050',
+QUnit.test('gpioNormalTest050',
     GPIOProfileNormalTest.gpioNormalTest050);
 
 
@@ -1788,7 +1788,7 @@ GPIOProfileNormalTest.gpioNormalTest051 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest051',
+QUnit.test('gpioNormalTest051',
     GPIOProfileNormalTest.gpioNormalTest051);
 
 /**
@@ -1824,7 +1824,7 @@ GPIOProfileNormalTest.gpioNormalTest052 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest052',
+QUnit.test('gpioNormalTest052',
     GPIOProfileNormalTest.gpioNormalTest052);
 
 
@@ -1861,7 +1861,7 @@ GPIOProfileNormalTest.gpioNormalTest053 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest053',
+QUnit.test('gpioNormalTest053',
     GPIOProfileNormalTest.gpioNormalTest053);
 
 /**
@@ -1897,7 +1897,7 @@ GPIOProfileNormalTest.gpioNormalTest054 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest054',
+QUnit.test('gpioNormalTest054',
     GPIOProfileNormalTest.gpioNormalTest054);
 
 
@@ -1934,7 +1934,7 @@ GPIOProfileNormalTest.gpioNormalTest055 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest055',
+QUnit.test('gpioNormalTest055',
     GPIOProfileNormalTest.gpioNormalTest055);
 
 /**
@@ -1970,7 +1970,7 @@ GPIOProfileNormalTest.gpioNormalTest056 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest056',
+QUnit.test('gpioNormalTest056',
     GPIOProfileNormalTest.gpioNormalTest056);
 
 
@@ -2007,7 +2007,7 @@ GPIOProfileNormalTest.gpioNormalTest057 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest057',
+QUnit.test('gpioNormalTest057',
     GPIOProfileNormalTest.gpioNormalTest057);
 
 /**
@@ -2043,7 +2043,7 @@ GPIOProfileNormalTest.gpioNormalTest058 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest058',
+QUnit.test('gpioNormalTest058',
     GPIOProfileNormalTest.gpioNormalTest058);
 
 
@@ -2080,7 +2080,7 @@ GPIOProfileNormalTest.gpioNormalTest059 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest059',
+QUnit.test('gpioNormalTest059',
     GPIOProfileNormalTest.gpioNormalTest059);
 
 /**
@@ -2116,7 +2116,7 @@ GPIOProfileNormalTest.gpioNormalTest060 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest060',
+QUnit.test('gpioNormalTest060',
     GPIOProfileNormalTest.gpioNormalTest060);
 
 /**
@@ -2152,7 +2152,7 @@ GPIOProfileNormalTest.gpioNormalTest061 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest061',
+QUnit.test('gpioNormalTest061',
     GPIOProfileNormalTest.gpioNormalTest061);
 
 /**
@@ -2188,7 +2188,7 @@ GPIOProfileNormalTest.gpioNormalTest062 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest062',
+QUnit.test('gpioNormalTest062',
     GPIOProfileNormalTest.gpioNormalTest062);
 
 /**
@@ -2224,7 +2224,7 @@ GPIOProfileNormalTest.gpioNormalTest063 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest063',
+QUnit.test('gpioNormalTest063',
     GPIOProfileNormalTest.gpioNormalTest063);
 
 /**
@@ -2260,7 +2260,7 @@ GPIOProfileNormalTest.gpioNormalTest064 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest064',
+QUnit.test('gpioNormalTest064',
     GPIOProfileNormalTest.gpioNormalTest064);
 
 /**
@@ -2296,7 +2296,7 @@ GPIOProfileNormalTest.gpioNormalTest065 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest065',
+QUnit.test('gpioNormalTest065',
     GPIOProfileNormalTest.gpioNormalTest065);
 /**
  * PIN 10を255をAnalog Writeする。
@@ -2331,7 +2331,7 @@ GPIOProfileNormalTest.gpioNormalTest066 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest066',
+QUnit.test('gpioNormalTest066',
     GPIOProfileNormalTest.gpioNormalTest066);
 
 /**
@@ -2367,5 +2367,5 @@ GPIOProfileNormalTest.gpioNormalTest067 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('gpioNormalTest067',
+QUnit.test('gpioNormalTest067',
     GPIOProfileNormalTest.gpioNormalTest067);

@@ -1,4 +1,4 @@
-module('DeviceProfileNormalTest', {
+QUnit.module('DeviceProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -40,7 +40,7 @@ DeviceProfileNormalTest.postPairingNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('postPairingNormalTest001(post)',
+QUnit.test('postPairingNormalTest001(post)',
     DeviceProfileNormalTest.postPairingNormalTest001);
 
 /**
@@ -73,5 +73,5 @@ DeviceProfileNormalTest.deletePairingNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('deletePairingNormalTest001(delete)',
+QUnit.test('deletePairingNormalTest001(delete)',
     DeviceProfileNormalTest.deletePairingNormalTest001);

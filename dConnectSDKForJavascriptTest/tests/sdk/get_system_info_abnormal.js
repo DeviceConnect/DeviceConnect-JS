@@ -1,4 +1,4 @@
-module('Get System Info Method Test', {
+QUnit.module('Get System Info Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ GetSystemInfoMethodTest.getSystemInfoTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('getSystemInfoTest, non exist parameters.',
+QUnit.test('getSystemInfoTest, non exist parameters.',
   GetSystemInfoMethodTest.getSystemInfoTest001);
 
 
@@ -63,7 +63,7 @@ GetSystemInfoMethodTest.getSystemInfoTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback null.',
+QUnit.test('getSystemInfoTest,  successCallback null.',
   GetSystemInfoMethodTest.getSystemInfoTest011);
 
 /**
@@ -85,7 +85,7 @@ GetSystemInfoMethodTest.getSystemInfoTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback null.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback null.',
   GetSystemInfoMethodTest.getSystemInfoTest012);
 
 
@@ -113,7 +113,7 @@ GetSystemInfoMethodTest.getSystemInfoTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback undefined.',
+QUnit.test('getSystemInfoTest,  successCallback undefined.',
   GetSystemInfoMethodTest.getSystemInfoTest021);
 
 /**
@@ -135,7 +135,7 @@ GetSystemInfoMethodTest.getSystemInfoTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback undefined.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback undefined.',
   GetSystemInfoMethodTest.getSystemInfoTest022);
 
 
@@ -163,7 +163,7 @@ GetSystemInfoMethodTest.getSystemInfoTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback number.',
+QUnit.test('getSystemInfoTest,  successCallback number.',
   GetSystemInfoMethodTest.getSystemInfoTest031);
 
 /**
@@ -185,7 +185,7 @@ GetSystemInfoMethodTest.getSystemInfoTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback number.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback number.',
   GetSystemInfoMethodTest.getSystemInfoTest032);
 
 
@@ -213,7 +213,7 @@ GetSystemInfoMethodTest.getSystemInfoTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback aplphabet.',
+QUnit.test('getSystemInfoTest,  successCallback aplphabet.',
   GetSystemInfoMethodTest.getSystemInfoTest041);
 
 /**
@@ -235,7 +235,7 @@ GetSystemInfoMethodTest.getSystemInfoTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback aplphabet.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback aplphabet.',
   GetSystemInfoMethodTest.getSystemInfoTest042);
 
 
@@ -263,7 +263,7 @@ GetSystemInfoMethodTest.getSystemInfoTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback hiragana.',
+QUnit.test('getSystemInfoTest,  successCallback hiragana.',
   GetSystemInfoMethodTest.getSystemInfoTest051);
 
 /**
@@ -285,7 +285,7 @@ GetSystemInfoMethodTest.getSystemInfoTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback hiragana.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback hiragana.',
   GetSystemInfoMethodTest.getSystemInfoTest052);
 
 
@@ -313,7 +313,7 @@ GetSystemInfoMethodTest.getSystemInfoTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback symbol.',
+QUnit.test('getSystemInfoTest,  successCallback symbol.',
   GetSystemInfoMethodTest.getSystemInfoTest061);
 
 /**
@@ -336,7 +336,7 @@ GetSystemInfoMethodTest.getSystemInfoTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback symbol.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback symbol.',
   GetSystemInfoMethodTest.getSystemInfoTest062);
 
 
@@ -365,7 +365,7 @@ GetSystemInfoMethodTest.getSystemInfoTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest,  successCallback limit.',
+QUnit.test('getSystemInfoTest,  successCallback limit.',
   GetSystemInfoMethodTest.getSystemInfoTest071);
 
 /**
@@ -388,6 +388,6 @@ GetSystemInfoMethodTest.getSystemInfoTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemInfoTest, successCallback and errorCallback limit.',
+QUnit.test('getSystemInfoTest, successCallback and errorCallback limit.',
   GetSystemInfoMethodTest.getSystemInfoTest072);
 

@@ -1,8 +1,8 @@
-module('MediaStreamRecording Profile Normal Test', {
-  setup: function() {
+QUnit.module('MediaStreamRecording Profile Normal Test', {
+  before: function() {
     init();
-  }, teardown: function() {
-    var img = document.getElementById('images');
+  }, after: function() {
+    let img = document.getElementById('images');
     img.style.visibility = 'hidden';
   }
 });
@@ -11,49 +11,8 @@ module('MediaStreamRecording Profile Normal Test', {
  * MediaStreamRecordingプロファイルのテストを行うクラス。
  * @class
  */
-var MediaStreamRecordingProfileNormalTest = {};
+let MediaStreamRecordingProfileNormalTest = {};
 
-MediaStreamRecordingProfileNormalTest.record = function(success_cb, fail_cb, error_cb) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_RECORD);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    success_cb(accessToken, serviceId, json.uri);
-  }, function(errorCode, errorMessage) {
-    fail_cb(errorCode, errorMessage);
-  });
-};
-
-MediaStreamRecordingProfileNormalTest.pause = function(success_cb, fail_cb, error_cb) {
-  MediaStreamRecordingProfileNormalTest.record(function(accessToken, serviceId, uri) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PAUSE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      success_cb(accessToken, serviceId, uri);
-    }, fail_cb);
-  } , fail_cb, error_cb);
-};
-
-MediaStreamRecordingProfileNormalTest.stop = function(accessToken, serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_STOP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-  }, function(errorCode, errorMessage) {
-  });
-};
 
 /**
  * デバイスが利用可能なカメラ一覧を取得するテストを行う。
@@ -68,27 +27,25 @@ MediaStreamRecordingProfileNormalTest.stop = function(accessToken, serviceId) {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_MEDIARECORDER);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MEDIARECORDER,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.recorders !== undefined,
         'json.recorders=' + JSON.stringify(json.recorders))
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('mediarecorderNormalTest001(get)', MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001);
+  QUnit.test('mediarecorderNormalTest001(get)', MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001);
 }
 /**
  * デバイスがサポートしている撮影、録画、録音のオプションを取得するテストを行う。
@@ -104,25 +61,23 @@ if (IS_TEST_STATUS != 'record') {
  *
  */
 MediaStreamRecordingProfileNormalTest.optionsNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_OPTIONS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('optionsNormalTest001(get)', MediaStreamRecordingProfileNormalTest.optionsNormalTest001);
+  QUnit.test('optionsNormalTest001(get)', MediaStreamRecordingProfileNormalTest.optionsNormalTest001);
 }
 /**
  * デバイスの録画、録音オプションを設定するテストを行う。
@@ -137,57 +92,52 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  // Get supported options.
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_OPTIONS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    var imageSizes = json.imageSizes;
-    var previewSizes = json.previewSizes;
-    var mimeType = json.mimeType[0];
-    var size;
-    
-    // Set options.
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_OPTIONS);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
+    let imageSizes = json.imageSizes;
+    let previewSizes = json.previewSizes;
+    let mimeType = json.mimeType[0];
+    let size;
+
+    let params = {
+      profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
+      serviceId: serviceId,
+      mimeType: mimeType
+    };
     if (imageSizes !== undefined) {
       size = imageSizes[0];
-      builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_WIDTH, size.width);
-      builder.addParameter(dConnect.constants.media_stream_recording.PARAM_IMAGE_HEIGHT, size.height);
+      params[dConnectSDK.constants.mediaStreamRecording.PARAM_IMAGE_WIDTH] = size.width;
+      params[dConnectSDK.constants.mediaStreamRecording.PARAM_IMAGE_HEIGHT] = size.height;
     }
     if (previewSizes !== undefined) {
       size = previewSizes[0];
-      builder.addParameter(dConnect.constants.media_stream_recording.PARAM_PREVIEW_WIDTH, size.width);
-      builder.addParameter(dConnect.constants.media_stream_recording.PARAM_PREVIEW_HEIGHT, size.height);
+      params[dConnectSDK.constants.mediaStreamRecording.PARAM_PREVIEW_WIDTH] = size.width;
+      params[dConnectSDK.constants.mediaStreamRecording.PARAM_PREVIEW_HEIGHT] = size.height;
       // NOTE: The previewMaxFrameRate parameter will be tested by scenario tests.
     }
-    builder.addParameter(dConnect.constants.media_stream_recording.PARAM_MIME_TYPE, mimeType);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
+    sdk.put(params).then(json => {
       assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('optionsNormalTest002(put)', MediaStreamRecordingProfileNormalTest.optionsNormalTest002);
+  QUnit.test('optionsNormalTest002(put)', MediaStreamRecordingProfileNormalTest.optionsNormalTest002);
 }
 /**
  * デバイスに写真撮影を指示するテストを行う。
@@ -202,43 +152,43 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
-
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_TAKE_PHOTO);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'uri=' + json.uri);
 
-    var loadflag = false;
-    var img = document.getElementById('image');
+    let loadflag = false;
+    let img = document.getElementById('image');
     img.onload = function() {
-      assert.ok(true, 'load ok');
       loadflag = true;
     };
     img.onerror = function() {
-      assert.ok(false, 'load error');
+      loadflag = false;
     };
-    img.src = json.uri;
-    setTimeout(function() {
+    if (DEVICE_CONNECT_HOST === 'localhost') {
+      img.src = json.uri;
+    } else {
+      img.src = json.uri.replace('localhost', DEVICE_CONNECT_HOST);
+    }
+    setTimeout(() => {
       assert.ok(loadflag, 'image load ok');
-      QUnit.start();
+      done();
     }, 5000);
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('takePhotoNormalTest001', MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001);
+  QUnit.test('takePhotoNormalTest001', MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001);
 }
 /**
  * デバイスに動画撮影を指示するテストを行う。
@@ -253,44 +203,40 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.recordNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_RECORD);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'uri=' + json.uri);
 
-    setTimeout(function() {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_STOP);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
+    setTimeout(() => {
+      sdk.put({
+        profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+        attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
+        serviceId: serviceId
+      }).then(json => {
         assert.ok(true, "stop ok");
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(true,
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+        done();
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
-    }, 5000);
-  }, function(errorCode, errorMessage) {
-    assert.ok(true,
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    }, 5 * 1000);
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('recordNormalTest001', MediaStreamRecordingProfileNormalTest.recordNormalTest001);
+  QUnit.test('recordNormalTest001', MediaStreamRecordingProfileNormalTest.recordNormalTest001);
 }
 /**
  * デバイスに録画のミュートを指示するテストを行う。
@@ -305,27 +251,25 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_MUTETRACK);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MUTETRACK,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('mutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001);
+  QUnit.test('mutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001);
 }
 /**
  * デバイスに録画のミュート解除を指示するテストを行う。
@@ -340,27 +284,23 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
-  img.style.visibility = 'visible';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_UNMUTETRACK);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_UNMUTETRACK,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('unmutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001);
+  QUnit.test('unmutetrackNormalTest001', MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001);
 }
 /**
  * デバイスに録画の一時停止を指示するテストを行う。
@@ -375,47 +315,43 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
-
-  MediaStreamRecordingProfileNormalTest.record(function(accessToken, serviceId, uri) {
-    setTimeout(function() {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PAUSE);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  record().then(uri => {
+    setTimeout(() => {
+      sdk.put({
+        profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+        attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
+        serviceId: serviceId
+      }).then(json => {
         assert.ok(true, 'pause ok. result=' + json.result);
-        setTimeout(function() {
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_RESUME);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          dConnect.put(uri, null, null, function(json) {
+        setTimeout(() => {
+          sdk.put({
+            profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+            attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
+            serviceId: serviceId
+          }).then(json => {
             assert.ok(true, 'resume ok. result=' + json.result);
-              QUnit.start();
-          }, function(errorCode, errorMessage){
-              assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              QUnit.start();
-            }
-          );
-        }, 1500);
-      }, function(errorCode, errorMessage) {
-        assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
+            done();
+          }).catch(e => {
+            assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+            done();
+          });
+        }, 1.5 * 1000);
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+        done();
       });
-    }, 1500);
-  }, function(errorCode, errorMessage) {
-    assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    }, 1.5 * 1000);
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('pauseAndResumeNormalTest001', MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001);
+  QUnit.test('pauseAndResumeNormalTest001', MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001);
 }
 /**
  * デバイス動画撮影の停止を指示するテストを行う。
@@ -430,30 +366,27 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.stopNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
 
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
   setTimeout(function(){
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_STOP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode) || (errorCode == dConnect.constants.ErrorCode.ILLEGAL_DEVICE_STATE),
-        'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.put({
+      profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
+      serviceId: serviceId
+    }).then(json => {
+      assert.ok(true, 'resume ok. result=' + json.result);
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 16);
+      done();
     });
-  }, 2000);
+  }, 2 * 1000);
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('stopNormalTest001', MediaStreamRecordingProfileNormalTest.stopNormalTest001);
+  QUnit.test('stopNormalTest001', MediaStreamRecordingProfileNormalTest.stopNormalTest001);
 }
 
 /**
@@ -469,26 +402,22 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.previewNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PREVIEW);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PREVIEW,
+    serviceId: serviceId
+  }).then(json => {
+    assert.ok(true, 'preview ok. result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('previewNormalTest001', MediaStreamRecordingProfileNormalTest.previewNormalTest001);
+  QUnit.test('previewNormalTest001', MediaStreamRecordingProfileNormalTest.previewNormalTest001);
 }
 /**
  * プレビューを停止するテストを行う。
@@ -503,26 +432,22 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.previewNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_PREVIEW);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PREVIEW,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('previewNormalTest002', MediaStreamRecordingProfileNormalTest.previewNormalTest002);
+  QUnit.test('previewNormalTest002', MediaStreamRecordingProfileNormalTest.previewNormalTest002);
 }
 /**
  * 写真撮影通知イベントを登録するテストを行う。
@@ -538,18 +463,20 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_PHOTO);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.media_stream_recording.PROFILE_NAME &&
-        json.attribute === dConnect.constants.media_stream_recording.ATTR_ON_PHOTO) {
-      var photo = json.photo;
-      var img = document.getElementById('image');
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_PHOTO,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME &&
+        json.attribute === dConnectSDK.constants.mediaStreamRecording.ATTR_ON_PHOTO) {
+      let photo = json.photo;
+      let img = document.getElementById('image');
       if (DEVICE_CONNECT_HOST === 'localhost') {
         img.src = photo.uri;
       } else {
@@ -562,7 +489,7 @@ MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001 = function(assert) {
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.asyncTest('onPhotoNormalTest001', MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001);
+  QUnit.test('onPhotoNormalTest001', MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001);
 }
 
 /**
@@ -579,13 +506,16 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_stream_recording.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.media_stream_recording.PROFILE_NAME &&
-        json.attribute === dConnect.constants.media_stream_recording.ATTR_ON_RECORDING_CHANGE) {
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_RECORDING_CHANGE,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME &&
+        json.attribute === dConnectSDK.constants.mediaStreamRecording.ATTR_ON_RECORDING_CHANGE) {
 	  assert.ok(true, message);
       return true;
     }
@@ -594,5 +524,5 @@ MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001 = function(
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.asyncTest('onRecordingChangeNormalTest001', MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001);
+  QUnit.test('onRecordingChangeNormalTest001', MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001);
 }

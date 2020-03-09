@@ -1,4 +1,4 @@
-module('Create Client Method Test', {
+QUnit.module('Create Client Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ CreateClientMethodTest.createClientTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('createClientTest, non exist parameters.',
+QUnit.test('createClientTest, non exist parameters.',
   CreateClientMethodTest.createClientTest001);
 
 
@@ -63,7 +63,7 @@ CreateClientMethodTest.createClientTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback null.',
+QUnit.test('createClientTest,  successCallback null.',
   CreateClientMethodTest.createClientTest011);
 
 /**
@@ -85,7 +85,7 @@ CreateClientMethodTest.createClientTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback null.',
+QUnit.test('createClientTest, successCallback and errorCallback null.',
   CreateClientMethodTest.createClientTest012);
 
 
@@ -113,7 +113,7 @@ CreateClientMethodTest.createClientTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback undefined.',
+QUnit.test('createClientTest,  successCallback undefined.',
   CreateClientMethodTest.createClientTest021);
 
 /**
@@ -135,7 +135,7 @@ CreateClientMethodTest.createClientTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback undefined.',
+QUnit.test('createClientTest, successCallback and errorCallback undefined.',
   CreateClientMethodTest.createClientTest022);
 
 
@@ -163,7 +163,7 @@ CreateClientMethodTest.createClientTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback number.',
+QUnit.test('createClientTest,  successCallback number.',
   CreateClientMethodTest.createClientTest031);
 
 /**
@@ -185,7 +185,7 @@ CreateClientMethodTest.createClientTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback number.',
+QUnit.test('createClientTest, successCallback and errorCallback number.',
   CreateClientMethodTest.createClientTest032);
 
 
@@ -213,7 +213,7 @@ CreateClientMethodTest.createClientTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback aplphabet.',
+QUnit.test('createClientTest,  successCallback aplphabet.',
   CreateClientMethodTest.createClientTest041);
 
 /**
@@ -235,7 +235,7 @@ CreateClientMethodTest.createClientTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback aplphabet.',
+QUnit.test('createClientTest, successCallback and errorCallback aplphabet.',
   CreateClientMethodTest.createClientTest042);
 
 
@@ -263,7 +263,7 @@ CreateClientMethodTest.createClientTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback hiragana.',
+QUnit.test('createClientTest,  successCallback hiragana.',
   CreateClientMethodTest.createClientTest051);
 
 /**
@@ -285,7 +285,7 @@ CreateClientMethodTest.createClientTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback hiragana.',
+QUnit.test('createClientTest, successCallback and errorCallback hiragana.',
   CreateClientMethodTest.createClientTest052);
 
 
@@ -313,7 +313,7 @@ CreateClientMethodTest.createClientTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback symbol.',
+QUnit.test('createClientTest,  successCallback symbol.',
   CreateClientMethodTest.createClientTest061);
 
 /**
@@ -336,7 +336,7 @@ CreateClientMethodTest.createClientTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback symbol.',
+QUnit.test('createClientTest, successCallback and errorCallback symbol.',
   CreateClientMethodTest.createClientTest062);
 
 
@@ -365,7 +365,7 @@ CreateClientMethodTest.createClientTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest,  successCallback limit.',
+QUnit.test('createClientTest,  successCallback limit.',
   CreateClientMethodTest.createClientTest071);
 
 /**
@@ -388,6 +388,6 @@ CreateClientMethodTest.createClientTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('createClientTest, successCallback and errorCallback limit.',
+QUnit.test('createClientTest, successCallback and errorCallback limit.',
   CreateClientMethodTest.createClientTest072);
 

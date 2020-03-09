@@ -1,4 +1,4 @@
-module("PoseEstimation Profile Normal Test", {
+QUnit.module("PoseEstimation Profile Normal Test", {
     setup: function () {
         init();
     }
@@ -44,7 +44,7 @@ PoseEstimationProfileNormalTest.poseNormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("pose", PoseEstimationProfileNormalTest.poseNormalTest);
+QUnit.test("pose", PoseEstimationProfileNormalTest.poseNormalTest);
 
 /**
  * PoseEstimationプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -73,4 +73,4 @@ PoseEstimationProfileNormalTest.poseEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("poseEventNormalTest001", PoseEstimationProfileNormalTest.poseEventNormalTest001);
+QUnit.test("poseEventNormalTest001", PoseEstimationProfileNormalTest.poseEventNormalTest001);

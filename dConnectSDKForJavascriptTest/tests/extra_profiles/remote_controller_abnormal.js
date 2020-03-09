@@ -1,4 +1,4 @@
-module('RemoteControllerProfileAbnormalTest', {
+QUnit.module('RemoteControllerProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest001 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerAbnormalTest001',
+QUnit.test('remoteControllerAbnormalTest001',
     RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest001);
 
 /**
@@ -82,7 +82,7 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest002 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerAbnormalTest002',
+QUnit.test('remoteControllerAbnormalTest002',
     RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest002);
 
 /**
@@ -120,7 +120,7 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest003 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerAbnormalTest003',
+QUnit.test('remoteControllerAbnormalTest003',
     RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest003);
 
 /**
@@ -167,7 +167,7 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest004 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerAbnormalTest004',
+QUnit.test('remoteControllerAbnormalTest004',
     RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest004);
 
 /**
@@ -210,7 +210,7 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest005 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerAbnormalTest005',
+QUnit.test('remoteControllerAbnormalTest005',
     RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest005);
 
 /**
@@ -257,5 +257,5 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest006 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerAbnormalTest006',
+QUnit.test('remoteControllerAbnormalTest006',
     RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest006);

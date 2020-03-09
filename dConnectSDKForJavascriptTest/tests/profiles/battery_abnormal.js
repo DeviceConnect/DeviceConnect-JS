@@ -1,5 +1,5 @@
-module('Battery Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Battery Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Battery Profile Abnormal Test', {
  * Batteryプロファイルのテストを行うクラス。
  * @class
  */
-var BatteryProfileAbnormalTest = {};
+let BatteryProfileAbnormalTest = {};
 
 /**
  * 定義されていないPUTメソッドでバッテリーの全属性にアクセスするテストを行う。
@@ -23,28 +23,20 @@ var BatteryProfileAbnormalTest = {};
  * </p>
  */
 BatteryProfileAbnormalTest.allAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('allAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.allAbnormalTest001);
+QUnit.test('allAbnormalTest001(Calling a put method that does not support.)',
+            BatteryProfileAbnormalTest.allAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでバッテリーの全属性にアクセスするテストを行う。
@@ -59,28 +51,20 @@ QUnit.asyncTest('allAbnormalTest001(Calling a put method that does not support.)
  * </p>
  */
 BatteryProfileAbnormalTest.allAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('allAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.allAbnormalTest002);
+QUnit.test('allAbnormalTest002(Calling a post method that does not support.)',
+      BatteryProfileAbnormalTest.allAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでバッテリーの全属性にアクセスするテストを行う。
@@ -95,28 +79,20 @@ QUnit.asyncTest('allAbnormalTest002(Calling a post method that does not support.
  * </p>
  */
 BatteryProfileAbnormalTest.allAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e =>{
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('allAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.allAbnormalTest003);
+QUnit.test('allAbnormalTest003(Calling a delete method that does not support.)',
+    BatteryProfileAbnormalTest.allAbnormalTest003);
 
 /**
  * 定義されていないPUTメソッドでバッテリーレベルにアクセスするテストを行う。
@@ -131,29 +107,21 @@ QUnit.asyncTest('allAbnormalTest003(Calling a delete method that does not suppor
  * </p>
  */
 BatteryProfileAbnormalTest.levelAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_LEVEL,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('levelAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.levelAbnormalTest001);
+QUnit.test('levelAbnormalTest001(Calling a put method that does not support.)',
+    BatteryProfileAbnormalTest.levelAbnormalTest001);
 
 /**
  * 定義されていないPUTメソッドでバッテリーレベルにアクセスするテストを行う。
@@ -168,29 +136,21 @@ QUnit.asyncTest('levelAbnormalTest001(Calling a put method that does not support
  * </p>
  */
 BatteryProfileAbnormalTest.levelAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_LEVEL,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('levelAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.levelAbnormalTest002);
+QUnit.test('levelAbnormalTest002(Calling a post method that does not support.)',
+      BatteryProfileAbnormalTest.levelAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでバッテリーレベルにアクセスするテストを行う。
@@ -205,29 +165,21 @@ QUnit.asyncTest('levelAbnormalTest002(Calling a post method that does not suppor
  * </p>
  */
 BatteryProfileAbnormalTest.levelAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_LEVEL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_LEVEL,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('levelAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.levelAbnormalTest003);
+QUnit.test('levelAbnormalTest003(Calling a delete method that does not support.)',
+      BatteryProfileAbnormalTest.levelAbnormalTest003);
 
 /**
  * 定義されていないPUTメソッドでバッテリーのチャージング時間にアクセスするテストを行う。
@@ -242,29 +194,21 @@ QUnit.asyncTest('levelAbnormalTest003(Calling a delete method that does not supp
  * </p>
  */
 BatteryProfileAbnormalTest.chargingTimeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('chargingTimeAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.chargingTimeAbnormalTest001);
+QUnit.test('chargingTimeAbnormalTest001(Calling a put method that does not support.)',
+      BatteryProfileAbnormalTest.chargingTimeAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでバッテリーのチャージング時間にアクセスするテストを行う。
@@ -279,29 +223,21 @@ QUnit.asyncTest('chargingTimeAbnormalTest001(Calling a put method that does not 
  * </p>
  */
 BatteryProfileAbnormalTest.chargingTimeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('chargingTimeAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.chargingTimeAbnormalTest002);
+QUnit.test('chargingTimeAbnormalTest002(Calling a post method that does not support.)',
+      BatteryProfileAbnormalTest.chargingTimeAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでバッテリーのチャージング時間にアクセスするテストを行う。
@@ -316,29 +252,21 @@ QUnit.asyncTest('chargingTimeAbnormalTest002(Calling a post method that does not
  * </p>
  */
 BatteryProfileAbnormalTest.chargingTimeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING_TIME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('chargingTimeAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.chargingTimeAbnormalTest003);
+QUnit.test('chargingTimeAbnormalTest003(Calling a delete method that does not support.)',
+    BatteryProfileAbnormalTest.chargingTimeAbnormalTest003);
 
 /**
  * 定義されていないPUTメソッドでバッテリーの放電時間にアクセスするテストを行う。
@@ -353,29 +281,21 @@ QUnit.asyncTest('chargingTimeAbnormalTest003(Calling a delete method that does n
  * </p>
  */
 BatteryProfileAbnormalTest.dischargingTimeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('dischargingTimeAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.dischargingTimeAbnormalTest001);
+QUnit.test('dischargingTimeAbnormalTest001(Calling a put method that does not support.)',
+      BatteryProfileAbnormalTest.dischargingTimeAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでバッテリーの放電時間にアクセスするテストを行う。
@@ -390,29 +310,21 @@ QUnit.asyncTest('dischargingTimeAbnormalTest001(Calling a put method that does n
  * </p>
  */
 BatteryProfileAbnormalTest.dischargingTimeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('dischargingTimeAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.dischargingTimeAbnormalTest002);
+QUnit.test('dischargingTimeAbnormalTest002(Calling a post method that does not support.)',
+    BatteryProfileAbnormalTest.dischargingTimeAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでバッテリーの放電時間にアクセスするテストを行う。
@@ -427,29 +339,21 @@ QUnit.asyncTest('dischargingTimeAbnormalTest002(Calling a post method that does 
  * </p>
  */
 BatteryProfileAbnormalTest.dischargingTimeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_DISCHARGING_TIME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('dischargingTimeAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.dischargingTimeAbnormalTest003);
+QUnit.test('dischargingTimeAbnormalTest003(Calling a delete method that does not support.)',
+      BatteryProfileAbnormalTest.dischargingTimeAbnormalTest003);
 
 /**
  * 定義されていないPUTメソッドでバッテリーの充電フラグにアクセスするテストを行う。
@@ -464,29 +368,21 @@ QUnit.asyncTest('dischargingTimeAbnormalTest003(Calling a delete method that doe
  * </p>
  */
 BatteryProfileAbnormalTest.batteryAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('chargingAbnormalTest001(Calling a put method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest001);
+QUnit.test('chargingAbnormalTest001(Calling a put method that does not support.)',
+    BatteryProfileAbnormalTest.batteryAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでバッテリーの充電フラグにアクセスするテストを行う。
@@ -501,29 +397,20 @@ QUnit.asyncTest('chargingAbnormalTest001(Calling a put method that does not supp
  * </p>
  */
 BatteryProfileAbnormalTest.batteryAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('chargingAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest002);
+QUnit.test('chargingAbnormalTest002(Calling a post method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでバッテリーの充電フラグにアクセスするテストを行う。
@@ -538,29 +425,21 @@ QUnit.asyncTest('chargingAbnormalTest002(Calling a post method that does not sup
  * </p>
  */
 BatteryProfileAbnormalTest.batteryAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_CHARGING);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('chargingAbnormalTest003(Calling a delete method that does not support.)', BatteryProfileAbnormalTest.batteryAbnormalTest003);
+QUnit.test('chargingAbnormalTest003(Calling a delete method that does not support.)',
+    BatteryProfileAbnormalTest.batteryAbnormalTest003);
 
 /**
  * 定義されていないPOSTメソッドでバッテリー状態取得イベントにアクセスするテストを行う。
@@ -576,29 +455,21 @@ QUnit.asyncTest('chargingAbnormalTest003(Calling a delete method that does not s
  * </p>
  */
 BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_ON_BATTERY_CHANGE,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onBatteryChangeAbnormalTest001', BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001);
+QUnit.test('onBatteryChangeAbnormalTest001',
+      BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001);
 
 /**
  * 定義されていないGETメソッドでバッテリー状態取得イベントにアクセスするテストを行う。
@@ -614,29 +485,21 @@ QUnit.asyncTest('onBatteryChangeAbnormalTest001', BatteryProfileAbnormalTest.onB
  * </p>
  */
 BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_ON_BATTERY_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_ON_BATTERY_CHANGE,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onBatteryChangeAbnormalTest002', BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002);
+QUnit.test('onBatteryChangeAbnormalTest002',
+      BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002);
 
 /**
  * 定義されていないPOSTメソッドで充電状態取得イベントにアクセスするテストを行う。
@@ -652,29 +515,21 @@ QUnit.asyncTest('onBatteryChangeAbnormalTest002', BatteryProfileAbnormalTest.onB
  * </p>
  */
 BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_ON_CHARGING_CHANGE,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onChargingChangeAbnormalTest001', BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001);
+QUnit.test('onChargingChangeAbnormalTest001',
+    BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001);
 
 /**
  * 定義されていないGETメソッドで充電状態取得イベントにアクセスするテストを行う。
@@ -690,26 +545,17 @@ QUnit.asyncTest('onChargingChangeAbnormalTest001', BatteryProfileAbnormalTest.on
  * </p>
  */
 BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.battery.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.battery.ATTR_ON_CHARGING_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.battery.PROFILE_NAME,
+    attribute: dConnectSDK.constants.battery.ATTR_ON_CHARGING_CHANGE,
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onChargingChangeAbnormalTest002', BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002);
+QUnit.test('onChargingChangeAbnormalTest002', BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002);

@@ -1,4 +1,4 @@
-module('CameraProfileNormalTest', {
+QUnit.module('CameraProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -44,7 +44,7 @@ CameraProfileNormalTest.zoomPositionNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomPositionNormalTest001(get)', CameraProfileNormalTest.zoomPositionNormalTest001);
+QUnit.test('zoomPositionNormalTest001(get)', CameraProfileNormalTest.zoomPositionNormalTest001);
 
 /**
  * ズームインを行うテストを行う。
@@ -100,7 +100,7 @@ CameraProfileNormalTest.zoomNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomNormalTest001(Zoom in the camera.)',
+QUnit.test('zoomNormalTest001(Zoom in the camera.)',
     CameraProfileNormalTest.zoomNormalTest001);
 
 /**
@@ -135,7 +135,7 @@ CameraProfileNormalTest.zoomNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomNormalTest002(Zoom in the camera only 1shot.)',
+QUnit.test('zoomNormalTest002(Zoom in the camera only 1shot.)',
     CameraProfileNormalTest.zoomNormalTest002);
 
 /**
@@ -192,7 +192,7 @@ CameraProfileNormalTest.zoomNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomNormalTest003(Zoom out the camera.)',
+QUnit.test('zoomNormalTest003(Zoom out the camera.)',
     CameraProfileNormalTest.zoomNormalTest003);
 
 /**
@@ -227,5 +227,5 @@ CameraProfileNormalTest.zoomNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoom(Zoom out the camera only 1shot.)',
+QUnit.test('zoom(Zoom out the camera only 1shot.)',
     CameraProfileNormalTest.zoomNormalTest004);

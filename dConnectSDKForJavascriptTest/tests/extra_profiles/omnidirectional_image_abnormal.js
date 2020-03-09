@@ -1,4 +1,4 @@
-module('OmnidirectionalImageProfileAbnormalTest', {
+QUnit.module('OmnidirectionalImageProfileAbnormalTest', {
   setup: function() {
     init();
     this.option = null;
@@ -89,7 +89,7 @@ OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('putStartRoiViewAbnormalTest001',
+QUnit.test('putStartRoiViewAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001);
 
 /**
@@ -130,7 +130,7 @@ OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('putStartRoiViewAbnormalTest002',
+QUnit.test('putStartRoiViewAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002);
 
 /**
@@ -170,7 +170,7 @@ OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('getStartRoiViewAbnormalTest001',
+QUnit.test('getStartRoiViewAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001);
 
 /**
@@ -211,7 +211,7 @@ OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002 = functio
     QUnit.start();
   });
 };
-QUnit.asyncTest('getStartRoiViewAbnormalTest002',
+QUnit.test('getStartRoiViewAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002);
 
 /**
@@ -251,7 +251,7 @@ OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('deleteStopRoiViewAbnormalTest001',
+QUnit.test('deleteStopRoiViewAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001);
 
 /**
@@ -292,7 +292,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest00
     QUnit.start();
   });
 };
-QUnit.asyncTest('putRoiViewSettingsParamUriAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamUriAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest001);
 
 /**
@@ -334,7 +334,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest00
     QUnit.start();
   });
 };
-QUnit.asyncTest('putRoiViewSettingsParamUriAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamUriAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest002);
 
 /**
@@ -388,7 +388,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001 
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamXAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamXAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001);
 
 /**
@@ -442,7 +442,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001 
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamYAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamYAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001);
 
 /**
@@ -496,7 +496,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001 
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamZAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamZAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001);
 
 /**
@@ -550,7 +550,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamRollAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest001);
 
 /**
@@ -604,7 +604,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamRollAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest002);
 
 /**
@@ -658,7 +658,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamRollAbnormalTest003',
+QUnit.test('putRoiViewSettingsParamRollAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest003);
 
 /**
@@ -712,7 +712,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamYawAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest001);
 
 /**
@@ -766,7 +766,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamYawAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest002);
 
 /**
@@ -820,7 +820,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamYawAbnormalTest003',
+QUnit.test('putRoiViewSettingsParamYawAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest003);
 
 /**
@@ -874,7 +874,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamPitchAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest001);
 
 /**
@@ -928,7 +928,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamPitchAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest002);
 
 /**
@@ -982,7 +982,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamPitchAbnormalTest003',
+QUnit.test('putRoiViewSettingsParamPitchAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest003);
 
 /**
@@ -1036,7 +1036,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamFovAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest001);
 
 /**
@@ -1090,7 +1090,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamFovAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest002);
 
 /**
@@ -1144,7 +1144,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamFovAbnormalTest003',
+QUnit.test('putRoiViewSettingsParamFovAbnormalTest003',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest003);
 
 /**
@@ -1198,7 +1198,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamSphereSizeAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamSphereSizeAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnormalTest001);
 
 /**
@@ -1252,7 +1252,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamSphereSizeAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamSphereSizeAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnormalTest002);
 
 /**
@@ -1306,7 +1306,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamWidthAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamWidthAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest001);
 
 /**
@@ -1360,7 +1360,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamWidthAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamWidthAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest002);
 
 /**
@@ -1414,7 +1414,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamHeightAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamHeightAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTest001);
 
 /**
@@ -1468,7 +1468,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamHeightAbnormalTest002',
+QUnit.test('putRoiViewSettingsParamHeightAbnormalTest002',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTest002);
 
 /**
@@ -1522,7 +1522,7 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTes
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamStereoAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamStereoAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTest001);
 
 /**
@@ -1576,5 +1576,5 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001
   option.accessToken = accessToken;
   startRoiView(option);
 };
-QUnit.asyncTest('putRoiViewSettingsParamVrAbnormalTest001',
+QUnit.test('putRoiViewSettingsParamVrAbnormalTest001',
   OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001);

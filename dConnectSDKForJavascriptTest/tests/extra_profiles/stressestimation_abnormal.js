@@ -1,4 +1,4 @@
-module("StressEstimation Profile Abnormal Test", {
+QUnit.module("StressEstimation Profile Abnormal Test", {
     setup: function () {
         init();
     }
@@ -47,5 +47,5 @@ StressEstimationProfileAbnormalTest.stressAbormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("stress", StressEstimationProfileAbnormalTest.stressAbormalTest);
+QUnit.test("stress", StressEstimationProfileAbnormalTest.stressAbormalTest);
 

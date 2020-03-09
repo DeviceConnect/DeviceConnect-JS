@@ -1,4 +1,4 @@
-module('Power Profile Normal Test', {
+QUnit.module('Power Profile Normal Test', {
   setup: function() {
     init();
   }
@@ -39,7 +39,7 @@ PowerProfileNormalTest.powerStatusNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('GetPowerStatusNormalTest001', PowerProfileNormalTest.powerStatusNormalTest001);
+QUnit.test('GetPowerStatusNormalTest001', PowerProfileNormalTest.powerStatusNormalTest001);
 
 
 /**
@@ -71,7 +71,7 @@ PowerProfileNormalTest.powerOnNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('PowerPowerOnNormalTest001', PowerProfileNormalTest.powerOnNormalTest001);
+QUnit.test('PowerPowerOnNormalTest001', PowerProfileNormalTest.powerOnNormalTest001);
 
 /**
  * スマートデバイスの電源をオフにする。
@@ -102,5 +102,5 @@ PowerProfileNormalTest.powerOffNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('PowerPowerOffNormalTest001', PowerProfileNormalTest.powerOffNormalTest001);
+QUnit.test('PowerPowerOffNormalTest001', PowerProfileNormalTest.powerOffNormalTest001);
 

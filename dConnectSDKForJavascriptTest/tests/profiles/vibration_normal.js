@@ -1,5 +1,5 @@
-module('Vibration Profile Normal Test', {
-  setup: function() {
+QUnit.module('Vibration Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Vibration Profile Normal Test', {
  * Vibrationプロファイルの正常系テストを行うクラス。
  * @class
  */
-var VibrationProfileNormalTest = {};
+let VibrationProfileNormalTest = {};
 
 /**
  * デフォルト時間でバイブレーションするテストを行う。
@@ -24,23 +24,22 @@ var VibrationProfileNormalTest = {};
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.vibration.PROFILE_NAME,
+    attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
+    serviceId: serviceId
+  }).then(json => {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('vibrateNormalTest001(put)', VibrationProfileNormalTest.vibrateNormalTest001);
+QUnit.test('vibrateNormalTest001(put)', VibrationProfileNormalTest.vibrateNormalTest001);
 
 /**
  * パラメータpatternに 10回vibrationがON/OFFするパターンを指定してバイブレーションするテストを行う。
@@ -55,25 +54,24 @@ QUnit.asyncTest('vibrateNormalTest001(put)', VibrationProfileNormalTest.vibrateN
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,'
-  + '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
- }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.vibration.PROFILE_NAME,
+    attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
+    serviceId: serviceId,
+    pattern: '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,'
+    + '1000,1000,1000,1000,1000,1000,1000,1000,1000,1000'
+  }).then(json => {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('vibrateNormalTest002', VibrationProfileNormalTest.vibrateNormalTest002);
+QUnit.test('vibrateNormalTest002', VibrationProfileNormalTest.vibrateNormalTest002);
 
 /**
  * パラメータpatternに大きい数値を指定してバイブレーションするテストを行う。
@@ -89,24 +87,23 @@ QUnit.asyncTest('vibrateNormalTest002', VibrationProfileNormalTest.vibrateNormal
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '1000000000');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.vibration.PROFILE_NAME,
+    attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
+    serviceId: serviceId,
+    pattern: '1000000000'
+  }).then(json => {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('VibrateNormalTest003(pattern is big number.)', VibrationProfileNormalTest.vibrateNormalTest003);
+QUnit.test('VibrateNormalTest003(pattern is big number.)', VibrationProfileNormalTest.vibrateNormalTest003);
 
 /**
  * パラメータpatternに0を指定してバイブレーションするテストを行う。
@@ -121,24 +118,23 @@ QUnit.asyncTest('VibrateNormalTest003(pattern is big number.)', VibrationProfile
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.vibration.PARAM_PATTERN, '0');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.vibration.PROFILE_NAME,
+    attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
+    serviceId: serviceId,
+    pattern: '0'
+  }).then(json => {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('vibrateNormalTest004(pattern is zero.)', VibrationProfileNormalTest.vibrateNormalTest004);
+QUnit.test('vibrateNormalTest004(pattern is zero.)', VibrationProfileNormalTest.vibrateNormalTest004);
 
 /**
  * パラメータpatternに空文字を指定してバイブレーションする正常系テストを行う。
@@ -154,24 +150,24 @@ QUnit.asyncTest('vibrateNormalTest004(pattern is zero.)', VibrationProfileNormal
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('pattern', '');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  let param = {
+    profile: dConnectSDK.constants.vibration.PROFILE_NAME,
+    attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
+    serviceId: serviceId
+  };
+  param['pattern'] = '';
+  sdk.put().then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('vibrateNormalTest005(pattern is empty.)', VibrationProfileNormalTest.vibrateNormalTest005);
+QUnit.test('vibrateNormalTest005(pattern is empty.)', VibrationProfileNormalTest.vibrateNormalTest005);
 
 /**
  * バイブレーションを停止するテストを行う。
@@ -187,21 +183,20 @@ QUnit.asyncTest('vibrateNormalTest005(pattern is empty.)', VibrationProfileNorma
  * </p>
  */
 VibrationProfileNormalTest.vibrateNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.vibration.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.vibration.ATTR_VIBRATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.vibration.PROFILE_NAME,
+    attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
+    serviceId: serviceId
+  }).then(json => {
+    assert.ok(true, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
-};
-QUnit.asyncTest('VibrateNormalTest006(delete)', VibrationProfileNormalTest.vibrateNormalTest006);
 
+};
+QUnit.test('VibrateNormalTest006(delete)', VibrationProfileNormalTest.vibrateNormalTest006);

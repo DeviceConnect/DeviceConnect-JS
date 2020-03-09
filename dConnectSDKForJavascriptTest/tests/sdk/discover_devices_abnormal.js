@@ -1,4 +1,4 @@
-module('Discover Devices Method Test', {
+QUnit.module('Discover Devices Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ DiscoverDevicesTest.discoverDevicesTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('discoverDevices, non exist parameters.', DiscoverDevicesTest.discoverDevicesTest001);
+QUnit.test('discoverDevices, non exist parameters.', DiscoverDevicesTest.discoverDevicesTest001);
 
 
 /// null
@@ -63,7 +63,7 @@ DiscoverDevicesTest.discoverDevicesTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback null.',
+QUnit.test('discoverDevicesTest, uri and eventCallback null.',
   DiscoverDevicesTest.discoverDevicesTest011);
 
 /**
@@ -81,7 +81,7 @@ DiscoverDevicesTest.discoverDevicesTest012 = function(assert) {
   });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback null.', DiscoverDevicesTest.discoverDevicesTest012);
+QUnit.test('discoverDevicesTest, uri and successCallback null.', DiscoverDevicesTest.discoverDevicesTest012);
 
 
 /**
@@ -103,7 +103,7 @@ DiscoverDevicesTest.discoverDevicesTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback null.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback null.',
   DiscoverDevicesTest.discoverDevicesTest013);
 
 
@@ -133,7 +133,7 @@ DiscoverDevicesTest.discoverDevicesTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback undefined.',
+QUnit.test('discoverDevicesTest, uri and eventCallback undefined.',
   DiscoverDevicesTest.discoverDevicesTest021);
 
 /**
@@ -151,7 +151,7 @@ DiscoverDevicesTest.discoverDevicesTest022 = function(assert) {
   });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback undefined.',
+QUnit.test('discoverDevicesTest, uri and successCallback undefined.',
   DiscoverDevicesTest.discoverDevicesTest022);
 
 
@@ -174,7 +174,7 @@ DiscoverDevicesTest.discoverDevicesTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback undefined.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback undefined.',
   DiscoverDevicesTest.discoverDevicesTest023);
 
 
@@ -203,7 +203,7 @@ DiscoverDevicesTest.discoverDevicesTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback number.',
+QUnit.test('discoverDevicesTest, uri and eventCallback number.',
   DiscoverDevicesTest.discoverDevicesTest031);
 
 /**
@@ -221,7 +221,7 @@ DiscoverDevicesTest.discoverDevicesTest032 = function(assert) {
   });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback number.',
+QUnit.test('discoverDevicesTest, uri and successCallback number.',
   DiscoverDevicesTest.discoverDevicesTest032);
 
 
@@ -244,7 +244,7 @@ DiscoverDevicesTest.discoverDevicesTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback number.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback number.',
   DiscoverDevicesTest.discoverDevicesTest033);
 
 /// 英字
@@ -272,7 +272,7 @@ DiscoverDevicesTest.discoverDevicesTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback alphabet.',
+QUnit.test('discoverDevicesTest, uri and eventCallback alphabet.',
   DiscoverDevicesTest.discoverDevicesTest041);
 
 /**
@@ -290,7 +290,7 @@ DiscoverDevicesTest.discoverDevicesTest042 = function(assert) {
   });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback alphabet.',
+QUnit.test('discoverDevicesTest, uri and successCallback alphabet.',
   DiscoverDevicesTest.discoverDevicesTest042);
 
 
@@ -313,7 +313,7 @@ DiscoverDevicesTest.discoverDevicesTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback alphabet.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback alphabet.',
   DiscoverDevicesTest.discoverDevicesTest043);
 
 
@@ -343,7 +343,7 @@ DiscoverDevicesTest.discoverDevicesTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback hiragana.',
+QUnit.test('discoverDevicesTest, uri and eventCallback hiragana.',
   DiscoverDevicesTest.discoverDevicesTest051);
 
 /**
@@ -361,7 +361,7 @@ DiscoverDevicesTest.discoverDevicesTest052 = function(assert) {
   });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback hiragana.',
+QUnit.test('discoverDevicesTest, uri and successCallback hiragana.',
   DiscoverDevicesTest.discoverDevicesTest052);
 
 
@@ -384,7 +384,7 @@ DiscoverDevicesTest.discoverDevicesTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback hiragana.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback hiragana.',
   DiscoverDevicesTest.discoverDevicesTest053);
 
 
@@ -413,7 +413,7 @@ DiscoverDevicesTest.discoverDevicesTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback symbol.',
+QUnit.test('discoverDevicesTest, uri and eventCallback symbol.',
   DiscoverDevicesTest.discoverDevicesTest061);
 
 /**
@@ -432,7 +432,7 @@ DiscoverDevicesTest.discoverDevicesTest062 = function(assert) {
     });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback symbol.',
+QUnit.test('discoverDevicesTest, uri and successCallback symbol.',
   DiscoverDevicesTest.discoverDevicesTest062);
 
 
@@ -457,7 +457,7 @@ DiscoverDevicesTest.discoverDevicesTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback symbol.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback symbol.',
   DiscoverDevicesTest.discoverDevicesTest063);
 
 
@@ -486,7 +486,7 @@ DiscoverDevicesTest.discoverDevicesTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and eventCallback limit.',
+QUnit.test('discoverDevicesTest, uri and eventCallback limit.',
   DiscoverDevicesTest.discoverDevicesTest071);
 
 /**
@@ -505,7 +505,7 @@ DiscoverDevicesTest.discoverDevicesTest072 = function(assert) {
     });
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback limit.',
+QUnit.test('discoverDevicesTest, uri and successCallback limit.',
   DiscoverDevicesTest.discoverDevicesTest072);
 
 
@@ -530,5 +530,5 @@ DiscoverDevicesTest.discoverDevicesTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('discoverDevicesTest, uri and successCallback, errorCallback limit.',
+QUnit.test('discoverDevicesTest, uri and successCallback, errorCallback limit.',
   DiscoverDevicesTest.discoverDevicesTest073);

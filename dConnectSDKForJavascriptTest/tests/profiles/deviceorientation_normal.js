@@ -1,5 +1,5 @@
-module('DeviceOrientation Profile Normal Test', {
-  setup: function() {
+QUnit.module('DeviceOrientation Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -9,7 +9,7 @@ module('DeviceOrientation Profile Normal Test', {
  * @class
  */
 
-var DeviceOrientationProfileNormalTest = {};
+let DeviceOrientationProfileNormalTest = {};
 
 /**
  * DeviceOrientationプロファイルのondeviceorientationを登録するテストを行う。
@@ -25,19 +25,23 @@ var DeviceOrientationProfileNormalTest = {};
  * </p>
  */
 DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.device_orientation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.device_orientation.ATTR_ON_DEVICE_ORIENTATION);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.device_orientation.PROFILE_NAME && json.attribute === dConnect.constants.device_orientation.ATTR_ON_DEVICE_ORIENTATION) {
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: dConnectSDK.constants.deviceOrientation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.deviceOrientation.ATTR_ON_DEVICE_ORIENTATION,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.deviceOrientation.PROFILE_NAME
+      && json.attribute === dConnectSDK.constants.deviceOrientation.ATTR_ON_DEVICE_ORIENTATION) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('ondeviceorientationNormalTest001', DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest001);
+QUnit.test('ondeviceorientationNormalTest001', DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest001);
 
 
 /**
@@ -54,22 +58,19 @@ QUnit.asyncTest('ondeviceorientationNormalTest001', DeviceOrientationProfileNorm
  * </p>
  */
 DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.device_orientation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.device_orientation.ATTR_ON_DEVICE_ORIENTATION);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.deviceOrientation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.deviceOrientation.ATTR_ON_DEVICE_ORIENTATION,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('ondeviceorientationNormalTest002',
+QUnit.test('ondeviceorientationNormalTest002',
     DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest002);
-

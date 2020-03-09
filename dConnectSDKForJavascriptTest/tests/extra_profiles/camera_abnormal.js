@@ -1,4 +1,4 @@
-module('CameraProfileAbnormalTest', {
+QUnit.module('CameraProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -48,7 +48,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest001(Calling direction parameter in test.)',
+QUnit.test('zoomAbnormalTest001(Calling direction parameter in test.)',
     CameraProfileAbnormalTest.zoomAbnormalTest001);
 
 /**
@@ -88,7 +88,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest002(Calling direction parameter in empty string.)',
+QUnit.test('zoomAbnormalTest002(Calling direction parameter in empty string.)',
     CameraProfileAbnormalTest.zoomAbnormalTest002);
 
 /**
@@ -129,7 +129,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest003(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest003(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest003);
 
 /**
@@ -171,7 +171,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest004(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest004(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest004);
 
 /**
@@ -212,7 +212,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest005(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest005(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest005);
 
 /**
@@ -262,7 +262,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest006(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest006(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest006);
 
 /**
@@ -312,7 +312,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest007(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest007(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest007);
 
 /**
@@ -362,7 +362,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest008(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest008(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest008);
 
 /**
@@ -402,7 +402,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest009(Calling no paramters.)',
+QUnit.test('zoomAbnormalTest009(Calling no paramters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest009);
 
 /**
@@ -443,7 +443,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest010(Calling movement parameter in test.)',
+QUnit.test('zoomAbnormalTest010(Calling movement parameter in test.)',
     CameraProfileAbnormalTest.zoomAbnormalTest010);
 
 /**
@@ -484,7 +484,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest011(Calling movement parameter in empty string.)',
+QUnit.test('zoomAbnormalTest011(Calling movement parameter in empty string.)',
     CameraProfileAbnormalTest.zoomAbnormalTest011);
 
 /**
@@ -525,7 +525,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest012(Calling movement parameter in empty string.)',
+QUnit.test('zoomAbnormalTest012(Calling movement parameter in empty string.)',
     CameraProfileAbnormalTest.zoomAbnormalTest012);
 
 /**
@@ -567,7 +567,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest013(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest013(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest013);
 
 /**
@@ -608,7 +608,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest014(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest014(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest014);
 
 /**
@@ -658,7 +658,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest015 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest015(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest015(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest015);
 
 /**
@@ -708,7 +708,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest016 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest016(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest016(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest016);
 
 /**
@@ -758,7 +758,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest017 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest017(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest017(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest017);
 
 /**
@@ -798,7 +798,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest018 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest018(Calling no paramters.)',
+QUnit.test('zoomAbnormalTest018(Calling no paramters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest018);
 
 /**
@@ -837,7 +837,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest019 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest019(Calling no paramters.)',
+QUnit.test('zoomAbnormalTest019(Calling no paramters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest019);
 
 /**
@@ -878,7 +878,7 @@ CameraProfileAbnormalTest.zoomAbnormalTest020 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest020(Calling a post method that does not support.)',
+QUnit.test('zoomAbnormalTest020(Calling a post method that does not support.)',
     CameraProfileAbnormalTest.zoomAbnormalTest020);
 
 /**
@@ -919,5 +919,5 @@ CameraProfileAbnormalTest.zoomAbnormalTest021 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest021(Calling a delete method that does not support.)',
+QUnit.test('zoomAbnormalTest021(Calling a delete method that does not support.)',
     CameraProfileAbnormalTest.zoomAbnormalTest021);

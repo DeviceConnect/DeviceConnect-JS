@@ -1,5 +1,5 @@
-module('LightProfileAbnormalTest', {
-  setup: function() {
+QUnit.module('LightProfileAbnormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,22 +8,7 @@ module('LightProfileAbnormalTest', {
  * Lightプロファイルの異常系テストを行うクラス。
  * @class
  */
-var LightProfileAbnormalTest = {};
-
-function getLightId(success_cb, error_cb) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    success_cb(accessToken, serviceId, json);
-  }, function(errorCode, errorMessage) {
-    error_cb(errorCode, errorMessage);
-  });
-}
+let LightProfileAbnormalTest = {};
 
 /**
  * 存在しないlightIdを指定してライト点灯リクエストを送る。
@@ -38,29 +23,21 @@ function getLightId(success_cb, error_cb) {
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('lightId', 10000000000000000000000);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: 'light',
+    serviceId: serviceId,
+    lightId: 10000000000000000000000
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest001',
+QUnit.test('lightOnAbnormalTest001',
     LightProfileAbnormalTest.lightOnAbnormalTest001);
 
 /**
@@ -76,37 +53,30 @@ QUnit.asyncTest('lightOnAbnormalTest001',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest002 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness',
-        'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+    sdk.post({
+      profile: 'light',
+      serviceId: serviceId,
+      lightId: json.lights[0].lightId,
+      brightness: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+      done();
     });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('lightOnAbnomalTest002',
+QUnit.test('lightOnAbnomalTest002',
     LightProfileAbnormalTest.lightOnAbnormalTest002);
 
 /**
@@ -122,37 +92,30 @@ QUnit.asyncTest('lightOnAbnomalTest002',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest003 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness',
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
         'abcdefgabcdefg' + 'abcdefgabcdefg' +
-        'abcdefgabcdefg' + 'abcdefgabcdefg' +
-        'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+        'abcdefgabcdefg'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest003',
+QUnit.test('lightOnAbnormalTest003',
     LightProfileAbnormalTest.lightOnAbnormalTest003);
 
 /**
@@ -168,37 +131,30 @@ QUnit.asyncTest('lightOnAbnormalTest003',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest004 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness',
-        '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-        '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-        '#$%?<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: '#$%?<>?#$%&<>?#$%?<>?#$%&<>?' +
+        '#$%?<>?#$%&<>?#$%?<>?#$%&<>?' +
+        '#$%?<>?#$%&<>?'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest004',
+QUnit.test('lightOnAbnormalTest004',
     LightProfileAbnormalTest.lightOnAbnormalTest004);
 
 /**
@@ -214,34 +170,28 @@ QUnit.asyncTest('lightOnAbnormalTest004',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest005 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 10000);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: 10000
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest005',
+QUnit.test('lightOnAbnormalTest005',
     LightProfileAbnormalTest.lightOnAbnormalTest005);
 
 /**
@@ -257,34 +207,28 @@ QUnit.asyncTest('lightOnAbnormalTest005',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest006 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', -0.5);
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: -0.5
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest006',
+QUnit.test('lightOnAbnormalTest006',
     LightProfileAbnormalTest.lightOnAbnormalTest006);
 
 /**
@@ -300,34 +244,28 @@ QUnit.asyncTest('lightOnAbnormalTest006',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest007 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', '');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: ''
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest007',
+QUnit.test('lightOnAbnormalTest007',
     LightProfileAbnormalTest.lightOnAbnormalTest007);
 
 /**
@@ -343,38 +281,32 @@ QUnit.asyncTest('lightOnAbnormalTest007',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest008 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('color',
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: 0.5,
+        color: 'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+        'あいうえおあいうえおあいうえお'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
+
 };
-QUnit.asyncTest('lightOnAbnormalTest008',
+QUnit.test('lightOnAbnormalTest008',
     LightProfileAbnormalTest.lightOnAbnormalTest008);
 
 /**
@@ -390,37 +322,30 @@ QUnit.asyncTest('lightOnAbnormalTest008',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest009 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('color',
-        'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-        'abcdefgabcdefg' + 'abcdefgabcdefg');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: 0.5,
+        color: 'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+        'abcdefgabcdefg' + 'abcdefgabcdefg'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest009',
+QUnit.test('lightOnAbnormalTest009',
     LightProfileAbnormalTest.lightOnAbnormalTest009);
 
 /**
@@ -436,37 +361,30 @@ QUnit.asyncTest('lightOnAbnormalTest009',
  * </p>
  */
 LightProfileAbnormalTest.lightOnAbnormalTest010 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('color',
-        '#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?' +
-        '#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?');
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.post({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        brightness: 0.5,
+        color: '#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?' +
+        '#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightOnAbnormalTest010',
+QUnit.test('lightOnAbnormalTest010',
     LightProfileAbnormalTest.lightOnAbnormalTest010);
 
 /**
@@ -482,30 +400,22 @@ QUnit.asyncTest('lightOnAbnormalTest010',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-	var builder = new dConnect.URIBuilder();
-	builder.setProfile('light');
-	builder.setServiceId(serviceId);
-	builder.setAccessToken(accessToken);
-	builder.addParameter('lightId', 10000000000000000000000);
-	builder.addParameter('name', 'Hue Light Test');
-	var uri = builder.build();
-	dConnect.put(uri, null, null, function(json) {
-		assert.ok(false, 'json: ' + JSON.stringify(json));
-		QUnit.start();
-	}, function(errorCode, errorMessage) {
-		if (errorCode == 10) {
-			assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-		} else if (checkErrorCode(errorCode)) {
-			assert.ok(true, 'not support');
-		} else {
-			assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-		}
-		QUnit.start();
-	});
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: 'light',
+    serviceId: serviceId,
+    lightId: 10000000000000000000000,
+    name: 'Hue Light Test'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest001',
+QUnit.test('lightStatusChangeAbnormalTest001',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest001);
 
 /**
@@ -521,38 +431,31 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest001',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest002 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('color',
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        color: 'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+        'あいうえおあいうえおあいうえお'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
+
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest002',
+QUnit.test('lightStatusChangeAbnormalTest002',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest002);
 
 /**
@@ -568,37 +471,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest002',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest003 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('color',
-        'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-        'abcdefgabcdefg' + 'abcdefgabcdefg');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        color: 'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+        'abcdefgabcdefg' + 'abcdefgabcdefg'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest003',
+QUnit.test('lightStatusChangeAbnormalTest003',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest003);
 
 /**
@@ -614,36 +510,29 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest003',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest004 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('color',
-        '#$%&<>?' + '#$%&<>?' + '#$%&<>?' + '#$%&<>?' + '#$%&<>?');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        color: '#$%&<>?' + '#$%&<>?' + '#$%&<>?' + '#$%&<>?' + '#$%&<>?'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest004',
+QUnit.test('lightStatusChangeAbnormalTest004',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest004);
 
 /**
@@ -659,35 +548,29 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest004',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest005 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 100);
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 100
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest005',
+QUnit.test('lightStatusChangeAbnormalTest005',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest005);
 
 /**
@@ -703,35 +586,29 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest005',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest006 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', -0.5);
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: -0.5
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest006',
+QUnit.test('lightStatusChangeAbnormalTest006',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest006);
 
 /**
@@ -747,38 +624,31 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest006',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest007 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness',
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+        'あいうえおあいうえおあいうえお'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest007',
+QUnit.test('lightStatusChangeAbnormalTest007',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest007);
 
 /**
@@ -794,37 +664,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest007',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest008 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness',
-        'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-        'abcdefgabcdefg' + 'abcdefgabcdefg');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 'abcdefgabcdefg' + 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+        'abcdefgabcdefg' + 'abcdefgabcdefg'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest008',
+QUnit.test('lightStatusChangeAbnormalTest008',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest008);
 
 /**
@@ -840,35 +703,29 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest008',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest009 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', '');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: ''
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest009',
+QUnit.test('lightStatusChangeAbnormalTest009',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest009);
 
 /**
@@ -884,36 +741,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest009',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest010 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', 0);
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: 0
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest010',
+QUnit.test('lightStatusChangeAbnormalTest010',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest010);
 
 /**
@@ -929,36 +780,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest010',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest011 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', -1000);
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: -1000
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest011',
+QUnit.test('lightStatusChangeAbnormalTest011',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest011);
 
 /**
@@ -974,36 +819,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest011',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest012 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', '-1000');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: '-1000'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest012',
+QUnit.test('lightStatusChangeAbnormalTest012',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest012);
 
 /**
@@ -1019,39 +858,32 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest012',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest013 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing',
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: 'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
         'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえお' +
-        'あいうえおあいうえおあいうえお');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+        'あいうえおあいうえおあいうえお'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest013',
+QUnit.test('lightStatusChangeAbnormalTest013',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest013);
 
 /**
@@ -1067,38 +899,32 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest013',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest014 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', 'abcdefgabcdefgabcdefg'
-        + 'abcdefgabcdefgabcdefg' + 'abcdefgabcdefgabcdefg'
-        + 'abcdefgabcdefgabcdefg' + 'abcdefgabcdefgabcdefg');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: 'abcdefgabcdefgabcdefg'
+            + 'abcdefgabcdefgabcdefg' + 'abcdefgabcdefgabcdefg'
+            + 'abcdefgabcdefgabcdefg' + 'abcdefgabcdefgabcdefg'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest014',
+QUnit.test('lightStatusChangeAbnormalTest014',
   LightProfileAbnormalTest.lightStatusChangeAbnormalTest014);
 
 /**
@@ -1114,38 +940,32 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest014',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest015 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', '#$%&<>?#$%&<>?#$%&<>?'
-        + '#$%&<>?#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?#$%&<>?'
-        + '#$%&<>?#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?#$%&<>?');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: '#$%&<>?#$%&<>?#$%&<>?'
+            + '#$%&<>?#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?#$%&<>?'
+            + '#$%&<>?#$%&<>?#$%&<>?' + '#$%&<>?#$%&<>?#$%&<>?'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest015',
+QUnit.test('lightStatusChangeAbnormalTest015',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest015);
 
 /**
@@ -1161,36 +981,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest015',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest016 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', '100,-100,100,100');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: '100,-100,100,100'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest016',
+QUnit.test('lightStatusChangeAbnormalTest016',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest016);
 
 /**
@@ -1206,36 +1020,30 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest016',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest017 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('brightness', 0.5);
-    builder.addParameter('flashing', '100,0.1,0.1,0.2');
-    builder.addParameter('name', 'Hue Light Test');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: 'Hue Light Test',
+        brightness: 0.5,
+        flashing: '100,0.1,0.1,0.2'
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest017',
+QUnit.test('lightStatusChangeAbnormalTest017',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest017);
 
 /**
@@ -1251,33 +1059,27 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest017',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest018 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest018',
+QUnit.test('lightStatusChangeAbnormalTest018',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest018);
 
 
@@ -1294,34 +1096,28 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest018',
  * </p>
  */
 LightProfileAbnormalTest.lightStatusChangeAbnormalTest019 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('light');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('lightId', json.lights[0].lightId);
-    builder.addParameter('name', '');
-    var uri = builder.build();
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      if (errorCode == 10) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-        assert.ok(true, 'not support');
-      } else {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  getLightId().then(json => {
+      sdk.put({
+        profile: 'light',
+        serviceId: serviceId,
+        lightId: json.lights[0].lightId,
+        name: ''
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        done();
+      });
+  }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+      done();
   });
 };
-QUnit.asyncTest('lightStatusChangeAbnormalTest019',
+QUnit.test('lightStatusChangeAbnormalTest019',
     LightProfileAbnormalTest.lightStatusChangeAbnormalTest019);
 
 /**
@@ -1337,27 +1133,19 @@ QUnit.asyncTest('lightStatusChangeAbnormalTest019',
  * </p>
  */
 LightProfileAbnormalTest.lightOffAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('lightId', 10000000000000000000000);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: 'light',
+    serviceId: serviceId,
+    lightId: 10000000000000000000000
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('lightOffAbnormalTest001',
+QUnit.test('lightOffAbnormalTest001',
     LightProfileAbnormalTest.lightOffAbnormalTest001);

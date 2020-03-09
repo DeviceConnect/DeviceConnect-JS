@@ -1,4 +1,4 @@
-module('TemperatureProfileAbnormalTest', {
+QUnit.module('TemperatureProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -46,7 +46,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest001',
+QUnit.test('temperatureAbnormalTest001',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest001);
 
 /**
@@ -84,7 +84,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest002',
+QUnit.test('temperatureAbnormalTest002',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest002);
 
 
@@ -134,7 +134,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest003',
+QUnit.test('temperatureAbnormalTest003',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest003);
 
 
@@ -175,7 +175,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest004',
+QUnit.test('temperatureAbnormalTest004',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest004);
 
 
@@ -216,7 +216,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest005',
+QUnit.test('temperatureAbnormalTest005',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest005);
 
 /**
@@ -256,7 +256,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest006',
+QUnit.test('temperatureAbnormalTest006',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest006);
 
 
@@ -297,7 +297,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest007',
+QUnit.test('temperatureAbnormalTest007',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest007);
 
 
@@ -338,7 +338,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest008',
+QUnit.test('temperatureAbnormalTest008',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest008);
 
 /**
@@ -378,7 +378,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest009',
+QUnit.test('temperatureAbnormalTest009',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest009);
 
 /**
@@ -419,7 +419,7 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest010',
+QUnit.test('temperatureAbnormalTest010',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest010);
 
 
@@ -459,6 +459,6 @@ TemperatureProfileAbnormalTest.temperatureAbnormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest011',
+QUnit.test('temperatureAbnormalTest011',
     TemperatureProfileAbnormalTest.temperatureAbnormalTest011);
 

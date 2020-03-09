@@ -1,4 +1,4 @@
-module('Get System Device Info Method Test', {
+QUnit.module('Get System Device Info Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -34,7 +34,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('getSystemDeviceInfoTest, non exist parameters.',
+QUnit.test('getSystemDeviceInfoTest, non exist parameters.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest001);
 
 
@@ -58,7 +58,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest011 = function(assert) {
   });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback null.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback null.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest011);
 
 
@@ -84,7 +84,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback null.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback null.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest012);
 
 /**
@@ -106,7 +106,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback null.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback null.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest013);
 
 
@@ -131,7 +131,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest021 = function(assert) {
   });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback undefined.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback undefined.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest021);
 
 
@@ -157,7 +157,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback undefined.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback undefined.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest022);
 
 /**
@@ -179,7 +179,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback undefined.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback undefined.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest023);
 
 
@@ -203,7 +203,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest031 = function(assert) {
   });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback number.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback number.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest031);
 
 
@@ -229,7 +229,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback number.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback number.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest032);
 
 /**
@@ -251,7 +251,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback number.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback number.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest033);
 
 
@@ -277,7 +277,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest041 = function(assert) {
   });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback alphabet.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback alphabet.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest041);
 
 
@@ -303,7 +303,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback alphabet.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback alphabet.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest042);
 
 /**
@@ -325,7 +325,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback alphabet.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback alphabet.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest043);
 
 
@@ -350,7 +350,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest051 = function(assert) {
   });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback hiragana.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback hiragana.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest051);
 
 
@@ -376,7 +376,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback hiragana.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback hiragana.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest052);
 
 /**
@@ -398,7 +398,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback hiragana.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback hiragana.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest053);
 
 
@@ -423,7 +423,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest061 = function(assert) {
     });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback symbol.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback symbol.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest061);
 
 
@@ -451,7 +451,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback symbol.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback symbol.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest062);
 
 /**
@@ -475,7 +475,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback symbol.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback symbol.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest063);
 
 /// 1000文字
@@ -499,7 +499,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest071 = function(assert) {
     });
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback limit.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback limit.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest071);
 
 
@@ -528,7 +528,7 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback limit.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback limit.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest072);
 
 /**
@@ -553,5 +553,5 @@ GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback limit.',
+QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, errorCallback limit.',
   GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest073);

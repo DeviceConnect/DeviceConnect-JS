@@ -1,4 +1,4 @@
-module('PowerMeterProfileNormalTest', {
+QUnit.module('PowerMeterProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -41,7 +41,7 @@ PowerMeterProfileNormalTest.getPowerStateNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('getPowerStateNormalTest001(get)',
+QUnit.test('getPowerStateNormalTest001(get)',
     PowerMeterProfileNormalTest.getPowerStateNormalTest001);
 
 /**
@@ -73,7 +73,7 @@ PowerMeterProfileNormalTest.powerOnNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerOnNormalTest001(get)',
+QUnit.test('powerOnNormalTest001(get)',
     PowerMeterProfileNormalTest.powerOnNormalTest001);
 
 /**
@@ -105,7 +105,7 @@ PowerMeterProfileNormalTest.powerOffNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerOffNormalTest001(get)',
+QUnit.test('powerOffNormalTest001(get)',
     PowerMeterProfileNormalTest.powerOffNormalTest001);
 
 /**
@@ -143,7 +143,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest001(get)',
+QUnit.test('integratedPowerNormalTest001(get)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest001);
 
 /**
@@ -182,7 +182,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest002(date is now)',
+QUnit.test('integratedPowerNormalTest002(date is now)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest002);
 
 /**
@@ -221,7 +221,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest003(unit is Wh)',
+QUnit.test('integratedPowerNormalTest003(unit is Wh)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest003);
 
 /**
@@ -260,7 +260,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest004(unit is kWh)',
+QUnit.test('integratedPowerNormalTest004(unit is kWh)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest004);
 
 /**
@@ -299,7 +299,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest005(count is 24)',
+QUnit.test('integratedPowerNormalTest005(count is 24)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest005);
 
 /**
@@ -338,7 +338,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest006(count is 48)',
+QUnit.test('integratedPowerNormalTest006(count is 48)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest006);
 
 /**
@@ -377,7 +377,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest007(powerflow is normal)',
+QUnit.test('integratedPowerNormalTest007(powerflow is normal)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest007);
 
 /**
@@ -416,7 +416,7 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('integratedPowerNormalTest008(powerflow is reverse)',
+QUnit.test('integratedPowerNormalTest008(powerflow is reverse)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest008);
 
 /**
@@ -452,7 +452,7 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerNormalTest001(get)',
+QUnit.test('instantaneousPowerNormalTest001(get)',
     PowerMeterProfileNormalTest.instantaneousPowerNormalTest001);
 
 /**
@@ -489,7 +489,7 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerNormalTest002(unit is W)',
+QUnit.test('instantaneousPowerNormalTest002(unit is W)',
     PowerMeterProfileNormalTest.instantaneousPowerNormalTest002);
 
 /**
@@ -526,7 +526,7 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousPowerNormalTest003(unit is kW))',
+QUnit.test('instantaneousPowerNormalTest003(unit is kW))',
     PowerMeterProfileNormalTest.instantaneousPowerNormalTest003);
 
 /**
@@ -563,7 +563,7 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentNormalTest001(get)',
+QUnit.test('instantaneousCurrentNormalTest001(get)',
     PowerMeterProfileNormalTest.instantaneousCurrentNormalTest001);
 
 /**
@@ -601,7 +601,7 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentNormalTest002(unit is A)',
+QUnit.test('instantaneousCurrentNormalTest002(unit is A)',
     PowerMeterProfileNormalTest.instantaneousCurrentNormalTest002);
 
 /**
@@ -639,5 +639,5 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('instantaneousCurrentNormalTest003(unit is mA)',
+QUnit.test('instantaneousCurrentNormalTest003(unit is mA)',
     PowerMeterProfileNormalTest.instantaneousCurrentNormalTest003);

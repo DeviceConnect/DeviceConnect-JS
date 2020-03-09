@@ -1,4 +1,4 @@
-module('EchonetLiteProfileNormalTest', {
+QUnit.module('EchonetLiteProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -44,7 +44,7 @@ EchonetLiteProfileNormalTest.propertyNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyNormalTest001(get)',
+QUnit.test('propertyNormalTest001(get)',
     EchonetLiteProfileNormalTest.propertyNormalTest001);
 
 /**
@@ -83,7 +83,7 @@ EchonetLiteProfileNormalTest.propertyNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyNormalTest002(get)',
+QUnit.test('propertyNormalTest002(get)',
     EchonetLiteProfileNormalTest.propertyNormalTest002);
 
 /**
@@ -124,7 +124,7 @@ EchonetLiteProfileNormalTest.propertyNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyNormalTest003(get)',
+QUnit.test('propertyNormalTest003(get)',
     EchonetLiteProfileNormalTest.propertyNormalTest003);
 
 /**
@@ -160,6 +160,6 @@ EchonetLiteProfileNormalTest.propertyNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyNormalTest004(put)',
+QUnit.test('propertyNormalTest004(put)',
     EchonetLiteProfileNormalTest.propertyNormalTest004);
 

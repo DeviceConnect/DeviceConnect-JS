@@ -1,4 +1,4 @@
-module('FaBoProfileNormalTest', {
+QUnit.module('FaBoProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -91,7 +91,7 @@ FaBoProfileNormalTest.getFaBoServiceNormalTest001 = function(assert) {
             QUnit.start();
         });
 };
-QUnit.asyncTest('getFaBoServiceNormalTest001', FaBoProfileNormalTest.getFaBoServiceNormalTest001);
+QUnit.test('getFaBoServiceNormalTest001', FaBoProfileNormalTest.getFaBoServiceNormalTest001);
 
 
 /**
@@ -126,7 +126,7 @@ FaBoProfileNormalTest.postFaBoServiceNormalTest001 = function(assert) {
             QUnit.start();
         });
 };
-QUnit.asyncTest('postFaBoServiceNormalTest001', FaBoProfileNormalTest.postFaBoServiceNormalTest001);
+QUnit.test('postFaBoServiceNormalTest001', FaBoProfileNormalTest.postFaBoServiceNormalTest001);
 
 /**
  * 仮想サービス更新するテストを行う。
@@ -167,7 +167,7 @@ FaBoProfileNormalTest.putFaBoServiceNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('putFaBoServiceNormalTest001', FaBoProfileNormalTest.putFaBoServiceNormalTest001);
+QUnit.test('putFaBoServiceNormalTest001', FaBoProfileNormalTest.putFaBoServiceNormalTest001);
 
 /**
  * 仮想サービス削除するテストを行う。
@@ -204,7 +204,7 @@ FaBoProfileNormalTest.deleteFaBoServiceNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('deleteFaBoServiceNormalTest001', FaBoProfileNormalTest.deleteFaBoServiceNormalTest001);
+QUnit.test('deleteFaBoServiceNormalTest001', FaBoProfileNormalTest.deleteFaBoServiceNormalTest001);
 
 /**
  * プロファイル一覧取得するテストを行う。
@@ -244,7 +244,7 @@ FaBoProfileNormalTest.getFaBoProfileNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('getFaBoProfileNormalTest001', FaBoProfileNormalTest.getFaBoProfileNormalTest001);
+QUnit.test('getFaBoProfileNormalTest001', FaBoProfileNormalTest.getFaBoProfileNormalTest001);
 
 
 /**
@@ -287,7 +287,7 @@ FaBoProfileNormalTest.postFaBoServiceNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('postFaBoServiceNormalTest001', FaBoProfileNormalTest.postFaBoServiceNormalTest001);
+QUnit.test('postFaBoServiceNormalTest001', FaBoProfileNormalTest.postFaBoServiceNormalTest001);
 
 /**
  * プロファイルを更新するテストを行う。
@@ -328,7 +328,7 @@ FaBoProfileNormalTest.putFaBoProfileNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('putFaBoProfileNormalTest001', FaBoProfileNormalTest.putFaBoProfileNormalTest001);
+QUnit.test('putFaBoProfileNormalTest001', FaBoProfileNormalTest.putFaBoProfileNormalTest001);
 
 
 /**
@@ -368,4 +368,4 @@ FaBoProfileNormalTest.deleteFaBoServiceNormalTest001 = function(assert) {
         QUnit.start();
     });
 };
-QUnit.asyncTest('deleteFaBoServiceNormalTest001', FaBoProfileNormalTest.deleteFaBoServiceNormalTest001);
+QUnit.test('deleteFaBoServiceNormalTest001', FaBoProfileNormalTest.deleteFaBoServiceNormalTest001);

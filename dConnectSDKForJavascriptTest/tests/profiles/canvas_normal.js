@@ -1,9 +1,8 @@
-module('Canvas Profile Normal Test', {
-  setup: function() {
-    TEST_TIMEOUT = 60000;
+QUnit.module('Canvas Profile Normal Test', {
+  before: function() {
     init();
-  }, teardown: function() {
-    var img = document.getElementById('images');
+  }, after: function() {
+    let img = document.getElementById('images');
     img.style.visibility = 'hidden';
   }
 });
@@ -12,42 +11,7 @@ module('Canvas Profile Normal Test', {
  * Canvasプロファイルの異常系テストを行うクラス。
  * @class
  */
-var CanvasProfileNormalTest = {};
-
-CanvasProfileNormalTest.draw = function(text) {
-  var width = 120;
-  var height = 120;
-  var canvas =  document.getElementById('canvas');
-  var context = canvas.getContext('2d');
-  context.beginPath();
-  context.clearRect(0, 0, width, height);
-  context.fillStyle = '#ffffff';
-  context.fillRect(0, 0, width, height);
-  context.stroke();
-  context.restore();
-  context.save();
-
-  context.beginPath();
-  context.font = "18pt Arial";
-  context.fillStyle = 'rgb(0, 0, 0)';
-  for (var i = 0; i < 10; i++) {
-    context.fillText(text, 10, (i + 1) * 20);
-  }
-  context.restore();
-  context.save();
-
-  canvas = canvas.toDataURL();
-  var base64Data = canvas.split(',')[1];
-  var data = window.atob(base64Data);
-  var buff = new ArrayBuffer(data.length);
-  var arr = new Uint8Array(buff);
-  var blob, i, dataLen;
-  for (i = 0, dataLen = data.length; i < dataLen; i++) {
-      arr[i] = data.charCodeAt(i);
-  }
-  blob = new Blob([arr], {type: 'image/png'});
-  return blob;
-};
+let CanvasProfileNormalTest = {};
 
 /**
  * デフォルトのモードでデバイスに画像表示するテストを行う。
@@ -62,36 +26,33 @@ CanvasProfileNormalTest.draw = function(text) {
  * </p>
  */
 CanvasProfileNormalTest.drawImageNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
 
-  var blob = CanvasProfileNormalTest.draw('drawImageNormalTest001');
+  let blob = draw('drawImageNormalTest001');
 
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-
-  var formData = new FormData();
+  let serviceId = getCurrentServiceId();
+  let formData = new FormData();
   formData.append('serviceId', serviceId);
-  formData.append('accessToken', accessToken);
   formData.append('filename', 'test.png');
   formData.append('mimeType', 'image/png');
   formData.append('x', 0);
   formData.append('y', 0);
   formData.append('data', blob);
 
-  var uri = builder.build();
-  dConnect.post(uri, null, formData, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.canvas.PROFILE_NAME,
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
+  }, formData).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('drawImageNormalTest001(put)', CanvasProfileNormalTest.drawImageNormalTest001);
+QUnit.test('drawImageNormalTest001(put)', CanvasProfileNormalTest.drawImageNormalTest001);
 
 /**
  * scalesのモードでデバイスに画像表示するテストを行う。
@@ -106,20 +67,14 @@ QUnit.asyncTest('drawImageNormalTest001(put)', CanvasProfileNormalTest.drawImage
  * </p>
  */
 CanvasProfileNormalTest.drawImageNormalTest002 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
 
-  var blob = CanvasProfileNormalTest.draw('drawImageNormalTest002');
+  let blob = draw('drawImageNormalTest002');
 
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-
-  var formData = new FormData();
+  let serviceId = getCurrentServiceId();
+  let formData = new FormData();
   formData.append('serviceId', serviceId);
-  formData.append('accessToken', accessToken);
   formData.append('mode', 'scales');
   formData.append('filename', 'test.png');
   formData.append('mimeType', 'image/png');
@@ -127,16 +82,19 @@ CanvasProfileNormalTest.drawImageNormalTest002 = function(assert) {
   formData.append('y', 50);
   formData.append('data', blob);
 
-  var uri = builder.build();
-  dConnect.post(uri, null, formData, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.canvas.PROFILE_NAME,
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+  }, formData).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('drawImageNormalTest002(mode is scales)', CanvasProfileNormalTest.drawImageNormalTest002);
+QUnit.test('drawImageNormalTest002(mode is scales)', CanvasProfileNormalTest.drawImageNormalTest002);
 
 
 /**
@@ -152,20 +110,14 @@ QUnit.asyncTest('drawImageNormalTest002(mode is scales)', CanvasProfileNormalTes
  * </p>
  */
 CanvasProfileNormalTest.drawImageNormalTest003 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
 
-  var blob = CanvasProfileNormalTest.draw('drawImageNormalTest003');
+  let blob = draw('drawImageNormalTest003');
 
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-
-  var formData = new FormData();
+  let serviceId = getCurrentServiceId();
+  let formData = new FormData();
   formData.append('serviceId', serviceId);
-  formData.append('accessToken', accessToken);
   formData.append('mode', 'fills');
   formData.append('filename', 'test.png');
   formData.append('mimeType', 'image/png');
@@ -173,16 +125,19 @@ CanvasProfileNormalTest.drawImageNormalTest003 = function(assert) {
   formData.append('y', -50);
   formData.append('data', blob);
 
-  var uri = builder.build();
-  dConnect.post(uri, null, formData, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.canvas.PROFILE_NAME,
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+  }, formData).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('drawImageNormalTest003(mode is fills)', CanvasProfileNormalTest.drawImageNormalTest003);
+QUnit.test('drawImageNormalTest003(mode is fills)', CanvasProfileNormalTest.drawImageNormalTest003);
 
 
 /**
@@ -199,24 +154,22 @@ QUnit.asyncTest('drawImageNormalTest003(mode is fills)', CanvasProfileNormalTest
  * </p>
  */
 CanvasProfileNormalTest.drawImageNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('uri', 'https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/img_HTMLApplicationManual/image2.png');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.canvas.PROFILE_NAME,
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    serviceId: serviceId,
+    uri: 'https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/img_HTMLApplicationManual/image2.png'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('drawImageNormalTest004(put, uri)', CanvasProfileNormalTest.drawImageNormalTest004);
+QUnit.test('drawImageNormalTest004(put, uri)', CanvasProfileNormalTest.drawImageNormalTest004);
 
 
 /**
@@ -233,47 +186,42 @@ QUnit.asyncTest('drawImageNormalTest004(put, uri)', CanvasProfileNormalTest.draw
  * </p>
  */
 CanvasProfileNormalTest.deleteDrawImageNormalTest001 = function(assert) {
-  var img = document.getElementById('images');
+  let img = document.getElementById('images');
   img.style.visibility = 'visible';
 
-  var blob = CanvasProfileNormalTest.draw('drawImageNormalTest001');
+  let blob = draw('drawImageNormalTest001');
 
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
+  let serviceId = getCurrentServiceId();
 
-  var formData = new FormData();
+  let formData = new FormData();
   formData.append('serviceId', serviceId);
-  formData.append('accessToken', accessToken);
   formData.append('filename', 'test.png');
   formData.append('mimeType', 'image/png');
   formData.append('data', blob);
 
-  var uri = builder.build();
-  dConnect.post(uri, null, formData, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.canvas.PROFILE_NAME,
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+  }, formData).then(json => {
     assert.ok(true, 'result=' + json.result);
+    setTimeout( () => {
+      sdk.delete({
+        profile: dConnectSDK.constants.canvas.PROFILE_NAME,
+        attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+        serviceId: serviceId
+      }).then(json => {
+        assert.ok(true, 'result=' + json.result);
+        done();
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+        done();
+      });
+    }, 5 * 1000);
 
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.canvas.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.canvas.ATTR_DRAWIMAGE);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-
-    var uri = builder.build();
-    dConnect.delete(uri, null,  function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('deleteDrawImageNormalTest001(put)', CanvasProfileNormalTest.deleteDrawImageNormalTest001);
+QUnit.test('deleteDrawImageNormalTest001(delete)', CanvasProfileNormalTest.deleteDrawImageNormalTest001);

@@ -1,4 +1,4 @@
-module('IlluminanceProfileNormalTest', {
+QUnit.module('IlluminanceProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -41,5 +41,5 @@ IlluminanceProfileNormalTest.illuminanceNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('illuminanceNormalTest001',
+QUnit.test('illuminanceNormalTest001',
     IlluminanceProfileNormalTest.illuminanceNormalTest001);

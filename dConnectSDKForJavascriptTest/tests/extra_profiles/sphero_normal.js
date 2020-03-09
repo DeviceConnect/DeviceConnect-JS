@@ -1,4 +1,4 @@
-module('SpheroProfileNormalTest', {
+QUnit.module('SpheroProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -37,7 +37,7 @@ SpheroProfileNormalTest.onQuaternionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternionNormalTest001);
+QUnit.test('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternionNormalTest001);
 
 
 /**
@@ -67,7 +67,7 @@ SpheroProfileNormalTest.onLocatorNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNormalTest001);
+QUnit.test('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNormalTest001);
 
 
 /**
@@ -97,5 +97,5 @@ SpheroProfileNormalTest.onCollisionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionNormalTest001);
+QUnit.test('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionNormalTest001);
 

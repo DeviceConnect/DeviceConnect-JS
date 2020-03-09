@@ -1,4 +1,4 @@
-module('VideoChat Profile Abnormal Test', {
+QUnit.module('VideoChat Profile Abnormal Test', {
   setup: function() {
     init();
   }
@@ -63,7 +63,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest001(config is number(-1))', VideoChatProfileAbnormalTest.profileAbnormalTest001);
+QUnit.test('profileAbnormalTest001(config is number(-1))', VideoChatProfileAbnormalTest.profileAbnormalTest001);
 
 
 /**
@@ -101,7 +101,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest002(name is not set.)', VideoChatProfileAbnormalTest.profileAbnormalTest002);
+QUnit.test('profileAbnormalTest002(name is not set.)', VideoChatProfileAbnormalTest.profileAbnormalTest002);
 
 /**
  * nameに数値を入れて、プロフィールを設定するテストを行う。
@@ -134,7 +134,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest003(name is number(-1).)', VideoChatProfileAbnormalTest.profileAbnormalTest003);
+QUnit.test('profileAbnormalTest003(name is number(-1).)', VideoChatProfileAbnormalTest.profileAbnormalTest003);
 
 /**
  * nameに特殊文字(!"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_)を入れて、プロフィールを設定するテストを行う。
@@ -167,7 +167,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest004(name is special characters.)', VideoChatProfileAbnormalTest.profileAbnormalTest004);
+QUnit.test('profileAbnormalTest004(name is special characters.)', VideoChatProfileAbnormalTest.profileAbnormalTest004);
 
 /**
  * nameに長い文字(1000byte)を入れて、プロフィールを設定するテストを行う。
@@ -209,7 +209,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest005(name is long string.)', VideoChatProfileAbnormalTest.profileAbnormalTest005);
+QUnit.test('profileAbnormalTest005(name is long string.)', VideoChatProfileAbnormalTest.profileAbnormalTest005);
 
 /**
  * nameに空文字を入れて、プロフィールを設定するテストを行う。
@@ -247,7 +247,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest006(name is empty string)', VideoChatProfileAbnormalTest.profileAbnormalTest006);
+QUnit.test('profileAbnormalTest006(name is empty string)', VideoChatProfileAbnormalTest.profileAbnormalTest006);
 
 /**
  * 定義されていないPOSTメソッドでprofileにアクセスするテストを行う。
@@ -281,7 +281,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest007(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.profileAbnormalTest007);
+QUnit.test('profileAbnormalTest007(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.profileAbnormalTest007);
 
 
 /**
@@ -316,7 +316,7 @@ VideoChatProfileAbnormalTest.profileAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('profileAbnormalTest008(Calling a delete method that does not support.)', VideoChatProfileAbnormalTest.profileAbnormalTest008);
+QUnit.test('profileAbnormalTest008(Calling a delete method that does not support.)', VideoChatProfileAbnormalTest.profileAbnormalTest008);
 
 /**
  * addressIdに-1を入れて、アドレスを取得するテストを行う。
@@ -351,7 +351,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest001(addressId is number)', VideoChatProfileAbnormalTest.addressAbnormalTest001);
+QUnit.test('addressAbnormalTest001(addressId is number)', VideoChatProfileAbnormalTest.addressAbnormalTest001);
 
 /**
  * addressIdに空文字を入れて、アドレスを取得するテストを行う。
@@ -386,7 +386,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest002(addressId is empty string)', VideoChatProfileAbnormalTest.addressAbnormalTest002);
+QUnit.test('addressAbnormalTest002(addressId is empty string)', VideoChatProfileAbnormalTest.addressAbnormalTest002);
 
 /**
  * addressIdに特殊文字(!"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_)を入れて、アドレスを取得するテストを行う。
@@ -421,7 +421,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest003(addressId is special characters.)', VideoChatProfileAbnormalTest.addressAbnormalTest003);
+QUnit.test('addressAbnormalTest003(addressId is special characters.)', VideoChatProfileAbnormalTest.addressAbnormalTest003);
 
 /**
  * addressIdに長い文字列(1000byte0を入れて、アドレスを取得するテストを行う。
@@ -465,7 +465,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest004(addressId is long string.)', VideoChatProfileAbnormalTest.addressAbnormalTest004);
+QUnit.test('addressAbnormalTest004(addressId is long string.)', VideoChatProfileAbnormalTest.addressAbnormalTest004);
 
 /**
  * 定義されていないPUTメソッドでaddressにアクセスするテストを行う。
@@ -497,7 +497,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest005(Calling a put method that does not support.)', VideoChatProfileAbnormalTest.addressAbnormalTest005);
+QUnit.test('addressAbnormalTest005(Calling a put method that does not support.)', VideoChatProfileAbnormalTest.addressAbnormalTest005);
 
 /**
  * 定義されていないPOSTメソッドでaddressにアクセスするテストを行う。
@@ -529,7 +529,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest006(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.addressAbnormalTest006);
+QUnit.test('addressAbnormalTest006(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.addressAbnormalTest006);
 
 /**
  * 定義されていないDELETEメソッドでaddressにアクセスするテストを行う。
@@ -561,7 +561,7 @@ VideoChatProfileAbnormalTest.addressAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('addressAbnormalTest007(Calling a delete method that does not support.)', VideoChatProfileAbnormalTest.addressAbnormalTest007);
+QUnit.test('addressAbnormalTest007(Calling a delete method that does not support.)', VideoChatProfileAbnormalTest.addressAbnormalTest007);
 
 /**
  * addressIdに-1を入れて、callするテストを行う。
@@ -599,7 +599,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest001(addressId is number)', VideoChatProfileAbnormalTest.callAbnormalTest001);
+QUnit.test('callAbnormalTest001(addressId is number)', VideoChatProfileAbnormalTest.callAbnormalTest001);
 
 /**
  * addressIdを指定せずに、callするテストを行う。
@@ -636,7 +636,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest002(addressId is not set.)', VideoChatProfileAbnormalTest.callAbnormalTest002);
+QUnit.test('callAbnormalTest002(addressId is not set.)', VideoChatProfileAbnormalTest.callAbnormalTest002);
 
 /**
  * addressIdに空文字を入れて、callするテストを行う。
@@ -674,7 +674,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest003(addressId is empty string.)', VideoChatProfileAbnormalTest.callAbnormalTest003);
+QUnit.test('callAbnormalTest003(addressId is empty string.)', VideoChatProfileAbnormalTest.callAbnormalTest003);
 
 /**
  * addressIdに特殊文字(!"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_)を入れて、callするテストを行う。
@@ -712,7 +712,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest004(addressId is special characters.)', VideoChatProfileAbnormalTest.callAbnormalTest004);
+QUnit.test('callAbnormalTest004(addressId is special characters.)', VideoChatProfileAbnormalTest.callAbnormalTest004);
 
 /**
  * addressIdに長い文字列(1000byte)を入れて、callするテストを行う。
@@ -759,7 +759,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest005(addressId is long string.)', VideoChatProfileAbnormalTest.callAbnormalTest005);
+QUnit.test('callAbnormalTest005(addressId is long string.)', VideoChatProfileAbnormalTest.callAbnormalTest005);
 
 /**
  * videoに数値(-1)を入れて、callするテストを行う。
@@ -801,7 +801,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest006(video is number(-1).)', VideoChatProfileAbnormalTest.callAbnormalTest006);
+QUnit.test('callAbnormalTest006(video is number(-1).)', VideoChatProfileAbnormalTest.callAbnormalTest006);
 
 
 /**
@@ -844,7 +844,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest007(video is special characters.)', VideoChatProfileAbnormalTest.callAbnormalTest007);
+QUnit.test('callAbnormalTest007(video is special characters.)', VideoChatProfileAbnormalTest.callAbnormalTest007);
 
 /**
  * videoに長い文字列を入れて、callするテストを行う。
@@ -895,7 +895,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest008(video is long string.)', VideoChatProfileAbnormalTest.callAbnormalTest008);
+QUnit.test('callAbnormalTest008(video is long string.)', VideoChatProfileAbnormalTest.callAbnormalTest008);
 
 /**
  * audioに数値(-1)を入れて、callするテストを行う。
@@ -937,7 +937,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest009(audio is number(-1).)', VideoChatProfileAbnormalTest.callAbnormalTest009);
+QUnit.test('callAbnormalTest009(audio is number(-1).)', VideoChatProfileAbnormalTest.callAbnormalTest009);
 
 
 /**
@@ -980,7 +980,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest010(audio is special characters.)', VideoChatProfileAbnormalTest.callAbnormalTest010);
+QUnit.test('callAbnormalTest010(audio is special characters.)', VideoChatProfileAbnormalTest.callAbnormalTest010);
 
 /**
  * audioに長い文字列(1000byte)を入れて、callするテストを行う。
@@ -1031,7 +1031,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest011(audio is long string.)', VideoChatProfileAbnormalTest.callAbnormalTest011);
+QUnit.test('callAbnormalTest011(audio is long string.)', VideoChatProfileAbnormalTest.callAbnormalTest011);
 
 /**
  * addressIdを指定しないでstopcallを行うテストを行う。
@@ -1067,7 +1067,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest012(address is not set on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest012);
+QUnit.test('callAbnormalTest012(address is not set on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest012);
 
 /**
  * addressIdに空文字を指定してstopcallを行うテストを行う。
@@ -1104,7 +1104,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest013(address is empty string on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest013);
+QUnit.test('callAbnormalTest013(address is empty string on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest013);
 
 /**
  * addressIdに特殊文字列("!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_")を指定してstopcallを行うテストを行う。
@@ -1141,7 +1141,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest014(address is specail charactors on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest014);
+QUnit.test('callAbnormalTest014(address is specail charactors on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest014);
 
 
 /**
@@ -1188,7 +1188,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest015 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest015(address is long string on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest015);
+QUnit.test('callAbnormalTest015(address is long string on delete method.)', VideoChatProfileAbnormalTest.callAbnormalTest015);
 
 
 /**
@@ -1226,7 +1226,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest016 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest016(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.callAbnormalTest016);
+QUnit.test('callAbnormalTest016(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.callAbnormalTest016);
 
 /**
  * 定義されていないPUTメソッドでcallにアクセスするテストを行う。
@@ -1263,7 +1263,7 @@ VideoChatProfileAbnormalTest.callAbnormalTest017 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callAbnormalTest017(Calling a put method that does not support.)', VideoChatProfileAbnormalTest.callAbnormalTest017);
+QUnit.test('callAbnormalTest017(Calling a put method that does not support.)', VideoChatProfileAbnormalTest.callAbnormalTest017);
 
 /**
  * 定義されていないPUTメソッドでonincomingにアクセスするテストを行う。
@@ -1300,7 +1300,7 @@ VideoChatProfileAbnormalTest.onincomingAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('OnincomingAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.onincomingAbnormalTest001);
+QUnit.test('OnincomingAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.onincomingAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでonincomingにアクセスするテストを行う。
@@ -1337,7 +1337,7 @@ VideoChatProfileAbnormalTest.onincomingAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('OnincomingAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.onincomingAbnormalTest002);
+QUnit.test('OnincomingAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.onincomingAbnormalTest002);
 
 /**
  * 定義されていないPUTメソッドでoncallにアクセスするテストを行う。
@@ -1374,7 +1374,7 @@ VideoChatProfileAbnormalTest.oncallAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('OncallAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest001);
+QUnit.test('OncallAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでoncallにアクセスするテストを行う。
@@ -1411,7 +1411,7 @@ VideoChatProfileAbnormalTest.oncallAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('OncallAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest002);
+QUnit.test('OncallAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.oncallAbnormalTest002);
 
 
 /**
@@ -1449,7 +1449,7 @@ VideoChatProfileAbnormalTest.onhangupAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('OnhangupAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.onhangupAbnormalTest001);
+QUnit.test('OnhangupAbnormalTest001(Calling a get method that does not support.)', VideoChatProfileAbnormalTest.onhangupAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでonhangupにアクセスするテストを行う。
@@ -1486,6 +1486,6 @@ VideoChatProfileAbnormalTest.onhangupAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('OnhangupAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.onhangupAbnormalTest002);
+QUnit.test('OnhangupAbnormalTest002(Calling a post method that does not support.)', VideoChatProfileAbnormalTest.onhangupAbnormalTest002);
 
 

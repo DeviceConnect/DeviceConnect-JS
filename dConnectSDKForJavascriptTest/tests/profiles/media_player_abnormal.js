@@ -1,5 +1,5 @@
-module('MediaPlayer Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('MediaPlayer Profile Abnormal Test', {
+  before: function() {
     TEST_TIMEOUT = 120000;
     init();
   }
@@ -9,7 +9,7 @@ module('MediaPlayer Profile Abnormal Test', {
  * MediaPlayerProfileのテストを行うクラス。
  * @class
  */
-var MediaPlayerProfileAbnormalTest = {};
+let MediaPlayerProfileAbnormalTest = {};
 
 /**
  * 定義されていないPUTメソッドでメディアリストにアクセスするテストを行う。
@@ -24,29 +24,22 @@ var MediaPlayerProfileAbnormalTest = {};
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('medialistAbnormalTest001(Calling a put method that does not support.)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest001);
+QUnit.test('medialistAbnormalTest001(Calling a put method that does not support.)',
+    MediaPlayerProfileAbnormalTest.mediaListAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでメディアリストにアクセスするテストを行う。
@@ -61,29 +54,22 @@ QUnit.asyncTest('medialistAbnormalTest001(Calling a put method that does not sup
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest002(Calling a post method that does not support.)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest002);
+QUnit.test('mediaListAbnormalTest002(Calling a post method that does not support.)',
+    MediaPlayerProfileAbnormalTest.mediaListAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでメディアリストにアクセスするテストを行う。
@@ -98,29 +84,22 @@ QUnit.asyncTest('mediaListAbnormalTest002(Calling a post method that does not su
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest003(Calling a delete method that does not support.)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest003);
+QUnit.test('mediaListAbnormalTest003(Calling a delete method that does not support.)',
+      MediaPlayerProfileAbnormalTest.mediaListAbnormalTest003);
 
 /**
  * パラメータorderにdescを指定してメディアリストを取得するテストを行う。
@@ -135,30 +114,23 @@ QUnit.asyncTest('mediaListAbnormalTest003(Calling a delete method that does not 
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_ORDER, 'desc');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    order: 'desc'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest004(order is desc)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest004);
+QUnit.test('mediaListAbnormalTest004(order is desc)',
+      MediaPlayerProfileAbnormalTest.mediaListAbnormalTest004);
 
 /**
  * パラメータorderに特殊文字(!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|})を指定してメディアリストを取得するテストを行う。
@@ -173,30 +145,23 @@ QUnit.asyncTest('mediaListAbnormalTest004(order is desc)', MediaPlayerProfileAbn
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_ORDER, "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}");
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    order: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest005(order is special characters.)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest005);
+QUnit.test('mediaListAbnormalTest005(order is special characters.)',
+        MediaPlayerProfileAbnormalTest.mediaListAbnormalTest005);
 
 /**
  * パラメータlimitに-1を指定してメディアリストを取得するテストを行う。
@@ -211,30 +176,22 @@ QUnit.asyncTest('mediaListAbnormalTest005(order is special characters.)', MediaP
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_LIMIT, -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    limit: -1
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest006(limit is minus(-1))', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006);
+QUnit.test('mediaListAbnormalTest006(limit is minus(-1))', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006);
 
 /**
  * パラメータlimitに10.6を指定してメディアリストを取得するテストを行う。
@@ -249,30 +206,23 @@ QUnit.asyncTest('mediaListAbnormalTest006(limit is minus(-1))', MediaPlayerProfi
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_LIMIT, 10.6);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    limit: 10.6
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest007(limit is float(10.6))', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest007);
+QUnit.test('mediaListAbnormalTest007(limit is float(10.6))',
+      MediaPlayerProfileAbnormalTest.mediaListAbnormalTest007);
 
 /**
  * パラメータlimitに文字列を指定してメディアリストを取得するテストを行う。
@@ -287,30 +237,23 @@ QUnit.asyncTest('mediaListAbnormalTest007(limit is float(10.6))', MediaPlayerPro
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_LIMIT, 'this is a test.');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    limit: 'this is a test.'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest008(limit is string)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest008);
+QUnit.test('mediaListAbnormalTest008(limit is string)',
+        MediaPlayerProfileAbnormalTest.mediaListAbnormalTest008);
 
 /**
  * パラメータoffsetに-1を指定してメディアリストを取得するテストを行う。
@@ -325,30 +268,23 @@ QUnit.asyncTest('mediaListAbnormalTest008(limit is string)', MediaPlayerProfileA
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_OFFSET, -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    offset: -1
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest010(offest is -1)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest010);
+QUnit.test('mediaListAbnormalTest010(offest is -1)',
+        MediaPlayerProfileAbnormalTest.mediaListAbnormalTest010);
 
 /**
  * パラメータoffsetに2.5を指定してメディアリストを取得するテストを行う。
@@ -363,30 +299,23 @@ QUnit.asyncTest('mediaListAbnormalTest010(offest is -1)', MediaPlayerProfileAbno
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_OFFSET, 2.5);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    offset: 2.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest011(offest is float(2.5))', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest011);
+QUnit.test('mediaListAbnormalTest011(offest is float(2.5))',
+        MediaPlayerProfileAbnormalTest.mediaListAbnormalTest011);
 
 /**
  * パラメータoffsetに文字列を指定してメディアリストを取得するテストを行う。
@@ -401,30 +330,23 @@ QUnit.asyncTest('mediaListAbnormalTest011(offest is float(2.5))', MediaPlayerPro
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_OFFSET, 'this is a test.');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
+    serviceId: serviceId,
+    offset: 'this is a test.'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaListAbnormalTest012(offest is string)', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest012);
+QUnit.test('mediaListAbnormalTest012(offest is string)',
+        MediaPlayerProfileAbnormalTest.mediaListAbnormalTest012);
 
 /**
  * 定義されていないPOSTメソッドでメディアにアクセスするテストを行う。
@@ -439,29 +361,21 @@ QUnit.asyncTest('mediaListAbnormalTest012(offest is string)', MediaPlayerProfile
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('mediaAbnormalTest001(Calling a post method that does not support.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest001);
+QUnit.test('mediaAbnormalTest001(Calling a post method that does not support.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドでメディアにアクセスするテストを行う。
@@ -476,29 +390,21 @@ QUnit.asyncTest('mediaAbnormalTest001(Calling a post method that does not suppor
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('mediaAbnormalTest002(Calling a delete method that does not support.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest002);
+QUnit.test('mediaAbnormalTest002(Calling a delete method that does not support.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest002);
 
 /**
  * mediaIdに空文字を指定してメディアを設定するテストを行う。
@@ -513,30 +419,22 @@ QUnit.asyncTest('mediaAbnormalTest002(Calling a delete method that does not supp
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, '');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
+    serviceId: serviceId,
+    mediaId: ''
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaAbnormalTest003(mediaId is empty.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest003);
+QUnit.test('mediaAbnormalTest003(mediaId is empty.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest003);
 
 /**
  * mediaIdに特殊文字を指定してメディアを設定するテストを行う。
@@ -551,30 +449,23 @@ QUnit.asyncTest('mediaAbnormalTest003(mediaId is empty.)', MediaPlayerProfileAbn
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, "!\"#$%&'()-^¥@[;:],./__?><}*+{`|~=");
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
+    serviceId: serviceId,
+    mediaId: "!\"#$%&'()-^¥@[;:],./__?><}*+{`|~="
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaAbnormalTest004(mediaId is specail charactors.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest004);
+QUnit.test('mediaAbnormalTest004(mediaId is specail charactors.)',
+            MediaPlayerProfileAbnormalTest.mediaAbnormalTest004);
 
 /**
  * mediaIdを指定しないでメディアを設定するテストを行う。
@@ -589,29 +480,22 @@ QUnit.asyncTest('mediaAbnormalTest004(mediaId is specail charactors.)', MediaPla
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaAbnormalTest005(mediaId is omitted)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest005);
+QUnit.test('mediaAbnormalTest005(mediaId is omitted)',
+            MediaPlayerProfileAbnormalTest.mediaAbnormalTest005);
 
 /**
  * 存在しないmediaIdに指定してメディアを設定するテストを行う。
@@ -626,30 +510,23 @@ QUnit.asyncTest('mediaAbnormalTest005(mediaId is omitted)', MediaPlayerProfileAb
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, 'media_test');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
+    serviceId: serviceId,
+    mediaId: "media_test"
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mediaAbnormalTest006(mediaId is not exist.)', MediaPlayerProfileAbnormalTest.mediaAbnormalTest006);
+QUnit.test('mediaAbnormalTest006(mediaId is not exist.)',
+          MediaPlayerProfileAbnormalTest.mediaAbnormalTest006);
 
 /**
  * 定義されていないPOSTメソッドでメディアを再生するテストを行う。
@@ -664,32 +541,25 @@ QUnit.asyncTest('mediaAbnormalTest006(mediaId is not exist.)', MediaPlayerProfil
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayAbnormalTest001 = function(assert) {
-  setMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
+  let done = assert.async();
+  setMedia().then(serviceId => {
+    sdk.post({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
+      serviceId: serviceId
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 8);
+      done();
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
+  });
 };
-QUnit.asyncTest('PlayAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayAbnormalTest001);
+QUnit.test('PlayAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayAbnormalTest001);
 
 /**
  * 定義されていないGETメソッドでメディアを再生するテストを行う。
@@ -704,32 +574,25 @@ QUnit.asyncTest('PlayAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayAbnormalTest002 = function(assert) {
-  setMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
+  let done = assert.async();
+  setMedia().then(serviceId => {
+    sdk.get({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
+      serviceId: serviceId
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 8);
+      done();
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
+  });
 };
-QUnit.asyncTest('PlayAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayAbnormalTest002);
+QUnit.test('PlayAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでメディアを再生するテストを行う。
@@ -744,75 +607,27 @@ QUnit.asyncTest('PlayAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayAbnormalTest003 = function(assert) {
-  setMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              QUnit.start();
-            }, function(errorCode, errorMessage) {
-              if (errorCode == 8) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              QUnit.start();
-            });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
+  let done = assert.async();
+  setMedia().then(serviceId => {
+    sdk.delete({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
+      serviceId: serviceId
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 8);
+      done();
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
+  });
 };
-QUnit.asyncTest('PlayAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayAbnormalTest003);
+QUnit.test('PlayAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayAbnormalTest003);
 
-function getMediaList(success_cb, error_cb) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    success_cb(accessToken, serviceId, json);
-  }, error_cb);
-}
 
-function setMedia(success_cb, error_cb) {
-  getMediaList(function(accessToken, serviceId, list) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_MEDIA);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, list.media[0].mediaId);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              success_cb(accessToken, serviceId, json);
-            }, error_cb);
-      }, error_cb);
-}
-
-function playMedia(success_cb, error_cb) {
-  setMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              success_cb(accessToken, serviceId, json);
-            }, error_cb);
-      }, error_cb);
-}
 
 /**
  * 定義されていないGETメソッドでメディアの再生を一時停止するテストを行う。
@@ -827,29 +642,21 @@ function playMedia(success_cb, error_cb) {
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PauseAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('PauseAbnormalTest001', MediaPlayerProfileAbnormalTest.PauseAbnormalTest001);
+QUnit.test('PauseAbnormalTest001', MediaPlayerProfileAbnormalTest.PauseAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでメディアの再生を一時停止するテストを行う。
@@ -864,29 +671,21 @@ QUnit.asyncTest('PauseAbnormalTest001', MediaPlayerProfileAbnormalTest.PauseAbno
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PauseAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('PauseAbnormalTest002', MediaPlayerProfileAbnormalTest.PauseAbnormalTest002);
+QUnit.test('PauseAbnormalTest002', MediaPlayerProfileAbnormalTest.PauseAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでメディアの再生を一時停止するテストを行う。
@@ -901,29 +700,21 @@ QUnit.asyncTest('PauseAbnormalTest002', MediaPlayerProfileAbnormalTest.PauseAbno
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PauseAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_PAUSE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('PauseAbnormalTest003', MediaPlayerProfileAbnormalTest.PauseAbnormalTest003);
+QUnit.test('PauseAbnormalTest003', MediaPlayerProfileAbnormalTest.PauseAbnormalTest003);
 
 /**
  * 定義されていないGETメソッドで一時停止中のメディアの再生を再開するテストを行う。
@@ -938,29 +729,21 @@ QUnit.asyncTest('PauseAbnormalTest003', MediaPlayerProfileAbnormalTest.PauseAbno
  * </p>
  */
 MediaPlayerProfileAbnormalTest.ResumeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_RESUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('ResumeAbnormalTest001', MediaPlayerProfileAbnormalTest.ResumeAbnormalTest001);
+QUnit.test('ResumeAbnormalTest001', MediaPlayerProfileAbnormalTest.ResumeAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドで一時停止中のメディアの再生を再開するテストを行う。
@@ -975,29 +758,21 @@ QUnit.asyncTest('ResumeAbnormalTest001', MediaPlayerProfileAbnormalTest.ResumeAb
  * </p>
  */
 MediaPlayerProfileAbnormalTest.ResumeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_RESUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('ResumeAbnormalTest002', MediaPlayerProfileAbnormalTest.ResumeAbnormalTest002);
+QUnit.test('ResumeAbnormalTest002', MediaPlayerProfileAbnormalTest.ResumeAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドで一時停止中のメディアの再生を再開するテストを行う。
@@ -1012,29 +787,21 @@ QUnit.asyncTest('ResumeAbnormalTest002', MediaPlayerProfileAbnormalTest.ResumeAb
  * </p>
  */
 MediaPlayerProfileAbnormalTest.ResumeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_RESUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('ResumeAbnormalTest003', MediaPlayerProfileAbnormalTest.ResumeAbnormalTest003);
+QUnit.test('ResumeAbnormalTest003', MediaPlayerProfileAbnormalTest.ResumeAbnormalTest003);
 
 /**
  * 定義されていないGETメソッドで、再生中のメディアを停止するテストを行う。
@@ -1049,29 +816,21 @@ QUnit.asyncTest('ResumeAbnormalTest003', MediaPlayerProfileAbnormalTest.ResumeAb
  * </p>
  */
 MediaPlayerProfileAbnormalTest.StopAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('StopAbnormalTest001', MediaPlayerProfileAbnormalTest.StopAbnormalTest001);
+QUnit.test('StopAbnormalTest001', MediaPlayerProfileAbnormalTest.StopAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドで、再生中のメディアを停止するテストを行う。
@@ -1086,29 +845,21 @@ QUnit.asyncTest('StopAbnormalTest001', MediaPlayerProfileAbnormalTest.StopAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.StopAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('StopAbnormalTest002', MediaPlayerProfileAbnormalTest.StopAbnormalTest002);
+QUnit.test('StopAbnormalTest002', MediaPlayerProfileAbnormalTest.StopAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドで、再生中のメディアを停止するテストを行う。
@@ -1123,29 +874,21 @@ QUnit.asyncTest('StopAbnormalTest002', MediaPlayerProfileAbnormalTest.StopAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.StopAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('StopAbnormalTest003', MediaPlayerProfileAbnormalTest.StopAbnormalTest003);
+QUnit.test('StopAbnormalTest003', MediaPlayerProfileAbnormalTest.StopAbnormalTest003);
 
 /**
  * 定義されていないPUTメソッドで、現在の再生状態を取得するテストを行う。
@@ -1160,43 +903,22 @@ QUnit.asyncTest('StopAbnormalTest003', MediaPlayerProfileAbnormalTest.StopAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY_STATUS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
     sleep(1 * 1000);
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
-
+    stopMedia(done);
   });
 };
-QUnit.asyncTest('PlayStatusAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest001);
+QUnit.test('PlayStatusAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドで、現在の再生状態を取得するテストを行う。
@@ -1211,44 +933,22 @@ QUnit.asyncTest('PlayStatusAbnormalTest001', MediaPlayerProfileAbnormalTest.Play
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY_STATUS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
     sleep(1 * 1000);
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
-
+    stopMedia(done);
   });
 };
-QUnit.asyncTest('PlayStatusAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest002);
+QUnit.test('PlayStatusAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドで、現在の再生状態を取得するテストを行う。
@@ -1263,43 +963,22 @@ QUnit.asyncTest('PlayStatusAbnormalTest002', MediaPlayerProfileAbnormalTest.Play
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_PLAY_STATUS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
     sleep(1 * 1000);
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
+    stopMedia(done);
   });
 };
-QUnit.asyncTest('PlayStatusAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003);
+QUnit.test('PlayStatusAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003);
 
 /**
  * 定義されていないPOSTメソッドでseekにアクセスするテストを行う。
@@ -1314,44 +993,23 @@ QUnit.asyncTest('PlayStatusAbnormalTest003', MediaPlayerProfileAbnormalTest.Play
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, 'ZZZZZZZ');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+    serviceId: serviceId,
+    mediaId: 'ZZZZZZZ'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
     sleep(1 * 1000);
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
+    stopMedia(done);
   });
 };
-QUnit.asyncTest('seekAbnormalTest001', MediaPlayerProfileAbnormalTest.seekAbnormalTest001);
+QUnit.test('seekAbnormalTest001', MediaPlayerProfileAbnormalTest.seekAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドでseekにアクセスするテストを行う。
@@ -1366,44 +1024,24 @@ QUnit.asyncTest('seekAbnormalTest001', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_MEDIA_ID, 'ZZZZZZZ');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+    serviceId: serviceId,
+    mediaId: 'ZZZZZZZ'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
     sleep(1 * 1000);
-    dConnect.put(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
-    });
-
+    stopMedia(done);
   });
+
 };
-QUnit.asyncTest('seekAbnormalTest002', MediaPlayerProfileAbnormalTest.seekAbnormalTest002);
+QUnit.test('seekAbnormalTest002', MediaPlayerProfileAbnormalTest.seekAbnormalTest002);
 
 /**
  * position=10.5に設定してseekにアクセスするテストを行う。
@@ -1418,61 +1056,29 @@ QUnit.asyncTest('seekAbnormalTest002', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest003 = function(assert) {
-  playMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter(dConnect.constants.media_player.PARAM_POS, 10.5);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, "not support");
-          } else {
-            assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          }
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
+  let done = assert.async();
+  playMedia().then(serviceId => {
+    sdk.put({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+      serviceId: serviceId,
+      pos: 10.5
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      console.log("2" + e);
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      sleep(1 * 1000);
+      stopMedia(done);
+    });
+  }).catch(e => {
+    console.log(e);
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    stopMedia(done);
+  });
 };
-QUnit.asyncTest('seekAbnormalTest003', MediaPlayerProfileAbnormalTest.seekAbnormalTest003);
+QUnit.test('seekAbnormalTest003', MediaPlayerProfileAbnormalTest.seekAbnormalTest003);
 
 /**
  * position=-10に設定してseekにアクセスするテストを行う。
@@ -1487,60 +1093,27 @@ QUnit.asyncTest('seekAbnormalTest003', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest004 = function(assert) {
-  playMedia(function(accessToken, serviceId) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter(dConnect.constants.media_player.PARAM_POS, -10);
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
- 
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        sleep(1 * 1000);
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-     }, function(errorCode, errorMessage) {
-        if (errorCode == 10) {
-          assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, "not support");
-        } else {
-          assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        }
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        sleep(1 * 1000);
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          QUnit.start();
-        });
-      });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  playMedia().then(serviceId => {
+    sdk.put({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+      serviceId: serviceId,
+      pos: -10
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      sleep(1 * 1000);
+      stopMedia(done);
     });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    stopMedia(done);
+  });
 };
-QUnit.asyncTest('seekAbnormalTest004', MediaPlayerProfileAbnormalTest.seekAbnormalTest004);
+QUnit.test('seekAbnormalTest004', MediaPlayerProfileAbnormalTest.seekAbnormalTest004);
 
 /**
  * position=100000000に設定してseekにアクセスするテストを行う。
@@ -1555,60 +1128,27 @@ QUnit.asyncTest('seekAbnormalTest004', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest005 = function(assert) {
-  playMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter(dConnect.constants.media_player.PARAM_POS, 100000000);
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, "not support");
-          } else {
-            assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          }
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  playMedia().then(serviceId => {
+    sdk.put({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+      serviceId: serviceId,
+      pos: 100000000
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      sleep(1 * 1000);
+      stopMedia(done);
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    stopMedia(done);
   });
 };
-QUnit.asyncTest('seekAbnormalTest005', MediaPlayerProfileAbnormalTest.seekAbnormalTest005);
+QUnit.test('seekAbnormalTest005', MediaPlayerProfileAbnormalTest.seekAbnormalTest005);
 
 /**
  * positionに文字列を設定してseekにアクセスするテストを行う。
@@ -1623,60 +1163,27 @@ QUnit.asyncTest('seekAbnormalTest005', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest006 = function(assert) {
-  playMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter(dConnect.constants.media_player.PARAM_POS, 'this is a test.');
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, "not support");
-          } else {
-            assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          }
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
+  let done = assert.async();
+  playMedia().then(serviceId => {
+    sdk.put({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+      serviceId: serviceId,
+      pos: 'this is a test.'
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      sleep(1 * 1000);
+      stopMedia(done);
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    stopMedia(done);
+  });
 };
-QUnit.asyncTest('seekAbnormalTest006', MediaPlayerProfileAbnormalTest.seekAbnormalTest006);
+QUnit.test('seekAbnormalTest006', MediaPlayerProfileAbnormalTest.seekAbnormalTest006);
 
 /**
  * positionに特殊文字を設定してseekにアクセスするテストを行う。
@@ -1691,60 +1198,27 @@ QUnit.asyncTest('seekAbnormalTest006', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest007 = function(assert) {
-  playMedia(function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-        builder.setAttribute(dConnect.constants.media_player.ATTR_SEEK);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter(dConnect.constants.media_player.PARAM_POS, "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}");
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-          assert.ok(false, 'json: ' + JSON.stringify(json));
-
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-             assert.ok(true, "not support");
-          } else {
-            assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          }
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.media_player.ATTR_STOP);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          var uri = builder.build();
-          sleep(1 * 1000);
-          dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'result=' + json.result);
-            QUnit.start();
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            QUnit.start();
-          });
-        });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        QUnit.start();
-      });
+  let done = assert.async();
+  playMedia().then(serviceId => {
+    sdk.put({
+      profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
+      serviceId: serviceId,
+      pos: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      sleep(1 * 1000);
+      stopMedia(done);
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    stopMedia(done);
+  });
 };
-QUnit.asyncTest('seekAbnormalTest007', MediaPlayerProfileAbnormalTest.seekAbnormalTest007);
+QUnit.test('seekAbnormalTest007', MediaPlayerProfileAbnormalTest.seekAbnormalTest007);
 
 /**
  * サポートされていないPOSTメソッドでmuteにアクセスするテストを行う。
@@ -1759,29 +1233,21 @@ QUnit.asyncTest('seekAbnormalTest007', MediaPlayerProfileAbnormalTest.seekAbnorm
  * </p>
  */
 MediaPlayerProfileAbnormalTest.muteAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_MUTE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('muteAbnormalTest001', MediaPlayerProfileAbnormalTest.muteAbnormalTest001);
+QUnit.test('muteAbnormalTest001', MediaPlayerProfileAbnormalTest.muteAbnormalTest001);
 
 /**
  * volumeの値に-1を指定して音量設定にアクセスするテストを行う。
@@ -1795,30 +1261,22 @@ QUnit.asyncTest('muteAbnormalTest001', MediaPlayerProfileAbnormalTest.muteAbnorm
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, -1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
+    serviceId: serviceId,
+    volume: -1
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest001', MediaPlayerProfileAbnormalTest.volumeAbnormalTest001);
+QUnit.test('volumeAbnormalTest001', MediaPlayerProfileAbnormalTest.volumeAbnormalTest001);
 
 /**
  * volumeの値に10を指定して音量設定にアクセスするテストを行う。
@@ -1832,30 +1290,23 @@ QUnit.asyncTest('volumeAbnormalTest001', MediaPlayerProfileAbnormalTest.volumeAb
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, 10);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
+    serviceId: serviceId,
+    volume: 10
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('volumeAbnormalTest002', MediaPlayerProfileAbnormalTest.volumeAbnormalTest002);
+QUnit.test('volumeAbnormalTest002', MediaPlayerProfileAbnormalTest.volumeAbnormalTest002);
 
 /**
  * volumeに文字列を指定して音量設定にアクセスするテストを行う。
@@ -1869,30 +1320,22 @@ QUnit.asyncTest('volumeAbnormalTest002', MediaPlayerProfileAbnormalTest.volumeAb
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, 'this is a test.');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
+    serviceId: serviceId,
+    volume: 'this is a test.'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest003', MediaPlayerProfileAbnormalTest.volumeAbnormalTest003);
+QUnit.test('volumeAbnormalTest003', MediaPlayerProfileAbnormalTest.volumeAbnormalTest003);
 
 /**
  * volumeに特殊文字を指定して音量設定にアクセスするテストを行う。
@@ -1906,30 +1349,22 @@ QUnit.asyncTest('volumeAbnormalTest003', MediaPlayerProfileAbnormalTest.volumeAb
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}");
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
+    serviceId: serviceId,
+    volume: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest004', MediaPlayerProfileAbnormalTest.volumeAbnormalTest004);
+QUnit.test('volumeAbnormalTest004', MediaPlayerProfileAbnormalTest.volumeAbnormalTest004);
 
 /**
  * 定義されていないPOSTメソッドで音量設定にアクセスするテストを行う。
@@ -1943,30 +1378,22 @@ QUnit.asyncTest('volumeAbnormalTest004', MediaPlayerProfileAbnormalTest.volumeAb
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, 0.5);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
+    serviceId: serviceId,
+    volume: 0.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest005', MediaPlayerProfileAbnormalTest.volumeAbnormalTest005);
+QUnit.test('volumeAbnormalTest005', MediaPlayerProfileAbnormalTest.volumeAbnormalTest005);
 
 /**
  * 定義されていないDELETEメソッドで音量設定にアクセスするテストを行う。
@@ -1980,30 +1407,22 @@ QUnit.asyncTest('volumeAbnormalTest005', MediaPlayerProfileAbnormalTest.volumeAb
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.media_player.PARAM_VOLUME, 0.5);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
+    serviceId: serviceId,
+    volume: 0.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest006', MediaPlayerProfileAbnormalTest.volumeAbnormalTest006);
+QUnit.test('volumeAbnormalTest006', MediaPlayerProfileAbnormalTest.volumeAbnormalTest006);
 
 /**
  * 定義されていないGETメソッドでメディア状態取得イベントにアクセスするテストを行う。
@@ -2018,30 +1437,21 @@ QUnit.asyncTest('volumeAbnormalTest006', MediaPlayerProfileAbnormalTest.volumeAb
  * </p>
  */
 MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_ON_STATUS_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_ON_STATUS_CHANGE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest001);
+QUnit.test('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでメディア状態取得イベントにアクセスするテストを行う。
@@ -2056,27 +1466,18 @@ QUnit.asyncTest('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.
  * </p>
  */
 MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.media_player.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.media_player.ATTR_ON_STATUS_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
+    attribute: dConnectSDK.constants.mediaPlayer.ATTR_ON_STATUS_CHANGE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest002);
+QUnit.test('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest002);

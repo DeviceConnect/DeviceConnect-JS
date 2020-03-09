@@ -1,4 +1,4 @@
-module("WalkState Profile Abnormal Test", {
+QUnit.module("WalkState Profile Abnormal Test", {
     setup: function () {
         init();
     }
@@ -47,5 +47,5 @@ WalkStateProfileAbnormalTest.walkAbormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("walk", WalkStateProfileAbnormalTest.walkAbormalTest);
+QUnit.test("walk", WalkStateProfileAbnormalTest.walkAbormalTest);
 

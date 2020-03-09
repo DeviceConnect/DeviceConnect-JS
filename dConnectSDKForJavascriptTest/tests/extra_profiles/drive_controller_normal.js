@@ -1,4 +1,4 @@
-module('DriveControllerProfileNormalTest', {
+QUnit.module('DriveControllerProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -43,7 +43,7 @@ DriveControllerProfileNormalTest.moveNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest001',
+QUnit.test('moveNormalTest001',
     DriveControllerProfileNormalTest.moveNormalTest001);
 
 /**
@@ -79,7 +79,7 @@ DriveControllerProfileNormalTest.moveNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest002',
+QUnit.test('moveNormalTest002',
     DriveControllerProfileNormalTest.moveNormalTest002);
 
 /**
@@ -115,7 +115,7 @@ DriveControllerProfileNormalTest.moveNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest003',
+QUnit.test('moveNormalTest003',
     DriveControllerProfileNormalTest.moveNormalTest003);
 
 /**
@@ -151,7 +151,7 @@ DriveControllerProfileNormalTest.moveNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest004',
+QUnit.test('moveNormalTest004',
     DriveControllerProfileNormalTest.moveNormalTest004);
 
 /**
@@ -187,7 +187,7 @@ DriveControllerProfileNormalTest.moveNormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest005',
+QUnit.test('moveNormalTest005',
     DriveControllerProfileNormalTest.moveNormalTest005);
 
 /**
@@ -223,7 +223,7 @@ DriveControllerProfileNormalTest.moveNormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest006',
+QUnit.test('moveNormalTest006',
     DriveControllerProfileNormalTest.moveNormalTest006);
 
 /**
@@ -259,7 +259,7 @@ DriveControllerProfileNormalTest.moveNormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest007',
+QUnit.test('moveNormalTest007',
     DriveControllerProfileNormalTest.moveNormalTest007);
 
 /**
@@ -295,7 +295,7 @@ DriveControllerProfileNormalTest.moveNormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest008',
+QUnit.test('moveNormalTest008',
     DriveControllerProfileNormalTest.moveNormalTest008);
 
 /**
@@ -331,7 +331,7 @@ DriveControllerProfileNormalTest.moveNormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest009',
+QUnit.test('moveNormalTest009',
     DriveControllerProfileNormalTest.moveNormalTest009);
 
 /**
@@ -367,7 +367,7 @@ DriveControllerProfileNormalTest.moveNormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest010',
+QUnit.test('moveNormalTest010',
     DriveControllerProfileNormalTest.moveNormalTest010);
 
 /**
@@ -403,7 +403,7 @@ DriveControllerProfileNormalTest.moveNormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest011',
+QUnit.test('moveNormalTest011',
     DriveControllerProfileNormalTest.moveNormalTest011);
 
 /**
@@ -439,7 +439,7 @@ DriveControllerProfileNormalTest.moveNormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest012',
+QUnit.test('moveNormalTest012',
     DriveControllerProfileNormalTest.moveNormalTest012);
 
 /**
@@ -475,7 +475,7 @@ DriveControllerProfileNormalTest.moveNormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveNormalTest013',
+QUnit.test('moveNormalTest013',
     DriveControllerProfileNormalTest.moveNormalTest013);
 
 /**
@@ -509,7 +509,7 @@ DriveControllerProfileNormalTest.stopNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopNormalTest001',
+QUnit.test('stopNormalTest001',
     DriveControllerProfileNormalTest.stopNormalTest001);
 
 /**
@@ -544,7 +544,7 @@ DriveControllerProfileNormalTest.rotateNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateNormalTest001',
+QUnit.test('rotateNormalTest001',
     DriveControllerProfileNormalTest.rotateNormalTest001);
 
 /**
@@ -579,7 +579,7 @@ DriveControllerProfileNormalTest.rotateNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateNormalTest002',
+QUnit.test('rotateNormalTest002',
     DriveControllerProfileNormalTest.rotateNormalTest002);
 
 /**
@@ -614,7 +614,7 @@ DriveControllerProfileNormalTest.rotateNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateNormalTest003',
+QUnit.test('rotateNormalTest003',
     DriveControllerProfileNormalTest.rotateNormalTest003);
 
 /**
@@ -649,5 +649,5 @@ DriveControllerProfileNormalTest.rotateNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateNormalTest004',
+QUnit.test('rotateNormalTest004',
     DriveControllerProfileNormalTest.rotateNormalTest004);

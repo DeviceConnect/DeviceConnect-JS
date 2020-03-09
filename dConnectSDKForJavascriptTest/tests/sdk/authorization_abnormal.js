@@ -1,4 +1,4 @@
-module('Authorization Method Test', {
+QUnit.module('Authorization Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ AuthorizationMethodTest.authorizationTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('authorizationTest, non exist parameters.',
+QUnit.test('authorizationTest, non exist parameters.',
   AuthorizationMethodTest.authorizationTest001);
 
 
@@ -64,7 +64,7 @@ AuthorizationMethodTest.authorizationTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName null.',
+QUnit.test('authorizationTest,  scope and applicationName null.',
   AuthorizationMethodTest.authorizationTest011);
 
 /**
@@ -87,7 +87,7 @@ AuthorizationMethodTest.authorizationTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  null.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  null.',
   AuthorizationMethodTest.authorizationTest012);
 
 /**
@@ -109,7 +109,7 @@ AuthorizationMethodTest.authorizationTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback null.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback null.',
   AuthorizationMethodTest.authorizationTest013);
 /**
  * scope値がnullの配列を入れる。
@@ -131,7 +131,7 @@ AuthorizationMethodTest.authorizationTest014 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope null array.',
+QUnit.test('authorizationTest, scope null array.',
   AuthorizationMethodTest.authorizationTest014);
 
 /// undefined
@@ -159,7 +159,7 @@ AuthorizationMethodTest.authorizationTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName undefined.',
+QUnit.test('authorizationTest,  scope and applicationName undefined.',
   AuthorizationMethodTest.authorizationTest021);
 
 /**
@@ -182,7 +182,7 @@ AuthorizationMethodTest.authorizationTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  undefined.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  undefined.',
   AuthorizationMethodTest.authorizationTest022);
 
 /**
@@ -204,7 +204,7 @@ AuthorizationMethodTest.authorizationTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback undefined.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback undefined.',
   AuthorizationMethodTest.authorizationTest023);
 /**
  * scope値がundefinedの配列を入れる。
@@ -226,7 +226,7 @@ AuthorizationMethodTest.authorizationTest024 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope undefined array.',
+QUnit.test('authorizationTest, scope undefined array.',
   AuthorizationMethodTest.authorizationTest024);
 
 
@@ -255,7 +255,7 @@ AuthorizationMethodTest.authorizationTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName number.',
+QUnit.test('authorizationTest,  scope and applicationName number.',
   AuthorizationMethodTest.authorizationTest031);
 
 /**
@@ -278,7 +278,7 @@ AuthorizationMethodTest.authorizationTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  number.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  number.',
   AuthorizationMethodTest.authorizationTest032);
 
 /**
@@ -300,7 +300,7 @@ AuthorizationMethodTest.authorizationTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback number.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback number.',
   AuthorizationMethodTest.authorizationTest033);
 /**
  * scope値が数字の配列を入れる。
@@ -322,7 +322,7 @@ AuthorizationMethodTest.authorizationTest034 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope number array.',
+QUnit.test('authorizationTest, scope number array.',
   AuthorizationMethodTest.authorizationTest034);
 
 
@@ -351,7 +351,7 @@ AuthorizationMethodTest.authorizationTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName alphabet.',
+QUnit.test('authorizationTest,  scope and applicationName alphabet.',
   AuthorizationMethodTest.authorizationTest041);
 
 /**
@@ -374,7 +374,7 @@ AuthorizationMethodTest.authorizationTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  alphabet.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  alphabet.',
   AuthorizationMethodTest.authorizationTest042);
 
 /**
@@ -396,7 +396,7 @@ AuthorizationMethodTest.authorizationTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback alphabet.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback alphabet.',
   AuthorizationMethodTest.authorizationTest043);
 /**
  * scope値が英字の配列を入れる。
@@ -418,7 +418,7 @@ AuthorizationMethodTest.authorizationTest044 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope number alphabet.',
+QUnit.test('authorizationTest, scope number alphabet.',
   AuthorizationMethodTest.authorizationTest044);
 
 /// 日本語
@@ -446,7 +446,7 @@ AuthorizationMethodTest.authorizationTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName hiragana.',
+QUnit.test('authorizationTest,  scope and applicationName hiragana.',
   AuthorizationMethodTest.authorizationTest051);
 
 /**
@@ -469,7 +469,7 @@ AuthorizationMethodTest.authorizationTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  hiragana.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  hiragana.',
   AuthorizationMethodTest.authorizationTest052);
 
 /**
@@ -491,7 +491,7 @@ AuthorizationMethodTest.authorizationTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback hiragana.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback hiragana.',
   AuthorizationMethodTest.authorizationTest053);
 /**
  * scope値が日本語の配列を入れる。
@@ -513,7 +513,7 @@ AuthorizationMethodTest.authorizationTest054 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope number hiragana.',
+QUnit.test('authorizationTest, scope number hiragana.',
   AuthorizationMethodTest.authorizationTest054);
 
 
@@ -542,7 +542,7 @@ AuthorizationMethodTest.authorizationTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName symbol.',
+QUnit.test('authorizationTest,  scope and applicationName symbol.',
   AuthorizationMethodTest.authorizationTest061);
 
 /**
@@ -565,7 +565,7 @@ AuthorizationMethodTest.authorizationTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  symbol.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  symbol.',
   AuthorizationMethodTest.authorizationTest062);
 
 /**
@@ -589,7 +589,7 @@ AuthorizationMethodTest.authorizationTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback symbol.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback symbol.',
   AuthorizationMethodTest.authorizationTest063);
 /**
  * scope値が記号の配列を入れる。
@@ -611,7 +611,7 @@ AuthorizationMethodTest.authorizationTest064 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope number symbol.',
+QUnit.test('authorizationTest, scope number symbol.',
   AuthorizationMethodTest.authorizationTest064);
 
 
@@ -642,7 +642,7 @@ AuthorizationMethodTest.authorizationTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest,  scope and applicationName limit.',
+QUnit.test('authorizationTest,  scope and applicationName limit.',
   AuthorizationMethodTest.authorizationTest071);
 
 /**
@@ -668,7 +668,7 @@ AuthorizationMethodTest.authorizationTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname and successCallback  limit.',
+QUnit.test('authorizationTest, scope and applicationname and successCallback  limit.',
   AuthorizationMethodTest.authorizationTest072);
 
 /**
@@ -693,7 +693,7 @@ AuthorizationMethodTest.authorizationTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope and applicationname successCallback and errorCallback limit.',
+QUnit.test('authorizationTest, scope and applicationname successCallback and errorCallback limit.',
   AuthorizationMethodTest.authorizationTest073);
 /**
  * scope値が1000文字の配列を入れる。
@@ -718,5 +718,5 @@ AuthorizationMethodTest.authorizationTest074 = function(assert) {
   }
 };
 
-QUnit.asyncTest('authorizationTest, scope number limit.',
+QUnit.test('authorizationTest, scope number limit.',
   AuthorizationMethodTest.authorizationTest074);

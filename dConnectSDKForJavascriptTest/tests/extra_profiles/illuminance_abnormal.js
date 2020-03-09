@@ -1,4 +1,4 @@
-module('IlluminanceProfileAbnormalTest', {
+QUnit.module('IlluminanceProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ IlluminanceProfileAbnormalTest.illuminanceAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('illuminanceAbnormalTest001',
+QUnit.test('illuminanceAbnormalTest001',
     IlluminanceProfileAbnormalTest.illuminanceAbnormalTest001);
 
 /**
@@ -83,7 +83,7 @@ IlluminanceProfileAbnormalTest.illuminanceAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('illuminanceAbnormalTest002',
+QUnit.test('illuminanceAbnormalTest002',
     IlluminanceProfileAbnormalTest.illuminanceAbnormalTest002);
 
 /**
@@ -121,5 +121,5 @@ IlluminanceProfileAbnormalTest.illuminanceAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('illuminanceAbnormalTest003',
+QUnit.test('illuminanceAbnormalTest003',
     IlluminanceProfileAbnormalTest.illuminanceAbnormalTest003);

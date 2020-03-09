@@ -1,4 +1,4 @@
-module('SDK Method Test', {
+QUnit.module('SDK Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ SDKMethodTest.checkDeviceConnectTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('checkDeviceConnectTest, non exist parameters.',
+QUnit.test('checkDeviceConnectTest, non exist parameters.',
   SDKMethodTest.checkDeviceConnectTest001);
 
 
@@ -63,7 +63,7 @@ SDKMethodTest.checkDeviceConnectTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback null.',
+QUnit.test('checkDeviceConnectTest,  successCallback null.',
   SDKMethodTest.checkDeviceConnectTest011);
 
 /**
@@ -85,7 +85,7 @@ SDKMethodTest.checkDeviceConnectTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback null.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback null.',
   SDKMethodTest.checkDeviceConnectTest012);
 
 
@@ -113,7 +113,7 @@ SDKMethodTest.checkDeviceConnectTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback undefined.',
+QUnit.test('checkDeviceConnectTest,  successCallback undefined.',
   SDKMethodTest.checkDeviceConnectTest021);
 
 /**
@@ -135,7 +135,7 @@ SDKMethodTest.checkDeviceConnectTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback undefined.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback undefined.',
   SDKMethodTest.checkDeviceConnectTest022);
 
 
@@ -163,7 +163,7 @@ SDKMethodTest.checkDeviceConnectTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback number.',
+QUnit.test('checkDeviceConnectTest,  successCallback number.',
   SDKMethodTest.checkDeviceConnectTest031);
 
 /**
@@ -185,7 +185,7 @@ SDKMethodTest.checkDeviceConnectTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback number.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback number.',
   SDKMethodTest.checkDeviceConnectTest032);
 
 
@@ -213,7 +213,7 @@ SDKMethodTest.checkDeviceConnectTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback aplphabet.',
+QUnit.test('checkDeviceConnectTest,  successCallback aplphabet.',
   SDKMethodTest.checkDeviceConnectTest041);
 
 /**
@@ -235,7 +235,7 @@ SDKMethodTest.checkDeviceConnectTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback aplphabet.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback aplphabet.',
   SDKMethodTest.checkDeviceConnectTest042);
 
 
@@ -263,7 +263,7 @@ SDKMethodTest.checkDeviceConnectTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback hiragana.',
+QUnit.test('checkDeviceConnectTest,  successCallback hiragana.',
   SDKMethodTest.checkDeviceConnectTest051);
 
 /**
@@ -285,7 +285,7 @@ SDKMethodTest.checkDeviceConnectTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback hiragana.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback hiragana.',
   SDKMethodTest.checkDeviceConnectTest052);
 
 
@@ -313,7 +313,7 @@ SDKMethodTest.checkDeviceConnectTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback symbol.',
+QUnit.test('checkDeviceConnectTest,  successCallback symbol.',
   SDKMethodTest.checkDeviceConnectTest061);
 
 /**
@@ -336,7 +336,7 @@ SDKMethodTest.checkDeviceConnectTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback symbol.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback symbol.',
   SDKMethodTest.checkDeviceConnectTest062);
 
 
@@ -365,7 +365,7 @@ SDKMethodTest.checkDeviceConnectTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest,  successCallback limit.',
+QUnit.test('checkDeviceConnectTest,  successCallback limit.',
   SDKMethodTest.checkDeviceConnectTest071);
 
 /**
@@ -388,7 +388,7 @@ SDKMethodTest.checkDeviceConnectTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('checkDeviceConnectTest, successCallback and errorCallback limit.',
+QUnit.test('checkDeviceConnectTest, successCallback and errorCallback limit.',
   SDKMethodTest.checkDeviceConnectTest072);
 
 

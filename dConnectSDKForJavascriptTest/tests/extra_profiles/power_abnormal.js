@@ -1,4 +1,4 @@
-module('Power Profile Abnormal Test', {
+QUnit.module('Power Profile Abnormal Test', {
   setup: function() {
     init();
   }
@@ -44,4 +44,4 @@ PowerProfileAbnormalTest.powerStatusAbnormalTest001 = function(assert) {
 		QUnit.start();
 	});
 };
-QUnit.asyncTest('GetPowerStatusAbnormalTest001', PowerProfileAbnormalTest.powerStatusAbnormalTest001);
+QUnit.test('GetPowerStatusAbnormalTest001', PowerProfileAbnormalTest.powerStatusAbnormalTest001);

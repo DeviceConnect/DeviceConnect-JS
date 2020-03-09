@@ -1,4 +1,4 @@
-module('MessageHook Profile Normal Test', {
+QUnit.module('MessageHook Profile Normal Test', {
     setup: function() {
         init();
     }
@@ -39,7 +39,7 @@ MessageHookProfileNormalTest.channelTest001 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('channelTest001', MessageHookProfileNormalTest.channelTest001);
+QUnit.test('channelTest001', MessageHookProfileNormalTest.channelTest001);
 
 /**
  * メッセージを送信を取得するテストを行う。
@@ -66,7 +66,7 @@ MessageHookProfileNormalTest.messageTest001 = function(assert) {
         return false;
     });
 };
-QUnit.asyncTest('messageTest001', MessageHookProfileNormalTest.messageTest001);
+QUnit.test('messageTest001', MessageHookProfileNormalTest.messageTest001);
 
 
 /**
@@ -100,7 +100,7 @@ MessageHookProfileNormalTest.messageTest002 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest002', MessageHookProfileNormalTest.messageTest002);
+QUnit.test('messageTest002', MessageHookProfileNormalTest.messageTest002);
 
 /**
  * リソース付きのメッセージを送信を取得するテストを行う。
@@ -134,7 +134,7 @@ MessageHookProfileNormalTest.messageTest003 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest003', MessageHookProfileNormalTest.messageTest003);
+QUnit.test('messageTest003', MessageHookProfileNormalTest.messageTest003);
 
 /**
  * 1000文字のメッセージを送信を取得するテストを行う。
@@ -176,7 +176,7 @@ MessageHookProfileNormalTest.messageTest004 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest004', MessageHookProfileNormalTest.messageTest004);
+QUnit.test('messageTest004', MessageHookProfileNormalTest.messageTest004);
 
 /**
  * 特殊文字を含むメッセージを送信を取得するテストを行う。
@@ -209,4 +209,4 @@ MessageHookProfileNormalTest.messageTest005 = function(assert) {
       QUnit.start();
   });
 };
-QUnit.asyncTest('messageTest005', MessageHookProfileNormalTest.messageTest005);
+QUnit.test('messageTest005', MessageHookProfileNormalTest.messageTest005);

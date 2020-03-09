@@ -1,4 +1,4 @@
-module('Mouse Profile Normal Test', {
+QUnit.module('Mouse Profile Normal Test', {
     setup: function() {
         init();
     }
@@ -39,7 +39,7 @@ MouseProfileNormalTest.mouseTest001 = function(assert) {
   });
 
 };
-QUnit.asyncTest('mouseTest001', MouseProfileNormalTest.mouseTest001);
+QUnit.test('mouseTest001', MouseProfileNormalTest.mouseTest001);
 
 /**
  * マウス情報を送信するテストを行う。
@@ -72,7 +72,7 @@ MouseProfileNormalTest.mouseTest002 = function(assert) {
   });
 
 };
-QUnit.asyncTest('mouseTest002', MouseProfileNormalTest.mouseTest002);
+QUnit.test('mouseTest002', MouseProfileNormalTest.mouseTest002);
 
 
 /**
@@ -106,7 +106,7 @@ MouseProfileNormalTest.clickTest001 = function(assert) {
   });
 
 };
-QUnit.asyncTest('clickTest001', MouseProfileNormalTest.clickTest001);
+QUnit.test('clickTest001', MouseProfileNormalTest.clickTest001);
 
 
 /**
@@ -140,4 +140,4 @@ MouseProfileNormalTest.doubleClickTest001 = function(assert) {
   });
 
 };
-QUnit.asyncTest('doubleClickTest001', MouseProfileNormalTest.doubleClickTest001);
+QUnit.test('doubleClickTest001', MouseProfileNormalTest.doubleClickTest001);

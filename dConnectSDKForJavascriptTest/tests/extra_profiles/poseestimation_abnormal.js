@@ -1,4 +1,4 @@
-module("PoseEstimation Profile Abnormal Test", {
+QUnit.module("PoseEstimation Profile Abnormal Test", {
     setup: function () {
         init();
     }
@@ -47,5 +47,5 @@ PoseEstimationProfileAbnormalTest.poseAbormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("pose", PoseEstimationProfileAbnormalTest.poseAbormalTest);
+QUnit.test("pose", PoseEstimationProfileAbnormalTest.poseAbormalTest);
 

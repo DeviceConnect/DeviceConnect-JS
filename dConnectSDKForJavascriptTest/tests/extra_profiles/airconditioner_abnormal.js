@@ -1,4 +1,4 @@
-module('AirConditionerProfileAbnormalTest', {
+QUnit.module('AirConditionerProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ AirConditionerProfileAbnormalTest.airconditionerAbnormalTest001 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('airconditionerAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('airconditionerAbnormalTest001(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.airconditionerAbnormalTest001);
 
 /**
@@ -85,7 +85,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest001 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('powerSavingAbnormalTest001(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest001);
 
 /**
@@ -125,7 +125,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest002 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest002(Calling a delete method that does not support.)',
+QUnit.test('powerSavingAbnormalTest002(Calling a delete method that does not support.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest002);
 
     /// null
@@ -172,7 +172,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest003 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest003(operationpowersaving is null.)',
+QUnit.test('powerSavingAbnormalTest003(operationpowersaving is null.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest003);
 
 /**
@@ -211,7 +211,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest004 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest004(operationpowersaving is undefined.)',
+QUnit.test('powerSavingAbnormalTest004(operationpowersaving is undefined.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest004);
 
 /**
@@ -250,7 +250,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest005 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest005(operationpowersaving is number.)',
+QUnit.test('powerSavingAbnormalTest005(operationpowersaving is number.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest005);
 
 /**
@@ -289,7 +289,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest006 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest006(operationpowersaving is alphabet.)',
+QUnit.test('powerSavingAbnormalTest006(operationpowersaving is alphabet.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest006);
 
 /**
@@ -328,7 +328,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest007 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest007(operationpowersaving is hiragana.)',
+QUnit.test('powerSavingAbnormalTest007(operationpowersaving is hiragana.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest007);
 
 /**
@@ -367,7 +367,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest008 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest008(operationpowersaving is symbol.)',
+QUnit.test('powerSavingAbnormalTest008(operationpowersaving is symbol.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest008);
 
 /**
@@ -407,7 +407,7 @@ AirConditionerProfileAbnormalTest.powerSavingAbnormalTest009 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('powerSavingAbnormalTest009(operationpowersaving is limit.)',
+QUnit.test('powerSavingAbnormalTest009(operationpowersaving is limit.)',
     AirConditionerProfileAbnormalTest.powerSavingAbnormalTest009);
 
 /**
@@ -447,7 +447,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest001 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('ModeSettingAbnormalTest001(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest001);
 
 /**
@@ -487,7 +487,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest002 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest002(Calling a delete method that does not support.)',
+QUnit.test('ModeSettingAbnormalTest002(Calling a delete method that does not support.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest002);
 
     /// null
@@ -534,7 +534,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest003 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest003(operationmodesetting is null.)',
+QUnit.test('ModeSettingAbnormalTest003(operationmodesetting is null.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest003);
 
 /**
@@ -573,7 +573,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest004 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest004(operationmodesetting is undefined.)',
+QUnit.test('ModeSettingAbnormalTest004(operationmodesetting is undefined.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest004);
 
 /**
@@ -612,7 +612,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest005 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest005(operationmodesetting is number.)',
+QUnit.test('ModeSettingAbnormalTest005(operationmodesetting is number.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest005);
 
 /**
@@ -651,7 +651,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest006 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest006(operationmodesetting is alphabet.)',
+QUnit.test('ModeSettingAbnormalTest006(operationmodesetting is alphabet.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest006);
 
 /**
@@ -690,7 +690,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest007 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest007(operationmodesetting is hiragana.)',
+QUnit.test('ModeSettingAbnormalTest007(operationmodesetting is hiragana.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest007);
 
 /**
@@ -729,7 +729,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest008 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest008(operationmodesetting is symbol.)',
+QUnit.test('ModeSettingAbnormalTest008(operationmodesetting is symbol.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest008);
 
 /**
@@ -769,7 +769,7 @@ AirConditionerProfileAbnormalTest.modeSettingAbnormalTest009 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('ModeSettingAbnormalTest009(operationmodesetting is limit.)',
+QUnit.test('ModeSettingAbnormalTest009(operationmodesetting is limit.)',
     AirConditionerProfileAbnormalTest.modeSettingAbnormalTest009);
 
 /**
@@ -808,7 +808,7 @@ AirConditionerProfileAbnormalTest.roomTemperatureAbnormalTest001 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('roomTemperatureAbnormalTest001(Calling a put method that does not support.)',
+QUnit.test('roomTemperatureAbnormalTest001(Calling a put method that does not support.)',
     AirConditionerProfileAbnormalTest.roomTemperatureAbnormalTest001);
 
 /**
@@ -847,7 +847,7 @@ AirConditionerProfileAbnormalTest.roomTemperatureAbnormalTest002 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('roomTemperatureAbnormalTest(Calling a post method that does not support.)',
+QUnit.test('roomTemperatureAbnormalTest(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.roomTemperatureAbnormalTest002);
 
 /**
@@ -886,7 +886,7 @@ AirConditionerProfileAbnormalTest.roomTemperatureAbnormalTest003 = function(asse
     QUnit.start();
   });
 };
-QUnit.asyncTest('roomTemperatureAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('roomTemperatureAbnormalTest003(Calling a delete method that does not support.)',
     AirConditionerProfileAbnormalTest.roomTemperatureAbnormalTest003);
 
 /**
@@ -926,7 +926,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest001 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('temperatureAbnormalTest001(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest001);
 
 /**
@@ -966,7 +966,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest002 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest002(Calling a delete method that does not support.)',
+QUnit.test('temperatureAbnormalTest002(Calling a delete method that does not support.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest002);
 
     /// null
@@ -1013,7 +1013,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest003 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest003(temperature is null.)',
+QUnit.test('temperatureAbnormalTest003(temperature is null.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest003);
 
 /**
@@ -1052,7 +1052,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest004 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest004(temperature is undefined.)',
+QUnit.test('temperatureAbnormalTest004(temperature is undefined.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest004);
 
 /**
@@ -1091,7 +1091,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest005 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest005(temperature is number.)',
+QUnit.test('temperatureAbnormalTest005(temperature is number.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest005);
 
 /**
@@ -1130,7 +1130,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest006 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest006(temperature is alphabet.)',
+QUnit.test('temperatureAbnormalTest006(temperature is alphabet.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest006);
 
 /**
@@ -1169,7 +1169,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest007 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest007(temperature is hiragana.)',
+QUnit.test('temperatureAbnormalTest007(temperature is hiragana.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest007);
 
 /**
@@ -1208,7 +1208,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest008 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest008(temperature is symbol.)',
+QUnit.test('temperatureAbnormalTest008(temperature is symbol.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest008);
 
 /**
@@ -1248,7 +1248,7 @@ AirConditionerProfileAbnormalTest.temperatureAbnormalTest009 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureAbnormalTest009(temperature is limit.)',
+QUnit.test('temperatureAbnormalTest009(temperature is limit.)',
     AirConditionerProfileAbnormalTest.temperatureAbnormalTest009);
 
 /**
@@ -1288,7 +1288,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest001(Calling a post method that does not support.)',
+QUnit.test('airflowAbnormalTest001(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest001);
 
 /**
@@ -1328,7 +1328,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest002(Calling a delete method that does not support.)',
+QUnit.test('airflowAbnormalTest002(Calling a delete method that does not support.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest002);
 
     /// null
@@ -1375,7 +1375,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest003(airflow is null.)',
+QUnit.test('airflowAbnormalTest003(airflow is null.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest003);
 
 /**
@@ -1414,7 +1414,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest004(airflow is undefined.)',
+QUnit.test('airflowAbnormalTest004(airflow is undefined.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest004);
 
 /**
@@ -1453,7 +1453,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest005(airflow is number.)',
+QUnit.test('airflowAbnormalTest005(airflow is number.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest005);
 
 /**
@@ -1492,7 +1492,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest006(airflow is alphabet.)',
+QUnit.test('airflowAbnormalTest006(airflow is alphabet.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest006);
 
 /**
@@ -1531,7 +1531,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest007(airflow is hiragana.)',
+QUnit.test('airflowAbnormalTest007(airflow is hiragana.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest007);
 
 /**
@@ -1570,7 +1570,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest008(airflow is symbol.)',
+QUnit.test('airflowAbnormalTest008(airflow is symbol.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest008);
 
 /**
@@ -1610,7 +1610,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest009(airflow is limit.)',
+QUnit.test('airflowAbnormalTest009(airflow is limit.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest009);
 
 /**
@@ -1649,7 +1649,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest010(airflowauto is null.)',
+QUnit.test('airflowAbnormalTest010(airflowauto is null.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest010);
 
 /**
@@ -1688,7 +1688,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest011(airflowauto is undefined.)',
+QUnit.test('airflowAbnormalTest011(airflowauto is undefined.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest011);
 
 /**
@@ -1727,7 +1727,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest012(airflowauto is number.)',
+QUnit.test('airflowAbnormalTest012(airflowauto is number.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest012);
 
 /**
@@ -1766,7 +1766,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest013(airflowauto is alphabet.)',
+QUnit.test('airflowAbnormalTest013(airflowauto is alphabet.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest013);
 
 /**
@@ -1805,7 +1805,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest014(airflowauto is hiragana.)',
+QUnit.test('airflowAbnormalTest014(airflowauto is hiragana.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest014);
 
 /**
@@ -1844,7 +1844,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest015 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest015(airflowauto is symbol.)',
+QUnit.test('airflowAbnormalTest015(airflowauto is symbol.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest015);
 
 /**
@@ -1884,7 +1884,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest016 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest016(airflowauto is limit.)',
+QUnit.test('airflowAbnormalTest016(airflowauto is limit.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest016);
 
 /**
@@ -1923,7 +1923,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest017 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest017(airflowauto is false, airflowvalue is not set.)',
+QUnit.test('airflowAbnormalTest017(airflowauto is false, airflowvalue is not set.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest017);
 
 /**
@@ -1961,7 +1961,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest018 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest018(airflowauto, airflowvalue is not set.)',
+QUnit.test('airflowAbnormalTest018(airflowauto, airflowvalue is not set.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest018);
 
 /**
@@ -2001,7 +2001,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest019 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest019(airflowauto is false, airflowvalue is out of range.)',
+QUnit.test('airflowAbnormalTest019(airflowauto is false, airflowvalue is out of range.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest019);
 
 /**
@@ -2041,7 +2041,7 @@ AirConditionerProfileAbnormalTest.airflowAbnormalTest020 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('airflowAbnormalTest020(airflowauto is false, airflowvalue is out of range.)',
+QUnit.test('airflowAbnormalTest020(airflowauto is false, airflowvalue is out of range.)',
     AirConditionerProfileAbnormalTest.airflowAbnormalTest020);
 
 /**
@@ -2081,7 +2081,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest001 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTestt001(Calling a post method that does not support.)',
+QUnit.test('enlPropertyAbnormalTestt001(Calling a post method that does not support.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest001);
 
 /**
@@ -2121,7 +2121,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest002 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest002(Calling a delete method that does not support.)',
+QUnit.test('enlPropertyAbnormalTest002(Calling a delete method that does not support.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest002);
 
     /// null
@@ -2168,7 +2168,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest003 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest003(epc is null.)',
+QUnit.test('enlPropertyAbnormalTest003(epc is null.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest003);
 
 /**
@@ -2207,7 +2207,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest004 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest004(epc is undefined.)',
+QUnit.test('enlPropertyAbnormalTest004(epc is undefined.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest004);
 
 /**
@@ -2246,7 +2246,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest005 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest005(epc is number.)',
+QUnit.test('enlPropertyAbnormalTest005(epc is number.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest005);
 
 /**
@@ -2285,7 +2285,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest006 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest006(epc is alphabet.)',
+QUnit.test('enlPropertyAbnormalTest006(epc is alphabet.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest006);
 
 /**
@@ -2324,7 +2324,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest007 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest007(epc is hiragana.)',
+QUnit.test('enlPropertyAbnormalTest007(epc is hiragana.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest007);
 
 /**
@@ -2363,7 +2363,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest008 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest008(epc is symbol.)',
+QUnit.test('enlPropertyAbnormalTest008(epc is symbol.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest008);
 
 /**
@@ -2403,7 +2403,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest009 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest009(epc is limit.)',
+QUnit.test('enlPropertyAbnormalTest009(epc is limit.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest009);
 
     /// null
@@ -2451,7 +2451,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest010 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest010(epc is null.)',
+QUnit.test('enlPropertyAbnormalTest010(epc is null.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest010);
 
 /**
@@ -2491,7 +2491,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest011 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest011(epc is undefined.)',
+QUnit.test('enlPropertyAbnormalTest011(epc is undefined.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest011);
 
 /**
@@ -2531,7 +2531,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest012 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest012(epc is number.)',
+QUnit.test('enlPropertyAbnormalTest012(epc is number.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest012);
 
 /**
@@ -2571,7 +2571,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest013 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest013(epc is alphabet.)',
+QUnit.test('enlPropertyAbnormalTest013(epc is alphabet.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest013);
 
 /**
@@ -2611,7 +2611,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest014 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest014(epc is hiragana.)',
+QUnit.test('enlPropertyAbnormalTest014(epc is hiragana.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest014);
 
 /**
@@ -2651,7 +2651,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest015 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest015(epc is symbol.)',
+QUnit.test('enlPropertyAbnormalTest015(epc is symbol.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest015);
 
 /**
@@ -2692,7 +2692,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest016 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest016(epc is limit.)',
+QUnit.test('enlPropertyAbnormalTest016(epc is limit.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest016);
 
     /// null
@@ -2740,7 +2740,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest017 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest017(value is null.)',
+QUnit.test('enlPropertyAbnormalTest017(value is null.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest017);
 
 /**
@@ -2780,7 +2780,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest018 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest018(value is undefined.)',
+QUnit.test('enlPropertyAbnormalTest018(value is undefined.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest018);
 
 /**
@@ -2820,7 +2820,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest019 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest019(value is out of range.)',
+QUnit.test('enlPropertyAbnormalTest019(value is out of range.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest019);
 
 /**
@@ -2860,7 +2860,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest020 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest020(value is out of range.)',
+QUnit.test('enlPropertyAbnormalTest020(value is out of range.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest020);
 
 /**
@@ -2900,7 +2900,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest021 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest021(value is alphabet.)',
+QUnit.test('enlPropertyAbnormalTest021(value is alphabet.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest021);
 
 /**
@@ -2940,7 +2940,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest022 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest022(value is hiragana.)',
+QUnit.test('enlPropertyAbnormalTest022(value is hiragana.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest022);
 
 /**
@@ -2980,7 +2980,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest023 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest023(value is symbol.)',
+QUnit.test('enlPropertyAbnormalTest023(value is symbol.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest023);
 
 /**
@@ -3021,7 +3021,7 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest024 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest024(value is limit.)',
+QUnit.test('enlPropertyAbnormalTest024(value is limit.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest024);
 
 /**
@@ -3059,6 +3059,6 @@ AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest025 = function(assert) 
     QUnit.start();
   });
 };
-QUnit.asyncTest('enlPropertyAbnormalTest025(parameter is not set.)',
+QUnit.test('enlPropertyAbnormalTest025(parameter is not set.)',
     AirConditionerProfileAbnormalTest.enlPropertyAbnormalTest025);
 

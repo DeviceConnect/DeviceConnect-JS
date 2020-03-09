@@ -1,4 +1,4 @@
-module('VideoChat Profile Normal Test', {
+QUnit.module('VideoChat Profile Normal Test', {
   setup: function() {
     init();
   }
@@ -103,7 +103,7 @@ VideoChatProfileNormalTest.profileNormalTest001 = function(assert) {
 		QUnit.start();
 	});
 };
-QUnit.asyncTest('profileNormalTest001(get)', VideoChatProfileNormalTest.profileNormalTest001);
+QUnit.test('profileNormalTest001(get)', VideoChatProfileNormalTest.profileNormalTest001);
 
 /**
  * プロフィールを登録するテストを行う。
@@ -151,7 +151,7 @@ VideoChatProfileNormalTest.profileNormalTest002 = function(assert) {
 		QUnit.start();
 	});
 };
-QUnit.asyncTest('profileNormalTest002(put)', VideoChatProfileNormalTest.profileNormalTest002);
+QUnit.test('profileNormalTest002(put)', VideoChatProfileNormalTest.profileNormalTest002);
 
 /**
  * アドレスを取得するテストを行う。
@@ -185,7 +185,7 @@ VideoChatProfileNormalTest.addressNormalTest001 = function(assert) {
 		QUnit.start();
 	});
 };
-QUnit.asyncTest('addressNormalTest001(get)', VideoChatProfileNormalTest.addressNormalTest001);
+QUnit.test('addressNormalTest001(get)', VideoChatProfileNormalTest.addressNormalTest001);
 
 /**
  * addressIdを指定してアドレスを取得するテストを行う。
@@ -241,7 +241,7 @@ VideoChatProfileNormalTest.addressNormalTest002 = function(assert) {
 		QUnit.start();
 	});
 };
-QUnit.asyncTest('addressNormalTest002(addressId is set)', VideoChatProfileNormalTest.addressNormalTest002);
+QUnit.test('addressNormalTest002(addressId is set)', VideoChatProfileNormalTest.addressNormalTest002);
 
 
 /**
@@ -297,7 +297,7 @@ VideoChatProfileNormalTest.callNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callNormalTest001(post)', VideoChatProfileNormalTest.callNormalTest001);
+QUnit.test('callNormalTest001(post)', VideoChatProfileNormalTest.callNormalTest001);
 
 /**
  * videoに画像のURLを指定してcallするテストを行う。
@@ -353,7 +353,7 @@ VideoChatProfileNormalTest.callNormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callNormalTest002(video is image url)', VideoChatProfileNormalTest.callNormalTest002);
+QUnit.test('callNormalTest002(video is image url)', VideoChatProfileNormalTest.callNormalTest002);
 
 /**
  * videoにfalseを指定してcallするテストを行う。
@@ -409,7 +409,7 @@ VideoChatProfileNormalTest.callNormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callNormalTest003(video is false)', VideoChatProfileNormalTest.callNormalTest003);
+QUnit.test('callNormalTest003(video is false)', VideoChatProfileNormalTest.callNormalTest003);
 
 /**
  * audioにuriを指定してcallするテストを行う。
@@ -465,7 +465,7 @@ VideoChatProfileNormalTest.callNormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callNormalTest004(audio is uri)', VideoChatProfileNormalTest.callNormalTest004);
+QUnit.test('callNormalTest004(audio is uri)', VideoChatProfileNormalTest.callNormalTest004);
 
 /**
  * audioにfalseを指定してcallするテストを行う。
@@ -521,7 +521,7 @@ VideoChatProfileNormalTest.callNormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('callNormalTest005(audio is false)', VideoChatProfileNormalTest.callNormalTest005);
+QUnit.test('callNormalTest005(audio is false)', VideoChatProfileNormalTest.callNormalTest005);
 
 /**
  * onincomingイベント登録するテストを行う。
@@ -555,7 +555,7 @@ VideoChatProfileNormalTest.onincomingNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onincomingNormalTest001(event)', VideoChatProfileNormalTest.onincomingNormalTest001);
+QUnit.test('onincomingNormalTest001(event)', VideoChatProfileNormalTest.onincomingNormalTest001);
 
 /**
  * oncallイベント登録するテストを行う。
@@ -597,7 +597,7 @@ VideoChatProfileNormalTest.oncallNormalTest001 = function(assert) {
     });
   }, 500);
 };
-QUnit.asyncTest('oncallNormalTest001(event)', VideoChatProfileNormalTest.oncallNormalTest001);
+QUnit.test('oncallNormalTest001(event)', VideoChatProfileNormalTest.oncallNormalTest001);
 
 /**
  * onhangupイベント登録するテストを行う。
@@ -639,5 +639,5 @@ VideoChatProfileNormalTest.onhangupNormalTest001 = function(assert) {
     });
   }, 500);
 };
-QUnit.asyncTest('onhangupNormalTest001(event)', VideoChatProfileNormalTest.onhangupNormalTest001);
+QUnit.test('onhangupNormalTest001(event)', VideoChatProfileNormalTest.onhangupNormalTest001);
 

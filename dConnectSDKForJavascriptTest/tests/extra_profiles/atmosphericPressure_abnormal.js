@@ -1,4 +1,4 @@
-module('AtmosphericPressureProfileAbnormalTest', {
+QUnit.module('AtmosphericPressureProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest001 = func
     QUnit.start();
   });
 };
-QUnit.asyncTest('atmosphericPressureAbnormalTest001',
+QUnit.test('atmosphericPressureAbnormalTest001',
         AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest001);
 
 /**
@@ -83,7 +83,7 @@ AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest002 = func
     QUnit.start();
   });
 };
-QUnit.asyncTest('atmosphericPressureAbnormalTest002',
+QUnit.test('atmosphericPressureAbnormalTest002',
         AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest002);
 
 /**
@@ -121,5 +121,5 @@ AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest003 = func
     QUnit.start();
   });
 };
-QUnit.asyncTest('atmosphericPressureAbnormalTest003',
+QUnit.test('atmosphericPressureAbnormalTest003',
         AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest003);

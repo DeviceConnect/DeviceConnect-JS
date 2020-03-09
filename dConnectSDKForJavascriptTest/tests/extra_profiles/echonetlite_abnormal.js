@@ -1,4 +1,4 @@
-module('EchonetLiteProfileAbnormalTest', {
+QUnit.module('EchonetLiteProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -46,7 +46,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTestt001(Calling a post method that does not support.)',
+QUnit.test('propertyAbnormalTestt001(Calling a post method that does not support.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest001);
 
 /**
@@ -86,7 +86,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest002(Calling a delete method that does not support.)',
+QUnit.test('propertyAbnormalTest002(Calling a delete method that does not support.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest002);
 
     /// null
@@ -133,7 +133,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest003(epc is null.)',
+QUnit.test('propertyAbnormalTest003(epc is null.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest003);
 
 /**
@@ -172,7 +172,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest004(epc is undefined.)',
+QUnit.test('propertyAbnormalTest004(epc is undefined.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest004);
 
 /**
@@ -211,7 +211,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest005(epc is number.)',
+QUnit.test('propertyAbnormalTest005(epc is number.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest005);
 
 /**
@@ -250,7 +250,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest006(epc is alphabet.)',
+QUnit.test('propertyAbnormalTest006(epc is alphabet.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest006);
 
 /**
@@ -289,7 +289,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest007(epc is hiragana.)',
+QUnit.test('propertyAbnormalTest007(epc is hiragana.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest007);
 
 /**
@@ -328,7 +328,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest008 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest008(epc is symbol.)',
+QUnit.test('propertyAbnormalTest008(epc is symbol.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest008);
 
 /**
@@ -368,7 +368,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest009 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest009(epc is limit.)',
+QUnit.test('propertyAbnormalTest009(epc is limit.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest009);
 
     /// null
@@ -416,7 +416,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest010 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest010(epc is null.)',
+QUnit.test('propertyAbnormalTest010(epc is null.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest010);
 
 /**
@@ -456,7 +456,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest011 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest011(epc is undefined.)',
+QUnit.test('propertyAbnormalTest011(epc is undefined.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest011);
 
 /**
@@ -496,7 +496,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest012(epc is number.)',
+QUnit.test('propertyAbnormalTest012(epc is number.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest012);
 
 /**
@@ -536,7 +536,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest013 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest013(epc is alphabet.)',
+QUnit.test('propertyAbnormalTest013(epc is alphabet.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest013);
 
 /**
@@ -576,7 +576,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest014 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest014(epc is hiragana.)',
+QUnit.test('propertyAbnormalTest014(epc is hiragana.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest014);
 
 /**
@@ -616,7 +616,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest015 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest015(epc is symbol.)',
+QUnit.test('propertyAbnormalTest015(epc is symbol.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest015);
 
 /**
@@ -657,7 +657,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest016 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest016(epc is limit.)',
+QUnit.test('propertyAbnormalTest016(epc is limit.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest016);
 
     /// null
@@ -705,7 +705,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest017 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest017(value is null.)',
+QUnit.test('propertyAbnormalTest017(value is null.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest017);
 
 /**
@@ -745,7 +745,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest018 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest018(value is undefined.)',
+QUnit.test('propertyAbnormalTest018(value is undefined.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest018);
 
 /**
@@ -785,7 +785,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest019 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest019(value is out of range.)',
+QUnit.test('propertyAbnormalTest019(value is out of range.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest019);
 
 /**
@@ -825,7 +825,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest020 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest020(value is out of range.)',
+QUnit.test('propertyAbnormalTest020(value is out of range.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest020);
 
 /**
@@ -865,7 +865,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest021 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest021(value is alphabet.)',
+QUnit.test('propertyAbnormalTest021(value is alphabet.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest021);
 
 /**
@@ -905,7 +905,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest022 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest022(value is hiragana.)',
+QUnit.test('propertyAbnormalTest022(value is hiragana.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest022);
 
 /**
@@ -945,7 +945,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest023 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest023(value is symbol.)',
+QUnit.test('propertyAbnormalTest023(value is symbol.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest023);
 
 /**
@@ -986,7 +986,7 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest024 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest024(value is limit.)',
+QUnit.test('propertyAbnormalTest024(value is limit.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest024);
 
 /**
@@ -1024,6 +1024,6 @@ EchonetLiteProfileAbnormalTest.propertyAbnormalTest025 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('propertyAbnormalTest025(parameter is not set.)',
+QUnit.test('propertyAbnormalTest025(parameter is not set.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest025);
 

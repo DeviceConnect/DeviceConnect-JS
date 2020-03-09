@@ -1,5 +1,5 @@
-module('Touch Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Touch Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Touch Profile Abnormal Test', {
  * Touchプロファイルの正常系テストを行うクラス。
  * @class
  */
-var TouchProfileAbnormalTest = {};
+let TouchProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドでタッチ通知イベントにアクセスするテストを行う。
@@ -24,30 +24,21 @@ var TouchProfileAbnormalTest = {};
  * </p>
  */
 TouchProfileAbnormalTest.onTouchAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onTouchAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchAbnormalTest001);
+QUnit.test('onTouchAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでタッチ開始通知イベントにアクセスするテストを行う。
@@ -63,30 +54,21 @@ QUnit.asyncTest('onTouchAbnormalTest001(post)', TouchProfileAbnormalTest.onTouch
  * </p>
  */
 TouchProfileAbnormalTest.onTouchStartAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_START);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_START,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onTouchStartAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchStartAbnormalTest001);
+QUnit.test('onTouchStartAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchStartAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでタッチ終了通知イベントにアクセスするテストを行う。
@@ -102,30 +84,21 @@ QUnit.asyncTest('onTouchStartAbnormalTest001(post)', TouchProfileAbnormalTest.on
  * </p>
  */
 TouchProfileAbnormalTest.onTouchEndAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_END);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_END,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onTouchEndAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchEndAbnormalTest001);
+QUnit.test('onTouchEndAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchEndAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでタッチ通知イベントにアクセスするテストを行う。
@@ -141,30 +114,21 @@ QUnit.asyncTest('onTouchEndAbnormalTest001(post)', TouchProfileAbnormalTest.onTo
  * </p>
  */
 TouchProfileAbnormalTest.onDoubleTapAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_DOUBLE_TAP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_DOUBLE_TAP,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onDoubleTapAbnormalTest001(post)', TouchProfileAbnormalTest.onDoubleTapAbnormalTest001);
+QUnit.test('onDoubleTapAbnormalTest001(post)', TouchProfileAbnormalTest.onDoubleTapAbnormalTest001);
 ;
 
 /**
@@ -181,30 +145,21 @@ QUnit.asyncTest('onDoubleTapAbnormalTest001(post)', TouchProfileAbnormalTest.onD
  * </p>
  */
 TouchProfileAbnormalTest.onTouchMoveAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_MOVE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_MOVE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onTouchMoveAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchMoveAbnormalTest001);
+QUnit.test('onTouchMoveAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchMoveAbnormalTest001);
 
 
 /**
@@ -221,30 +176,21 @@ QUnit.asyncTest('onTouchMoveAbnormalTest001(post)', TouchProfileAbnormalTest.onT
  * </p>
  */
 TouchProfileAbnormalTest.onTouchCancelAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CANCEL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_CANCEL,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onTouchCancelAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchCancelAbnormalTest001);
+QUnit.test('onTouchCancelAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchCancelAbnormalTest001);
 
 
 /**
@@ -261,27 +207,18 @@ QUnit.asyncTest('onTouchCancelAbnormalTest001(post)', TouchProfileAbnormalTest.o
  * </p>
  */
 TouchProfileAbnormalTest.onTouchChangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.touch.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.touch.ATTR_ON_TOUCH_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.touch.PROFILE_NAME,
+    attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_CHANGE,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onTouchChangeAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchChangeAbnormalTest001);
+QUnit.test('onTouchChangeAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchChangeAbnormalTest001);

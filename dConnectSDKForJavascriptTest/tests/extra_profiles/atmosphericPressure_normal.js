@@ -1,4 +1,4 @@
-module('AtmosphericPressureProfileNormalTest', {
+QUnit.module('AtmosphericPressureProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -43,5 +43,5 @@ AtmosphericPressureProfileNormalTest.atmosphericPressureNormalTest001 = function
     QUnit.start();
   });
 };
-QUnit.asyncTest('atmosphericPressureNormalTest001',
+QUnit.test('atmosphericPressureNormalTest001',
         AtmosphericPressureProfileNormalTest.atmosphericPressureNormalTest001);

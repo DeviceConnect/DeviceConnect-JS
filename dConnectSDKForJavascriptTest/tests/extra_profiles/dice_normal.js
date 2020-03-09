@@ -1,4 +1,4 @@
-module('DiceProfileNormalTest', {
+QUnit.module('DiceProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -36,7 +36,7 @@ DiceProfileNormalTest.ondiceNormalTest = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
+QUnit.test('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
 
 /**
  * 磁力センサー値を通知するイベント
@@ -67,5 +67,5 @@ DiceProfileNormalTest.onmagnetometerNormalTest = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onmagnetometerNormalTest.',
+QUnit.test('onmagnetometerNormalTest.',
     DiceProfileNormalTest.onmagnetometerNormalTest);

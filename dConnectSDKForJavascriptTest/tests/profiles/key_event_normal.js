@@ -1,5 +1,5 @@
-module('KeyEvent Profile Normal Test', {
-  setup: function() {
+QUnit.module('KeyEvent Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,14 +8,14 @@ module('KeyEvent Profile Normal Test', {
  * Touchプロファイルの正常系テストを行うクラス。
  * @class
  */
-var KeyEventProfileNormalTest = {};
+let KeyEventProfileNormalTest = {};
 
 /**
  * KeyEventプロファイルのondownを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /keyevent/ondown?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /keyEvent/ondown?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -24,27 +24,28 @@ var KeyEventProfileNormalTest = {};
  * </p>
  */
 KeyEventProfileNormalTest.ondownNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.keyevent.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.keyevent.ATTR_ON_DOWN);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.keyevent.PROFILE_NAME && 
-        json.attribute === dConnect.constants.keyevent.ATTR_ON_DOWN) {
+  let params = {
+    profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_DOWN
+  };
+  openWebsocket(params, assert, 5000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnect.constants.keyEvent.PROFILE_NAME &&
+        json.attribute === dConnect.constants.keyEvent.ATTR_ON_DOWN) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('ondownNormalTest001', KeyEventProfileNormalTest.ondownNormalTest001);
+QUnit.test('ondownNormalTest001', KeyEventProfileNormalTest.ondownNormalTest001);
 
 /**
  * KeyEventプロファイルのonupを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /keyevent/onup?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /keyEvent/onup?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -52,20 +53,21 @@ QUnit.asyncTest('ondownNormalTest001', KeyEventProfileNormalTest.ondownNormalTes
  * </p>
  */
 KeyEventProfileNormalTest.onupNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.keyevent.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.keyevent.ATTR_ON_UP);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.keyevent.PROFILE_NAME && 
-        json.attribute === dConnect.constants.keyevent.ATTR_ON_UP) {
+  let params = {
+    profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_UP
+  };
+  openWebsocket(params, assert, 5000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnect.constants.keyEvent.PROFILE_NAME &&
+        json.attribute === dConnect.constants.keyEvent.ATTR_ON_UP) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('onupNormalTest001', KeyEventProfileNormalTest.onupNormalTest001);
+QUnit.test('onupNormalTest001', KeyEventProfileNormalTest.onupNormalTest001);
 
 
 /**
@@ -73,7 +75,7 @@ QUnit.asyncTest('onupNormalTest001', KeyEventProfileNormalTest.onupNormalTest001
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: PUT, DELETE<br/>
- * Path: /keyevent/onkeychange?serviceId=xxx&accessToken=xxx<br/>
+ * Path: /keyEvent/onkeychange?serviceId=xxx&accessToken=xxx<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -81,18 +83,18 @@ QUnit.asyncTest('onupNormalTest001', KeyEventProfileNormalTest.onupNormalTest001
  * </p>
  */
 KeyEventProfileNormalTest.onkeychangeNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.keyevent.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.keyevent.ATTR_ON_KEY_CHANGE);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.keyevent.PROFILE_NAME && 
-        json.attribute === dConnect.constants.keyevent.ATTR_ON_KEY_CHANGE) {
+  let params = {
+    profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_KEY_CHANGE
+  };
+  openWebsocket(params, assert, 5000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnect.constants.keyEvent.PROFILE_NAME &&
+        json.attribute === dConnect.constants.keyEvent.ATTR_ON_KEY_CHANGE) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('onkeychangeNormalTest001', KeyEventProfileNormalTest.onkeychangeNormalTest001);
-
+QUnit.test('onkeychangeNormalTest001', KeyEventProfileNormalTest.onkeychangeNormalTest001);

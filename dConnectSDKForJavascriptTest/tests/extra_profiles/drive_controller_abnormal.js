@@ -1,4 +1,4 @@
-module('DriveControllerProfileAbnormalTest', {
+QUnit.module('DriveControllerProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -49,7 +49,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest001(get not support method.)',
+QUnit.test('moveAbnormalTest001(get not support method.)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest001);
 
 /**
@@ -90,7 +90,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest002(put not support method.)',
+QUnit.test('moveAbnormalTest002(put not support method.)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest002);
 
 /**
@@ -131,7 +131,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest003(delete not support method.)',
+QUnit.test('moveAbnormalTest003(delete not support method.)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest003);
 
 /**
@@ -170,7 +170,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest004(angle and speed not set)',
+QUnit.test('moveAbnormalTest004(angle and speed not set)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest004);
 
 /**
@@ -211,7 +211,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
     }
   });
 };
-QUnit.asyncTest('moveAbnormalTest005(Set string in angle and speed.)',
+QUnit.test('moveAbnormalTest005(Set string in angle and speed.)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest005);
 
 /**
@@ -252,7 +252,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest006(Set big number in angle and speed.)',
+QUnit.test('moveAbnormalTest006(Set big number in angle and speed.)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest006);
 
 /**
@@ -293,7 +293,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest007(Set a string in angle and speed.)',
+QUnit.test('moveAbnormalTest007(Set a string in angle and speed.)',
     DriveControllerProfileAbnormalTest.moveAbnormalTest007);
 
 
@@ -335,7 +335,7 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest012 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('moveAbnormalTest012',
+QUnit.test('moveAbnormalTest012',
     DriveControllerProfileAbnormalTest.moveAbnormalTest012);
 
 
@@ -376,7 +376,7 @@ DriveControllerProfileAbnormalTest.stopAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest001(Calling a get method that does not support.)',
+QUnit.test('stopAbnormalTest001(Calling a get method that does not support.)',
     DriveControllerProfileAbnormalTest.stopAbnormalTest001);
 
 /**
@@ -415,7 +415,7 @@ DriveControllerProfileAbnormalTest.stopAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest002(Calling a put method that does not support.)',
+QUnit.test('stopAbnormalTest002(Calling a put method that does not support.)',
     DriveControllerProfileAbnormalTest.stopAbnormalTest002);
 
 /**
@@ -454,7 +454,7 @@ DriveControllerProfileAbnormalTest.stopAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('stopAbnormalTest003(Calling a post method that does not support.)',
+QUnit.test('stopAbnormalTest003(Calling a post method that does not support.)',
     DriveControllerProfileAbnormalTest.stopAbnormalTest003);
 
 /**
@@ -494,7 +494,7 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest001(Calling a get method that does not support.)',
+QUnit.test('rotateAbnormalTest001(Calling a get method that does not support.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest001);
 
 /**
@@ -534,7 +534,7 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest002(Calling a post method that does not support.)',
+QUnit.test('rotateAbnormalTest002(Calling a post method that does not support.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest002);
 
 /**
@@ -574,7 +574,7 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest003 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('rotateAbnormalTest003(Calling a delete method that does not support.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest003);
 
 /**
@@ -613,7 +613,7 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest004 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest004(Calling a put method without setting of angle.)',
+QUnit.test('rotateAbnormalTest004(Calling a put method without setting of angle.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest004);
 
 /**
@@ -653,7 +653,7 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest005 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest005(Calling a put method with angle=あいうえお.)',
+QUnit.test('rotateAbnormalTest005(Calling a put method with angle=あいうえお.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest005);
 
 /**
@@ -693,7 +693,7 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest006 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest006(Calling a put method with angle=12345.)',
+QUnit.test('rotateAbnormalTest006(Calling a put method with angle=12345.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest006);
 
 /**
@@ -733,6 +733,6 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest007 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('rotateAbnormalTest007(Calling a put method with angle=abc.)',
+QUnit.test('rotateAbnormalTest007(Calling a put method with angle=abc.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest007);
 

@@ -1,4 +1,4 @@
-module('Delete Method Test', {
+QUnit.module('Delete Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -34,7 +34,7 @@ DeleteMethodTest.deleteTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('deleteTest, non exist parameters.',
+QUnit.test('deleteTest, non exist parameters.',
   DeleteMethodTest.deleteTest001);
 
 /**
@@ -58,7 +58,7 @@ DeleteMethodTest.deleteTest002 = function(assert) {
   }
 
 };
-QUnit.asyncTest('deleteTest, non exist parameters. and origin',
+QUnit.test('deleteTest, non exist parameters. and origin',
   DeleteMethodTest.deleteTest002);
 
 /// null
@@ -88,7 +88,7 @@ DeleteMethodTest.deleteTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest,  uri and header null.',
+QUnit.test('deleteTest,  uri and header null.',
   DeleteMethodTest.deleteTest011);
 
 /**
@@ -112,7 +112,7 @@ DeleteMethodTest.deleteTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header and successCallback  null.',
+QUnit.test('deleteTest, uri and header and successCallback  null.',
   DeleteMethodTest.deleteTest012);
 
 /**
@@ -134,7 +134,7 @@ DeleteMethodTest.deleteTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback null.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback null.',
   DeleteMethodTest.deleteTest013);
 
 /**
@@ -157,7 +157,7 @@ DeleteMethodTest.deleteTest014 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback and origin null.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback and origin null.',
   DeleteMethodTest.deleteTest014);
 
 /// undefined
@@ -185,7 +185,7 @@ DeleteMethodTest.deleteTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header undefined.',
+QUnit.test('deleteTest, uri and header undefined.',
   DeleteMethodTest.deleteTest021);
 
 /**
@@ -208,7 +208,7 @@ DeleteMethodTest.deleteTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest,uri and header and successCallback undefined.',
+QUnit.test('deleteTest,uri and header and successCallback undefined.',
   DeleteMethodTest.deleteTest022);
 
 /**
@@ -230,7 +230,7 @@ DeleteMethodTest.deleteTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest,uri and header successCallback and errorCallback undefined.',
+QUnit.test('deleteTest,uri and header successCallback and errorCallback undefined.',
   DeleteMethodTest.deleteTest023);
 
 /**
@@ -253,7 +253,7 @@ DeleteMethodTest.deleteTest024 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest,uri and header successCallback and errorCallback and origin undefined.',
+QUnit.test('deleteTest,uri and header successCallback and errorCallback and origin undefined.',
   DeleteMethodTest.deleteTest024);
 
 /// 数字
@@ -281,7 +281,7 @@ DeleteMethodTest.deleteTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest,  uri and header number.',
+QUnit.test('deleteTest,  uri and header number.',
   DeleteMethodTest.deleteTest031);
 
 /**
@@ -304,7 +304,7 @@ DeleteMethodTest.deleteTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header and successCallback number.',
+QUnit.test('deleteTest, uri and header and successCallback number.',
   DeleteMethodTest.deleteTest032);
 
 /**
@@ -326,7 +326,7 @@ DeleteMethodTest.deleteTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback number.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback number.',
   DeleteMethodTest.deleteTest033);
 
 /**
@@ -349,7 +349,7 @@ DeleteMethodTest.deleteTest034 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback and Origin number.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback and Origin number.',
   DeleteMethodTest.deleteTest034);
 
 /// 英字
@@ -377,7 +377,7 @@ DeleteMethodTest.deleteTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header alphabet.',
+QUnit.test('deleteTest, uri and header alphabet.',
   DeleteMethodTest.deleteTest041);
 
 /**
@@ -400,7 +400,7 @@ DeleteMethodTest.deleteTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header and successCallback alphabet.',
+QUnit.test('deleteTest, uri and header and successCallback alphabet.',
   DeleteMethodTest.deleteTest042);
 
 /**
@@ -422,7 +422,7 @@ DeleteMethodTest.deleteTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback alphabet.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback alphabet.',
   DeleteMethodTest.deleteTest043);
 
 /**
@@ -445,7 +445,7 @@ DeleteMethodTest.deleteTest044 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback and origin alphabet.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback and origin alphabet.',
   DeleteMethodTest.deleteTest044);
 
 
@@ -475,7 +475,7 @@ DeleteMethodTest.deleteTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header hiragana.',
+QUnit.test('deleteTest, uri and header hiragana.',
   DeleteMethodTest.deleteTest051);
 
 /**
@@ -498,7 +498,7 @@ DeleteMethodTest.deleteTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header and successCallback hiragana.',
+QUnit.test('deleteTest, uri and header and successCallback hiragana.',
   DeleteMethodTest.deleteTest052);
 
 /**
@@ -520,7 +520,7 @@ DeleteMethodTest.deleteTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback hiragana.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback hiragana.',
   DeleteMethodTest.deleteTest053);
 
 /**
@@ -543,7 +543,7 @@ DeleteMethodTest.deleteTest054 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback and origin hiragana.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback and origin hiragana.',
   DeleteMethodTest.deleteTest054);
 
 
@@ -574,7 +574,7 @@ DeleteMethodTest.deleteTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header symbol.',
+QUnit.test('deleteTest, uri and header symbol.',
   DeleteMethodTest.deleteTest061);
 
 /**
@@ -600,7 +600,7 @@ DeleteMethodTest.deleteTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header and successCallback symbol.',
+QUnit.test('deleteTest, uri and header and successCallback symbol.',
   DeleteMethodTest.deleteTest062);
 
 /**
@@ -625,7 +625,7 @@ DeleteMethodTest.deleteTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback symbol.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback symbol.',
   DeleteMethodTest.deleteTest063);
 
 /**
@@ -651,7 +651,7 @@ DeleteMethodTest.deleteTest064 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback and origin symbol.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback and origin symbol.',
   DeleteMethodTest.deleteTest064);
 
 
@@ -683,7 +683,7 @@ DeleteMethodTest.deleteTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest,  uri and header limit.',
+QUnit.test('deleteTest,  uri and header limit.',
   DeleteMethodTest.deleteTest071);
 
 /**
@@ -709,7 +709,7 @@ DeleteMethodTest.deleteTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header and successCallback limit.',
+QUnit.test('deleteTest, uri and header and successCallback limit.',
   DeleteMethodTest.deleteTest072);
 
 /**
@@ -734,7 +734,7 @@ DeleteMethodTest.deleteTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback limit.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback limit.',
   DeleteMethodTest.deleteTest073);
 
 
@@ -761,7 +761,7 @@ DeleteMethodTest.deleteTest074 = function(assert) {
   }
 };
 
-QUnit.asyncTest('deleteTest, uri and header successCallback and errorCallback and origin limit.',
+QUnit.test('deleteTest, uri and header successCallback and errorCallback and origin limit.',
   DeleteMethodTest.deleteTest074);
 
 

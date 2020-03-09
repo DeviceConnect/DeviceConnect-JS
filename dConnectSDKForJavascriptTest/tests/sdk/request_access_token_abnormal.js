@@ -1,4 +1,4 @@
-module('Request AccessToken Method Test', {
+QUnit.module('Request AccessToken Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('requestAccessTokenTest, non exist parameters.',
+QUnit.test('requestAccessTokenTest, non exist parameters.',
   RequestAccessTokenMethodTest.requestAccessTokenTest001);
 
 
@@ -66,7 +66,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope null.',
+QUnit.test('requestAccessTokenTest,  clientId and scope null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest011);
 
 /**
@@ -92,7 +92,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback  null.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback  null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest012);
 
 /**
@@ -114,7 +114,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback null.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest013);
 
 /**
@@ -137,7 +137,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest014 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array null.',
+QUnit.test('requestAccessTokenTest, scope array null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest014);
 
 
@@ -170,7 +170,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope undefined.',
+QUnit.test('requestAccessTokenTest, clientId and scope undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest021);
 
 /**
@@ -196,7 +196,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback undefined.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest022);
 
 /**
@@ -218,7 +218,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback undefined.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest023);
 
 /**
@@ -241,7 +241,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest024 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array undefined.',
+QUnit.test('requestAccessTokenTest, scope array undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest024);
 
 
@@ -274,7 +274,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope number.',
+QUnit.test('requestAccessTokenTest, clientId and scope number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest031);
 
 /**
@@ -300,7 +300,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback number.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest032);
 
 /**
@@ -322,7 +322,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback number.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest033);
 
 /**
@@ -345,7 +345,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest034 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array  number.',
+QUnit.test('requestAccessTokenTest, scope array  number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest034);
 
 
@@ -378,7 +378,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope alphabet.',
+QUnit.test('requestAccessTokenTest,  clientId and scope alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest041);
 
 /**
@@ -404,7 +404,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback alphabet.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest042);
 
 /**
@@ -426,7 +426,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest043);
 
 /**
@@ -449,7 +449,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest044 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest044);
 
 
@@ -483,7 +483,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope hiragana.',
+QUnit.test('requestAccessTokenTest,  clientId and scope hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest051);
 
 /**
@@ -509,7 +509,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback hiragana.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest052);
 
 /**
@@ -531,7 +531,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback hiragana.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest053);
 
 /**
@@ -554,7 +554,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest054 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array hiragana.',
+QUnit.test('requestAccessTokenTest, scope array hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest054);
 
 
@@ -589,7 +589,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope symbol.',
+QUnit.test('requestAccessTokenTest,  clientId and scope symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest061);
 
 /**
@@ -618,7 +618,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback symbol.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest062);
 
 /**
@@ -643,7 +643,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback symbol.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest063);
 
 /**
@@ -669,7 +669,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest064 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array symbol.',
+QUnit.test('requestAccessTokenTest, scope array symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest064);
 
 
@@ -705,7 +705,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope limit.',
+QUnit.test('requestAccessTokenTest,  clientId and scope limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest071);
 
 /**
@@ -734,7 +734,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback limit.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest072);
 
 /**
@@ -759,7 +759,7 @@ RequestAccessTokenMethodTest.requestAccessTokenTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scopes successCallback and errorCallback limit.',
+QUnit.test('requestAccessTokenTest, clientId and scopes successCallback and errorCallback limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest073);
 
 
@@ -785,6 +785,6 @@ RequestAccessTokenMethodTest.requestAccessTokenTest074 = function(assert) {
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array limit.',
+QUnit.test('requestAccessTokenTest, scope array limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest074);
 

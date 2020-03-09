@@ -1,4 +1,4 @@
-module('HumanDetection Profile Abnormal Test', {
+QUnit.module('HumanDetection Profile Abnormal Test', {
   setup: function() {
     init();
   }
@@ -48,7 +48,7 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest001(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001);
+QUnit.test('onCallErrorPostApiAbnormalTest001(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
@@ -88,7 +88,7 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest002(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002);
+QUnit.test('onCallErrorPostApiAbnormalTest002(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002);
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -127,7 +127,7 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
+QUnit.test('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
 
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
@@ -167,7 +167,7 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
+QUnit.test('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
 
 /**
  * intervalに非常に桁の大きな数値を入力してonDetectionにアクセスするテストを行う。
@@ -207,7 +207,7 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001);
 
 /**
@@ -247,7 +247,7 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002);
 
 /**
@@ -296,7 +296,7 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003);
 
 /**
@@ -345,7 +345,7 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004);
 
 /**
@@ -394,7 +394,7 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005);
 
 /*---------------------------------------------------------------------*/
@@ -437,7 +437,7 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001);
 
 /**
@@ -477,7 +477,7 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002);
 
 /**
@@ -526,7 +526,7 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003);
 
 /**
@@ -575,7 +575,7 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004);
 
 /**
@@ -624,7 +624,7 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005);
 
 
@@ -666,7 +666,7 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001);
 
 /**
@@ -706,7 +706,7 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002);
 
 /**
@@ -755,7 +755,7 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003);
 
 /**
@@ -804,7 +804,7 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004);
 
 /**
@@ -853,7 +853,7 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005);
 
 
@@ -895,7 +895,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001);
 
 /**
@@ -935,7 +935,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002);
 
 /**
@@ -984,7 +984,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003);
 
 /**
@@ -1033,7 +1033,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004);
 
 /**
@@ -1082,7 +1082,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005);
 
 
@@ -1124,7 +1124,7 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001);
 
 /**
@@ -1164,7 +1164,7 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002);
 
 /**
@@ -1213,7 +1213,7 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003);
 
 /**
@@ -1262,7 +1262,7 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004);
 
 /**
@@ -1311,7 +1311,7 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005);
 
 /**
@@ -1352,7 +1352,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001);
 
 /**
@@ -1392,7 +1392,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002);
 
 /**
@@ -1441,7 +1441,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003);
 
 /**
@@ -1490,7 +1490,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004);
 
 /**
@@ -1539,7 +1539,7 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005);
 
 /*---------------------------------------------------------------------*/
@@ -1582,7 +1582,7 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001);
 
 /**
@@ -1622,7 +1622,7 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002);
 
 /**
@@ -1671,7 +1671,7 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003);
 
 /**
@@ -1720,7 +1720,7 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004);
 
 /**
@@ -1769,7 +1769,7 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005);
 
 
@@ -1811,7 +1811,7 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001);
 
 /**
@@ -1851,7 +1851,7 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002);
 
 /**
@@ -1900,7 +1900,7 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003);
 
 /**
@@ -1949,7 +1949,7 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004);
 
 /**
@@ -1998,7 +1998,7 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005);
 
 
@@ -2040,7 +2040,7 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001);
 
 /**
@@ -2080,7 +2080,7 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002);
 
 /**
@@ -2129,7 +2129,7 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003);
 
 /**
@@ -2178,7 +2178,7 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004);
 
 /**
@@ -2227,7 +2227,7 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005);
 
 
@@ -2269,7 +2269,7 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001);
 
 /**
@@ -2309,7 +2309,7 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002);
 
 /**
@@ -2358,7 +2358,7 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003);
 
 /**
@@ -2407,7 +2407,7 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004);
 
 /**
@@ -2456,7 +2456,7 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005);
 
 /**
@@ -2497,7 +2497,7 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001);
 
 /**
@@ -2537,7 +2537,7 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002);
 
 /**
@@ -2586,7 +2586,7 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003);
 
 /**
@@ -2635,7 +2635,7 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004);
 
 /**
@@ -2684,7 +2684,7 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005);
 
 /*---------------------------------------------------------------------*/
@@ -2727,7 +2727,7 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001);
 
 /**
@@ -2767,7 +2767,7 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002);
 
 /**
@@ -2816,7 +2816,7 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003);
 
 /**
@@ -2865,7 +2865,7 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004);
 
 /**
@@ -2914,7 +2914,7 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005);
 
 
@@ -2956,7 +2956,7 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001);
 
 /**
@@ -2996,7 +2996,7 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002);
 
 /**
@@ -3045,7 +3045,7 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003);
 
 /**
@@ -3094,7 +3094,7 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004);
 
 /**
@@ -3143,7 +3143,7 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005);
 
 
@@ -3185,7 +3185,7 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001);
 
 /**
@@ -3225,7 +3225,7 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002);
 
 /**
@@ -3274,7 +3274,7 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003);
 
 /**
@@ -3323,7 +3323,7 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004);
 
 /**
@@ -3372,7 +3372,7 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005 = function(assert)
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005);
 
 
@@ -3414,7 +3414,7 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001);
 
 /**
@@ -3454,7 +3454,7 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002);
 
 /**
@@ -3503,7 +3503,7 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003);
 
 /**
@@ -3552,7 +3552,7 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004);
 
 /**
@@ -3601,7 +3601,7 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005);
 
 /**
@@ -3642,7 +3642,7 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001);
 
 /**
@@ -3682,7 +3682,7 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002);
 
 /**
@@ -3731,7 +3731,7 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003);
 
 /**
@@ -3780,7 +3780,7 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004);
 
 /**
@@ -3829,7 +3829,7 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005 = function(assert
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005);
 
 
@@ -3871,7 +3871,7 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001);
 
 /**
@@ -3911,7 +3911,7 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002);
 
 /**
@@ -3960,7 +3960,7 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003);
 
 /**
@@ -4009,7 +4009,7 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004);
 
 /**
@@ -4058,7 +4058,7 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005);
 
 
@@ -4100,7 +4100,7 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest001(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest001(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001);
 
 /**
@@ -4140,7 +4140,7 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest002(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest002(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002);
 
 /**
@@ -4189,7 +4189,7 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest003(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest003(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003);
 
 /**
@@ -4238,7 +4238,7 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest004(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest004(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004);
 
 /**
@@ -4287,7 +4287,7 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest005(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest005(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005);
 
 
@@ -4329,7 +4329,7 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001);
 
 /**
@@ -4369,7 +4369,7 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002);
 
 /**
@@ -4417,7 +4417,7 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003);
 
 /**
@@ -4466,7 +4466,7 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004);
 
 /**
@@ -4515,7 +4515,7 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005);
 
 
@@ -4557,7 +4557,7 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001);
 
 /**
@@ -4597,7 +4597,7 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002);
 
 /**
@@ -4646,7 +4646,7 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003);
 
 /**
@@ -4695,7 +4695,7 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004);
 
 /**
@@ -4744,7 +4744,7 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005 = function(a
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005);
 
 
@@ -4786,7 +4786,7 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001);
 
 /**
@@ -4826,7 +4826,7 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002);
 
 /**
@@ -4875,7 +4875,7 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003);
 
 /**
@@ -4924,7 +4924,7 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004);
 
 /**
@@ -4973,7 +4973,7 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005 = function(ass
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005);
 
 
@@ -5015,7 +5015,7 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest001(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest001(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001);
 
 /**
@@ -5055,7 +5055,7 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest002(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest002(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002);
 
 /**
@@ -5104,7 +5104,7 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest003(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest003(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003);
 
 /**
@@ -5153,7 +5153,7 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest004(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest004(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004);
 
 /**
@@ -5202,7 +5202,7 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005 = function(
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest005(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest005(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005);
 
 
@@ -5244,7 +5244,7 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001 = fu
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001);
 
 /**
@@ -5285,7 +5285,7 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002 = fu
   });
 
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002);
 
 /**
@@ -5334,7 +5334,7 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003 = fu
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003);
 
 /**
@@ -5383,7 +5383,7 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004 = fu
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004);
 
 /**
@@ -5432,7 +5432,7 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005 = fu
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005);
 
 
@@ -5474,7 +5474,7 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest001(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest001(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001);
 
 /**
@@ -5514,7 +5514,7 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest002(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest002(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002);
 
 /**
@@ -5563,7 +5563,7 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest003(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest003(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003);
 
 /**
@@ -5612,7 +5612,7 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest004(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest004(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004);
 
 /**
@@ -5661,7 +5661,7 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005 = function(as
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest005(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest005(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005);
 
 
@@ -5703,7 +5703,7 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest001(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest001(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001);
 
 /**
@@ -5743,7 +5743,7 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest002(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest002(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002);
 
 /**
@@ -5792,7 +5792,7 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest003(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest003(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003);
 
 /**
@@ -5841,7 +5841,7 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest004(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest004(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004);
 
 /**
@@ -5890,5 +5890,5 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005 = funct
     QUnit.start();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest005(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest005(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005);

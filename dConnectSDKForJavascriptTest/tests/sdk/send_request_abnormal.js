@@ -1,4 +1,4 @@
-module('Send Request Method Test', {
+QUnit.module('Send Request Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ SendRequestMethodTest.sendRequestTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('sendRequestTest, non exist parameters.',
+QUnit.test('sendRequestTest, non exist parameters.',
   SendRequestMethodTest.sendRequestTest001);
 
 /**
@@ -59,7 +59,7 @@ SendRequestMethodTest.sendRequestTest002 = function(assert) {
   }
 
 };
-QUnit.asyncTest('sendRequestTest, non exist parameters and origin.',
+QUnit.test('sendRequestTest, non exist parameters and origin.',
   SendRequestMethodTest.sendRequestTest002);
 
 
@@ -88,7 +88,7 @@ SendRequestMethodTest.sendRequestTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data null.',
+QUnit.test('sendRequestTest, method and uri and header and data null.',
   SendRequestMethodTest.sendRequestTest011);
 
 /**
@@ -111,7 +111,7 @@ SendRequestMethodTest.sendRequestTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  null.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  null.',
   SendRequestMethodTest.sendRequestTest012);
 
 /**
@@ -133,7 +133,7 @@ SendRequestMethodTest.sendRequestTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback null.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback null.',
   SendRequestMethodTest.sendRequestTest013);
 
 
@@ -157,7 +157,7 @@ SendRequestMethodTest.sendRequestTest014 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and origin null.',
   SendRequestMethodTest.sendRequestTest014);
 
@@ -186,7 +186,7 @@ SendRequestMethodTest.sendRequestTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data undefined.',
+QUnit.test('sendRequestTest, method and uri and header and data undefined.',
   SendRequestMethodTest.sendRequestTest021);
 
 /**
@@ -209,7 +209,7 @@ SendRequestMethodTest.sendRequestTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  undefined.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  undefined.',
   SendRequestMethodTest.sendRequestTest022);
 
 /**
@@ -231,7 +231,7 @@ SendRequestMethodTest.sendRequestTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback undefined.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback undefined.',
   SendRequestMethodTest.sendRequestTest023);
 
 
@@ -255,7 +255,7 @@ SendRequestMethodTest.sendRequestTest024 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin undefined.',
   SendRequestMethodTest.sendRequestTest024);
 
@@ -284,7 +284,7 @@ SendRequestMethodTest.sendRequestTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data number.',
+QUnit.test('sendRequestTest, method and uri and header and data number.',
   SendRequestMethodTest.sendRequestTest031);
 
 /**
@@ -307,7 +307,7 @@ SendRequestMethodTest.sendRequestTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  number.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  number.',
   SendRequestMethodTest.sendRequestTest032);
 
 /**
@@ -329,7 +329,7 @@ SendRequestMethodTest.sendRequestTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback number.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback number.',
   SendRequestMethodTest.sendRequestTest033);
 
 /**
@@ -352,7 +352,7 @@ SendRequestMethodTest.sendRequestTest034 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and origin number.',
   SendRequestMethodTest.sendRequestTest034);
 
@@ -381,7 +381,7 @@ SendRequestMethodTest.sendRequestTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data alphabet.',
+QUnit.test('sendRequestTest, method and uri and header and data alphabet.',
   SendRequestMethodTest.sendRequestTest041);
 
 /**
@@ -404,7 +404,7 @@ SendRequestMethodTest.sendRequestTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  alphabet.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  alphabet.',
   SendRequestMethodTest.sendRequestTest042);
 
 /**
@@ -426,7 +426,7 @@ SendRequestMethodTest.sendRequestTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback alphabet.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback alphabet.',
   SendRequestMethodTest.sendRequestTest043);
 
 /**
@@ -449,7 +449,7 @@ SendRequestMethodTest.sendRequestTest044 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin alphabet.',
   SendRequestMethodTest.sendRequestTest044);
 
@@ -478,7 +478,7 @@ SendRequestMethodTest.sendRequestTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data hiragana.',
+QUnit.test('sendRequestTest, method and uri and header and data hiragana.',
   SendRequestMethodTest.sendRequestTest051);
 
 /**
@@ -501,7 +501,7 @@ SendRequestMethodTest.sendRequestTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  hiragana.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  hiragana.',
   SendRequestMethodTest.sendRequestTest052);
 
 /**
@@ -523,7 +523,7 @@ SendRequestMethodTest.sendRequestTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback hiragana.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback hiragana.',
   SendRequestMethodTest.sendRequestTest053);
 
 /**
@@ -546,7 +546,7 @@ SendRequestMethodTest.sendRequestTest054 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin hiragana.',
   SendRequestMethodTest.sendRequestTest054);
 
@@ -580,7 +580,7 @@ SendRequestMethodTest.sendRequestTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,  method and uri and header and data symbol.',
+QUnit.test('sendRequestTest,  method and uri and header and data symbol.',
   SendRequestMethodTest.sendRequestTest061);
 
 /**
@@ -608,7 +608,7 @@ SendRequestMethodTest.sendRequestTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,method and uri and header and data and successCallback  symbol.',
+QUnit.test('sendRequestTest,method and uri and header and data and successCallback  symbol.',
   SendRequestMethodTest.sendRequestTest062);
 
 /**
@@ -635,7 +635,7 @@ SendRequestMethodTest.sendRequestTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback symbol.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback symbol.',
   SendRequestMethodTest.sendRequestTest063);
 
 /**
@@ -663,7 +663,7 @@ SendRequestMethodTest.sendRequestTest064 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin symbol.',
   SendRequestMethodTest.sendRequestTest064);
 
@@ -696,7 +696,7 @@ SendRequestMethodTest.sendRequestTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data limit.',
+QUnit.test('sendRequestTest, method and uri and header and data limit.',
   SendRequestMethodTest.sendRequestTest071);
 
 /**
@@ -723,7 +723,7 @@ SendRequestMethodTest.sendRequestTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,method and uri and header and data and successCallback  limit.',
+QUnit.test('sendRequestTest,method and uri and header and data and successCallback  limit.',
   SendRequestMethodTest.sendRequestTest072);
 
 /**
@@ -749,7 +749,7 @@ SendRequestMethodTest.sendRequestTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback limit.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback limit.',
   SendRequestMethodTest.sendRequestTest073);
 
 /**
@@ -776,7 +776,7 @@ SendRequestMethodTest.sendRequestTest074 = function(assert) {
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and origin limit.',
   SendRequestMethodTest.sendRequestTest074);
 

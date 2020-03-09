@@ -1,4 +1,4 @@
-module("Health Profile Abnormal Test", {
+QUnit.module("Health Profile Abnormal Test", {
     setup: function () {
         init();
     }
@@ -46,7 +46,7 @@ HealthProfileAbnormalTest.heartAbormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("heart", HealthProfileAbnormalTest.heartAbormalTest);
+QUnit.test("heart", HealthProfileAbnormalTest.heartAbormalTest);
 
 /**
  * 定義されていないPOSTメソッドで心拍数にアクセスするテストを行う。
@@ -84,4 +84,4 @@ HealthProfileAbnormalTest.onHeartAbormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("onheart", HealthProfileAbnormalTest.onHeartAbormalTest);
+QUnit.test("onheart", HealthProfileAbnormalTest.onHeartAbormalTest);

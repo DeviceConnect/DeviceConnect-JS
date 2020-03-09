@@ -1,4 +1,4 @@
-module('TemperatureProfileNormalTest', {
+QUnit.module('TemperatureProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -42,7 +42,7 @@ TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureNormalTest001',
+QUnit.test('temperatureNormalTest001',
     TemperatureProfileNormalTest.allNormalTest001);
 
 /**
@@ -76,5 +76,5 @@ TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('temperatureNormalTest001',
+QUnit.test('temperatureNormalTest001',
     TemperatureProfileNormalTest.allNormalTest001);

@@ -1,4 +1,4 @@
-module('HumidityProfileNormalTest', {
+QUnit.module('HumidityProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -41,5 +41,5 @@ HumidityProfileNormalTest.humidityNormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('humidityNormalTest001',
+QUnit.test('humidityNormalTest001',
     HumidityProfileNormalTest.humidityNormalTest001);

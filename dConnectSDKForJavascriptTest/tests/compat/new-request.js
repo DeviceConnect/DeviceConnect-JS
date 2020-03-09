@@ -1,4 +1,4 @@
-module('Device Connect API Compatibility Test', {
+QUnit.module('Device Connect API Compatibility Test', {
     setup: function() {
     }
 });

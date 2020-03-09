@@ -1,4 +1,4 @@
-module("Health Profile Normal Test", {
+QUnit.module("Health Profile Normal Test", {
     setup: function () {
         init();
     }
@@ -44,7 +44,7 @@ HealthProfileNormalTest.heartNormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("heart", HealthProfileNormalTest.heartNormalTest);
+QUnit.test("heart", HealthProfileNormalTest.heartNormalTest);
 
 /**
  * Healthプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -73,7 +73,7 @@ HealthProfileNormalTest.heartEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("heartEventNormalTest001", HealthProfileNormalTest.heartEventNormalTest001);
+QUnit.test("heartEventNormalTest001", HealthProfileNormalTest.heartEventNormalTest001);
 
 
 
@@ -110,7 +110,7 @@ HealthProfileNormalTest.onheartNormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("onHeart", HealthProfileNormalTest.onheartNormalTest);
+QUnit.test("onHeart", HealthProfileNormalTest.onheartNormalTest);
 
 /**
  * Healthプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -139,4 +139,4 @@ HealthProfileNormalTest.onheartEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("onheartEventNormalTest001", HealthProfileNormalTest.onheartEventNormalTest001);
+QUnit.test("onheartEventNormalTest001", HealthProfileNormalTest.onheartEventNormalTest001);

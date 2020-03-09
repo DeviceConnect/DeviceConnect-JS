@@ -1,4 +1,4 @@
-module('SpheroProfileAbnormalTest', {
+QUnit.module('SpheroProfileAbnormalTest', {
   setup: function() {
     init();
   }
@@ -47,7 +47,7 @@ SpheroProfileAbnormalTest.onQuaternionAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('onQuaternionAbnormalTest001',
+QUnit.test('onQuaternionAbnormalTest001',
     SpheroProfileAbnormalTest.onQuaternionAbnormalTest001);
 
 /**
@@ -87,7 +87,7 @@ SpheroProfileAbnormalTest.onLocatorAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('onLocatorAbnormalTest001',
+QUnit.test('onLocatorAbnormalTest001',
     SpheroProfileAbnormalTest.onLocatorAbnormalTest001);
 
 /**
@@ -128,5 +128,5 @@ SpheroProfileAbnormalTest.onCollisionAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('onCollisionAbnormalTest001',
+QUnit.test('onCollisionAbnormalTest001',
     SpheroProfileAbnormalTest.onCollisionAbnormalTest001);

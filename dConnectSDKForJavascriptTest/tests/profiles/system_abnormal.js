@@ -1,5 +1,5 @@
-module('System Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('System Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('System Profile Abnormal Test', {
  * Systemプロファイルの異常系テストを行うクラス。
  * @class
  */
-var SystemProfileAbnormalTest = {};
+let SystemProfileAbnormalTest = {};
 
 /**
  * 定義されていないPUTメソッドでスマートフォンのシステム情報にアクセスするテストを行う。
@@ -24,29 +24,21 @@ var SystemProfileAbnormalTest = {};
  * </p>
  */
 SystemProfileAbnormalTest.systemAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
 
-QUnit.asyncTest('systemAbnormalTest001(put)', SystemProfileAbnormalTest.systemAbnormalTest001);
+QUnit.test('systemAbnormalTest001(put)', SystemProfileAbnormalTest.systemAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでスマートフォンのシステム情報にアクセスするテストを行う。
@@ -62,28 +54,20 @@ QUnit.asyncTest('systemAbnormalTest001(put)', SystemProfileAbnormalTest.systemAb
  * </p>
  */
 SystemProfileAbnormalTest.systemAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemAbnormalTest002);
+QUnit.test('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでスマートフォンのシステム情報にアクセスするテストを行う。
@@ -99,28 +83,20 @@ QUnit.asyncTest('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemA
  * </p>
  */
 SystemProfileAbnormalTest.systemAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('systemAbnormalTest003(DELETE)', SystemProfileAbnormalTest.systemAbnormalTest003);
+QUnit.test('systemAbnormalTest003(DELETE)', SystemProfileAbnormalTest.systemAbnormalTest003);
 
 /**
  * 非サポートなPUTプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -136,29 +112,22 @@ QUnit.asyncTest('systemAbnormalTest003(DELETE)', SystemProfileAbnormalTest.syste
  * </p>
  */
 SystemProfileAbnormalTest.systemDeviceAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_DEVICE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('systemDeviceAbnormalTest(put)', SystemProfileAbnormalTest.systemDeviceAbnormalTest001);
+QUnit.test('systemDeviceAbnormalTest(put)',
+    SystemProfileAbnormalTest.systemDeviceAbnormalTest001);
 
 /**
  * 非サポートなPOSTプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -174,29 +143,21 @@ QUnit.asyncTest('systemDeviceAbnormalTest(put)', SystemProfileAbnormalTest.syste
  * </p>
  */
 SystemProfileAbnormalTest.systemDeviceAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_DEVICE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemDeviceAbnormalTest002);
+QUnit.test('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemDeviceAbnormalTest002);
 
 /**
  * 非サポートなDELETEプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -212,29 +173,22 @@ QUnit.asyncTest('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemD
  * </p>
  */
 SystemProfileAbnormalTest.systemDeviceAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_DEVICE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('systemDeviceAbnormalTest(delete)', SystemProfileAbnormalTest.systemDeviceAbnormalTest003);
+QUnit.test('systemDeviceAbnormalTest(delete)',
+      SystemProfileAbnormalTest.systemDeviceAbnormalTest003);
 
 /**
  * 非サポートなGETプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -249,29 +203,22 @@ QUnit.asyncTest('systemDeviceAbnormalTest(delete)', SystemProfileAbnormalTest.sy
  * </p>
  */
 SystemProfileAbnormalTest.systemWakeupAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('systemWakeupAbnormalTest001(get)', SystemProfileAbnormalTest.systemWakeupAbnormalTest001);
+QUnit.test('systemWakeupAbnormalTest001(get)', SystemProfileAbnormalTest.systemWakeupAbnormalTest001);
 
 /**
  * 非サポートなPOSTプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -286,29 +233,22 @@ QUnit.asyncTest('systemWakeupAbnormalTest001(get)', SystemProfileAbnormalTest.sy
  * </p>
  */
 SystemProfileAbnormalTest.systemWakeupAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('systemWakeupAbnormalTest002(post)', SystemProfileAbnormalTest.systemWakeupAbnormalTest002);
+QUnit.test('systemWakeupAbnormalTest002(post)', SystemProfileAbnormalTest.systemWakeupAbnormalTest002);
 
 /**
  * 非サポートなDELETEプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -323,29 +263,23 @@ QUnit.asyncTest('systemWakeupAbnormalTest002(post)', SystemProfileAbnormalTest.s
  * </p>
  */
 SystemProfileAbnormalTest.systemWakeupAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('systemWakeupAbnormalTest003(delete)', SystemProfileAbnormalTest.systemWakeupAbnormalTest003);
+QUnit.test('systemWakeupAbnormalTest003(delete)',
+      SystemProfileAbnormalTest.systemWakeupAbnormalTest003);
 
 /**
  * 非サポートなPOSTプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -360,30 +294,22 @@ QUnit.asyncTest('systemWakeupAbnormalTest003(delete)', SystemProfileAbnormalTest
  * </p>
  */
 SystemProfileAbnormalTest.onEventsAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_EVENTS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    attribute: dConnectSDK.constants.system.ATTRI_EVENTS
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('onEventsAbnormalTest001(Calling a delete method that does not support', SystemProfileAbnormalTest.onEventsAbnormalTest001);
+QUnit.test('onEventsAbnormalTest001(Calling a delete method that does not support',
+  SystemProfileAbnormalTest.onEventsAbnormalTest001);
 
 /**
  * 非サポートなGETプロファイルを指定して対応プロファイル一覧にアクセスするテストを行う。
@@ -398,27 +324,19 @@ QUnit.asyncTest('onEventsAbnormalTest001(Calling a delete method that does not s
  * </p>
  */
 SystemProfileAbnormalTest.onEventsAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.system.ATTRI_EVENTS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    attribute: dConnectSDK.constants.system.ATTRI_EVENTS
+    serviceId: serviceId
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('onEventsAbnormalTest002(Calling a delete method that does not support', SystemProfileAbnormalTest.onEventsAbnormalTest002);
+QUnit.test('onEventsAbnormalTest002(Calling a delete method that does not support',
+      SystemProfileAbnormalTest.onEventsAbnormalTest002);

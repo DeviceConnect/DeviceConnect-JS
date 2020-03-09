@@ -1,4 +1,4 @@
-module('URIBuilder Test', {
+QUnit.module('URIBuilder Test', {
   setup: function() {
     init();
   }
@@ -28,7 +28,7 @@ URIBuilderTest.normalTest001 = function(assert) {
   QUnit.notEqual(builder, null, 'Create builder object.');
   QUnit.start();
 };
-QUnit.asyncTest('Create', URIBuilderTest.normalTest001);
+QUnit.test('Create', URIBuilderTest.normalTest001);
 
 /**
  * /profile/interface/attributが設定した値になっていることを確認する
@@ -54,7 +54,7 @@ URIBuilderTest.normalTest002 = function(assert) {
   QUnit.equal(attribute, 'attribute', 'attribute=' + attribute);
   QUnit.start();
 };
-QUnit.asyncTest('Setter', URIBuilderTest.normalTest002);
+QUnit.test('Setter', URIBuilderTest.normalTest002);
 
 
 /**
@@ -77,7 +77,7 @@ URIBuilderTest.normalTest003 = function(assert) {
   QUnit.start();
 };
 
-QUnit.asyncTest('build', URIBuilderTest.normalTest003);
+QUnit.test('build', URIBuilderTest.normalTest003);
 
 
 /**
@@ -103,7 +103,7 @@ URIBuilderTest.normalTest004 = function(assert) {
   QUnit.equal(uri, dConnect.getBaseDomain() + '/gotapi?serviceId=null&accessToken=null&sessionKey=null&null=null', 'uri=' + uri);
   QUnit.start();
 };
-QUnit.asyncTest('set null', URIBuilderTest.normalTest004);
+QUnit.test('set null', URIBuilderTest.normalTest004);
 
 
 /**
@@ -130,7 +130,7 @@ URIBuilderTest.normalTest005 = function(assert) {
   QUnit.start();
 
 };
-QUnit.asyncTest('set undefined', URIBuilderTest.normalTest005);
+QUnit.test('set undefined', URIBuilderTest.normalTest005);
 
 /**
  * 引数に数字が設定された場合にURIが生成されることを確認するテストを行う。
@@ -156,7 +156,7 @@ URIBuilderTest.normalTest006 = function(assert) {
     'uri=' + uri);
   QUnit.start();
 };
-QUnit.asyncTest('set number', URIBuilderTest.normalTest006);
+QUnit.test('set number', URIBuilderTest.normalTest006);
 
 
 /**
@@ -183,7 +183,7 @@ URIBuilderTest.normalTest007 = function(assert) {
     'uri=' + uri);
   QUnit.start();
 };
-QUnit.asyncTest('set alphabet', URIBuilderTest.normalTest007);
+QUnit.test('set alphabet', URIBuilderTest.normalTest007);
 
 /**
  * 引数に英ひらがなが設定された場合にURIが生成されることを確認するテストを行う。
@@ -212,7 +212,7 @@ URIBuilderTest.normalTest008 = function(assert) {
     'uri=' + uri);
   QUnit.start();
 };
-QUnit.asyncTest('set Hiragana', URIBuilderTest.normalTest008);
+QUnit.test('set Hiragana', URIBuilderTest.normalTest008);
 
 /**
  * 引数に記号が設定された場合にURIが生成されることを確認するテストを行う。
@@ -248,7 +248,7 @@ URIBuilderTest.normalTest009 = function(assert) {
     'uri=' + uri);
   QUnit.start();
 };
-QUnit.asyncTest('set symbol', URIBuilderTest.normalTest009);
+QUnit.test('set symbol', URIBuilderTest.normalTest009);
 
 
 /**
@@ -287,4 +287,4 @@ URIBuilderTest.normalTest010 = function(assert) {
     'uri=' + uri);
   QUnit.start();
 };
-QUnit.asyncTest('set limit', URIBuilderTest.normalTest010);
+QUnit.test('set limit', URIBuilderTest.normalTest010);

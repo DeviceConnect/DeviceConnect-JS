@@ -1,4 +1,4 @@
-module('Post Method Test', {
+QUnit.module('Post Method Test', {
   setup: function() {
     TEST_TIMEOUT = 150000;
     init();
@@ -35,7 +35,7 @@ PostMethodTest.postTest001 = function(assert) {
   }
 
 };
-QUnit.asyncTest('postTest, non exist parameters.',
+QUnit.test('postTest, non exist parameters.',
   PostMethodTest.postTest001);
 
 /**
@@ -59,7 +59,7 @@ PostMethodTest.postTest002 = function(assert) {
   }
 
 };
-QUnit.asyncTest('postTest, non exist parameters and origin.',
+QUnit.test('postTest, non exist parameters and origin.',
   PostMethodTest.postTest002);
 
 
@@ -88,7 +88,7 @@ PostMethodTest.postTest011 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data null.',
+QUnit.test('postTest,  uri and header and data null.',
   PostMethodTest.postTest011);
 
 /**
@@ -111,7 +111,7 @@ PostMethodTest.postTest012 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  null.',
+QUnit.test('postTest, uri and header and data and successCallback  null.',
   PostMethodTest.postTest012);
 
 /**
@@ -133,7 +133,7 @@ PostMethodTest.postTest013 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback null.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback null.',
   PostMethodTest.postTest013);
 
 /**
@@ -156,7 +156,7 @@ PostMethodTest.postTest014 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin null.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin null.',
   PostMethodTest.postTest014);
 
 /// undefined
@@ -184,7 +184,7 @@ PostMethodTest.postTest021 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data undefined.',
+QUnit.test('postTest,  uri and header and data undefined.',
   PostMethodTest.postTest021);
 
 /**
@@ -207,7 +207,7 @@ PostMethodTest.postTest022 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  undefined.',
+QUnit.test('postTest, uri and header and data and successCallback  undefined.',
   PostMethodTest.postTest022);
 
 /**
@@ -229,7 +229,7 @@ PostMethodTest.postTest023 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback undefined.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback undefined.',
   PostMethodTest.postTest023);
 
 /**
@@ -252,7 +252,7 @@ PostMethodTest.postTest024 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin undefined.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin undefined.',
   PostMethodTest.postTest024);
 
 /// 数字
@@ -280,7 +280,7 @@ PostMethodTest.postTest031 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data number.',
+QUnit.test('postTest,  uri and header and data number.',
   PostMethodTest.postTest031);
 
 /**
@@ -303,7 +303,7 @@ PostMethodTest.postTest032 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  number.',
+QUnit.test('postTest, uri and header and data and successCallback  number.',
   PostMethodTest.postTest032);
 
 /**
@@ -325,7 +325,7 @@ PostMethodTest.postTest033 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback number.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback number.',
   PostMethodTest.postTest033);
 
 /**
@@ -348,7 +348,7 @@ PostMethodTest.postTest034 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin number.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin number.',
   PostMethodTest.postTest034);
 
 
@@ -378,7 +378,7 @@ PostMethodTest.postTest041 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data alphabet.',
+QUnit.test('postTest,  uri and header and data alphabet.',
   PostMethodTest.postTest041);
 
 /**
@@ -401,7 +401,7 @@ PostMethodTest.postTest042 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  alphabet.',
+QUnit.test('postTest, uri and header and data and successCallback  alphabet.',
   PostMethodTest.postTest042);
 
 /**
@@ -423,7 +423,7 @@ PostMethodTest.postTest043 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback alphabet.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback alphabet.',
   PostMethodTest.postTest043);
 
 /**
@@ -446,7 +446,7 @@ PostMethodTest.postTest044 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin alphabet.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin alphabet.',
   PostMethodTest.postTest044);
 
 
@@ -475,7 +475,7 @@ PostMethodTest.postTest051 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data hiragana.',
+QUnit.test('postTest,  uri and header and data hiragana.',
   PostMethodTest.postTest051);
 
 /**
@@ -498,7 +498,7 @@ PostMethodTest.postTest052 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  hiragana.',
+QUnit.test('postTest, uri and header and data and successCallback  hiragana.',
   PostMethodTest.postTest052);
 
 /**
@@ -520,7 +520,7 @@ PostMethodTest.postTest053 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback hiragana.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback hiragana.',
   PostMethodTest.postTest053);
 
 /**
@@ -542,7 +542,7 @@ PostMethodTest.postTest054 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin hiragana.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin hiragana.',
   PostMethodTest.postTest054);
 
 /// 記号
@@ -573,7 +573,7 @@ PostMethodTest.postTest061 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data symbol.',
+QUnit.test('postTest,  uri and header and data symbol.',
   PostMethodTest.postTest061);
 
 /**
@@ -600,7 +600,7 @@ PostMethodTest.postTest062 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  symbol.',
+QUnit.test('postTest, uri and header and data and successCallback  symbol.',
   PostMethodTest.postTest062);
 
 /**
@@ -626,7 +626,7 @@ PostMethodTest.postTest063 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback symbol.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback symbol.',
   PostMethodTest.postTest063);
 
 /**
@@ -653,7 +653,7 @@ PostMethodTest.postTest064 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin symbol.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin symbol.',
   PostMethodTest.postTest064);
 
 
@@ -685,7 +685,7 @@ PostMethodTest.postTest071 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest,  uri and header and data limit.',
+QUnit.test('postTest,  uri and header and data limit.',
   PostMethodTest.postTest071);
 
 /**
@@ -712,7 +712,7 @@ PostMethodTest.postTest072 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data and successCallback  limit.',
+QUnit.test('postTest, uri and header and data and successCallback  limit.',
   PostMethodTest.postTest072);
 
 /**
@@ -738,7 +738,7 @@ PostMethodTest.postTest073 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback limit.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback limit.',
   PostMethodTest.postTest073);
 
 
@@ -766,5 +766,5 @@ PostMethodTest.postTest074 = function(assert) {
   }
 };
 
-QUnit.asyncTest('postTest, uri and header and data successCallback and errorCallback and origin limit.',
+QUnit.test('postTest, uri and header and data successCallback and errorCallback and origin limit.',
   PostMethodTest.postTest074);

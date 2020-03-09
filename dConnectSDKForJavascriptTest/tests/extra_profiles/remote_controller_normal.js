@@ -1,4 +1,4 @@
-module('RemoteControllerProfileNormalTest', {
+QUnit.module('RemoteControllerProfileNormalTest', {
   setup: function() {
     init();
   }
@@ -41,7 +41,7 @@ RemoteControllerProfileNormalTest.remoteControllerNormalTest001 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerNormalTest001',
+QUnit.test('remoteControllerNormalTest001',
     RemoteControllerProfileNormalTest.remoteControllerNormalTest001);
 
 /**
@@ -135,5 +135,5 @@ RemoteControllerProfileNormalTest.remoteControllerNormalTest002 = function(asser
     QUnit.start();
   });
 };
-QUnit.asyncTest('remoteControllerNormalTest002',
+QUnit.test('remoteControllerNormalTest002',
     RemoteControllerProfileNormalTest.remoteControllerNormalTest002);

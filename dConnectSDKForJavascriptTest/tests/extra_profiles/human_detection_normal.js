@@ -1,4 +1,4 @@
-module('HumanDetect Profile Normal Test', {
+QUnit.module('HumanDetect Profile Normal Test', {
   setup: function() {
     init();
   }
@@ -37,7 +37,7 @@ HumanDetectProfileNormalTest.onDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionNormalTest001);
+QUnit.test('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionNormalTest001);
 
 
 /**
@@ -67,7 +67,7 @@ HumanDetectProfileNormalTest.onBodyDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onBodyDetectionNormalTest001);
+QUnit.test('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onBodyDetectionNormalTest001);
 
 /**
  * 手検出通知イベントの登録と解除のテストを行う。
@@ -96,7 +96,7 @@ HumanDetectProfileNormalTest.onHandDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onHandDetectionNormalTest001);
+QUnit.test('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onHandDetectionNormalTest001);
 
 /**
  * 顔検出通知イベントの登録と解除のテストを行う。
@@ -125,7 +125,7 @@ HumanDetectProfileNormalTest.onFaceDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onFaceDetectionNormalTest001', HumanDetectProfileNormalTest.onFaceDetectionNormalTest001);
+QUnit.test('onFaceDetectionNormalTest001', HumanDetectProfileNormalTest.onFaceDetectionNormalTest001);
 
 
 

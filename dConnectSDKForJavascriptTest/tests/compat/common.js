@@ -79,6 +79,6 @@ function checkResponse(assert, code, message) {
 
 function runTests(tests) {
     for (var i = 0; i < tests.length; i++) {
-        QUnit.asyncTest(tests[i].name, tests[i].run);
+        QUnit.test(tests[i].name, tests[i].run);
     }
 }

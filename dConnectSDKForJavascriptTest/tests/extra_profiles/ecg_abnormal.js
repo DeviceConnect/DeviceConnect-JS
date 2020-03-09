@@ -1,4 +1,4 @@
-module("ECG Profile Abnormal Test", {
+QUnit.module("ECG Profile Abnormal Test", {
     setup: function () {
         init();
     }
@@ -47,5 +47,5 @@ ECGProfileAbnormalTest.ecgAbnormalTest = function (assert) {
       QUnit.start();
   });
 }
-QUnit.asyncTest("ECG", ECGProfileAbnormalTest.ecgAbnormalTest);
+QUnit.test("ECG", ECGProfileAbnormalTest.ecgAbnormalTest);
 

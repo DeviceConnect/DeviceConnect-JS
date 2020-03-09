@@ -1,4 +1,4 @@
-module('DiceProfileAbnomalTest', {
+QUnit.module('DiceProfileAbnomalTest', {
   setup: function() {
     init();
   }
@@ -45,7 +45,7 @@ DiceProfileAbnormalTest.onDiceAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('onDiceAbnormalTest001(post not support method)',
+QUnit.test('onDiceAbnormalTest001(post not support method)',
     DiceProfileAbnormalTest.onDiceAbnormalTest001);
 
 
@@ -84,7 +84,7 @@ DiceProfileAbnormalTest.onMagnetometerAbnormalTest001 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('onMagnetometerAbnormalTest001(post not support method.)',
+QUnit.test('onMagnetometerAbnormalTest001(post not support method.)',
     DiceProfileAbnormalTest.onMagnetometerAbnormalTest001);
 
 /**
@@ -122,5 +122,5 @@ DiceProfileAbnormalTest.onMagnetometerAbnormalTest002 = function(assert) {
     QUnit.start();
   });
 };
-QUnit.asyncTest('onMagnetometerAbnormalTest002(get not support method.)',
+QUnit.test('onMagnetometerAbnormalTest002(get not support method.)',
     DiceProfileAbnormalTest.onMagnetometerAbnormalTest002);
