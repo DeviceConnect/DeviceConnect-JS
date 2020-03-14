@@ -126,8 +126,6 @@
 <script type="text/javascript">
 
 function onInputTextEnter(evt) {
-  console.log("4");
-
   evt = (evt) ? evt : event;
   let charCode=(evt.charCode) ? evt.charCode : ((evt.which) ? evt.which : evt.keyCode);
   if ((Number(charCode) == 13 || Number(charCode) == 3)) {
@@ -140,11 +138,11 @@ function onInputTextEnter(evt) {
 
 function onInit() {
   init();
-    let data = getCookies();
-    if (data['ip']) {
-        document.forms.form1.ip.value = data['ip'];
-    }
-    searchDevice();
+  let data = getCookies();
+  if (data['ip']) {
+      document.forms.form1.ip.value = data['ip'];
+  }
+  searchDevice();
 }
 
 function onTestClick(uri) {
@@ -154,10 +152,6 @@ function onTestClick(uri) {
        alert('サービスIDを選択してください。');
        return;
     }
-    // if (!mAccessToken) {
-    //    alert('LocalOAuthをONにし、アクセストークンを取得してください。');
-    //    return;
-    // }
 
     document.cookie = 'ip=' + ip;
     document.cookie = 'serviceId=' + serviceId;

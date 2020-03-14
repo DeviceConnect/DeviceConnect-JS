@@ -1,27 +1,29 @@
-var _pluginId;
+let _pluginId;
 
-var _accessToken;
-
+let _accessToken;
+let sdk;
 function test(scopes, tests) {
-    dConnect.setHost(
-      (function () {
-        var result = {};
-        if (1 < window.location.search.length) {
-          var query = window.location.search.substring(1);
-          var parameters = query.split('&');
-          for (var i = 0; i < parameters.length; i++) {
-            var element = parameters[i].split('=');
-            var paramName = decodeURIComponent(element[0]);
-            var paramValue = decodeURIComponent(element[1]);
-            result[paramName] = paramValue;
+  let _tests = tests;
+  sdk = new dConnectSDK({
+        host: (function () {
+          let result = {};
+          if (1 < window.location.search.length) {
+            let query = window.location.search.substring(1);
+            let parameters = query.split('&');
+            for (let i = 0; i < parameters.length; i++) {
+              let element = parameters[i].split('=');
+              let paramName = decodeURIComponent(element[0]);
+              let paramValue = decodeURIComponent(element[1]);
+              result[paramName] = paramValue;
+            }
           }
-        }
-        return result;
-      })()['ip']);
-
-    var onPluginList = function(json) {
-        for (var i = 0; i < json.plugins.length; i++) {
-            var plugin = json.plugins[i];
+          return result;
+        })()['ip'],
+        port: 4035
+    });
+    let onPluginList = function(json) {
+        for (let i = 0; i < json.plugins.length; i++) {
+            let plugin = json.plugins[i];
             if (plugin.name === 'Device Connect Device Plugin for Test') {
                 _pluginId = plugin.id;
                 break;
@@ -30,32 +32,32 @@ function test(scopes, tests) {
         console.log('Test Plugin ID: ' + _pluginId);
 
         if (_pluginId !== undefined) {
-            runTests(tests);
+          QUnit.start();
+          runTests(_tests);
         } else {
-            alert('Please install Device Connect Device Plugin for Test.');
+          alert('Please install Device Connect Device Plugin for Test.');
         }
     };
 
-    var onPluginListError = function(code, message) {
+    let onPluginListError = function(code, message) {
         console.error('Failed to get plugin list: code = ' + code + ", message = " + message);
     };
 
-    var onAuth = function(clientId, accessToken) {
+    let onAuth = function(accessToken) {
         _accessToken = accessToken;
-
-        var systemApi = new dConnect.URIBuilder()
-                    .setProfile('system')
-                    .setAccessToken(_accessToken)
-                    .build();
-    
-        dConnect.get(systemApi, null, onPluginList, onPluginListError);
+        sdk.get({
+          profile: 'system'
+        }).then(json => { onPluginList(json);}).catch(e => { console.log(e);});
     };
 
-    var onAuthError = function(code, message) {
+    let onAuthError = function(code, message) {
         console.error('Failed to create acces token: code = ' + code + ', message = ' + message);
     }
 
-    dConnect.authorization(scopes, 'Device Connect Compatibility Test', onAuth, onAuthError);
+    sdk.authorization(scopes, 'Device Connect Compatibility Test').then(accessToken => { onAuth(accessToken); })
+          .catch(e => { onAuthError(e.errorCode, e.errorMessage);});
+     QUnit.config.autostart = false;
+
 }
 
 function accessToken() {
@@ -77,8 +79,9 @@ function checkResponse(assert, code, message) {
   }
 }
 
+
 function runTests(tests) {
-    for (var i = 0; i < tests.length; i++) {
+    for (let i = 0; i < tests.length; i++) {
         QUnit.test(tests[i].name, tests[i].run);
     }
 }
