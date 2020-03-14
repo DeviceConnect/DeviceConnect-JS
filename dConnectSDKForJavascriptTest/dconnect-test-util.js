@@ -137,16 +137,6 @@ function searchTestDevice(services) {
   return null;
 }
 
-// function getAccessToken(func) {
-//   dConnectSDK.authorization(mScopes,
-//       'Device Connect Javascript Test').then(accessToken
-//         getTestServiceId(func);
-//       }).catch(e => {
-//         func(e.errorCode, e.errorMessage);
-//       }
-//   );
-// }
-
 function getTestServiceId() {
   return new Promise((resolve, reject) => {
     if (mServiceId == null) {
@@ -200,24 +190,6 @@ function searchDevice() {
     });
 }
 
-
-// function getDiscoveryAccessToken(func) {
-//   dConnectSDK.setExtendedOrigin("http://localhost:4035/");
-//   let ip = document.forms.form1.ip.value;
-//   dConnectSDK.setHost(ip);
-//   dConnectSDK.authorization(mScopes,
-//       'Device Connect Javascript Test',
-//       function(clientId, accessToken) {
-//         mAccessToken = accessToken;
-//         document.cookie = 'accessToken=' + accessToken;
-//         mClientId = clientId;
-//         getServiceId(func);
-//       },
-//       function(errorCode, errorMessage) {
-//         func(null, null);
-//       }
-//   );
-// }
 function getServiceId(func) {
   return new Promise((resolve, reject) => {
     sdk.discoverDevices().then(json => {
@@ -730,3 +702,110 @@ function stop(serviceId) {
   }).catch(e => {
   });
 };
+
+
+function findAddress(config) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      let serviceId = getCurrentServiceId();
+      sdk.get({
+        profile: 'videochat',
+        attribute: 'address',
+        serviceId: serviceId,
+        config: config
+      }).then(json => {
+        resolve(json.addresses);
+      }).catch(e => {
+        reject(e);
+      });
+    }, 1 * 1000);
+  });
+};
+
+function callAddress(config, timeout) {
+  return new Promise((resolve, reject) => {
+    findAddress(config).then(addresses => {
+      if (!isArray(addresses) || addresses.length == 0) {
+        reject({errorCode:-1, errorMessage:"addresses is invalid."});
+        return;
+      }
+      let serviceId = getCurrentServiceId();
+      sdk.post({
+        profile: 'videochat',
+        attribute: 'call',
+        serviceId: serviceId,
+        config: config,
+        addressId: addresses[0].addressId
+      }).then(json => {
+        setTimeout(() => {
+          sdk.delete({
+            profile: 'videochat',
+            attribute: 'call',
+            serviceId: serviceId,
+            config: config,
+            addressId: addresses[0].addressId
+          }).then(json => {
+            resolve(addresses[0]);
+          }).catch(e => {
+            reject(e);
+          });
+        }, 1000);
+      }).catch(e => {
+        reject(e);
+      });
+    }).catch(e => {
+      reject(e);
+    });
+  });
+}
+
+
+
+function createFaBoService() {
+  return new Promise((resolve, reject) => {
+    sdk.post({
+      profile: 'fabo',
+      attribute: 'service',
+      serviceId: getCurrentServiceId(),
+      name: 'TEST'
+    }).then(json => {
+      resolve(json);
+    }).catch(e => {
+      reject(e);
+    });
+  });
+}
+
+function deleteFaBoService(vid) {
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    vid: vid
+  }).then(json => {
+    console.log("Delete a service. vid=" + vid);
+  }).catch(e => {
+    console.log("Delete a delete service. error=" + e.errorMessage);
+  });
+}
+
+function createFaBoProfile() {
+  return new Promise((resolve, reject) => {
+    createFaBoService().then(json => {
+        sdk.post({
+          profile: 'fabo',
+          attribute: 'profile',
+          serviceId: getCurrentServiceId(),
+          vid: vid,
+          type: 1,
+          pins: 'D2'
+        }).then(json => {
+          resolve(vid);
+        }).catch(e => {
+          reject(e);
+        });
+    }).catch(e => {
+      reject(e);
+    });
+  });
+}

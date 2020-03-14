@@ -1,5 +1,5 @@
 QUnit.module('TV Profile Abnormal Test', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('TV Profile Abnormal Test', {
  * TVプロファイルの異常系テストを行うクラス。
  * @class
  */
-var TVProfileAbnormalTest = {};
+let TVProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドで電源状態にアクセスするテストを行う。
@@ -23,25 +23,16 @@ var TVProfileAbnormalTest = {};
  * </p>
  */
 TVProfileAbnormalTest.powerStatusAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('GetPowerStatusAbnormalTest001', TVProfileAbnormalTest.powerStatusAbnormalTest001);
@@ -61,27 +52,18 @@ QUnit.test('GetPowerStatusAbnormalTest001', TVProfileAbnormalTest.powerStatusAbn
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '1');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: '1'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest001', TVProfileAbnormalTest.changeChannelAbnormalTest001);
@@ -99,28 +81,20 @@ QUnit.test('TVChangeChannelAbnormalTest001', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '1');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: '1'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
+
 };
 QUnit.test('TVChangeChannelAbnormalTest002', TVProfileAbnormalTest.changeChannelAbnormalTest002);
 
@@ -137,28 +111,20 @@ QUnit.test('TVChangeChannelAbnormalTest002', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '2');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: '2'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
+
 };
 QUnit.test('TVChangeChannelAbnormalTest003', TVProfileAbnormalTest.changeChannelAbnormalTest003);
 
@@ -176,30 +142,20 @@ QUnit.test('TVChangeChannelAbnormalTest003', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
     'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'あいうえおあいうえおあいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest004', TVProfileAbnormalTest.changeChannelAbnormalTest004);
@@ -217,30 +173,20 @@ QUnit.test('TVChangeChannelAbnormalTest004', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
     'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'abcdefgabcdefg'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest005', TVProfileAbnormalTest.changeChannelAbnormalTest005);
@@ -258,30 +204,20 @@ QUnit.test('TVChangeChannelAbnormalTest005', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
     '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    '#$%?<>?#$%&<>?'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnoramlTest006', TVProfileAbnormalTest.changeChannelAbnormalTest006);
@@ -300,27 +236,18 @@ QUnit.test('TVChangeChannelAbnoramlTest006', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '-1');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: '-1'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest007', TVProfileAbnormalTest.changeChannelAbnormalTest007);
@@ -338,27 +265,18 @@ QUnit.test('TVChangeChannelAbnormalTest007', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', 10000000000000000000000);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: 10000000000000000000000
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest008', TVProfileAbnormalTest.changeChannelAbnormalTest008);
@@ -376,27 +294,18 @@ QUnit.test('TVChangeChannelAbnormalTest008', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', 1.5);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    tuning: 1.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest009', TVProfileAbnormalTest.changeChannelAbnormalTest009);
@@ -414,30 +323,20 @@ QUnit.test('TVChangeChannelAbnormalTest009', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    control: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
     'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'あいうえおあいうえおあいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest010', TVProfileAbnormalTest.changeChannelAbnormalTest010);
@@ -455,30 +354,20 @@ QUnit.test('TVChangeChannelAbnormalTest010', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    control: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
     'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'abcdefgabcdefg'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest011', TVProfileAbnormalTest.changeChannelAbnormalTest011);
@@ -496,30 +385,20 @@ QUnit.test('TVChangeChannelAbnormalTest011', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeChannelAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    serviceId: getCurrentServiceId(),
+    control: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
     '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    '#$%?<>?#$%&<>?'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVChangeChannelAbnormalTest012', TVProfileAbnormalTest.changeChannelAbnormalTest012);
@@ -538,27 +417,18 @@ QUnit.test('TVChangeChannelAbnormalTest012', TVProfileAbnormalTest.changeChannel
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'up');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'volume',
+    serviceId: getCurrentServiceId(),
+    control: 'up'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVchangeVolumeAbnormalTest001', TVProfileAbnormalTest.changeVolumeAbnormalTest001);
@@ -577,27 +447,18 @@ QUnit.test('TVchangeVolumeAbnormalTest001', TVProfileAbnormalTest.changeVolumeAb
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'up');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'volume',
+    serviceId: getCurrentServiceId(),
+    control: 'up'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVchangeVolumeAbnormalTest002', TVProfileAbnormalTest.changeVolumeAbnormalTest002);
@@ -615,27 +476,18 @@ QUnit.test('TVchangeVolumeAbnormalTest002', TVProfileAbnormalTest.changeVolumeAb
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'up');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'tv',
+    attribute: 'volume',
+    serviceId: getCurrentServiceId(),
+    control: 'up'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVchangeVolumeAbnormalTest003', TVProfileAbnormalTest.changeVolumeAbnormalTest003);
@@ -653,30 +505,20 @@ QUnit.test('TVchangeVolumeAbnormalTest003', TVProfileAbnormalTest.changeVolumeAb
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control',
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'volume',
+    serviceId: getCurrentServiceId(),
+    control: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
     'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'あいうえおあいうえおあいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVchangeVolumeAbnormalTest004', TVProfileAbnormalTest.changeVolumeAbnormalTest004);
@@ -694,30 +536,20 @@ QUnit.test('TVchangeVolumeAbnormalTest004', TVProfileAbnormalTest.changeVolumeAb
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control',
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'volume',
+    serviceId: getCurrentServiceId(),
+    control: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
     'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'abcdefgabcdefg'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVchangeVolumeAbnormalTest005', TVProfileAbnormalTest.changeVolumeAbnormalTest005);
@@ -736,30 +568,20 @@ QUnit.test('TVchangeVolumeAbnormalTest005', TVProfileAbnormalTest.changeVolumeAb
  * </p>
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control',
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'volume',
+    serviceId: getCurrentServiceId(),
+    control: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
     '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    '#$%?<>?#$%&<>?'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVchangeVolumeAbnormalTest006', TVProfileAbnormalTest.changeVolumeAbnormalTest006);
@@ -779,27 +601,18 @@ QUnit.test('TVchangeVolumeAbnormalTest006', TVProfileAbnormalTest.changeVolumeAb
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select', 'DTV');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    serviceId: getCurrentServiceId(),
+    select: 'DTV'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVchangeBroadcastwaveAbnormalTest001', TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest001);
@@ -818,27 +631,18 @@ QUnit.test('TVchangeBroadcastwaveAbnormalTest001', TVProfileAbnormalTest.changeB
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select', 'DTV');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    serviceId: getCurrentServiceId(),
+    select: 'DTV'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVchangeBroadcastwaveAbnormalTest002', TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest002);
@@ -857,27 +661,18 @@ QUnit.test('TVchangeBroadcastwaveAbnormalTest002', TVProfileAbnormalTest.changeB
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select', 'DTV');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    serviceId: getCurrentServiceId(),
+    select: 'DTV'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVchangeBroadcastwaveAbnormalTest003', TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest003);
@@ -896,30 +691,20 @@ QUnit.test('TVchangeBroadcastwaveAbnormalTest003', TVProfileAbnormalTest.changeB
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    serviceId: getCurrentServiceId(),
+    select: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
     'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'あいうえおあいうえおあいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVchangeBroadcastwaveAbnormalTest004', TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest004);
@@ -938,33 +723,24 @@ QUnit.test('TVchangeBroadcastwaveAbnormalTest004', TVProfileAbnormalTest.changeB
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    serviceId: getCurrentServiceId(),
+    select: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
     'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'abcdefgabcdefg'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.test('TVchangeBroadcastwaveAbnormalTest005', TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest005);
+QUnit.test('TVchangeBroadcastwaveAbnormalTest005',
+      TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest005);
 
 /**
  * スマートデバイスの選択放送波に特殊文字を設定する。
@@ -979,30 +755,20 @@ QUnit.test('TVchangeBroadcastwaveAbnormalTest005', TVProfileAbnormalTest.changeB
  * </p>
  */
 TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    serviceId: getCurrentServiceId(),
+    select: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
     '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    '#$%?<>?#$%&<>?'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('TVchangeBroadcastwaveAbnormalTest006', TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest006);
@@ -1023,26 +789,17 @@ QUnit.test('TVchangeBroadcastwaveAbnormalTest006', TVProfileAbnormalTest.changeB
  * </p>
  */
 TVProfileAbnormalTest.muteOnAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('mute');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'mute',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVmuteOnAbnormalTest001', TVProfileAbnormalTest.muteOnAbnormalTest001);
@@ -1061,26 +818,17 @@ QUnit.test('TVmuteOnAbnormalTest001', TVProfileAbnormalTest.muteOnAbnormalTest00
  * </p>
  */
 TVProfileAbnormalTest.muteOffAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('mute');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'mute',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('TVmuteOffAbnormalTest001', TVProfileAbnormalTest.muteOffAbnormalTest001);
@@ -1102,27 +850,18 @@ QUnit.test('TVmuteOffAbnormalTest001', TVProfileAbnormalTest.muteOffAbnormalTest
  * </p>
  */
 TVProfileAbnormalTest.echonetLitePropertyAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128,129');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128,129'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest001', TVProfileAbnormalTest.echonetLitePropertyAbnormalTest001);
@@ -1141,27 +880,18 @@ QUnit.test('EchonetLitePropertyAbnormalTest001', TVProfileAbnormalTest.echonetLi
  * </p>
  */
 TVProfileAbnormalTest.echonetLitePropertyAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128,129');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128,129'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest002', TVProfileAbnormalTest.echonetLitePropertyAbnormalTest002);
@@ -1181,30 +911,20 @@ QUnit.test('EchonetLitePropertyAbnormalTest002', TVProfileAbnormalTest.echonetLi
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc',
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
     'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+    'あいうえおあいうえおあいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest003', TVProfileNormalTest.echonetLitePropertyAbnormalTest003);
@@ -1224,30 +944,20 @@ QUnit.test('EchonetLitePropertyAbnormalTest003', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc',
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
     'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+    'abcdefgabcdefg'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest004', TVProfileNormalTest.echonetLitePropertyAbnormalTest004);
@@ -1267,30 +977,20 @@ QUnit.test('EchonetLitePropertyAbnormalTest004', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc',
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
     '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+    '#$%?<>?#$%&<>?'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest005', TVProfileNormalTest.echonetLitePropertyAbnormalTest005);
@@ -1310,27 +1010,18 @@ QUnit.test('EchonetLitePropertyAbnormalTest005', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc','128,-1,129');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128,-1,129'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest006', TVProfileNormalTest.echonetLitePropertyAbnormalTest006);
@@ -1350,27 +1041,18 @@ QUnit.test('EchonetLitePropertyAbnormalTest006', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc','128,0.5,129');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128,0.5,129'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest007', TVProfileNormalTest.echonetLitePropertyAbnormalTest007);
@@ -1390,31 +1072,21 @@ QUnit.test('EchonetLitePropertyAbnormalTest007', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128',
+    value: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
     'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'あいうえおあいうえおあいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest008', TVProfileNormalTest.echonetLitePropertyAbnormalTest008);
@@ -1434,31 +1106,21 @@ QUnit.test('EchonetLitePropertyAbnormalTest008', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128',
+    value: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
     'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    'abcdefgabcdefg'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest009', TVProfileNormalTest.echonetLitePropertyAbnormalTest009);
@@ -1478,31 +1140,21 @@ QUnit.test('EchonetLitePropertyAbnormalTest009', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value',
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128',
+    value: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
     '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+    '#$%?<>?#$%&<>?'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest010', TVProfileNormalTest.echonetLitePropertyAbnormalTest010);
@@ -1521,28 +1173,19 @@ QUnit.test('EchonetLitePropertyAbnormalTest010', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value','-1');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128',
+    value: '-1'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest011', TVProfileNormalTest.echonetLitePropertyAbnormalTest011);
@@ -1561,28 +1204,19 @@ QUnit.test('EchonetLitePropertyAbnormalTest011', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value','10000000000000000000000');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128',
+    value: '10000000000000000000000'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest012', TVProfileNormalTest.echonetLitePropertyAbnormalTest012);
@@ -1602,28 +1236,19 @@ QUnit.test('EchonetLitePropertyAbnormalTest012', TVProfileNormalTest.echonetLite
  * </p>
  */
 TVProfileNormalTest.echonetLitePropertyAbnormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value','0.5');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '128',
+    value: '0.5'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('EchonetLitePropertyAbnormalTest013', TVProfileNormalTest.echonetLitePropertyAbnormalTest013);

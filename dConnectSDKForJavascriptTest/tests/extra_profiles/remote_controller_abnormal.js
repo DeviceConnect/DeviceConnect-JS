@@ -1,5 +1,5 @@
 QUnit.module('RemoteControllerProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('RemoteControllerProfileAbnormalTest', {
  * RemoteControllerプロファイルの異常系テストを行うクラス。
  * @class
  */
-var RemoteControllerProfileAbnormalTest = {};
+let RemoteControllerProfileAbnormalTest = {};
 
 /**
  * messageに空文字を指定して赤外線を送信するテストを行う。
@@ -23,26 +23,17 @@ var RemoteControllerProfileAbnormalTest = {};
  * </p>
  */
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.addParameter('message', '');
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    serviceId: getCurrentServiceId(),
+    message: ''
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('remoteControllerAbnormalTest001',
@@ -61,25 +52,16 @@ QUnit.test('remoteControllerAbnormalTest001',
  * </p>
  */
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('remoteControllerAbnormalTest002',
@@ -98,26 +80,17 @@ QUnit.test('remoteControllerAbnormalTest002',
  * </p>
  */
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.addParameter('message', 123456789);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    serviceId: getCurrentServiceId(),
+    message: 123456789
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('remoteControllerAbnormalTest003',
@@ -136,35 +109,25 @@ QUnit.test('remoteControllerAbnormalTest003',
  * </p>
  */
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.addParameter('message',
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    serviceId: getCurrentServiceId(),
+    message: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('remoteControllerAbnormalTest004',
@@ -183,31 +146,21 @@ QUnit.test('remoteControllerAbnormalTest004',
  * </p>
  */
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.addParameter('message',
-      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    serviceId: getCurrentServiceId(),
+    message: 'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+    'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+    'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+    'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+    'abcdefgabcdefgabcdefgabcdefg'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('remoteControllerAbnormalTest005',
@@ -226,35 +179,25 @@ QUnit.test('remoteControllerAbnormalTest005',
  * </p>
  */
 RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.addParameter('message',
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    serviceId: getCurrentServiceId(),
+    message: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('remoteControllerAbnormalTest006',

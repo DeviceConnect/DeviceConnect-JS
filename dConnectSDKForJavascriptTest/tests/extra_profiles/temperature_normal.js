@@ -1,5 +1,5 @@
 QUnit.module('TemperatureProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('TemperatureProfileNormalTest', {
  * Temperatureプロファイルの正常系テストを行うクラス。
  * @class
  */
-var TemperatureProfileNormalTest = {};
+let TemperatureProfileNormalTest = {};
 
 /**
  * 温度を取得するテストを行う。
@@ -23,23 +23,20 @@ var TemperatureProfileNormalTest = {};
  * </p>
  */
 TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'temperature=' + json.temperature);
-        assert.ok(true, 'type=' + json.type);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'temperature',
+    serviceId: getCurrentServiceId(),
+    type: '1'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'temperature=' + json.temperature);
+    assert.ok(true, 'type=' + json.type);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('temperatureNormalTest001',
@@ -58,22 +55,18 @@ QUnit.test('temperatureNormalTest001',
  * </p>
  */
 TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('temperature', '25');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.put({
+    profile: 'temperature',
+    serviceId: getCurrentServiceId(),
+    temperature: '25'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('temperatureNormalTest001',

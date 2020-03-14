@@ -1,5 +1,5 @@
 QUnit.module('HumidityProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('HumidityProfileNormalTest', {
  * Humidityプロファイルの正常系テストを行うクラス。
  * @class
  */
-var HumidityProfileNormalTest = {};
+let HumidityProfileNormalTest = {};
 
 /**
  * 湿度を取得するテストを行う。
@@ -23,22 +23,18 @@ var HumidityProfileNormalTest = {};
  * </p>
  */
 HumidityProfileNormalTest.humidityNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humidity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'humidity=' + json.humidity);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'humidity',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'humidity=' + json.humidity);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('humidityNormalTest001',

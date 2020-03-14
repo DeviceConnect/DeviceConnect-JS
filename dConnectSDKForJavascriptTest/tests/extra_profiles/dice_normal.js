@@ -1,5 +1,5 @@
 QUnit.module('DiceProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('DiceProfileNormalTest', {
  * Diceプロファイルの正常系テストを行うクラス。
  * @class
  */
-var DiceProfileNormalTest = {};
+let DiceProfileNormalTest = {};
 
 /**
  * ダイスの目を取得する
@@ -24,11 +24,14 @@ var DiceProfileNormalTest = {};
  * </p>
  */
 DiceProfileNormalTest.ondiceNormalTest = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setAttribute('ondice');
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: 'dice',
+    attribute: 'ondice',
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'dice' && json.attribute === 'ondice') {
       assert.ok(true, message);
       return true;
@@ -52,12 +55,15 @@ QUnit.test('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
  * </p>
  */
 DiceProfileNormalTest.onmagnetometerNormalTest = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  openWebsocket(builder, assert, 2000, function(message) {
-    var json = JSON.parse(message);
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: 'dice',
+    interface: 'magnetometer',
+    attribute: 'ondice',
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 2000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'dice' &&
         json.interface === 'magnetometer' &&
         json.attribute === 'onmagnetometer') {

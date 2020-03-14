@@ -1,5 +1,5 @@
 QUnit.module('Power Profile Normal Test', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('Power Profile Normal Test', {
  * Powerプロファイルの正常系テストを行うクラス。
  * @class
  */
-var PowerProfileNormalTest = {};
+let PowerProfileNormalTest = {};
 
 /**
  * スマートデバイスの電源状態を取得する。
@@ -23,20 +23,17 @@ var PowerProfileNormalTest = {};
  * </p>
  */
 PowerProfileNormalTest.powerStatusNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('power');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'power',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('GetPowerStatusNormalTest001', PowerProfileNormalTest.powerStatusNormalTest001);
@@ -55,20 +52,17 @@ QUnit.test('GetPowerStatusNormalTest001', PowerProfileNormalTest.powerStatusNorm
  * </p>
  */
 PowerProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('power');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'power',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('PowerPowerOnNormalTest001', PowerProfileNormalTest.powerOnNormalTest001);
@@ -86,21 +80,17 @@ QUnit.test('PowerPowerOnNormalTest001', PowerProfileNormalTest.powerOnNormalTest
  * </p>
  */
 PowerProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('power');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'power',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('PowerPowerOffNormalTest001', PowerProfileNormalTest.powerOffNormalTest001);
-

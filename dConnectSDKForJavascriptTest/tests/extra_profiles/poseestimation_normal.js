@@ -1,5 +1,5 @@
 QUnit.module("PoseEstimation Profile Normal Test", {
-    setup: function () {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ QUnit.module("PoseEstimation Profile Normal Test", {
  * PoseEstimationプロファイルの正常系テストを行うクラス。
  * @class
  */
-var PoseEstimationProfileNormalTest = {};
+let PoseEstimationProfileNormalTest = {};
 
 /**
  * 姿勢推定を取得するテストを行う。
@@ -25,15 +25,15 @@ var PoseEstimationProfileNormalTest = {};
  * </p>
  */
 PoseEstimationProfileNormalTest.poseNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
+  let accessToken = getCurrentAccessToken();
+  let serviceId = getCurrentServiceId();
+  let builder = new dConnectSDK.URIBuilder();
   builder.setProfile("poseEstimation");
   builder.setAttribute("onPoseEstimation");
   builder.setServiceId(serviceId);
   builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
+  let uri = builder.build();
+  dConnectSDK.get(uri, null, function (json) {
       assert.ok(true, "result=" + json.result);
       assert.ok(json.pose != undefined, "pose=" + json.pose);
       QUnit.start();
@@ -42,6 +42,20 @@ PoseEstimationProfileNormalTest.poseNormalTest = function (assert) {
       assert.ok(checkErrorCode(errorCode),
           'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
       QUnit.start();
+  });
+  let done = assert.async();
+  sdk.get({
+    profile: 'poseEstimation',
+    attribute: 'onPoseEstimation',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, "result=" + json.result);
+    assert.ok(json.pose != undefined, "pose=" + json.pose);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 }
 QUnit.test("pose", PoseEstimationProfileNormalTest.poseNormalTest);
@@ -60,12 +74,16 @@ QUnit.test("pose", PoseEstimationProfileNormalTest.poseNormalTest);
  * </p>
  */
 PoseEstimationProfileNormalTest.poseEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("poseEstimation");
-    builder.setAttribute("onPoseEstimation");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
-        if (json.profile === "poseEstimation" && json.attribute === "onPoseEstimation") {
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: 'poseEstimation',
+    attribute: 'onPoseEstimation',
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+        let json = JSON.parse(message);
+        if (json.profile === "poseEstimation"
+            && json.attribute === "onPoseEstimation") {
             assert.ok(true, message);
             assert.ok(json.pose != undefined, "pose=" + json.pose);
             return true;

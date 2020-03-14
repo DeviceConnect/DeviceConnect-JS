@@ -1,5 +1,5 @@
 QUnit.module('HumanDetect Profile Normal Test', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('HumanDetect Profile Normal Test', {
  * HumanDetectプロファイルの正常系テストを行うクラス。
  * @class
  */
-var HumanDetectProfileNormalTest = {};
+let HumanDetectProfileNormalTest = {};
 
 /**
  * 人体検出通知イベントの登録と解除のテストを行う。
@@ -23,13 +23,16 @@ var HumanDetectProfileNormalTest = {};
  * </p>
  */
 HumanDetectProfileNormalTest.onDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_DETECTION = 'ondetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_DETECTION = 'ondetection';
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_DETECTION,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -53,13 +56,16 @@ QUnit.test('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionN
  * </p>
  */
 HumanDetectProfileNormalTest.onBodyDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_BODY_DETECTION = 'onbodydetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_BODY_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_BODY_DETECTION = 'onbodydetection';
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_BODY_DETECTION,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_BODY_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -82,13 +88,16 @@ QUnit.test('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onBodyDe
  * </p>
  */
 HumanDetectProfileNormalTest.onHandDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_HAND_DETECTION = 'onhanddetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_HAND_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_HAND_DETECTION = 'onhanddetection';
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_HAND_DETECTION,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_HAND_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -111,13 +120,16 @@ QUnit.test('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onHandDe
  * </p>
  */
 HumanDetectProfileNormalTest.onFaceDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_FACE_DETECTION = 'onfacedetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_FACE_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_FACE_DETECTION = 'onfacedetection';
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_FACE_DETECTION,
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_FACE_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -126,6 +138,3 @@ HumanDetectProfileNormalTest.onFaceDetectionNormalTest001 = function(assert) {
   });
 };
 QUnit.test('onFaceDetectionNormalTest001', HumanDetectProfileNormalTest.onFaceDetectionNormalTest001);
-
-
-

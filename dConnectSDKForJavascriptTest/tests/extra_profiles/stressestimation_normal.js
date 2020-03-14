@@ -1,5 +1,5 @@
 QUnit.module("StressEstimation Profile Normal Test", {
-    setup: function () {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ QUnit.module("StressEstimation Profile Normal Test", {
  * StressEstimationプロファイルの正常系テストを行うクラス。
  * @class
  */
-var StressEstimationProfileNormalTest = {};
+let StressEstimationProfileNormalTest = {};
 
 /**
  * ストレス推定を取得するテストを行う。
@@ -25,23 +25,17 @@ var StressEstimationProfileNormalTest = {};
  * </p>
  */
 StressEstimationProfileNormalTest.stressNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("stressEstimation");
-  builder.setAttribute("onStressEstimation");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 }
 QUnit.test("stress", StressEstimationProfileNormalTest.stressNormalTest);
@@ -60,11 +54,14 @@ QUnit.test("stress", StressEstimationProfileNormalTest.stressNormalTest);
  * </p>
  */
 StressEstimationProfileNormalTest.stressEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("stressEstimation");
-    builder.setAttribute("onStressEstimation");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+      let json = JSON.parse(message);
         if (json.profile === "stressEstimation" && json.attribute === "onStressEstimation") {
             assert.ok(true, message);
             assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);

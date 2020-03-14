@@ -1,5 +1,5 @@
 QUnit.module('PowerMeterProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('PowerMeterProfileNormalTest', {
  * PowerMeterプロファイルの正常系テストを行うクラス。
  * @class
  */
-var PowerMeterProfileNormalTest = {};
+let PowerMeterProfileNormalTest = {};
 
 /**
  * 電源状態を取得するテストを行う。
@@ -23,22 +23,18 @@ var PowerMeterProfileNormalTest = {};
  * </p>
  */
 PowerMeterProfileNormalTest.getPowerStateNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'powerstatus=' + json.powerstatus);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'powerstatus=' + json.powerstatus);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('getPowerStateNormalTest001(get)',
@@ -57,20 +53,17 @@ QUnit.test('getPowerStateNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'powermeter',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('powerOnNormalTest001(get)',
@@ -89,20 +82,17 @@ QUnit.test('powerOnNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'powermeter',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('powerOffNormalTest001(get)',
@@ -121,26 +111,22 @@ QUnit.test('powerOffNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest001(get)',
@@ -159,27 +145,23 @@ QUnit.test('integratedPowerNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('date', createCurrentDateString());
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    date: createCurrentDateString()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest002(date is now)',
@@ -198,28 +180,25 @@ QUnit.test('integratedPowerNormalTest002(date is now)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('unit', 'Wh');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    unit: 'Wh'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
 QUnit.test('integratedPowerNormalTest003(unit is Wh)',
     PowerMeterProfileNormalTest.integratedPowerNormalTest003);
@@ -237,27 +216,23 @@ QUnit.test('integratedPowerNormalTest003(unit is Wh)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('unit', 'kWh');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    unit: 'kWh'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest004(unit is kWh)',
@@ -276,27 +251,23 @@ QUnit.test('integratedPowerNormalTest004(unit is kWh)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('count', '24');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    count: '24'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest005(count is 24)',
@@ -315,27 +286,23 @@ QUnit.test('integratedPowerNormalTest005(count is 24)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('count', '48');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    count: '48'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest006(count is 48)',
@@ -354,27 +321,23 @@ QUnit.test('integratedPowerNormalTest006(count is 48)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('powerFlow', 'normal');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    powerFlow: 'normal'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest007(powerflow is normal)',
@@ -393,27 +356,23 @@ QUnit.test('integratedPowerNormalTest007(powerflow is normal)',
  * </p>
  */
 PowerMeterProfileNormalTest.integratedPowerNormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('integratedpower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('powerFlow', 'reverse');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'integratedpower=' + json.integratedpower);
-        assert.ok(true, 'unit=' + json.unit);
-        assert.ok(true, 'count=' + json.count);
-        assert.ok(true, 'powerFlow=' + json.powerFlow);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'integratedpower',
+    serviceId: getCurrentServiceId(),
+    powerFlow: 'reverse'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'integratedpower=' + json.integratedpower);
+    assert.ok(true, 'unit=' + json.unit);
+    assert.ok(true, 'count=' + json.count);
+    assert.ok(true, 'powerFlow=' + json.powerFlow);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('integratedPowerNormalTest008(powerflow is reverse)',
@@ -432,24 +391,20 @@ QUnit.test('integratedPowerNormalTest008(powerflow is reverse)',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousPowerNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('instantaneouspower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
-        assert.ok(true, 'unit=' + json.unit);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'instantaneouspower',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
+    assert.ok(true, 'unit=' + json.unit);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('instantaneousPowerNormalTest001(get)',
@@ -468,25 +423,21 @@ QUnit.test('instantaneousPowerNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousPowerNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('instantaneouspower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('unit', 'W');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
-        assert.ok(true, 'unit=' + json.unit);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'instantaneouspower',
+    serviceId: getCurrentServiceId(),
+    unit: 'W'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
+    assert.ok(true, 'unit=' + json.unit);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('instantaneousPowerNormalTest002(unit is W)',
@@ -505,25 +456,21 @@ QUnit.test('instantaneousPowerNormalTest002(unit is W)',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousPowerNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('instantaneouspower');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('unit', 'kW');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
-        assert.ok(true, 'unit=' + json.unit);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'instantaneouspower',
+    serviceId: getCurrentServiceId(),
+    unit: 'kW'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
+    assert.ok(true, 'unit=' + json.unit);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('instantaneousPowerNormalTest003(unit is kW))',
@@ -542,25 +489,21 @@ QUnit.test('instantaneousPowerNormalTest003(unit is kW))',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousCurrentNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('instantaneouscurrent');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
-        assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
-        assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'instantaneouscurrent',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
+    assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
+    assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('instantaneousCurrentNormalTest001(get)',
@@ -579,26 +522,22 @@ QUnit.test('instantaneousCurrentNormalTest001(get)',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousCurrentNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('instantaneouscurrent');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('unit', 'A');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
-        assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
-        assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'instantaneouscurrent',
+    serviceId: getCurrentServiceId(),
+    unit: 'A'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
+    assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
+    assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('instantaneousCurrentNormalTest002(unit is A)',
@@ -617,26 +556,22 @@ QUnit.test('instantaneousCurrentNormalTest002(unit is A)',
  * </p>
  */
 PowerMeterProfileNormalTest.instantaneousCurrentNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setAttribute('instantaneouscurrent');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('unit', 'mA');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
-        assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
-        assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'powermeter',
+    attribute: 'instantaneouscurrent',
+    serviceId: getCurrentServiceId(),
+    unit: 'mA'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
+    assert.ok(true, 'tphase=' + json.instantaneouscurrent.tphase);
+    assert.ok(true, 'unit=' + json.instantaneouscurrent.unit);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('instantaneousCurrentNormalTest003(unit is mA)',

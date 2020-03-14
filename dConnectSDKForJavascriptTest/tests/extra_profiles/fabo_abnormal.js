@@ -1,5 +1,5 @@
 QUnit.module('FaBoProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,58 +8,7 @@ QUnit.module('FaBoProfileAbnormalTest', {
  * FaBoプロファイルの正常系テストを行うクラス。
  * @class
  */
-var FaBoProfileAbnormalTest = {};
-
-FaBoProfileAbnormalTest.createFaBoService = function(successCallback, errorCallback) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('name', 'TEST');
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            successCallback(json);
-        }, 
-        errorCallback);
-}
-
-FaBoProfileAbnormalTest.deleteFaBoService = function(vid) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', vid);
-    var uri = builder.build();
-    dConnect.delete(uri, null, function(json) {
-        console.log("Delete a service. vid=" + vid);
-    }, function(errorCode, errorMessage) {
-        console.log("Delete a delete service. error=" + errorMessage);
-    });
-}
-
-FaBoProfileAbnormalTest.createFaBoProfile = function(successCallback, errorCallback) {
-    FaBoProfileAbnormalTest.createFaBoService(function(json) {
-        var vid = json.vid;
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('fabo');
-        builder.setAttribute('profile');
-        builder.setServiceId(getCurrentServiceId());
-        builder.setAccessToken(getCurrentAccessToken());
-        builder.addParameter('vid', vid);
-        builder.addParameter('type', 1);
-        builder.addParameter('pins', 'D2');
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function(json) {
-                successCallback(vid, json);
-            },
-            errorCallback);
-
-    }, errorCallback);
-}
+let FaBoProfileAbnormalTest = {};
 
 /**
  * nameを指定せずに新規仮想サービス作成するテストを行う。
@@ -74,27 +23,21 @@ FaBoProfileAbnormalTest.createFaBoProfile = function(successCallback, errorCallb
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest001 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoServiceAbnormalTest001', FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest001);
+QUnit.test('postFaBoServiceAbnormalTest001',
+        FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest001);
 
 /**
  * nameに32文字を超える文字を指定して新規仮想サービス作成するテストを行う。
@@ -109,28 +52,22 @@ QUnit.test('postFaBoServiceAbnormalTest001', FaBoProfileAbnormalTest.postFaBoSer
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest002 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter("name", "0123456789012345678901234567890123");
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+    let done = assert.async();
+    sdk.post({
+      profile: 'fabo',
+      attribute: 'service',
+      serviceId: getCurrentServiceId(),
+      name: "0123456789012345678901234567890123"
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+      done();
+    });
 };
-QUnit.test('postFaBoServiceAbnormalTest002', FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest002);
+QUnit.test('postFaBoServiceAbnormalTest002',
+      FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest002);
 
 /**
  * nameに空文字を指定して新規仮想サービス作成するテストを行う。
@@ -145,28 +82,22 @@ QUnit.test('postFaBoServiceAbnormalTest002', FaBoProfileAbnormalTest.postFaBoSer
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest003 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter("name", "");
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+    let done = assert.async();
+    sdk.post({
+      profile: 'fabo',
+      attribute: 'service',
+      serviceId: getCurrentServiceId(),
+      name: ""
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+      done();
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+      done();
+    });
 };
-QUnit.test('postFaBoServiceAbnormalTest003', FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest003);
+QUnit.test('postFaBoServiceAbnormalTest003',
+    FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest003);
 
 
 /**
@@ -182,26 +113,19 @@ QUnit.test('postFaBoServiceAbnormalTest003', FaBoProfileAbnormalTest.postFaBoSer
  * </p>
  */
 FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest001 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('name', 'TEST');
-    var uri = builder.build();
-    dConnect.put(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.put({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    name: "TEST"
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
 QUnit.test('putFaBoServiceAbnormalTest001', FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest001);
 
@@ -218,26 +142,19 @@ QUnit.test('putFaBoServiceAbnormalTest001', FaBoProfileAbnormalTest.putFaBoServi
  * </p>
  */
 FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest002 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    var uri = builder.build();
-    dConnect.put(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.put({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    vid: "mouse_service_id"
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
 QUnit.test('putFaBoServiceAbnormalTest002', FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest002);
 
@@ -254,29 +171,23 @@ QUnit.test('putFaBoServiceAbnormalTest002', FaBoProfileAbnormalTest.putFaBoServi
  * </p>
  */
 FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest003 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('name', '0123456789012345678901234567890123');
-    var uri = builder.build();
-    dConnect.put(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.put({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    vid: "mouse_service_id",
+    name: '0123456789012345678901234567890123'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('putFaBoServiceAbnormalTest003', FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest003);
+QUnit.test('putFaBoServiceAbnormalTest003',
+      FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest003);
 
 /**
  * nameを空文字を指定して仮想サービス名更新するテストを行う。
@@ -291,29 +202,23 @@ QUnit.test('putFaBoServiceAbnormalTest003', FaBoProfileAbnormalTest.putFaBoServi
  * </p>
  */
 FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest004 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('name', '');
-    var uri = builder.build();
-    dConnect.put(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.put({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    vid: "mouse_service_id",
+    name: ''
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('putFaBoServiceAbnormalTest004', FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest004);
+QUnit.test('putFaBoServiceAbnormalTest004',
+    FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest004);
 
 
 /**
@@ -329,27 +234,20 @@ QUnit.test('putFaBoServiceAbnormalTest004', FaBoProfileAbnormalTest.putFaBoServi
  * </p>
  */
 FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest005 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', '001');
-    builder.addParameter('name', 'TEST');
-    var uri = builder.build();
-    dConnect.put(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.put({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    vid: "001",
+    name: 'TEST'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
 QUnit.test('putFaBoServiceAbnormalTest005', FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest005);
 
@@ -366,27 +264,21 @@ QUnit.test('putFaBoServiceAbnormalTest005', FaBoProfileAbnormalTest.putFaBoServi
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest001 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoServiceAbnormalTest001', FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest001);
+QUnit.test('deleteFaBoServiceAbnormalTest001',
+      FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest001);
 
 /**
  * vidに存在しないidを指定して仮想サービス削除するテストを行う。
@@ -401,28 +293,22 @@ QUnit.test('deleteFaBoServiceAbnormalTest001', FaBoProfileAbnormalTest.deleteFaB
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest002 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', '001');
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'service',
+    serviceId: getCurrentServiceId(),
+    vid: '001'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoServiceAbnormalTest002', FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest002);
+QUnit.test('deleteFaBoServiceAbnormalTest002',
+        FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest002);
 
 
 /**
@@ -438,27 +324,21 @@ QUnit.test('deleteFaBoServiceAbnormalTest002', FaBoProfileAbnormalTest.deleteFaB
  * </p>
  */
 FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest001 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    var uri = builder.build();
-    dConnect.get(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.get({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('getFaBoProfileAbnormalTest001', FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest001);
+QUnit.test('getFaBoProfileAbnormalTest001',
+      FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest001);
 
 
 
@@ -475,28 +355,22 @@ QUnit.test('getFaBoProfileAbnormalTest001', FaBoProfileAbnormalTest.getFaBoProfi
  * </p>
  */
 FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest002 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', '001');
-    var uri = builder.build();
-    dConnect.get(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.get({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: '001'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('getFaBoProfileAbnormalTest002', FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest002);
+QUnit.test('getFaBoProfileAbnormalTest002',
+    FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest002);
 
 
 /**
@@ -512,27 +386,21 @@ QUnit.test('getFaBoProfileAbnormalTest002', FaBoProfileAbnormalTest.getFaBoProfi
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest001 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest001', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest001);
+QUnit.test('postFaBoProfileAbnormalTest001',
+    FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest001);
 
 
 
@@ -549,28 +417,22 @@ QUnit.test('postFaBoProfileAbnormalTest001', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest002 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', '001');
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: '001'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest002', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest002);
+QUnit.test('postFaBoProfileAbnormalTest002',
+      FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest002);
 
 
 /**
@@ -586,27 +448,20 @@ QUnit.test('postFaBoProfileAbnormalTest002', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest003 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('type', 111111);
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id',
+    type: 111111
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
 QUnit.test('postFaBoProfileAbnormalTest003', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest003);
 
@@ -625,29 +480,23 @@ QUnit.test('postFaBoProfileAbnormalTest003', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest004 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('type', 1);
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id',
+    type: 1
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest004', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest004);
+QUnit.test('postFaBoProfileAbnormalTest004',
+        FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest004);
 
 /**
  * pinsに存在しないピンを指定してプロファイル追加するテストを行う。
@@ -662,30 +511,24 @@ QUnit.test('postFaBoProfileAbnormalTest004', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest005 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('type', 1);
-    builder.addParameter('pins', '1000');
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id',
+    type: 1,
+    pins: '1000'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest005', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest005);
+QUnit.test('postFaBoProfileAbnormalTest005',
+    FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest005);
 
 
 /**
@@ -701,28 +544,21 @@ QUnit.test('postFaBoProfileAbnormalTest005', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest007 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('type', 1);
-    builder.addParameter('pins', 'test');
-    var uri = builder.build();
-    dConnect.post(uri, null, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.post({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id',
+    type: 1,
+    pins: 'test'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
 QUnit.test('postFaBoProfileAbnormalTest007', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest007);
 
@@ -741,42 +577,30 @@ QUnit.test('postFaBoProfileAbnormalTest007', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest008 = function(assert) {
-    FaBoProfileAbnormalTest.createFaBoProfile(function(vid, json) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('fabo');
-        builder.setAttribute('profile');
-        builder.setServiceId(getCurrentServiceId());
-        builder.setAccessToken(getCurrentAccessToken());
-        builder.addParameter('vid', vid);
-        builder.addParameter('type', 3);
-        builder.addParameter('pins', 'D2');
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function(json) {
-                FaBoProfileAbnormalTest.deleteFaBoService(vid);
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-                FaBoProfileAbnormalTest.deleteFaBoService(vid);
-                if (errorCode == 10) {
-                    assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                } else {
-                    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                }
-                QUnit.start();
-            });
-        }, 
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  createFaBoProfile().then(vid => {
+    sdk.post({
+      profile: 'fabo',
+      attribute: 'profile',
+      serviceId: getCurrentServiceId(),
+      vid: vid,
+      type: 3,
+      pins: 'D2'
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      FaBoProfileAbnormalTest.deleteFaBoService(vid);
+      done();
+    });
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest008', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest008);
+QUnit.test('postFaBoProfileAbnormalTest008',
+    FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest008);
 
 /**
  * 複数のピンを指定してプロファイル追加するテストを行う。
@@ -791,42 +615,30 @@ QUnit.test('postFaBoProfileAbnormalTest008', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest009 = function(assert) {
-    FaBoProfileAbnormalTest.createFaBoProfile(function(vid, json) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('fabo');
-        builder.setAttribute('profile');
-        builder.setServiceId(getCurrentServiceId());
-        builder.setAccessToken(getCurrentAccessToken());
-        builder.addParameter('vid', vid);
-        builder.addParameter('type', 2);
-        builder.addParameter('pins', 'A1,A2');
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function(json) {
-                FaBoProfileAbnormalTest.deleteFaBoService(vid);
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-                FaBoProfileAbnormalTest.deleteFaBoService(vid);
-                if (errorCode == 10) {
-                    assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                } else {
-                    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                }
-                QUnit.start();
-            });
-        }, 
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  createFaBoProfile().then(vid => {
+    sdk.post({
+      profile: 'fabo',
+      attribute: 'profile',
+      serviceId: getCurrentServiceId(),
+      vid: vid,
+      type: 2,
+      pins: 'A1,A2'
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      FaBoProfileAbnormalTest.deleteFaBoService(vid);
+      done();
+    });
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest009', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest009);
+QUnit.test('postFaBoProfileAbnormalTest009',
+      FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest009);
 
 
 /**
@@ -842,42 +654,30 @@ QUnit.test('postFaBoProfileAbnormalTest009', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest010 = function(assert) {
-    FaBoProfileAbnormalTest.createFaBoProfile(function(vid, json) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('fabo');
-        builder.setAttribute('profile');
-        builder.setServiceId(getCurrentServiceId());
-        builder.setAccessToken(getCurrentAccessToken());
-        builder.addParameter('vid', vid);
-        builder.addParameter('type', 2);
-        builder.addParameter('pins', 'D4');
-        var uri = builder.build();
-        dConnect.post(uri, null, null,
-            function(json) {
-                FaBoProfileAbnormalTest.deleteFaBoService(vid);
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                QUnit.start();
-            },
-            function(errorCode, errorMessage) {
-                FaBoProfileAbnormalTest.deleteFaBoService(vid);
-                if (errorCode == 10) {
-                    assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                } else {
-                    assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                }
-                QUnit.start();
-            });
-        }, 
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  createFaBoProfile().then(vid => {
+    sdk.post({
+      profile: 'fabo',
+      attribute: 'profile',
+      serviceId: getCurrentServiceId(),
+      vid: vid,
+      type: 2,
+      pins: 'D4'
+    }).then(json => {
+      assert.ok(false, 'json: ' + JSON.stringify(json));
+    }).catch(e => {
+      checkSuccessErrorCode(assert, e, 10);
+    }).finally(() => {
+      FaBoProfileAbnormalTest.deleteFaBoService(vid);
+      done();
+    });
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('postFaBoProfileAbnormalTest010', FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest010);
+QUnit.test('postFaBoProfileAbnormalTest010',
+      FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest010);
 
 /**
  * パラメータを指定しないでプロファイル削除するテストを行う。
@@ -892,27 +692,21 @@ QUnit.test('postFaBoProfileAbnormalTest010', FaBoProfileAbnormalTest.postFaBoPro
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest001 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoProfileAbnormalTest001', FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest001);
+QUnit.test('deleteFaBoProfileAbnormalTest001',
+ FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest001);
 
 /**
  * vidに不正な値を指定してプロファイル削除するテストを行う。
@@ -927,28 +721,22 @@ QUnit.test('deleteFaBoProfileAbnormalTest001', FaBoProfileAbnormalTest.deleteFaB
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest002 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', '001');
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: '001'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoProfileAbnormalTest002', FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest002);
+QUnit.test('deleteFaBoProfileAbnormalTest002',
+        FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest002);
 
 /**
  * typeを指定しないでプロファイル削除するテストを行う。
@@ -963,28 +751,22 @@ QUnit.test('deleteFaBoProfileAbnormalTest002', FaBoProfileAbnormalTest.deleteFaB
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest003 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoProfileAbnormalTest003', FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest003);
+QUnit.test('deleteFaBoProfileAbnormalTest003',
+      FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest003);
 
 /**
  * typeを存在しない値を指定してプロファイル削除するテストを行う。
@@ -999,29 +781,23 @@ QUnit.test('deleteFaBoProfileAbnormalTest003', FaBoProfileAbnormalTest.deleteFaB
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('type', 1000);
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id',
+    type: 1000
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoProfileAbnormalTest004', FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004);
+QUnit.test('deleteFaBoProfileAbnormalTest004',
+      FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004);
 
 
 /**
@@ -1037,27 +813,20 @@ QUnit.test('deleteFaBoProfileAbnormalTest004', FaBoProfileAbnormalTest.deleteFaB
  * </p>
  */
 FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004 = function(assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(getCurrentServiceId());
-    builder.setAccessToken(getCurrentAccessToken());
-    builder.addParameter('vid', 'mouse_service_id');
-    builder.addParameter('type', 'TEST');
-    var uri = builder.build();
-    dConnect.delete(uri, null,
-        function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            QUnit.start();
-        },
-        function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-                assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            } else {
-                assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            }
-            QUnit.start();
-        });
+  let done = assert.async();
+  sdk.delete({
+    profile: 'fabo',
+    attribute: 'profile',
+    serviceId: getCurrentServiceId(),
+    vid: 'mouse_service_id',
+    type: 'TEST'
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
+  });
 };
-QUnit.test('deleteFaBoProfileAbnormalTest004', FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004);
-
+QUnit.test('deleteFaBoProfileAbnormalTest004',
+      FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004);

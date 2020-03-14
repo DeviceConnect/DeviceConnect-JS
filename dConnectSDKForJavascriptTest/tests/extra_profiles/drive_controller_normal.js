@@ -1,5 +1,5 @@
 QUnit.module('DriveControllerProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('DriveControllerProfileNormalTest', {
  * DriveControllerプロファイルの正常系テストを行うクラス。
  * @class
  */
-var DriveControllerProfileNormalTest = {};
+let DriveControllerProfileNormalTest = {};
 
 /**
  * angle=0, speed=0.1として無線移動機器に移動リクエストを送るテストを行う。
@@ -23,24 +23,20 @@ var DriveControllerProfileNormalTest = {};
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 0);
-  builder.addParameter('speed', 0.1);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 0,
+    speed: 0.1
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest001',
@@ -59,24 +55,20 @@ QUnit.test('moveNormalTest001',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 0);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 0,
+    speed: 0.5
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest002',
@@ -95,24 +87,20 @@ QUnit.test('moveNormalTest002',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 0);
-  builder.addParameter('speed', 1.0);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 0,
+    speed: 1.0
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest003',
@@ -131,24 +119,20 @@ QUnit.test('moveNormalTest003',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 0.1);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 0.1
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest004',
@@ -167,24 +151,20 @@ QUnit.test('moveNormalTest004',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 0.5
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest005',
@@ -203,24 +183,20 @@ QUnit.test('moveNormalTest005',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 1.0);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 1.0
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest006',
@@ -239,24 +215,20 @@ QUnit.test('moveNormalTest006',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 180);
-  builder.addParameter('speed', 0.1);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 180,
+    speed: 0.1
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest007',
@@ -275,24 +247,20 @@ QUnit.test('moveNormalTest007',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 180);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 180,
+    speed: 0.5
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest008',
@@ -311,24 +279,20 @@ QUnit.test('moveNormalTest008',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 180);
-  builder.addParameter('speed', 1.0);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 180,
+    speed: 1.0
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest009',
@@ -347,24 +311,20 @@ QUnit.test('moveNormalTest009',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 270);
-  builder.addParameter('speed', 0.1);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 270,
+    speed: 0.1
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest010',
@@ -383,24 +343,20 @@ QUnit.test('moveNormalTest010',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 270);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 270,
+    speed: 0.5
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest011',
@@ -419,24 +375,20 @@ QUnit.test('moveNormalTest011',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 270);
-  builder.addParameter('speed', 1.0);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 270,
+    speed: 1.0
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest012',
@@ -455,24 +407,20 @@ QUnit.test('moveNormalTest012',
  * </p>
  */
 DriveControllerProfileNormalTest.moveNormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 0.666666666);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 0.666666666
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('moveNormalTest013',
@@ -491,22 +439,18 @@ QUnit.test('moveNormalTest013',
  * </p>
  */
 DriveControllerProfileNormalTest.stopNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('stop');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'stop',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('stopNormalTest001',
@@ -525,23 +469,19 @@ QUnit.test('stopNormalTest001',
  * </p>
  */
 DriveControllerProfileNormalTest.rotateNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 0);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 0
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('rotateNormalTest001',
@@ -560,23 +500,19 @@ QUnit.test('rotateNormalTest001',
  * </p>
  */
 DriveControllerProfileNormalTest.rotateNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 90
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('rotateNormalTest002',
@@ -595,23 +531,19 @@ QUnit.test('rotateNormalTest002',
  * </p>
  */
 DriveControllerProfileNormalTest.rotateNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 180);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 180
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('rotateNormalTest003',
@@ -630,23 +562,19 @@ QUnit.test('rotateNormalTest003',
  * </p>
  */
 DriveControllerProfileNormalTest.rotateNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 270);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 270
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('rotateNormalTest004',

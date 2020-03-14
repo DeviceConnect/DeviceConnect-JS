@@ -1,5 +1,5 @@
 QUnit.module('SpheroProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('SpheroProfileAbnormalTest', {
  * RemoteControllerプロファイルの異常系テストを行うクラス。
  * @class
  */
-var SpheroProfileAbnormalTest = {};
+let SpheroProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドでonquaternionイベントにアクセスするテストを行う。
@@ -24,27 +24,18 @@ var SpheroProfileAbnormalTest = {};
  * </p>
  */
 SpheroProfileAbnormalTest.onQuaternionAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('quaternion');
-  builder.setAttribute('onquaternion');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'sphero',
+    interface: 'quaternion',
+    attribute: 'onquaternion',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('onQuaternionAbnormalTest001',
@@ -64,27 +55,18 @@ QUnit.test('onQuaternionAbnormalTest001',
  * </p>
  */
 SpheroProfileAbnormalTest.onLocatorAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('locator');
-  builder.setAttribute('onlocator');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'sphero',
+    interface: 'locator',
+    attribute: 'onlocator',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('onLocatorAbnormalTest001',
@@ -104,28 +86,18 @@ QUnit.test('onLocatorAbnormalTest001',
  * </p>
  */
 SpheroProfileAbnormalTest.onCollisionAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'sphero',
+    interface: 'collision',
+    attribute: 'oncollision',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('onCollisionAbnormalTest001',

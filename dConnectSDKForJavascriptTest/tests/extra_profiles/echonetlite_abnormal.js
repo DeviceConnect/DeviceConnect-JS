@@ -1,5 +1,5 @@
 QUnit.module('EchonetLiteProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('EchonetLiteProfileAbnormalTest', {
  * EchonetLiteプロファイルの異常系テストを行うクラス。
  * @class
  */
-var EchonetLiteProfileAbnormalTest = {};
+let EchonetLiteProfileAbnormalTest = {};
 /**
  * 定義されていないPOSTメソッドでECHONET Lite プロパティにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -22,28 +22,18 @@ var EchonetLiteProfileAbnormalTest = {};
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80,0x8F,0xB0,0xB3,0xBB'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTestt001(Calling a post method that does not support.)',
@@ -62,29 +52,20 @@ QUnit.test('propertyAbnormalTestt001(Calling a post method that does not support
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80,0x8F,0xB0,0xB3,0xBB'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
+
 };
 QUnit.test('propertyAbnormalTest002(Calling a delete method that does not support.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest002);
@@ -110,27 +91,18 @@ QUnit.test('propertyAbnormalTest002(Calling a delete method that does not suppor
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', null);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: null
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest003(epc is null.)',
@@ -149,27 +121,18 @@ QUnit.test('propertyAbnormalTest003(epc is null.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', undefined);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: undefined
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest004(epc is undefined.)',
@@ -188,28 +151,20 @@ QUnit.test('propertyAbnormalTest004(epc is undefined.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '1234');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '1234'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
 QUnit.test('propertyAbnormalTest005(epc is number.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest005);
@@ -227,28 +182,20 @@ QUnit.test('propertyAbnormalTest005(epc is number.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', 'abc');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: 'abc'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
 QUnit.test('propertyAbnormalTest006(epc is alphabet.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest006);
@@ -266,28 +213,20 @@ QUnit.test('propertyAbnormalTest006(epc is alphabet.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', 'あいう');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: 'あいう'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
 QUnit.test('propertyAbnormalTest007(epc is hiragana.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest007);
@@ -305,27 +244,18 @@ QUnit.test('propertyAbnormalTest007(epc is hiragana.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~='
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest008(epc is symbol.)',
@@ -345,27 +275,18 @@ epc=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest009(epc is limit.)',
@@ -392,28 +313,19 @@ QUnit.test('propertyAbnormalTest009(epc is limit.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', null);
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: null,
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest010(epc is null.)',
@@ -432,28 +344,19 @@ QUnit.test('propertyAbnormalTest010(epc is null.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', undefined);
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: undefined,
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest011(epc is undefined.)',
@@ -472,28 +375,19 @@ QUnit.test('propertyAbnormalTest011(epc is undefined.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '1234');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '1234',
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest012(epc is number.)',
@@ -512,28 +406,19 @@ QUnit.test('propertyAbnormalTest012(epc is number.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', 'abc');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: 'abc',
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest013(epc is alphabet.)',
@@ -552,28 +437,19 @@ QUnit.test('propertyAbnormalTest013(epc is alphabet.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest014 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', 'あいう');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: 'あいう',
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest014(epc is hiragana.)',
@@ -592,28 +468,19 @@ QUnit.test('propertyAbnormalTest014(epc is hiragana.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest015 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc:  '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest015(epc is symbol.)',
@@ -633,28 +500,19 @@ epc=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwx
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest016 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc:  'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    value: '49'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest016(epc is limit.)',
@@ -681,28 +539,19 @@ QUnit.test('propertyAbnormalTest016(epc is limit.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest017 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', '');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: ''
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest017(value is null.)',
@@ -721,28 +570,19 @@ QUnit.test('propertyAbnormalTest017(value is null.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest018 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', undefined);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: undefined
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest018(value is undefined.)',
@@ -761,28 +601,19 @@ QUnit.test('propertyAbnormalTest018(value is undefined.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest019 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', '1234');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: '1234'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest019(value is out of range.)',
@@ -801,28 +632,19 @@ QUnit.test('propertyAbnormalTest019(value is out of range.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest020 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', '-1234');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: '-1234'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest020(value is out of range.)',
@@ -841,28 +663,19 @@ QUnit.test('propertyAbnormalTest020(value is out of range.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest021 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', 'abc');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: 'abc'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest021(value is alphabet.)',
@@ -881,28 +694,19 @@ QUnit.test('propertyAbnormalTest021(value is alphabet.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest022 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', 'あいう');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: 'あいう'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest022(value is hiragana.)',
@@ -921,28 +725,19 @@ QUnit.test('propertyAbnormalTest022(value is hiragana.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest023 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~='
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest023(value is symbol.)',
@@ -962,28 +757,19 @@ value=abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuv
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest024 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest024(value is limit.)',
@@ -1002,28 +788,18 @@ QUnit.test('propertyAbnormalTest024(value is limit.)',
  * </p>
  */
 EchonetLiteProfileAbnormalTest.propertyAbnormalTest025 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('propertyAbnormalTest025(parameter is not set.)',
     EchonetLiteProfileAbnormalTest.propertyAbnormalTest025);
-

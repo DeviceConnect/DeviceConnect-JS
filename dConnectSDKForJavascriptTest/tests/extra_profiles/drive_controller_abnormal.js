@@ -1,5 +1,5 @@
 QUnit.module('DriveControllerProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -9,7 +9,7 @@ QUnit.module('DriveControllerProfileAbnormalTest', {
  * @class
  */
 
-var DriveControllerProfileAbnormalTest = {};
+let DriveControllerProfileAbnormalTest = {};
 
 /**
  * 定義されていないGETメソッドで指定された方向に無線移動機器の移動を開始させるテストを行う。
@@ -24,29 +24,19 @@ var DriveControllerProfileAbnormalTest = {};
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 0.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest001(get not support method.)',
@@ -65,29 +55,19 @@ QUnit.test('moveAbnormalTest001(get not support method.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 0.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest002(put not support method.)',
@@ -106,29 +86,19 @@ QUnit.test('moveAbnormalTest002(put not support method.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  builder.addParameter('speed', 0.5);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 90,
+    speed: 0.5
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest003(delete not support method.)',
@@ -147,27 +117,17 @@ QUnit.test('moveAbnormalTest003(delete not support method.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest004(angle and speed not set)',
@@ -186,29 +146,19 @@ QUnit.test('moveAbnormalTest004(angle and speed not set)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 'かきくけこ');
-  builder.addParameter('speed', 'あいうえお');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 'かきくけこ',
+    speed: 'あいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    QUnit.start();
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest005(Set string in angle and speed.)',
@@ -227,29 +177,19 @@ QUnit.test('moveAbnormalTest005(Set string in angle and speed.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 12345);
-  builder.addParameter('speed', 67890);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 12345,
+    speed: 67890
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest006(Set big number in angle and speed.)',
@@ -268,29 +208,19 @@ QUnit.test('moveAbnormalTest006(Set big number in angle and speed.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 'abc');
-  builder.addParameter('speed', 'def');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 'abc',
+    speed: 'def'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest007(Set a string in angle and speed.)',
@@ -310,29 +240,19 @@ QUnit.test('moveAbnormalTest007(Set a string in angle and speed.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.moveAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('move');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 10000);
-  builder.addParameter('speed', 0.8);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    serviceId: getCurrentServiceId(),
+    angle: 10000,
+    speed: 0.8
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('moveAbnormalTest012',
@@ -353,27 +273,17 @@ QUnit.test('moveAbnormalTest012',
  * </p>
  */
 DriveControllerProfileAbnormalTest.stopAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('stop');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'drivecontroller',
+    attribute: 'stop',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('stopAbnormalTest001(Calling a get method that does not support.)',
@@ -392,27 +302,17 @@ QUnit.test('stopAbnormalTest001(Calling a get method that does not support.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.stopAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('stop');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'stop',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('stopAbnormalTest002(Calling a put method that does not support.)',
@@ -431,27 +331,17 @@ QUnit.test('stopAbnormalTest002(Calling a put method that does not support.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.stopAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('stop');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'stop',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('stopAbnormalTest003(Calling a post method that does not support.)',
@@ -470,28 +360,18 @@ QUnit.test('stopAbnormalTest003(Calling a post method that does not support.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 90
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest001(Calling a get method that does not support.)',
@@ -510,28 +390,18 @@ QUnit.test('rotateAbnormalTest001(Calling a get method that does not support.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 90
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest002(Calling a post method that does not support.)',
@@ -550,28 +420,18 @@ QUnit.test('rotateAbnormalTest002(Calling a post method that does not support.)'
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 90);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 90
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest003(Calling a delete method that does not support.)',
@@ -590,27 +450,17 @@ QUnit.test('rotateAbnormalTest003(Calling a delete method that does not support.
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest004(Calling a put method without setting of angle.)',
@@ -629,28 +479,18 @@ QUnit.test('rotateAbnormalTest004(Calling a put method without setting of angle.
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 'あいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 'あいうえお'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest005(Calling a put method with angle=あいうえお.)',
@@ -669,28 +509,18 @@ QUnit.test('rotateAbnormalTest005(Calling a put method with angle=あいうえ�
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 12345);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 12345
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest006(Calling a put method with angle=12345.)',
@@ -709,30 +539,19 @@ QUnit.test('rotateAbnormalTest006(Calling a put method with angle=12345.)',
  * </p>
  */
 DriveControllerProfileAbnormalTest.rotateAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', 'abc');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    serviceId: getCurrentServiceId(),
+    angle: 'rotate'
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
 QUnit.test('rotateAbnormalTest007(Calling a put method with angle=abc.)',
     DriveControllerProfileAbnormalTest.rotateAbnormalTest007);
-

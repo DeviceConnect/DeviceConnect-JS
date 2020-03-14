@@ -1,5 +1,5 @@
 QUnit.module('Keyboard Profile Normal Test', {
-    setup: function() {
+    before: function() {
         init();
     }
 });
@@ -8,7 +8,7 @@ QUnit.module('Keyboard Profile Normal Test', {
  * Keyboardプロファイルのテストを行うクラス。
  * @class
  */
-var KeyboardProfileNormalTest = {};
+let KeyboardProfileNormalTest = {};
 
 /**
  * キーコードに4を送信するテストを行う。
@@ -23,20 +23,18 @@ var KeyboardProfileNormalTest = {};
  * </p>
  */
 KeyboardProfileNormalTest.keyboardTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', 4);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    serviceId: getCurrentServiceId(),
+    keyCode: 4
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('keyboardTest001', KeyboardProfileNormalTest.keyboardTest001);
@@ -54,20 +52,18 @@ QUnit.test('keyboardTest001', KeyboardProfileNormalTest.keyboardTest001);
  * </p>
  */
 KeyboardProfileNormalTest.keyboardTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '0x04');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    serviceId: getCurrentServiceId(),
+    keyCode: '0x04'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('keyboardTest002', KeyboardProfileNormalTest.keyboardTest002);
@@ -85,20 +81,18 @@ QUnit.test('keyboardTest002', KeyboardProfileNormalTest.keyboardTest002);
  * </p>
  */
 KeyboardProfileNormalTest.keyboardTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '4,5');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    serviceId: getCurrentServiceId(),
+    keyCode: '4,5'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('keyboardTest003', KeyboardProfileNormalTest.keyboardTest003);
@@ -116,20 +110,18 @@ QUnit.test('keyboardTest003', KeyboardProfileNormalTest.keyboardTest003);
  * </p>
  */
 KeyboardProfileNormalTest.keyboardTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '0x04,5');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    serviceId: getCurrentServiceId(),
+    keyCode: '0x04,5'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('keyboardTest004', KeyboardProfileNormalTest.keyboardTest004);
@@ -147,21 +139,19 @@ QUnit.test('keyboardTest004', KeyboardProfileNormalTest.keyboardTest004);
  * </p>
  */
 KeyboardProfileNormalTest.keyboardTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '0x04');
-  builder.addParameter('modifier', 'shift');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    serviceId: getCurrentServiceId(),
+    keyCode: '0x04',
+    modifier: 'shift'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('keyboardTest005', KeyboardProfileNormalTest.keyboardTest005);
@@ -180,23 +170,20 @@ QUnit.test('keyboardTest005', KeyboardProfileNormalTest.keyboardTest005);
  * </p>
  */
 KeyboardProfileNormalTest.asciiTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('ascii');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('string', 'a');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'ascii',
+    serviceId: getCurrentServiceId(),
+    string: 'a'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
-
 };
 QUnit.test('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
 
@@ -213,22 +200,21 @@ QUnit.test('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
  * </p>
  */
 KeyboardProfileNormalTest.asciiTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('ascii');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('string', 'ABC');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'ascii',
+    serviceId: getCurrentServiceId(),
+    string: 'ABC'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
+
 };
 QUnit.test('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
 
@@ -245,20 +231,18 @@ QUnit.test('asciiTest001', KeyboardProfileNormalTest.asciiTest001);
  * </p>
  */
 KeyboardProfileNormalTest.upArrowTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('upArrow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'upArrow',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('upArrowTest001', KeyboardProfileNormalTest.upArrowTest001);
@@ -277,20 +261,18 @@ QUnit.test('upArrowTest001', KeyboardProfileNormalTest.upArrowTest001);
  * </p>
  */
 KeyboardProfileNormalTest.downArrowTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('downArrow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'downArrow',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('downArrowTest001', KeyboardProfileNormalTest.downArrowTest001);
@@ -308,20 +290,18 @@ QUnit.test('downArrowTest001', KeyboardProfileNormalTest.downArrowTest001);
  * </p>
  */
 KeyboardProfileNormalTest.leftArrowTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('leftArrow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'leftArrow',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('leftArrowTest001', KeyboardProfileNormalTest.leftArrowTest001);
@@ -339,20 +319,18 @@ QUnit.test('leftArrowTest001', KeyboardProfileNormalTest.leftArrowTest001);
  * </p>
  */
 KeyboardProfileNormalTest.rightArrowTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('rightArrow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'rightArrow',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('rightArrowTest001', KeyboardProfileNormalTest.rightArrowTest001);
@@ -371,20 +349,18 @@ QUnit.test('rightArrowTest001', KeyboardProfileNormalTest.rightArrowTest001);
  * </p>
  */
 KeyboardProfileNormalTest.enterTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('enter');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'enter',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('enterTest001', KeyboardProfileNormalTest.enterTest001);
@@ -403,20 +379,18 @@ QUnit.test('enterTest001', KeyboardProfileNormalTest.enterTest001);
  * </p>
  */
 KeyboardProfileNormalTest.escTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('esc');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'esc',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('escTest001', KeyboardProfileNormalTest.escTest001);
@@ -435,21 +409,18 @@ QUnit.test('escTest001', KeyboardProfileNormalTest.escTest001);
  * </p>
  */
 KeyboardProfileNormalTest.delTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('del');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'del',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 QUnit.test('delTest001', KeyboardProfileNormalTest.delTest001);
-

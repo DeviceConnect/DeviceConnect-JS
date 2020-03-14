@@ -1,5 +1,5 @@
 QUnit.module('AirConditionerProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('AirConditionerProfileNormalTest', {
  * AirConditionerプロファイルの正常系テストを行うクラス。
  * @class
  */
-var AirConditionerProfileNormalTest = {};
+let AirConditionerProfileNormalTest = {};
 
 /**
  * 電源状態を取得するテストを行う。
@@ -23,22 +23,18 @@ var AirConditionerProfileNormalTest = {};
  * </p>
  */
 AirConditionerProfileNormalTest.getPowerStateNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'powerstatus=' + json.powerstatus);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'powerstatus=' + json.powerstatus);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('getPowerStateNormalTest001(get)',
@@ -57,20 +53,17 @@ QUnit.test('getPowerStateNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('powerOnNormalTest001(get)',
@@ -89,20 +82,17 @@ QUnit.test('powerOnNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'airconditioner',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('powerOffNormalTest001(get)',
@@ -121,23 +111,19 @@ QUnit.test('powerOffNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.powerSavingNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('powersaving');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'powersaving=' + json.operationpowersaving);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'powersaving',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'powersaving=' + json.operationpowersaving);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('PowerSavingNormalTest001(get)',
@@ -156,23 +142,19 @@ QUnit.test('PowerSavingNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.powerSavingNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('powersaving');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('powersaving', 'PowerSaving');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'powersaving',
+    serviceId: getCurrentServiceId(),
+    powersaving: 'PowerSaving'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('PowerSavingNormalTest002(put)',
@@ -191,23 +173,19 @@ QUnit.test('PowerSavingNormalTest002(put)',
  * </p>
  */
 AirConditionerProfileNormalTest.powerSavingNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('powersaving');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('powersaving', 'Normal');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'powersaving',
+    serviceId: getCurrentServiceId(),
+    powersaving: 'Normal'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('PowerSavingNormalTest003(put)',
@@ -226,23 +204,20 @@ QUnit.test('PowerSavingNormalTest003(put)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'modesetting=' + json.operationmodesetting);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    powersaving: 'Normal'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'modesetting=' + json.operationmodesetting);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest001(get)',
@@ -261,23 +236,19 @@ QUnit.test('ModeSettingNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modesetting', 'Other');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    modesetting: 'Other'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest002(put - Other)',
@@ -296,23 +267,19 @@ QUnit.test('ModeSettingNormalTest002(put - Other)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modesetting', 'AirCirculator');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    modesetting: 'AirCirculator'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest003(put - AirCirculator)',
@@ -331,23 +298,19 @@ QUnit.test('ModeSettingNormalTest003(put - AirCirculator)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modesetting', 'Dehumidification');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    modesetting: 'Dehumidification'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest004(put - Dehumidification)',
@@ -366,23 +329,19 @@ QUnit.test('ModeSettingNormalTest004(put - Dehumidification)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modesetting', 'Heating');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    modesetting: 'Heating'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest005(put - Heating)',
@@ -401,23 +360,19 @@ QUnit.test('ModeSettingNormalTest005(put - Heating)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modesetting', 'Cooling');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    modesetting: 'Cooling'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest006(put - Cooling)',
@@ -436,23 +391,19 @@ QUnit.test('ModeSettingNormalTest006(put - Cooling)',
  * </p>
  */
 AirConditionerProfileNormalTest.modeSettingNormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modesetting', 'Automatic');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    serviceId: getCurrentServiceId(),
+    modesetting: 'Automatic'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('ModeSettingNormalTest007(put - Automatic)',
@@ -471,23 +422,19 @@ QUnit.test('ModeSettingNormalTest007(put - Automatic)',
  * </p>
  */
 AirConditionerProfileNormalTest.roomTemperatureNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('roomtemperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'roomtemperature=' + json.roomtemperature);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'roomtemperature',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'roomtemperature=' + json.roomtemperature);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('roomTemperatureNormalTest001(get)',
@@ -506,23 +453,19 @@ QUnit.test('roomTemperatureNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.temperatureNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'temperature=' + json.temperature);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'temperature',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'temperature=' + json.temperature);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('temperatureValueNormalTest001(get)',
@@ -541,23 +484,19 @@ QUnit.test('temperatureValueNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.temperatureNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('temperature', '25');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'temperature',
+    serviceId: getCurrentServiceId(),
+    temperature: '25'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('temperatureValueNormalTest002(put)',
@@ -576,24 +515,20 @@ QUnit.test('temperatureValueNormalTest002(put)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'airflow=' + json.airflow);
-        assert.ok(true, 'airflowauto=' + json.airflowauto);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'airflow=' + json.airflow);
+    assert.ok(true, 'airflowauto=' + json.airflowauto);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest001(get)',
@@ -612,23 +547,19 @@ QUnit.test('airflowNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.0');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.0'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest002(put - 0.0)',
@@ -647,23 +578,19 @@ QUnit.test('airflowNormalTest002(put - 0.0)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.12');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.12'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest003(put - 0.12)',
@@ -682,23 +609,19 @@ QUnit.test('airflowNormalTest003(put - 0.12)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.25');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.25'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest004(put - 0.25)',
@@ -717,23 +640,19 @@ QUnit.test('airflowNormalTest004(put - 0.25)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.38');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.38'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest005(put - 0.38)',
@@ -752,23 +671,19 @@ QUnit.test('airflowNormalTest005(put - 0.38)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.51');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.51'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest006(put - 0.51)',
@@ -787,23 +702,19 @@ QUnit.test('airflowNormalTest006(put - 0.51)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.64');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.64'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest007(put - 0.64)',
@@ -822,23 +733,19 @@ QUnit.test('airflowNormalTest007(put - 0.64)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.77');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.77'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest008(put - 0.77)',
@@ -857,23 +764,19 @@ QUnit.test('airflowNormalTest008(put - 0.77)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.90');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.90'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest009(put - 0.90)',
@@ -892,23 +795,19 @@ QUnit.test('airflowNormalTest009(put - 0.90)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '1.0');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '1.0'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest010(put - 1.0)',
@@ -927,23 +826,19 @@ QUnit.test('airflowNormalTest010(put - 1.0)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflowauto', 'true');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflowauto: 'true'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest011(put - Automatic[true])',
@@ -962,24 +857,20 @@ QUnit.test('airflowNormalTest011(put - Automatic[true])',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.51');
-  builder.addParameter('airflowauto', 'false');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.51',
+    airflowauto: 'false'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest012(put Automatic[false], 0.51)',
@@ -998,24 +889,20 @@ QUnit.test('airflowNormalTest012(put Automatic[false], 0.51)',
  * </p>
  */
 AirConditionerProfileNormalTest.airflowNormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('airflow', '0.51');
-  builder.addParameter('airflowauto', 'true');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    serviceId: getCurrentServiceId(),
+    airflow: '0.51',
+    airflowauto: 'true'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('airflowNormalTest013(put - Automatic[true], 0.51)',
@@ -1034,25 +921,21 @@ QUnit.test('airflowNormalTest013(put - Automatic[true], 0.51)',
  * </p>
  */
 AirConditionerProfileNormalTest.enlPropertyNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('enlproperty');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'epc=' + json.properties[0].epc);
-        assert.ok(true, 'value=' + json.properties[0].epc);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'epc=' + json.properties[0].epc);
+    assert.ok(true, 'value=' + json.properties[0].epc);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('enlPropertyNormalTest001(get)',
@@ -1071,27 +954,23 @@ QUnit.test('enlPropertyNormalTest001(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.enlPropertyNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('enlproperty');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80,0x8F');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'epc=' + json.properties[0].epc);
-        assert.ok(true, 'value=' + json.properties[0].value);
-        assert.ok(true, 'epc=' + json.properties[1].epc);
-        assert.ok(true, 'value=' + json.properties[1].value);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80,0x8F'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'epc=' + json.properties[0].epc);
+    assert.ok(true, 'value=' + json.properties[0].value);
+    assert.ok(true, 'epc=' + json.properties[1].epc);
+    assert.ok(true, 'value=' + json.properties[1].value);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('enlPropertyNormalTest002(get)',
@@ -1110,33 +989,29 @@ QUnit.test('enlPropertyNormalTest002(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.enlPropertyNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('enlproperty');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80,0x8F,0xB0,0xB3,0xBB');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'epc=' + json.properties[0].epc);
-        assert.ok(true, 'value=' + json.properties[0].value);
-        assert.ok(true, 'epc=' + json.properties[1].epc);
-        assert.ok(true, 'value=' + json.properties[1].value);
-        assert.ok(true, 'epc=' + json.properties[2].epc);
-        assert.ok(true, 'value=' + json.properties[2].value);
-        assert.ok(true, 'epc=' + json.properties[3].epc);
-        assert.ok(true, 'value=' + json.properties[3].value);
-        assert.ok(true, 'epc=' + json.properties[4].epc);
-        assert.ok(true, 'value=' + json.properties[4].value);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80,0x8F,0xB0,0xB3,0xBB'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'epc=' + json.properties[0].epc);
+    assert.ok(true, 'value=' + json.properties[0].value);
+    assert.ok(true, 'epc=' + json.properties[1].epc);
+    assert.ok(true, 'value=' + json.properties[1].value);
+    assert.ok(true, 'epc=' + json.properties[2].epc);
+    assert.ok(true, 'value=' + json.properties[2].value);
+    assert.ok(true, 'epc=' + json.properties[3].epc);
+    assert.ok(true, 'value=' + json.properties[3].value);
+    assert.ok(true, 'epc=' + json.properties[4].epc);
+    assert.ok(true, 'value=' + json.properties[4].value);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('enlPropertyNormalTest003(get)',
@@ -1155,26 +1030,22 @@ QUnit.test('enlPropertyNormalTest003(get)',
  * </p>
  */
 AirConditionerProfileNormalTest.enlPropertyNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('enlproperty');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'enlproperty',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: '49'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
 QUnit.test('enlPropertyNormalTest004(put)',
     AirConditionerProfileNormalTest.enlPropertyNormalTest004);
-

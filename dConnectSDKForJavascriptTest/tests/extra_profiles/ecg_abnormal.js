@@ -1,5 +1,5 @@
 QUnit.module("ECG Profile Abnormal Test", {
-    setup: function () {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ QUnit.module("ECG Profile Abnormal Test", {
  * ECGプロファイルの異常系テストを行うクラス。
  * @class
  */
-var ECGProfileAbnormalTest = {};
+let ECGProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドでECGにアクセスするテストを行う。
@@ -24,28 +24,17 @@ var ECGProfileAbnormalTest = {};
  * </p>
  */
 ECGProfileAbnormalTest.ecgAbnormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("ecg");
-  builder.setAttribute("onECG");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function (json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      if (errorCode == 8) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-      } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'ecg',
+    attribute: 'onECG',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 }
 QUnit.test("ECG", ECGProfileAbnormalTest.ecgAbnormalTest);
-

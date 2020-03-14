@@ -1,5 +1,5 @@
 QUnit.module('DeviceProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('DeviceProfileAbnormalTest', {
  * Deviceプロファイルの異常系テストを行うクラス。
  * @class
  */
-var DeviceProfileAbnormalTest = {};
+let DeviceProfileAbnormalTest = {};
 
 /**
  * 定義されていないPUTメソッドでアクセスするテストを行う。
@@ -23,27 +23,17 @@ var DeviceProfileAbnormalTest = {};
  * </p>
  */
 DeviceProfileAbnormalTest.pairingAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('device');
-  builder.setAttribute('pairing');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'device',
+    attribute: 'pairing',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('pairingAbnormalTest001(Calling a get method that does not support.)',
@@ -62,28 +52,19 @@ QUnit.test('pairingAbnormalTest001(Calling a get method that does not support.)'
  * </p>
  */
 DeviceProfileAbnormalTest.pairingAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('device');
-  builder.setAttribute('pairing');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'device',
+    attribute: 'pairing',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
+
 };
 QUnit.test('pairingAbnormalTest002(Calling a put method that does not support.)',
     DeviceProfileAbnormalTest.pairingAbnormalTest002);

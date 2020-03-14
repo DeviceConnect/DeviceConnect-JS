@@ -1,5 +1,5 @@
 QUnit.module("PoseEstimation Profile Abnormal Test", {
-    setup: function () {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ QUnit.module("PoseEstimation Profile Abnormal Test", {
  * PoseEstimationプロファイルの異常系テストを行うクラス。
  * @class
  */
-var PoseEstimationProfileAbnormalTest = {};
+let PoseEstimationProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドで姿勢推定にアクセスするテストを行う。
@@ -24,28 +24,17 @@ var PoseEstimationProfileAbnormalTest = {};
  * </p>
  */
 PoseEstimationProfileAbnormalTest.poseAbormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("poseEstimation");
-  builder.setAttribute("onPoseEstimation");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function (json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      if (errorCode == 8) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-      } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'poseEstimation',
+    attribute: 'onPoseEstimation',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 }
 QUnit.test("pose", PoseEstimationProfileAbnormalTest.poseAbormalTest);
-

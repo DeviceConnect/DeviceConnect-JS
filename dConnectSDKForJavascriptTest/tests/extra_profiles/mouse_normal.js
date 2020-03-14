@@ -1,5 +1,5 @@
 QUnit.module('Mouse Profile Normal Test', {
-    setup: function() {
+    before: function() {
         init();
     }
 });
@@ -8,7 +8,7 @@ QUnit.module('Mouse Profile Normal Test', {
  * Mouseプロファイルのテストを行うクラス。
  * @class
  */
-var MouseProfileNormalTest = {};
+let MouseProfileNormalTest = {};
 
 /**
  * マウス情報を取得するテストを行う。
@@ -23,21 +23,18 @@ var MouseProfileNormalTest = {};
  * </p>
  */
 MouseProfileNormalTest.mouseTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+          "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
-
 };
 QUnit.test('mouseTest001', MouseProfileNormalTest.mouseTest001);
 
@@ -54,23 +51,20 @@ QUnit.test('mouseTest001', MouseProfileNormalTest.mouseTest001);
  * </p>
  */
 MouseProfileNormalTest.mouseTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('x', 0.25);
-  builder.addParameter('y', 0.25);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    serviceId: getCurrentServiceId(),
+    x: 0.25,
+    y: 0.25
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+          "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
-
 };
 QUnit.test('mouseTest002', MouseProfileNormalTest.mouseTest002);
 
@@ -88,23 +82,19 @@ QUnit.test('mouseTest002', MouseProfileNormalTest.mouseTest002);
  * </p>
  */
 MouseProfileNormalTest.clickTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setInterface('click');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('button', 'left');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    attribute: 'click',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+          "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
-
 };
 QUnit.test('clickTest001', MouseProfileNormalTest.clickTest001);
 
@@ -122,22 +112,18 @@ QUnit.test('clickTest001', MouseProfileNormalTest.clickTest001);
  * </p>
  */
 MouseProfileNormalTest.doubleClickTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setInterface('doubleClick');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('button', 'left');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(true, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    attribute: 'doubleClick',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+          "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
-
 };
 QUnit.test('doubleClickTest001', MouseProfileNormalTest.doubleClickTest001);

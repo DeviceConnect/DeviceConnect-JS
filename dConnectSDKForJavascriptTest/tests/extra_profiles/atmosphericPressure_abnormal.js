@@ -1,5 +1,5 @@
 QUnit.module('AtmosphericPressureProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('AtmosphericPressureProfileAbnormalTest', {
  * AtmosphericPressureプロファイルの異常系テストを行うクラス。
  * @class
  */
-var AtmosphericPressureProfileAbnormalTest = {};
+let AtmosphericPressureProfileAbnormalTest = {};
 
 /**
  * 定義されていないPUTメソッドで気圧にアクセスするテストを行う。
@@ -23,26 +23,16 @@ var AtmosphericPressureProfileAbnormalTest = {};
  * </p>
  */
 AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('atmosphericPressure');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.put({
+    profile: 'atmosphericPressure',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('atmosphericPressureAbnormalTest001',
@@ -61,26 +51,16 @@ QUnit.test('atmosphericPressureAbnormalTest001',
  * </p>
  */
 AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('atmosphericPressure');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'atmosphericPressure',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('atmosphericPressureAbnormalTest002',
@@ -99,26 +79,16 @@ QUnit.test('atmosphericPressureAbnormalTest002',
  * </p>
  */
 AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('atmosphericPressure');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.delete({
+    profile: 'atmosphericPressure',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('atmosphericPressureAbnormalTest003',

@@ -1,5 +1,5 @@
 QUnit.module("WalkState Profile Normal Test", {
-    setup: function () {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ QUnit.module("WalkState Profile Normal Test", {
  * WalkStateプロファイルの正常系テストを行うクラス。
  * @class
  */
-var WalkStateProfileNormalTest = {};
+let WalkStateProfileNormalTest = {};
 
 /**
  * 歩行状態を取得するテストを行う。
@@ -25,23 +25,19 @@ var WalkStateProfileNormalTest = {};
  * </p>
  */
 WalkStateProfileNormalTest.walkNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("walkState");
-  builder.setAttribute("onWalkState");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok((json.walk != undefined && json.walk.step >= 0), "walk=" + json.walk);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'walkState',
+    attribute: 'onWalkState',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, "result=" + json.result);
+    assert.ok((json.walk != undefined && json.walk.step >= 0), "walk=" + json.walk);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 }
 QUnit.test("walk", WalkStateProfileNormalTest.walkNormalTest);
@@ -60,11 +56,14 @@ QUnit.test("walk", WalkStateProfileNormalTest.walkNormalTest);
  * </p>
  */
 WalkStateProfileNormalTest.walkEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("walkState");
-    builder.setAttribute("onWalkState");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: 'walkState',
+    attribute: 'onWalkState',
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+        let json = JSON.parse(message);
         if (json.profile === "walkState" && json.attribute === "onWalkState") {
             assert.ok(true, message);
             assert.ok((json.walk != undefined && json.walk.step >= 0), "walk=" + json.walk);

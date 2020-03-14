@@ -1,5 +1,5 @@
 QUnit.module("ECG Profile Normal Test", {
-    setup: function () {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ QUnit.module("ECG Profile Normal Test", {
  * ECGプロファイルの正常系テストを行うクラス。
  * @class
  */
-var ECGProfileNormalTest = {};
+let ECGProfileNormalTest = {};
 
 /**
  * ECGを取得するテストを行う。
@@ -25,23 +25,19 @@ var ECGProfileNormalTest = {};
  * </p>
  */
 ECGProfileNormalTest.ecgNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("ecg");
-  builder.setAttribute("onECG");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok((json.ecg != undefined && json.ecg.value >= 0), "ecg=" +  json);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'ecg',
+    attribute: 'onECG',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(true, "result=" + json.result);
+    assert.ok((json.ecg != undefined && json.ecg.value >= 0), "ecg=" +  json);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 }
 QUnit.test("ecg", ECGProfileNormalTest.ecgNormalTest);
@@ -60,11 +56,14 @@ QUnit.test("ecg", ECGProfileNormalTest.ecgNormalTest);
  * </p>
  */
 ECGProfileNormalTest.ecgEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("ecg");
-    builder.setAttribute("onECG");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
+  let serviceId = getCurrentServiceId();
+  let params = {
+    profile: 'ecg',
+    attribute: 'onECG',
+    serviceId: serviceId
+  };
+  openWebsocket(params, assert, 10000, message => {
+        let json = JSON.parse(message);
         if (json.profile === "ecg" && json.attribute === "onECG") {
             assert.ok(true, message);
             assert.ok((json.ecg != undefined && json.ecg.value >= 0), "ecg=" +  json);

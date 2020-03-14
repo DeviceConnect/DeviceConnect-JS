@@ -1,5 +1,5 @@
 QUnit.module('HumidityProfileAbnormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('HumidityProfileAbnormalTest', {
  * Humidityプロファイルの異常系テストを行うクラス。
  * @class
  */
-var HumidityProfileAbnormalTest = {};
+let HumidityProfileAbnormalTest = {};
 
 /**
  * 定義されていないPUTメソッドで湿度計にアクセスするテストを行う。
@@ -23,26 +23,16 @@ var HumidityProfileAbnormalTest = {};
  * </p>
  */
 HumidityProfileAbnormalTest.humidityAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humidity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.put({
+    profile: 'humidity',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('humidityAbnormalTest001',
@@ -61,26 +51,16 @@ QUnit.test('humidityAbnormalTest001',
  * </p>
  */
 HumidityProfileAbnormalTest.humidityAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humidity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'humidity',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('humidityAbnormalTest002',
@@ -99,26 +79,16 @@ QUnit.test('humidityAbnormalTest002',
  * </p>
  */
 HumidityProfileAbnormalTest.humidityAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humidity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+  let done = assert.async();
+  sdk.delete({
+    profile: 'humidity',
+    serviceId: getCurrentServiceId()
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
 QUnit.test('humidityAbnormalTest003',

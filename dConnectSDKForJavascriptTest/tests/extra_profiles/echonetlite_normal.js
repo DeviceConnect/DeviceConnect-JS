@@ -1,5 +1,5 @@
 QUnit.module('EchonetLiteProfileNormalTest', {
-  setup: function() {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ QUnit.module('EchonetLiteProfileNormalTest', {
  * EchonetLiteプロファイルの正常系テストを行うクラス。
  * @class
  */
-var EchonetLiteProfileNormalTest = {};
+let EchonetLiteProfileNormalTest = {};
 
 /**
  * ECHONET Lite プロパティを取得するテストを行う。
@@ -23,25 +23,21 @@ var EchonetLiteProfileNormalTest = {};
  * </p>
  */
 EchonetLiteProfileNormalTest.propertyNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'epc=' + json.properties[0].epc);
-        assert.ok(true, 'value=' + json.properties[0].epc);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'epc=' + json.properties[0].epc);
+    assert.ok(true, 'value=' + json.properties[0].epc);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('propertyNormalTest001(get)',
@@ -60,27 +56,23 @@ QUnit.test('propertyNormalTest001(get)',
  * </p>
  */
 EchonetLiteProfileNormalTest.propertyNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80,0x81');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'epc=' + json.properties[0].epc);
-        assert.ok(true, 'value=' + json.properties[0].epc);
-        assert.ok(true, 'epc=' + json.properties[1].epc);
-        assert.ok(true, 'value=' + json.properties[1].epc);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80,0x81'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'epc=' + json.properties[0].epc);
+    assert.ok(true, 'value=' + json.properties[0].epc);
+    assert.ok(true, 'epc=' + json.properties[1].epc);
+    assert.ok(true, 'value=' + json.properties[1].epc);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('propertyNormalTest002(get)',
@@ -99,29 +91,25 @@ QUnit.test('propertyNormalTest002(get)',
  * </p>
  */
 EchonetLiteProfileNormalTest.propertyNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80,0x81,0x82');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-        assert.ok(true, 'epc=' + json.properties[0].epc);
-        assert.ok(true, 'value=' + json.properties[0].epc);
-        assert.ok(true, 'epc=' + json.properties[1].epc);
-        assert.ok(true, 'value=' + json.properties[1].epc);
-        assert.ok(true, 'epc=' + json.properties[2].epc);
-        assert.ok(true, 'value=' + json.properties[2].epc);
-        QUnit.start();
-      },
-  function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80,0x81,0x82'
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    assert.ok(true, 'epc=' + json.properties[0].epc);
+    assert.ok(true, 'value=' + json.properties[0].epc);
+    assert.ok(true, 'epc=' + json.properties[1].epc);
+    assert.ok(true, 'value=' + json.properties[1].epc);
+    assert.ok(true, 'epc=' + json.properties[2].epc);
+    assert.ok(true, 'value=' + json.properties[2].epc);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('propertyNormalTest003(get)',
@@ -140,26 +128,21 @@ QUnit.test('propertyNormalTest003(get)',
  * </p>
  */
 EchonetLiteProfileNormalTest.propertyNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('epc', '0x80');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    serviceId: getCurrentServiceId(),
+    epc: '0x80',
+    value: '49'
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
 QUnit.test('propertyNormalTest004(put)',
     EchonetLiteProfileNormalTest.propertyNormalTest004);
-
