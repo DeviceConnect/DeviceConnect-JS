@@ -1,18 +1,18 @@
 QUnit.module('Delete Method Test', {
-  setup: function() {
+  before: function() {
     TEST_TIMEOUT = 150000;
     init();
   }
 });
 
 /**
- * dConnect.deleteメソッドのテストを行うクラス。
+ * sdk.deleteメソッドのテストを行うクラス。
  * 実用的なテストは、各デバイスプラグインで行うため、こちらでは割愛する。
  * @class
  */
-var DeleteMethodTest = {};
+let DeleteMethodTest = {};
 
-/* dConnect.delete */
+/* sdk.delete */
 ////etc
 /**
  *　引数を無しにした場合のテストを行う
@@ -23,16 +23,17 @@ var DeleteMethodTest = {};
  * </p>
  */
 DeleteMethodTest.deleteTest001 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete();
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete().catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
-
 };
 QUnit.test('deleteTest, non exist parameters.',
   DeleteMethodTest.deleteTest001);
@@ -46,15 +47,17 @@ QUnit.test('deleteTest, non exist parameters.',
  * </p>
  */
 DeleteMethodTest.deleteTest002 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin();
-    dConnect.delete();
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin();
+    sdk.delete().catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 
 };
@@ -72,19 +75,18 @@ QUnit.test('deleteTest, non exist parameters. and origin',
  * </p>
  */
 DeleteMethodTest.deleteTest011 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(null, null, function(json) {
+    sdk.delete(null, null).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -100,15 +102,16 @@ QUnit.test('deleteTest,  uri and header null.',
  * </p>
  */
 DeleteMethodTest.deleteTest012 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(null, null, null, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.delete(null, null).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
 
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -124,13 +127,15 @@ QUnit.test('deleteTest, uri and header and successCallback  null.',
  * </p>
  */
 DeleteMethodTest.deleteTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(null, null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete(null, null).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -146,14 +151,16 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback null.',
  * </p>
  */
 DeleteMethodTest.deleteTest014 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin(null);
-    dConnect.delete(null, null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin(null);
+    sdk.delete(null, null).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -171,17 +178,18 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback and ori
  * </p>
  */
 DeleteMethodTest.deleteTest021 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(undefined, undefined, function(json) {
+    sdk.delete(undefined, undefined).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -197,14 +205,15 @@ QUnit.test('deleteTest, uri and header undefined.',
  * </p>
  */
 DeleteMethodTest.deleteTest022 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(undefined, undefined, undefined, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.delete(undefined, undefined).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -220,13 +229,15 @@ QUnit.test('deleteTest,uri and header and successCallback undefined.',
  * </p>
  */
 DeleteMethodTest.deleteTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(undefined, undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete(undefined, undefined).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -242,14 +253,16 @@ QUnit.test('deleteTest,uri and header successCallback and errorCallback undefine
  * </p>
  */
 DeleteMethodTest.deleteTest024 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin(undefined);
-    dConnect.delete(undefined, undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin(undefined);
+    sdk.delete(undefined, undefined).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -267,17 +280,18 @@ QUnit.test('deleteTest,uri and header successCallback and errorCallback and orig
  * </p>
  */
 DeleteMethodTest.deleteTest031 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(123, 123, function(json) {
+    sdk.delete(123, 123).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -293,14 +307,15 @@ QUnit.test('deleteTest,  uri and header number.',
  * </p>
  */
 DeleteMethodTest.deleteTest032 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(123, 123, 123, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.delete(123, 123).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -316,13 +331,15 @@ QUnit.test('deleteTest, uri and header and successCallback number.',
  * </p>
  */
 DeleteMethodTest.deleteTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete(123, 123, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete(123, 123).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -338,14 +355,16 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback number.
  * </p>
  */
 DeleteMethodTest.deleteTest034 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin(123);
-    dConnect.delete(123, 123, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin(123);
+    sdk.delete(123, 123).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -363,17 +382,18 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback and Ori
  * </p>
  */
 DeleteMethodTest.deleteTest041 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('abc', 'abc', function(json) {
+    sdk.delete('abc', 'abc').then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -389,14 +409,15 @@ QUnit.test('deleteTest, uri and header alphabet.',
  * </p>
  */
 DeleteMethodTest.deleteTest042 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('abc', 'abc', 'abc', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.delete('abc', 'abc').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -412,13 +433,15 @@ QUnit.test('deleteTest, uri and header and successCallback alphabet.',
  * </p>
  */
 DeleteMethodTest.deleteTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('abc', 'abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete('abc', 'abc').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -434,14 +457,16 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback alphabe
  * </p>
  */
 DeleteMethodTest.deleteTest044 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('abc');
-    dConnect.delete('abc', 'abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin('abc');
+    sdk.delete('abc', 'abc').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -461,17 +486,18 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback and ori
  * </p>
  */
 DeleteMethodTest.deleteTest051 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('あいう', 'あいう', function(json) {
+    sdk.delete('あいう', 'あいう').then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -487,14 +513,15 @@ QUnit.test('deleteTest, uri and header hiragana.',
  * </p>
  */
 DeleteMethodTest.deleteTest052 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('あいう', 'あいう', 'あいう', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.delete('あいう', 'あいう').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -510,13 +537,15 @@ QUnit.test('deleteTest, uri and header and successCallback hiragana.',
  * </p>
  */
 DeleteMethodTest.deleteTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('あいう', 'あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete('あいう', 'あいう').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -532,14 +561,16 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback hiragan
  * </p>
  */
 DeleteMethodTest.deleteTest054 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('あいう');
-    dConnect.delete('あいう', 'あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin('あいう');
+    sdk.delete('あいう', 'あいう').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -558,19 +589,19 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback and ori
  * </p>
  */
 DeleteMethodTest.deleteTest061 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function(json) {
+    sdk.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').then(json => {
         assert.ok(false, 'Success.=' + json);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+        done();
+      }).catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -586,17 +617,16 @@ QUnit.test('deleteTest, uri and header symbol.',
  * </p>
  */
 DeleteMethodTest.deleteTest062 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+    sdk.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -612,16 +642,16 @@ QUnit.test('deleteTest, uri and header and successCallback symbol.',
  * </p>
  */
 DeleteMethodTest.deleteTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -637,17 +667,17 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback symbol.
  * </p>
  */
 DeleteMethodTest.deleteTest064 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    dConnect.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+    sdk.delete('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -667,19 +697,19 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback and ori
  * </p>
  */
 DeleteMethodTest.deleteTest071 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(json) {
+    sdk.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').then(json => {
         assert.ok(false, 'Success.=' + json);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+        done();
+      }).catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -695,17 +725,16 @@ QUnit.test('deleteTest,  uri and header limit.',
  * </p>
  */
 DeleteMethodTest.deleteTest072 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+    sdk.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -721,16 +750,16 @@ QUnit.test('deleteTest, uri and header and successCallback limit.',
  * </p>
  */
 DeleteMethodTest.deleteTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -747,25 +776,19 @@ QUnit.test('deleteTest, uri and header successCallback and errorCallback limit.'
  * </p>
  */
 DeleteMethodTest.deleteTest074 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    dConnect.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.setExtendedOrigin('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+    sdk.delete('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
 QUnit.test('deleteTest, uri and header successCallback and errorCallback and origin limit.',
   DeleteMethodTest.deleteTest074);
-
-
-
-
-
-

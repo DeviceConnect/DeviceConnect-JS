@@ -185,8 +185,7 @@ function searchDevice() {
       str += '</select>';
       serviceIdDiv.innerHTML = str;
     }).catch(e => {
-      console.log("e:" + e);
-
+      console.log("e:" + e.errorMessage);
     });
 }
 

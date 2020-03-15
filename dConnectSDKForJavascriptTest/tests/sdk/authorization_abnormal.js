@@ -1,19 +1,19 @@
 QUnit.module('Authorization Method Test', {
-  setup: function() {
+  before: function() {
     TEST_TIMEOUT = 150000;
     init();
   }
 });
 
 /**
- * dConnect.authorizationメソッドのテストを行うクラス。
+ * sdk.authorizationメソッドのテストを行うクラス。
  * 実用的なテストは、各デバイスプラグインで行うため、こちらでは割愛する。
  * @class
  */
-var AuthorizationMethodTest = {};
+let AuthorizationMethodTest = {};
 
 
-/* dConnect.authorization */
+/* sdk.authorization */
 ////etc
 /**
  *　引数を無しにした場合のテストを行う
@@ -24,14 +24,16 @@ var AuthorizationMethodTest = {};
  * </p>
  */
 AuthorizationMethodTest.authorizationTest001 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization();
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization().catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 
 };
@@ -50,13 +52,14 @@ QUnit.test('authorizationTest, non exist parameters.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest011 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(null, null, function(clientId, accessToken) {
-      assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization(null).then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
@@ -76,14 +79,15 @@ QUnit.test('authorizationTest,  scope and applicationName null.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest012 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(null, null, null, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization(null).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -99,13 +103,15 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  nu
  * </p>
  */
 AuthorizationMethodTest.authorizationTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(null, null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization(null, null).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -120,14 +126,16 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest014 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = [null, null];
-    dConnect.authorization(scopes, null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scopes = [null, null];
+    sdk.authorization(scopes, null).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -145,17 +153,18 @@ QUnit.test('authorizationTest, scope null array.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest021 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(undefined, undefined, function(clientId, accessToken) {
-      assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization(undefined).then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -171,14 +180,15 @@ QUnit.test('authorizationTest,  scope and applicationName undefined.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest022 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(undefined, undefined, undefined, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization(undefined).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -194,13 +204,15 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  un
  * </p>
  */
 AuthorizationMethodTest.authorizationTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(undefined, undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization(undefined).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -215,14 +227,16 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest024 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = [undefined, undefined];
-    dConnect.authorization(scopes, undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scopes = [undefined, undefined];
+    sdk.authorization(scopes, undefined).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -241,17 +255,18 @@ QUnit.test('authorizationTest, scope undefined array.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest031 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(123, 123, function(clientId, accessToken) {
-      assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization(123, 123).then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -267,14 +282,15 @@ QUnit.test('authorizationTest,  scope and applicationName number.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest032 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(123, 123, 123, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization(123, 123).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -290,13 +306,15 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  nu
  * </p>
  */
 AuthorizationMethodTest.authorizationTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization(123, 123, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization(123, 123).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -311,11 +329,13 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest034 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = [123, 123];
-    dConnect.authorization(scopes, 123, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scopes = [123, 123];
+    sdk.authorization(scopes, 123).then(json => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
     QUnit.start();
@@ -337,13 +357,14 @@ QUnit.test('authorizationTest, scope number array.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest041 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('abc', 'abc', function(clientId, accessToken) {
-      assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization('abc', 'abc').then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
@@ -363,14 +384,15 @@ QUnit.test('authorizationTest,  scope and applicationName alphabet.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest042 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('abc', 'abc', 'abc', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization('abc', 'abc').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -386,13 +408,15 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  al
  * </p>
  */
 AuthorizationMethodTest.authorizationTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('abc', 'abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization('abc', 'abc').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -407,14 +431,16 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest044 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = ['abc', 'abc'];
-    dConnect.authorization(scopes, 'abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scopes = ['abc', 'abc'];
+    sdk.authorization(scopes, 'abc').then(json => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -432,17 +458,18 @@ QUnit.test('authorizationTest, scope number alphabet.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest051 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('あいう', 'あいう', function(clientId, accessToken) {
-      assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization('あいう', 'あいう').then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -458,14 +485,15 @@ QUnit.test('authorizationTest,  scope and applicationName hiragana.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest052 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('あいう', 'あいう', 'あいう', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization('あいう', 'あいう').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -481,13 +509,15 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  hi
  * </p>
  */
 AuthorizationMethodTest.authorizationTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('あいう', 'あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization('あいう', 'あいう').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -502,14 +532,16 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest054 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = ['あいう', 'あいう'];
-    dConnect.authorization(scopes, 'あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scopes = ['あいう', 'あいう'];
+    sdk.authorization(scopes, 'あいう').then(json => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -528,17 +560,18 @@ QUnit.test('authorizationTest, scope number hiragana.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest061 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function(clientId, accessToken) {
-      assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -554,14 +587,16 @@ QUnit.test('authorizationTest,  scope and applicationName symbol.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest062 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.authorization('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+        .catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -577,15 +612,16 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  sy
  * </p>
  */
 AuthorizationMethodTest.authorizationTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+        assert.ok(true, 'Nothing happens');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -600,14 +636,16 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest064 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = ['!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~='];
-    dConnect.authorization(scopes, '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scopes = ['!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~='];
+    sdk.authorization(scopes, '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').then(json => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -626,19 +664,19 @@ QUnit.test('authorizationTest, scope number symbol.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest071 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(clientId, accessToken) {
-        assert.ok(false, 'Success.=' + clientId + ", " + accessToken);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+    sdk.authorization('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').then(accessToken => {
+        assert.ok(false, 'Success.=' + accessToken);
+        done();
+      }).catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -654,17 +692,17 @@ QUnit.test('authorizationTest,  scope and applicationName limit.',
  * </p>
  */
 AuthorizationMethodTest.authorizationTest072 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+    sdk.authorization('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+    .catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -680,16 +718,16 @@ QUnit.test('authorizationTest, scope and applicationname and successCallback  li
  * </p>
  */
 AuthorizationMethodTest.authorizationTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.authorization('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+        assert.ok(true, 'Nothing happens');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -704,17 +742,17 @@ QUnit.test('authorizationTest, scope and applicationname successCallback and err
  * </p>
  */
 AuthorizationMethodTest.authorizationTest074 = function(assert) {
+  let done = assert.async();
   try {
-    var scopes = ['abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    let scopes = ['abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl'];
-    dConnect.authorization(scopes, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.authorization(scopes, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').then(json => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 

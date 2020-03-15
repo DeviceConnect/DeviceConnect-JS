@@ -1,18 +1,18 @@
 QUnit.module('Get System Device Info Method Test', {
-  setup: function() {
+  before: function() {
     TEST_TIMEOUT = 150000;
     init();
   }
 });
 
 /**
- * dConnect.getSystemDeviceInfoメソッドのテストを行うクラス。
+ * sdk.getSystemDeviceInfoメソッドのテストを行うクラス。
  * 実用的なテストは、各デバイスプラグインで行うため、こちらでは割愛する。
  * @class
  */
-var GetSystemDeviceInfoMethodTest = {};
+let GetSystemDeviceInfoMethodTest = {};
 
-/* dConnect.getSystemDeviceInfo */
+/* sdk.getSystemDeviceInfo */
 ////etc
 /**
  *　引数を無しにした場合のテストを行う
@@ -23,14 +23,17 @@ var GetSystemDeviceInfoMethodTest = {};
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest001 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo();
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo().catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
+    console.log("after?");
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 
 };
@@ -49,12 +52,13 @@ QUnit.test('getSystemDeviceInfoTest, non exist parameters.',
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest011 = function(assert) {
-  dConnect.getSystemDeviceInfo(null, null, function(json) {
-    assert.ok(true, 'Success Callback.:' + json);
-    QUnit.start();
-  }, function() {
-    assert.ok(false, 'Success Timeout.');
-    QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo(null).then(json => {
+    assert.ok(false, 'Success Callback.:' + json);
+    done();
+  }).catch(e => {
+    assert.ok(true, 'Success Timeout.');
+    done();
   });
 };
 
@@ -71,16 +75,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback null.'
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest012 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo(null, null, null, function() {
+    sdk.getSystemDeviceInfo(null).catch(e => {
       assert.ok(true, 'Success Timeout.');
-      QUnit.start();
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -96,13 +99,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback null.'
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo(null, null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo(null).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -122,12 +127,13 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, error
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest021 = function(assert) {
-  dConnect.getSystemDeviceInfo(undefined, undefined, function(json) {
-    assert.ok(true, 'Success Callback:' + json);
-    QUnit.start();
-  }, function() {
-    assert.ok(false, 'Success Timeout.');
-    QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo(undefined).then(json => {
+    assert.ok(false, 'Error Callback:' + json);
+    done();
+  }).catch(e => {
+    assert.ok(true, 'Success Timeout.');
+    done();
   });
 };
 
@@ -144,16 +150,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback undefi
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest022 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo(undefined, undefined, undefined, function() {
-      assert.ok(false, 'Success Timeout.');
-      QUnit.start();
+    sdk.getSystemDeviceInfo(undefined).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -169,13 +174,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback undefi
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo(undefined, undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo(undefined).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -194,12 +201,13 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, error
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest031 = function(assert) {
-  dConnect.getSystemDeviceInfo(123, 123, function(json) {
-    assert.ok(true, 'Success Callback:' + json);
-    QUnit.start();
-  }, function() {
-    assert.ok(false, 'Success Timeout.');
-    QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo(123).then(json => {
+    assert.ok(false, 'Success Callback:' + json);
+    done();
+  }).catch(e => {
+    assert.ok(true, 'Success Timeout.');
+    done();
   });
 };
 
@@ -216,16 +224,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback number
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest032 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo(123, 123, 123, function() {
-      assert.ok(false, 'Success Timeout.');
-      QUnit.start();
+    sdk.getSystemDeviceInfo(123).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -241,13 +248,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback number
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo(123, 123, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo(123).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -268,12 +277,13 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, error
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest041 = function(assert) {
-  dConnect.getSystemDeviceInfo('abc', 'abc', function(json) {
-    assert.ok(true, 'Success Callback:' + json);
-    QUnit.start();
-  }, function() {
-    assert.ok(false, 'Success Timeout.');
-    QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo('abc').then(json => {
+    assert.ok(false, 'Error Callback:' + json);
+    done();
+  }).catch(e => {
+    assert.ok(true, 'Success Timeout.');
+    done();
   });
 };
 
@@ -290,16 +300,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback alphab
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest042 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('abc', 'abc', 'abc', function() {
-      assert.ok(false, 'Success Timeout.');
-      QUnit.start();
+    sdk.getSystemDeviceInfo('abc').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -315,13 +324,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback alphab
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('abc', 'abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo('abc').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -341,12 +352,13 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, error
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest051 = function(assert) {
-  dConnect.getSystemDeviceInfo('あいう', 'あいう', function(json) {
-    assert.ok(true, 'Success Callback:' + json);
-    QUnit.start();
-  }, function() {
-    assert.ok(false, 'Success Timeout.');
-    QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo('あいう').then(json => {
+    assert.ok(false, 'Error Callback:' + json);
+    done();
+  }).catch(e => {
+    assert.ok(true, 'Success Timeout.');
+    done();
   });
 };
 
@@ -363,16 +375,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback hiraga
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest052 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('あいう', 'あいう', 'あいう', function() {
-      assert.ok(false, 'Success Timeout.');
-      QUnit.start();
+    sdk.getSystemDeviceInfo('あいう').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -388,13 +399,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback hiraga
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('あいう', 'あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo('あいう').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    })
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -413,13 +426,14 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, error
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest061 = function(assert) {
-  dConnect.getSystemDeviceInfo('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-    '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function(json) {
-      assert.ok(true, 'Success Callback:' + json);
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Success Timeout.');
-      QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+    .then(json => {
+      assert.ok(false, 'Error Callback:' + json);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Success Timeout.');
+      done();
     });
 };
 
@@ -436,18 +450,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback symbol
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest062 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function() {
-        assert.ok(false, 'Success Timeout.');
-        QUnit.start();
-      });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -463,15 +474,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback symbol
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -489,13 +500,14 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback, error
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest071 = function(assert) {
-  dConnect.getSystemDeviceInfo('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-    'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl', function(json) {
-      assert.ok(true, 'Success Callback:' + json);
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Success Timeout.');
-      QUnit.start();
+  let done = assert.async();
+  sdk.getSystemDeviceInfo('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+  .then(json => {
+      assert.ok(false, 'Error Callback:' + json);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Success Timeout.');
+      done();
     });
 };
 
@@ -512,19 +524,16 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback limit.
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest072 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function() {
-        assert.ok(false, 'Failure Timeout.');
-        QUnit.start();
-      });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+    .catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
@@ -540,16 +549,15 @@ QUnit.test('getSystemDeviceInfoTest, uri and accessToken, successCallback limit.
  * </p>
  */
 GetSystemDeviceInfoMethodTest.getSystemDeviceInfoTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.getSystemDeviceInfo('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.getSystemDeviceInfo('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
