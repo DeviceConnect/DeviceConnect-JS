@@ -925,7 +925,7 @@ let dConnectSDK = function(settings) {
             if (json.result == dConnectSDK.constants.RESULT_OK) {
               resolve(json);
             } else {
-              reject(this.makeErrorObject(xhr.readyState, xhr.status));
+              reject(json);
             }
           } else {
             reject(this.makeErrorObject(xhr.readyState, xhr.status));
@@ -2777,9 +2777,9 @@ dConnectSDK.constants = {
 
     // Attribute
     /** アトリビュート: currentposition */
-    ATTR_CURRENT_POSITION: 'currentposition',
+    ATTR_CURRENT_POSITION: 'currentPosition',
     /** アトリビュート: onwatchposition */
-    ATTR_ON_WATCH_POSITION: 'onwatchposition',
+    ATTR_ON_WATCH_POSITION: 'onWatchPosition',
 
     // Parameter
     /** パラメータ: position */

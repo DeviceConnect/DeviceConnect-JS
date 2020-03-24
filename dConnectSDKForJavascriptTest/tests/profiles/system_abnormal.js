@@ -116,7 +116,7 @@ SystemProfileAbnormalTest.systemDeviceAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE
+    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE,
     serviceId: serviceId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -147,7 +147,7 @@ SystemProfileAbnormalTest.systemDeviceAbnormalTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE
+    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE,
     serviceId: serviceId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -177,7 +177,7 @@ SystemProfileAbnormalTest.systemDeviceAbnormalTest003 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE
+    attribute: dConnectSDK.constants.system.INTERFACE_DEVICE,
     serviceId: serviceId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -205,11 +205,12 @@ QUnit.test('systemDeviceAbnormalTest(delete)',
 SystemProfileAbnormalTest.systemWakeupAbnormalTest001 = function(assert) {
   let serviceId = getCurrentServiceId();
   let done = assert.async();
-  sdk.put({
+  let pluginId = serviceId.replace('Host.', '');
+  sdk.get({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
-    serviceId: serviceId
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
+    pluginId: pluginId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -235,11 +236,12 @@ QUnit.test('systemWakeupAbnormalTest001(get)', SystemProfileAbnormalTest.systemW
 SystemProfileAbnormalTest.systemWakeupAbnormalTest002 = function(assert) {
   let serviceId = getCurrentServiceId();
   let done = assert.async();
+  let pluginId = serviceId.replace('Host.', '');
   sdk.post({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
-    serviceId: serviceId
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
+    pluginId: pluginId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -265,11 +267,12 @@ QUnit.test('systemWakeupAbnormalTest002(post)', SystemProfileAbnormalTest.system
 SystemProfileAbnormalTest.systemWakeupAbnormalTest003 = function(assert) {
   let serviceId = getCurrentServiceId();
   let done = assert.async();
+  let pluginId = serviceId.replace('Host.', '');
   sdk.delete({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
-    serviceId: serviceId
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
+    pluginId: pluginId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -298,7 +301,7 @@ SystemProfileAbnormalTest.onEventsAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    attribute: dConnectSDK.constants.system.ATTRI_EVENTS
+    attribute: dConnectSDK.constants.system.ATTRI_EVENTS,
     serviceId: serviceId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
@@ -328,7 +331,7 @@ SystemProfileAbnormalTest.onEventsAbnormalTest002 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    attribute: dConnectSDK.constants.system.ATTRI_EVENTS
+    attribute: dConnectSDK.constants.system.ATTRI_EVENTS,
     serviceId: serviceId
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));

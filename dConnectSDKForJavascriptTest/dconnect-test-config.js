@@ -7,7 +7,7 @@ let DEVICE_CONNECT_HOST = 'localhost';
 /**
  * Defined the time-out.
  */
-let TEST_TIMEOUT = 20000;
+let TEST_TIMEOUT = 60000;
 
 /**
  * テストによっては、無効にするテストがある。

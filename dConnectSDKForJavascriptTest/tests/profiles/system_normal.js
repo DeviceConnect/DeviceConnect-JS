@@ -23,11 +23,9 @@ let SystemProfileNormalTest = {};
  * </p>
  */
 SystemProfileNormalTest.systemTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
-    profile: dConnectSDK.constants.system.PROFILE_NAME,
-    serviceId: serviceId
+    profile: dConnectSDK.constants.system.PROFILE_NAME
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'version=' + json.version);
@@ -55,12 +53,13 @@ QUnit.test('systemTest001(get)', SystemProfileNormalTest.systemTest001);
  */
 SystemProfileNormalTest.systemWakeupTest001 = function(assert) {
   let serviceId = getCurrentServiceId();
+  let pluginId = serviceId.replace('Host.', '');
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP
-    pluginId: serviceId
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
+    pluginId: pluginId
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

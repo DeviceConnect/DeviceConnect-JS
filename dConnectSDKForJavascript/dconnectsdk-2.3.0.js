@@ -501,8 +501,8 @@ let dConnectSDK = function(settings) {
     if (this.profile) {
       uri += '/' + encodeURIComponent(this.profile);
     }
-    if (this.inter) {
-      uri += '/' + encodeURIComponent(this.inter);
+    if (this.interface) {
+      uri += '/' + encodeURIComponent(this.interface);
     }
     if (this.attribute) {
       uri += '/' + encodeURIComponent(this.attribute);
@@ -761,7 +761,7 @@ let dConnectSDK = function(settings) {
    * @return {String} ドメイン名
    */
   this.getBaseDomain = function() {
-    return 'http://' + host + ':' + port;
+    return 'http://' + this.host + ':' + this.port;
   };
   /**
    * アクセストークンを取得する.
@@ -797,7 +797,6 @@ let dConnectSDK = function(settings) {
    */
   this.sendRequest = (method, uri, header, body) => {
     uri = this.converObjToUri(uri);
-    body = this.converObjToUri(body);
     return new Promise((resolve, reject) => {
       self.execute(method, uri, header, body)
         .then(result => {
@@ -828,8 +827,7 @@ let dConnectSDK = function(settings) {
                   reject(e);
                 });
           } else {
-            reject(this.makeErrorObject(dConnectSDK.constants.errorCode.ACCESS_FAILED,
-              'Failed to access to the server.'));
+            reject(error);
           }
         });
     });
@@ -889,7 +887,10 @@ let dConnectSDK = function(settings) {
               && (body === undefined || body === null)) {
             body = '';
           }
-          xhr.send(body);
+          try {
+            xhr.send(body);
+          } catch (e) {
+          }
         }
         // HEADERS_RECEIVED: send() が呼び出され、ヘッダーとステータスが通った。
         else if (xhr.readyState === 2) {
@@ -901,6 +902,7 @@ let dConnectSDK = function(settings) {
         }
         // DONE: 一連の動作が完了した。
         else if (xhr.readyState === 4) {
+          // console.log("### 4");
           if (xhr.status === 200) {
             let headerMap = {};
             let headerArr = xhr.getAllResponseHeaders().split('\r\n');
@@ -923,7 +925,7 @@ let dConnectSDK = function(settings) {
             if (json.result == dConnectSDK.constants.RESULT_OK) {
               resolve(json);
             } else {
-              reject(json);
+              reject(this.makeErrorObject(xhr.readyState, xhr.status));
             }
           } else {
             reject(this.makeErrorObject(xhr.readyState, xhr.status));
@@ -931,7 +933,7 @@ let dConnectSDK = function(settings) {
         }
       };
       xhr.onerror = () => {
-        // console.log('### error');
+        console.log('### error');
       };
       xhr.timeout = 60000;
       try {
@@ -1255,18 +1257,24 @@ let dConnectSDK = function(settings) {
      *     });
      */
   this.authorization = function(scopes, applicationName) {
-      // scopesが設定されていない場合は、SDKが用意したスコープを設定する.
-      if (!scopes || scopes.length === 0) {
-        scopes = dConnectSDK.INIT_SCOPES;
-      }
-      // Application名が設定されていない場合は、SDKが用意したアプリケーション名を設定する.
-      if (!applicationName || applicationName.length === 0) {
-        applicationName = 'dConnectSDK JavaScript';
-      }
       if (!self.data) {
         self.data = JSON.parse(self.storage[applicationName] || '{}');
       }
       return new Promise((resolve, reject) => {
+        // scopesが設定されていない場合は、SDKが用意したスコープを設定する.
+        if (!scopes || scopes.length === 0) {
+          reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, 'Invalid Scopes'));
+          return;
+        }
+        if (!(scopes instanceof Array)) {
+          reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, "Scopes aren't array."));
+          return;
+        }
+        // Application名が設定されていない場合は、SDKが用意したアプリケーション名を設定する.
+        if (!applicationName || applicationName.length === 0) {
+          reject(this.makeErrorObject(dConnectSDK.constants.errorCode.AUTHORIZATION, 'Invalid Application Name'));
+          return;
+        }
         this.createClient().then(clientId => {
           this.requestAccessToken(clientId, scopes, applicationName)
           .then(accessToken => {
@@ -1274,7 +1282,6 @@ let dConnectSDK = function(settings) {
             self.storage[applicationName] = JSON.stringify(self.data);
             if (self.isConnectedWebSocket()) {
               let cb = this.websocketListener;
-
               self.disconnectWebSocket();
               self.connectWebSocket(cb);
             }
@@ -1494,7 +1501,10 @@ let dConnectSDK = function(settings) {
    */
   this.connectWebSocket = function(cb) {
       if (this.websocket) {
-        cb(2, 'error: already open websocket.');
+        if ('function' === typeof cb) {
+          cb(2, 'error: already open websocket.');
+        }
+        return;
       }
       if (!self.data['accessToken']) {
         self.authorization(self.scopes, self.appName)
@@ -1512,7 +1522,9 @@ let dConnectSDK = function(settings) {
             self.storage[self.appName] = JSON.stringify(self.data);
             self.initWebSocket(cb);
           } else {
-            cb(2, e.getMessage);
+            if ('function' === typeof cb) {
+              cb(2, e.getMessage);
+            }
           }
         });
         return;
@@ -1528,8 +1540,9 @@ let dConnectSDK = function(settings) {
       self.isOpenedWebSocket = true;
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
       this.websocket.send('{"accessToken":"' + self.data['accessToken'] + '"}');
-
-      cb(0, 'open');
+      if ('function' === typeof cb) {
+        cb(0, 'open');
+      }
     };
     this.websocket.onmessage = (msg) => {
       let json = JSON.parse(msg.data);
@@ -1540,9 +1553,13 @@ let dConnectSDK = function(settings) {
         if (json.result === 0) {
           self.isEstablishedWebSocket = true;
           self.startMonitoringWebsocket(cb);
-          cb(-1, 'established');
+          if ('function' === typeof cb) {
+            cb(-1, 'established');
+          }
         } else {
-          cb(json.errorCode, json.errorMessage);
+          if ('function' === typeof cb) {
+            cb(json.errorCode, json.errorMessage);
+          }
         }
         return;
       }
@@ -1562,7 +1579,7 @@ let dConnectSDK = function(settings) {
       uri = uri.toLowerCase();
       for (let key in this.eventListener) {
         if (key.lastIndexOf(uri) > 0) {
-          if (this.eventListener[key] != null) {
+          if (this.eventListener[key] != null && 'function' === typeof this.eventListener[key]) {
             this.eventListener[key](msg.data);
           }
         }
@@ -1570,11 +1587,15 @@ let dConnectSDK = function(settings) {
     };
     this.websocket.onerror = (error) => {
       console.log("close:" + error.toString());
-      cb(2, 'error:' + JSON.stringify(error));
+      if ('function' === typeof cb) {
+        cb(2, 'error:' + JSON.stringify(error));
+      }
     }
     this.websocket.onclose = (e) => {
       console.log("close:" + e.toString());
-      cb(1, 'close');
+      if ('function' === typeof cb) {
+        cb(1, 'close');
+      }
     };
   }
   this.startMonitoringWebsocket = function(cb) {
@@ -1605,6 +1626,7 @@ let dConnectSDK = function(settings) {
       this.isOpenedWebSocket = false;
       this.isEstablishedWebSocket = false;
       this.websocket.close();
+      this.websocket = undefined;
     }
   };
 
