@@ -941,7 +941,8 @@ let dConnectSDK = function(settings) {
               reject(json);
             }
           } else {
-            reject(this.makeErrorObject(xhr.readyState, xhr.status));
+            reject(this.makeErrorObject(dConnectSDK.constants.errorCode.ACCESS_FAILED,
+                        "Failed to access device connect server."));
           }
         }
       };
@@ -1687,6 +1688,7 @@ let dConnectSDK = function(settings) {
       urlScheme.addParameter('S.key', this._currentHmacKey);
       url = urlScheme.build();
     }
+    console.log("url" + url);
     location.href = url;
   };
 
@@ -1725,15 +1727,15 @@ let dConnectSDK = function(settings) {
    * @param state 起動画面を出すか出さないか
    */
   this.stopManagerForAndroid = function(state) {
-    this._currentHmacKey = isEnabledAntiSpoofing() ?
-                        generateRandom(HMAC_KEY_BYTES) : '';
+    this._currentHmacKey = this.isEnabledAntiSpoofing() ?
+                        this.generateRandom(dConnectSDK.HMAC_KEY_BYTES) : '';
     let urlScheme = new this.AndroidURISchemeBuilder();
     let url;
     let origin = encodeURIComponent(location.origin);
     if (state === undefined) {
         state = '';
     }
-    if (isFirefox()) {
+    if (this.isFirefox()) {
         url = uriSchemeName + '://stop/' + state
               + '?origin=' + origin
               + '&key=' + this._currentHmacKey;

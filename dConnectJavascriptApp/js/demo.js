@@ -98,8 +98,7 @@ function stopManagerAndDemo() {
  */
 function startManagerAndDemo() {
   $(window).trigger("hashchange");
-
-  startManager(function(apiVersion) {
+  startManager((apiVersion) => {
     if (DEBUG) {
       console.log('Manager has been available already. version=' + apiVersion);
     }
@@ -255,10 +254,10 @@ function authorization() {
                'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
                'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device'];
   sdk.authorization(scopes, 'Demo Web Site').then(accessToken => {
-    reopenWebSocket(accessToken);
     $('#token').html('accessToken:' + accessToken);
+    reopenWebSocket(accessToken);
   }).catch(e => {
-    console.log("access error:" +e.toString());
+    console.log("access error:" + JSON.stringify(e));
     $('#token').html('accessToken:' + e.toString());
   });
 }
