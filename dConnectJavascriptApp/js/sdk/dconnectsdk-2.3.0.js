@@ -194,10 +194,11 @@ let dConnectSDK = function(settings) {
 
     let p = elm.pathname.split('/');
     if (p.length < 3) {
-      return;
+      return false;
     }
     if (!this.containsScope(p[2])) {
       this.scopes.push(p[2]);
+      return true;
     }
   }
   /**
@@ -798,6 +799,7 @@ let dConnectSDK = function(settings) {
   this.sendRequest = (method, uri, header, body) => {
     uri = this.converObjToUri(uri);
     return new Promise((resolve, reject) => {
+      let retry = 0;
       self.execute(method, uri, header, body)
         .then(result => {
             resolve(result);
@@ -806,13 +808,24 @@ let dConnectSDK = function(settings) {
               && error.errorCode <= dConnectSDK.constants.errorCode.NOT_FOUND_CLIENT_ID) {
                 // 呼ばれたURIのプロファイルが追加されているかを確認し、
                 // 追加されていない場合は追加する。
-                self.appendScope(uri);
+                let existScope = self.appendScope(uri);
+                retry++;
+                if (retry > 1) {
+                  // 一度リトライしている場合は、エラーを返す
+                  reject(error);
+                  return;
+                }
                 self.authorization(self.scopes, self.appName)
                 .then(accessToken => {
                   // 古いアクセストークンを削除する
-                  let newUri = uri.replace(/accessToken=(.*?)(&|$)/,"");
+                  let newUri;
+                  if (uri.match(/(\?*accessToken)/)) {
+                    newUri = uri.replace(/(\?*)accessToken=(.*?)(&|$)/,"?")
+                  } else {
+                    newUri = uri.replace(/(\&*)accessToken=(.*?)(&|$)/,"")
+                  }
                   // 新しいアクセストークンを付加する
-                  uri = self.addRequestParameter(uri, 'accessToken', accessToken);
+                  uri = self.addRequestParameter(newUri, 'accessToken', accessToken);
                   // アクセストークンを保存する
                   self.data['accessToken'] = accessToken;
                   self.storage[self.appName] = JSON.stringify(self.data);
@@ -925,7 +938,7 @@ let dConnectSDK = function(settings) {
             if (json.result == dConnectSDK.constants.RESULT_OK) {
               resolve(json);
             } else {
-              reject(this.makeErrorObject(xhr.readyState, xhr.status));
+              reject(json);
             }
           } else {
             reject(this.makeErrorObject(xhr.readyState, xhr.status));
@@ -1261,7 +1274,6 @@ let dConnectSDK = function(settings) {
         self.data = JSON.parse(self.storage[applicationName] || '{}');
       }
       return new Promise((resolve, reject) => {
-        // scopesが設定されていない場合は、SDKが用意したスコープを設定する.
         if (!scopes || scopes.length === 0) {
           reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, 'Invalid Scopes'));
           return;
@@ -1270,7 +1282,6 @@ let dConnectSDK = function(settings) {
           reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, "Scopes aren't array."));
           return;
         }
-        // Application名が設定されていない場合は、SDKが用意したアプリケーション名を設定する.
         if (!applicationName || applicationName.length === 0) {
           reject(this.makeErrorObject(dConnectSDK.constants.errorCode.AUTHORIZATION, 'Invalid Application Name'));
           return;
@@ -2777,9 +2788,9 @@ dConnectSDK.constants = {
 
     // Attribute
     /** アトリビュート: currentposition */
-    ATTR_CURRENT_POSITION: 'currentposition',
+    ATTR_CURRENT_POSITION: 'currentPosition',
     /** アトリビュート: onwatchposition */
-    ATTR_ON_WATCH_POSITION: 'onwatchposition',
+    ATTR_ON_WATCH_POSITION: 'onWatchPosition',
 
     // Parameter
     /** パラメータ: position */
