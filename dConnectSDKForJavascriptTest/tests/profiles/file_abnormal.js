@@ -618,11 +618,11 @@ FileProfileAbnormalTest.sendAbnormalTest004 = function(assert) {
         profile: dConnectSDK.constants.file.PROFILE_NAME
       }, formData).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
-        removeFile('/send_abnormal_test005.jpg');
+        removeFile('/send_abnormal_test005.jpg').then(json =>{}).catch(e => {});
         done();
       }).catch(e => {
         checkSuccessErrorCode(assert, e, 10);
-        removeFile('/send_abnormal_test005.jpg');
+        removeFile('/send_abnormal_test005.jpg').then(json =>{}).catch(e => {});
         done();
       });
   }).catch(e => {
@@ -779,13 +779,13 @@ FileProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
             newPath: '/moveAbnormalTest003_2'
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
-            rmdir('/moveAbnormalTest003_1');
-            rmdir('/moveAbnormalTest003_2');
+            rmdir('/moveAbnormalTest003_1').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest003_2').then(json =>{}).catch(e => {});
             done();
           }).catch(e => {
             checkSuccessErrorCode(assert, e, 10);
-            rmdir('/moveAbnormalTest003_1');
-            rmdir('/moveAbnormalTest003_2');
+            rmdir('/moveAbnormalTest003_1').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest003_2').then(json =>{}).catch(e => {});
             done();
           });
       }).catch(e => {
@@ -826,23 +826,23 @@ FileProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
             newPath: '/moveAbnormalTest004'
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
-            removeFile('/moveAbnormalTest004.jpg');
-            rmdir('/moveAbnormalTest004');
+            removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest004').then(json =>{}).catch(e => {});
             done();
           }).catch(e => {
             checkSuccessErrorCode(assert, e, 10);
-            removeFile('/moveAbnormalTest004.jpg');
-            rmdir('/moveAbnormalTest004');
+            removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest004').then(json =>{}).catch(e => {});
             done();
           });
         }).catch(e => {
-          removeFile('/moveAbnormalTest004.jpg');
-          rmdir('/moveAbnormalTest004');
+          removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+          rmdir('/moveAbnormalTest004').then(json =>{}).catch(e => {});
           assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
           done();
         });
     }).catch(e => {
-      removeFile('/moveAbnormalTest004.jpg');
+      removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
       assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
       done();
     });
@@ -879,29 +879,29 @@ FileProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
           newPath: '/moveAbnormalTest005'
         }).then(json => {
           assert.ok(false, 'json: ' + JSON.stringify(json));
-          rmdir('/moveAbnormalTest005');
+          rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
           done();
         }).catch(e => {
           checkSuccessErrorCode(assert, e, 10);
-          removeFile('/moveAbnormalTest005.jpg');
-          rmdir('/moveAbnormalTest005');
+          removeFile('/moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+          rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
           done();
         });
       }).catch(e => {
         assert.ok(checkErrorCode(e.errorCode), 'In Save file errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-        removeFile('moveAbnormalTest005.jpg');
-        rmdir('/moveAbnormalTest005');
+        removeFile('moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+        rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
         done();
       });
     }).catch(e => {
       assert.ok(checkErrorCode(e.errorCode), 'Mkdir errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-      removeFile('moveAbnormalTest005.jpg');
-      rmdir('/moveAbnormalTest005');
+      removeFile('moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+      rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
       done();
     });
   }).catch(e => {
-    removeFile('moveAbnormalTest005.jpg');
-    rmdir('/moveAbnormalTest005');
+    removeFile('moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+    rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
     done();
   });
@@ -1030,7 +1030,7 @@ FileProfileAbnormalTest.mkdirAbnormalTest002 = function(assert) {
             path: '/mkdirAbnormalTest002'
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
-            rmdir('/mkdirAbnormalTest002');
+            rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
             done();
           }).catch(e => {
             if (e.errorCode == 10 || e.errorCode == 16) {
@@ -1040,12 +1040,12 @@ FileProfileAbnormalTest.mkdirAbnormalTest002 = function(assert) {
             } else {
               assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
             }
-            rmdir('/mkdirAbnormalTest002');
+            rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
             done();
           });
     }).catch(e => {
       assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-      rmdir('/mkdirAbnormalTest002');
+      rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
       done();
     });
   }).catch(e => {
@@ -1142,13 +1142,13 @@ FileProfileAbnormalTest.mvDirAbnormalTest003 = function(assert) {
         newPath: 'mvDirAbnormalTest003'
       }).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
-        removeFile('/mvDirAbnormalTest003.jpg');
-        rmdir('/mvDirAbnormalTest003');
+        removeFile('/mvDirAbnormalTest003.jpg').then(json =>{}).catch(e => {});
+        rmdir('/mvDirAbnormalTest003').then(json =>{}).catch(e => {});
         done();
       }).catch(e => {
         checkSuccessErrorCode(assert, e, 10);
-        removeFile('/mvDirAbnormalTest003.jpg');
-        rmdir('/mvDirAbnormalTest003');
+        removeFile('/mvDirAbnormalTest003.jpg').then(json =>{}).catch(e => {});
+        rmdir('/mvDirAbnormalTest003').then(json =>{}).catch(e => {});
         done();
       });
     }).catch(e => {
@@ -1217,7 +1217,7 @@ FileProfileAbnormalTest.rmdirAbnormalTest002 = function(assert) {
             path: '/rmdirAbnormalTest002'
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
-            rmdir('/rmdirAbnormalTest002');
+            rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
             done();
           }).catch(e => {
             if (e.errorCode == 1 || e.errorCode == 10 || e.errorCode == 16) {
@@ -1227,12 +1227,12 @@ FileProfileAbnormalTest.rmdirAbnormalTest002 = function(assert) {
             } else {
               assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
             }
-            rmdir('/rmdirAbnormalTest002');
+            rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
             done();
           });
     }).catch(e => {
       assert.ok(checkErrorCode(e.errorCode), 'Save File errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-      rmdir('/rmdirAbnormalTest002');
+      rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
       done();
     });
   }).catch(e => {
@@ -1265,7 +1265,7 @@ FileProfileAbnormalTest.rmdirAbnormalTest003 = function(assert) {
         path: '/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg'
       }).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
-        rmdir('/rmdirAbnormalTest003');
+        rmdir('/rmdirAbnormalTest003').then(json =>{}).catch(e => {});
         done();
       }).catch(e => {
         if (e.errorCode == 10 || e.errorCode == 16) {
@@ -1275,7 +1275,7 @@ FileProfileAbnormalTest.rmdirAbnormalTest003 = function(assert) {
         } else {
           assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
         }
-        rmdir('/rmdirAbnormalTest003');
+        rmdir('/rmdirAbnormalTest003').then(json =>{}).catch(e => {});
         done();
       });
     }).catch(e => {
@@ -1314,8 +1314,8 @@ FileProfileAbnormalTest.rmdirAbnormalTest004 = function(assert) {
         forceRemove: false
       }).then(json => {
           assert.ok(false, 'json: ' + JSON.stringify(json));
-          removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg');
-          rmdir('/rmdirAbnormalTest004');
+          removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+          rmdir('/rmdirAbnormalTest004').then(json =>{}).catch(e => {});
           done();
       }).catch(e => {
           if (e.errorCode == 10 || e.errorCode == 16) {
@@ -1325,8 +1325,8 @@ FileProfileAbnormalTest.rmdirAbnormalTest004 = function(assert) {
           } else {
             assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
           }
-          removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg');
-          rmdir('/rmdirAbnormalTest004');
+          removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+          rmdir('/rmdirAbnormalTest004').then(json =>{}).catch(e => {});
           done();
       });
     }).catch(e => {

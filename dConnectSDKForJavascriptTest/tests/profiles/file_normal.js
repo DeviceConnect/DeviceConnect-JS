@@ -2,11 +2,11 @@ QUnit.module('File Profile Normal Test', {
   before: function() {
     init();
     for (let i = 0; i < 10; i++) {
-        saveFile(i + '.jpg');
+        saveFile(i + '.jpg').then(json =>{}).catch(e => {});
     }
   }, after: function() {
     for (let i = 0; i < 10; i++) {
-        removeFile(i + '.jpg');
+        removeFile(i + '.jpg').then(json =>{}).catch(e => {});
     }
   }
 });
@@ -460,11 +460,11 @@ FileProfileNormalTest.sendNormalTest001 = function(assert) {
     profile: dConnectSDK.constants.file.PROFILE_NAME,
   }, formData).then(json => {
     assert.ok(true, 'result=' + json.result);
-    removeFile('/1_2.jpg');
+    removeFile('/1_2.jpg').then(json =>{}).catch(e => {});
     done();
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
-    removeFile('/1_2.jpg');
+    removeFile('/1_2.jpg').then(json =>{}).catch(e => {});
     done();
   });
 };
@@ -498,16 +498,16 @@ FileProfileNormalTest.sendNormalTest002 = function(assert) {
         profile: dConnectSDK.constants.file.PROFILE_NAME,
       }, formData).then(json => {
         assert.ok(true, 'result=' + json.result);
-        removeFile('/2_2.jpg');
+        removeFile('/2_2.jpg').then(json =>{}).catch(e => {});
         done();
       }).catch(e => {
         assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
-        removeFile('/2_2.jpg');
+        removeFile('/2_2.jpg').then(json =>{}).catch(e => {});
         done();
       });
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
-    removeFile('/2_2.jpg');
+    removeFile('/2_2.jpg').then(json =>{}).catch(e => {});
     done();
   });
 };
@@ -569,12 +569,12 @@ FileProfileNormalTest.moveNormalTest001 = function(assert) {
         newPath: '/moveNormalTest001/moveNormalTest001.jpg'
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
-        rmdir('/moveNormalTest001');
+        rmdir('/moveNormalTest001').then(json =>{}).catch(e => {});
         done();
       }).catch(e => {
         assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-        rmdir('/moveNormalTest001');
-        removeFile('/moveNormalTest001.jpg');
+        rmdir('/moveNormalTest001').then(json =>{}).catch(e => {});
+        removeFile('/moveNormalTest001.jpg').then(json =>{}).catch(e => {});
         done();
       });
     }).catch(e => {
@@ -615,22 +615,22 @@ FileProfileNormalTest.moveNormalTest002 = function(assert) {
             newPath: '/moveNormalTest002'
           }).then(json => {
             assert.ok(true, 'result=' + json.result);
-            rmdir('/moveNormalTest002');
+            rmdir('/moveNormalTest002').then(json =>{}).catch(e => {});
             done();
           }).catch(e => {
             assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-            removeFile('/moveNormalTest002.jpg');
-            rmdir('/moveNormalTest002');
+            removeFile('/moveNormalTest002.jpg').then(json =>{}).catch(e => {});
+            rmdir('/moveNormalTest002').then(json =>{}).catch(e => {});
             done();
           });
       }).catch(e => {
         assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-        rmdir('/moveNormalTest002');
+        rmdir('/moveNormalTest002').then(json =>{}).catch(e => {});
         done();
       });
     }).catch(e => {
       assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-      rmdir('/moveNormalTest002');
+      rmdir('/moveNormalTest002').then(json =>{}).catch(e => {});
       done();
     });
 };
@@ -664,29 +664,29 @@ FileProfileNormalTest.moveNormalTest003 = function(assert) {
             forceOverwrite: true
           }).then(json => {
             assert.ok(true, 'result=' + json.result);
-            rmdir('/moveNormalTest003');
+            rmdir('/moveNormalTest003').then(json =>{}).catch(e => {});
             done();
           }).catch(e => {
             assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-            removeFile('/moveNormalTest003.jpg');
-            rmdir('/moveNormalTest003');
+            removeFile('/moveNormalTest003.jpg').then(json =>{}).catch(e => {});
+            rmdir('/moveNormalTest003').then(json =>{}).catch(e => {});
             done();
           });
       }).catch(e => {
-        removeFile('/moveNormalTest003.jpg');
-        rmdir('/moveNormalTest003');
+        removeFile('/moveNormalTest003.jpg').then(json =>{}).catch(e => {});
+        rmdir('/moveNormalTest003').then(json =>{}).catch(e => {});
         assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
         done();
       });
     }).catch(e => {
-      removeFile('/moveNormalTest003.jpg');
-      rmdir('/moveNormalTest003');
+      removeFile('/moveNormalTest003.jpg').then(json =>{}).catch(e => {});
+      rmdir('/moveNormalTest003').then(json =>{}).catch(e => {});
       assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
       done();
     });
   }).catch(e => {
-    removeFile('/moveNormalTest003.jpg');
-    rmdir('/moveNormalTest003');
+    removeFile('/moveNormalTest003.jpg').then(json =>{}).catch(e => {});
+    rmdir('/moveNormalTest003').then(json =>{}).catch(e => {});
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
     done();
   });
@@ -755,12 +755,12 @@ FileProfileNormalTest.rmdirNormalTest001 = function(assert) {
       done();
     }).catch(e => {
       assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-      rmdir('/rmdirNormalTest001');
+      rmdir('/rmdirNormalTest001').then(json =>{}).catch(e => {});
       done();
     });
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-    rmdir('/rmdirNormalTest001');
+    rmdir('/rmdirNormalTest001').then(json =>{}).catch(e => {});
     done();
   });
 };
@@ -789,11 +789,11 @@ FileProfileNormalTest.mkdirNormalTest001 = function(assert) {
     path: 'mkdirNormalTest001'
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    rmdir('mkdirNormalTest001');
+    rmdir('mkdirNormalTest001').then(json =>{}).catch(e => {});
     done();
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-    rmdir('mkdirNormalTest001');
+    rmdir('mkdirNormalTest001').then(json =>{}).catch(e => {});
     done();
   });
 };
@@ -822,11 +822,11 @@ FileProfileNormalTest.mkdirNormalTest002 = function(assert) {
     path: '/dir2/dir3'
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    rmdir('dir2');
+    rmdir('dir2').then(json =>{}).catch(e => {});
     done();
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-    rmdir('dir2');
+    rmdir('dir2').then(json =>{}).catch(e => {});
     done();
   });
 };
@@ -855,11 +855,11 @@ FileProfileNormalTest.rmdirNormalTest002 = function(assert) {
     forceRemove: true
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    rmdir('dir2');
+    rmdir('dir2').then(json =>{}).catch(e => {});
     done();
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-    rmdir('dir2');
+    rmdir('dir2').then(json =>{}).catch(e => {});
     done();
   });
 };
@@ -890,19 +890,19 @@ FileProfileNormalTest.mvdirNormalTest001 = function(assert) {
           newPath: '/mvdirNormalTest001_2'
         }).then(json => {
           assert.ok(true, 'result=' + json.result);
-          rmdir('mvdirNormalTest001_1');
-          rmdir('mvdirNormalTest001_2');
+          rmdir('mvdirNormalTest001_1').then(json =>{}).catch(e => {});
+          rmdir('mvdirNormalTest001_2').then(json =>{}).catch(e => {});
           done();
         }).catch(e => {
           assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-          rmdir('mvdirNormalTest001_1');
-          rmdir('mvdirNormalTest001_2');
+          rmdir('mvdirNormalTest001_1').then(json =>{}).catch(e => {});
+          rmdir('mvdirNormalTest001_2').then(json =>{}).catch(e => {});
           done();
         });
     }).catch(e => {
       assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-      rmdir('mvdirNormalTest001_1');
-      rmdir('mvdirNormalTest001_2');
+      rmdir('mvdirNormalTest001_1').then(json =>{}).catch(e => {});
+      rmdir('mvdirNormalTest001_2').then(json =>{}).catch(e => {});
       done();
     });
   }).catch(e => {

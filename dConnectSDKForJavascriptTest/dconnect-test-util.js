@@ -301,6 +301,7 @@ function saveTestResult(result, blob) {
     formData.append('path', '/' + result);
     formData.append('mimeType', 'text/xml');
     formData.append('data', blob);
+    formData.append('forceOverwrite', true);
     sdk.post({
       profile: dConnectSDK.constants.file.PROFILE_NAME
     }, formData).then(json => {
@@ -399,7 +400,8 @@ function removeFile(fileName) {
     sdk.delete({
       profile: dConnectSDK.constants.file.PROFILE_NAME,
       serviceId: serviceId,
-      path: fileName
+      path: fileName,
+      forceRemove: true
     }).then(json => {
       console.log('success!! remove file for ' + fileName);
       resolve(json);
