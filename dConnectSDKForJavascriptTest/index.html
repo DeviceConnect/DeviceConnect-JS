@@ -138,9 +138,8 @@ function onInputTextEnter(evt) {
 
 function onInit() {
   init();
-  let data = getCookies();
-  if (data['ip']) {
-      document.forms.form1.ip.value = data['ip'];
+  if (_quertyString['ip']) {
+      document.forms.form1.ip.value = _quertyString['ip'];
   }
   searchDevice();
 }
