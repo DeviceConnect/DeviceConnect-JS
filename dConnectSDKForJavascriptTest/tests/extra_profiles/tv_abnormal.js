@@ -418,7 +418,7 @@ QUnit.test('TVChangeChannelAbnormalTest012', TVProfileAbnormalTest.changeChannel
  */
 TVProfileAbnormalTest.changeVolumeAbnormalTest001 = function(assert) {
   let done = assert.async();
-  sdk.put({
+  sdk.get({
     profile: 'tv',
     attribute: 'volume',
     serviceId: getCurrentServiceId(),
