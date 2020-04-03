@@ -135,8 +135,7 @@ let dConnectSDK = function(settings) {
   /**
    * Device Connect Managerの起動通知を受信するリスナー.
    */
-  this._launchListener = function() {
-  };
+  this._launchListener = function() {};
 
   /**
    * 現在設定されているHMAC生成キー.
@@ -145,33 +144,33 @@ let dConnectSDK = function(settings) {
   this._currentHmacKey = '';
 
   /**
-  * accessTokenとclientId、appNameとscopesを保存するDBを管理するオブジェクト.
-  * 例えば、localStorageが設定される.
-  */
+   * accessTokenとclientId、appNameとscopesを保存するDBを管理するオブジェクト.
+   * 例えば、localStorageが設定される.
+   */
   this.storage = {};
 
   /**
-  * SDK側が保持するデータをJSON形式で持つオブジェクト.
-  */
+   * SDK側が保持するデータをJSON形式で持つオブジェクト.
+   */
   this.data = '';
 
   /**
-  * LocalOAuth用のアプリ名.
-  * @type {String}
-  * @private
-  */
+   * LocalOAuth用のアプリ名.
+   * @type {String}
+   * @private
+   */
   this.appName = (settings && settings.appName) ? settings.appName : 'dConnectSDK JavaScript';
 
   /**
-  * LocalOAuthで許可を与えるプロファイル名の配列.
-  * @type {Array}
-  * @private
-  */
+   * LocalOAuthで許可を与えるプロファイル名の配列.
+   * @type {Array}
+   * @private
+   */
   this.scopes = (settings && settings.scopes) ? settings.scopes : dConnectSDK.INIT_SCOPES;
 
   /**
-  * 循環参照を防ぐためのself
-  */
+   * 循環参照を防ぐためのself
+   */
   let self = this;
 
   // どのストレージを使用するか
@@ -273,10 +272,10 @@ let dConnectSDK = function(settings) {
     }
     if (request) {
       for (let key in request) {
-          if (key === 'api' || key === 'profile' || key === 'inter' || key === 'attribute') {
-            continue;
-          }
-          this.params[key] = request[key];
+        if (key === 'api' || key === 'profile' || key === 'inter' || key === 'attribute') {
+          continue;
+        }
+        this.params[key] = request[key];
       }
     }
   };
@@ -299,7 +298,7 @@ let dConnectSDK = function(settings) {
    * @memberOf dConnectSDK.URIBuilder
    * @return {String} スキーマ名
    */
-   URIBuilder.prototype.getScheme = function() {
+  URIBuilder.prototype.getScheme = function() {
     return this.scheme;
   };
 
@@ -389,7 +388,7 @@ let dConnectSDK = function(settings) {
    * @param {String} profile プロファイル名
    * @return {URIBuilder} 自分自身のインスタンス
    */
-  URIBuilder.prototype.setProfile = function(profile)  {
+  URIBuilder.prototype.setProfile = function(profile) {
     this.profile = profile;
     return this;
   };
@@ -512,11 +511,11 @@ let dConnectSDK = function(settings) {
       let p = '';
       let param;
       for (let key in this.params) {
-          param = this.params[key]
-          if (param !== null && param !== undefined) {
-            p += (p.length == 0) ? '?' : '&';
-            p += encodeURIComponent(key) + '=' + encodeURIComponent(param);
-          }
+        param = this.params[key]
+        if (param !== null && param !== undefined) {
+          p += (p.length == 0) ? '?' : '&';
+          p += encodeURIComponent(key) + '=' + encodeURIComponent(param);
+        }
       }
       uri += p;
     }
@@ -574,7 +573,7 @@ let dConnectSDK = function(settings) {
    */
   AndroidURISchemeBuilder.prototype.build = function() {
     let urlScheme = 'intent://' + this.path + '#Intent;scheme=' +
-                            this.scheme + ';';
+      this.scheme + ';';
     for (let key in this.params) {
       urlScheme += key + '=' + this.params[key] + ';';
     }
@@ -590,14 +589,14 @@ let dConnectSDK = function(settings) {
    * @param {Number} byteSize 生成する文字列の長さ
    * @return ランダムな16進文字列
    */
-  this.generateRandom = function(byteSize)  {
-    let min = 0;   // 0x00
+  this.generateRandom = function(byteSize) {
+    let min = 0; // 0x00
     let max = 255; // 0xff
     let bytes = [];
 
     for (let i = 0; i < byteSize; i++) {
       let random = (Math.floor(Math.random() *
-                    (max - min + 1)) + min).toString(16);
+        (max - min + 1)) + min).toString(16);
       if (random.length < 2) {
         random = '0' + random;
       }
@@ -654,8 +653,7 @@ let dConnectSDK = function(settings) {
    * @param listener リスナー
    */
   this.setLaunchListener = function(listener) {
-    listener = listener || function() {
-    };
+    listener = listener || function() {};
     this._launchListener = listener;
   }
 
@@ -796,49 +794,54 @@ let dConnectSDK = function(settings) {
    * @param {} body コンテンツデータ
    * @return {Promise<object>}
    */
+  this.retryRequestCount = 0;
   this.sendRequest = (method, uri, header, body) => {
     uri = this.converObjToUri(uri);
     return new Promise((resolve, reject) => {
-      let retry = 0;
       self.execute(method, uri, header, body)
         .then(result => {
-            resolve(result);
+          resolve(result);
         }).catch(error => {
-          if (error.errorCode >= dConnectSDK.constants.errorCode.AUTHORIZATION
-              && error.errorCode <= dConnectSDK.constants.errorCode.NOT_FOUND_CLIENT_ID) {
-                // 呼ばれたURIのプロファイルが追加されているかを確認し、
-                // 追加されていない場合は追加する。
-                let existScope = self.appendScope(uri);
-                retry++;
-                if (retry > 1) {
-                  // 一度リトライしている場合は、エラーを返す
-                  reject(error);
-                  return;
+          if (error.errorCode >= dConnectSDK.constants.errorCode.AUTHORIZATION &&
+            error.errorCode != dConnectSDK.constants.errorCode.SCOPE &&
+            error.errorCode <= dConnectSDK.constants.errorCode.NOT_FOUND_CLIENT_ID) {
+            // 呼ばれたURIのプロファイルが追加されているかを確認し、
+            // 追加されていない場合は追加する。
+            let existScope = self.appendScope(uri);
+            self.retryRequestCount++;
+            // alert("retry:" + self.retryRequestCount);
+            if (self.retryRequestCount > 1) {
+              // 一度リトライしている場合は、エラーを返す
+              reject(error);
+              self.retryRequestCount = 0;
+              return;
+            }
+            self.authorization(self.scopes, self.appName)
+              .then(accessToken => {
+                // 古いアクセストークンを削除する
+                let newUri;
+                if (uri.match(/(\?*accessToken)/)) {
+                  newUri = uri.replace(/(\?*)accessToken=(.*?)(&|$)/, "?")
+                } else {
+                  newUri = uri.replace(/(\&*)accessToken=(.*?)(&|$)/, "")
                 }
-                self.authorization(self.scopes, self.appName)
-                .then(accessToken => {
-                  // 古いアクセストークンを削除する
-                  let newUri;
-                  if (uri.match(/(\?*accessToken)/)) {
-                    newUri = uri.replace(/(\?*)accessToken=(.*?)(&|$)/,"?")
-                  } else {
-                    newUri = uri.replace(/(\&*)accessToken=(.*?)(&|$)/,"")
-                  }
-                  // 新しいアクセストークンを付加する
-                  uri = self.addRequestParameter(newUri, 'accessToken', accessToken);
-                  // アクセストークンを保存する
-                  self.data['accessToken'] = accessToken;
-                  self.storage[self.appName] = JSON.stringify(self.data);
-                  // もう一度リクエストを実行する
-                  self.sendRequest(method, uri, header, body)
-                    .then(result => {
-                      resolve(result);
-                    }).catch(e => {
-                      reject(e);
-                    });
-                }).catch(e => {
-                  reject(e);
-                });
+                // 新しいアクセストークンを付加する
+                uri = self.addRequestParameter(newUri, 'accessToken', accessToken);
+                // アクセストークンを保存する
+                self.data['accessToken'] = accessToken;
+                self.storage[self.appName] = JSON.stringify(self.data);
+                // もう一度リクエストを実行する
+                self.sendRequest(method, uri, header, body)
+                  .then(result => {
+                    resolve(result);
+                  }).catch(e => {
+                    reject(e);
+                  }).finally(() => {
+                    self.retryRequestCount = 0;
+                  });
+              }).catch(e => {
+                reject(e);
+              });
           } else {
             reject(error);
           }
@@ -896,18 +899,17 @@ let dConnectSDK = function(settings) {
 
           // PC版のChromeブラウザにおいて、DELETEでボディにnullやundefinedを
           // 指定するとレスポンスが返ってこないことがあったので、空文字を入れる。
-          if (method.toUpperCase() === 'DELETE'
-              && (body === undefined || body === null)) {
+          if (method.toUpperCase() === 'DELETE' &&
+            (body === undefined || body === null)) {
             body = '';
           }
           try {
             xhr.send(body);
-          } catch (e) {
-          }
+          } catch (e) {}
         }
         // HEADERS_RECEIVED: send() が呼び出され、ヘッダーとステータスが通った。
         else if (xhr.readyState === 2) {
-          // console.log('### 2');
+          // console.log('### 2' + );
         }
         // LOADING: ダウンロード中
         else if (xhr.readyState === 3) {
@@ -941,8 +943,7 @@ let dConnectSDK = function(settings) {
               reject(json);
             }
           } else {
-            reject(this.makeErrorObject(dConnectSDK.constants.errorCode.ACCESS_FAILED,
-                        "Failed to access device connect server."));
+            reject(this.makeErrorObject(xhr.readyState, xhr.status));
           }
         }
       };
@@ -1084,17 +1085,17 @@ let dConnectSDK = function(settings) {
    * @return {Promise<object>}
    */
   this.checkDeviceConnect = function() {
-      let builder = new this.URIBuilder();
-      builder.setProfile(dConnectSDK.constants.availability.PROFILE_NAME);
-      return new Promise((resolve, reject) => {
-        this.get(builder.build())
+    let builder = new this.URIBuilder();
+    builder.setProfile(dConnectSDK.constants.availability.PROFILE_NAME);
+    return new Promise((resolve, reject) => {
+      this.get(builder.build())
         .then(json => {
           // localhost:4035でGotAPIが利用可能
           resolve(json.version);
         }).catch(e => {
           reject(e);
         });
-      });
+    });
   };
   /**
    * Service Discovery APIへの簡易アクセスを提供する。
@@ -1115,180 +1116,180 @@ let dConnectSDK = function(settings) {
    *     });
    */
   this.discoverDevices = function() {
-        let builder = new this.URIBuilder();
-        builder.setProfile(dConnectSDK.constants.serviceDiscovery.PROFILE_NAME);
+    let builder = new this.URIBuilder();
+    builder.setProfile(dConnectSDK.constants.serviceDiscovery.PROFILE_NAME);
 
-        return new Promise((resolve, reject) => {
-          this.get(builder.build())
-          .then(json => {
-            // localhost:4035でGotAPIが利用可能
-            resolve(json);
-          }).catch(e => {
-            reject(e);
-          });
+    return new Promise((resolve, reject) => {
+      this.get(builder.build())
+        .then(json => {
+          // localhost:4035でGotAPIが利用可能
+          resolve(json);
+        }).catch(e => {
+          reject(e);
         });
-    };
+    });
+  };
 
-    /**
-     * Service Information APIへの簡易アクセスを提供する。
-     * @memberOf dConnectSDK
-     * @param {String} serviceId サービスID
-     * @return {Promise<object>}
-     *
-     * @example
-     * // 初期化
-     * const sdk = new dConnectSDK({
-     *   host:"192.168.0.xx",
-     *   port: 4035
-     * });
-     * sdk.getSystemDeviceInfo()
-     *     .then(json => {
-     *
-     *     }).catch(e => {
-     *     });
-     */
-    this.getSystemDeviceInfo = function(serviceId) {
-        let builder = new this.URIBuilder();
-        builder.setProfile(dConnectSDK.constants.serviceInformation.PROFILE_NAME);
-        builder.setServiceId(serviceId);
-        return new Promise((resolve, reject) => {
-          this.get(builder.build())
-          .then(json => {
-            // localhost:4035でGotAPIが利用可能
-            resolve(json);
-          }).catch(e => {
-            reject(e);
-          });
+  /**
+   * Service Information APIへの簡易アクセスを提供する。
+   * @memberOf dConnectSDK
+   * @param {String} serviceId サービスID
+   * @return {Promise<object>}
+   *
+   * @example
+   * // 初期化
+   * const sdk = new dConnectSDK({
+   *   host:"192.168.0.xx",
+   *   port: 4035
+   * });
+   * sdk.getSystemDeviceInfo()
+   *     .then(json => {
+   *
+   *     }).catch(e => {
+   *     });
+   */
+  this.getSystemDeviceInfo = function(serviceId) {
+    let builder = new this.URIBuilder();
+    builder.setProfile(dConnectSDK.constants.serviceInformation.PROFILE_NAME);
+    builder.setServiceId(serviceId);
+    return new Promise((resolve, reject) => {
+      this.get(builder.build())
+        .then(json => {
+          // localhost:4035でGotAPIが利用可能
+          resolve(json);
+        }).catch(e => {
+          reject(e);
         });
-    };
+    });
+  };
 
-    /**
-     * System APIへの簡易アクセスを提供する。
-     * @memberOf dConnectSDK
-     * @return {Promise<object>}
-     *
-     * @example
-     * // 初期化
-     * const sdk = new dConnectSDK({
-     *   host:"192.168.0.xx",
-     *   port: 4035
-     * });
-     * sdk.getSystemInfo()
-     *     .then(json => {
-     *
-     *     }).catch(e => {
-     *     });
-     */
-    this.getSystemInfo = function() {
-        let builder = new this.URIBuilder();
-        builder.setProfile(dConnectSDK.constants.system.PROFILE_NAME);
-        return new Promise((resolve, reject) => {
-          this.get(builder.build())
-          .then(json => {
-            // localhost:4035でGotAPIが利用可能
-            resolve(json);
-          }).catch(e => {
-            reject(e);
-          });
+  /**
+   * System APIへの簡易アクセスを提供する。
+   * @memberOf dConnectSDK
+   * @return {Promise<object>}
+   *
+   * @example
+   * // 初期化
+   * const sdk = new dConnectSDK({
+   *   host:"192.168.0.xx",
+   *   port: 4035
+   * });
+   * sdk.getSystemInfo()
+   *     .then(json => {
+   *
+   *     }).catch(e => {
+   *     });
+   */
+  this.getSystemInfo = function() {
+    let builder = new this.URIBuilder();
+    builder.setProfile(dConnectSDK.constants.system.PROFILE_NAME);
+    return new Promise((resolve, reject) => {
+      this.get(builder.build())
+        .then(json => {
+          // localhost:4035でGotAPIが利用可能
+          resolve(json);
+        }).catch(e => {
+          reject(e);
         });
-    };
+    });
+  };
 
-    /**
-     * プロファイル名からサービス一覧を取得するためのAPIを提供する。
-     * @memberOf dConnectSDK
-     * @param {String} profileName プロファイル名
-     * @return {Promise<object>}
-     *
-     * @example
-     * // 初期化
-     * const sdk = new dConnectSDK({
-     *   host:"192.168.0.xx",
-     *   port: 4035
-     * });
-     * // サービスの検索
-     * sdk.discoverDevicesFromProfile('battery')
-     *     .then(json => {
-     *         let services = json.services;
-     *     }.catch(e => {
-     *     });
-     */
-    this.discoverDevicesFromProfile = function(profileName) {
-        let result = {
-            "result" : dConnectSDK.constants.RESULT_OK,
-            "services" : new Array()
-        };
-        return new Promise((resolve, reject) => {
-          this.discoverDevices().then(json => {
-            let devices = json.services;
-            let func = (count) => {
-              if (count == devices.length) {
-                resolve(result);
-              } else {
-                this.getSystemDeviceInfo(devices[count].id).then(json => {
-                    if (json.supports) {
-                      for (let i = 0; i < json.supports.length; i++) {
-                        if (json.supports[i] === profileName) {
-                          result.services.push(devices[count]);
-                          break;
-                        }
-                      }
-                    }
-                    func(count + 1);
-                  }).catch(e => {
-                    reject(e);
-                  });
+  /**
+   * プロファイル名からサービス一覧を取得するためのAPIを提供する。
+   * @memberOf dConnectSDK
+   * @param {String} profileName プロファイル名
+   * @return {Promise<object>}
+   *
+   * @example
+   * // 初期化
+   * const sdk = new dConnectSDK({
+   *   host:"192.168.0.xx",
+   *   port: 4035
+   * });
+   * // サービスの検索
+   * sdk.discoverDevicesFromProfile('battery')
+   *     .then(json => {
+   *         let services = json.services;
+   *     }.catch(e => {
+   *     });
+   */
+  this.discoverDevicesFromProfile = function(profileName) {
+    let result = {
+      "result": dConnectSDK.constants.RESULT_OK,
+      "services": new Array()
+    };
+    return new Promise((resolve, reject) => {
+      this.discoverDevices().then(json => {
+        let devices = json.services;
+        let func = (count) => {
+          if (count == devices.length) {
+            resolve(result);
+          } else {
+            this.getSystemDeviceInfo(devices[count].id).then(json => {
+              if (json.supports) {
+                for (let i = 0; i < json.supports.length; i++) {
+                  if (json.supports[i] === profileName) {
+                    result.services.push(devices[count]);
+                    break;
+                  }
+                }
               }
-            }
-            func(0);
-          }).catch(e => {
-            reject(e);
-          });
-      })
-    };
+              func(count + 1);
+            }).catch(e => {
+              reject(e);
+            });
+          }
+        }
+        func(0);
+      }).catch(e => {
+        reject(e);
+      });
+    })
+  };
 
 
-    /**
-     * dConnectManagnerに認可を求める.
-     * @memberOf dConnectSDK
-     * @param scopes 使用するスコープの配列
-     * @param applicationName アプリ名
-     * @return {Promise<object>}
-     *
-     * @example
-     * // 初期化
-     * const sdk = new dConnectSDK({
-     *   host:"192.168.0.xx",
-     *   port: 4035
-     * });
-     * // アクセスするプロファイル一覧を定義
-     * const scopes = Array('servicediscovery', 'sysytem', 'battery');
-     * // 認可を実行
-     * sdk.authorization(scopes, 'サンプル')
-     *      .then(accessToken => {
-     *         // accessTokenを保存して、プロファイルにアクセス
-     *     }).catch(e => {
-     *         alert('Failed to get accessToken.');
-     *     });
-     */
+  /**
+   * dConnectManagnerに認可を求める.
+   * @memberOf dConnectSDK
+   * @param scopes 使用するスコープの配列
+   * @param applicationName アプリ名
+   * @return {Promise<object>}
+   *
+   * @example
+   * // 初期化
+   * const sdk = new dConnectSDK({
+   *   host:"192.168.0.xx",
+   *   port: 4035
+   * });
+   * // アクセスするプロファイル一覧を定義
+   * const scopes = Array('servicediscovery', 'sysytem', 'battery');
+   * // 認可を実行
+   * sdk.authorization(scopes, 'サンプル')
+   *      .then(accessToken => {
+   *         // accessTokenを保存して、プロファイルにアクセス
+   *     }).catch(e => {
+   *         alert('Failed to get accessToken.');
+   *     });
+   */
   this.authorization = function(scopes, applicationName) {
-      if (!self.data) {
-        self.data = JSON.parse(self.storage[applicationName] || '{}');
+    if (!self.data) {
+      self.data = JSON.parse(self.storage[applicationName] || '{}');
+    }
+    return new Promise((resolve, reject) => {
+      if (!scopes || scopes.length === 0) {
+        reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, 'Invalid Scopes'));
+        return;
       }
-      return new Promise((resolve, reject) => {
-        if (!scopes || scopes.length === 0) {
-          reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, 'Invalid Scopes'));
-          return;
-        }
-        if (!(scopes instanceof Array)) {
-          reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, "Scopes aren't array."));
-          return;
-        }
-        if (!applicationName || applicationName.length === 0) {
-          reject(this.makeErrorObject(dConnectSDK.constants.errorCode.AUTHORIZATION, 'Invalid Application Name'));
-          return;
-        }
-        this.createClient().then(clientId => {
-          this.requestAccessToken(clientId, scopes, applicationName)
+      if (!(scopes instanceof Array)) {
+        reject(this.makeErrorObject(dConnectSDK.constants.errorCode.SCOPE, "Scopes aren't array."));
+        return;
+      }
+      if (!applicationName || applicationName.length === 0) {
+        reject(this.makeErrorObject(dConnectSDK.constants.errorCode.AUTHORIZATION, 'Invalid Application Name'));
+        return;
+      }
+      this.createClient().then(clientId => {
+        this.requestAccessToken(clientId, scopes, applicationName)
           .then(accessToken => {
             self.data['accessToken'] = accessToken;
             self.storage[applicationName] = JSON.stringify(self.data);
@@ -1314,10 +1315,10 @@ let dConnectSDK = function(settings) {
               reject(e);
             }
           })
-        }).catch(e => {
-          reject(e);
-        });
+      }).catch(e => {
+        reject(e);
       });
+    });
   };
 
   /**
@@ -1380,11 +1381,11 @@ let dConnectSDK = function(settings) {
     builder.setProfile(dConnectSDK.constants.authorization.PROFILE_NAME);
     builder.setAttribute(dConnectSDK.constants.authorization.ATTR_ACCESS_TOKEN);
     builder.addParameter(dConnectSDK.constants.authorization.PARAM_CLIENT_ID,
-                          clientId);
+      clientId);
     builder.addParameter(dConnectSDK.constants.authorization.PARAM_SCOPE,
-                          this.combineScope(scopes));
+      this.combineScope(scopes));
     builder.addParameter(dConnectSDK.constants.authorization.PARAM_APPLICATION_NAME,
-                          applicatonName);
+      applicatonName);
     return new Promise((resolve, reject) => {
       this.get(builder.build()).then(json => {
         resolve(json.accessToken);
@@ -1481,8 +1482,8 @@ let dConnectSDK = function(settings) {
 
     return new Promise((resolve, reject) => {
       this.delete(uri).then(json => {
-          delete this.eventListener[uri.toLowerCase()];
-          resolve(json);
+        delete this.eventListener[uri.toLowerCase()];
+        resolve(json);
       }).catch(e => {
         reject(e);
       });
@@ -1512,22 +1513,22 @@ let dConnectSDK = function(settings) {
    *
    */
   this.connectWebSocket = function(cb) {
-      if (this.websocket) {
-        if ('function' === typeof cb) {
-          cb(2, 'error: already open websocket.');
-        }
-        return;
+    if (this.websocket) {
+      if ('function' === typeof cb) {
+        cb(2, 'error: already open websocket.');
       }
-      if (!self.data['accessToken']) {
-        self.authorization(self.scopes, self.appName)
+      return;
+    }
+    if (!self.data['accessToken']) {
+      self.authorization(self.scopes, self.appName)
         .then(accessToken => {
           // アクセストークンを保存する
           self.data['accessToken'] = accessToken;
           self.storage[self.appName] = JSON.stringify(self.data);
           self.initWebSocket(cb);
         }).catch(e => {
-          if (e.errorCode == dConnectSDK.constants.errorCode.NOT_SUPPORT_PROFILE
-            || e.errorMessage === 'Failed to create client.') {
+          if (e.errorCode == dConnectSDK.constants.errorCode.NOT_SUPPORT_PROFILE ||
+            e.errorMessage === 'Failed to create client.') {
             // NOT_SUPPORT_PROFILEエラーが出た場合は、LocalOAuthがOFFになっているので、
             // dummyのAccessTokenを設定する。
             self.data['accessToken'] = 'dummy';
@@ -1539,15 +1540,15 @@ let dConnectSDK = function(settings) {
             }
           }
         });
-        return;
-      }
-      self.initWebSocket(cb);
+      return;
+    }
+    self.initWebSocket(cb);
   };
-  this.initWebSocket = function (cb) {
+  this.initWebSocket = function(cb) {
     this.websocketListener = cb;
     const scheme = this.sslEnabled ? 'wss' : 'ws';
     this.websocket = new WebSocket(scheme + '://' + this.host + ':' +
-                              this.port + '/gotapi/websocket');
+      this.port + '/gotapi/websocket');
     this.websocket.onopen = (e) => {
       self.isOpenedWebSocket = true;
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
@@ -1670,17 +1671,17 @@ let dConnectSDK = function(settings) {
    */
   this.startManagerForAndroid = function(state) {
     this._currentHmacKey = this.isEnabledAntiSpoofing() ?
-                        this.generateRandom(dConnectSDK.HMAC_KEY_BYTES) : '';
+      this.generateRandom(dConnectSDK.HMAC_KEY_BYTES) : '';
     let urlScheme = new this.AndroidURISchemeBuilder();
     let url;
     let origin = encodeURIComponent(location.origin);
     if (state === undefined) {
-        state = '';
+      state = '';
     }
     if (this.isFirefox()) {
-        url = this.uriSchemeName + '://start/' + state
-                  + '?origin=' + origin
-                  + '&key=' + this._currentHmacKey;
+      url = this.uriSchemeName + '://start/' + state +
+        '?origin=' + origin +
+        '&key=' + this._currentHmacKey;
     } else {
       urlScheme.setPath('start/' + state);
       urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
@@ -1698,7 +1699,7 @@ let dConnectSDK = function(settings) {
    */
   this.startManagerForIOS = function() {
     window.location.href = uriSchemeName + '://start?url=' +
-                  encodeURIComponent(window.location.href);
+      encodeURIComponent(window.location.href);
   };
 
   /**
@@ -1728,17 +1729,17 @@ let dConnectSDK = function(settings) {
    */
   this.stopManagerForAndroid = function(state) {
     this._currentHmacKey = this.isEnabledAntiSpoofing() ?
-                        this.generateRandom(dConnectSDK.HMAC_KEY_BYTES) : '';
+      this.generateRandom(dConnectSDK.HMAC_KEY_BYTES) : '';
     let urlScheme = new this.AndroidURISchemeBuilder();
     let url;
     let origin = encodeURIComponent(location.origin);
     if (state === undefined) {
-        state = '';
+      state = '';
     }
     if (this.isFirefox()) {
-        url = uriSchemeName + '://stop/' + state
-              + '?origin=' + origin
-              + '&key=' + this._currentHmacKey;
+      url = uriSchemeName + '://stop/' + state +
+        '?origin=' + origin +
+        '&key=' + this._currentHmacKey;
     } else {
       urlScheme.setPath('stop/' + state);
       urlScheme.addParameter('package', 'org.deviceconnect.android.manager');
@@ -1791,16 +1792,16 @@ dConnectSDK.HMAC_KEY_BYTES = 16;
  * Device Connectでサポートしているすべてのプロファイル.
  */
 dConnectSDK.INIT_SCOPES = Array('servicediscovery', 'serviceinformation', 'system',
-            'battery', 'connection', 'deviceorientation', 'filedescriptor',
-            'file', 'mediaplayer', 'mediastreamrecording', 'notification',
-            'phone', 'proximity', 'setting', 'vibration', 'light',
-            'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
-            'dice', 'temperature', 'camera', 'canvas', 'health',
-            'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
-             'tv', 'powermeter','humidity','illuminance', 'videochat',
-             'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-             'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-             'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device');
+  'battery', 'connection', 'deviceorientation', 'filedescriptor',
+  'file', 'mediaplayer', 'mediastreamrecording', 'notification',
+  'phone', 'proximity', 'setting', 'vibration', 'light',
+  'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
+  'dice', 'temperature', 'camera', 'canvas', 'health',
+  'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
+  'tv', 'powermeter', 'humidity', 'illuminance', 'videochat',
+  'airconditioner', 'gpio', 'ecg', 'stressEstimation', 'poseEstimation',
+  'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
+  'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device');
 /**
  * Device Connectで用いられる定数.
  * @memberOf dConnectSDK
@@ -2837,7 +2838,11 @@ dConnectSDK.constants = {
  */
 (function(T) {
   function z(a, c, b) {
-    var g = 0, f = [0], h = '', l = null, h = b || 'UTF8';
+    var g = 0,
+      f = [0],
+      h = '',
+      l = null,
+      h = b || 'UTF8';
     if ('UTF8' !== h && 'UTF16' !== h)
       throw 'encoding must be UTF8 or UTF16';
     if ('HEX' === c) {
@@ -2853,8 +2858,11 @@ dConnectSDK.constants = {
     else
       throw 'inputFormat must be HEX, TEXT, ASCII, or B64';
     this.getHash = function(a, c, b, h) {
-      let l = null, d = f.slice(), n = g, p;
-      3 === arguments.length ? 'number' !== typeof b && ( h = b, b = 1) : 2 === arguments.length && ( b = 1);
+      let l = null,
+        d = f.slice(),
+        n = g,
+        p;
+      3 === arguments.length ? 'number' !== typeof b && (h = b, b = 1) : 2 === arguments.length && (b = 1);
       if (b !== parseInt(b, 10) || 1 > b)
         throw 'numRounds must a integer >= 1';
       switch (c) {
@@ -2887,7 +2895,8 @@ dConnectSDK.constants = {
       return l(d, N(h))
     };
     this.getHMAC = function(a, b, c, l, s) {
-      let d, n, p, m, w = [], x = [];
+      let d, n, p, m, w = [],
+        x = [];
       d = null;
       switch (l) {
         case 'HEX':
@@ -2921,7 +2930,7 @@ dConnectSDK.constants = {
         throw 'inputFormat must be HEX, TEXT, ASCII, or B64';
       a = 8 * n;
       b = n / 4 - 1;
-      n < p / 8 ? ( d = 'SHA-1' === c ? y(d, p) : v(d, p, c), d[b] &= 4294967040) : n > p / 8 && (d[b] &= 4294967040);
+      n < p / 8 ? (d = 'SHA-1' === c ? y(d, p) : v(d, p, c), d[b] &= 4294967040) : n > p / 8 && (d[b] &= 4294967040);
       for (n = 0; n <= b; n += 1)
         w[n] = d[n] ^ 909522486, x[n] = d[n] ^ 1549556828;
       c = 'SHA-1' === c ? y(x.concat(y(w.concat(f), a + g)), a + m) : v(x.concat(v(w.concat(f), a + g, c)), a + m, c);
@@ -2935,7 +2944,10 @@ dConnectSDK.constants = {
   }
 
   function J(a, c) {
-    let b = [], g, f = [], h = 0, l;
+    let b = [],
+      g, f = [],
+      h = 0,
+      l;
     if ('UTF8' === c)
       for (l = 0; l < a.length; l += 1)
         for (g = a.charCodeAt(l), f = [], 2048 < g ? (f[0] = 224 | (g & 61440) >>> 12, f[1] = 128 | (g & 4032) >>> 6, f[2] = 128 | g & 63) : 128 < g ? (f[0] = 192 | (g & 1984) >>> 6, f[1] = 128 | g & 63) : f[0] = g, g = 0; g < f.length; g += 1)
@@ -2950,7 +2962,9 @@ dConnectSDK.constants = {
   }
 
   function B(a) {
-    let c = [], b = a.length, g, f;
+    let c = [],
+      b = a.length,
+      g, f;
     if (0 !== b % 2)
       throw 'String of HEX type must be in byte increments';
     for (g = 0; g < b; g += 2) {
@@ -2966,7 +2980,9 @@ dConnectSDK.constants = {
   }
 
   function K(a) {
-    let c = [], b = 0, g, f, h, l, r;
+    let c = [],
+      b = 0,
+      g, f, h, l, r;
     if (-1 === a.search(/^[a-zA-Z0-9=+\/]+$/))
       throw 'Invalid character in base-64 string';
     g = a.indexOf('=');
@@ -2987,14 +3003,18 @@ dConnectSDK.constants = {
   }
 
   function L(a, c) {
-    let b = '', g = 4 * a.length, f, h;
+    let b = '',
+      g = 4 * a.length,
+      f, h;
     for (f = 0; f < g; f += 1)
       h = a[f >>> 2] >>> 8 * (3 - f % 4), b += '0123456789abcdef'.charAt(h >>> 4 & 15) + '0123456789abcdef'.charAt(h & 15);
     return c.outputUpper ? b.toUpperCase() : b
   }
 
   function M(a, c) {
-    let b = '', g = 4 * a.length, f, h, l;
+    let b = '',
+      g = 4 * a.length,
+      f, h, l;
     for (f = 0; f < g; f += 3)
       for (l = (a[f >>> 2] >>> 8 * (3 - f % 4) & 255) << 16 | (a[f + 1 >>> 2] >>> 8 * (3 - (f + 1) % 4) & 255) << 8 | a[f + 2 >>> 2] >>> 8 * (3 - (f + 2) % 4) & 255, h = 0; 4 > h; h += 1)
         b = 8 * f + 6 * h <= 32 * a.length ? b + 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.charAt(l >>> 6 * (3 - h) & 63) : b + c.b64Pad;
@@ -3008,8 +3028,7 @@ dConnectSDK.constants = {
     };
     try {
       a.hasOwnProperty('outputUpper') && (c.outputUpper = a.outputUpper), a.hasOwnProperty('b64Pad') && (c.b64Pad = a.b64Pad)
-    } catch (b) {
-    }
+    } catch (b) {}
     if ('boolean' !== typeof c.outputUpper)
       throw 'Invalid outputUpper formatting option';
     if ('string' !== typeof c.b64Pad)
@@ -3026,7 +3045,8 @@ dConnectSDK.constants = {
   }
 
   function t(a, c) {
-    var b = null, b = new s(a.a, a.b);
+    var b = null,
+      b = new s(a.a, a.b);
     return b = 32 >= c ? new s(b.a >>> c | b.b << 32 - c & 4294967295, b.b >>> c | b.a << 32 - c & 4294967295) : new s(b.b >>> c - 32 | b.a << 64 - c & 4294967295, b.a >>> c - 32 | b.b << 64 - c & 4294967295)
   }
 
@@ -3060,7 +3080,8 @@ dConnectSDK.constants = {
   }
 
   function Z(a) {
-    let c = t(a, 28), b = t(a, 34);
+    let c = t(a, 28),
+      b = t(a, 34);
     a = t(a, 39);
     return new s(c.a ^ b.a ^ a.a, c.b ^ b.b ^ a.b)
   }
@@ -3070,7 +3091,8 @@ dConnectSDK.constants = {
   }
 
   function aa(a) {
-    let c = t(a, 14), b = t(a, 18);
+    let c = t(a, 14),
+      b = t(a, 18);
     a = t(a, 41);
     return new s(c.a ^ b.a ^ a.a, c.b ^ b.b ^ a.b)
   }
@@ -3080,7 +3102,8 @@ dConnectSDK.constants = {
   }
 
   function ca(a) {
-    let c = t(a, 1), b = t(a, 8);
+    let c = t(a, 1),
+      b = t(a, 8);
     a = O(a, 7);
     return new s(c.a ^ b.a ^ a.a, c.b ^ b.b ^ a.b)
   }
@@ -3090,7 +3113,8 @@ dConnectSDK.constants = {
   }
 
   function ea(a) {
-    let c = t(a, 19), b = t(a, 61);
+    let c = t(a, 19),
+      b = t(a, 61);
     a = O(a, 6);
     return new s(c.a ^ b.a ^ a.a, c.b ^ b.b ^ a.b)
   }
@@ -3141,7 +3165,14 @@ dConnectSDK.constants = {
   }
 
   function y(a, c) {
-    let b = [], g, f, h, l, r, s, u = P, t = V, v = Q, d = U, n = R, p, m, w = S, x, q = [1732584193, 4023233417, 2562383102, 271733878, 3285377520];
+    let b = [],
+      g, f, h, l, r, s, u = P,
+      t = V,
+      v = Q,
+      d = U,
+      n = R,
+      p, m, w = S,
+      x, q = [1732584193, 4023233417, 2562383102, 271733878, 3285377520];
     a[c >>> 5] |= 128 << 24 - c % 32;
     a[(c + 65 >>> 9 << 4) + 15] = c;
     x = a.length;
@@ -3163,7 +3194,8 @@ dConnectSDK.constants = {
   }
 
   function v(a, c, b) {
-    let g, f, h, l, r, t, u, v, z, d, n, p, m, w, x, q, y, C, D, E, F, G, H, I, e, A = [], B, k = [1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298];
+    let g, f, h, l, r, t, u, v, z, d, n, p, m, w, x, q, y, C, D, E, F, G, H, I, e, A = [],
+      B, k = [1116352408, 1899447441, 3049323471, 3921009573, 961987163, 1508970993, 2453635748, 2870763221, 3624381080, 310598401, 607225278, 1426881987, 1925078388, 2162078206, 2614888103, 3248222580, 3835390401, 4022224774, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986, 2554220882, 2821834349, 2952996808, 3210313671, 3336571891, 3584528711, 113926993, 338241895, 666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, 2177026350, 2456956037, 2730485921, 2820302411, 3259730800, 3345764771, 3516065817, 3600352804, 4094571909, 275423344, 430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779, 1955562222, 2024104815, 2227730452, 2361852424, 2428436474, 2756734187, 3204031479, 3329325298];
     d = [3238371032, 914150663, 812702999, 4144912697, 4290775857, 1750603025, 1694076839, 3204075428];
     f = [1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225];
     if ('SHA-224' === b || 'SHA-256' === b)
