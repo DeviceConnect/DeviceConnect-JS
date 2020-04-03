@@ -308,12 +308,6 @@ QUnit.test('putRoiViewSettingsParamXAbnormalTest001',
  * </p>
  */
 OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001 = function(assert) {
-  this.option = option;
-  let accessToken = getCurrentAccessToken();
-  let serviceId = getCurrentServiceId();
-  option.serviceId = serviceId;
-  option.accessToken = accessToken;
-  startRoiView(option);
   let option = {
     assert: assert,
     serviceId: getCurrentServiceId()
