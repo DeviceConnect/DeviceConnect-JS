@@ -6,7 +6,7 @@
  */
 
 /** Revision of this apps. */
-const versionRev = 'V2.2.0 Rev.1';
+const versionRev = 'V2.3.0 Rev.1';
 /** IPアドレスを保持する. */
 let ip;
 /** 画像読み込み中Flag. */
