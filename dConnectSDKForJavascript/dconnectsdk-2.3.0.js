@@ -1503,8 +1503,7 @@ let dConnectSDK = function(settings) {
    *
    * @example
    * // Websocketを開く
-   * sdk.connectWebSocket()
-   * .then(s => {
+   * sdk.connectWebSocket(s => {
    *   // WebSocketの接続状態のオブジェクトが返ってくる.
    * }).catch(e => {
    *   // エラーコードを返す.
