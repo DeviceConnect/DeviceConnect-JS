@@ -1,4 +1,4 @@
-/**
+ /**
  @preserve Device Connect SDK Library v2.3.0
  Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
@@ -169,21 +169,25 @@ let dConnectSDK = function(settings) {
   */
   this.scopes = (settings && settings.scopes) ? settings.scopes : dConnectSDK.INIT_SCOPES;
 
-  /**
-  * 循環参照を防ぐためのself
-  */
-  let self = this;
-
   // どのストレージを使用するか
   if (localStorage) {
-    self.storage = localStorage;
+    this.storage = localStorage;
   } else if (document.cookie) {
-    self.storage = document.cookie;
+    this.storage = document.cookie;
   } else {
-    self.storage = {};
+    this.storage = {};
   }
-  self.data = JSON.parse(localStorage[self.appName] || '{}');
+  this.data = JSON.parse(localStorage[this.appName] || '{}');
 
+  /**
+   * リクエストのリトライ回数.
+   */
+  let retryRequest = 0;
+
+  /**
+   * 内部クラスで循環参照を防ぐ.
+   */
+  let self = this;
   /**
    * scopesにプロファイルを追加する.
    * @memberOf dConnectSDK
@@ -242,41 +246,57 @@ let dConnectSDK = function(settings) {
     this.scheme = self.sslEnabled ? 'https' : 'http';
     this.host = self.host;
     this.port = self.port;
+
     if (request && request.api) {
       this.api = request.api;
     } else {
       this.api = 'gotapi';
     }
-
+    if (request && request.path) {
+      this.path = request.path;
+    } else {
+      this.path = undefined;
+    }
     if (request && request.profile) {
       this.profile = request.profile;
     } else {
-      this.profile = null;
+      this.profile = undefined;
     }
     if (request && request.interface) {
       this.interface = request.interface;
     } else {
-      this.interface = null;
+      this.interface = undefined;
     }
     if (request && request.attribute) {
       this.attribute = request.attribute;
     } else {
-      this.attribute = null;
+      this.attribute = undefined;
     }
-    self.data = JSON.parse(localStorage[self.appName] || '{}');
-    if (self.data['accessToken']) {
+    this.data = JSON.parse(localStorage[self.appName] || '{}');
+    if (this.data['accessToken']) {
       this.params = {
         accessToken: self.data['accessToken']
       };
     } else {
       this.params = {};
     }
+    this.body = new FormData();
     if (request) {
-      for (let key in request) {
-          if (key === 'api' || key === 'profile' || key === 'inter' || key === 'attribute') {
-            continue;
-          }
-          this.params[key] = request[key];
+      if (request.params) {
+        for (let key in request.params) {
+            if (key === 'api' || key === 'profile' || key === 'interface' || key === 'attribute') {
+              continue;
+            }
+            this.params[key] = request.params[key];
+        }
+      }
+      if (request.body) {
+        for (let key in request.body) {
+            if (key === 'api' || key === 'profile' || key === 'interface' || key === 'attribute') {
+              continue;
+            }
+            this.body.append(key, request.body[key]);
+        }
       }
     }
   };
@@ -301,6 +321,25 @@ let dConnectSDK = function(settings) {
    */
    URIBuilder.prototype.getScheme = function() {
     return this.scheme;
+  };
+
+  /**
+   * パスを設定する。
+   * @memberOf dConnectSDK.URIBuilder
+   * @param {String} path パス
+   * @return {URIBuilder} 自分自身のインスタンス
+   */
+  URIBuilder.prototype.setPath = function(path) {
+    this.path = path;
+    return this;
+  };
+  /**
+   * パスを取得する。
+   * @memberOf dConnectSDK.URIBuilder
+   * @return {String} パス
+   */
+   URIBuilder.prototype.getPath = function() {
+    return this.path;
   };
 
   /**
@@ -496,17 +535,21 @@ let dConnectSDK = function(settings) {
    */
   URIBuilder.prototype.build = function() {
     let uri = this.scheme + '://' + this.host + ':' + this.port;
-    if (this.api) {
-      uri += '/' + encodeURIComponent(this.api);
-    }
-    if (this.profile) {
-      uri += '/' + encodeURIComponent(this.profile);
-    }
-    if (this.interface) {
-      uri += '/' + encodeURIComponent(this.interface);
-    }
-    if (this.attribute) {
-      uri += '/' + encodeURIComponent(this.attribute);
+    if (this.path) {
+      uri += this.path;
+    } else {
+      if (this.api) {
+        uri += '/' + encodeURIComponent(this.api);
+      }
+      if (this.profile) {
+        uri += '/' + encodeURIComponent(this.profile);
+      }
+      if (this.interface) {
+        uri += '/' + encodeURIComponent(this.interface);
+      }
+      if (this.attribute) {
+        uri += '/' + encodeURIComponent(this.attribute);
+      }
     }
     if (this.params) {
       let p = '';
@@ -780,7 +823,7 @@ let dConnectSDK = function(settings) {
   this.converObjToUri = function(uri) {
     if (uri && uri instanceof Object) {
       let builder = new this.URIBuilder(uri);
-      uri = builder.build();
+      return builder;
     }
     return uri;
   }
@@ -791,16 +834,16 @@ let dConnectSDK = function(settings) {
    * </p>
    * @memberOf dConnectSDK
    * @param {String} method メソッド
-   * @param {Object} uri URI
+   * @param {Object} request リクエストパラメータのJavaScriptのオブジェクト.
    * @param {Object.<String, String>} header リクエストヘッダー。Key-Valueマップで渡す。
-   * @param {} body コンテンツデータ
    * @return {Promise<object>}
    */
-  this.sendRequest = (method, uri, header, body) => {
-    uri = this.converObjToUri(uri);
+  this.sendRequest = (method, request, header) => {
+    let builder = this.converObjToUri(request);
+    let uri = builder.build();
+
     return new Promise((resolve, reject) => {
-      let retry = 0;
-      self.execute(method, uri, header, body)
+      this.execute(method, uri, header, builder.body)
         .then(result => {
             resolve(result);
         }).catch(error => {
@@ -808,14 +851,15 @@ let dConnectSDK = function(settings) {
               && error.errorCode <= dConnectSDK.constants.errorCode.NOT_FOUND_CLIENT_ID) {
                 // 呼ばれたURIのプロファイルが追加されているかを確認し、
                 // 追加されていない場合は追加する。
-                let existScope = self.appendScope(uri);
-                retry++;
-                if (retry > 1) {
+                this.appendScope(uri);
+                this.retryRequest++;
+                if (this.retryRequest > 1) {
                   // 一度リトライしている場合は、エラーを返す
                   reject(error);
+                  this.retryRequest = 0;
                   return;
                 }
-                self.authorization(self.scopes, self.appName)
+                this.authorization(this.scopes, this.appName)
                 .then(accessToken => {
                   // 古いアクセストークンを削除する
                   let newUri;
@@ -825,12 +869,12 @@ let dConnectSDK = function(settings) {
                     newUri = uri.replace(/(\&*)accessToken=(.*?)(&|$)/,"")
                   }
                   // 新しいアクセストークンを付加する
-                  uri = self.addRequestParameter(newUri, 'accessToken', accessToken);
+                  uri = this.addRequestParameter(newUri, 'accessToken', accessToken);
                   // アクセストークンを保存する
-                  self.data['accessToken'] = accessToken;
-                  self.storage[self.appName] = JSON.stringify(self.data);
+                  this.data['accessToken'] = accessToken;
+                  this.storage[this.appName] = JSON.stringify(this.data);
                   // もう一度リクエストを実行する
-                  self.sendRequest(method, uri, header, body)
+                  this.sendRequest(method, uri, header, body)
                     .then(result => {
                       resolve(result);
                     }).catch(e => {
@@ -960,7 +1004,7 @@ let dConnectSDK = function(settings) {
   /**
    * HTTPリクエストのGETメソッドへの簡易アクセスを提供する。
    * @memberOf dConnectSDK
-   * @param {object} uri リクエストパラメータのJavaScriptのオブジェクト.
+   * @param {object} request リクエストパラメータのJavaScriptのオブジェクト.
    * @param {object} header HTTPリクエストのヘッダーに含める項目
    * @return {Promise<object>}
    *
@@ -972,9 +1016,11 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.get({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test",
-   *   serviceId: "testId"
+   *   params: {
+   *     serviceId: "testId"
+   *   }
    * })
    * .then(json => {
    *
@@ -982,15 +1028,14 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.get = function(uri, header) {
-    return this.sendRequest('GET', uri, header, null);
+  this.get = function(request, header) {
+    return this.sendRequest('GET', request, header, null);
   }
 
   /**
    * HTTPリクエストのPOSTメソッドへの簡易アクセスを提供する。
    * @memberOf dConnectSDK
-   * @param {object} uri リクエストパラメータのJavaScriptのオブジェクト(URIにパラメータを付加する場合).
-   * @param {object} body リクエストパラメータのJavaScriptのオブジェクト(Bodyにパラメータを付加する場合).
+   * @param {object} request リクエストパラメータのJavaScriptのオブジェクト(URIにパラメータを付加する場合).
    * @param {object} header HTTPリクエストのヘッダーに含める項目
    * @return {Promise<object>}
    *
@@ -1002,10 +1047,11 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.post({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test"
-   * },{
-   *   serviceId: "testId"
+   *   body: {
+   *    serviceId: "testId"
+   *   }
    * })
    * .then(json => {
    *
@@ -1013,15 +1059,14 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.post = function(uri, body, header) {
-    return this.sendRequest('POST', uri, header, body);
+  this.post = function(request, header) {
+    return this.sendRequest('POST', request, header);
   }
 
   /**
    * HTTPリクエストのPUTメソッドへの簡易アクセスを提供する。
    * @memberOf dConnectSDK
-   * @param {object} uri リクエストパラメータのJavaScriptのオブジェクト(URIにパラメータを付加する場合).
-   * @param {object} body リクエストパラメータのJavaScriptのオブジェクト(Bodyにパラメータを付加する場合).
+   * @param {object} request リクエストパラメータのJavaScriptのオブジェクト(URIにパラメータを付加する場合).
    * @param {object} header HTTPリクエストのヘッダーに含める項目
    * @return {Promise<object>}
    *
@@ -1033,10 +1078,11 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.put({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test"
-   * },{
-   *   serviceId: "testId"
+   *   body: {
+   *    serviceId: "testId"
+   *   }
    * })
    * .then(json => {
    *
@@ -1044,14 +1090,14 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.put = function(uri, body, header) {
-    return this.sendRequest('PUT', uri, header, body);
+  this.put = function(request, body, header) {
+    return this.sendRequest('PUT', request, header);
   }
 
   /**
    * HTTPリクエストのDELETEメソッドへの簡易アクセスを提供する。
    * @memberOf dConnectSDK
-   * @param {object} uri リクエストパラメータのJavaScriptのオブジェクト.
+   * @param {object} request リクエストパラメータのJavaScriptのオブジェクト.
    * @param {object} header HTTPリクエストのヘッダーに含める項目
    * @return {Promise<object>}
    *
@@ -1063,9 +1109,11 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.delete({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test",
-   *   serviceId: "testId"
+   *   params : {
+   *    serviceId: "testId"
+   *   }
    * })
    * .then(json => {
    *
@@ -1073,8 +1121,8 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.delete = function(uri, header) {
-    return this.sendRequest('DELETE', uri, header, null);
+  this.delete = function(request, header) {
+    return this.sendRequest('DELETE', request, header, null);
   }
 
   /**
@@ -1087,7 +1135,7 @@ let dConnectSDK = function(settings) {
       let builder = new this.URIBuilder();
       builder.setProfile(dConnectSDK.constants.availability.PROFILE_NAME);
       return new Promise((resolve, reject) => {
-        this.get(builder.build())
+        this.get(builder)
         .then(json => {
           // localhost:4035でGotAPIが利用可能
           resolve(json.version);
@@ -1119,7 +1167,7 @@ let dConnectSDK = function(settings) {
         builder.setProfile(dConnectSDK.constants.serviceDiscovery.PROFILE_NAME);
 
         return new Promise((resolve, reject) => {
-          this.get(builder.build())
+          this.get(builder)
           .then(json => {
             // localhost:4035でGotAPIが利用可能
             resolve(json);
@@ -1152,7 +1200,7 @@ let dConnectSDK = function(settings) {
         builder.setProfile(dConnectSDK.constants.serviceInformation.PROFILE_NAME);
         builder.setServiceId(serviceId);
         return new Promise((resolve, reject) => {
-          this.get(builder.build())
+          this.get(builder)
           .then(json => {
             // localhost:4035でGotAPIが利用可能
             resolve(json);
@@ -1183,7 +1231,7 @@ let dConnectSDK = function(settings) {
         let builder = new this.URIBuilder();
         builder.setProfile(dConnectSDK.constants.system.PROFILE_NAME);
         return new Promise((resolve, reject) => {
-          this.get(builder.build())
+          this.get(builder)
           .then(json => {
             // localhost:4035でGotAPIが利用可能
             resolve(json);
@@ -1271,8 +1319,8 @@ let dConnectSDK = function(settings) {
      *     });
      */
   this.authorization = function(scopes, applicationName) {
-      if (!self.data) {
-        self.data = JSON.parse(self.storage[applicationName] || '{}');
+      if (!this.data) {
+        this.data = JSON.parse(this.storage[applicationName] || '{}');
       }
       return new Promise((resolve, reject) => {
         if (!scopes || scopes.length === 0) {
@@ -1290,24 +1338,24 @@ let dConnectSDK = function(settings) {
         this.createClient().then(clientId => {
           this.requestAccessToken(clientId, scopes, applicationName)
           .then(accessToken => {
-            self.data['accessToken'] = accessToken;
-            self.storage[applicationName] = JSON.stringify(self.data);
-            if (self.isConnectedWebSocket()) {
+            this.data['accessToken'] = accessToken;
+            this.storage[applicationName] = JSON.stringify(this.data);
+            if (this.isConnectedWebSocket()) {
               let cb = this.websocketListener;
-              self.disconnectWebSocket();
-              self.connectWebSocket(cb);
+              this.disconnectWebSocket();
+              this.connectWebSocket(cb);
             }
             resolve(accessToken);
           }).catch(e => {
             if (e.errorCode == dConnectSDK.constants.errorCode.NOT_SUPPORT_PROFILE) {
               // NOT_SUPPORT_PROFILEエラーが出た場合は、LocalOAuthがOFFになっているので、
               // dummyのAccessTokenを設定する。
-              self.data['accessToken'] = 'dummy';
-              self.storage[applicationName] = JSON.stringify(self.data);
-              if (self.isConnectedWebSocket()) {
+              this.data['accessToken'] = 'dummy';
+              this.storage[applicationName] = JSON.stringify(this.data);
+              if (this.isConnectedWebSocket()) {
                 let cb = this.websocketListener;
-                self.disconnectWebSocket();
-                self.connectWebSocket(cb);
+                this.disconnectWebSocket();
+                this.connectWebSocket(cb);
               }
               resolve('dummy');
             } else {
@@ -1343,9 +1391,9 @@ let dConnectSDK = function(settings) {
     builder.setProfile(dConnectSDK.constants.authorization.PROFILE_NAME);
     builder.setAttribute(dConnectSDK.constants.authorization.ATTR_GRANT);
     return new Promise((resolve, reject) => {
-      this.get(builder.build()).then(json => {
-        self.data['clientId'] = json.clientId;
-        self.storage[self.appName] = JSON.stringify(self.data);
+      this.get(builder).then(json => {
+        this.data['clientId'] = json.clientId;
+        this.storage[this.appName] = JSON.stringify(this.data);
         resolve(json.clientId);
       }).catch(e => {
         reject(this.makeErrorObject(e.errorCode, 'Failed to create client.'));
@@ -1386,7 +1434,7 @@ let dConnectSDK = function(settings) {
     builder.addParameter(dConnectSDK.constants.authorization.PARAM_APPLICATION_NAME,
                           applicatonName);
     return new Promise((resolve, reject) => {
-      this.get(builder.build()).then(json => {
+      this.get(builder).then(json => {
         resolve(json.accessToken);
       }).catch(e => {
         reject(this.makeErrorObject(e.errorCode, 'Failed to get access token.'));
@@ -1416,7 +1464,7 @@ let dConnectSDK = function(settings) {
   /**
    * 指定されたDevice Connect Event APIにイベントリスナーを登録する。
    * @memberOf dConnect
-   * @param {Object} uri 特定のDevice Connect Event APIを表すURI(オブジェクト)
+   * @param {Object} rquest 特定のDevice Connect Event APIを表すURI(オブジェクト)
    * @param {Function} onmessage 登録したいイベント受領用コールバック。
    * @return {Promise<object>}
    *
@@ -1432,22 +1480,19 @@ let dConnectSDK = function(settings) {
    * }, message => {
    *    // イベントのメッセージを受け取る
    * }).then(json => {
-   *   sdk.connectWebSocket(uri, (message) => {
-   *
-   *      })  // WebSocketの接続
-   *      .then(s => {
+   *   sdk.connectWebSocket(code, message => {
    *          // WebSocketとの接続状況を返す
-   *       }).catch(e => {
+  *       }).catch(e => {
    *       });
    * }).catch (e => {
    *
    * });
    */
-  this.addEventListener = function(uri, onmessage) {
-    uri = this.converObjToUri(uri);
+  this.addEventListener = function(request, onmessage) {
+    let builder = this.converObjToUri(request);
     return new Promise((resolve, reject) => {
-      this.put(uri).then(json => {
-        this.eventListener[uri.toLowerCase()] = onmessage;
+      this.put(builder).then(json => {
+        this.eventListener[builder.build().toLowerCase()] = onmessage;
         resolve(json);
       }).catch(e => {
         reject(e);
@@ -1458,7 +1503,7 @@ let dConnectSDK = function(settings) {
   /**
    * 指定されたDevice Connect Event APIからイベントリスナーを削除する。
    * @memberOf dConnectSDK
-   * @param {Object} uri 特定のDevice Connect Event APIを表すURI（オブジェクト）
+   * @param {Object} request 特定のDevice Connect Event APIを表すURI（オブジェクト）
    * @return {Promise<object>}
    *
    * @example
@@ -1476,12 +1521,12 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.removeEventListener = function(uri) {
-    uri = this.converObjToUri(uri);
+  this.removeEventListener = function(request) {
+    let builder = this.converObjToUri(request);
 
     return new Promise((resolve, reject) => {
-      this.delete(uri).then(json => {
-          delete this.eventListener[uri.toLowerCase()];
+      this.delete(builder).then(json => {
+          delete this.eventListener[builder.build().toLowerCase()];
           resolve(json);
       }).catch(e => {
         reject(e);
@@ -1517,21 +1562,21 @@ let dConnectSDK = function(settings) {
         }
         return;
       }
-      if (!self.data['accessToken']) {
-        self.authorization(self.scopes, self.appName)
+      if (!this.data['accessToken']) {
+        this.authorization(this.scopes, this.appName)
         .then(accessToken => {
           // アクセストークンを保存する
-          self.data['accessToken'] = accessToken;
-          self.storage[self.appName] = JSON.stringify(self.data);
-          self.initWebSocket(cb);
+          this.data['accessToken'] = accessToken;
+          this.storage[this.appName] = JSON.stringify(this.data);
+          this.initWebSocket(cb);
         }).catch(e => {
           if (e.errorCode == dConnectSDK.constants.errorCode.NOT_SUPPORT_PROFILE
             || e.errorMessage === 'Failed to create client.') {
             // NOT_SUPPORT_PROFILEエラーが出た場合は、LocalOAuthがOFFになっているので、
             // dummyのAccessTokenを設定する。
-            self.data['accessToken'] = 'dummy';
-            self.storage[self.appName] = JSON.stringify(self.data);
-            self.initWebSocket(cb);
+            this.data['accessToken'] = 'dummy';
+            this.storage[this.appName] = JSON.stringify(this.data);
+            this.initWebSocket(cb);
           } else {
             if ('function' === typeof cb) {
               cb(2, e.getMessage);
@@ -1540,7 +1585,7 @@ let dConnectSDK = function(settings) {
         });
         return;
       }
-      self.initWebSocket(cb);
+      this.initWebSocket(cb);
   };
   this.initWebSocket = function (cb) {
     this.websocketListener = cb;
@@ -1548,9 +1593,9 @@ let dConnectSDK = function(settings) {
     this.websocket = new WebSocket(scheme + '://' + this.host + ':' +
                               this.port + '/gotapi/websocket');
     this.websocket.onopen = (e) => {
-      self.isOpenedWebSocket = true;
+      this.isOpenedWebSocket = true;
       // 本アプリのイベント用WebSocketと1対1で紐づいたセッションキーをDevice Connect Managerに登録してもらう。
-      this.websocket.send('{"accessToken":"' + self.data['accessToken'] + '"}');
+      this.websocket.send('{"accessToken":"' + this.data['accessToken'] + '"}');
       if ('function' === typeof cb) {
         cb(0, 'open');
       }
@@ -1560,10 +1605,10 @@ let dConnectSDK = function(settings) {
 
       // console.log("json: " + JSON.stringify(json));
       // console.log("list:" + JSON.parse(this.eventListener));
-      if (!self.isEstablishedWebSocket) {
+      if (!this.isEstablishedWebSocket) {
         if (json.result === 0) {
-          self.isEstablishedWebSocket = true;
-          self.startMonitoringWebsocket(cb);
+          this.isEstablishedWebSocket = true;
+          this.startMonitoringWebsocket(cb);
           if ('function' === typeof cb) {
             cb(-1, 'established');
           }
@@ -1687,7 +1732,6 @@ let dConnectSDK = function(settings) {
       urlScheme.addParameter('S.key', this._currentHmacKey);
       url = urlScheme.build();
     }
-    console.log("url" + url);
     location.href = url;
   };
 

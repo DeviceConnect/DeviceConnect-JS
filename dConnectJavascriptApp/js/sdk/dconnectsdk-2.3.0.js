@@ -1,4 +1,4 @@
-/**
+ /**
  @preserve Device Connect SDK Library v2.3.0
  Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
@@ -246,26 +246,31 @@ let dConnectSDK = function(settings) {
     this.scheme = self.sslEnabled ? 'https' : 'http';
     this.host = self.host;
     this.port = self.port;
+
     if (request && request.api) {
       this.api = request.api;
     } else {
       this.api = 'gotapi';
     }
-
+    if (request && request.path) {
+      this.path = request.path;
+    } else {
+      this.path = undefined;
+    }
     if (request && request.profile) {
       this.profile = request.profile;
     } else {
-      this.profile = null;
+      this.profile = undefined;
     }
     if (request && request.interface) {
       this.interface = request.interface;
     } else {
-      this.interface = null;
+      this.interface = undefined;
     }
     if (request && request.attribute) {
       this.attribute = request.attribute;
     } else {
-      this.attribute = null;
+      this.attribute = undefined;
     }
     this.data = JSON.parse(localStorage[self.appName] || '{}');
     if (this.data['accessToken']) {
@@ -275,12 +280,23 @@ let dConnectSDK = function(settings) {
     } else {
       this.params = {};
     }
+    this.body = new FormData();
     if (request) {
-      for (let key in request) {
-          if (key === 'api' || key === 'profile' || key === 'inter' || key === 'attribute') {
-            continue;
-          }
-          this.params[key] = request[key];
+      if (request.params) {
+        for (let key in request.params) {
+            if (key === 'api' || key === 'profile' || key === 'interface' || key === 'attribute') {
+              continue;
+            }
+            this.params[key] = request.params[key];
+        }
+      }
+      if (request.body) {
+        for (let key in request.body) {
+            if (key === 'api' || key === 'profile' || key === 'interface' || key === 'attribute') {
+              continue;
+            }
+            this.body.append(key, request.body[key]);
+        }
       }
     }
   };
@@ -305,6 +321,25 @@ let dConnectSDK = function(settings) {
    */
    URIBuilder.prototype.getScheme = function() {
     return this.scheme;
+  };
+
+  /**
+   * パスを設定する。
+   * @memberOf dConnectSDK.URIBuilder
+   * @param {String} path パス
+   * @return {URIBuilder} 自分自身のインスタンス
+   */
+  URIBuilder.prototype.setPath = function(path) {
+    this.path = path;
+    return this;
+  };
+  /**
+   * パスを取得する。
+   * @memberOf dConnectSDK.URIBuilder
+   * @return {String} パス
+   */
+   URIBuilder.prototype.getPath = function() {
+    return this.path;
   };
 
   /**
@@ -500,17 +535,21 @@ let dConnectSDK = function(settings) {
    */
   URIBuilder.prototype.build = function() {
     let uri = this.scheme + '://' + this.host + ':' + this.port;
-    if (this.api) {
-      uri += '/' + encodeURIComponent(this.api);
-    }
-    if (this.profile) {
-      uri += '/' + encodeURIComponent(this.profile);
-    }
-    if (this.interface) {
-      uri += '/' + encodeURIComponent(this.interface);
-    }
-    if (this.attribute) {
-      uri += '/' + encodeURIComponent(this.attribute);
+    if (this.path) {
+      uri += this.path;
+    } else {
+      if (this.api) {
+        uri += '/' + encodeURIComponent(this.api);
+      }
+      if (this.profile) {
+        uri += '/' + encodeURIComponent(this.profile);
+      }
+      if (this.interface) {
+        uri += '/' + encodeURIComponent(this.interface);
+      }
+      if (this.attribute) {
+        uri += '/' + encodeURIComponent(this.attribute);
+      }
     }
     if (this.params) {
       let p = '';
@@ -784,7 +823,7 @@ let dConnectSDK = function(settings) {
   this.converObjToUri = function(uri) {
     if (uri && uri instanceof Object) {
       let builder = new this.URIBuilder(uri);
-      uri = builder.build();
+      return builder;
     }
     return uri;
   }
@@ -797,13 +836,14 @@ let dConnectSDK = function(settings) {
    * @param {String} method メソッド
    * @param {Object} request リクエストパラメータのJavaScriptのオブジェクト.
    * @param {Object.<String, String>} header リクエストヘッダー。Key-Valueマップで渡す。
-   * @param {} body コンテンツデータ
    * @return {Promise<object>}
    */
-  this.sendRequest = (method, request, header, body) => {
-    let uri = this.converObjToUri(request);
+  this.sendRequest = (method, request, header) => {
+    let builder = this.converObjToUri(request);
+    let uri = builder.build();
+
     return new Promise((resolve, reject) => {
-      this.execute(method, uri, header, body)
+      this.execute(method, uri, header, builder.body)
         .then(result => {
             resolve(result);
         }).catch(error => {
@@ -811,15 +851,15 @@ let dConnectSDK = function(settings) {
               && error.errorCode <= dConnectSDK.constants.errorCode.NOT_FOUND_CLIENT_ID) {
                 // 呼ばれたURIのプロファイルが追加されているかを確認し、
                 // 追加されていない場合は追加する。
-                let existScope = this.appendScope(uri);
+                this.appendScope(uri);
                 this.retryRequest++;
                 if (this.retryRequest > 1) {
                   // 一度リトライしている場合は、エラーを返す
                   reject(error);
-                  retryRequest = 0;
+                  this.retryRequest = 0;
                   return;
                 }
-                this.authorization(existScope, this.appName)
+                this.authorization(this.scopes, this.appName)
                 .then(accessToken => {
                   // 古いアクセストークンを削除する
                   let newUri;
@@ -976,7 +1016,7 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.get({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test",
    *   params: {
    *     serviceId: "testId"
@@ -996,7 +1036,6 @@ let dConnectSDK = function(settings) {
    * HTTPリクエストのPOSTメソッドへの簡易アクセスを提供する。
    * @memberOf dConnectSDK
    * @param {object} request リクエストパラメータのJavaScriptのオブジェクト(URIにパラメータを付加する場合).
-   * @param {object} body リクエストパラメータのJavaScriptのオブジェクト(Bodyにパラメータを付加する場合).
    * @param {object} header HTTPリクエストのヘッダーに含める項目
    * @return {Promise<object>}
    *
@@ -1008,7 +1047,7 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.post({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test"
    *   body: {
    *    serviceId: "testId"
@@ -1020,15 +1059,14 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.post = function(request, body, header) {
-    return this.sendRequest('POST', request, header, body);
+  this.post = function(request, header) {
+    return this.sendRequest('POST', request, header);
   }
 
   /**
    * HTTPリクエストのPUTメソッドへの簡易アクセスを提供する。
    * @memberOf dConnectSDK
    * @param {object} request リクエストパラメータのJavaScriptのオブジェクト(URIにパラメータを付加する場合).
-   * @param {object} body リクエストパラメータのJavaScriptのオブジェクト(Bodyにパラメータを付加する場合).
    * @param {object} header HTTPリクエストのヘッダーに含める項目
    * @return {Promise<object>}
    *
@@ -1040,7 +1078,7 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.put({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test"
    *   body: {
    *    serviceId: "testId"
@@ -1053,7 +1091,7 @@ let dConnectSDK = function(settings) {
    * });
    */
   this.put = function(request, body, header) {
-    return this.sendRequest('PUT', request, header, body);
+    return this.sendRequest('PUT', request, header);
   }
 
   /**
@@ -1071,7 +1109,7 @@ let dConnectSDK = function(settings) {
    * });
    * sdk.delete({
    *   profile: "test",
-   *   inter: "test",
+   *   interface: "test",
    *   attribute: "test",
    *   params : {
    *    serviceId: "testId"
@@ -1097,7 +1135,7 @@ let dConnectSDK = function(settings) {
       let builder = new this.URIBuilder();
       builder.setProfile(dConnectSDK.constants.availability.PROFILE_NAME);
       return new Promise((resolve, reject) => {
-        this.get(builder.build())
+        this.get(builder)
         .then(json => {
           // localhost:4035でGotAPIが利用可能
           resolve(json.version);
@@ -1129,7 +1167,7 @@ let dConnectSDK = function(settings) {
         builder.setProfile(dConnectSDK.constants.serviceDiscovery.PROFILE_NAME);
 
         return new Promise((resolve, reject) => {
-          this.get(builder.build())
+          this.get(builder)
           .then(json => {
             // localhost:4035でGotAPIが利用可能
             resolve(json);
@@ -1162,7 +1200,7 @@ let dConnectSDK = function(settings) {
         builder.setProfile(dConnectSDK.constants.serviceInformation.PROFILE_NAME);
         builder.setServiceId(serviceId);
         return new Promise((resolve, reject) => {
-          this.get(builder.build())
+          this.get(builder)
           .then(json => {
             // localhost:4035でGotAPIが利用可能
             resolve(json);
@@ -1193,7 +1231,7 @@ let dConnectSDK = function(settings) {
         let builder = new this.URIBuilder();
         builder.setProfile(dConnectSDK.constants.system.PROFILE_NAME);
         return new Promise((resolve, reject) => {
-          this.get(builder.build())
+          this.get(builder)
           .then(json => {
             // localhost:4035でGotAPIが利用可能
             resolve(json);
@@ -1353,7 +1391,7 @@ let dConnectSDK = function(settings) {
     builder.setProfile(dConnectSDK.constants.authorization.PROFILE_NAME);
     builder.setAttribute(dConnectSDK.constants.authorization.ATTR_GRANT);
     return new Promise((resolve, reject) => {
-      this.get(builder.build()).then(json => {
+      this.get(builder).then(json => {
         this.data['clientId'] = json.clientId;
         this.storage[this.appName] = JSON.stringify(this.data);
         resolve(json.clientId);
@@ -1396,7 +1434,7 @@ let dConnectSDK = function(settings) {
     builder.addParameter(dConnectSDK.constants.authorization.PARAM_APPLICATION_NAME,
                           applicatonName);
     return new Promise((resolve, reject) => {
-      this.get(builder.build()).then(json => {
+      this.get(builder).then(json => {
         resolve(json.accessToken);
       }).catch(e => {
         reject(this.makeErrorObject(e.errorCode, 'Failed to get access token.'));
@@ -1426,7 +1464,7 @@ let dConnectSDK = function(settings) {
   /**
    * 指定されたDevice Connect Event APIにイベントリスナーを登録する。
    * @memberOf dConnect
-   * @param {Object} uri 特定のDevice Connect Event APIを表すURI(オブジェクト)
+   * @param {Object} rquest 特定のDevice Connect Event APIを表すURI(オブジェクト)
    * @param {Function} onmessage 登録したいイベント受領用コールバック。
    * @return {Promise<object>}
    *
@@ -1450,11 +1488,11 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.addEventListener = function(uri, onmessage) {
-    uri = this.converObjToUri(uri);
+  this.addEventListener = function(request, onmessage) {
+    let builder = this.converObjToUri(request);
     return new Promise((resolve, reject) => {
-      this.put(uri).then(json => {
-        this.eventListener[uri.toLowerCase()] = onmessage;
+      this.put(builder).then(json => {
+        this.eventListener[builder.build().toLowerCase()] = onmessage;
         resolve(json);
       }).catch(e => {
         reject(e);
@@ -1465,7 +1503,7 @@ let dConnectSDK = function(settings) {
   /**
    * 指定されたDevice Connect Event APIからイベントリスナーを削除する。
    * @memberOf dConnectSDK
-   * @param {Object} uri 特定のDevice Connect Event APIを表すURI（オブジェクト）
+   * @param {Object} request 特定のDevice Connect Event APIを表すURI（オブジェクト）
    * @return {Promise<object>}
    *
    * @example
@@ -1483,12 +1521,12 @@ let dConnectSDK = function(settings) {
    *
    * });
    */
-  this.removeEventListener = function(uri) {
-    uri = this.converObjToUri(uri);
+  this.removeEventListener = function(request) {
+    let builder = this.converObjToUri(request);
 
     return new Promise((resolve, reject) => {
-      this.delete(uri).then(json => {
-          delete this.eventListener[uri.toLowerCase()];
+      this.delete(builder).then(json => {
+          delete this.eventListener[builder.build().toLowerCase()];
           resolve(json);
       }).catch(e => {
         reject(e);
@@ -1693,7 +1731,6 @@ let dConnectSDK = function(settings) {
       urlScheme.addParameter('S.origin', origin);
       urlScheme.addParameter('S.key', this._currentHmacKey);
       url = urlScheme.build();
-      alert("url:" + url);
     }
     location.href = url;
   };
