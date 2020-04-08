@@ -197,7 +197,9 @@ function doGetOnQuaternion(serviceId) {
     profile: 'sphero',
     interface: 'quaternion',
     attribute: 'onquaternion',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.quaternion) {
       $('#q0').val(json.quaternion.q0);
@@ -221,7 +223,9 @@ function doRegisterOnQuaternion(serviceId) {
     profile: 'sphero',
     interface: 'quaternion',
     attribute: 'onquaternion',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -254,7 +258,9 @@ function doUnregisterOnQuaternion(serviceId) {
     profile: 'sphero',
     interface: 'quaternion',
     attribute: 'onquaternion',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener');
@@ -275,7 +281,9 @@ function doGetOnLocator(serviceId) {
     profile: 'sphero',
     interface: 'locator',
     attribute: 'onlocator',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.locator) {
       $('#posx').val(json.locator.positionX);
@@ -298,7 +306,9 @@ function doRegisterOnLocator(serviceId) {
     profile: 'sphero',
     interface: 'locator',
     attribute: 'onlocator',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -330,7 +340,9 @@ function doUnregisterOnLocator(serviceId) {
     profile: 'sphero',
     interface: 'locator',
     attribute: 'onlocator',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener');
@@ -346,22 +358,13 @@ function doUnregisterOnLocator(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doGetOnCollision(serviceId) {
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
   sdk.get({
     profile: 'sphero',
     interface: 'collision',
     attribute: 'oncollision',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.collision) {
       $('#time').val(json.collision.impactTimeStamp);
@@ -389,7 +392,9 @@ function doRegisterOnCollision(serviceId) {
     profile: 'sphero',
     interface: 'collision',
     attribute: 'oncollision',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -428,7 +433,9 @@ function doUnregisterOnCollision(serviceId) {
     profile: 'sphero',
     interface: 'collision',
     attribute: 'oncollision',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener');

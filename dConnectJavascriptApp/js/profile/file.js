@@ -73,10 +73,12 @@ function doFileMove(serviceId) {
 
   sdk.put({
     profile: 'file',
-    serviceId: serviceId,
-    oldPath: oldPath,
-    newPath: newPath,
-    forceOverwrite: forceOverwrite
+    params: {
+      serviceId: serviceId,
+      oldPath: oldPath,
+      newPath: newPath,
+      forceOverwrite: forceOverwrite
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -117,9 +119,11 @@ function doDirectoryMove(serviceId) {
   sdk.put({
     profile: 'file',
     attribute: 'directory',
-    serviceId: serviceId,
-    oldPath: oldPath,
-    newPath: newPath
+    params: {
+      serviceId: serviceId,
+      oldPath: oldPath,
+      newPath: newPath
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -160,8 +164,10 @@ function doFileGetUriFromPath(serviceId) {
   let path = $('#path').val();
   sdk.get({
     profile: 'file',
-    serviceId: serviceId,
-    path: path
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -232,8 +238,10 @@ function showFileList(serviceId, path, mode) {
   sdk.get({
     profile: 'file',
     attribute: 'list',
-    serviceId: serviceId,
-    path: path
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -428,8 +436,10 @@ function doMediaPlay(serviceId, path) {
 function doDeleteFile(serviceId, path) {
   sdk.delete({
     profile: 'file',
-    serviceId: serviceId,
-    path: path
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -475,8 +485,10 @@ function doMKDir(serviceId) {
   sdk.post({
     profile: 'file',
     attribute: 'directory',
-    serviceId: serviceId,
-    path: path
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -514,9 +526,11 @@ function doRMDir(serviceId, dir, forceRemove) {
   sdk.delete({
     profile: 'file',
     attribute: 'directory',
-    serviceId: serviceId,
-    path: dir,
-    forceRemove: forceRemove
+    params: {
+      serviceId: serviceId,
+      path: dir,
+      forceRemove: forceRemove
+    }
   }).then(json =>  {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -641,8 +655,10 @@ function doImageShow(serviceId, path) {
 
   sdk.get({
     profile: 'file',
-    serviceId: serviceId,
-    path: path
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

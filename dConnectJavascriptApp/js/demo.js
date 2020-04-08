@@ -7,6 +7,18 @@
 
 /** Revision of this apps. */
 const versionRev = 'V2.3.0 Rev.1';
+const appName = 'Demo Web Site';
+const appScoepes = ['servicediscovery', 'serviceinformation', 'system',
+            'battery', 'connection', 'deviceorientation', 'filedescriptor',
+            'file', 'mediaplayer', 'mediastreamrecording', 'notification',
+            'phone', 'proximity', 'setting', 'vibration', 'light',
+            'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
+            'dice', 'temperature', 'camera', 'canvas', 'health',
+            'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
+             'tv', 'powermeter','humidity','illuminance', 'videochat',
+             'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
+             'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
+             'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device'];
 /** IPアドレスを保持する. */
 let ip;
 /** 画像読み込み中Flag. */
@@ -21,6 +33,8 @@ let cachedServices = [];
 
 /** dConnectSDKオブジェクト. */
 let sdk;
+
+
 
 /**
  * 初期化処理.
@@ -37,18 +51,8 @@ function init() {
   sdk = new dConnectSDK({
       host: ip,
       port: 4035,
-      appName: 'Demo Web Site',
-      scopes: ['servicediscovery', 'serviceinformation', 'system',
-                  'battery', 'connection', 'deviceorientation', 'filedescriptor',
-                  'file', 'mediaplayer', 'mediastreamrecording', 'notification',
-                  'phone', 'proximity', 'setting', 'vibration', 'light',
-                  'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
-                  'dice', 'temperature', 'camera', 'canvas', 'health',
-                  'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
-                   'tv', 'powermeter','humidity','illuminance', 'videochat',
-                   'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-                   'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-                   'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device']
+      appName: appName,
+      scopes: appScoepes
   });
   // 接続先IPアドレスをページに表示
   $('#host').html('connecting:' + ip);
@@ -104,6 +108,7 @@ function startManagerAndDemo() {
     }
     location.hash = "";
     location.hash = '#demo';
+
     searchDevice();
 
     if (DEBUG) {
@@ -141,6 +146,7 @@ const _onWebSocketMessage = function(code, message) {
   // Tokenをページに表示
   $('#token').html('accessToken:' + sdk.getAccessToken());
   if (state !== undefined) {
+    alert(state);
     showWebSocketState(state);
   }
   closeLoading();
@@ -242,18 +248,7 @@ function startManager(onavailable) {
  * Local OAuthのアクセストークンを取得する.
  */
 function authorization() {
-  const scopes = ['servicediscovery', 'serviceinformation', 'system',
-              'battery', 'connection', 'deviceorientation', 'filedescriptor',
-              'file', 'mediaplayer', 'mediastreamrecording', 'notification',
-              'phone', 'proximity', 'setting', 'vibration', 'light',
-              'remotecontroller', 'drivecontroller', 'mhealth', 'sphero',
-              'dice', 'temperature', 'camera', 'canvas', 'health',
-              'touch', 'humandetection', 'keyevent', 'omnidirectionalimage',
-               'tv', 'powermeter','humidity','illuminance', 'videochat',
-               'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
-               'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-               'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device'];
-  sdk.authorization(scopes, 'Demo Web Site').then(accessToken => {
+  sdk.authorization(appScoepes, appName).then(accessToken => {
     $('#token').html('accessToken:' + accessToken);
     reopenWebSocket(accessToken);
   }).catch(e => {

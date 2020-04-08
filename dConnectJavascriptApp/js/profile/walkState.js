@@ -71,7 +71,9 @@ function doGetWalkState(serviceId) {
   sdk.get({
     profile: 'walkState',
     attribute: 'onWalkState',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     showResponseWalk(json);
@@ -86,10 +88,12 @@ function doRegisterWalkState(serviceId) {
   let params = {
     profile: 'walkState',
     attribute: 'onWalkState',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (intervalParam !== '') {
-    params['interval'] = intervalParam;
+    params.params['interval'] = intervalParam;
   }
   sdk.addEventListener(params, message => {
     if (DEBUG) {
@@ -111,7 +115,9 @@ function unregisterWalkState(serviceId) {
   sdk.removeEventListener({
     profile: 'walkState',
     attribute: 'onWalkState',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');

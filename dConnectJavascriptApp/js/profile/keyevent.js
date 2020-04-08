@@ -66,7 +66,9 @@ function doGetOnKeyChange(serviceId) {
   sdk.get({
     profile: 'keyevent',
     attribute: 'onkeychange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -147,7 +149,9 @@ function doGetOnDown(serviceId) {
   sdk.get({
     profile: 'keyevent',
     attribute: 'ondown',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -218,20 +222,12 @@ function showOnUp(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doGetOnUp(serviceId) {
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('keyevent');
-  builder.setAttribute('onup');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   sdk.get({
     profile: 'keyevent',
     attribute: 'onup',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -320,7 +316,9 @@ function doKeyChangeRegister(serviceId) {
   sdk.addEventListener({
     profile: 'keyevent',
     attribute: 'onkeychange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -344,8 +342,10 @@ function doDownRegister(serviceId) {
   sdk.addEventListener({
     profile: 'keyevent',
     attribute: 'ondown',
-    serviceId: serviceId
-}, message => {
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message)
@@ -368,7 +368,9 @@ function doUpRegister(serviceId) {
   sdk.addEventListener({
     profile: 'keyevent',
     attribute: 'onup',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -392,7 +394,9 @@ function doKeyChangeUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'keyevent',
     attribute: 'onkeychange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -404,7 +408,9 @@ function doDownUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'keyevent',
     attribute: 'ondown',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -417,7 +423,9 @@ function doUpUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'keyevent',
     attribute: 'onup',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });

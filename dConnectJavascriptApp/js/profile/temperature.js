@@ -69,8 +69,10 @@ function getTemperature(serviceId) {
 
   sdk.get({
     profile: 'temperature',
-    serviceId: serviceId,
-    type: type
+    params: {
+      serviceId: serviceId,
+      type: type
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -132,9 +134,11 @@ function setTemperature(serviceId) {
 
   sdk.put({
     profile: 'temperature',
-    serviceId: serviceId,
-    type: type,
-    temperature: temp
+    params: {
+      serviceId: serviceId,
+      type: type,
+      temperature: temp
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

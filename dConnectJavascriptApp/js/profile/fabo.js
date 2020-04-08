@@ -297,9 +297,11 @@ function doPostAddProfile(serviceId, vid, type, pins) {
     let params = {
       profile: 'fabo',
       attribute: 'profile',
-      serviceId: serviceId,
-      vid: vid,
-      type: type
+      params: {
+        serviceId: serviceId,
+        vid: vid,
+        type: type
+      }
     };
     if (pins) {
         pins = '';
@@ -335,7 +337,9 @@ function doGetVirtualServiceList(serviceId, callback) {
     sdk.get({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
         callback(json.services);
     }).catch(e => {
@@ -347,7 +351,9 @@ function doPostAddService(serviceId) {
     let params = {
       profile: 'fabo',
       attribute: 'service',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     };
     for　(let i = 0 ; i < document.service.elements.length ; i++) {
         let elem = document.service.elements[i];
@@ -369,8 +375,10 @@ function doDeleteRemoveService(serviceId, vid) {
         sdk.delete({
           profile: 'fabo',
           attribute: 'service',
-          serviceId: serviceId,
-          vid: vid
+          params: {
+            serviceId: serviceId,
+            vid: vid
+          }
         }).then(json => {
             showRemoveService(serviceId);
         }).catch(e => {
@@ -384,9 +392,11 @@ function doDeleteRemoveProfile(serviceId, vid, type) {
         sdk.delete({
           profile: 'fabo',
           attribute: 'profile',
-          serviceId: serviceId,
-          vid: vid,
-          type: type
+          params: {
+            serviceId: serviceId,
+            vid: vid,
+            type: type
+          }
         }).then(json => {
             doGetVirtualServiceList(serviceId, services => {
                 for (let i = 0; i < services.length; i++) {

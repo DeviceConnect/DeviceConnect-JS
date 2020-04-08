@@ -29,13 +29,6 @@ function showNotification(serviceId) {
 
   setTitle('Notification Profile(Notify)');
 
-  let builder = new sdk.URIBuilder();
-  builder.setProfile('notification');
-  builder.setAttribute('notify');
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
   let str = '';
   str += '<form action="' + uri + '" method="POST" id="notificationForm"' +
         ' name="notificationForm" enctype="multipart/form-data"' +
@@ -97,7 +90,9 @@ function doRegisterNotificationShow(serviceId) {
   sdk.addEventListener({
     profile: 'notification',
     attribute: 'onshow',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -120,7 +115,9 @@ function doUnregisterNotificationShow(serviceId) {
   sdk.removeEventListener({
     profile: 'notification',
     attribute: 'onshow',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -135,7 +132,9 @@ function doRegisterNotificationClick(serviceId) {
   sdk.addEventListener({
     profile: 'notification',
     attribute: 'onclick',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -158,7 +157,9 @@ function doUnregisterNotificationClick(serviceId) {
   sdk.removeEventListener({
     profile: 'notification',
     attribute: 'onclick',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -173,7 +174,9 @@ function doRegisterNotificationClose(serviceId) {
   sdk.addEventListener({
     profile: 'notification',
     attribute: 'onclose',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -195,7 +198,9 @@ function doUnregisterNotificationClose(serviceId) {
   sdk.removeEventListener({
     profile: 'notification',
     attribute: 'onclose',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -210,7 +215,9 @@ function doRegisterNotificationError(serviceId) {
   sdk.addEventListener({
     profile: 'notification',
     attribute: 'onerror',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -232,7 +239,9 @@ function doUnregisterNotificationError(serviceId) {
   sdk.removeEventListener({
     profile: 'notification',
     attribute: 'onerror',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -289,8 +298,10 @@ function notificationDel(serviceId, notificationId) {
   sdk.delete({
     profile: 'notification',
     attribute: 'notify',
-    serviceId: serviceId,
-    notificationId: notificationId
+    params: {
+      serviceId: serviceId,
+      notificationId: notificationId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

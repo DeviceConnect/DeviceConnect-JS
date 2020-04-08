@@ -52,19 +52,9 @@ function showCanvasDrawImage(serviceId) {
   setTitle('Canvas Profile(DrawImage)');
 
   let btnStr = getBackButton('Canvas Top', 'doCanvasDrawImageBack',
-                  serviceId, '');
+                  serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  let builder = new sdk.URIBuilder();
-  builder.setProfile('canvas');
-  builder.setAttribute('drawimage');
-  let uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   /* ※省略パラメータがあり1種類のformでは対応できないため2つformを用意しています。 */
 
   let str = '';
@@ -171,7 +161,9 @@ function doDeleteCanvasDrawImage(serviceId) {
   sdk.delete({
     profile: 'canvas',
     attribute: 'drawimage',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     if (DEBUG) {

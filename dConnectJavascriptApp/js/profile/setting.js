@@ -129,8 +129,10 @@ function doSetDate(serviceId) {
   sdk.put({
     profile: 'setting',
     attribute: 'date',
-    serviceId: serviceId,
-    date: newDateStr
+    params: {
+      serviceId: serviceId,
+      date: newDateStr
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -158,7 +160,9 @@ function doCheckDate(serviceId) {
   sdk.get({
     profile: 'setting',
     attribute: 'date',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -189,8 +193,10 @@ function doCheckVolume(serviceId, kind) {
     profile: 'setting',
     interface: 'sound',
     attribute: 'volume',
-    serviceId: serviceId,
-    kind: kind
+    params: {
+      serviceId: serviceId,
+      kind: kind
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response1: ', json);
@@ -235,7 +241,9 @@ function doCheckbrightness(serviceId) {
     profile: 'setting',
     interface: 'display',
     attribute: 'brightness',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -261,8 +269,10 @@ function doSetbrightness(serviceId) {
     profile: 'setting',
     interface: 'display',
     attribute: 'brightness',
-    serviceId: serviceId,
-    level: level
+    params: {
+      serviceId: serviceId,
+      level: level
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -284,8 +294,10 @@ function doSetSleep(serviceId) {
     profile: 'setting',
     interface: 'display',
     attribute: 'sleep',
-    serviceId: serviceId,
-    time: time
+    params: {
+      serviceId: serviceId,
+      time: time
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -311,7 +323,9 @@ function doCheckSleep(serviceId) {
     profile: 'setting',
     interface: 'display',
     attribute: 'sleep',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -373,9 +387,11 @@ function doSetSoundLevel(type, serviceId, level) {
     profile: 'setting',
     interface: 'volume',
     attribute: 'sound',
-    serviceId: serviceId,
-    kind: type,
-    level: level
+    params: {
+      serviceId: serviceId,
+      kind: type,
+      level: level
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

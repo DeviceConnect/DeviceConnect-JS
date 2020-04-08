@@ -111,9 +111,11 @@ function doHumanDetectHumanGet(serviceId) {
   let params = {
     profile: 'humandetection',
     attribute: 'ondetection',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   };
-  addHumanOptionParameter(params, 'human');
+  addHumanOptionParameter(params.params, 'human');
 
   sdk.get(params).then(json => {
     if (DEBUG) {
@@ -135,10 +137,12 @@ function doHumanDetectHumanRegister(serviceId, sessionKey) {
   let params = {
     profile: 'humandetection',
     attribute: 'ondetection',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   };
 
-  addHumanOptionParameter(params, 'human');
+  addHumanOptionParameter(params.params, 'human');
 
   sdk.addEventListener(params, message => {
     // イベントメッセージが送られてくる
@@ -159,7 +163,9 @@ function doHumanDetectHumanUnregister(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'humandetection',
     attribute: 'ondetection',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -276,9 +282,11 @@ function doHumanDetectBodyGet(serviceId) {
   let params = {
     profile: 'humandetection',
     attribute: 'onbodydetection',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   };
-  addBodyOptionParameter(params, 'body');
+  addBodyOptionParameter(params.params, 'body');
 
   sdk.get(params).then(json => {
     if (DEBUG) {
@@ -300,9 +308,11 @@ function doHumanDetectBodyRegister(serviceId, sessionKey) {
   let params = {
     profile: 'humandetection',
     attribute: 'onbodydetection',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   };
-  addBodyOptionParameter(params, 'body');
+  addBodyOptionParameter(params.params, 'body');
   sdk.addEventListener(params, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -319,23 +329,16 @@ function doHumanDetectBodyRegister(serviceId, sessionKey) {
  * Body Detect Event Unregister
  */
 function doHumanDetectBodyUnregister(serviceId, sessionKey) {
-
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('humandetection');
-  builder.setAttribute('onbodydetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
   sdk.removeEventListener({
     profile: 'humandetection',
     attribute: 'onbodydetection',
-    serviceId: serviceId,
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+    params: {
+      serviceId: serviceId
+    }
+  }.then(json => {
+
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -447,9 +450,11 @@ function doHumanDetectHandGet(serviceId) {
   let params = {
     profile: 'humandetection',
     attribute: 'onhanddetection',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
-  addHandOptionParameter(params, 'hand');
+  addHandOptionParameter(params.params, 'hand');
   sdk.get(params).then(json =>{
     if (DEBUG) {
       console.log('Response: ', json);
@@ -470,9 +475,11 @@ function doHumanDetectHandRegister(serviceId, sessionKey) {
   let params = {
     profile: 'humandetection',
     attribute: 'onhanddetection',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
-  addHandOptionParameter(params, 'hand');
+  addHandOptionParameter(params.params, 'hand');
   sdk.addEventListener(params, function(message) {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -492,7 +499,9 @@ function doHumanDetectHandUnregister(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'humandetection',
     attribute: 'onhanddetection',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -720,7 +729,9 @@ function doHumanDetectFaceGet(serviceId) {
   let params = {
     profile: 'humandetection',
     attribute: 'onfacedetection',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   addFaceOptionParameter(params, 'face');
   sdk.get(params).then(json => {
@@ -743,7 +754,9 @@ function doHumanDetectFaceRegister(serviceId, sessionKey) {
   let params = {
     profile: 'humandetection',
     attribute: 'onfacedetection',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   addFaceOptionParameter(params, 'face');
   sdk.addEventListener(params, message => {
@@ -766,7 +779,9 @@ function doHumanDetectFaceUnregister(serviceId, sessionKey) {
   dConnect.removeEventListener({
     profile: 'humandetection',
     attribute: 'onfacedetection',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });

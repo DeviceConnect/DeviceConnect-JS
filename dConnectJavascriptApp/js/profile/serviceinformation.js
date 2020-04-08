@@ -26,7 +26,9 @@ function showServiceInformation(serviceId) {
 
   sdk.get({
     profile: 'serviceinformation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

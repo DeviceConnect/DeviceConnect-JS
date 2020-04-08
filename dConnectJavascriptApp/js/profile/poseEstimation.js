@@ -67,7 +67,9 @@ function doGetPoseEstimation(serviceId) {
   sdk.get({
     profile:'poseEstimation',
     attribute: 'onPoseEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     showResponsePose(json);
@@ -82,10 +84,12 @@ function doRegisterPoseEstimation(serviceId) {
   let params = {
     profile:'poseEstimation',
     attribute: 'onPoseEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (intervalParam !== '') {
-    params['interval'] = intervalParam;
+    pararms.params['interval'] = intervalParam;
   }
 
   sdk.addEventListener(params, message => {
@@ -108,7 +112,9 @@ function unregisterPoseEstimation(serviceId) {
   sdk.removeEventListener({
     profile:'poseEstimation',
     attribute: 'onPoseEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');

@@ -98,7 +98,9 @@ function doDeviceOrientationGet(serviceId) {
   sdk.get({
     profile: 'deviceorientation',
     attribute: 'ondeviceorientation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.orientation) {
       setDeviceOrientation(json);
@@ -116,7 +118,9 @@ function doDeviceOrientationRegist(serviceId, sessionKey) {
   let params = {
     profile: 'deviceorientation',
     attribute: 'ondeviceorientation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (intervalParam !== '') {
     params['interval'] = intervalParam;
@@ -148,7 +152,9 @@ function doDeviceOrientationUnregister(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'deviceorientation',
     attribute: 'ondeviceorientation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Successed unregister Device Orientation.');

@@ -72,7 +72,9 @@ function doGetECG(serviceId) {
   sdk.get({
     profile: 'ecg',
     attribute: 'onECG',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     showResponseECG(json);
@@ -87,7 +89,9 @@ function doRegisterECG(serviceId) {
   let params = {
     profile: 'ecg',
     attribute: 'onECG',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (intervalParam !== '') {
     params.interval = intervalParam;
@@ -113,7 +117,9 @@ function unregisterECG(serviceId) {
   sdk.removeEventListener({
     profile: 'ecg',
     attribute: 'onECG',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');

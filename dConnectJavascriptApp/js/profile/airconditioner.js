@@ -198,7 +198,9 @@ function getAirConditionerPowerStatus(serviceId) {
 
   sdk.get({
     profile: 'airconditioner',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -226,7 +228,9 @@ function getAirConditionerPowerStatus(serviceId) {
 function doAirConditionerOnOff(serviceId, isSwitch) {
   let params = {
     profile: 'airconditioner',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }
   closeLoading();
   showLoading();
@@ -265,7 +269,9 @@ function getAirConditionerPowerSavingStatus(serviceId) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'powersaving',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -312,8 +318,10 @@ function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'powersaving',
-    serviceId: serviceId,
-    powersaving: isSwitch
+    params: {
+      serviceId: serviceId,
+      powersaving: isSwitch
+    }
   }).then(json => {
     successCallback(json);
   }).catch(e => {
@@ -332,7 +340,9 @@ function getAirConditionerModeSettingStatus(serviceId) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -379,8 +389,10 @@ function doAirConditionerModeSetting(serviceId, mode) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: serviceId,
-    modesetting: mode
+    params: {
+      serviceId: serviceId,
+      modesetting: mode
+    }
   }).then(json => {
     successCallback(json);
   }).catch(e => {
@@ -400,7 +412,9 @@ function getAirConditionerRoomTemperatureStatus(serviceId) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'roomtemperature',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -432,7 +446,9 @@ function getAirConditionerTemperatureStatus(serviceId) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'temperature',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -479,8 +495,10 @@ function doAirConditionerSetTemperatureValue(serviceId) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'temperature',
-    serviceId: serviceId,
-    temperature: Temperature
+    params: {
+      serviceId: serviceId,
+      temperature: Temperature
+    }
   }).then(json => {
     successCallback(json);
   }).catch(e => {
@@ -501,7 +519,9 @@ function getAirConditionerAirFlowStatus(serviceId) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -539,19 +559,21 @@ function doAirConditionerSetAirFlow(serviceId) {
   let params = {
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   let AirFlow = Number($('#idAirFlow').val());
   console.log('AirFlow: ', AirFlow);
 
   if ($('#idAirFlowAutoCheck:checked').val()) {
-    params.airflowauto = true;
+    params.params.airflowauto = true;
   } else {
-    params.airflowauto = false;
+    params.params.airflowauto = false;
     if (AirFlow == 0) {
-      params.airflow = 0;
+      params.params.airflow = 0;
     } else {
-      params.airflow = AirFlow/100;
+      params.params.airflow = AirFlow/100;
     }
   }
 
@@ -594,8 +616,10 @@ function getAirConditionerECHONETLiteProperty(serviceId, epc) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'enlproperty',
-    serviceId: serviceId,
-    epc: epc
+    params: {
+      serviceId: serviceId,
+      epc: epc
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -647,9 +671,11 @@ function doAirConditionerECHONETLitePropertySet(serviceId, epc, value) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'enlproperty',
-    serviceId: serviceId,
-    epc: epc,
-    value: value
+    params: {
+      serviceId: serviceId,
+      epc: epc,
+      value: value
+    }
   }).then(json => {
     successCallback(json);
   }).catch(e => {

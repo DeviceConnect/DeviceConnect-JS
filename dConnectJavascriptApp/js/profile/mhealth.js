@@ -35,8 +35,10 @@ function doStartService(serviceId, deviceName) {
   sdk.put({
     profile: 'mhealth',
     attribute: 'startservice',
-    serviceId: serviceId,
-    protocol: 'HDP'
+    params: {
+      serviceId: serviceId,
+      protocol: 'HDP'
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -131,7 +133,9 @@ function doHBF206IT(serviceId) {
   sdk.get({
     profile: 'mhealth',
     attribute: 'getdbinfo',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
 
     if (DEBUG) {
@@ -170,9 +174,11 @@ function doGetDataFromHBF206IT(serviceId, id) {
   sdk.get({
     profile: 'mhealth',
     attribute: 'getmeasurements',
-    serviceId: serviceId,
-    firstId: id,
-    lastId: id
+    params: {
+      serviceId: serviceId,
+      firstId: id,
+      lastId: id
+    }
   }).then(json => {
 
     if (DEBUG) {
@@ -204,20 +210,13 @@ function doGetDataFromHBF206IT(serviceId, id) {
  * @param {String} deviceName デバイス名
  */
 function doStopService(serviceId) {
-
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('mhealth');
-  builder.setAttribute('stopservice');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('protocol', 'HDP');
-  let uri = builder.build();
-
   sdk.put({
     profile: 'mhealth',
     attribute: 'stopservice',
-    serviceId: serviceId,
-    protocol: 'HDP'
+    params: {
+      serviceId: serviceId,
+      protocol: 'HDP'
+    }
   }).then(json => {
 
     if (DEBUG) {

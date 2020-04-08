@@ -132,15 +132,17 @@ function doSendMessage(serviceId, channelId) {
   let params = {
     profile: 'messagehook',
     attribute: 'message',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (text) {
-    params['text'] = text;
+    params.params['text'] = text;
   }
   if (resource) {
-    params['resource'] = resource;
+    params.params['resource'] = resource;
   }
-  params['channelId'] = channelId;
+  params.params['channelId'] = channelId;
 
   sdk.post(params).then(json => {
     if (DEBUG) {
@@ -209,7 +211,9 @@ function doGetMessage(serviceId) {
   sdk.get({
     profile: 'messagehook',
     attribute: 'onmessage',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -233,7 +237,9 @@ function doGetMessageRegister(serviceId) {
   sdk.addEventListener({
     profile: 'messagehook',
     attribute: 'onmessage',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -261,7 +267,9 @@ function doGetMessageUnregister(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'messagehook',
     attribute: 'onmessage',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     MESSAGEHOOK_REGISTERD = false;
     if (DEBUG) {

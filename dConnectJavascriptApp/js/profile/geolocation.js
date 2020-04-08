@@ -128,7 +128,9 @@ function doGeolocationGet(serviceId) {
   let params = {
     profile: 'geolocation',
     attribute: 'currentposition',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (highAccuracyGetValue) {
     params['highAccuracy'] = highAccuracyGetValue;
@@ -158,7 +160,9 @@ function doGeolocationRegist(serviceId) {
   let params = {
     profile: 'geolocation',
     attribute: 'onwatchposition',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (highAccuracyEventValue) {
     params['highAccuracy'] = highAccuracyEventValue;
@@ -192,7 +196,9 @@ function doGeolocationUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'geolocation',
     attribute: 'onwatchposition',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Successed unregister Geolocation.');

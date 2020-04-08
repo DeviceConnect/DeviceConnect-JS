@@ -59,8 +59,10 @@ function getECHONETLiteProperty(serviceId, epc) {
   sdk.get({
     profile: 'echonetLite',
     attribute: 'property',
-    serviceId: serviceId,
-    epc: epc
+    params: {
+      serviceId: serviceId,
+      epc: epc
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -111,9 +113,11 @@ function doECHONETLitePropertySet(serviceId, epc, value) {
   sdk.put({
     profile: 'echonetLite',
     attribute: 'property',
-    serviceId: serviceId,
-    epc: epc,
-    value: value
+    params: {
+      serviceId: serviceId,
+      epc: epc,
+      value: value
+    }
   }).then(json => { successCallback(json); }).catch(e => { errorCallback(e.errorCode, e.errorMessage); });
 
 }

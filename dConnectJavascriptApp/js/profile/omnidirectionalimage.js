@@ -146,7 +146,9 @@ function showOmnidirectionalImage(serviceId) {
       sdk.post({
         profile: 'mediastreamrecording',
         attribute: 'takephoto',
-        serviceId: theta.id
+        params: {
+          serviceId: theta.id
+        }
       }).then(json => {
           omniUri = json.uri;
           $('#omniUri').val(omniUri);
@@ -189,20 +191,22 @@ function showOmnidirectionalImage(serviceId) {
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: serviceId,
-      uri: roiUri,
-      vr: $('[name=vrMode]').val(),
-      stereo: $('[name=stereoMode]').val(),
-      x: $('#paramX').val(),
-      y: $('#paramY').val(),
-      z: $('#paramZ').val(),
-      roll: $('#paramRoll').val(),
-      yaw: $('#paramYaw').val(),
-      pitch: $('#paramPitch').val(),
-      fov: $('#paramFov').val(),
-      sphereSize: $('#paramSphereSize').val(),
-      width: $('#paramWidth').val(),
-      height: $('#paramHeight').val()
+      params: {
+        serviceId: serviceId,
+        uri: roiUri,
+        vr: $('[name=vrMode]').val(),
+        stereo: $('[name=stereoMode]').val(),
+        x: $('#paramX').val(),
+        y: $('#paramY').val(),
+        z: $('#paramZ').val(),
+        roll: $('#paramRoll').val(),
+        yaw: $('#paramYaw').val(),
+        pitch: $('#paramPitch').val(),
+        fov: $('#paramFov').val(),
+        sphereSize: $('#paramSphereSize').val(),
+        width: $('#paramWidth').val(),
+        height: $('#paramHeight').val()
+      }
     }).then(json => {}).catch(e => {
       alert('Faile to send settings: errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
     });
@@ -295,9 +299,11 @@ function showOmnidirectionalImage(serviceId) {
     sdk.sendRequest(method, {
       profile: 'omnidirectionalimage',
       attribute: 'roi',
-      serviceId: serviceId,
-      source: $('#omniUri').val(),
-      output: concat(outputParams)
+      params: {
+        serviceId: serviceId,
+        source: $('#omniUri').val(),
+        output: concat(outputParams)
+      }
     }).then(json => {
       cb.onstart(json.uri, ((imageServerSwitch === 'off') ? null : imageServerSwitch));
     },
@@ -311,19 +317,13 @@ function showOmnidirectionalImage(serviceId) {
     }
     clearRefreshTimer();
 
-    let uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectionalimage')
-      .setAttribute('roi')
-      .setServiceId(serviceId)
-      .setAccessToken(accessToken)
-      .addParameter('uri', roiUri)
-      .build();
-
     sdk.delete({
       profile: 'omnidirectionalimage',
       attribute: 'roi',
-      serviceId: serviceId,
-      uri: roiUri
+      params: {
+        serviceId: serviceId,
+        uri: roiUri
+      }
     }).then(json => {
         cb.onstop();
     })
@@ -378,10 +378,12 @@ function showOmnidirectionalImage(serviceId) {
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: serviceId,
-      uri: roiUri,
-      width: parseInt(width).toString(),
-      height: parseInt(height).toString()
+      params: {
+        serviceId: serviceId,
+        uri: roiUri,
+        width: parseInt(width).toString(),
+        height: parseInt(height).toString()
+      }
     };
     if (option.pattern.name !== 'width' && option.pattern.name !== 'height') {
       params[option.pattern.name] = parseFloat(num.toString()).toFixed(3);

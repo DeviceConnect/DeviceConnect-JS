@@ -33,7 +33,9 @@ function getTVPowerStatus(serviceId) {
 
   sdk.get({
     profile: 'tv',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -62,7 +64,9 @@ function getTVPowerStatus(serviceId) {
 function doTVOnOff(serviceId, isSwitch) {
   let params = {
     profile: 'tv',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   closeLoading();
   showLoading();
@@ -101,12 +105,14 @@ function doTVChangeChannel(serviceId, channel, nextPrevious) {
   let params = {
     profile: 'tv',
     attribute: 'channel',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (channel !== null) {
-    params['tuning'] = channel;
+    params.params['tuning'] = channel;
   } else if (nextPrevious !== null) {
-    params['control'] = nextPrevious;
+    params.params['control'] = nextPrevious;
   }
   closeLoading();
   showLoading();
@@ -129,26 +135,15 @@ function doTVChangeChannel(serviceId, channel, nextPrevious) {
  * @param {String} isUpDown あげるか下げるか
  */
 function doTVChangeVolume(serviceId, isUpDown) {
-
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('control', isUpDown);
-
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
   sdk.put({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: serviceId,
-    control: isUpDown
+    params: {
+      serviceId: serviceId,
+      control: isUpDown
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -172,8 +167,10 @@ function doTVChangeBroadcastwave(serviceId, isWave) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: serviceId,
-    select: isWave
+    params: {
+      serviceId: serviceId,
+      select: isWave
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -196,8 +193,10 @@ function doTVChangeMuteOnOff(serviceId, isSwitch) {
   let params = {
     profile: 'tv',
     attribute: 'mute',
-    serviceId: serviceId,
-    select: isWave
+    params: {
+      serviceId: serviceId,
+      select: isWave
+    }
   };
   closeLoading();
   showLoading();

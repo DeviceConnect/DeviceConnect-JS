@@ -46,7 +46,9 @@ function doMediaList(serviceId) {
   sdk.get({
     profile: 'mediaplayer',
     attribute: 'medialist',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -102,7 +104,9 @@ function doRegisterOnStatusChange(serviceId) {
   sdk.addEventListener({
     profile: 'mediaplayer',
     attribute: 'onstatuschange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -147,7 +151,9 @@ function doUnregisterOnStatusChange(serviceId) {
   sdk.removeEventListener({
     profile: 'mediaplayer',
     attribute: 'onstatuschange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -265,8 +271,10 @@ function doMediaPlayerMediaPut(serviceId, id, callback) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'media',
-    serviceId: serviceId,
-    mediaId: id
+    params: {
+      serviceId: serviceId,
+      mediaId: id
+    }
   }).then(json => {
     if (json.result == 0) {
       setTitle('MediaPlayer');
@@ -291,8 +299,10 @@ function doMediaPlayerMediaGet(serviceId, id) {
   let params = {
     profile: 'mediaplayer',
     attribute: 'media',
-    serviceId: serviceId,
-    mediaId: id
+    params: {
+      serviceId: serviceId,
+      mediaId: id
+    }
   };
   if (myDeviceName.indexOf('Chromecast') != -1) {
     showLoading();
@@ -340,7 +350,9 @@ function doMediaPlayerPlay(serviceId, id, callback) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'play',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.result == 0) {
 
@@ -365,7 +377,9 @@ function doMediaPlayerResume(serviceId, id) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'resume',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -384,7 +398,9 @@ function doMediaPlayerStop(serviceId) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'stop',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -403,7 +419,9 @@ function doMediaPlayerPause(serviceId) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'pause',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -423,7 +441,9 @@ function doMediaPlayerSeekPut(serviceId) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'seek',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -443,8 +463,10 @@ function doMediaPlayerVolumePut(serviceId) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'volume',
-    serviceId: serviceId,
-    volume: volume
+    params: {
+      serviceId: serviceId,
+      volume: volume
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -463,7 +485,9 @@ function doMediaPlayerVolumeGet(serviceId) {
   sdk.get({
     profile: 'mediaplayer',
     attribute: 'volume',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -495,7 +519,9 @@ function doMediaPlayerMuteChange(serviceId, isMute) {
   sdk.sendRequest(method, {
     profile: 'mediaplayer',
     attribute: 'mute',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -515,7 +541,9 @@ function doMediaPlayerMuteGet(serviceId, mediaId) {
   sdk.get({
     profile: 'mediaplayer',
     attribute: 'mute',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.result == 0) {
       let status = json.mute ? 1 : 0;
@@ -545,8 +573,10 @@ function doMediaPlayerSeekPut(serviceId) {
   sdk.put({
     profile: 'mediaplayer',
     attribute: 'seek',
-    serviceId: serviceId,
-    pos: pos
+    params: {
+      serviceId: serviceId,
+      pos: pos
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -565,7 +595,9 @@ function doMediaPlayerSeekGet(serviceId) {
   sdk.get({
     profile: 'mediaplayer',
     attribute: 'seek',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -589,7 +621,9 @@ function doMediaPlayerStatusGet(serviceId) {
   sdk.get({
     profile: 'mediaplayer',
     attribute: 'playstatus',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

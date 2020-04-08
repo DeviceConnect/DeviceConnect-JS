@@ -40,6 +40,9 @@ function searchDevice2() {
       showServices(cachedServices);
 
       registerStatusChangeEvent();
+      $('#token').html('accessToken:' + sdk.getAccessToken());
+      openWebsocketIfNeeded();
+
     }).catch(e => {
       closeLoading();
       alert('Error: code=' + e.errorCode + ', messsage=\"' + e.errorMessage + '\"');
@@ -50,7 +53,7 @@ function searchDevice2() {
  * デバイスの検索
  */
 function searchDevice() {
-  var profileName = $("select[name='entry_profile']").val();
+  let profileName = $("select[name='entry_profile']").val();
   if (profileName === '') {
     searchDevice2();
   } else {

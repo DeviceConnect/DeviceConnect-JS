@@ -70,7 +70,9 @@ function devMakeUriBuilder(serviceId, attribute){
   return {
     profile: 'device',
     attribute: attribute,
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
 }
 

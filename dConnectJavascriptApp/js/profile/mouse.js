@@ -114,9 +114,11 @@ function onMouseMove(serviceId, event) {
 function sendMouseMove(serviceId, x, y) {
     sdk.post({
       profile: 'mouse',
-      serviceId: serviceId,
-      x: x,
-      y: y
+      params: {
+        serviceId: serviceId,
+        x: x,
+        y: y
+      }
     }).then(json => {
         console.log('success');
     }).catch(e => {
@@ -128,8 +130,10 @@ function sendMouseClick(serviceId, button) {
     sdk.post({
       profile: 'mouse',
       attribute: 'click',
-      serviceId: serviceId,
-      button: button
+      params: {
+        serviceId: serviceId,
+        button: button
+      }
     }).then(json => {
         console.log('success');
     }).catch(e => {
@@ -140,7 +144,9 @@ function sendMouseClick(serviceId, button) {
 function getMouseMode(serviceId) {
     sdk.get({
       profile: 'mouse',
-      serviceId: serviceId,
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
         console.log('success');
         console.log(json);

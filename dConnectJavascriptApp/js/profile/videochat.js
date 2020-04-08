@@ -78,7 +78,7 @@ function vcAddAddressId(id, name, selected) {
 
 function doVideoChatGetProfile(serviceId){
   let params = vcMakeUriBuilder(serviceId,'profile');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   let successCallback = function (json){
     console.log('Response: ', json);
     $('#profile-name').val(json.name);
@@ -91,13 +91,13 @@ function doVideoChatUpdateProfile(serviceId){
   let name = $('#update-name').val();
   console.log('update-name:'+name);
   let params = vcMakeUriBuilder(serviceId,'profile');
-  params['name'] = name;
+  params.params['name'] = name;
   sdk.put(params).then(json => { vcLoggingSuccess(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doVideoChatGetAddress(serviceId) {
   let params = vcMakeUriBuilder(serviceId, 'address');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   let successCallback = function (json) {
     console.log('Response: ', json);
     if (json.addresses) {
@@ -128,10 +128,10 @@ function doVideoChatCall(serviceId){
   let audio = $('#call-audio').val();
 
   let params = vcMakeUriBuilder(serviceId,'call');
-  params['addressId'] = addressId;
-  params['video'] = video;
-  params['audio'] = audio;
-  params['config'] = vcMakeConfig();
+  params.params['addressId'] = addressId;
+  params.params['video'] = video;
+  params.params['audio'] = audio;
+  params.params['config'] = vcMakeConfig();
 
   let successCallback = function(json){
     $('#call-result').val(json.result);
@@ -143,8 +143,8 @@ function doVideoChatStopCall(serviceId){
   let addressId = $('#callstop-addressId').val();
 
   let params = vcMakeUriBuilder(serviceId,'call');
-  params['addressId'] = addressId;
-  params['config'] = vcMakeConfig();
+  params.params['addressId'] = addressId;
+  params.params['config'] = vcMakeConfig();
   let successCallback = function(json){
     $('#callstop-result').val(json.result);
   };
@@ -153,7 +153,7 @@ function doVideoChatStopCall(serviceId){
 
 function registVideoChatIncomingEvent(serviceId){
   let params = vcMakeEventUriBuilder(serviceId,'onincoming');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   let eventCallback = function(message){
     console.log('Event-Message:' + message);
     let json = JSON.parse(message);
@@ -172,13 +172,13 @@ function registVideoChatIncomingEvent(serviceId){
 
 function unregistVideoChatIncomingEvent(serviceId){
   let params = vcMakeEventUriBuilder(serviceId,'onincoming');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   sdk.removeEventListener(params).then(json => { vcEventUnregistSuccess(json);}).catch(e =>{ vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function registVideoChatOnCallEvent(serviceId){
   let params = vcMakeEventUriBuilder(serviceId,'oncall');
-  params['config'] =  vcMakeConfig();
+  params.params['config'] =  vcMakeConfig();
   let eventCallback = function(message){
     console.log('Event-Message:' + message);
     let json = JSON.parse(message);
@@ -195,13 +195,13 @@ function registVideoChatOnCallEvent(serviceId){
 
 function unregistVideoChatOnCallEvent(serviceId){
   let params = vcMakeEventUriBuilder(serviceId,'oncall');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   sdk.removeEventListener(params).then(json => {vcEventUnregistSuccess(json);}).catch(e => { vcAlertError(e.errorCode, e.errorMessage);});
 }
 
 function registVideoChatHangupEvent(serviceId){
   let params = vcMakeEventUriBuilder(serviceId,'onhangup');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   let eventCallback = function(message){
     console.log('Event-Message:' + message);
     let json = JSON.parse(message);
@@ -216,7 +216,7 @@ function registVideoChatHangupEvent(serviceId){
 
 function unregistVideoChatHangupEvent(serviceId){
   let params = vcMakeEventUriBuilder(serviceId,'onhangup');
-  params['config'] = vcMakeConfig();
+  params.params['config'] = vcMakeConfig();
   sdk.removeEventListener(params).then(json => { vcEventUnregistSuccess(json);})
       .catch(e => { vcAlertError(e.errorCode, e.errorMessage);});
 }
@@ -253,8 +253,10 @@ function vcMakeEventButton(title,functionName,serviceId,sessionKey){
 function vcMakeUriBuilder(serviceId, attribute){
   let params = {
     profile: 'videochat',
-    serviceId: serviceId,
-    attribute: attribute
+    attribute: attribute,
+    params: {
+      serviceId: serviceId
+    }
   };
   return params;
 }
@@ -262,8 +264,10 @@ function vcMakeUriBuilder(serviceId, attribute){
 function vcMakeEventUriBuilder(serviceId, attribute){
   let params = {
     profile: 'videochat',
-    serviceId: serviceId,
-    attribute: attribute
+    attribute: attribute,
+    params: {
+      serviceId: serviceId
+    }
   };
   return params;
 }

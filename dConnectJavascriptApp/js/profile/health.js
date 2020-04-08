@@ -165,7 +165,9 @@ function doGetHeartRate(serviceId, attribute) {
   sdk.get({
     profile: 'health',
     attribute: attribute,
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     showResponseHealth(json);
@@ -186,7 +188,9 @@ function doRegisterHeartRate(serviceId, attribute) {
   let params = {
     profile: 'health',
     attribute: attribute,
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (intervalParam !== '') {
     params['interval'] = intervalParam;
@@ -212,7 +216,9 @@ function unregisterHeartRate(serviceId, attribute) {
   sdk.removeEventListener({
     profile: 'health',
     attribute: attribute,
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');
@@ -290,7 +296,9 @@ function doGetHeartRateOld(serviceId) {
   sdk.get({
     profile: 'health',
     attribute: 'heartrate',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     $('#heartRate').val(json.heartRate);
@@ -304,7 +312,9 @@ function doRegisterHeartRateOld(serviceId) {
   sdk.addEventListener({
     profile: 'health',
     attribute: 'heartrate',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
@@ -326,7 +336,9 @@ function unregisterHeartRateOld(serviceId) {
   sdk.removeEventListener({
     profile: 'health',
     attribute: 'heartrate',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');

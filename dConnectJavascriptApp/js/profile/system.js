@@ -24,7 +24,9 @@ function searchSystem(serviceId, deviceName) {
 
   sdk.get({
     profile: 'serviceinformation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response:', json);
@@ -91,7 +93,9 @@ function launchDevicePlugin(pluginId) {
     profile: 'system',
     interface: 'device',
     attribute: 'wakeup',
-    pluginId: pluginId
+    params: {
+      pluginId: pluginId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

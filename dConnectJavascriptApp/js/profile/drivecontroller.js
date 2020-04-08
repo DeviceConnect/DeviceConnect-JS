@@ -54,8 +54,10 @@ function doDriveRotate(serviceId) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: serviceId,
-    angle: angle
+    params: {
+      serviceId: serviceId,
+      angle: angle
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -74,7 +76,9 @@ function doDriveStop(serviceId) {
   sdk.delete({
     profile: 'drivecontroller',
     attribute: 'stop',
-    serviceId: serviceId,
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -95,9 +99,11 @@ function doDriveMove(serviceId) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: serviceId,
-    angle: angle,
-    speed: speed
+    params: {
+      serviceId: serviceId,
+      angle: angle,
+      speed: speed
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

@@ -143,7 +143,9 @@ function doGetDeviceProximity(serviceId) {
   sdk.get({
     profile: 'proximity',
     attribute: 'ondeviceproximity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) { console.log('result:' +  json); }
     alert(JSON.stringify(json));
@@ -168,7 +170,9 @@ function doRegisterDeviceProximity(serviceId) {
   sdk.addEventListener({
     profile: 'proximity',
     attribute: 'ondeviceproximity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     if (DEBUG) { console.log('Event-Message:' +  message); }
     let json = JSON.parse(message);
@@ -195,7 +199,9 @@ function doUnregisterDeviceProximity(serviceId) {
   sdk.removeEventListener({
     profile: 'proximity',
     attribute: 'ondeviceproximity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) { console.log('Success to unregister proximity'); }
   }).catch(e => {
@@ -207,7 +213,9 @@ function doGetUserProximity(serviceId) {
   sdk.get({
     profile: 'proximity',
     attribute: 'onuserproximity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) { console.log('Response:' +  json); }
     alert(JSON.stringify(json));
@@ -228,7 +236,9 @@ function doRegisterUserProximity(serviceId) {
   sdk.addEventListener({
     profile: 'proximity',
     attribute: 'onuserproximity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     if (DEBUG) { console.log('Event-Message:' +  message); }
     let json = JSON.parse(message);
@@ -251,7 +261,9 @@ function doUnregisterUserProximity(serviceId) {
   sdk.removeEventListener({
     profile: 'proximity',
     attribute: 'onuserproximity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) { console.log('Success to unregister proximity'); }
   }).catch(e => {

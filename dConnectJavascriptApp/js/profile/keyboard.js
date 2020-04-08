@@ -113,18 +113,20 @@ function sendKeyboard(serviceId) {
 function sendKeyCode(serviceId, modifier, keyCode) {
     let params = {
       profile: 'keyboard',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     };
     if (modifier == 0x01) {
-      params['modifier'] = 'ctrl';
+      params.params['modifier'] = 'ctrl';
     } else if (modifier == 0x02) {
-      params['modifier'] = 'shift';
+      params.params['modifier'] = 'shift';
     } else if (modifier == 0x04) {
-      params['modifier'] = 'alt';
+      params.params['modifier'] = 'alt';
     } else if (modifier == 0x08) {
-      params['modifier'] = 'gui';
+      params.params['modifier'] = 'gui';
     }
-    params['keyCode'] = keyCode;
+    params.params['keyCode'] = keyCode;
 
     sdk.post(params).then(json => {
         console.log('success');
@@ -136,20 +138,13 @@ function sendKeyCode(serviceId, modifier, keyCode) {
 function sendAscii(serviceId) {
     let string = $('#string').val();
 
-    let builder = new dConnect.URIBuilder();
-    builder.setProfile('keyboard');
-    builder.setAttribute('ascii');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('string', string);
-
-    let uri = builder.build();
-    console.log(uri);
     sdk.post({
       profile: 'keyboard',
       attribute: 'ascii',
-      serviceId: serviceId,
-      string: string
+      params: {
+        serviceId: serviceId,
+        string: string
+      }
     }).then(json => {
         console.log('success');
     }).catch(e => {

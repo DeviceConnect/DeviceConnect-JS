@@ -123,10 +123,12 @@ function doRecorderOptions(serviceId, target) {
   let params = {
     profile: 'mediastreamrecording',
     attribute: 'options',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (target !== null && target !== undefined) {
-    params['target'] = target;
+    params.params['target'] = target;
   }
   sdk.get(params).then(json => {
     showOptionList(serviceId, target, json);
@@ -254,31 +256,33 @@ function doChangeRecorderOptions(op) {
   let params = {
     profile: 'mediastreamrecording',
     attribute: 'options',
-    serviceId: op.serviceId
+    params: {
+      serviceId: op.serviceId
+    }
   };
   if (op.target !== undefined) {
-    params['target'] = op.target;
+    params.params['target'] = op.target;
   }
   if (op.imageWidth !== undefined) {
-    params['imageWidth'] = op.imageWidth;
+    params.params['imageWidth'] = op.imageWidth;
   }
   if (op.imageHeight !== undefined) {
-    params['imageHeight'] = op.imageHeight;
+    params.params['imageHeight'] = op.imageHeight;
   }
   if (op.previewWidth !== undefined) {
-    params['previewWidth'] = op.previewWidth;
+    params.params['previewWidth'] = op.previewWidth;
   }
   if (op.previewHeight !== undefined) {
-    params['previewHeight'] = op.previewHeight;
+    params.params['previewHeight'] = op.previewHeight;
   }
   if (op.previewBitRate !== undefined) {
-    params['previewBitRate'] = op.previewBitRate;
+    params.params['previewBitRate'] = op.previewBitRate;
   }
   if (op.previewMaxFrameRate !== undefined) {
-    params['previewMaxFrameRate'] = op.previewMaxFrameRate;
+    params.params['previewMaxFrameRate'] = op.previewMaxFrameRate;
   }
   if (op.mimeType !== undefined) {
-    params['mimeType'] = op.mimeType;
+    params.params['mimeType'] = op.mimeType;
   }
   showLoading();
   sdk.put(params).then(json => {
@@ -323,10 +327,12 @@ function doRegisterPreview(serviceId, target) {
   let params = {
     profile: 'mediastreamrecording',
     attribute: 'preview',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (target !== null && target !== undefined) {
-    params['target'] = target;
+    params.params['target'] = target;
   }
   sdk.put(params).then(json => {
     if (DEBUG) {
@@ -400,10 +406,11 @@ function doUnregisterPreview(serviceId, recorder) {
   let params = {
     profile: 'mediastreamrecording',
     attribute: 'preview',
-    serviceId: serviceId
-  };
+    params: {
+      serviceId: serviceId
+    }  };
   if (recorder !== null && recorder !== undefined) {
-    params['target'] = recorder.id;
+    params.params['target'] = recorder.id;
   }
 
   sdk.delete(params).then(json => {
@@ -468,10 +475,11 @@ function doTakePhoto(serviceId, target) {
     let params = {
       profile: 'mediastreamrecording',
       attribute: 'takephoto',
-      serviceId: serviceId
-    };
+      params: {
+        serviceId: serviceId
+      }    };
     if (target !== null && target !== undefined) {
-      params['target'] = target;
+      params.params['target'] = target;
     }
 	  sdk.post(params).then(json => {
   		if (DEBUG) {
@@ -603,10 +611,12 @@ function doMediaRecord(serviceId, target) {
       let params = {
         profile: 'mediastreamrecording',
         attribute: 'record',
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       };
       if (target !== null && target !== undefined) {
-        params['target'] = target;
+        params.params['target'] = target;
       }
       return new Promise((resolve, reject) => {
     		sdk.post(params).then(json => {
@@ -635,10 +645,11 @@ function doMediaStop(serviceId, target) {
   let params = {
     profile: 'mediastreamrecording',
     attribute: 'stop',
-    serviceId: serviceId
-  };
+    params: {
+      serviceId: serviceId
+    }  };
   if (target !== null && target !== undefined) {
-    params['target'] = target;
+    params.params['target'] = target;
   }
 
   sdk.put(params).then(json => {
@@ -660,7 +671,9 @@ function doGetMediaRecorderList(serviceId, callback) {
     sdk.get({
       profile: 'mediastreamrecording',
       attribute: 'mediarecorder',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       if (DEBUG) {
         console.log('Response: ', json);
@@ -683,7 +696,9 @@ function doGetMediaRecorder(serviceId, target) {
     sdk.get({
       profile: 'mediastreamrecording',
       attribute: 'mediarecorder',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       if (DEBUG) {
         console.log('Response: ', json);
@@ -768,7 +783,9 @@ function doRegisterOnPhoto(serviceId) {
     sdk.addEventListener({
       profile: 'mediastreamrecording',
       attribute: 'onphoto',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }, message => {
       // イベントメッセージが送られてくる
       if (DEBUG) {
@@ -796,7 +813,9 @@ function doUnregisterOnPhoto(serviceId) {
   sdk.removeEventListener({
     profile: 'mediastreamrecording',
     attribute: 'onphoto',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -813,7 +832,9 @@ function doRegisterOnRecordingChange(serviceId) {
     sdk.addEventListener({
       profile: 'mediastreamrecording',
       attribute: 'onRecordingChange',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }, message => {
       // イベントメッセージが送られてくる
       if (DEBUG) {
@@ -846,7 +867,9 @@ function doUnregisterOnRecordingChange(serviceId) {
   sdk.removeEventListener({
     profile: 'mediastreamrecording',
     attribute: 'onRecordingChange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });

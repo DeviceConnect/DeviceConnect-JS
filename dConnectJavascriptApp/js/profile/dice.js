@@ -132,7 +132,9 @@ function doGetOnDice(serviceId) {
   sdk.get({
     profile: 'dice',
     attribute: 'ondice',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.dice) {
       let img = document.getElementById('dice');
@@ -152,7 +154,9 @@ function doRegisterOnDice(serviceId, sessionKey) {
   sdk.addEventListener({
     profile: 'dice',
     attribute: 'ondice',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -181,28 +185,22 @@ function doUnregisterOnDice(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'dice',
     attribute: 'ondice',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e =>  {
     alert(e.errorMessage);
   });
 }
 
 function doGetOnMagnetometer(serviceId) {
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
   sdk.get({
     profile: 'dice',
     interface: 'magnetometer',
     attribute: 'onmagnetometer',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (json.magnetometer) {
       $('#x').val(json.magnetometer.x);
@@ -220,25 +218,15 @@ function doGetOnMagnetometer(serviceId) {
  * Dice OnMagnetometerイベントの登録
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doRegisterOnMagnetometer(serviceId, sessionKey) {
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
+function doRegisterOnMagnetometer(serviceId) {
   sdk.addEventListener({
     profile: 'dice',
     interface: 'magnetometer',
     attribute: 'onmagnetometer',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -263,14 +251,15 @@ function doRegisterOnMagnetometer(serviceId, sessionKey) {
  * Dice OnMagnetometerイベントの削除
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doUnregisterOnMagnetometer(serviceId, sessionKey) {
+function doUnregisterOnMagnetometer(serviceId) {
   sdk.removeEventListener({
     profile: 'dice',
     interface: 'magnetometer',
     attribute: 'onmagnetometer',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e =>  {
     alert(e.errorMessage);
   });

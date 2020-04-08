@@ -122,25 +122,25 @@ function doPowerMeterGetIntegratedPower(serviceId){
 
   if(newDate && newTime){
     let newDateStr = newDate + 'T' + newTime + ':00+09:00';
-    params['date'] = newDateStr;
+    params.params['date'] = newDateStr;
   }
 
   let unit = $('#integrated-unit').val();
 
   if (unit != 'null_value') {
-    params['unit'] = unit;
+    params.params['unit'] = unit;
   }
 
   let count = $('#count-power').val();
 
   if (count != 'null_value') {
-    params['count'] = count;
+    params.params['count'] = count;
   }
 
   let powerFlow = $('#powerFlow-power').val();
 
   if (powerFlow != 'null_value') {
-    params['powerFlow'] = powerFlow;
+    params.params['powerFlow'] = powerFlow;
   }
 
   let successCallback = function (json){
@@ -157,7 +157,7 @@ function doPowerMeterGetInstantaneousPower(serviceId){
   let unit = $('#unit-power').val();
 
   if (unit != 'null_value') {
-    params['unit'] = unit;
+    params.params['unit'] = unit;
   }
 
   let successCallback = function (json){
@@ -173,7 +173,7 @@ function doPowerMeterGetInstantaneousCurrent(serviceId){
   let unit = $('#unit-current').val();
 
   if (unit != 'null_value') {
-    params['unit'] = unit;
+    params.params['unit'] = unit;
   }
 
   let successCallback = function (json){
@@ -206,7 +206,9 @@ function pmMakeButton(title,functionName,params) {
 function pmMakeUriBuilder(serviceId, attribute){
    let params = {
     profile: 'powermeter',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if(typeof attribute !== 'undefined'){
     params['attribute'] = attribute;

@@ -41,8 +41,10 @@ function doRemoteControllerSend(serviceId) {
   let message = document.getElementById('menu').innerHTML;
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: serviceId,
-    message: message
+    params: {
+      serviceId: serviceId,
+      message: message
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -66,7 +68,9 @@ function doRemoteControllerGet(serviceId) {
 
   sdk.get({
     profile: 'remotecontroller',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

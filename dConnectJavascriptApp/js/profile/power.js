@@ -30,7 +30,9 @@ function getPowerStatus(serviceId) {
 
   sdk.get({
     profile: 'power',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -59,7 +61,9 @@ function getPowerStatus(serviceId) {
 function doOnOff(serviceId, isSwitch) {
   let params = {
     profile: 'power',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   closeLoading();
   showLoading();

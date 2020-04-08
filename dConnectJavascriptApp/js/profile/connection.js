@@ -60,7 +60,9 @@ function doCheckBluetooth(serviceId) {
   sdk.get({
     profile: 'connection',
     attribute: 'bluetooth',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -87,7 +89,9 @@ function doCheckBLE(serviceId) {
   sdk.get({
     profile: 'connection',
     attribute: 'ble',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -114,7 +118,9 @@ function doCheckWifi(serviceId) {
   sdk.get({
     profile: 'connection',
     attribute: 'wifi',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -141,7 +147,9 @@ function doCheckNfc(serviceId) {
   sdk.get({
     profile: 'connection',
     attribute: 'nfc',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -211,7 +219,9 @@ function doDeviceOn(type, serviceId, connect) {
   let params = {
     profile: 'connection',
     attribute: type,
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (connect) {
     sdk.put(params).then(json => {
@@ -277,7 +287,9 @@ function doRegisterWifiChangeEvent(serviceId) {
   sdk.addEventListener({
     profile: 'connection',
     attribute: 'onwifichange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -304,7 +316,9 @@ function doRegisterBluetoothChangeEvent(serviceId) {
   sdk.addEventListener({
     profile: 'connection',
     attribute: 'onbluetoothchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -344,7 +358,9 @@ function doUnregisterWifiChangeEvent(serviceId) {
   sdk.removeEventListener({
     profile: 'connection',
     attribute: 'onwifichange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -359,7 +375,9 @@ function doUnregisterBluetoothChangeEvent(serviceId) {
   sdk.removeEventListener({
     profile: 'connection',
     attribute: 'onbluetoothchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });

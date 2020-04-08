@@ -86,7 +86,9 @@ function doGetOnTouch(serviceId) {
   sdk.get({
     profile: 'touch',
     attribute: 'ontouch',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -246,7 +248,9 @@ function doGetOnTouchStart(serviceId) {
   sdk.get({
     profile: 'touch',
     attribute: 'ontouchstart',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -402,20 +406,12 @@ function showOnTouchEnd(serviceId) {
  * Get OnTouchEnd
  */
 function doGetOnTouchEnd(serviceId) {
-  let builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchend');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   sdk.get({
     profile: 'touch',
     attribute: 'ontouchend',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -565,7 +561,9 @@ function doGetOnDoubleTap(serviceId) {
   sdk.get({
     profile: 'touch',
     attribute: 'ondoubletap',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -649,7 +647,9 @@ function doGetOnTouchMove(serviceId) {
   sdk.get({
     profile: 'touch',
     attribute: 'ontouchmove',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -808,7 +808,9 @@ function doGetOnTouchCancel(serviceId) {
   sdk.get({
     profile: 'touch',
     attribute: 'ontouchcancel',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -966,7 +968,9 @@ function doGetOnTouchChange(serviceId) {
   sdk.get({
     profile: 'touch',
     attribute: 'ontouchchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -1171,7 +1175,9 @@ function doTouchRegister(serviceId) {
   sdk.addEventListener({
     profile: 'touch',
     attribute: 'ontouch',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1264,7 +1270,9 @@ function doTouchStartRegister(serviceId) {
    sdk.addEventListener({
     profile: 'touch',
     attribute: 'ontouchstart',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1357,7 +1365,9 @@ function doTouchEndRegister(serviceId) {
   sdk.addEventListener({
     profile: 'touch',
     attribute: 'ontouchend',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1450,7 +1460,9 @@ function doDoubleTapRegister(serviceId) {
   sdk.addEventListener({
     profile: 'touch',
     attribute: 'ondoubletap',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1478,7 +1490,9 @@ function doTouchMoveRegister(serviceId) {
   sdk.addEventListener({
     profile: 'touch',
     attribute: 'ontouchmove',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1571,7 +1585,9 @@ function doTouchCancelRegister(serviceId) {
   sdk.addEventListener({
     profile: 'touch',
     attribute: 'ontouchcancel',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1664,7 +1680,9 @@ function doTouchChangeRegister(serviceId) {
   sdk.addEventListener({
     profile: 'touch',
     attribute: 'ontouchchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -1761,7 +1779,9 @@ function doTouchUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ontouch',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -1774,7 +1794,9 @@ function doTouchStartUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ontouchstart',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -1787,7 +1809,9 @@ function doTouchEndUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ontouchend',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -1800,7 +1824,9 @@ function doDoubleTapUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ondoubletap',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -1813,7 +1839,9 @@ function doTouchMoveUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ontouchmove',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -1826,7 +1854,9 @@ function doTouchCancelUnregister(serviceId) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ontouchcancel',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -1838,7 +1868,9 @@ function doTouchChangeUnregister(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'touch',
     attribute: 'ontouchchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });

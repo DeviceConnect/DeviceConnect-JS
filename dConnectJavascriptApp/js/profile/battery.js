@@ -80,7 +80,9 @@ function showChargeEvent(serviceId) {
   sdk.get({
     profile: 'battery',
     attribute: 'charging',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -149,7 +151,9 @@ function doRegisterChargingEvent(serviceId) {
   sdk.addEventListener({
     profile: 'battery',
     attribute: 'onchargingchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -180,7 +184,9 @@ function doUnregisterChargingEvent(serviceId) {
   sdk.removeEventListener({
     profile: 'battery',
     attribute: 'onchargingchange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -195,7 +201,9 @@ function doRegisterBatteryChangeEvent(serviceId) {
   sdk.addEventListener({
     profile: 'battery',
     attribute: 'onbatterychange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -230,7 +238,9 @@ function doUnregisterBatteryChangeEvent(serviceId, sessionKey) {
   sdk.removeEventListener({
     profile: 'battery',
     attribute: 'onbatterychange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -252,7 +262,9 @@ function doBatteryAll(serviceId) {
 
   sdk.get({
     profile: 'battery',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

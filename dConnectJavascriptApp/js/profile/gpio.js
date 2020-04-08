@@ -111,8 +111,10 @@ function doGPIOExport(serviceId, obj) {
       profile: 'gpio',
       interface: 'export',
       attribute: pin,
-      servicdId: serviceId,
-      mode: selectMode
+      params: {
+        serviceId: serviceId,
+        mode: selectMode
+      }
     }).then(json => {
 
         if (json.result == 0) {
@@ -172,7 +174,9 @@ function doGPIOAnalogRead(serviceId, pin) {
       profile: 'gpio',
       interface: 'analog',
       attribute: pin,
-      serviceId: serviceId,
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
         if (json.result == 0) {
             let str = "";
@@ -200,7 +204,9 @@ function doGPIODigitalRead(serviceId, pin) {
       profile: 'gpio',
       interface: 'digital',
       attribute: pin,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
         if (json.result == 0) {
             let str = "";
@@ -225,23 +231,14 @@ function doGPIODigitalRead(serviceId, pin) {
  */
 function doGPIOAnalogWrite(serviceId, pin, value) {
 
-    let builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("analog");
-    builder.setAttribute(pin);
-    builder.addParameter("value", value);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    let uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
     sdk.post({
       profile: 'gpio',
       interface: 'analog',
       attribute: pin,
-      value: value,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId,
+        value: value
+      }
     }).then(json => {
         if (json.result == 0) {} else {}
     }).catch(e => {
@@ -264,8 +261,10 @@ function doGPIODigitalWrite(serviceId, pin, value) {
       profile: 'gpio',
       interface: 'digital',
       attribute: pin,
-      value: value,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId,
+        value: value
+      }
     };
     if (value == 1) {
         sdk.put(params).then(json => {
@@ -309,7 +308,9 @@ function doRegisterOnChangeEvent(serviceId) {
     sdk.addEventListener({
       profile: 'gpio',
       attribute: 'onchange',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }, message => {
       console.log(message);
       let json = JSON.parse(message);
@@ -341,7 +342,9 @@ function doUnregisterOnChangeEvent(serviceId) {
     sdk.removeEventListener({
       profile: 'gpio',
       attribute: 'onchange',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
         if (DEBUG) {
           console.log('Successed register Device Orientation.');

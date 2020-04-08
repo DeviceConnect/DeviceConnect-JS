@@ -67,7 +67,9 @@ function doGetStressEstimation(serviceId) {
   sdk.get({
     profile: 'stressEstimation',
     attribute: 'onStressEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     closeLoading();
     showResponseStress(json);
@@ -82,10 +84,12 @@ function doRegisterStressEstimation(serviceId) {
   let params = {
     profile: 'stressEstimation',
     attribute: 'onStressEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (intervalParam !== '') {
-    params['interval'] = intervalParam;
+    params.params['interval'] = intervalParam;
   }
 
   sdk.addEventListener(params, message => {
@@ -108,7 +112,9 @@ function unregisterStressEstimation(serviceId) {
   sdk.removeEventListener({
     profile: 'stressEstimation',
     attribute: 'onStressEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');

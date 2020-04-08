@@ -89,7 +89,9 @@ function getCallState(serviceId) {
   sdk.get({
     profile: 'phone',
     attribute: 'callState',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId,
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -109,7 +111,9 @@ function registerCallStateEvent(serviceId) {
   sdk.addEventListener({
     profile: 'phone',
     attribute: 'onCallStateChange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
@@ -131,7 +135,9 @@ function unregisterCallStateEvent(serviceId) {
   sdk.removeEventListener({
     profile: 'phone',
     attribute: 'onCallStateChange',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).catch(e => {
     alert(e.errorMessage);
   });
@@ -142,7 +148,9 @@ function acceptCall(serviceId) {
   let params = {
     profile: 'phone',
     attribute: 'acceptCall',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (phoneNumber !== '') {
     params['phoneNumber'] = phoneNumber;
@@ -161,10 +169,12 @@ function rejectCall(serviceId) {
   let params = {
     profile: 'phone',
     attribute: 'rejectCall',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (phoneNumber !== '') {
-    params['phoneNumber'] = phoneNumber;
+    params.params['phoneNumber'] = phoneNumber;
   }
 
   sdk.post(params).then(json => {
@@ -181,10 +191,12 @@ function endCall(serviceId) {
   let params = {
     profile: 'phone',
     attribute: 'endCall',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (phoneNumber !== '') {
-    params['phoneNumber'] = phoneNumber;
+    params.params['phoneNumber'] = phoneNumber;
   }
   sdk.post(params).then(json => {
     if (DEBUG) {
@@ -235,8 +247,10 @@ function doPhoneCall(serviceId) {
   sdk.post({
     profile: 'phone',
     attribute: 'call',
-    serviceId: serviceId,
-    phoneNumber: phoneNumber
+    params: {
+      serviceId: serviceId,
+      phoneNumber: phoneNumber
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -256,8 +270,10 @@ function doPhoneSet(serviceId) {
   sdk.post({
     profile: 'phone',
     attribute: 'set',
-    serviceId: serviceId,
-    mode: mode
+    params: {
+      serviceId: serviceId,
+      mode: mode
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

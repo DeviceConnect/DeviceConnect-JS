@@ -56,10 +56,12 @@ function doVibrateVibration(serviceId) {
   let params = {
     profile: 'vibration',
     attribute: 'vibrate',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   };
   if (patternValue) {
-    params['pattern'] = patternValue;
+    params.params['pattern'] = patternValue;
   }
   sdk.put(params).then(json => {
     if (DEBUG) {
@@ -79,7 +81,9 @@ function doStopVibration(serviceId) {
   sdk.delete({
     profile: 'vibration',
     attribute: 'vibrate',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).thne(json => {
     if (DEBUG) {
       console.log('Response: ', json);

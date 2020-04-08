@@ -67,9 +67,11 @@ function doZoom(serviceId) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: serviceId,
-    movement: movement,
-    direction: direction
+    params: {
+      serviceId: serviceId,
+      movement: movement,
+      direction: direction
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -88,7 +90,9 @@ function doCheckZoom(serviceId) {
   sdk.get({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

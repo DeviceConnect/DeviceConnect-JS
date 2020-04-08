@@ -1,4 +1,4 @@
-/**
+　/**
  atmosphericPressure.js
  Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
@@ -26,7 +26,9 @@ function showAtmosphericPressure(serviceId) {
 
   sdk.get({
     profile: 'atmosphericPressure',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

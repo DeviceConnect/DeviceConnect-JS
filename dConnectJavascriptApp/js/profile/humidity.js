@@ -25,7 +25,9 @@ function showHumidity(serviceId) {
 
   sdk.get({
     profile: 'humidity',
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);

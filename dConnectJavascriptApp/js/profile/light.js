@@ -217,7 +217,9 @@ function requestLightSearchLight(serviceId){
   return new Promise((resolve, reject) => {
     sdk.get({
       profile: 'light',
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       if (DEBUG) { console.log('Response: ', json); }
       resolve(json);
@@ -239,17 +241,19 @@ function requestLightSearchLight(serviceId){
 function requestLightOn(serviceId, lightId, brightness, color, flashing){
   let params = {
     profile: 'light',
-    serviceId: serviceId,
-    lightId: lightId
+    params: {
+      serviceId: serviceId,
+      lightId: lightId
+    }
   };
   if(color !== undefined){
-    params['color'] = color;
+    params.params['color'] = color;
   }
   if(brightness !== undefined){
-    params['brightness'] = brightness;
+    params.params['brightness'] = brightness;
   }
   if(flashing !== undefined){
-    params['flashing'] = flashing;
+    params.params['flashing'] = flashing;
   }
   return new Promise((resolve, reject) => {
     sdk.post(params).then(json => {
@@ -271,8 +275,10 @@ function requestLightOff(serviceId, lightId){
   return new Promise((resolve, reject) => {
     sdk.delete({
       profile: 'light',
-      serviceId: serviceId,
-      lightId: lightId
+      params: {
+        serviceId: serviceId,
+        lightId: lightId
+      }
     }).then(json => {
       if (DEBUG) { console.log('Response: ', json); }
       resolve(json);
@@ -295,18 +301,20 @@ function requestLightOff(serviceId, lightId){
 function requestLightChangeStatus(serviceId, lightId, name, brightness, color, flashing){
   let params = {
     profile: 'light',
-    serviceId: serviceId,
-    lightId: lightId,
-    name: name
+    params: {
+      serviceId: serviceId,
+      lightId: lightId,
+      name: name
+    }
   };
   if(color !== undefined){
-    params['color'] = color;
+    params.params['color'] = color;
   }
   if(brightness !== undefined){
-    params['brightness'] = brightness;
+    params.params['brightness'] = brightness;
   }
   if(flashing !== undefined){
-    params['flashing'] = flashing;
+    params.params['flashing'] = flashing;
   }
   return new Promise((resolve, reject) => {
     sdk.put(params).then(json => {
