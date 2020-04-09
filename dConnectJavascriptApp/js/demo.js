@@ -146,7 +146,6 @@ const _onWebSocketMessage = function(code, message) {
   // Tokenをページに表示
   $('#token').html('accessToken:' + sdk.getAccessToken());
   if (state !== undefined) {
-    alert(state);
     showWebSocketState(state);
   }
   closeLoading();

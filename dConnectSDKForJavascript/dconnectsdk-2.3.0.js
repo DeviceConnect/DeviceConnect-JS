@@ -859,15 +859,7 @@ let dConnectSDK = function(settings) {
                 }
                 this.authorization(this.scopes, this.appName)
                 .then(accessToken => {
-                  // 古いアクセストークンを削除する
-                  let newUri;
-                  if (uri.match(/(\?*accessToken)/)) {
-                    newUri = uri.replace(/(\?*)accessToken=(.*?)(&|$)/,"?")
-                  } else {
-                    newUri = uri.replace(/(\&*)accessToken=(.*?)(&|$)/,"")
-                  }
-                  // 新しいアクセストークンを付加する
-                  uri = this.addRequestParameter(newUri, 'accessToken', accessToken);
+                  request.setAccessToken(accessToken);
                   // アクセストークンを保存する
                   this.data['accessToken'] = accessToken;
                   this.storage[this.appName] = JSON.stringify(this.data);

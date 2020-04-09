@@ -40,7 +40,6 @@ function searchDevice2() {
       showServices(cachedServices);
 
       registerStatusChangeEvent();
-      $('#token').html('accessToken:' + sdk.getAccessToken());
       openWebsocketIfNeeded();
 
     }).catch(e => {
