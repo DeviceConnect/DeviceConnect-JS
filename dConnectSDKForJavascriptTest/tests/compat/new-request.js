@@ -19,7 +19,9 @@ let _tests = [
                 };
                 sdk.sendRequest('GET', {
                   profile: 'serviceInformation',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -38,7 +40,9 @@ let _tests = [
                 sdk.sendRequest('POST', {
                   profile: 'driveController',
                   attribute:'move',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -57,7 +61,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'fileDescriptor',
                   attribute:'open',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -76,7 +82,9 @@ let _tests = [
                 sdk.sendRequest('POST', {
                   profile: 'mediaStreamRecording',
                   attribute: 'record',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -95,7 +103,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'mediaPlayer',
                   attribute: 'mediaList',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -114,7 +124,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'mediaPlayer',
                   attribute: 'playStatus',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -133,7 +145,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'mediaPlayer',
                   attribute: 'media',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -152,7 +166,9 @@ let _tests = [
                 sdk.sendRequest('PUT', {
                   profile: 'omnidirectionalImage',
                   attribute: 'roi',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -170,7 +186,9 @@ let _tests = [
                 };
                 sdk.sendRequest('GET', {
                   profile: 'remoteController',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     }

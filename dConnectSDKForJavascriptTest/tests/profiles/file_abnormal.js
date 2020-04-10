@@ -24,12 +24,13 @@ let FileProfileAbnormalTest = {};
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,12 +55,13 @@ QUnit.test('listAbnormalTest001(Calling a put method that does not support.)',
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -84,12 +86,13 @@ QUnit.test('listAbnormalTest002(Calling a post method that does not support.)',
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -114,13 +117,14 @@ QUnit.test('listAbnormalTest003(Calling a delete method that does not support.)'
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: -1000
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: -1000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -144,13 +148,14 @@ QUnit.test('listAbnormalTest004(order is minus(-1000))', FileProfileAbnormalTest
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 100.55
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 100.55
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -174,13 +179,14 @@ QUnit.test('listAbnormalTest005(order is float(100.55))', FileProfileAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -204,13 +210,14 @@ QUnit.test('listAbnormalTest006(order is string(path))', FileProfileAbnormalTest
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'abcdef'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'abcdef'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -219,7 +226,8 @@ FileProfileAbnormalTest.listAbnormalTest007 = function(assert) {
     done();
   });
 };
-QUnit.test('listAbnormalTest007(order is string(abcdef))', FileProfileAbnormalTest.listAbnormalTest007);
+QUnit.test('listAbnormalTest007(order is string(abcdef))',
+      FileProfileAbnormalTest.listAbnormalTest007);
 
 /**
  * order='あいうえお'を指定してlistにアクセスするテストを行なう。
@@ -234,13 +242,14 @@ QUnit.test('listAbnormalTest007(order is string(abcdef))', FileProfileAbnormalTe
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'あいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'あいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -249,7 +258,8 @@ FileProfileAbnormalTest.listAbnormalTest008 = function(assert) {
     done();
   });
 };
-QUnit.test('listAbnormalTest008(order is string(あいうえお))', FileProfileAbnormalTest.listAbnormalTest008);
+QUnit.test('listAbnormalTest008(order is string(あいうえお))',
+        FileProfileAbnormalTest.listAbnormalTest008);
 
 /**
  * order='#$%()'を指定してlistにアクセスするテストを行なう。
@@ -264,13 +274,14 @@ QUnit.test('listAbnormalTest008(order is string(あいうえお))', FileProfileA
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest009 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: '#$%()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: '#$%()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -279,7 +290,8 @@ FileProfileAbnormalTest.listAbnormalTest009 = function(assert) {
     done();
   });
 };
-QUnit.test('listAbnormalTest009(order is special character(#$%()))', FileProfileAbnormalTest.listAbnormalTest009);
+QUnit.test('listAbnormalTest009(order is special character(#$%()))',
+          FileProfileAbnormalTest.listAbnormalTest009);
 
 /**
  * order='path,asc' ,limit=-100を指定してlistにアクセスするテストを行なう。
@@ -294,14 +306,15 @@ QUnit.test('listAbnormalTest009(order is special character(#$%()))', FileProfile
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest010 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    limit: -100
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      limit: -100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -325,14 +338,15 @@ QUnit.test('listAbnormalTest010()', FileProfileAbnormalTest.listAbnormalTest010)
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest011 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    limit: 100.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      limit: 100.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -357,14 +371,15 @@ QUnit.test('listAbnormalTest011()', FileProfileAbnormalTest.listAbnormalTest011)
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest012 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    offset: 10.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: 10.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -388,14 +403,15 @@ QUnit.test('listAbnormalTest012()', FileProfileAbnormalTest.listAbnormalTest012)
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest013 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    offset: -100
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: -100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -419,14 +435,15 @@ QUnit.test('listAbnormalTest013()', FileProfileAbnormalTest.listAbnormalTest013)
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest014 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    offset: 1000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: 1000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -450,14 +467,15 @@ QUnit.test('listAbnormalTest014()', FileProfileAbnormalTest.listAbnormalTest014)
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest015 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    path: 'temp'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      path: 'temp'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -481,14 +499,15 @@ QUnit.test('listAbnormalTest015()', FileProfileAbnormalTest.listAbnormalTest015)
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest016 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc',
-    path: 'temp'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      path: 'temp'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -513,13 +532,14 @@ QUnit.test('listAbnormalTest016()', FileProfileAbnormalTest.listAbnormalTest016)
  * </p>
  */
 FileProfileAbnormalTest.sendAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    mimeType: 'image/png',
-    path: 'photo.png'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'image/png',
+      path: 'photo.png'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -545,13 +565,14 @@ QUnit.test('sendAbnormalTest001()', FileProfileAbnormalTest.sendAbnormalTest001)
  * </p>
  */
 FileProfileAbnormalTest.sendAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    mimeType: 'image/png',
-    data: 'photo.png'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'image/png',
+      data: 'photo.png'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -575,12 +596,13 @@ QUnit.test('sendAbnormalTest002()', FileProfileAbnormalTest.sendAbnormalTest002)
  * </p>
  */
 FileProfileAbnormalTest.sendAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    mimeType: 'image/png'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'image/png'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -608,15 +630,16 @@ FileProfileAbnormalTest.sendAbnormalTest004 = function(assert) {
   let done = assert.async();
   saveFile('/send_abnormal_test005.jpg').then(serviceId => {
       let blob = draw('file test');
-      let formData = new FormData();
-      formData.append('serviceId', serviceId);
-      formData.append('path', '/send_abnormal_test005.jpg');
-      formData.append('mimeType', 'image/jpeg');
-      formData.append('data', blob);
-      formData.append('forceOverwrite', false);
       sdk.post({
-        profile: dConnectSDK.constants.file.PROFILE_NAME
-      }, formData).then(json => {
+        profile: dConnectSDK.constants.file.PROFILE_NAME,
+        params: {
+          serviceId: serviceId,
+          path: '/send_abnormal_test005.jpg',
+          mimeType: 'image/jpeg',
+          data: blob,
+          forceOverwrite: false
+        }
+      }).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
         removeFile('/send_abnormal_test005.jpg').then(json =>{}).catch(e => {});
         done();
@@ -646,11 +669,12 @@ QUnit.test('sendAbnormalTest004()', FileProfileAbnormalTest.sendAbnormalTest004)
  * </p>
  */
 FileProfileAbnormalTest.receiveAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -674,12 +698,13 @@ QUnit.test('receiveAbnormalTest001(path does not exist.)', FileProfileAbnormalTe
  * </p>
  */
 FileProfileAbnormalTest.receiveAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    path: '0000'
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '0000'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -710,11 +735,12 @@ QUnit.test('receiveAbnormalTest002(Calling a delete method that does not support
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -738,13 +764,14 @@ QUnit.test('moveAbnormalTest001()', FileProfileAbnormalTest.moveAbnormalTest001)
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    oldPath: 'moveAbnormalTest002.jpg',
-    newPath: 'moveAbnormalTest002_1.jpg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      oldPath: 'moveAbnormalTest002.jpg',
+      newPath: 'moveAbnormalTest002_1.jpg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -774,9 +801,11 @@ FileProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
     mkdir('/moveAbnormalTest003_2/moveAbnormalTest003_1').then(serviceId => {
           sdk.put({
             profile: dConnectSDK.constants.file.PROFILE_NAME,
-            serviceId: serviceId,
-            oldPath: '/moveAbnormalTest003_1',
-            newPath: '/moveAbnormalTest003_2'
+            params: {
+              serviceId: serviceId,
+              oldPath: '/moveAbnormalTest003_1',
+              newPath: '/moveAbnormalTest003_2'
+            }
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
             rmdir('/moveAbnormalTest003_1').then(json =>{}).catch(e => {});
@@ -821,9 +850,11 @@ FileProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
       saveFile('/moveAbnormalTest004/moveAbnormalTest004.jpg').then(serviceId => {
           sdk.put({
             profile: dConnectSDK.constants.file.PROFILE_NAME,
-            serviceId: serviceId,
-            oldPath: '/moveAbnormalTest004.jpg',
-            newPath: '/moveAbnormalTest004'
+            params: {
+              serviceId: serviceId,
+              oldPath: '/moveAbnormalTest004.jpg',
+              newPath: '/moveAbnormalTest004'
+            }
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
             removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
@@ -874,9 +905,11 @@ FileProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
       saveFile('/moveAbnormalTest005/moveAbnormalTest005.jpg').then(serviceId => {
         sdk.put({
           profile: dConnectSDK.constants.file.PROFILE_NAME,
-          serviceId: serviceId,
-          oldPath: '/moveAbnormalTest005.jpg',
-          newPath: '/moveAbnormalTest005'
+          params: {
+            serviceId: serviceId,
+            oldPath: '/moveAbnormalTest005.jpg',
+            newPath: '/moveAbnormalTest005'
+          }
         }).then(json => {
           assert.ok(false, 'json: ' + JSON.stringify(json));
           rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
@@ -921,11 +954,12 @@ QUnit.test('moveAbnormalTest005()', FileProfileAbnormalTest.moveAbnormalTest005)
  * </p>
  */
 FileProfileAbnormalTest.removeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -955,12 +989,13 @@ QUnit.test('removeAbnormalTest001(path does not exist.)', FileProfileAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.removeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    path: '0000'
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '0000'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -991,12 +1026,13 @@ QUnit.test('removeAbnormalTest002(0000 does not exist.)', FileProfileAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.mkdirAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1026,8 +1062,10 @@ FileProfileAbnormalTest.mkdirAbnormalTest002 = function(assert) {
           sdk.post({
             profile: dConnectSDK.constants.file.PROFILE_NAME,
             attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-            serviceId: serviceId,
-            path: '/mkdirAbnormalTest002'
+            params: {
+              serviceId: serviceId,
+              path: '/mkdirAbnormalTest002'
+            }
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
             rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
@@ -1035,7 +1073,7 @@ FileProfileAbnormalTest.mkdirAbnormalTest002 = function(assert) {
           }).catch(e => {
             if (e.errorCode == 10 || e.errorCode == 16) {
               assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
-            } else if (checkErrorCode(errorCode)) {
+            } else if (checkErrorCode(e.errorCode)) {
               assert.ok(true, "not support");
             } else {
               assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
@@ -1069,12 +1107,13 @@ QUnit.test('mkdirAbnormalTest002()', FileProfileAbnormalTest.mkdirAbnormalTest00
  * </p>
  */
 FileProfileAbnormalTest.mvDirAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1099,14 +1138,15 @@ QUnit.test('mvDirAbnormalTest001(Invalid path.)', FileProfileAbnormalTest.mvDirA
  * </p>
  */
 FileProfileAbnormalTest.mvDirAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId,
-    oldPath: 'mvDirAbnormalTest002_1',
-    newPath: 'mvDirAbnormalTest002_2'
+    params: {
+      serviceId: getCurrentServiceId(),
+      oldPath: 'mvDirAbnormalTest002_1',
+      newPath: 'mvDirAbnormalTest002_2'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1137,9 +1177,11 @@ FileProfileAbnormalTest.mvDirAbnormalTest003 = function(assert) {
       sdk.put({
         profile: dConnectSDK.constants.file.PROFILE_NAME,
         attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-        serviceId: serviceId,
-        oldPath: 'mvDirAbnormalTest003.jpg',
-        newPath: 'mvDirAbnormalTest003'
+        params: {
+          serviceId: serviceId,
+          oldPath: 'mvDirAbnormalTest003.jpg',
+          newPath: 'mvDirAbnormalTest003'
+        }
       }).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
         removeFile('/mvDirAbnormalTest003.jpg').then(json =>{}).catch(e => {});
@@ -1178,12 +1220,13 @@ QUnit.test('mvDirAbnormalTest003()', FileProfileAbnormalTest.mvDirAbnormalTest00
  * </p>
  */
 FileProfileAbnormalTest.rmdirAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1213,8 +1256,10 @@ FileProfileAbnormalTest.rmdirAbnormalTest002 = function(assert) {
           sdk.delete({
             profile: dConnectSDK.constants.file.PROFILE_NAME,
             attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-            serviceId: serviceId,
-            path: '/rmdirAbnormalTest002'
+            params: {
+              serviceId: serviceId,
+              path: '/rmdirAbnormalTest002'
+            }
           }).then(json => {
             assert.ok(false, 'json: ' + JSON.stringify(json));
             rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
@@ -1261,8 +1306,10 @@ FileProfileAbnormalTest.rmdirAbnormalTest003 = function(assert) {
       sdk.delete({
         profile: dConnectSDK.constants.file.PROFILE_NAME,
         attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-        serviceId: serviceId,
-        path: '/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg'
+        params: {
+          serviceId: getCurrentServiceId(),
+          path: '/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg'
+        }
       }).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
         rmdir('/rmdirAbnormalTest003').then(json =>{}).catch(e => {});
@@ -1309,9 +1356,11 @@ FileProfileAbnormalTest.rmdirAbnormalTest004 = function(assert) {
       sdk.delete({
         profile: dConnectSDK.constants.file.PROFILE_NAME,
         attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-        serviceId: serviceId,
-        path: '/rmdirAbnormalTest004',
-        forceRemove: false
+        params: {
+          serviceId: serviceId,
+          path: '/rmdirAbnormalTest004',
+          forceRemove: false
+        }
       }).then(json => {
           assert.ok(false, 'json: ' + JSON.stringify(json));
           removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg').then(json =>{}).catch(e => {});

@@ -15,8 +15,10 @@ function startRoiView(option) {
     sdk.put({
       profile: 'omnidirectionalimage',
       attribute: 'roi',
-      serviceId: option.serviceId,
-      source: OMNI_IMG_URI
+      params: {
+        serviceId: option.serviceId,
+        source: OMNI_IMG_URI
+      }
     }).then(json => {
       let uri = json.uri;
       option.uri = uri;
@@ -33,8 +35,10 @@ function stopRoiView(option) {
   sdk.delete({
     profile: 'omnidirectionalimage',
     attribute: 'roi',
-    serviceId: option.serviceId,
-    uri: option.uri
+    params: {
+      serviceId: option.serviceId,
+      uri: option.uri
+    }
   }).then(json => {
   }).catch(e => {
   });
@@ -63,7 +67,9 @@ OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest001 = functio
   sdk.put({
     profile: 'omnidirectionalimage',
     attribute: 'roi',
-    serviceId: getCurrentServiceId(),
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -92,8 +98,10 @@ OmnidirectionalImageProfileAbnormalTest.putStartRoiViewAbnormalTest002 = functio
   sdk.put({
     profile: 'omnidirectionalimage',
     attribute: 'roi',
-    serviceId: getCurrentServiceId(),
-    source: 'http://localhost:4035/xxxxx'
+    params: {
+      serviceId: getCurrentServiceId(),
+      source: 'http://localhost:4035/xxxxx'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -122,7 +130,9 @@ OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest001 = functio
   sdk.get({
     profile: 'omnidirectionalimage',
     attribute: 'roi',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -151,8 +161,10 @@ OmnidirectionalImageProfileAbnormalTest.getStartRoiViewAbnormalTest002 = functio
   sdk.get({
     profile: 'omnidirectionalimage',
     attribute: 'roi',
-    serviceId: getCurrentServiceId(),
-    source: 'http://localhost:4035/xxxxx'
+    params: {
+      serviceId: getCurrentServiceId(),
+      source: 'http://localhost:4035/xxxxx'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -181,7 +193,9 @@ OmnidirectionalImageProfileAbnormalTest.deleteStopRoiViewAbnormalTest001 = funct
   sdk.delete({
     profile: 'omnidirectionalimage',
     attribute: 'roi',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -211,7 +225,9 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest00
     profile: 'omnidirectionalimage',
     interface: 'roi',
     attribute: 'settings',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -241,8 +257,10 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamUriAbnormalTest00
     profile: 'omnidirectionalimage',
     interface: 'roi',
     attribute: 'settings',
-    serviceId: getCurrentServiceId(),
-    uri: 'http://localhost:9000/xxxxx'
+    params: {
+      serviceId: getCurrentServiceId(),
+      uri: 'http://localhost:9000/xxxxx'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -277,9 +295,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamXAbnormalTest001 
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      x: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        x: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -318,9 +338,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYAbnormalTest001 
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      y: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        y: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -359,9 +381,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamZAbnormalTest001 
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      z: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        z: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -400,9 +424,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      roll: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        roll: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -441,9 +467,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      roll: '-0.1'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        roll: '-0.1'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -482,9 +510,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamRollAbnormalTest0
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      roll: '361.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        roll: '361.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -523,9 +553,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      yaw: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        yaw: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -564,9 +596,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      yaw: '-1.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        yaw: '-1.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -605,9 +639,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamYawAbnormalTest00
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      yaw: '361.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        yaw: '361.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -646,9 +682,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      pitch: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        pitch: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -687,9 +725,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      pitch: '-1.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        pitch: '-1.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -728,9 +768,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamPitchAbnormalTest
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      pitch: '361.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        pitch: '361.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -769,9 +811,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      fov: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        fov: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -810,9 +854,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      fov: '-1.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        fov: '-1.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -851,9 +897,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamFovAbnormalTest00
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      fov: '181.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        fov: '181.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -892,9 +940,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      sphereSize: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        sphereSize: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -933,9 +983,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamSphereSizeAbnorma
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      sphereSize: '-1.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        sphereSize: '-1.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -974,9 +1026,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      width: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        width: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1015,9 +1069,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamWidthAbnormalTest
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      width: '-1.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        width: '-1.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1056,9 +1112,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      height: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        height: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1097,9 +1155,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamHeightAbnormalTes
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      height: '-1.0'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        height: '-1.0'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1138,9 +1198,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamStereoAbnormalTes
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      stereo: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        stereo: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1179,9 +1241,11 @@ OmnidirectionalImageProfileAbnormalTest.putRoiViewSettingsParamVrAbnormalTest001
       profile: 'omnidirectionalimage',
       interface: 'roi',
       attribute: 'settings',
-      serviceId: getCurrentServiceId(),
-      uri: uri,
-      vr: 'xxxx'
+      params: {
+        serviceId: getCurrentServiceId(),
+        uri: uri,
+        vr: 'xxxx'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();

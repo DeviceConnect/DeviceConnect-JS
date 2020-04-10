@@ -19,7 +19,9 @@ let _tests = [
                 sdk.sendRequest('POST', {
                   profile: 'drive_controller',
                   attribute:'move',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -38,7 +40,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'file_descriptor',
                   attribute:'open',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -57,7 +61,9 @@ let _tests = [
                 sdk.sendRequest('POST', {
                   profile: 'mediastream_recording',
                   attribute:'record',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -76,7 +82,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'media_player',
                   attribute:'media_list',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -95,7 +103,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'media_player',
                   attribute:'play_status',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -114,7 +124,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'media_player',
                   attribute:'media',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -133,7 +145,9 @@ let _tests = [
                 sdk.sendRequest('PUT', {
                   profile: 'omnidirectional_image',
                   attribute:'roi',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -151,7 +165,9 @@ let _tests = [
                 };
                 sdk.sendRequest('GET', {
                   profile: 'remote_controller',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -170,7 +186,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'battery',
                   attribute: 'chargingTime',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
@@ -189,7 +207,9 @@ let _tests = [
                 sdk.sendRequest('GET', {
                   profile: 'battery',
                   attribute: 'dischargingTime',
-                  serviceId: serviceIdForTest()
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
                 }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     }

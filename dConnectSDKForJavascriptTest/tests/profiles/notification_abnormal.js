@@ -24,15 +24,16 @@ let NotificationProfileAbnormalTest = {};
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: -1,
-    body: 'notify(type is invalid parameter(-1).)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: -1,
+      body: 'notify(type is invalid parameter(-1).)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,14 +57,15 @@ QUnit.test('notifyAbnormalTest001(type is invalid parameter(-1).)', Notification
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    body: 'notifyAbnormalTest002(omitted type.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      body: 'notifyAbnormalTest002(omitted type.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -87,15 +89,16 @@ QUnit.test('notifyAbnormalTest002(omitted type.)', NotificationProfileAbnormalTe
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: 'test',
-    body: 'notify(type is invalid parameter(test).)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: 'test',
+      body: 'notify(type is invalid parameter(test).)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -119,15 +122,16 @@ QUnit.test('notifyAbnormalTest003(type is invalid parameter(test).)', Notificati
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: 'notify(Calling a put method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(Calling a put method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -151,15 +155,16 @@ QUnit.test('notifyAbnormalTest004(Calling a put method that does not support.)',
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: 'notify(Calling a get method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -183,13 +188,14 @@ QUnit.test('notifyAbnormalTest005(Calling a get method that does not support.)',
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    notificationId: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      notificationId: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -213,12 +219,13 @@ QUnit.test('notifyAbnormalTest006(notificationId is not exist.)', NotificationPr
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -242,13 +249,14 @@ QUnit.test('notifyAbnormalTest007(omitted notificationId)', NotificationProfileA
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    notificationId: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      notificationId: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -272,15 +280,16 @@ QUnit.test('notifyAbnormalTest008(notificationId is empty.)', NotificationProfil
  * </p>
  */
 NotificationProfileAbnormalTest.onClickAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_CLICK,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body:'notify(Calling a get method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -304,15 +313,16 @@ QUnit.test('onClickAbnormalTest001', NotificationProfileAbnormalTest.onClickAbno
  * </p>
  */
 NotificationProfileAbnormalTest.onClickAbnormalTest002 = function(assert) {
- let serviceId = getCurrentServiceId();
  let done = assert.async();
  sdk.get({
    profile: dConnectSDK.constants.notification.PROFILE_NAME,
    attribute: dConnectSDK.constants.notification.ATTR_ON_CLICK,
-   serviceId: serviceId,
-   type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-   body:'notify(Calling a get method that does not support.)',
-   tag: 'TEST'
+   params: {
+     serviceId: getCurrentServiceId(),
+     type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+     body:'notify(Calling a get method that does not support.)',
+     tag: 'TEST'
+   }
  }).then(json => {
    assert.ok(false, 'json: ' + JSON.stringify(json));
    done();
@@ -336,15 +346,16 @@ QUnit.test('onClickAbnormalTest002', NotificationProfileAbnormalTest.onClickAbno
  * </p>
  */
 NotificationProfileAbnormalTest.onShowAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_SHOW,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body:'notify(Calling a get method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -368,15 +379,16 @@ QUnit.test('onShowAbnormalTest001', NotificationProfileAbnormalTest.onShowAbnorm
  * </p>
  */
 NotificationProfileAbnormalTest.onShowAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_SHOW,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body:'notify(Calling a get method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -400,15 +412,16 @@ QUnit.test('onShowAbnormalTest002', NotificationProfileAbnormalTest.onShowAbnorm
  * </p>
  */
 NotificationProfileAbnormalTest.onCloseAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_CLOSE,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body:'notify(Calling a post method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a post method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -432,15 +445,16 @@ QUnit.test('onCloseAbnormalTest001', NotificationProfileAbnormalTest.onCloseAbno
  * </p>
  */
 NotificationProfileAbnormalTest.onCloseAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_CLOSE,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body:'notify(Calling a post method that does not support.)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a post method that does not support.)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

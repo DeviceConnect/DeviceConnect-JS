@@ -104,7 +104,7 @@ URIBuilderTest.normalTest004 = function(assert) {
   builder.setSessionKey(null);
   builder.addParameter(null, null);
   let uri = builder.build();
-  assert.equal (uri, sdk.getBaseDomain() + '/gotapi', 'uri=' + uri);
+  assert.equal(uri, sdk.getBaseDomain() + '/gotapi', 'uri=' + uri);
   done();
 };
 QUnit.test('set null', URIBuilderTest.normalTest004);

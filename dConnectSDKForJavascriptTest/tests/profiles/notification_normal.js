@@ -25,15 +25,16 @@ let NotificationProfileNormalTest = {};
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: 'notify(type is 0(call))',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(type is 0(call))',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -60,15 +61,16 @@ QUnit.test('notifyNormalTest001(type is 0(call))', NotificationProfileNormalTest
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_MAIL,
-    body: 'notify(type is 1(mail))',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_MAIL,
+      body: 'notify(type is 1(mail))',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -95,15 +97,16 @@ QUnit.test('notifyNormalTest002(type is 1(mail))', NotificationProfileNormalTest
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_SMS,
-    body: 'notify(type is 2(sms))',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_SMS,
+      body: 'notify(type is 2(sms))',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -130,15 +133,16 @@ QUnit.test('notifyNormalTest003(type is 2(sms))', NotificationProfileNormalTest.
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_EVENT,
-    body: 'notify(type is 2(sms))',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_EVENT,
+      body: 'notify(type is 2(sms))',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -165,15 +169,16 @@ QUnit.test('notifyNormalTest004(type is 3(event))', NotificationProfileNormalTes
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお',
-    tag: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお',
+      tag: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -200,15 +205,16 @@ QUnit.test('notifyNormalTest005(body and tag is long string.)', NotificationProf
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: "!\"#$&'()0=~|'{}@`*+;<,.>/_",
-    tag: "!\"#$&'()0=~|'{}@`*+;<,.>/_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: "!\"#$&'()0=~|'{}@`*+;<,.>/_",
+      tag: "!\"#$&'()0=~|'{}@`*+;<,.>/_"
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -235,15 +241,16 @@ QUnit.test('notifyNormalTest006(body and tag is special characters.)', Notificat
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: 1,
-    tag: 2
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 1,
+      tag: 2
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -269,15 +276,16 @@ QUnit.test('notifyNormalTest007(body and tag is numerical value.)', Notification
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-    serviceId: serviceId,
-    type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
-    body: 'notify(delete)',
-    tag: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(delete)',
+      tag: 'TEST'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
@@ -285,8 +293,10 @@ NotificationProfileNormalTest.notifyNormalTest008 = function(assert) {
       sdk.delete({
         profile: dConnectSDK.constants.notification.PROFILE_NAME,
         attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
-        serviceId: serviceId,
-        notificationId: json.notificationId
+        params: {
+          serviceId: getCurrentServiceId(),
+          notificationId: json.notificationId
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
         done();
@@ -318,11 +328,12 @@ QUnit.test('notifyNormalTest008(delete)', NotificationProfileNormalTest.notifyNo
  * </p>
  */
 NotificationProfileNormalTest.onClickNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_CLICK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -350,11 +361,12 @@ QUnit.test('onClickNormalTest001', NotificationProfileNormalTest.onClickNormalTe
  * </p>
  */
 NotificationProfileNormalTest.onShowNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_SHOW,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -382,11 +394,12 @@ QUnit.test('onShowNormalTest001', NotificationProfileNormalTest.onShowNormalTest
  * </p>
  */
 NotificationProfileNormalTest.onCloseNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.notification.PROFILE_NAME,
     attribute: dConnectSDK.constants.notification.ATTR_ON_CLOSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);

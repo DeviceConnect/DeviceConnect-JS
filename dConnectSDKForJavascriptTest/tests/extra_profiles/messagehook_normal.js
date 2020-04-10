@@ -27,7 +27,9 @@ MessageHookProfileNormalTest.channelTest001 = function(assert) {
   sdk.get({
     profile: 'messageHook',
     attribute: 'channel',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -52,11 +54,12 @@ QUnit.test('channelTest001', MessageHookProfileNormalTest.channelTest001);
  * </p>
  */
 MessageHookProfileNormalTest.messageTest001 = function(assert) {
-    let serviceId = getCurrentServiceId();
     let params = {
       profile: 'messageHook',
       attribute: 'message',
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     };
     openWebsocket(params, assert, 10000, message => {
         let json = JSON.parse(message);
@@ -87,9 +90,11 @@ MessageHookProfileNormalTest.messageTest002 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID,
-    text: 'qunitテストメッセージ'
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: 'qunitテストメッセージ'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -118,10 +123,12 @@ MessageHookProfileNormalTest.messageTest003 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID,
-    text: 'リソース付きのテストメッセージ',
-    resource: SLACK_TEST_RESOURCE_URI
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: 'リソース付きのテストメッセージ',
+      resource: SLACK_TEST_RESOURCE_URI
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -150,18 +157,20 @@ MessageHookProfileNormalTest.messageTest004 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID,
-    text: '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
-    '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789' +
+      '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -190,9 +199,11 @@ MessageHookProfileNormalTest.messageTest005 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID,
-    text: '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-'
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

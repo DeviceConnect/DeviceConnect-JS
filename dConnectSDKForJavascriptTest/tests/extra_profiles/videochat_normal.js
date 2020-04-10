@@ -33,8 +33,10 @@ VideoChatProfileNormalTest.profileNormalTest001 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
 		assert.ok(json.name != undefined, 'name=' + json.name);
@@ -66,16 +68,20 @@ VideoChatProfileNormalTest.profileNormalTest002 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: TEST_NAME
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: TEST_NAME
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     sdk.get({
       profile: 'videochat',
       attribute: 'profile',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       assert.equal(json.name, TEST_NAME, 'name=' + json.name);
@@ -110,8 +116,10 @@ VideoChatProfileNormalTest.addressNormalTest001 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
@@ -141,9 +149,11 @@ VideoChatProfileNormalTest.addressNormalTest002 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: address.addressId
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: address.addressId
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
 		assert.ok(isArray(json.addresses), 'addresses=' + json.addresses);
@@ -193,9 +203,11 @@ VideoChatProfileNormalTest.callNormalTest001 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(true, 'call is ok. [result=' + json.result + "]");
 
@@ -203,9 +215,11 @@ VideoChatProfileNormalTest.callNormalTest001 = function(assert) {
         sdk.delete({
           profile: 'videochat',
           attribute: 'call',
-          serviceId: getCurrentServiceId(),
-          config: VIDEOCHAT_CONFIG,
-          addressId: addresses[0].addressId
+          params: {
+            serviceId: getCurrentServiceId(),
+            config: VIDEOCHAT_CONFIG,
+            addressId: addresses[0].addressId
+          }
         }).then(json => {
           assert.ok(true, 'stopcall is ok. [result=' + json.result + "]");
           done();
@@ -247,10 +261,12 @@ VideoChatProfileNormalTest.callNormalTest002 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      video: VIDEO_URI
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        video: VIDEO_URI
+      }
     }).then(json => {
       assert.ok(true, 'call is ok. [result=' + json.result + "]");
 
@@ -302,10 +318,12 @@ VideoChatProfileNormalTest.callNormalTest003 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      video: "false"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        video: "false"
+      }
     }).then(json => {
       assert.ok(true, 'call is ok. [result=' + json.result + "]");
 
@@ -313,9 +331,11 @@ VideoChatProfileNormalTest.callNormalTest003 = function(assert) {
         sdk.delete({
           profile: 'videochat',
           attribute: 'call',
-          serviceId: getCurrentServiceId(),
-          config: VIDEOCHAT_CONFIG,
-          addressId: addresses[0].addressId
+          params: {
+            serviceId: getCurrentServiceId(),
+            config: VIDEOCHAT_CONFIG,
+            addressId: addresses[0].addressId
+          }
         }).then(json => {
           assert.ok(true, 'stopcall is ok. [result=' + json.result + "]");
         }).catch(e => {
@@ -355,10 +375,12 @@ VideoChatProfileNormalTest.callNormalTest004 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      audio: AUDIO_URI
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        audio: AUDIO_URI
+      }
     }).then(json => {
       assert.ok(true, 'call is ok. [result=' + json.result + "]");
 
@@ -366,9 +388,11 @@ VideoChatProfileNormalTest.callNormalTest004 = function(assert) {
         sdk.delete({
           profile: 'videochat',
           attribute: 'call',
-          serviceId: getCurrentServiceId(),
-          config: VIDEOCHAT_CONFIG,
-          addressId: addresses[0].addressId
+          params: {
+            serviceId: getCurrentServiceId(),
+            config: VIDEOCHAT_CONFIG,
+            addressId: addresses[0].addressId
+          }
         }).then(json => {
           assert.ok(true, 'stopcall is ok. [result=' + json.result + "]");
         }).catch(e => {
@@ -409,10 +433,12 @@ VideoChatProfileNormalTest.callNormalTest005 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      audio: "false"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        audio: "false"
+      }
     }).then(json => {
       assert.ok(true, 'call is ok. [result=' + json.result + "]");
 
@@ -420,9 +446,11 @@ VideoChatProfileNormalTest.callNormalTest005 = function(assert) {
         sdk.delete({
           profile: 'videochat',
           attribute: 'call',
-          serviceId: getCurrentServiceId(),
-          config: VIDEOCHAT_CONFIG,
-          addressId: addresses[0].addressId
+          params: {
+            serviceId: getCurrentServiceId(),
+            config: VIDEOCHAT_CONFIG,
+            addressId: addresses[0].addressId
+          }
         }).then(json => {
           assert.ok(true, 'stopcall is ok. [result=' + json.result + "]");
         }).catch(e => {
@@ -461,11 +489,12 @@ QUnit.test('callNormalTest005(audio is false)',
  * </p>
  */
 VideoChatProfileNormalTest.onincomingNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: "videochat",
     attribute: "onincoming",
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -498,11 +527,12 @@ QUnit.test('onincomingNormalTest001(event)',
  * </p>
  */
 VideoChatProfileNormalTest.oncallNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: "videochat",
     attribute: "oncall",
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -516,11 +546,11 @@ VideoChatProfileNormalTest.oncallNormalTest001 = function(assert) {
     return false;
   });
 
-  setTimeout(function() {
-    callAddress(function(accessToken, serviceId, address) {
+  setTimeout(() => {
+    callAddress().then(address => {
       assert.ok(true, "address=" + address);
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
     });
   }, 500);
 };
@@ -542,11 +572,12 @@ QUnit.test('oncallNormalTest001(event)', VideoChatProfileNormalTest.oncallNormal
  * </p>
  */
 VideoChatProfileNormalTest.onhangupNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: "videochat",
     attribute: "onhangup",
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -560,11 +591,11 @@ VideoChatProfileNormalTest.onhangupNormalTest001 = function(assert) {
     return false;
   });
 
-  setTimeout(function() {
-    callAddress(function(accessToken, serviceId, address) {
+  setTimeout(() => {
+    callAddress().then(address => {
       assert.ok(true, "address=" + address);
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
     });
   }, 500);
 };

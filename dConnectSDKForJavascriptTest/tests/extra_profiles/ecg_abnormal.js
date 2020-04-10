@@ -28,7 +28,9 @@ ECGProfileAbnormalTest.ecgAbnormalTest = function (assert) {
   sdk.post({
     profile: 'ecg',
     attribute: 'onECG',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

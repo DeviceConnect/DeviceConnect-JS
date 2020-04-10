@@ -26,7 +26,9 @@ PowerMeterProfileNormalTest.getPowerStateNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'powermeter',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'powerstatus=' + json.powerstatus);
@@ -56,7 +58,9 @@ PowerMeterProfileNormalTest.powerOnNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'powermeter',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -85,7 +89,9 @@ PowerMeterProfileNormalTest.powerOffNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: 'powermeter',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -115,7 +121,9 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest001 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -149,8 +157,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest002 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    date: createCurrentDateString()
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: createCurrentDateString()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -184,8 +194,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest003 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    unit: 'Wh'
+    params: {
+      serviceId: getCurrentServiceId(),
+      unit: 'Wh'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -220,8 +232,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest004 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    unit: 'kWh'
+    params: {
+      serviceId: getCurrentServiceId(),
+      unit: 'kWh'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -255,8 +269,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest005 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    count: '24'
+    params: {
+      serviceId: getCurrentServiceId(),
+      count: '24'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -290,8 +306,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest006 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    count: '48'
+    params: {
+      serviceId: getCurrentServiceId(),
+      count: '48'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -325,8 +343,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest007 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    powerFlow: 'normal'
+    params: {
+      serviceId: getCurrentServiceId(),
+      powerFlow: 'normal'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -360,8 +380,10 @@ PowerMeterProfileNormalTest.integratedPowerNormalTest008 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'integratedpower',
-    serviceId: getCurrentServiceId(),
-    powerFlow: 'reverse'
+    params: {
+      serviceId: getCurrentServiceId(),
+      powerFlow: 'reverse'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'integratedpower=' + json.integratedpower);
@@ -395,7 +417,9 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest001 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'instantaneouspower',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
@@ -427,8 +451,10 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest002 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'instantaneouspower',
-    serviceId: getCurrentServiceId(),
-    unit: 'W'
+    params: {
+      serviceId: getCurrentServiceId(),
+      unit: 'W'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
@@ -460,8 +486,10 @@ PowerMeterProfileNormalTest.instantaneousPowerNormalTest003 = function(assert) {
   sdk.get({
     profile: 'powermeter',
     attribute: 'instantaneouspower',
-    serviceId: getCurrentServiceId(),
-    unit: 'kW'
+    params: {
+      serviceId: getCurrentServiceId(),
+      unit: 'kW'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'instantaneouspower=' + json.instantaneouspower);
@@ -493,7 +521,9 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest001 = function(assert)
   sdk.get({
     profile: 'powermeter',
     attribute: 'instantaneouscurrent',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
@@ -526,8 +556,10 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest002 = function(assert)
   sdk.get({
     profile: 'powermeter',
     attribute: 'instantaneouscurrent',
-    serviceId: getCurrentServiceId(),
-    unit: 'A'
+    params: {
+      serviceId: getCurrentServiceId(),
+      unit: 'A'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);
@@ -560,8 +592,10 @@ PowerMeterProfileNormalTest.instantaneousCurrentNormalTest003 = function(assert)
   sdk.get({
     profile: 'powermeter',
     attribute: 'instantaneouscurrent',
-    serviceId: getCurrentServiceId(),
-    unit: 'mA'
+    params: {
+      serviceId: getCurrentServiceId(),
+      unit: 'mA'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'rphase=' + json.instantaneouscurrent.rphase);

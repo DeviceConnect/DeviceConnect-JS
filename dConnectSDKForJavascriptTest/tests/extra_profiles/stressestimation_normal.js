@@ -29,7 +29,9 @@ StressEstimationProfileNormalTest.stressNormalTest = function (assert) {
   sdk.get({
     profile: 'stressEstimation',
     attribute: 'onStressEstimation',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,11 +56,12 @@ QUnit.test("stress", StressEstimationProfileNormalTest.stressNormalTest);
  * </p>
  */
 StressEstimationProfileNormalTest.stressEventNormalTest001 = function (assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'stressEstimation',
     attribute: 'onStressEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
       let json = JSON.parse(message);

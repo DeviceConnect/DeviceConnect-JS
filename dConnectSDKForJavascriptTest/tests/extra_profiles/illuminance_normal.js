@@ -26,7 +26,9 @@ IlluminanceProfileNormalTest.illuminanceNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'illuminance',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'illuminance=' + json.illuminance);

@@ -23,12 +23,13 @@ let ConnectionProfileAbnormalTest = {};
  * </p>
  */
 ConnectionProfileAbnormalTest.wifiAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_WIFI,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -53,12 +54,13 @@ QUnit.test('wifiAbnormalTest001(Calling a post method that does not support.)',
  * </p>
  */
 ConnectionProfileAbnormalTest.bluetoothAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -83,13 +85,14 @@ QUnit.test('bluetoothAbnormalTest001(Calling a post method that does not support
  * </p>
  */
 ConnectionProfileAbnormalTest.discoverableAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
     attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -113,13 +116,14 @@ QUnit.test('discoverableAbnormalTest001(Calling a post method that does not supp
  * </p>
  */
 ConnectionProfileAbnormalTest.discoverableAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
     attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -144,12 +148,13 @@ QUnit.test('discoverableAbnormalTest002(Calling a post method that does not supp
  * </p>
  */
 ConnectionProfileAbnormalTest.nfcAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_NFC,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -173,12 +178,13 @@ QUnit.test('nfcAbnormalTest001(Calling a post method that does not support.)',
  * </p>
  */
 ConnectionProfileAbnormalTest.bleAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

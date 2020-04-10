@@ -23,12 +23,13 @@ let GeolocationProfileAbnormalTest = {};
  * </p>
  */
 GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_ON_WATCH_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,12 +55,13 @@ QUnit.test('onWatchPositionAbnormalTest001(Calling a get method that does not su
  */
 
 GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_ON_WATCH_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -84,12 +86,13 @@ QUnit.test('onWatchPositionAbnormalTest002(Calling a post method that does not s
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -114,12 +117,13 @@ QUnit.test('currentPositionAbnormalTest001(Calling a put method that does not su
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -144,12 +148,13 @@ QUnit.test('currentPositionAbnormalTest002(Calling a post method that does not s
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

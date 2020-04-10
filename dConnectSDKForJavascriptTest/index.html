@@ -21,7 +21,7 @@
       <input type="text" name="ip" value="localhost" size="30" onkeydown="return onInputTextEnter(event);">
     </td>
     <td>
-      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="searchDevice();"/>
+      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="update();"/>
     </td>
   </tr>
   <tr>
@@ -137,12 +137,32 @@ function onInputTextEnter(evt) {
 }
 
 function onInit() {
-  init();
   if (_quertyString['ip']) {
       document.forms.form1.ip.value = _quertyString['ip'];
+  } else if (document.forms.form1.ip.value) {
+    let r = document.cookie.split(';');
+    r.forEach((value) => {
+
+      //cookie名と値に分ける
+      let content = value.split('=');
+      if (content[0] == 'ip') {
+        document.forms.form1.ip.value = content[1];
+        DEVICE_CONNECT_HOST = content[1];
+      }
+      console.log( content[1] );
+    });
   }
+  init();
   searchDevice();
 }
+
+function update() {
+  DEVICE_CONNECT_HOST = document.forms.form1.ip.value;
+  document.cookie = 'ip=' + DEVICE_CONNECT_HOST;
+  init();
+  searchDevice();
+}
+
 
 function onTestClick(uri) {
     let ip = document.forms.form1.ip.value;

@@ -24,12 +24,13 @@ let ConnectionProfileNormalTest = {};
  * </p>
  */
 ConnectionProfileNormalTest.wifiTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_WIFI,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable !== undefined, 'enable=' + json.enable);
@@ -55,12 +56,13 @@ QUnit.test('wifiNormalTest001', ConnectionProfileNormalTest.wifiTest001);
  * </p>
  */
 ConnectionProfileNormalTest.wifiNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_WIFI,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -84,12 +86,13 @@ QUnit.test('wifiNormalTest001', ConnectionProfileNormalTest.wifiNormalTest001);
  * </p>
  */
 ConnectionProfileNormalTest.wifiNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_WIFI,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -116,7 +119,10 @@ QUnit.test('wifiNormalTest002', ConnectionProfileNormalTest.wifiNormalTest002);
 ConnectionProfileNormalTest.onWifichangeTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
-    attribute: dConnectSDK.constants.connection.ATTR_ON_WIFI_CHANGE
+    attribute: dConnectSDK.constants.connection.ATTR_ON_WIFI_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -148,12 +154,13 @@ QUnit.test('onwifichangeNormalTest001', ConnectionProfileNormalTest.onWifichange
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable !== undefined, 'enable=' + json.enable);
@@ -179,12 +186,13 @@ QUnit.test('bluetoothNormalTest001', ConnectionProfileNormalTest.bluetoothNormal
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -209,12 +217,13 @@ QUnit.test('bluetoothNormalTest002', ConnectionProfileNormalTest.bluetoothNormal
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -242,7 +251,10 @@ QUnit.test('bluetoothNormalTest003', ConnectionProfileNormalTest.bluetoothNormal
 ConnectionProfileNormalTest.onBluetoothChangeNormalTest003 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
-    attribute: dConnectSDK.constants.connection.ATTR_ON_BLUETOOTH_CHANGE
+    attribute: dConnectSDK.constants.connection.ATTR_ON_BLUETOOTH_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -273,13 +285,14 @@ QUnit.test('onBluetoothChangeNormalTest003', ConnectionProfileNormalTest.onBluet
  * </p>
  */
 ConnectionProfileNormalTest.discoverableNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
     attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -304,13 +317,14 @@ QUnit.test('discoverableNormalTest001', ConnectionProfileNormalTest.discoverable
  * </p>
  */
 ConnectionProfileNormalTest.discoverableNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
     attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -336,12 +350,13 @@ QUnit.test('discoverableNormalTest002', ConnectionProfileNormalTest.discoverable
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_NFC,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable !== undefined, 'enable=' + json.enable);
@@ -367,12 +382,13 @@ QUnit.test('nfcNormalTest001', ConnectionProfileNormalTest.nfcNormalTest001);
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_NFC,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -397,12 +413,13 @@ QUnit.test('nfcNormalTest002', ConnectionProfileNormalTest.nfcNormalTest002);
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_NFC,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -430,7 +447,10 @@ QUnit.test('nfcNormalTest003', ConnectionProfileNormalTest.nfcNormalTest003);
 ConnectionProfileNormalTest.onNfcChangeNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
-    attribute: dConnectSDK.constants.connection.ATTR_ON_NFC_CHANGE
+    attribute: dConnectSDK.constants.connection.ATTR_ON_NFC_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -462,12 +482,13 @@ QUnit.test('onNfcChangeNormalTest001', ConnectionProfileNormalTest.onNfcChangeNo
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable != undefined, 'enable=' + json.enable);
@@ -493,12 +514,13 @@ QUnit.test('bleNormalTest001', ConnectionProfileNormalTest.bleNormalTest001);
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -523,12 +545,13 @@ QUnit.test('bleNormalTest002', ConnectionProfileNormalTest.bleNormalTest002);
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
     attribute: dConnectSDK.constants.connection.ATTR_BLE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -556,7 +579,10 @@ QUnit.test('bleNormalTest003', ConnectionProfileNormalTest.bleNormalTest003);
 ConnectionProfileNormalTest.onBleChangeNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.connection.PROFILE_NAME,
-    attribute: dConnectSDK.constants.connection.ATTR_ON_BLE_CHANGE
+    attribute: dConnectSDK.constants.connection.ATTR_ON_BLE_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);

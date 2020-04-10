@@ -24,12 +24,13 @@ let TouchProfileAbnormalTest = {};
  * </p>
  */
 TouchProfileAbnormalTest.onTouchAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,12 +55,13 @@ QUnit.test('onTouchAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchAbnor
  * </p>
  */
 TouchProfileAbnormalTest.onTouchStartAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_START,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -84,12 +86,13 @@ QUnit.test('onTouchStartAbnormalTest001(post)', TouchProfileAbnormalTest.onTouch
  * </p>
  */
 TouchProfileAbnormalTest.onTouchEndAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_END,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -114,12 +117,13 @@ QUnit.test('onTouchEndAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchEn
  * </p>
  */
 TouchProfileAbnormalTest.onDoubleTapAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_DOUBLE_TAP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -145,12 +149,13 @@ QUnit.test('onDoubleTapAbnormalTest001(post)', TouchProfileAbnormalTest.onDouble
  * </p>
  */
 TouchProfileAbnormalTest.onTouchMoveAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_MOVE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -176,12 +181,13 @@ QUnit.test('onTouchMoveAbnormalTest001(post)', TouchProfileAbnormalTest.onTouchM
  * </p>
  */
 TouchProfileAbnormalTest.onTouchCancelAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_CANCEL,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -207,12 +213,13 @@ QUnit.test('onTouchCancelAbnormalTest001(post)', TouchProfileAbnormalTest.onTouc
  * </p>
  */
 TouchProfileAbnormalTest.onTouchChangeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

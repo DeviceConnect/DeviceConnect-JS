@@ -23,13 +23,14 @@ let PhoneProfileNormalTest = {};
  * </p>
  */
 PhoneProfileNormalTest.callNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId,
-    phoneNumber: '117'
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -53,13 +54,14 @@ QUnit.test('callTest001', PhoneProfileNormalTest.callNormalTest001);
  * </p>
  */
 PhoneProfileNormalTest.setModeNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId,
-    mode: dConnectSDK.constants.phone.PHONE_MODE_SILENT
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: dConnectSDK.constants.phone.PHONE_MODE_SILENT
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -85,13 +87,14 @@ QUnit.test('setModeNormalTest(mode is 0(silent))', PhoneProfileNormalTest.setMod
  * </p>
  */
 PhoneProfileNormalTest.setModeNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId,
-    mode: dConnectSDK.constants.phone.PHONE_MODE_MANNER
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: dConnectSDK.constants.phone.PHONE_MODE_MANNER
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -116,13 +119,14 @@ QUnit.test('setModeNormalTest002(mode is 1(manner))', PhoneProfileNormalTest.set
  * </p>
  */
 PhoneProfileNormalTest.setModeNormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId,
-    mode: dConnectSDK.constants.phone.PHONE_MODE_SOUND
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: dConnectSDK.constants.phone.PHONE_MODE_SOUND
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -147,11 +151,12 @@ QUnit.test('setModeNormnalTest003(mode is 2(sound))', PhoneProfileNormalTest.set
  * </p>
  */
 PhoneProfileNormalTest.onConnectNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_ON_CONNECT,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {    let json = JSON.parse(message);
     if (json.profile === dConnectSDK.constants.phone.PROFILE_NAME && json.attribute === dConnectSDK.constants.phone.ATTR_ON_CONNECT) {

@@ -33,11 +33,12 @@ let FileProfileNormalTest = {};
 
 FileProfileNormalTest.listNormalTest001 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -63,12 +64,13 @@ QUnit.test('listNormalTest001', FileProfileNormalTest.listNormalTest001);
 
 FileProfileNormalTest.listNormalTest002 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -94,12 +96,13 @@ QUnit.test('listNormalTest002', FileProfileNormalTest.listNormalTest002);
 
 FileProfileNormalTest.listNormalTest003 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -125,13 +128,14 @@ QUnit.test('listNormalTest003', FileProfileNormalTest.listNormalTest003);
 
 FileProfileNormalTest.listNormalTest004 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    limit: 10
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      limit: 10
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -157,13 +161,14 @@ QUnit.test('listNormalTest004', FileProfileNormalTest.listNormalTest004);
 
 FileProfileNormalTest.listNormalTest006 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc',
-    limit: 10
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      limit: 10
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -189,13 +194,14 @@ QUnit.test('listNormalTest006', FileProfileNormalTest.listNormalTest006);
 
 FileProfileNormalTest.listNormalTest007 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    limit: 0
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      limit: 0
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -221,13 +227,14 @@ QUnit.test('listNormalTest007', FileProfileNormalTest.listNormalTest007);
 
 FileProfileNormalTest.listNormalTest008 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc',
-    limit: 0
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      limit: 0
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -252,13 +259,14 @@ QUnit.test('listNormalTest008', FileProfileNormalTest.listNormalTest008);
  */
 FileProfileNormalTest.listNormalTest009 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    offset: 0
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: 0
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -284,13 +292,14 @@ QUnit.test('listNormalTest009', FileProfileNormalTest.listNormalTest009);
 
 FileProfileNormalTest.listNormalTest010 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc',
-    offset: 0
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      offset: 0
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -316,14 +325,15 @@ QUnit.test('listNormalTest010', FileProfileNormalTest.listNormalTest010);
 
 FileProfileNormalTest.listNormalTest011 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    offset: 0,
-    limit: 10
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: 0,
+      limit: 10
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -349,14 +359,15 @@ QUnit.test('listNormalTest011', FileProfileNormalTest.listNormalTest011);
 
 FileProfileNormalTest.listNormalTest012 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc',
-    offset: 0,
-    limit: 10
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      offset: 0,
+      limit: 10
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -382,13 +393,14 @@ QUnit.test('listNormalTest012', FileProfileNormalTest.listNormalTest012);
 
 FileProfileNormalTest.listNormalTest013 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,asc',
-    path: '/'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      path: '/'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -415,13 +427,14 @@ if (IS_TEST_STATUS == 'none') {
 
 FileProfileNormalTest.listNormalTest014 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_LIST,
-    serviceId: serviceId,
-    order: 'path,desc',
-    path: '/'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      path: '/'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -448,17 +461,16 @@ if (IS_TEST_STATUS == 'none') {
  */
 FileProfileNormalTest.sendNormalTest001 = function(assert) {
   let blob = draw('file test');
-
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('path', '/1_2.jpg');
-  formData.append('mimeType', 'image/jpeg');
-  formData.append('data', blob);
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-  }, formData).then(json => {
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '/1_2.jpg',
+      mimeType: 'image/jpeg',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     removeFile('/1_2.jpg').then(json =>{}).catch(e => {});
     done();
@@ -488,15 +500,16 @@ FileProfileNormalTest.sendNormalTest002 = function(assert) {
   let done = assert.async();
   saveFile('/2_2.jpg').then(serviceId => {
       let blob = draw('file test');
-      let formData = new FormData();
-      formData.append('serviceId', serviceId);
-      formData.append('path', '/2_2.jpg');
-      formData.append('mimeType', 'image/jpeg');
-      formData.append('data', blob);
-      formData.append('forceOverwrite', true);
       sdk.post({
         profile: dConnectSDK.constants.file.PROFILE_NAME,
-      }, formData).then(json => {
+        params: {
+          serviceId: serviceId,
+          path: '/2_2.jpg',
+          mimeType: 'image/jpeg',
+          data: blob,
+          forceOverwrite: true
+        }
+      }).then(json => {
         assert.ok(true, 'result=' + json.result);
         removeFile('/2_2.jpg').then(json =>{}).catch(e => {});
         done();
@@ -527,12 +540,13 @@ QUnit.test('sendNormalTest002', FileProfileNormalTest.sendNormalTest002);
  */
 FileProfileNormalTest.receiveNormalTest001 = function(assert) {
   let done = assert.async();
-  let serviceId = getCurrentServiceId();
   sdk.get({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
-    serviceId: serviceId,
-    order: 'path,desc',
-    path: '/1.jpg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      path: '/1.jpg'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -564,9 +578,11 @@ FileProfileNormalTest.moveNormalTest001 = function(assert) {
     mkdir('moveNormalTest001').then(serviceId => {
       sdk.put({
         profile: dConnectSDK.constants.file.PROFILE_NAME,
-        serviceId: serviceId,
-        oldPath: '/moveNormalTest001.jpg',
-        newPath: '/moveNormalTest001/moveNormalTest001.jpg'
+        params: {
+          serviceId: serviceId,
+          oldPath: '/moveNormalTest001.jpg',
+          newPath: '/moveNormalTest001/moveNormalTest001.jpg'
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
         rmdir('/moveNormalTest001').then(json =>{}).catch(e => {});
@@ -610,9 +626,11 @@ FileProfileNormalTest.moveNormalTest002 = function(assert) {
     mkdir('moveNormalTest002').then(serviceId => {
           sdk.put({
             profile: dConnectSDK.constants.file.PROFILE_NAME,
-            serviceId: serviceId,
-            oldPath: '/moveNormalTest002.jpg',
-            newPath: '/moveNormalTest002'
+            params: {
+              serviceId: serviceId,
+              oldPath: '/moveNormalTest002.jpg',
+              newPath: '/moveNormalTest002'
+            }
           }).then(json => {
             assert.ok(true, 'result=' + json.result);
             rmdir('/moveNormalTest002').then(json =>{}).catch(e => {});
@@ -658,10 +676,12 @@ FileProfileNormalTest.moveNormalTest003 = function(assert) {
       saveFile('/moveNormalTest003/moveNormalTest003.jpg').then(serviceId => {
           sdk.put({
             profile: dConnectSDK.constants.file.PROFILE_NAME,
-            serviceId: serviceId,
-            oldPath: '/moveNormalTest003.jpg',
-            newPath: '/moveNormalTest003',
-            forceOverwrite: true
+            params: {
+              serviceId: serviceId,
+              oldPath: '/moveNormalTest003.jpg',
+              newPath: '/moveNormalTest003',
+              forceOverwrite: true
+            }
           }).then(json => {
             assert.ok(true, 'result=' + json.result);
             rmdir('/moveNormalTest003').then(json =>{}).catch(e => {});
@@ -711,8 +731,10 @@ FileProfileNormalTest.removeNormalTest001 = function(assert) {
   saveFile('/rm_test.jpg').then(serviceId => {
       sdk.delete({
         profile: dConnectSDK.constants.file.PROFILE_NAME,
-        serviceId: serviceId,
-        path: '/rm_test.jpg'
+        params: {
+          serviceId: serviceId,
+          path: '/rm_test.jpg'
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
         done();
@@ -748,8 +770,10 @@ FileProfileNormalTest.rmdirNormalTest001 = function(assert) {
     sdk.delete({
       profile: dConnectSDK.constants.file.PROFILE_NAME,
       attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-      serviceId: serviceId,
-      path: '/rmdirNormalTest001'
+      params: {
+        serviceId: serviceId,
+        path: '/rmdirNormalTest001'
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       done();
@@ -780,13 +804,14 @@ QUnit.test('rmdirNormalTest001', FileProfileNormalTest.rmdirNormalTest001);
  */
 
 FileProfileNormalTest.mkdirNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId,
-    path: 'mkdirNormalTest001'
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: 'mkdirNormalTest001'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     rmdir('mkdirNormalTest001').then(json =>{}).catch(e => {});
@@ -813,13 +838,14 @@ QUnit.test('mkdirNormalTest001', FileProfileNormalTest.mkdirNormalTest001);
  */
 
 FileProfileNormalTest.mkdirNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId,
-    path: '/dir2/dir3'
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '/dir2/dir3'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     rmdir('dir2').then(json =>{}).catch(e => {});
@@ -845,14 +871,15 @@ QUnit.test('mkdirNormalTest002', FileProfileNormalTest.mkdirNormalTest002);
  * </p>
  */
 FileProfileNormalTest.rmdirNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.file.PROFILE_NAME,
     attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    serviceId: serviceId,
-    path: '/dir2/dir3',
-    forceRemove: true
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '/dir2/dir3',
+      forceRemove: true
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     rmdir('dir2').then(json =>{}).catch(e => {});
@@ -885,9 +912,11 @@ FileProfileNormalTest.mvdirNormalTest001 = function(assert) {
         sdk.post({
           profile: dConnectSDK.constants.file.PROFILE_NAME,
           attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-          serviceId: serviceId,
-          oldPath: '/mvdirNormalTest001_1',
-          newPath: '/mvdirNormalTest001_2'
+          params: {
+            serviceId: serviceId,
+            oldPath: '/mvdirNormalTest001_1',
+            newPath: '/mvdirNormalTest001_2'
+          }
         }).then(json => {
           assert.ok(true, 'result=' + json.result);
           rmdir('mvdirNormalTest001_1').then(json =>{}).catch(e => {});

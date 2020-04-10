@@ -27,8 +27,10 @@ EchonetLiteProfileNormalTest.propertyNormalTest001 = function(assert) {
   sdk.get({
     profile: 'echonetLite',
     attribute: 'property',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'epc=' + json.properties[0].epc);
@@ -60,8 +62,10 @@ EchonetLiteProfileNormalTest.propertyNormalTest002 = function(assert) {
   sdk.get({
     profile: 'echonetLite',
     attribute: 'property',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80,0x81'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80,0x81'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'epc=' + json.properties[0].epc);
@@ -95,8 +99,10 @@ EchonetLiteProfileNormalTest.propertyNormalTest003 = function(assert) {
   sdk.get({
     profile: 'echonetLite',
     attribute: 'property',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80,0x81,0x82'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80,0x81,0x82'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'epc=' + json.properties[0].epc);
@@ -132,9 +138,11 @@ EchonetLiteProfileNormalTest.propertyNormalTest004 = function(assert) {
   sdk.put({
     profile: 'echonetLite',
     attribute: 'property',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80',
-    value: '49'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80',
+      value: '49'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

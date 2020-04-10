@@ -26,7 +26,9 @@ HumidityProfileAbnormalTest.humidityAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'humidity',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,7 +56,9 @@ HumidityProfileAbnormalTest.humidityAbnormalTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'humidity',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -82,7 +86,9 @@ HumidityProfileAbnormalTest.humidityAbnormalTest003 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: 'humidity',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

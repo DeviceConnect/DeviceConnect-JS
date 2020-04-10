@@ -25,12 +25,13 @@ let DeviceOrientationProfileAbnormalTest = {};
  */
 
 DeviceOrientationProfileAbnormalTest.onDeviceOrientationAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.deviceOrientation.PROFILE_NAME,
     attribute: dConnectSDK.constants.deviceOrientation.ATTR_ON_DEVICE_ORIENTATION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

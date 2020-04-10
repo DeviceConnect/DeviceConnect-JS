@@ -26,8 +26,10 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest001 = function(a
   let done = assert.async();
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: getCurrentServiceId(),
-    message: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      message: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -55,7 +57,9 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest002 = function(a
   let done = assert.async();
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -83,8 +87,10 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest003 = function(a
   let done = assert.async();
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: getCurrentServiceId(),
-    message: 123456789
+    params: {
+      serviceId: getCurrentServiceId(),
+      message: 123456789
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -112,16 +118,18 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest004 = function(a
   let done = assert.async();
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: getCurrentServiceId(),
-    message: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      message: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -149,12 +157,14 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest005 = function(a
   let done = assert.async();
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: getCurrentServiceId(),
-    message: 'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      message: 'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -182,16 +192,18 @@ RemoteControllerProfileAbnormalTest.remoteControllerAbnormalTest006 = function(a
   let done = assert.async();
   sdk.post({
     profile: 'remotecontroller',
-    serviceId: getCurrentServiceId(),
-    message: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      message: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

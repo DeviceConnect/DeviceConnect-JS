@@ -23,13 +23,14 @@ let VibrationProfileAbnormalTest = {};
  * </p>
  */
 VibrationProfileAbnormalTest.vibrateAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.vibration.PROFILE_NAME,
     attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
-    serviceId: serviceId,
-    pattern: 'this is test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      pattern: 'this is test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -53,13 +54,14 @@ QUnit.test('vibrateAbnormalTest001(pattern is string.)', VibrationProfileAbnorma
  * </p>
  */
 VibrationProfileAbnormalTest.vibrateAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.vibration.PROFILE_NAME,
     attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
-    serviceId: serviceId,
-    pattern: '-1,-1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      pattern: '-1,-1'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -83,13 +85,14 @@ QUnit.test('vibrateAbnormalTest002(pattern is -1,-1.)', VibrationProfileAbnormal
  * </p>
  */
 VibrationProfileAbnormalTest.vibrateAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.vibration.PROFILE_NAME,
     attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
-    serviceId: serviceId,
-    pattern: "!\"#$%&'()+*<>?_{},."
+    params: {
+      serviceId: getCurrentServiceId(),
+      pattern: "!\"#$%&'()+*<>?_{},."
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -113,12 +116,13 @@ QUnit.test('vibrateAbnormalTest003(pattern is special characters.)', VibrationPr
  * </p>
  */
 VibrationProfileAbnormalTest.vibrateAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.vibration.PROFILE_NAME,
     attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -142,12 +146,13 @@ QUnit.test('vibrateAbnormalTest004(Calling a get method that does not support.)'
  * </p>
  */
 VibrationProfileAbnormalTest.vibrateAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.vibration.PROFILE_NAME,
     attribute: dConnectSDK.constants.vibration.ATTR_VIBRATE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

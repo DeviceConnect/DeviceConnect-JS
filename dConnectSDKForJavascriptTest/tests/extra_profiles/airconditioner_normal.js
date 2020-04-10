@@ -26,7 +26,9 @@ AirConditionerProfileNormalTest.getPowerStateNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'airconditioner',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'powerstatus=' + json.powerstatus);
@@ -56,7 +58,9 @@ AirConditionerProfileNormalTest.powerOnNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'airconditioner',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -85,7 +89,9 @@ AirConditionerProfileNormalTest.powerOffNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: 'airconditioner',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -115,7 +121,9 @@ AirConditionerProfileNormalTest.powerSavingNormalTest001 = function(assert) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'powersaving',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'powersaving=' + json.operationpowersaving);
@@ -146,8 +154,10 @@ AirConditionerProfileNormalTest.powerSavingNormalTest002 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'powersaving',
-    serviceId: getCurrentServiceId(),
-    powersaving: 'PowerSaving'
+    params: {
+      serviceId: getCurrentServiceId(),
+      powersaving: 'PowerSaving'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -177,8 +187,10 @@ AirConditionerProfileNormalTest.powerSavingNormalTest003 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'powersaving',
-    serviceId: getCurrentServiceId(),
-    powersaving: 'Normal'
+    params: {
+      serviceId: getCurrentServiceId(),
+      powersaving: 'Normal'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -208,8 +220,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest001 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    powersaving: 'Normal'
+    params: {
+      serviceId: getCurrentServiceId(),
+      powersaving: 'Normal'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'modesetting=' + json.operationmodesetting);
@@ -240,8 +254,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest002 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    modesetting: 'Other'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modesetting: 'Other'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -271,8 +287,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest003 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    modesetting: 'AirCirculator'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modesetting: 'AirCirculator'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -302,8 +320,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest004 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    modesetting: 'Dehumidification'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modesetting: 'Dehumidification'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -333,8 +353,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest005 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    modesetting: 'Heating'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modesetting: 'Heating'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -364,8 +386,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest006 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    modesetting: 'Cooling'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modesetting: 'Cooling'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -395,8 +419,10 @@ AirConditionerProfileNormalTest.modeSettingNormalTest007 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'modesetting',
-    serviceId: getCurrentServiceId(),
-    modesetting: 'Automatic'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modesetting: 'Automatic'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -426,7 +452,9 @@ AirConditionerProfileNormalTest.roomTemperatureNormalTest001 = function(assert) 
   sdk.get({
     profile: 'airconditioner',
     attribute: 'roomtemperature',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'roomtemperature=' + json.roomtemperature);
@@ -457,7 +485,9 @@ AirConditionerProfileNormalTest.temperatureNormalTest001 = function(assert) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'temperature',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'temperature=' + json.temperature);
@@ -488,8 +518,10 @@ AirConditionerProfileNormalTest.temperatureNormalTest002 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'temperature',
-    serviceId: getCurrentServiceId(),
-    temperature: '25'
+    params: {
+      serviceId: getCurrentServiceId(),
+      temperature: '25'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -519,7 +551,9 @@ AirConditionerProfileNormalTest.airflowNormalTest001 = function(assert) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'airflow=' + json.airflow);
@@ -551,8 +585,10 @@ AirConditionerProfileNormalTest.airflowNormalTest002 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.0'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.0'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -582,8 +618,10 @@ AirConditionerProfileNormalTest.airflowNormalTest003 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.12'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.12'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -613,8 +651,10 @@ AirConditionerProfileNormalTest.airflowNormalTest004 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.25'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.25'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -644,8 +684,10 @@ AirConditionerProfileNormalTest.airflowNormalTest005 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.38'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.38'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -675,8 +717,10 @@ AirConditionerProfileNormalTest.airflowNormalTest006 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.51'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.51'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -706,8 +750,10 @@ AirConditionerProfileNormalTest.airflowNormalTest007 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.64'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.64'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -737,8 +783,10 @@ AirConditionerProfileNormalTest.airflowNormalTest008 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.77'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.77'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -768,8 +816,10 @@ AirConditionerProfileNormalTest.airflowNormalTest009 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.90'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.90'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -799,8 +849,10 @@ AirConditionerProfileNormalTest.airflowNormalTest010 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '1.0'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '1.0'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -830,8 +882,10 @@ AirConditionerProfileNormalTest.airflowNormalTest011 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflowauto: 'true'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflowauto: 'true'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -861,9 +915,11 @@ AirConditionerProfileNormalTest.airflowNormalTest012 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.51',
-    airflowauto: 'false'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.51',
+      airflowauto: 'false'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -893,9 +949,11 @@ AirConditionerProfileNormalTest.airflowNormalTest013 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'airflow',
-    serviceId: getCurrentServiceId(),
-    airflow: '0.51',
-    airflowauto: 'true'
+    params: {
+      serviceId: getCurrentServiceId(),
+      airflow: '0.51',
+      airflowauto: 'true'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -925,8 +983,10 @@ AirConditionerProfileNormalTest.enlPropertyNormalTest001 = function(assert) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'epc=' + json.properties[0].epc);
@@ -958,8 +1018,10 @@ AirConditionerProfileNormalTest.enlPropertyNormalTest002 = function(assert) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80,0x8F'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80,0x8F'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'epc=' + json.properties[0].epc);
@@ -993,8 +1055,10 @@ AirConditionerProfileNormalTest.enlPropertyNormalTest003 = function(assert) {
   sdk.get({
     profile: 'airconditioner',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80,0x8F,0xB0,0xB3,0xBB'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80,0x8F,0xB0,0xB3,0xBB'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'epc=' + json.properties[0].epc);
@@ -1034,9 +1098,11 @@ AirConditionerProfileNormalTest.enlPropertyNormalTest004 = function(assert) {
   sdk.put({
     profile: 'airconditioner',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '0x80',
-    value: '49'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '0x80',
+      value: '49'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

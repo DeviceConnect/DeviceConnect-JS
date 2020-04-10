@@ -234,7 +234,7 @@ function openWebsocket(params, assert, timeout, eventCallback) {
   let eventCount = 0;
   let done = assert.async();
   openWebsocketInternal().then(serviceId => {
-    params['serviceId'] = serviceId;
+    params.params['serviceId'] = serviceId;
     sdk.addEventListener(params, message => {
       let ret = eventCallback(message);
       if (ret) {
@@ -268,7 +268,7 @@ function openWebsocket(params, assert, timeout, eventCallback) {
       done();
     });
   }).catch(e => {
-    checkSuccesserrorCode(e);
+    checkSuccessErrorCode(assert, e, 10);
     done();
   });
 }
@@ -296,15 +296,16 @@ function createCurrentDateString() {
 // テスト結果を端末に保存する
 function saveTestResult(result, blob) {
   searchHostService().then(serviceId => {
-    let formData = new FormData();
-    formData.append('serviceId', serviceId);
-    formData.append('path', '/' + result);
-    formData.append('mimeType', 'text/xml');
-    formData.append('data', blob);
-    formData.append('forceOverwrite', true);
     sdk.post({
-      profile: dConnectSDK.constants.file.PROFILE_NAME
-    }, formData).then(json => {
+      profile: dConnectSDK.constants.file.PROFILE_NAME,
+      params: {
+        serviceId: serviceId,
+        path: '/' + result,
+        mimeType: 'text/xml',
+        data: blob,
+        forceOverwrite: true
+      }
+    }).then(json => {
       alert('save test data!! for ' + result);
     }).catch(e => {
       alert('failure!! save test data for ' + result + " " + e.errorMessage);
@@ -357,13 +358,14 @@ function getCurrentAccessToken() {
 }
 
 function mkdir(dirName) {
-  let serviceId = getCurrentServiceId();
   return new Promise((resolve, reject) => {
     sdk.post({
       profile: dConnectSDK.constants.file.PROFILE_NAME,
       attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-      serviceId: serviceId,
-      path: dirName
+      params: {
+        serviceId: getCurrentServiceId(),
+        path: dirName
+      }
     }).then(json => {
         resolve(json);
     }).catch(e => {
@@ -373,20 +375,20 @@ function mkdir(dirName) {
 };
 
 function saveFile(fileName) {
-  let serviceId = getCurrentServiceId();
   let blob = draw('file test');
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('path',  fileName);
-  formData.append('mimeType', 'image/jpeg');
-  formData.append('forceOverwrite', true);
-  formData.append('data', blob);
   return new Promise((resolve, reject) => {
     sdk.post({
-      profile: dConnectSDK.constants.file.PROFILE_NAME
-    }, formData).then(json => {
+      profile: dConnectSDK.constants.file.PROFILE_NAME,
+      params: {
+        serviceId: getCurrentServiceId(),
+        path: fileName,
+        mimeType: 'image/jpeg',
+        data: blob,
+        forceOverwrite: true
+      }
+    }).then(json => {
       console.log('success!! save for ' + fileName);
-      resolve(serviceId);
+      resolve(getCurrentServiceId);
     }).catch(e => {
       console.log('failure!! save for ' + fileName);
       reject(e);
@@ -395,13 +397,14 @@ function saveFile(fileName) {
 };
 
 function removeFile(fileName) {
-  let serviceId = getCurrentServiceId();
   return new Promise((resolve, reject) => {
     sdk.delete({
       profile: dConnectSDK.constants.file.PROFILE_NAME,
-      serviceId: serviceId,
-      path: fileName,
-      forceRemove: true
+      params: {
+        serviceId: getCurrentServiceId(),
+        path: fileName,
+        forceRemove: true
+      }
     }).then(json => {
       console.log('success!! remove file for ' + fileName);
       resolve(json);
@@ -413,17 +416,18 @@ function removeFile(fileName) {
 };
 
 function rmdir(dirName) {
-  let serviceId = getCurrentServiceId();
   return new Promise((resolve, reject) => {
     sdk.delete({
       profile: dConnectSDK.constants.file.PROFILE_NAME,
       attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-      serviceId: serviceId,
-      path: dirName,
-      forceRemove: true
+      params: {
+        serviceId: getCurrentServiceId(),
+        path: dirName,
+        forceRemove: true
+      }
     }).then(json => {
       console.log('success!! remove dir for ' + dirName);
-      resolve(serviceId);
+      resolve(getCurrentServiceId);
     }).catch(e => {
       console.log('failure!! remove dir for ' + dirName);
       reject(e);
@@ -468,10 +472,11 @@ function draw(text) {
 
 function getLightId() {
   return new Promise((resolve, reject) => {
-    let serviceId = getCurrentServiceId();
     sdk.get({
       profile: 'light',
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       resolve(json);
     }).catch(e => {
@@ -482,11 +487,12 @@ function getLightId() {
 
 function getMediaList() {
   return new Promise((resolve, reject) => {
-    let serviceId = getCurrentServiceId();
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       resolve(json);
     }).catch(e => {
@@ -498,14 +504,15 @@ function getMediaList() {
 function setMedia() {
   return new Promise((resolve, reject) => {
     getMediaList().then(list => {
-        let serviceId = getCurrentServiceId();
         sdk.put({
           profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
           attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-          serviceId: serviceId,
-          mediaId: list.media[0].mediaId
+          params: {
+            serviceId: getCurrentServiceId(),
+            mediaId: list.media[0].mediaId
+          }
         }).then(json => {
-          resolve(serviceId);
+          resolve(getCurrentServiceId);
         }).catch(e => {
           reject(e);
         });
@@ -521,7 +528,9 @@ function playMedia() {
       sdk.put({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         resolve(serviceId);
       }).catch(e => {
@@ -534,14 +543,15 @@ function playMedia() {
 }
 
 function getVideoMediaList() {
-  let serviceId = getCurrentServiceId();
   return new Promise((resolve, reject) => {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-      serviceId: serviceId,
-      mimeType: 'video/',
-      order: 'duration,desc'
+      params: {
+        serviceId: getCurrentServiceId(),
+        mimeType: 'video/',
+        order: 'duration,desc'
+      }
     }).then(json => {
       resolve(json);
     }).catch(e => {
@@ -551,16 +561,17 @@ function getVideoMediaList() {
 }
 
 function setVideoMedia() {
-  let serviceId = getCurrentServiceId();
   return new Promise((resolve, reject) => {
     getVideoMediaList().then(list => {
         sdk.put({
           profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
           attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-          serviceId: serviceId,
-          mediaId: list.media[0].mediaId
+          params: {
+            serviceId: getCurrentServiceId(),
+            mediaId: list.media[0].mediaId
+          }
         }).then(json => {
-          resolve(serviceId);
+          resolve(getCurrentServiceId);
         }).catch(e => {
           reject(e);
         });
@@ -577,7 +588,9 @@ function playVideoMedia() {
       sdk.put({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         resolve(serviceId);
       }).catch(e => {
@@ -590,14 +603,15 @@ function playVideoMedia() {
 }
 
 function getAudioMediaList() {
-  let serviceId = getCurrentServiceId();
   return new Promise((resolve, reject) => {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-      serviceId: serviceId,
-      mimeType: 'audio/',
-      order: 'duration,desc'
+      params: {
+        serviceId: getCurrentServiceId(),
+        mimeType: 'audio/',
+        order: 'duration,desc'
+      }
     }).then(json => {
       resolve(json);
     }).catch(e => {
@@ -613,8 +627,10 @@ function setAudioMedia() {
         sdk.put({
           profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
           attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-          serviceId: serviceId,
-          mediaId: list.media[0].mediaId
+          params: {
+            serviceId: serviceId,
+            mediaId: list.media[0].mediaId
+          }
         }).then(json => {
           resolve(serviceId);
         }).catch(e => {
@@ -634,7 +650,9 @@ function playAudioMedia() {
       sdk.put({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         resolve(serviceId);
       }).catch(e => {
@@ -647,11 +665,12 @@ function playAudioMedia() {
 }
 
 function stopMedia(done) {
-  let serviceId = getCurrentServiceId();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     done();
   }).catch(e => {
@@ -662,11 +681,12 @@ function stopMedia(done) {
 
 function record() {
   return new Promise((resolve, reject) => {
-    let serviceId = getCurrentServiceId();
     sdk.post({
       profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       resolve(json.uri);
     }).catch(e => {
@@ -678,11 +698,12 @@ function record() {
 function pause() {
   return new Promise((resolve, reject) => {
     record().then(uri => {
-      let serviceId = getCurrentServiceId();
       sdk.put({
         profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-        serviceId: serviceId
+        params: {
+          serviceId: getCurrentServiceId()
+        }
       }).then(json => {
         resolve(json.uri);
       }).catch(e => {
@@ -698,7 +719,9 @@ function stop(serviceId) {
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: serviceId
+    }
   }).then(json => {
   }).catch(e => {
   });
@@ -708,12 +731,13 @@ function stop(serviceId) {
 function findAddress(config) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      let serviceId = getCurrentServiceId();
       sdk.get({
         profile: 'videochat',
         attribute: 'address',
-        serviceId: serviceId,
-        config: config
+        params: {
+          serviceId: getCurrentServiceId(),
+          config: config
+        }
       }).then(json => {
         resolve(json.addresses);
       }).catch(e => {
@@ -730,21 +754,24 @@ function callAddress(config, timeout) {
         reject({errorCode:-1, errorMessage:"addresses is invalid."});
         return;
       }
-      let serviceId = getCurrentServiceId();
       sdk.post({
         profile: 'videochat',
         attribute: 'call',
-        serviceId: serviceId,
-        config: config,
-        addressId: addresses[0].addressId
+        params: {
+          serviceId: getCurrentServiceId(),
+          config: config,
+          addressId: addresses[0].addressId
+        }
       }).then(json => {
         setTimeout(() => {
           sdk.delete({
             profile: 'videochat',
             attribute: 'call',
-            serviceId: serviceId,
-            config: config,
-            addressId: addresses[0].addressId
+            params: {
+              serviceId: getCurrentServiceId(),
+              config: config,
+              addressId: addresses[0].addressId
+            }
           }).then(json => {
             resolve(addresses[0]);
           }).catch(e => {
@@ -767,8 +794,10 @@ function createFaBoService() {
     sdk.post({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      name: 'TEST'
+      params: {
+        serviceId: getCurrentServiceId(),
+        name: 'TEST'
+      }
     }).then(json => {
       resolve(json);
     }).catch(e => {
@@ -781,8 +810,10 @@ function deleteFaBoService(vid) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    vid: vid
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: vid
+    }
   }).then(json => {
     console.log("Delete a service. vid=" + vid);
   }).catch(e => {
@@ -796,10 +827,12 @@ function createFaBoProfile() {
         sdk.post({
           profile: 'fabo',
           attribute: 'profile',
-          serviceId: getCurrentServiceId(),
-          vid: vid,
-          type: 1,
-          pins: 'D2'
+          params: {
+            serviceId: getCurrentServiceId(),
+            vid: vid,
+            type: 1,
+            pins: 'D2'
+          }
         }).then(json => {
           resolve(vid);
         }).catch(e => {

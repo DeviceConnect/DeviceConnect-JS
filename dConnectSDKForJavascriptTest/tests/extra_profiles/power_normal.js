@@ -26,7 +26,9 @@ PowerProfileNormalTest.powerStatusNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'power',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -55,7 +57,9 @@ PowerProfileNormalTest.powerOnNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'power',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -83,7 +87,9 @@ PowerProfileNormalTest.powerOffNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: 'power',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

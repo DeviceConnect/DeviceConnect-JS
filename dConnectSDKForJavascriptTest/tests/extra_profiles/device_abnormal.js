@@ -27,7 +27,9 @@ DeviceProfileAbnormalTest.pairingAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'device',
     attribute: 'pairing',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,7 +58,9 @@ DeviceProfileAbnormalTest.pairingAbnormalTest002 = function(assert) {
   sdk.put({
     profile: 'device',
     attribute: 'pairing',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

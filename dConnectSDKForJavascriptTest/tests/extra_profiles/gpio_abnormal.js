@@ -28,7 +28,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest001 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -58,7 +60,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest002 = function(assert) {
     profile: 'gpio',
     interface: 'analog',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -88,7 +92,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest003 = function(assert) {
     profile: 'gpio',
     interface: 'test',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -120,7 +126,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest004 = function(assert) {
     interface: 'export',
     attribute: '21',
     mode: 1,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -151,8 +159,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest005 = function(assert) {
     profile: 'gpio',
     interface: 'export',
     attribute: '19',
-    mode: 1,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -183,8 +193,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest006 = function(assert) {
     profile: 'gpio',
     interface: 'export',
     attribute: '19',
-    mode: 10,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 10
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -215,8 +227,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest007 = function(assert) {
     profile: 'gpio',
     interface: 'export',
     attribute: '19',
-    mode: 'aaaa',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 'aaaa'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -247,8 +261,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest008 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '21',
-    mode: 1,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -279,7 +295,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest009 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '5'
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -310,8 +328,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest010 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '5',
-    value: 4,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 4
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -342,8 +362,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest011 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '5',
-    value: 'aaaa',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 'aaaa'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -374,8 +396,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest012 = function(assert) {
     profile: 'gpio',
     interface: 'analog',
     attribute: '1',
-    value: 100,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -407,8 +431,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest013 = function(assert) {
     profile: 'gpio',
     interface: 'analog',
     attribute: '3',
-    value: 100,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -439,8 +465,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest014 = function(assert) {
     profile: 'gpio',
     interface: 'analog',
     attribute: '3',
-    value: 300,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 300
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -471,8 +499,10 @@ GPIOProfileAbnormalTest.gpioAbnormalTest015 = function(assert) {
     profile: 'gpio',
     interface: 'analog',
     attribute: '3',
-    value: 'aaa',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 'aaa'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -502,7 +532,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest016 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -532,7 +564,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest017 = function(assert) {
     profile: 'gpio',
     interface: 'test',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -562,7 +596,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest018 = function(assert) {
     profile: 'gpio',
     interface: 'digital',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -592,7 +628,9 @@ GPIOProfileAbnormalTest.gpioAbnormalTest019 = function(assert) {
     profile: 'gpio',
     interface: 'test',
     attribute: '21',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

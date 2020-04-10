@@ -27,8 +27,10 @@ MouseProfileAbnormalTest.mouseTest001 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    x: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      x: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,8 +58,10 @@ MouseProfileAbnormalTest.mouseTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    y: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      y: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -85,8 +89,10 @@ MouseProfileAbnormalTest.mouseTest003 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    wheel: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      wheel: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -114,8 +120,10 @@ MouseProfileAbnormalTest.mouseTest004 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    rightButton: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      rightButton: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -143,8 +151,10 @@ MouseProfileAbnormalTest.mouseTest005 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    leftButton: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      leftButton: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -172,8 +182,10 @@ MouseProfileAbnormalTest.mouseTest006 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    middleButton: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      middleButton: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -201,8 +213,10 @@ MouseProfileAbnormalTest.mouseTest007 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    x: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      x: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -230,8 +244,10 @@ MouseProfileAbnormalTest.mouseTest008 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    y: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      y: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -259,8 +275,10 @@ MouseProfileAbnormalTest.mouseTest009 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    wheel: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      wheel: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -289,7 +307,9 @@ MouseProfileAbnormalTest.clickTest001 = function(assert) {
   sdk.post({
     profile: 'mouse',
     attribute: 'click',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -319,8 +339,10 @@ MouseProfileAbnormalTest.clickTest002 = function(assert) {
   sdk.post({
     profile: 'mouse',
     attribute: 'click',
-    serviceId: getCurrentServiceId(),
-    button: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      button: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -349,7 +371,9 @@ MouseProfileAbnormalTest.doubleClickTest001 = function(assert) {
   sdk.post({
     profile: 'mouse',
     attribute: 'doubleClick',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -379,8 +403,10 @@ MouseProfileAbnormalTest.doubleClickTest002 = function(assert) {
   sdk.post({
     profile: 'mouse',
     attribute: 'doubleClick',
-    serviceId: getCurrentServiceId(),
-    button: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      button: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

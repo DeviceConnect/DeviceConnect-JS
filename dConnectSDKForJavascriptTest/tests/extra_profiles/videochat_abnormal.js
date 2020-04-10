@@ -28,8 +28,10 @@ VideoChatProfileAbnormalTest.profileAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -59,8 +61,10 @@ VideoChatProfileAbnormalTest.profileAbnormalTest002 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -89,9 +93,11 @@ VideoChatProfileAbnormalTest.profileAbnormalTest003 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: -1
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -121,9 +127,11 @@ VideoChatProfileAbnormalTest.profileAbnormalTest004 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -152,18 +160,20 @@ VideoChatProfileAbnormalTest.profileAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();
@@ -193,9 +203,11 @@ VideoChatProfileAbnormalTest.profileAbnormalTest006 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: ""
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: ""
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -225,9 +237,11 @@ VideoChatProfileAbnormalTest.profileAbnormalTest007 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: "test"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: "test"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -258,9 +272,11 @@ VideoChatProfileAbnormalTest.profileAbnormalTest008 = function(assert) {
   sdk.delete({
     profile: 'videochat',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    name: "test"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      name: "test"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -290,9 +306,11 @@ VideoChatProfileAbnormalTest.addressAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: "-1"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: "-1"
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     assert.equal(json.addresses.length, 0, "json.addresses.length=" + json.addresses.length);
@@ -323,9 +341,11 @@ VideoChatProfileAbnormalTest.addressAbnormalTest002 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: ""
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: ""
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     assert.equal(json.addresses.length, 0, "json.addresses.length=" + json.addresses.length);
@@ -357,9 +377,11 @@ VideoChatProfileAbnormalTest.addressAbnormalTest003 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     assert.equal(json.addresses.length, 0, "json.addresses.length=" + json.addresses.length);
@@ -390,18 +412,20 @@ VideoChatProfileAbnormalTest.addressAbnormalTest004 = function(assert) {
   sdk.get({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+        }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     assert.equal(json.addresses.length, 0, "json.addresses.length=" + json.addresses.length);
@@ -431,8 +455,10 @@ VideoChatProfileAbnormalTest.addressAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -461,8 +487,10 @@ VideoChatProfileAbnormalTest.addressAbnormalTest006 = function(assert) {
   sdk.post({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -490,8 +518,10 @@ VideoChatProfileAbnormalTest.addressAbnormalTest007 = function(assert) {
   sdk.delete({
     profile: 'videochat',
     attribute: 'address',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -521,9 +551,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest001 = function(assert) {
   sdk.post({
     profile: 'videochat',
     attribute: 'call',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: "-1"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: "-1"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -553,8 +585,10 @@ VideoChatProfileAbnormalTest.callAbnormalTest002 = function(assert) {
   sdk.post({
     profile: 'videochat',
     attribute: 'call',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -583,9 +617,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest003 = function(assert) {
   sdk.post({
     profile: 'videochat',
     attribute: 'call',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: ""
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: ""
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -614,9 +650,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest004 = function(assert) {
   sdk.post({
     profile: 'videochat',
     attribute: 'call',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -646,18 +684,20 @@ VideoChatProfileAbnormalTest.callAbnormalTest005 = function(assert) {
   sdk.post({
     profile: 'videochat',
     attribute: 'call',
-    serviceId: getCurrentServiceId(),
-    config: VIDEOCHAT_CONFIG,
-    addressId: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+    params: {
+      serviceId: getCurrentServiceId(),
+      config: VIDEOCHAT_CONFIG,
+      addressId: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+        }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -687,10 +727,12 @@ VideoChatProfileAbnormalTest.callAbnormalTest006 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      video: "-1"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        video: "-1"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -727,10 +769,12 @@ VideoChatProfileAbnormalTest.callAbnormalTest007 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      video: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        video: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -764,19 +808,21 @@ VideoChatProfileAbnormalTest.callAbnormalTest008 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      video: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        video: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+          }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -810,10 +856,12 @@ VideoChatProfileAbnormalTest.callAbnormalTest009 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      audio: "-1"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        audio: "-1"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -848,10 +896,12 @@ VideoChatProfileAbnormalTest.callAbnormalTest010 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      audio: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        audio: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -886,19 +936,21 @@ VideoChatProfileAbnormalTest.callAbnormalTest011 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId,
-      audio: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId,
+        audio: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+          }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -932,9 +984,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest012 = function(assert) {
     sdk.delete({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -969,9 +1023,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest013 = function(assert) {
     sdk.delete({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: ""
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: ""
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1006,9 +1062,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest014 = function(assert) {
     sdk.delete({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: "!\"#$%&'()-^¥@[;:],./_=~|`{+*}<>?_"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1044,18 +1102,20 @@ VideoChatProfileAbnormalTest.callAbnormalTest015 = function(assert) {
     sdk.delete({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
-          "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij" +
+            "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+          }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1090,9 +1150,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest016 = function(assert) {
     sdk.delete({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1127,9 +1189,11 @@ VideoChatProfileAbnormalTest.callAbnormalTest017 = function(assert) {
     sdk.put({
       profile: 'videochat',
       attribute: 'call',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1164,9 +1228,11 @@ VideoChatProfileAbnormalTest.onincomingAbnormalTest001 = function(assert) {
     sdk.get({
       profile: 'videochat',
       attribute: 'onincoming',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1201,9 +1267,11 @@ VideoChatProfileAbnormalTest.onincomingAbnormalTest002 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'onincoming',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1238,9 +1306,11 @@ VideoChatProfileAbnormalTest.oncallAbnormalTest001 = function(assert) {
     sdk.get({
       profile: 'videochat',
       attribute: 'oncall',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1275,9 +1345,11 @@ VideoChatProfileAbnormalTest.oncallAbnormalTest002 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'oncall',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1313,9 +1385,11 @@ VideoChatProfileAbnormalTest.onhangupAbnormalTest001 = function(assert) {
     sdk.get({
       profile: 'videochat',
       attribute: 'onhangup',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -1350,9 +1424,11 @@ VideoChatProfileAbnormalTest.onhangupAbnormalTest002 = function(assert) {
     sdk.post({
       profile: 'videochat',
       attribute: 'onhangup',
-      serviceId: getCurrentServiceId(),
-      config: VIDEOCHAT_CONFIG,
-      addressId: addresses[0].addressId
+      params: {
+        serviceId: getCurrentServiceId(),
+        config: VIDEOCHAT_CONFIG,
+        addressId: addresses[0].addressId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();

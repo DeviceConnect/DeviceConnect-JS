@@ -26,7 +26,10 @@ let KeyEventProfileNormalTest = {};
 KeyEventProfileNormalTest.ondownNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
-    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_DOWN
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_DOWN,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -55,7 +58,10 @@ QUnit.test('ondownNormalTest001', KeyEventProfileNormalTest.ondownNormalTest001)
 KeyEventProfileNormalTest.onupNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
-    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_UP
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_UP,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -85,7 +91,10 @@ QUnit.test('onupNormalTest001', KeyEventProfileNormalTest.onupNormalTest001);
 KeyEventProfileNormalTest.onkeychangeNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
-    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_KEY_CHANGE
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_KEY_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);

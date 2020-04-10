@@ -24,11 +24,12 @@ let DiceProfileNormalTest = {};
  * </p>
  */
 DiceProfileNormalTest.ondiceNormalTest = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'dice',
     attribute: 'ondice',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -55,12 +56,13 @@ QUnit.test('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
  * </p>
  */
 DiceProfileNormalTest.onmagnetometerNormalTest = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'dice',
     interface: 'magnetometer',
     attribute: 'ondice',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 2000, message => {
     let json = JSON.parse(message);

@@ -27,12 +27,13 @@ let MediaPlayerProfileNormalTest = {};
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -58,13 +59,14 @@ QUnit.test('mediaListNormalTest001(get)', MediaPlayerProfileNormalTest.mediaList
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    mimeType: 'audio/'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'audio/'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -91,13 +93,14 @@ QUnit.test('mediaListNormalTest002', MediaPlayerProfileNormalTest.mediaListNorma
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    mimeType: 'video/'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'video/'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -124,13 +127,14 @@ QUnit.test('mediaListNormalTest003', MediaPlayerProfileNormalTest.mediaListNorma
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    mimeType: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 1
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -156,13 +160,14 @@ QUnit.test('mediaListNormalTest004(mimeType is number.)', MediaPlayerProfileNorm
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    mimeType: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -188,13 +193,14 @@ QUnit.test('mediaListNormalTest005(mimeType is long string.)', MediaPlayerProfil
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    order: 'duration,asc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'duration,asc'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -225,13 +231,14 @@ QUnit.test('mediaListNormalTest006(order is duration,asc)', MediaPlayerProfileNo
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    order: 'duration,desc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'duration,desc'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -263,13 +270,14 @@ QUnit.test('mediaListNormalTest007(order is duration,desc)', MediaPlayerProfileN
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    query: 'a'
+    params: {
+      serviceId: getCurrentServiceId(),
+      query: 'a'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -295,13 +303,14 @@ QUnit.test('mediaListNormalTest008(query is special characters.)', MediaPlayerPr
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest009 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    query: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      query: 1
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -328,13 +337,14 @@ QUnit.test('mediaListNormalTest009(query is number)', MediaPlayerProfileNormalTe
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest010 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    query: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    params: {
+      serviceId: getCurrentServiceId(),
+      query: 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz' + 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -360,13 +370,14 @@ QUnit.test('mediaListNormalTest010(query is long string)', MediaPlayerProfileNor
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest011 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    limit: 0
+    params: {
+      serviceId: getCurrentServiceId(),
+      limit: 0
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -391,13 +402,14 @@ QUnit.test('mediaListNormalTest011(limit is 0)', MediaPlayerProfileNormalTest.me
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest012 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    limit: 10
+    params: {
+      serviceId: getCurrentServiceId(),
+      limit: 10
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -422,12 +434,13 @@ QUnit.test('mediaListNormalTest012(limit is 10)', MediaPlayerProfileNormalTest.m
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest013 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -452,13 +465,14 @@ QUnit.test('mediaListNormalTest013(All)', MediaPlayerProfileNormalTest.mediaList
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest014 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    offset: 3
+    params: {
+      serviceId: getCurrentServiceId(),
+      offset: 3
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -485,13 +499,14 @@ QUnit.test('mediaListNormalTest014(offset is 3)', MediaPlayerProfileNormalTest.m
  * </p>
  */
 MediaPlayerProfileNormalTest.mediaListNormalTest015 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    offset: 10000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      offset: 10000000
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.count >= 0, 'count=' + json.count);
@@ -524,12 +539,13 @@ MediaPlayerProfileNormalTest.mediaNormalTest001 = function(assert) {
       done();
       return;
     }
-    let serviceId = getCurrentServiceId();
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-      serviceId: serviceId,
-      mediaId: list.media[0].mediaId
+      params: {
+        serviceId: getCurrentServiceId(),
+        mediaId: list.media[0].mediaId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       done();
@@ -564,12 +580,13 @@ MediaPlayerProfileNormalTest.mediaNormalTest002 = function(assert) {
       done();
       return;
     }
-    let serviceId = getCurrentServiceId();
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-      serviceId: serviceId,
-      mediaId: list.media[0].mediaId
+      params: {
+        serviceId: getCurrentServiceId(),
+        mediaId: list.media[0].mediaId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       done();
@@ -603,7 +620,9 @@ MediaPlayerProfileNormalTest.playNormalTest001 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       stopMedia(done);
@@ -639,13 +658,17 @@ MediaPlayerProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
       sdk.put({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         assert.ok(true, 'pause ok. result=' + json.result);
         sdk.put({
           profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
           attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
-          serviceId: serviceId
+          params: {
+            serviceId: serviceId
+          }
         }).then(json => {
           assert.ok(true, 'resume ok. result=' + json.result);
           sleep(3 * 1000);
@@ -687,7 +710,9 @@ MediaPlayerProfileNormalTest.stopMediaNormalTest001 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(true, 'stop ok. result=' + json.result);
       done();
@@ -716,7 +741,6 @@ QUnit.test('stopMediaNormalTest001(put)', MediaPlayerProfileNormalTest.stopMedia
  * </p>
  */
 MediaPlayerProfileNormalTest.audiomediaNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   getAudioMediaList().then(list => {
     if (list.count < 1) {
@@ -728,8 +752,10 @@ MediaPlayerProfileNormalTest.audiomediaNormalTest002 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-      serviceId: serviceId,
-      mediaId: list.media[0].mediaId
+      params: {
+        serviceId: getCurrentServiceId(),
+        mediaId: list.media[0].mediaId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result + ', set mediaId=' + list.media[0].mediaId);
       done();
@@ -757,7 +783,6 @@ QUnit.test('audiomediaNormalTest002(put)', MediaPlayerProfileNormalTest.audiomed
  * </p>
  */
 MediaPlayerProfileNormalTest.audiomediaNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   getAudioMediaList().then(list => {
     if (list.count < 1) {
@@ -768,8 +793,10 @@ MediaPlayerProfileNormalTest.audiomediaNormalTest001 = function(assert) {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-      serviceId: serviceId,
-      mediaId: list.media[0].mediaId
+      params: {
+        serviceId: getCurrentServiceId(),
+        mediaId: list.media[0].mediaId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result + ', media=' + json.title);
       done();
@@ -798,14 +825,15 @@ QUnit.test('audiomediaNormalTest001(get)', MediaPlayerProfileNormalTest.audiomed
  * </p>
  */
 MediaPlayerProfileNormalTest.audioplayNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sleep(1 * 1000);
   setAudioMedia().then(serviceId => {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       stopMedia(done);
@@ -841,13 +869,17 @@ MediaPlayerProfileNormalTest.audiopauseAndResumeNormalTest001 = function(assert)
       sdk.put({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         assert.ok(true, 'pause ok. result=' + json.result);
         sdk.put({
           profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
           attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
-          serviceId: serviceId
+          params: {
+            serviceId: serviceId
+          }
         }).then(json => {
           assert.ok(true, 'resume ok. result=' + json.result);
         }).catch(e => {
@@ -886,7 +918,9 @@ MediaPlayerProfileNormalTest.audiostopMediaNormalTest001 = function(assert) {
     let params = {
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     };
     sdk.put(params).then(json => {
       assert.ok(true, 'result=' + json.result);
@@ -920,7 +954,9 @@ MediaPlayerProfileNormalTest.playStatusNormalTest001 = function(assert) {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       assert.ok(true, 'status=' + json.status);
@@ -957,7 +993,9 @@ MediaPlayerProfileNormalTest.seekNormalTest001 = function(assert) {
       sdk.get({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
         assert.ok(json.pos >= 0, 'pos=' + json.pos);
@@ -993,8 +1031,10 @@ MediaPlayerProfileNormalTest.seekNormalTest002 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: 0
+      params: {
+        serviceId: serviceId,
+        pos: 0
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       stopMedia(done);
@@ -1029,7 +1069,9 @@ MediaPlayerProfileNormalTest.seekNormalTest003 = function(assert) {
       sdk.get({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
         assert.ok(json.pos >= 0, 'pos=' + json.pos);
@@ -1065,8 +1107,10 @@ MediaPlayerProfileNormalTest.seekNormalTest004 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: 0
+      params: {
+        serviceId: serviceId,
+        pos: 0
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       sleep(3 * 1000);
@@ -1100,7 +1144,9 @@ MediaPlayerProfileNormalTest.muteNormalTest001 = function(assert) {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.mute != undefined, 'mute=' + json.mute);
@@ -1136,14 +1182,18 @@ MediaPlayerProfileNormalTest.muteNormalTest002 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(true, 'put ok. result=' + json.result);
       sleep(3 * 1000);
       sdk.get({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         assert.ok(true, 'get ok. result=' + json.result);
         assert.ok(json.mute == true, 'mute=' + json.mute);
@@ -1184,14 +1234,18 @@ MediaPlayerProfileNormalTest.muteNormalTest003 = function(assert) {
     sdk.delete({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(true, 'delete ok. result=' + json.result);
       sleep(3 * 1000);
       sdk.get({
         profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
-        serviceId: serviceId
+        params: {
+          serviceId: serviceId
+        }
       }).then(json => {
         assert.ok(true, 'get ok. result=' + json.result);
         assert.ok(json.mute == false, 'mute=' + json.mute);
@@ -1232,7 +1286,9 @@ MediaPlayerProfileNormalTest.volumeNormalTest001 = function(assert) {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.volume >= 0, 'volume=' + json.volume);
@@ -1268,8 +1324,10 @@ MediaPlayerProfileNormalTest.volumeNormalTest002 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-      serviceId: serviceId,
-      volume: 0.5
+      params: {
+        serviceId: serviceId,
+        volume: 0.5
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
     }, function(errorCode, errorMessage) {
@@ -1300,7 +1358,10 @@ QUnit.test('volume(put)', MediaPlayerProfileNormalTest.volumeNormalTest002);
 MediaPlayerProfileNormalTest.onStatusChangeNormalTest001 = function(assert) {
     let params = {
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
-      attribute: dConnectSDK.constants.mediaPlayer.ATTR_ON_STATUS_CHANGE
+      attribute: dConnectSDK.constants.mediaPlayer.ATTR_ON_STATUS_CHANGE,
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     };
     openWebsocket(params, assert, 10000, message => {
       let json = JSON.parse(message);

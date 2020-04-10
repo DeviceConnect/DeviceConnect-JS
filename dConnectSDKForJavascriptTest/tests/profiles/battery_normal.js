@@ -26,7 +26,9 @@ BatteryProfileNormalTest.allNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
       if (json.level === undefined) {
         assert.ok(true, 'level=' + json.level);
@@ -70,7 +72,9 @@ BatteryProfileNormalTest.levelNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok((json.level != undefined && 0 <= json.level && json.level <= 1.0), 'level=' + json.level);
@@ -100,7 +104,9 @@ BatteryProfileNormalTest.chargingTimeNormalTest001 = function(assert) {
   sdk.get({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     if (json.result === dConnect.constants.RESULT_ERROR) {
       assert.equal(json.errorCode, dConnect.constants.ErrorCode.NOT_SUPPORT_PROFILE, 'errorCode=' + json.errorCode + ' errorMessage=' + json.errorMessage);
@@ -134,7 +140,9 @@ BatteryProfileNormalTest.dischargingTimeNormalTest001 = function(assert) {
   sdk.get({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok((json.dischargingTime && json.dischargingTime >= 0), 'dischargingTime=' + json.dischargingTime);
@@ -164,7 +172,9 @@ BatteryProfileNormalTest.batteryNormalTest001 = function(assert) {
   sdk.get({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.charging !== undefined, 'charging=' + json.charging);
@@ -192,7 +202,10 @@ QUnit.test('batteryNormalTest001', BatteryProfileNormalTest.batteryNormalTest001
 BatteryProfileNormalTest.onBatteryChangeNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    attribute: dConnectSDK.constants.battery.ATTR_ON_BATTERY_CHANGE
+    attribute: dConnectSDK.constants.battery.ATTR_ON_BATTERY_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -222,7 +235,10 @@ QUnit.test('onBatteryChangeNormalTest001', BatteryProfileNormalTest.onBatteryCha
 BatteryProfileNormalTest.onChargingChangeNormalTest001 = function(assert) {
   let params = {
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    attribute: dConnectSDK.constants.battery.ATTR_ON_CHARGING_CHANGE
+    attribute: dConnectSDK.constants.battery.ATTR_ON_CHARGING_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);

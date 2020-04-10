@@ -30,7 +30,9 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001 = function(a
   sdk.post({
     profile: PROFILE_NAME,
     attribute: ATTR_ERROR,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -61,7 +63,9 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002 = function(a
   sdk.post({
     profile: PROFILE_NAME,
     attribute: ATTR_ERROR,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -91,7 +95,9 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(a
   sdk.post({
     profile: PROFILE_NAME,
     attribute: ATTR_ERROR,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -122,7 +128,9 @@ HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(a
   sdk.post({
     profile: PROFILE_NAME,
     attribute: ATTR_ERROR,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -150,8 +158,10 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -180,8 +190,10 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onDetection',
-    serviceId: getCurrentServiceId(),
-    interval: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -210,16 +222,18 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -248,16 +262,18 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -286,16 +302,18 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onDetection',
-    serviceId: getCurrentServiceId(),
-    interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -326,8 +344,10 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -356,8 +376,10 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    interval: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -386,16 +408,18 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -424,16 +448,18 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -462,16 +488,18 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -501,8 +529,10 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -531,8 +561,10 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -561,16 +593,18 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -599,16 +633,18 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -637,16 +673,18 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -676,8 +714,10 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -706,8 +746,10 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -736,16 +778,18 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -774,16 +818,18 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -812,16 +858,18 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -851,8 +899,10 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -881,8 +931,10 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -911,16 +963,18 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -949,16 +1003,18 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -987,16 +1043,18 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1025,8 +1083,10 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1055,8 +1115,10 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1085,16 +1147,18 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1123,16 +1187,18 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1161,16 +1227,18 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onBodyDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1201,8 +1269,10 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1231,8 +1301,10 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1261,16 +1333,18 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1299,16 +1373,18 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1337,16 +1413,18 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1376,8 +1454,10 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1406,8 +1486,10 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1436,16 +1518,18 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1474,16 +1558,18 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1512,16 +1598,18 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1551,8 +1639,10 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1581,8 +1671,10 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1611,16 +1703,18 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1649,16 +1743,18 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1687,16 +1783,18 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1726,8 +1824,10 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1756,8 +1856,10 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1786,16 +1888,18 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1824,16 +1928,18 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1862,16 +1968,18 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1900,8 +2008,10 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1930,8 +2040,10 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1960,16 +2072,18 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1998,16 +2112,18 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2036,16 +2152,18 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onHandDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2076,8 +2194,10 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2106,8 +2226,10 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    interval: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2136,16 +2258,18 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2174,16 +2298,18 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    interval: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2212,16 +2338,18 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2251,8 +2379,10 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2281,8 +2411,10 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2311,16 +2443,18 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2349,16 +2483,18 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2387,16 +2523,18 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2426,8 +2564,10 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2456,8 +2596,10 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2486,16 +2628,18 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2524,16 +2668,18 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2562,16 +2708,18 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005 = function(assert)
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2601,8 +2749,10 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2631,8 +2781,10 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight:  -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight:  -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2661,16 +2813,18 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2699,16 +2853,18 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2737,16 +2893,18 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2775,8 +2933,10 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2805,8 +2965,10 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2835,16 +2997,18 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2873,16 +3037,18 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2911,16 +3077,18 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005 = function(assert
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2950,8 +3118,10 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    eyeThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -2980,8 +3150,10 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    eyeThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3010,16 +3182,18 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    eyeThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3048,16 +3222,18 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    eyeThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3086,16 +3262,18 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    eyeThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3125,8 +3303,10 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    noseThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3155,8 +3335,10 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    noseThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3185,16 +3367,18 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    noseThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3223,16 +3407,18 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    noseThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3261,16 +3447,18 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    noseThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3300,8 +3488,10 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    mouthThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3330,8 +3520,10 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    mouthThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3360,16 +3552,18 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    mouthThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3398,16 +3592,18 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    mouthThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3436,16 +3632,18 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    mouthThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3475,8 +3673,10 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    blinkThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3505,8 +3705,10 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    blinkThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3535,16 +3737,18 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    blinkThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3573,16 +3777,18 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    blinkThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3611,16 +3817,18 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005 = function(a
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    blinkThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3650,8 +3858,10 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    ageThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3680,8 +3890,10 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    ageThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3710,16 +3922,18 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    ageThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3748,16 +3962,18 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    ageThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3786,16 +4002,18 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005 = function(ass
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    ageThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3825,8 +4043,10 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001 = function(
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    genderThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3855,8 +4075,10 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002 = function(
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    genderThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3885,16 +4107,18 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003 = function(
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    genderThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3923,16 +4147,18 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004 = function(
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    genderThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -3961,16 +4187,18 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005 = function(
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    genderThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4000,8 +4228,10 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001 = fu
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    faceDirectionThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4030,8 +4260,10 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002 = fu
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    faceDirectionThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4060,16 +4292,18 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003 = fu
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    faceDirectionThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4098,16 +4332,18 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004 = fu
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    faceDirectionThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4136,16 +4372,18 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005 = fu
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    faceDirectionThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4175,8 +4413,10 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    gazeThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4205,8 +4445,10 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    gazeThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4236,16 +4478,18 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    gazeThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4274,16 +4518,18 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    gazeThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4312,16 +4558,18 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005 = function(as
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    gazeThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4351,8 +4599,10 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001 = funct
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    expressionThreshold: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4381,8 +4631,10 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002 = funct
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    expressionThreshold: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4412,16 +4664,18 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003 = funct
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    expressionThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4450,16 +4704,18 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004 = funct
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    expressionThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -4488,16 +4744,18 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005 = funct
   sdk.get({
     profile: 'humanDetection',
     attribute: 'onFaceDetection',
-    serviceId: getCurrentServiceId(),
-    expressionThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

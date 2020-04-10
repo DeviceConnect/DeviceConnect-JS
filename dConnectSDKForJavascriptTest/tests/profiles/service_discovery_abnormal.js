@@ -50,7 +50,6 @@ QUnit.test('getServiceDiscoveryAbnormalTest001', ServiceDiscoveryProfileAbnormal
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.serviceDiscovery.PROFILE_NAME
@@ -78,7 +77,6 @@ QUnit.test('getServiceDiscoveryAbnormalTest002', ServiceDiscoveryProfileAbnormal
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.getServiceDiscoveryProfileAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.serviceDiscovery.PROFILE_NAME
@@ -105,12 +103,13 @@ QUnit.test('getServiceDiscoveryAbnormalTest003', ServiceDiscoveryProfileAbnormal
  * </p>
  */
 ServiceDiscoveryProfileAbnormalTest.onServiceChangeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.serviceDiscovery.PROFILE_NAME,
     attribute: dConnectSDK.constants.serviceDiscovery.ATTR_ON_SERVICE_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

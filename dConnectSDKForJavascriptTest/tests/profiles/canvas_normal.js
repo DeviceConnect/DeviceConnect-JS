@@ -31,20 +31,19 @@ CanvasProfileNormalTest.drawImageNormalTest001 = function(assert) {
 
   let blob = draw('drawImageNormalTest001');
 
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 0);
-  formData.append('y', 0);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 0,
+      y: 0,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
   }).catch(e => {
@@ -71,22 +70,20 @@ CanvasProfileNormalTest.drawImageNormalTest002 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageNormalTest002');
-
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('mode', 'scales');
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 50);
-  formData.append('y', 50);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
     attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
-  }, formData).then(json => {
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 'scales',
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 50,
+      y: 50,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
   }).catch(e => {
@@ -115,21 +112,20 @@ CanvasProfileNormalTest.drawImageNormalTest003 = function(assert) {
 
   let blob = draw('drawImageNormalTest003');
 
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('mode', 'fills');
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', -50);
-  formData.append('y', -50);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
     attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
-  }, formData).then(json => {
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 'fills',
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: -50,
+      y: -50,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
   }).catch(e => {
@@ -159,8 +155,10 @@ CanvasProfileNormalTest.drawImageNormalTest004 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
     attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
-    serviceId: serviceId,
-    uri: 'https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/img_HTMLApplicationManual/image2.png'
+    params: {
+      serviceId: getCurrentServiceId(),
+      uri: 'https://raw.githubusercontent.com/wiki/DeviceConnect/DeviceConnect-JS/img_HTMLApplicationManual/image2.png'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -191,25 +189,25 @@ CanvasProfileNormalTest.deleteDrawImageNormalTest001 = function(assert) {
 
   let blob = draw('drawImageNormalTest001');
 
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
     attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
-  }, formData).then(json => {
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     setTimeout( () => {
       sdk.delete({
         profile: dConnectSDK.constants.canvas.PROFILE_NAME,
         attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
-        serviceId: serviceId
+        params: {
+          serviceId: getCurrentServiceId()
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result);
         done();
@@ -217,7 +215,7 @@ CanvasProfileNormalTest.deleteDrawImageNormalTest001 = function(assert) {
         assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
         done();
       });
-    }, 5 * 1000);
+    }, 10 * 1000);
 
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);

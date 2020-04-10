@@ -24,12 +24,13 @@ let SpheroProfileNormalTest = {};
  * </p>
  */
 SpheroProfileNormalTest.onQuaternionNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'sphero',
     interface: 'quaternion',
     attribute: 'onquaternion',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -57,12 +58,13 @@ QUnit.test('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternionNorm
  * </p>
  */
 SpheroProfileNormalTest.onLocatorNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'sphero',
     interface: 'locator',
     attribute: 'onlocator',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -90,12 +92,13 @@ QUnit.test('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNormalTest
  * </p>
  */
 SpheroProfileNormalTest.onCollisionNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'sphero',
     interface: 'collision',
     attribute: 'oncollision',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);

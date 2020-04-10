@@ -23,12 +23,13 @@ let PhoneProfileAbnormalTest = {};
  * </p>
  */
 PhoneProfileAbnormalTest.callStateAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'callState',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -53,12 +54,13 @@ QUnit.test('callStateAbnormalTest001(Calling a post method that does not support
  * </p>
  */
 PhoneProfileAbnormalTest.callStateAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'callState',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -83,12 +85,13 @@ QUnit.test('callStateAbnormalTest002(Calling a put method that does not support'
  * </p>
  */
 PhoneProfileAbnormalTest.callStateAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'callState',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -113,12 +116,13 @@ QUnit.test('callStateAbnormalTest003(Calling a delete method that does not suppo
  * </p>
  */
 PhoneProfileAbnormalTest.acceptCallAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'acceptCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -143,12 +147,13 @@ QUnit.test('acceptCallAbnormalTest001(Calling a get method that does not support
  * </p>
  */
 PhoneProfileAbnormalTest.acceptCallAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'acceptCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -173,12 +178,13 @@ QUnit.test('acceptCallAbnormalTest002(Calling a put method that does not support
  * </p>
  */
 PhoneProfileAbnormalTest.acceptCallAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'acceptCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -203,12 +209,13 @@ QUnit.test('acceptCallAbnormalTest003(Calling a delete method that does not supp
  * </p>
  */
 PhoneProfileAbnormalTest.rejectCallAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'rejectCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -232,12 +239,13 @@ QUnit.test('rejectCallAbnormalTest001(Calling a get method that does not support
  * </p>
  */
 PhoneProfileAbnormalTest.rejectCallAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'rejectCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -261,12 +269,13 @@ QUnit.test('rejectCallAbnormalTest002(Calling a put method that does not support
  * </p>
  */
 PhoneProfileAbnormalTest.rejectCallAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'rejectCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -290,12 +299,13 @@ QUnit.test('rejectCallAbnormalTest003(Calling a delete method that does not supp
  * </p>
  */
 PhoneProfileAbnormalTest.endCallAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'endCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -319,12 +329,13 @@ QUnit.test('endCallAbnormalTest001(Calling a get method that does not support', 
  * </p>
  */
 PhoneProfileAbnormalTest.endCallAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'endCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -348,12 +359,13 @@ QUnit.test('endCallAbnormalTest002(Calling a put method that does not support', 
  * </p>
  */
 PhoneProfileAbnormalTest.endCallAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'endCall',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -377,12 +389,13 @@ QUnit.test('endCallAbnormalTest003(Calling a delete method that does not support
  * <p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -406,32 +419,33 @@ QUnit.test('callAbnormalTest001(omitted phoneNumber)', PhoneProfileAbnormalTest.
  * <p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId,
-    phoneNumber: '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000'
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -455,13 +469,14 @@ QUnit.test('callAbnormalTest002(phoneNumber is long string)', PhoneProfileAbnorm
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId,
-    phoneNumber: "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'"
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -485,14 +500,14 @@ QUnit.test('callAbnormalTest003(phoneNumber is special characters)', PhoneProfil
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest004 = function(assert) {
-
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId,
-    phoneNumber: '117'
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -516,13 +531,14 @@ QUnit.test('callAbnormalTest004(Calling a get method that does not support', Pho
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId,
-    phoneNumber: '117'
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -546,13 +562,14 @@ QUnit.test('callAbnormalTest005(Calling a put method that does not support', Pho
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_CALL,
-    serviceId: serviceId,
-    phoneNumber: '117'
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -576,12 +593,13 @@ QUnit.test('callAbnormalTest006(Calling a delete method that does not support', 
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -605,13 +623,14 @@ QUnit.test('setModeAbnormalTest001(omitted mode)', PhoneProfileAbnormalTest.setM
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId,
-    mode: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -635,13 +654,14 @@ QUnit.test('setModeAbnormalTest002(mode is invalid(-1))', PhoneProfileAbnormalTe
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId,
-    mode: 'test'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 'test'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -665,13 +685,14 @@ QUnit.test('setModeAbnormalTest003(mode is string)', PhoneProfileAbnormalTest.se
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_SET,
-    serviceId: serviceId,
-    mode: "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'"
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -695,12 +716,13 @@ QUnit.test('setAbnormalTest004(mode is special characters)', PhoneProfileAbnorma
  * </p>
  */
 PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'onCallStateChange',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -724,12 +746,13 @@ QUnit.test('onCallStateChangeAbnormalTest001(Calling a post method that does not
  * </p>
  */
 PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: 'onCallStateChange',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -738,7 +761,8 @@ PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002 = function(assert) {
     done();
   });
 };
-QUnit.test('onCallStateChangeAbnormalTest002(Calling a get method that does not support', PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002);
+QUnit.test('onCallStateChangeAbnormalTest002(Calling a get method that does not support',
+        PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002);
 
 /**
  * 定義されていないPOSTメソッドでリクエストを送信する。
@@ -753,12 +777,13 @@ QUnit.test('onCallStateChangeAbnormalTest002(Calling a get method that does not 
  * </p>
  */
 PhoneProfileAbnormalTest.onConnectAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.phone.PROFILE_NAME,
     attribute: dConnectSDK.constants.phone.ATTR_ON_CONNECT,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

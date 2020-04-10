@@ -28,7 +28,9 @@ PoseEstimationProfileAbnormalTest.poseAbormalTest = function (assert) {
   sdk.post({
     profile: 'poseEstimation',
     attribute: 'onPoseEstimation',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

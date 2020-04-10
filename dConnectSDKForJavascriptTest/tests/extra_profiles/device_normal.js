@@ -27,7 +27,9 @@ DeviceProfileNormalTest.postPairingNormalTest001 = function(assert) {
   sdk.post({
     profile: 'device',
     attribute: 'pairing',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -57,7 +59,9 @@ DeviceProfileNormalTest.deletePairingNormalTest001 = function(assert) {
   sdk.delete({
     profile: 'device',
     attribute: 'pairing',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

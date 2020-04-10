@@ -27,7 +27,9 @@ KeyboardProfileAbnormalTest.keyboardTest001 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -55,8 +57,10 @@ KeyboardProfileAbnormalTest.keyboardTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId(),
-    keyCode: 'ABC'
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: 'ABC'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -84,8 +88,10 @@ KeyboardProfileAbnormalTest.keyboardTest003 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId(),
-    keyCode: '4,5,6,7,8,9,10,11,12,13'
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: '4,5,6,7,8,9,10,11,12,13'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -114,8 +120,10 @@ KeyboardProfileAbnormalTest.keyboardTest004 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId(),
-    keyCode: '1024'
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: '1024'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -143,8 +151,10 @@ KeyboardProfileAbnormalTest.keyboardTest005 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId(),
-    keyCode: '0x1234'
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: '0x1234'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -172,9 +182,11 @@ KeyboardProfileAbnormalTest.keyboardTest006 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId(),
-    modifier: 'ABC',
-    keyCode: '0x04'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modifier: 'ABC',
+      keyCode: '0x04'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -202,9 +214,11 @@ KeyboardProfileAbnormalTest.keyboardTest007 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'keyboard',
-    serviceId: getCurrentServiceId(),
-    modifier: '',
-    keyCode: '0x04'
+    params: {
+      serviceId: getCurrentServiceId(),
+      modifier: '',
+      keyCode: '0x04'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -233,7 +247,9 @@ KeyboardProfileAbnormalTest.asciiTest001 = function(assert) {
   sdk.post({
     profile: 'keyboard',
     attribute: 'ascii',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -262,8 +278,10 @@ KeyboardProfileAbnormalTest.asciiTest002 = function(assert) {
   sdk.post({
     profile: 'keyboard',
     attribute: 'ascii',
-    serviceId: getCurrentServiceId(),
-    string: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      string: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

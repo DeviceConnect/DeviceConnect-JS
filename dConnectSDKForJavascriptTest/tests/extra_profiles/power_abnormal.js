@@ -26,7 +26,9 @@ PowerProfileAbnormalTest.powerStatusAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'power',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

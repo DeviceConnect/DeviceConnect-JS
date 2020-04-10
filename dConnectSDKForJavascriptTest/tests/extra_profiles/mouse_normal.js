@@ -26,7 +26,9 @@ MouseProfileNormalTest.mouseTest001 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -54,9 +56,11 @@ MouseProfileNormalTest.mouseTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'mouse',
-    serviceId: getCurrentServiceId(),
-    x: 0.25,
-    y: 0.25
+    params: {
+      serviceId: getCurrentServiceId(),
+      x: 0.25,
+      y: 0.25
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -86,7 +90,9 @@ MouseProfileNormalTest.clickTest001 = function(assert) {
   sdk.post({
     profile: 'mouse',
     attribute: 'click',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -116,7 +122,9 @@ MouseProfileNormalTest.doubleClickTest001 = function(assert) {
   sdk.post({
     profile: 'mouse',
     attribute: 'doubleClick',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

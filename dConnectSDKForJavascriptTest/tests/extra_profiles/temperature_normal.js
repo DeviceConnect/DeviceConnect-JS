@@ -26,8 +26,10 @@ TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'temperature',
-    serviceId: getCurrentServiceId(),
-    type: '1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: '1'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'temperature=' + json.temperature);
@@ -58,8 +60,10 @@ TemperatureProfileNormalTest.allNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'temperature',
-    serviceId: getCurrentServiceId(),
-    temperature: '25'
+    params: {
+      serviceId: getCurrentServiceId(),
+      temperature: '25'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

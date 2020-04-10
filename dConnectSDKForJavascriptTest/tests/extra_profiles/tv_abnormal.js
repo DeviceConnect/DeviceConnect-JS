@@ -26,7 +26,9 @@ TVProfileAbnormalTest.powerStatusAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'tv',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,8 +58,10 @@ TVProfileAbnormalTest.changeChannelAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '1'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -85,8 +89,10 @@ TVProfileAbnormalTest.changeChannelAbnormalTest002 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '1'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -115,8 +121,10 @@ TVProfileAbnormalTest.changeChannelAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '2'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '2'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -146,10 +154,12 @@ TVProfileAbnormalTest.changeChannelAbnormalTest004 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -177,10 +187,12 @@ TVProfileAbnormalTest.changeChannelAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -208,10 +220,12 @@ TVProfileAbnormalTest.changeChannelAbnormalTest006 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -240,8 +254,10 @@ TVProfileAbnormalTest.changeChannelAbnormalTest007 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '-1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '-1'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -269,8 +285,10 @@ TVProfileAbnormalTest.changeChannelAbnormalTest008 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: 10000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: 10000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -298,8 +316,10 @@ TVProfileAbnormalTest.changeChannelAbnormalTest009 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: 1.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: 1.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -327,10 +347,12 @@ TVProfileAbnormalTest.changeChannelAbnormalTest010 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    control: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -358,10 +380,12 @@ TVProfileAbnormalTest.changeChannelAbnormalTest011 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    control: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -389,10 +413,12 @@ TVProfileAbnormalTest.changeChannelAbnormalTest012 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    control: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -421,8 +447,10 @@ TVProfileAbnormalTest.changeVolumeAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'up'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'up'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -451,8 +479,10 @@ TVProfileAbnormalTest.changeVolumeAbnormalTest002 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'up'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'up'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -480,8 +510,10 @@ TVProfileAbnormalTest.changeVolumeAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'up'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'up'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -509,10 +541,12 @@ TVProfileAbnormalTest.changeVolumeAbnormalTest004 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -540,10 +574,12 @@ TVProfileAbnormalTest.changeVolumeAbnormalTest005 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -572,10 +608,12 @@ TVProfileAbnormalTest.changeVolumeAbnormalTest006 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -605,8 +643,10 @@ TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'DTV'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'DTV'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -635,8 +675,10 @@ TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest002 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'DTV'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'DTV'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -665,8 +707,10 @@ TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'DTV'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'DTV'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -695,10 +739,12 @@ TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest004 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -727,10 +773,12 @@ TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -759,10 +807,12 @@ TVProfileAbnormalTest.changeBroadcastwaveAbnormalTest006 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -793,7 +843,9 @@ TVProfileAbnormalTest.muteOnAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'mute',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId(),
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -822,7 +874,9 @@ TVProfileAbnormalTest.muteOffAbnormalTest001 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'mute',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -854,8 +908,10 @@ TVProfileAbnormalTest.echonetLitePropertyAbnormalTest001 = function(assert) {
   sdk.post({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128,129'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128,129'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -884,8 +940,10 @@ TVProfileAbnormalTest.echonetLitePropertyAbnormalTest002 = function(assert) {
   sdk.delete({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128,129'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128,129'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -915,10 +973,12 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest003 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -948,10 +1008,12 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest004 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -981,10 +1043,12 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest005 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1014,8 +1078,10 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest006 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128,-1,129'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128,-1,129'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1045,8 +1111,10 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest007 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128,0.5,129'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128,0.5,129'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1076,11 +1144,13 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest008 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1110,11 +1180,13 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest009 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg' + 'abcdefgabcdefg' +
-    'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: 'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg' + 'abcdefgabcdefg' +
+      'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1144,11 +1216,13 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest010 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
-    '#$%?<>?#$%&<>?'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?' + '#$%?<>?#$%&<>?' +
+      '#$%?<>?#$%&<>?'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1177,9 +1251,11 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest011 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: '-1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '-1'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1208,9 +1284,11 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest012 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: '10000000000000000000000'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '10000000000000000000000'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1240,9 +1318,11 @@ TVProfileNormalTest.echonetLitePropertyAbnormalTest013 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: '0.5'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '0.5'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

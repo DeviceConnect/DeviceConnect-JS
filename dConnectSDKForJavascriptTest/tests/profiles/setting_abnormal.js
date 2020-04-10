@@ -23,14 +23,15 @@ let SettingProfileAbnormalTest = {};
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,14 +55,15 @@ QUnit.test('volumeAbnormalTest001(get)(kind is -1)', SettingProfileAbnormalTest.
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -86,13 +88,14 @@ QUnit.test('volumeAbnormalTest002(get)(kind is string)',
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -117,14 +120,15 @@ QUnit.test('volumeAbnormalTest003(get)(omitted kind.)',
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -148,14 +152,15 @@ QUnit.test('volumeAbnormalTest004(get)(kind is special characters.)', SettingPro
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 10000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 10000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -179,15 +184,16 @@ QUnit.test('volumeAbnormalTest005(get)(kind is big number.)', SettingProfileAbno
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: -1,
-    level: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: -1,
+      level: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -211,15 +217,16 @@ QUnit.test('volumeAbnormalTest006(put)(kind is -1.)', SettingProfileAbnormalTest
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 'this is a test.',
-    level: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 'this is a test.',
+      level: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -243,15 +250,16 @@ QUnit.test('volumeAbnormalTest007(put)(kind is string.)', SettingProfileAbnormal
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: "!\"#$%&'()0=~|'{}@`*+;<,.>/_",
-    level: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: "!\"#$%&'()0=~|'{}@`*+;<,.>/_",
+      level: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -275,15 +283,16 @@ QUnit.test('volumeAbnormalTest008(put)(kind is special characters.)', SettingPro
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest009 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 10000000,
-    level: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 10000000,
+      level: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -307,15 +316,16 @@ QUnit.test('volumeAbnormalTest009(put)(kind is big number.)', SettingProfileAbno
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest010 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1,
-    level: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -339,15 +349,16 @@ QUnit.test('volumeAbnormalTest010(put)(level is -1.)', SettingProfileAbnormalTes
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest011 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1,
-    level: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -371,15 +382,16 @@ QUnit.test('volumeAbnormalTest011(put)(level is 100.)', SettingProfileAbnormalTe
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest012 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1,
-    level: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -403,15 +415,16 @@ QUnit.test('volumeAbnormalTest012(put)(level is string.)', SettingProfileAbnorma
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest013 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1,
-    level: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -435,14 +448,15 @@ QUnit.test('volumeAbnormalTest013(put)(level is special characters.)', SettingPr
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest014 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -466,15 +480,16 @@ QUnit.test('volumeAbnormalTest014(put)(level is special characters.)', SettingPr
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest015 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1,
-    level: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -498,15 +513,16 @@ QUnit.test('volumeAbnormalTest015(Calling a post method that does not support.)'
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest016 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
     attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-    serviceId: serviceId,
-    kind: 1,
-    level: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -530,13 +546,14 @@ QUnit.test('volumeAbnormalTest016(Calling a delete method that does not support.
  * </p>
  */
 SettingProfileAbnormalTest.dateAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     attribute: dConnectSDK.constants.setting.ATTR_DATE,
-    serviceId: serviceId,
-    date: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -560,13 +577,14 @@ QUnit.test('dateAbnormalTest001(Calling a post method that does not support.)', 
  * </p>
  */
 SettingProfileAbnormalTest.dateAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     attribute: dConnectSDK.constants.setting.ATTR_DATE,
-    serviceId: serviceId,
-    date: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -590,14 +608,15 @@ QUnit.test('dateAbnormalTest002(Calling a delete method that does not support.)'
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-    serviceId: serviceId,
-    level: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -621,14 +640,15 @@ QUnit.test('lightAbnormalTest001(level is -1)', SettingProfileAbnormalTest.light
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-    serviceId: serviceId,
-    level: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -652,14 +672,15 @@ QUnit.test('lightAbnormalTest002(level is string)', SettingProfileAbnormalTest.l
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-    serviceId: serviceId,
-    level: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -683,14 +704,15 @@ QUnit.test('lightAbnormalTest003(level is special characters.)', SettingProfileA
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-    serviceId: serviceId,
-    level: 100000
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: 100000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -714,14 +736,15 @@ QUnit.test('lightAbnormalTest004(level is big number.)', SettingProfileAbnormalT
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId,
-    time: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -745,14 +768,15 @@ QUnit.test('sleepAbnormalTest001(time is -1)', SettingProfileAbnormalTest.sleepA
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId,
-    time: 'this is a test'
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: 'this is a test'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -776,14 +800,15 @@ QUnit.test('sleepAbnormalTest002(time is string)', SettingProfileAbnormalTest.sl
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId,
-    time: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -807,14 +832,15 @@ QUnit.test('sleepAbnormalTest003(time is special characters.)', SettingProfileAb
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId,
-    time: 1000
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: 1000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -838,14 +864,15 @@ QUnit.test('sleepAbnormalTest004(Calling a post method that does not support.)',
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId,
-    time: 1000
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: 1000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

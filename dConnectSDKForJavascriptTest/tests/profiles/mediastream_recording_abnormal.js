@@ -27,12 +27,13 @@ let MediaStreamRecordingProfileAbnormalTest = {};
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MEDIARECORDER,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -58,12 +59,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MEDIARECORDER,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -89,12 +91,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.mediarecorderAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MEDIARECORDER,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -119,12 +122,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -149,12 +153,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -179,12 +184,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -209,13 +215,14 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId,
-    target: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -225,7 +232,8 @@ MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest004 = function(assert
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.test('pictureAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest004);
+  QUnit.test('pictureAbnormalTest004()',
+      MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest004);
 }
 /**
  * targetを日本語の文字列に設定して写真撮影リクエストを行う。
@@ -240,13 +248,14 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId,
-    target: 'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -256,7 +265,8 @@ MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest005 = function(assert
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.test('pictureAbnormalTest005()', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest005);
+  QUnit.test('pictureAbnormalTest005()',
+    MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest005);
 }
 /**
  * targetを特殊文字に設定して写真撮影リクエストを行う。
@@ -271,13 +281,14 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId,
-    target: '#$%!?^#$%!?^'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: '#$%!?^#$%!?^'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -303,13 +314,14 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId,
-    target: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -319,7 +331,8 @@ MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest007 = function(assert
   });
 };
 if (IS_TEST_STATUS != 'record') {
-  QUnit.test('pictureAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest007);
+  QUnit.test('pictureAbnormalTest007(target is empty.)',
+      MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest007);
 }
 /**
  * targetを英文字列に設定して写真撮影リクエストを行う。
@@ -334,13 +347,14 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pictureAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId,
-    target: 'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -366,12 +380,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -398,12 +413,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -413,7 +429,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
- QUnit.test('recordAbnormalTest002(Calling a delete method that does not support.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002);
+ QUnit.test('recordAbnormalTest002(Calling a delete method that does not support.)',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest002);
 }
 /**
  * 定義されていないGETメソッドで動画撮影リクエストを行う。
@@ -428,12 +445,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -459,13 +477,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    target: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -475,7 +494,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest004()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004);
+  QUnit.test('recordAbnormalTest004()',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest004);
 }
 /**
  * targetを日本語の文字列に設定して動画撮影リクエストを行う。
@@ -490,13 +510,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    target: 'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -523,13 +544,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    target: '#$%!?^#$%!?^'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: '#$%!?^#$%!?^'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -539,7 +561,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest006()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006);
+  QUnit.test('recordAbnormalTest006()',
+    MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest006);
 }
 /**
  * targetを空文字に設定して動画撮影リクエストを行う。
@@ -554,13 +577,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    target: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -570,7 +594,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007);
+  QUnit.test('recordAbnormalTest007(target is empty.)',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest007);
 }
 /**
  * targetを英文字列に設定して動画撮影リクエストを行う。
@@ -585,13 +610,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    target: 'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -601,7 +627,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest008()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008);
+  QUnit.test('recordAbnormalTest008()',
+        MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest008);
 }
 /**
  * timesliceを日本語の文字列に設定して動画撮影リクエストを行う。
@@ -616,13 +643,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    timeslice: 'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      timeslice: 'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -632,7 +660,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest010()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010);
+  QUnit.test('recordAbnormalTest010()',
+    MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest010);
 }
 /**
  * timesliceを特殊文字に設定して動画撮影リクエストを行う。
@@ -647,13 +676,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    timeslice: '#$%!?^#$%!?^'
+    params: {
+      serviceId: getCurrentServiceId(),
+      timeslice: '#$%!?^#$%!?^'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -663,7 +693,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest011()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011);
+  QUnit.test('recordAbnormalTest011()',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest011);
 }
 /**
  * timesliceを空文字に設定して動画撮影リクエストを行う。
@@ -678,13 +709,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    timeslice: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      timeslice: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -694,7 +726,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest012(timeslice is empty.)', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012);
+  QUnit.test('recordAbnormalTest012(timeslice is empty.)',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest012);
 }
 /**
  * timesliceを英文字列に設定して動画撮影リクエストを行う。
@@ -709,13 +742,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    timeslice: 'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      timeslice: 'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -725,7 +759,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest013()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013);
+  QUnit.test('recordAbnormalTest013()',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest013);
 }
 /**
  * timesliceをマイナスに設定して動画撮影リクエストを行う。
@@ -740,13 +775,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId,
-    timeslice: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      timeslice: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -756,7 +792,8 @@ MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014 = function(assert)
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('recordAbnormalTest014()', MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014);
+  QUnit.test('recordAbnormalTest014()',
+      MediaStreamRecordingProfileAbnormalTest.recordAbnormalTest014);
 }
 /**
  * 定義されていないGETメソッドで動画撮影に対して一時停止リクエストを行う。
@@ -771,12 +808,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -786,7 +824,8 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001 = function(assert) 
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('pauseAbnormalTest001()', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001);
+  QUnit.test('pauseAbnormalTest001()',
+        MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest001);
 }
 /**
  * 定義されていないPOSTメソッドで動画撮影に対して一時停止リクエストを行う。
@@ -801,12 +840,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -831,12 +871,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -861,13 +902,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId,
-    target: 100
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 100
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -892,13 +934,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId,
-    target: 'あいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'あいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -923,13 +966,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId,
-    target: '#$%!?^#$%!?^'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: '#$%!?^#$%!?^'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -954,13 +998,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId,
-    target: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -970,7 +1015,8 @@ MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007 = function(assert) 
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('pauseAbnormalTest007(target is empty.)', MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007);
+  QUnit.test('pauseAbnormalTest007(target is empty.)',
+        MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest007);
 }
 /**
  * targetを英文字列に設定して動画撮影に対して一時停止リクエストを行う。
@@ -985,13 +1031,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId,
-    target: 'abcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'abcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1016,13 +1063,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.pauseAbnormalTest009 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-    serviceId: serviceId,
-    target: 'media_test'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'media_test'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1048,13 +1096,14 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
-    serviceId: serviceId,
-    target: 'media_test'
+    params: {
+      serviceId: getCurrentServiceId(),
+      target: 'media_test'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1086,12 +1135,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1117,12 +1167,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1149,12 +1200,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1180,12 +1232,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.resumeAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1210,12 +1263,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1241,12 +1295,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1272,12 +1327,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1305,11 +1361,12 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   let done = assert.async();
   sdk.put(params).then(json => {
@@ -1326,7 +1383,8 @@ MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004 = function(assert) {
   });
 };
 if (IS_TEST_STATUS != 'picture') {
-  QUnit.test('muteAbnormalTest004(Already muted.)', MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004);
+  QUnit.test('muteAbnormalTest004(Already muted.)',
+      MediaStreamRecordingProfileAbnormalTest.muteAbnormalTest004);
 }
 /**
  * 定義されていないGETメソッドでミュート解除リクエストを行う。
@@ -1346,8 +1404,10 @@ MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest001 = function(assert)
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_UNMUTETRACK,
-    serviceId: serviceId
-  }).then(json => {
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -1371,12 +1431,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_UNMUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1402,12 +1463,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_UNMUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1435,13 +1497,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.unmuteAbnormalTest004 = function(assert) {
-
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   let params = {
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_UNMUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   sdk.put(params).then(json => {
     sdk.put(params).then(json => {
@@ -1473,12 +1535,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1503,12 +1566,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1533,12 +1597,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1563,12 +1628,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.stopAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   let params = {
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   sdk.put(params).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
@@ -1604,12 +1670,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1636,12 +1703,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.optionsAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1667,12 +1735,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1697,12 +1766,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.onPhotoAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1728,12 +1798,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_RECORDING_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1759,12 +1830,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.onRecordingChangeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_RECORDING_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1790,12 +1862,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileAbnormalTest.previewAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PREVIEW,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

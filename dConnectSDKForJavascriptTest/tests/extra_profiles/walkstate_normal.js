@@ -29,7 +29,9 @@ WalkStateProfileNormalTest.walkNormalTest = function (assert) {
   sdk.get({
     profile: 'walkState',
     attribute: 'onWalkState',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, "result=" + json.result);
     assert.ok((json.walk != undefined && json.walk.step >= 0), "walk=" + json.walk);
@@ -56,11 +58,12 @@ QUnit.test("walk", WalkStateProfileNormalTest.walkNormalTest);
  * </p>
  */
 WalkStateProfileNormalTest.walkEventNormalTest001 = function (assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'walkState',
     attribute: 'onWalkState',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
         let json = JSON.parse(message);

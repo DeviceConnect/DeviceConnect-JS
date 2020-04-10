@@ -28,9 +28,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 90,
-    speed: 0.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 90,
+      speed: 0.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -59,9 +61,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest002 = function(assert) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 90,
-    speed: 0.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 90,
+      speed: 0.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -90,9 +94,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 90,
-    speed: 0.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 90,
+      speed: 0.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -121,7 +127,9 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -150,9 +158,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 'かきくけこ',
-    speed: 'あいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 'かきくけこ',
+      speed: 'あいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -181,9 +191,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest006 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 12345,
-    speed: 67890
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 12345,
+      speed: 67890
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -212,9 +224,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest007 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 'abc',
-    speed: 'def'
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 'abc',
+      speed: 'def'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -244,9 +258,11 @@ DriveControllerProfileAbnormalTest.moveAbnormalTest012 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'move',
-    serviceId: getCurrentServiceId(),
-    angle: 10000,
-    speed: 0.8
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 10000,
+      speed: 0.8
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -277,7 +293,9 @@ DriveControllerProfileAbnormalTest.stopAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'drivecontroller',
     attribute: 'stop',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -306,7 +324,9 @@ DriveControllerProfileAbnormalTest.stopAbnormalTest002 = function(assert) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'stop',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -335,7 +355,9 @@ DriveControllerProfileAbnormalTest.stopAbnormalTest003 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'stop',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -364,8 +386,10 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId(),
-    angle: 90
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 90
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -394,8 +418,10 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest002 = function(assert) {
   sdk.post({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId(),
-    angle: 90
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 90
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -424,8 +450,10 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId(),
-    angle: 90
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 90
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -454,7 +482,9 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest004 = function(assert) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -483,8 +513,10 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId(),
-    angle: 'あいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 'あいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -513,8 +545,10 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest006 = function(assert) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId(),
-    angle: 12345
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 12345
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -543,8 +577,10 @@ DriveControllerProfileAbnormalTest.rotateAbnormalTest007 = function(assert) {
   sdk.put({
     profile: 'drivecontroller',
     attribute: 'rotate',
-    serviceId: getCurrentServiceId(),
-    angle: 'rotate'
+    params: {
+      serviceId: getCurrentServiceId(),
+      angle: 'rotate'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

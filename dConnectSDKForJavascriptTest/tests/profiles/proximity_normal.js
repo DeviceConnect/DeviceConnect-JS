@@ -23,11 +23,12 @@ let ProximityProfileNormalTest = {};
  * </p>
  */
 ProximityProfileNormalTest.onDeviceProximityNormallTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.proximity.PROFILE_NAME,
     attribute: dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 2000, message => {
     let json = JSON.parse(message);
@@ -56,12 +57,13 @@ QUnit.test('onDeviceProximityNormalTest001', ProximityProfileNormalTest.onDevice
  * </p>
  */
 ProximityProfileNormalTest.onDeviceProximityNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.proximity.PROFILE_NAME,
     attribute: dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -84,11 +86,12 @@ QUnit.test('onDeviceProximityNormalTest002', ProximityProfileNormalTest.onDevice
  * </p>
  */
 ProximityProfileNormalTest.onUserProximityNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.proximity.PROFILE_NAME,
     attribute: dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 2000, message => {
     let json = JSON.parse(message);
@@ -118,12 +121,13 @@ QUnit.test('onUserProximityNormalTest001', ProximityProfileNormalTest.onUserProx
  * </p>
  */
 ProximityProfileNormalTest.onUserProximityNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.proximity.PROFILE_NAME,
     attribute: dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

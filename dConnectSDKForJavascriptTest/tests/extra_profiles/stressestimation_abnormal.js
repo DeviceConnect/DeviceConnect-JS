@@ -28,7 +28,9 @@ StressEstimationProfileAbnormalTest.stressAbormalTest = function (assert) {
   sdk.put({
     profile: 'stressEstimation',
     attribute: 'onStressEstimation',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

@@ -26,7 +26,9 @@ IlluminanceProfileAbnormalTest.illuminanceAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'illuminance',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,7 +56,9 @@ IlluminanceProfileAbnormalTest.illuminanceAbnormalTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: 'illuminance',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -82,7 +86,9 @@ IlluminanceProfileAbnormalTest.illuminanceAbnormalTest003 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: 'illuminance',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

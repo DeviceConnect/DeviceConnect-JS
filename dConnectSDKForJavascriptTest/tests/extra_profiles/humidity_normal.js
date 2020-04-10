@@ -26,7 +26,9 @@ HumidityProfileNormalTest.humidityNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'humidity',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'humidity=' + json.humidity);

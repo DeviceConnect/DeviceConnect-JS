@@ -27,8 +27,10 @@ MessageHookProfileAbnormalTest.messageTest001 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,8 +58,10 @@ MessageHookProfileAbnormalTest.messageTest002 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    text: 'qunitテストメッセージ'
+    params: {
+      serviceId: getCurrentServiceId(),
+      text: 'qunitテストメッセージ'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -85,9 +89,11 @@ MessageHookProfileAbnormalTest.messageTest003 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: 'TEST_CHANNEL_ID',
-    text: 'qunitテストメッセージ'
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: 'TEST_CHANNEL_ID',
+      text: 'qunitテストメッセージ'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -115,10 +121,12 @@ MessageHookProfileAbnormalTest.messageTest004 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID,
-    text: 'qunitテストメッセージ',
-    resource: 'abc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: 'qunitテストメッセージ',
+      resource: 'abc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -146,9 +154,11 @@ MessageHookProfileAbnormalTest.messageTest005 = function(assert) {
   sdk.post({
     profile: 'messageHook',
     attribute: 'message',
-    serviceId: getCurrentServiceId(),
-    channelId: SLACK_CHANNEL_ID,
-    text: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

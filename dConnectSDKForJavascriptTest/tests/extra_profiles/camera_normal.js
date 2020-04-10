@@ -28,7 +28,9 @@ CameraProfileNormalTest.zoomPositionNormalTest001 = function(assert) {
   sdk.get({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok((json.zoomPosition !== undefined &&
@@ -60,9 +62,11 @@ CameraProfileNormalTest.zoomNormalTest001 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 'in-start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'in-start'
+    }
   }).then(json => {
     assert.ok(true,
         'Success of the zoom to start. result=' + json.result);
@@ -109,9 +113,11 @@ CameraProfileNormalTest.zoomNormalTest002 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: '1shot'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: '1shot'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -141,9 +147,11 @@ CameraProfileNormalTest.zoomNormalTest003 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'out',
-    movement: 'in-start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'out',
+      movement: 'in-start'
+    }
   }).then(json => {
     assert.ok(true,
         'Success of the zoom out to start. result=' + json.result);
@@ -190,9 +198,11 @@ CameraProfileNormalTest.zoomNormalTest004 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'out',
-    movement: '1shot'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'out',
+      movement: '1shot'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

@@ -23,11 +23,12 @@ let LightProfileNormalTest = {};
  * </p>
  */
 LightProfileNormalTest.getLightIdNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: 'light',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result + ", light:" + json.lights[0].lightId);
     done();
@@ -52,16 +53,17 @@ QUnit.test('getLightIdNormalTest001(get)', LightProfileNormalTest.getLightIdNorm
  * </p>
  */
 LightProfileNormalTest.lightOnNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   getLightId().then(json => {
     if (json.lights) {
       for (let i = 0; i < json.lights.length; i++) {
         sdk.post({
           profile: 'light',
-          serviceId: serviceId,
-          lightId: json.lights[i].lightId,
-          flashing: '500,500,500,500,500,500'
+          params: {
+            serviceId: getCurrentServiceId(),
+            lightId: json.lights[i].lightId,
+            flashing: '500,500,500,500,500,500'
+          }
         }).then(json => {
           assert.ok(true, 'result=' + json.result);
         }).catch(e => {
@@ -96,18 +98,19 @@ QUnit.test('lightOnNormalTest001(post)', LightProfileNormalTest.lightOnNormalTes
  * </p>
  */
 LightProfileNormalTest.statusChangeNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   getLightId().then(json => {
     if (json.lights) {
       for (let i = 0; i < json.lights.length; i++) {
         sdk.put({
           profile: 'light',
-          serviceId: serviceId,
-          lightId: json.lights[i].lightId,
-          name: 'Hue Light Test',
-          color: 'ff0000',
-          flashing: '500,500,500,500,500,500'
+          params: {
+            serviceId: getCurrentServiceId(),
+            lightId: json.lights[i].lightId,
+            name: 'Hue Light Test',
+            color: 'ff0000',
+            flashing: '500,500,500,500,500,500'
+          }
         }).then(json => {
           assert.ok(true, 'result=' + json.result);
         }).catch(e => {
@@ -143,15 +146,16 @@ QUnit.test('statusChangeNormalTest001(put)', LightProfileNormalTest.statusChange
  * </p>
  */
 LightProfileNormalTest.lightOffNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   getLightId().then(json => {
     if (json.lights) {
       for (let i = 0; i < json.lights.length; i++) {
         sdk.post({
           profile: 'light',
-          serviceId: serviceId,
-          lightId: json.lights[i].lightId
+          params: {
+            serviceId: getCurrentServiceId(),
+            lightId: json.lights[i].lightId
+          }
         }).then(json => {
           assert.ok(true, 'result=' + json.result);
         }).catch(e => {
@@ -163,8 +167,10 @@ LightProfileNormalTest.lightOffNormalTest001 = function(assert) {
         for (let i = 0; i < json.lights.length; i++) {
           sdk.delete({
             profile: 'light',
-            serviceId: serviceId,
-            lightId: json.lights[i].lightId
+            params: {
+              serviceId: getCurrentServiceId(),
+              lightId: json.lights[i].lightId
+            }
           }).then(json => {
             assert.ok(true, 'result=' + json.result);
           }).catch(e => {

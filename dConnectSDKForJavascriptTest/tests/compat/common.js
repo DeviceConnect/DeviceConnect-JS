@@ -4,6 +4,7 @@ let _accessToken;
 let sdk;
 function test(scopes, tests) {
   let _tests = tests;
+  let done = assert.async();
   sdk = new dConnectSDK({
         host: (function () {
           let result = {};
@@ -32,7 +33,7 @@ function test(scopes, tests) {
         console.log('Test Plugin ID: ' + _pluginId);
 
         if (_pluginId !== undefined) {
-          QUnit.start();
+          done();
           runTests(_tests);
         } else {
           alert('Please install Device Connect Device Plugin for Test.');

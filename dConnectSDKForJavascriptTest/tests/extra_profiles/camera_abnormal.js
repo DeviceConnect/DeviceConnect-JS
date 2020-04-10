@@ -27,9 +27,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest001 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'test',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'test',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -57,9 +59,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest002 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: '',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: '',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -88,9 +92,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest003 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 1000,
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 1000,
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -119,9 +125,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest004 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 1000000000000000000000000000000000000000000000000000000000,
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 1000000000000000000000000000000000000000000000000000000000,
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -150,9 +158,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: -1,
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: -1,
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -181,17 +191,19 @@ CameraProfileAbnormalTest.zoomAbnormalTest006 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -220,17 +232,19 @@ CameraProfileAbnormalTest.zoomAbnormalTest007 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -259,17 +273,19 @@ CameraProfileAbnormalTest.zoomAbnormalTest008 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -298,8 +314,10 @@ CameraProfileAbnormalTest.zoomAbnormalTest009 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -328,9 +346,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest010 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 'test'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'test'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -359,9 +379,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest011 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -390,9 +412,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest012 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 1000
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 1000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -421,9 +445,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest013 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 1000000000000000000000000000000000000000000000000000000000
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 1000000000000000000000000000000000000000000000000000000000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -452,9 +478,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest014 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -483,17 +511,19 @@ CameraProfileAbnormalTest.zoomAbnormalTest015 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-    'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -523,17 +553,19 @@ CameraProfileAbnormalTest.zoomAbnormalTest016 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg' +
-    'abcdefgabcdefgabcdefgabcdefg'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg' +
+      'abcdefgabcdefgabcdefgabcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -562,17 +594,19 @@ CameraProfileAbnormalTest.zoomAbnormalTest017 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-    '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -601,8 +635,10 @@ CameraProfileAbnormalTest.zoomAbnormalTest018 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -631,7 +667,9 @@ CameraProfileAbnormalTest.zoomAbnormalTest019 = function(assert) {
   sdk.put({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -660,9 +698,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest020 = function(assert) {
   sdk.post({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -691,9 +731,11 @@ CameraProfileAbnormalTest.zoomAbnormalTest021 = function(assert) {
   sdk.delete({
     profile: 'camera',
     attribute: 'zoom',
-    serviceId: getCurrentServiceId(),
-    direction: 'in',
-    movement: 'start'
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'start'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

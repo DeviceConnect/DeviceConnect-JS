@@ -26,7 +26,9 @@ AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest001 = func
   let done = assert.async();
   sdk.put({
     profile: 'atmosphericPressure',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,7 +56,9 @@ AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest002 = func
   let done = assert.async();
   sdk.post({
     profile: 'atmosphericPressure',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -82,7 +86,9 @@ AtmosphericPressureProfileAbnormalTest.atmosphericPressureAbnormalTest003 = func
   let done = assert.async();
   sdk.delete({
     profile: 'atmosphericPressure',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

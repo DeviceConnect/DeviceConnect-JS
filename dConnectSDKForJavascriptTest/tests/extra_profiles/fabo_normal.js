@@ -27,7 +27,9 @@ FaBoProfileNormalTest.getFaBoServiceNormalTest001 = function(assert) {
   sdk.get({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.services != undefined, 'services=' + JSON.stringify(json.services));
@@ -58,8 +60,10 @@ FaBoProfileNormalTest.postFaBoServiceNormalTest001 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    name: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      name: 'TEST'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -88,9 +92,11 @@ FaBoProfileNormalTest.putFaBoServiceNormalTest001 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      name: 'TEST UPDATE'
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        name: 'TEST UPDATE'
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
     }).catch(e => {
@@ -125,8 +131,10 @@ FaBoProfileNormalTest.deleteFaBoServiceNormalTest001 = function(assert) {
     sdk.delete({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      vid: vid
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       done();
@@ -160,8 +168,10 @@ FaBoProfileNormalTest.getFaBoProfileNormalTest001 = function(assert) {
     sdk.get({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      vid: vid
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
     }).catch(e => {
@@ -197,10 +207,12 @@ FaBoProfileNormalTest.postFaBoServiceNormalTest001 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      type: 1,
-      pins: 'D2'
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        type: 1,
+        pins: 'D2'
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
     }).catch(e => {
@@ -235,10 +247,12 @@ FaBoProfileNormalTest.putFaBoProfileNormalTest001 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'profile',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      type: 1,
-      pins: 'D2,D3'
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        type: 1,
+        pins: 'D2,D3'
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
     }).catch(e => {
@@ -273,9 +287,11 @@ FaBoProfileNormalTest.deleteFaBoServiceNormalTest001 = function(assert) {
     sdk.delete({
       profile: 'fabo',
       attribute: 'profile',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      type: 1
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        type: 1
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
     }).catch(e => {

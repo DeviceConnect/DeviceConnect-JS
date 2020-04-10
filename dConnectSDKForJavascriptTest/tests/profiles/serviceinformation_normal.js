@@ -23,11 +23,12 @@ let ServiceInformationProfileNormalTest = {};
  * </p>
  */
 ServiceInformationProfileNormalTest.serviceInformationTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.serviceInformation.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'version=' + json.version);

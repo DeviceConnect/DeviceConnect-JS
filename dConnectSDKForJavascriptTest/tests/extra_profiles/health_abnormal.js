@@ -28,7 +28,9 @@ HealthProfileAbnormalTest.heartAbormalTest = function (assert) {
   sdk.post({
     profile: 'health',
     attribute: 'heart',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,7 +58,9 @@ HealthProfileAbnormalTest.onHeartAbormalTest = function (assert) {
   sdk.post({
     profile: 'health',
     attribute: 'onHeart',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

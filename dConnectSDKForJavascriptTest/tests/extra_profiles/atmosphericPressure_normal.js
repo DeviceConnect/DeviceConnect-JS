@@ -26,7 +26,9 @@ AtmosphericPressureProfileNormalTest.atmosphericPressureNormalTest001 = function
   let done = assert.async();
   sdk.put({
     profile: 'atmosphericPressure',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'atmosphericPressure=' + json.atmosphericPressure);

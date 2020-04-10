@@ -26,9 +26,11 @@ TVProfileNormalTest.powerStatusNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.get({
     profile: 'tv',
-    serviceId: getCurrentServiceId(),
-    epc: '128',
-    value: '0.5'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '0.5'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -57,7 +59,9 @@ TVProfileNormalTest.powerOnNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: 'tv',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -85,7 +89,9 @@ TVProfileNormalTest.powerOffNormalTest001 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: 'tv',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -116,8 +122,10 @@ TVProfileNormalTest.changeChannelNormalTest001 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '1'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '1'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -146,8 +154,10 @@ TVProfileNormalTest.changeChannelNormalTest002 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '2'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '2'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -177,8 +187,10 @@ TVProfileNormalTest.changeChannelNormalTest003 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '3'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '3'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -209,8 +221,10 @@ TVProfileNormalTest.changeChannelNormalTest004 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '4'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '4'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -240,8 +254,10 @@ TVProfileNormalTest.changeChannelNormalTest005 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '5'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '5'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -271,8 +287,10 @@ TVProfileNormalTest.changeChannelNormalTest006 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '6'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '6'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -303,8 +321,10 @@ TVProfileNormalTest.changeChannelNormalTest007 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '7'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '7'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -334,8 +354,10 @@ TVProfileNormalTest.changeChannelNormalTest008 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '8'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '8'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -364,8 +386,10 @@ TVProfileNormalTest.changeChannelNormalTest009 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '9'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '9'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -395,8 +419,10 @@ TVProfileNormalTest.changeChannelNormalTest010 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '10'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '10'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -426,8 +452,10 @@ TVProfileNormalTest.changeChannelNormalTest011 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '11'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '11'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -457,8 +485,10 @@ TVProfileNormalTest.changeChannelNormalTest012 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    tuning: '12'
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '12'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -488,8 +518,10 @@ TVProfileNormalTest.changeChannelNormalTest013 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    control: 'next'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'next'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -518,8 +550,10 @@ TVProfileNormalTest.changeChannelNormalTest014 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'channel',
-    serviceId: getCurrentServiceId(),
-    control: 'previous'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'previous'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -548,8 +582,10 @@ TVProfileNormalTest.changeVolumeNormalTest001 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'up'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'up'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -579,8 +615,10 @@ TVProfileNormalTest.changeVolumeNormalTest002 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'volume',
-    serviceId: getCurrentServiceId(),
-    control: 'down'
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'down'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -611,8 +649,10 @@ TVProfileNormalTest.changeBroadcastwaveNormalTest001 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'DTV'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'DTV'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -642,8 +682,10 @@ TVProfileNormalTest.changeBroadcastwaveNormalTest002 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'BS'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'BS'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -674,8 +716,10 @@ TVProfileNormalTest.changeBroadcastwaveNormalTest003 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'broadcastwave',
-    serviceId: getCurrentServiceId(),
-    select: 'CS'
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'CS'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -705,7 +749,9 @@ TVProfileNormalTest.muteOnNormalTest001 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'mute',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -735,7 +781,9 @@ TVProfileNormalTest.muteOffNormalTest001 = function(assert) {
   sdk.delete({
     profile: 'tv',
     attribute: 'mute',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -767,8 +815,10 @@ TVProfileNormalTest.getEchonetLitePropertyNormalTest001 = function(assert) {
   sdk.get({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId,
-    epc: '128,129'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128,129'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -798,9 +848,11 @@ TVProfileNormalTest.setEchonetLitePropertyNormalTest001 = function(assert) {
   sdk.put({
     profile: 'tv',
     attribute: 'enlproperty',
-    serviceId: getCurrentServiceId,
-    epc: '128',
-    value: '49'
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '49'
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

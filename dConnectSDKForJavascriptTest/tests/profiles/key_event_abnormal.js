@@ -24,12 +24,13 @@ let KeyEventProfileAbnormalTest = {};
  * </p>
  */
 KeyEventProfileAbnormalTest.ondownAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
     attribute: dConnectSDK.constants.keyEvent.ATTR_ON_DOWN,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,12 +55,13 @@ QUnit.test('ondownAbnormalTest001(post)', KeyEventProfileAbnormalTest.ondownAbno
  * </p>
  */
 KeyEventProfileAbnormalTest.onupAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
     attribute: dConnectSDK.constants.keyEvent.ATTR_ON_UP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -85,12 +87,13 @@ QUnit.test('onupAbnormalTest001(post)', KeyEventProfileAbnormalTest.onupAbnormal
  * </p>
  */
 KeyEventProfileAbnormalTest.onkeychangeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
     attribute: dConnectSDK.constants.keyEvent.ATTR_ON_KEY_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

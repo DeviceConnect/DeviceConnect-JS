@@ -25,11 +25,12 @@ let DeviceOrientationProfileNormalTest = {};
  * </p>
  */
 DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.deviceOrientation.PROFILE_NAME,
     attribute: dConnectSDK.constants.deviceOrientation.ATTR_ON_DEVICE_ORIENTATION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -58,12 +59,13 @@ QUnit.test('ondeviceorientationNormalTest001', DeviceOrientationProfileNormalTes
  * </p>
  */
 DeviceOrientationProfileNormalTest.ondeviceorientationNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.deviceOrientation.PROFILE_NAME,
     attribute: dConnectSDK.constants.deviceOrientation.ATTR_ON_DEVICE_ORIENTATION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();

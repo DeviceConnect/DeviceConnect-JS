@@ -29,7 +29,9 @@ ECGProfileNormalTest.ecgNormalTest = function (assert) {
   sdk.get({
     profile: 'ecg',
     attribute: 'onECG',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, "result=" + json.result);
     assert.ok((json.ecg != undefined && json.ecg.value >= 0), "ecg=" +  json);
@@ -56,11 +58,12 @@ QUnit.test("ecg", ECGProfileNormalTest.ecgNormalTest);
  * </p>
  */
 ECGProfileNormalTest.ecgEventNormalTest001 = function (assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'ecg',
     attribute: 'onECG',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
         let json = JSON.parse(message);

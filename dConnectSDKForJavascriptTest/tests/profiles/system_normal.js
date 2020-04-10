@@ -59,7 +59,9 @@ SystemProfileNormalTest.systemWakeupTest001 = function(assert) {
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
     attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
-    pluginId: pluginId
+    params: {
+      pluginId: pluginId
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();

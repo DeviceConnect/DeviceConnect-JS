@@ -27,7 +27,6 @@ SettingProfileNormalTest.volumeNormalTest001 = function(assert) {
   let testKind = new Array(1, 2, 3, 4, 5, 6);
   let testKindName = new Array('alarm', 'call', 'calling', 'mail', 'media player', 'other');
   let count = 0;
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   let testFunc = (count) => {
     if (count == testKind.length) {
@@ -37,8 +36,10 @@ SettingProfileNormalTest.volumeNormalTest001 = function(assert) {
         profile: dConnectSDK.constants.setting.PROFILE_NAME,
         interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
         attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-        serviceId: serviceId,
-        kind: testKind[count]
+        params: {
+          serviceId: getCurrentServiceId(),
+          kind: testKind[count]
+        }
       }).then(json => {
         assert.ok(true, 'result=' + json.result + ' kind=' + testKindName[count]);
         assert.ok(json.level >= 0 && json.level <= 1.0, 'level=' + json.level);
@@ -71,7 +72,6 @@ SettingProfileNormalTest.volumeNormalTest002 = function(assert) {
   let testKindName = new Array('alarm', 'call', 'calling', 'mail', 'media player', 'other');
   let count = 0;
   let volume = 1;
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   let testFunc = (count) => {
     if (count == testKind.length) {
@@ -81,17 +81,21 @@ SettingProfileNormalTest.volumeNormalTest002 = function(assert) {
         profile: dConnectSDK.constants.setting.PROFILE_NAME,
         interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
         attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-        serviceId: serviceId,
-        kind: testKind[count],
-        level: volume
+        params: {
+          serviceId: getCurrentServiceId(),
+          kind: testKind[count],
+          level: volume
+        }
       }).then(json => {
         assert.ok(true, 'put ok. result=' + json.result + ' kind=' + testKindName[count]);
         sdk.get({
           profile: dConnectSDK.constants.setting.PROFILE_NAME,
           interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
           attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
-          serviceId: serviceId,
-          kind: testKind[count]
+          params: {
+            serviceId: getCurrentServiceId(),
+            kind: testKind[count]
+          }
         }).then(json => {
           assert.ok(true, 'get ok. result=' + json.result + ' kind=' + testKindName[count]);
           assert.ok(json.level == volume, 'level=' + json.level);
@@ -126,12 +130,13 @@ QUnit.test('volumeNormalTest002(put)', SettingProfileNormalTest.volumeNormalTest
  * </p>
  */
 SettingProfileNormalTest.dateNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     attribute: dConnectSDK.constants.setting.ATTR_DATE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.date !== undefined, 'date=' + json.date);
@@ -157,13 +162,14 @@ QUnit.test('dateNormalTest001(get)', SettingProfileNormalTest.dateNormalTest001)
  * </p>
  */
 SettingProfileNormalTest.dateNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     attribute: dConnectSDK.constants.setting.ATTR_DATE,
-    serviceId: serviceId,
-    date: createCurrentDateString()
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: createCurrentDateString()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.date !== undefined, 'date=' + json.date);
@@ -190,13 +196,14 @@ QUnit.test('dateNormalTest002(put)', SettingProfileNormalTest.dateNormalTest002)
  * </p>
  */
 SettingProfileNormalTest.brightnessNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.level != undefined, 'level=' + json.level);
@@ -222,21 +229,24 @@ QUnit.test('brightnessNormalTest001(get)', SettingProfileNormalTest.brightnessNo
  * </p>
  */
 SettingProfileNormalTest.brightnessNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-    serviceId: serviceId,
-    level: 0.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: 0.5
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     sdk.get({
       profile: dConnectSDK.constants.setting.PROFILE_NAME,
       interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
       attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       assert.ok(true, 'result=' + json.result);
       assert.ok(json.level != undefined, 'level=' + json.level);
@@ -267,13 +277,14 @@ QUnit.test('brightnessNormalTest002(put)', SettingProfileNormalTest.brightnessNo
  * </p>
  */
 SettingProfileNormalTest.sleepNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.time != undefined, 'time=' + json.time);
@@ -300,21 +311,24 @@ QUnit.test('sleepNormalTest001(get)', SettingProfileNormalTest.sleepNormalTest00
  */
 SettingProfileNormalTest.sleepNormalTest002 = function(assert) {
   let sleep = 50000 + Math.floor(Math.random() * 10000);
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.setting.PROFILE_NAME,
     interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
     attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-    serviceId: serviceId,
-    time: sleep
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: sleep
+    }
   }).then(json => {
     assert.ok(true, 'put ok. result=' + json.result + ' time=[' + sleep + ']');
     sdk.get({
       profile: dConnectSDK.constants.setting.PROFILE_NAME,
       interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
       attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       assert.ok(true, 'get ok. result=' + json.result);
       done();

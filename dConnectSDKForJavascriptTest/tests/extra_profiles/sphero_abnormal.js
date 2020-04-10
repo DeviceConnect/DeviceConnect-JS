@@ -29,7 +29,9 @@ SpheroProfileAbnormalTest.onQuaternionAbnormalTest001 = function(assert) {
     profile: 'sphero',
     interface: 'quaternion',
     attribute: 'onquaternion',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -60,7 +62,9 @@ SpheroProfileAbnormalTest.onLocatorAbnormalTest001 = function(assert) {
     profile: 'sphero',
     interface: 'locator',
     attribute: 'onlocator',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -91,7 +95,9 @@ SpheroProfileAbnormalTest.onCollisionAbnormalTest001 = function(assert) {
     profile: 'sphero',
     interface: 'collision',
     attribute: 'oncollision',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

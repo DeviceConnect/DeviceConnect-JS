@@ -26,7 +26,9 @@ BatteryProfileAbnormalTest.allAbnormalTest001 = function(assert) {
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,7 +56,9 @@ BatteryProfileAbnormalTest.allAbnormalTest002 = function(assert) {
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -82,7 +86,9 @@ BatteryProfileAbnormalTest.allAbnormalTest003 = function(assert) {
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -111,7 +117,9 @@ BatteryProfileAbnormalTest.levelAbnormalTest001 = function(assert) {
   sdk.put({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_LEVEL,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -140,7 +148,9 @@ BatteryProfileAbnormalTest.levelAbnormalTest002 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_LEVEL,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -169,7 +179,9 @@ BatteryProfileAbnormalTest.levelAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_LEVEL,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -198,7 +210,9 @@ BatteryProfileAbnormalTest.chargingTimeAbnormalTest001 = function(assert) {
   sdk.put({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -227,7 +241,9 @@ BatteryProfileAbnormalTest.chargingTimeAbnormalTest002 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -256,7 +272,9 @@ BatteryProfileAbnormalTest.chargingTimeAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -285,7 +303,9 @@ BatteryProfileAbnormalTest.dischargingTimeAbnormalTest001 = function(assert) {
   sdk.put({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -314,7 +334,9 @@ BatteryProfileAbnormalTest.dischargingTimeAbnormalTest002 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -343,7 +365,9 @@ BatteryProfileAbnormalTest.dischargingTimeAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_DISCHARGING_TIME,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -372,7 +396,9 @@ BatteryProfileAbnormalTest.batteryAbnormalTest001 = function(assert) {
   sdk.put({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -401,7 +427,9 @@ BatteryProfileAbnormalTest.batteryAbnormalTest002 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -429,7 +457,9 @@ BatteryProfileAbnormalTest.batteryAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_CHARGING,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -459,7 +489,9 @@ BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest001 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_ON_BATTERY_CHANGE,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -489,7 +521,9 @@ BatteryProfileAbnormalTest.onBatteryChangeAbnormalTest002 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_ON_BATTERY_CHANGE,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -519,7 +553,9 @@ BatteryProfileAbnormalTest.onChargingChangeAbnormalTest001 = function(assert) {
   sdk.post({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_ON_CHARGING_CHANGE,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -549,7 +585,9 @@ BatteryProfileAbnormalTest.onChargingChangeAbnormalTest002 = function(assert) {
   sdk.get({
     profile: dConnectSDK.constants.battery.PROFILE_NAME,
     attribute: dConnectSDK.constants.battery.ATTR_ON_CHARGING_CHANGE,
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

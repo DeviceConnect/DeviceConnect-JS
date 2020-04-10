@@ -23,12 +23,13 @@ let ProximityProfileAbnormalTest = {};
  * </p>
  */
 ProximityProfileAbnormalTest.onDeviceProximityAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.proximity.PROFILE_NAME,
     attribute: dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -52,12 +53,13 @@ QUnit.test('onDeviceProximityAbnormalTest001', ProximityProfileAbnormalTest.onDe
  * </p>
  */
 ProximityProfileAbnormalTest.onUserProximityAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.proximity.PROFILE_NAME,
     attribute: dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

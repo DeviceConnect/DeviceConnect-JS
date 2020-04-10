@@ -25,11 +25,12 @@ let GeolocationProfileNormalTest = {};
  * </p>
  */
 GeolocationProfileNormalTest.onwatchpositionNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_ON_WATCH_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -58,12 +59,13 @@ QUnit.test('onwatchpositionNormalTest001', GeolocationProfileNormalTest.onwatchp
  * </p>
  */
 GeolocationProfileNormalTest.currentpositionNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
     attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'json: ' + JSON.stringify(json));
     done();

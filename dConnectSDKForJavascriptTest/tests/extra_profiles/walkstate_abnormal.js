@@ -28,7 +28,9 @@ WalkStateProfileAbnormalTest.walkAbormalTest = function (assert) {
   sdk.post({
     profile: 'walkState',
     attribute: 'onWalkState',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

@@ -23,11 +23,12 @@ let TouchProfileNormalTest = {};
  * </p>
  */
 TouchProfileNormalTest.onTouchNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -54,11 +55,12 @@ QUnit.test('onTouchNormalTest001', TouchProfileNormalTest.onTouchNormalTest001);
  * </p>
  */
 TouchProfileNormalTest.onTouchStartNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_START,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -85,11 +87,12 @@ QUnit.test('onTouchStartNormalTest001', TouchProfileNormalTest.onTouchStartNorma
  * </p>
  */
 TouchProfileNormalTest.onTouchEndNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_END,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -116,11 +119,12 @@ QUnit.test('onTouchEndNormalTest001', TouchProfileNormalTest.onTouchEndNormalTes
  * </p>
  */
 TouchProfileNormalTest.onDoubleTapNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_DOUBLE_TAP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -147,11 +151,12 @@ QUnit.test('onDoubleTapNormalTest001', TouchProfileNormalTest.onDoubleTapNormalT
  * </p>
  */
 TouchProfileNormalTest.onTouchMoveNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_MOVE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -178,11 +183,12 @@ QUnit.test('onTouchMoveNormalTest001', TouchProfileNormalTest.onTouchMoveNormalT
  * </p>
  */
 TouchProfileNormalTest.onTouchCancelNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_CANCEL,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);
@@ -210,11 +216,12 @@ QUnit.test('onTouchCancelNormalTest001',
  * </p>
  */
 TouchProfileNormalTest.onTouchChangeNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.touch.PROFILE_NAME,
     attribute: dConnectSDK.constants.touch.ATTR_ON_TOUCH_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 5000, message => {
     let json = JSON.parse(message);

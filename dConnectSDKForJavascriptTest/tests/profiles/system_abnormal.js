@@ -24,11 +24,12 @@ let SystemProfileAbnormalTest = {};
  * </p>
  */
 SystemProfileAbnormalTest.systemAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,11 +55,12 @@ QUnit.test('systemAbnormalTest001(put)', SystemProfileAbnormalTest.systemAbnorma
  * </p>
  */
 SystemProfileAbnormalTest.systemAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -83,11 +85,12 @@ QUnit.test('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemAbnorm
  * </p>
  */
 SystemProfileAbnormalTest.systemAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -112,12 +115,13 @@ QUnit.test('systemAbnormalTest003(DELETE)', SystemProfileAbnormalTest.systemAbno
  * </p>
  */
 SystemProfileAbnormalTest.systemDeviceAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     attribute: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -143,12 +147,13 @@ QUnit.test('systemDeviceAbnormalTest(put)',
  * </p>
  */
 SystemProfileAbnormalTest.systemDeviceAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     attribute: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -173,12 +178,13 @@ QUnit.test('systemAbnormalTest002(post)', SystemProfileAbnormalTest.systemDevice
  * </p>
  */
 SystemProfileAbnormalTest.systemDeviceAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     attribute: dConnectSDK.constants.system.INTERFACE_DEVICE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -210,7 +216,9 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest001 = function(assert) {
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
     attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
-    pluginId: pluginId
+    params: {
+      pluginId: pluginId
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -241,7 +249,9 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest002 = function(assert) {
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
     attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
-    pluginId: pluginId
+    params: {
+      pluginId: pluginId
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -272,7 +282,9 @@ SystemProfileAbnormalTest.systemWakeupAbnormalTest003 = function(assert) {
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
     attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
-    pluginId: pluginId
+    params: {
+      pluginId: pluginId
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -297,12 +309,13 @@ QUnit.test('systemWakeupAbnormalTest003(delete)',
  * </p>
  */
 SystemProfileAbnormalTest.onEventsAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     attribute: dConnectSDK.constants.system.ATTRI_EVENTS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -327,12 +340,13 @@ QUnit.test('onEventsAbnormalTest001(Calling a delete method that does not suppor
  * </p>
  */
 SystemProfileAbnormalTest.onEventsAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.system.PROFILE_NAME,
     attribute: dConnectSDK.constants.system.ATTRI_EVENTS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

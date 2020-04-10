@@ -25,11 +25,12 @@ let HumanDetectProfileNormalTest = {};
 HumanDetectProfileNormalTest.onDetectionNormalTest001 = function(assert) {
   let PROFILE_NAME = 'humandetect';
   let ATTR_ON_DETECTION = 'ondetection';
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: PROFILE_NAME,
     attribute: ATTR_ON_DETECTION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -58,11 +59,12 @@ QUnit.test('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionN
 HumanDetectProfileNormalTest.onBodyDetectionNormalTest001 = function(assert) {
   let PROFILE_NAME = 'humandetect';
   let ATTR_ON_BODY_DETECTION = 'onbodydetection';
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: PROFILE_NAME,
     attribute: ATTR_ON_BODY_DETECTION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -90,11 +92,12 @@ QUnit.test('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onBodyDe
 HumanDetectProfileNormalTest.onHandDetectionNormalTest001 = function(assert) {
   let PROFILE_NAME = 'humandetect';
   let ATTR_ON_HAND_DETECTION = 'onhanddetection';
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: PROFILE_NAME,
     attribute: ATTR_ON_HAND_DETECTION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -122,11 +125,12 @@ QUnit.test('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onHandDe
 HumanDetectProfileNormalTest.onFaceDetectionNormalTest001 = function(assert) {
   let PROFILE_NAME = 'humandetect';
   let ATTR_ON_FACE_DETECTION = 'onfacedetection';
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: PROFILE_NAME,
     attribute: ATTR_ON_FACE_DETECTION,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);

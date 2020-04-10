@@ -30,18 +30,17 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest001 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest001');
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -70,7 +69,9 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest002 = function(assert) {
   sdk.get({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
     attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -99,20 +100,17 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest003 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest003');
-
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 100);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 100,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -140,17 +138,17 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest004 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest004');
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', '100');
-  formData.append('data', blob);
   let done = assert.async();
-
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: '100',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -178,18 +176,17 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest005 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest005');
-
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'あいうえお');
-  formData.append('data', blob);
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'あいうえお',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -217,19 +214,17 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest006 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest006');
-
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'abcdefg');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'abcdefg',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -257,20 +252,17 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest007 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest007');
-
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', '!"#$%&\'()-^¥@[;:],./__?<}*+{`|~=');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: '!"#$%&\'()-^¥@[;:],./__?<}*+{`|~=',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -298,22 +290,19 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest008 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest008');
-
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 'あいうえお');
-  formData.append('y', 0);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 'あいうえお',
+      y: 0,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -342,21 +331,19 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest009 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest009');
-
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 'abcdefg');
-  formData.append('y', 0);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 'abcdefg',
+      y: 0,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -384,21 +371,19 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest010 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest010');
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-  formData.append('y', 0);
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      y: 0,
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -426,21 +411,19 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest011 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest011');
-
-  let serviceId = getCurrentServiceId();
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 0);
-  formData.append('y', 'あいうえお');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 0,
+      y: 'あいうえお',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -468,22 +451,19 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest012 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest012');
-
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 0);
-  formData.append('y', 'abcdefg');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 0,
+      y: 'abcdefg',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -511,22 +491,19 @@ CanvasProfileAbnormalTest.drawImageAbnormalTest013 = function(assert) {
   img.style.visibility = 'visible';
 
   let blob = draw('drawImageAbnormalTest013');
-
-  let serviceId = getCurrentServiceId();
-
-  let formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('filename', 'test.png');
-  formData.append('mimeType', 'image/png');
-  formData.append('x', 0);
-  formData.append('y', '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-');
-  formData.append('data', blob);
-
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-  }, formData).then(json => {
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      filename: 'test.png',
+      mimeType: 'image/png',
+      x: 0,
+      y: '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-',
+      data: blob
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
   }).catch(e => {
@@ -550,13 +527,14 @@ QUnit.test('drawImageAbnormalTest013', CanvasProfileAbnormalTest.drawImageAbnorm
  * </p>
  */
 CanvasProfileAbnormalTest.drawImageAbnormalTest014 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-    serviceId: serviceId,
-    uri: 'abcdefg'
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      uri: 'abcdefg'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -582,13 +560,14 @@ QUnit.test('drawImageAbnormalTest014', CanvasProfileAbnormalTest.drawImageAbnorm
  * </p>
  */
 CanvasProfileAbnormalTest.drawImageAbnormalTest015 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.canvas.PROFILE_NAME,
-    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE
-    serviceId: serviceId,
-    uri: '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-'
+    attribute: dConnectSDK.constants.canvas.ATTR_DRAWIMAGE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      uri: '!"#$%&\'()=~|`{+*}<>?__/.,]:;[@¥^-'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

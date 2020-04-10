@@ -27,7 +27,9 @@ DiceProfileAbnormalTest.onDiceAbnormalTest001 = function(assert) {
   sdk.post({
     profile: 'dice',
     attribute: 'ondice',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -58,7 +60,9 @@ DiceProfileAbnormalTest.onMagnetometerAbnormalTest001 = function(assert) {
     profile: 'dice',
     interface: 'magnetometer',
     attribute: 'onmagnetometer',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -88,7 +92,9 @@ DiceProfileAbnormalTest.onMagnetometerAbnormalTest002 = function(assert) {
     profile: 'dice',
     interface: 'magnetometer',
     attribute: 'onmagnetometer',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

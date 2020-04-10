@@ -27,12 +27,13 @@ let MediaStreamRecordingProfileNormalTest = {};
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.mediarecorderNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MEDIARECORDER,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.recorders !== undefined,
@@ -61,12 +62,13 @@ if (IS_TEST_STATUS != 'record') {
  *
  */
 MediaStreamRecordingProfileNormalTest.optionsNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -92,12 +94,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     let imageSizes = json.imageSizes;
@@ -108,18 +111,20 @@ MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
     let params = {
       profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_OPTIONS,
-      serviceId: serviceId,
-      mimeType: mimeType
+      params: {
+        serviceId: getCurrentServiceId(),
+        mimeType: mimeType
+      }
     };
     if (imageSizes !== undefined) {
       size = imageSizes[0];
-      params[dConnectSDK.constants.mediaStreamRecording.PARAM_IMAGE_WIDTH] = size.width;
-      params[dConnectSDK.constants.mediaStreamRecording.PARAM_IMAGE_HEIGHT] = size.height;
+      params.params[dConnectSDK.constants.mediaStreamRecording.PARAM_IMAGE_WIDTH] = size.width;
+      params.params[dConnectSDK.constants.mediaStreamRecording.PARAM_IMAGE_HEIGHT] = size.height;
     }
     if (previewSizes !== undefined) {
       size = previewSizes[0];
-      params[dConnectSDK.constants.mediaStreamRecording.PARAM_PREVIEW_WIDTH] = size.width;
-      params[dConnectSDK.constants.mediaStreamRecording.PARAM_PREVIEW_HEIGHT] = size.height;
+      params.params[dConnectSDK.constants.mediaStreamRecording.PARAM_PREVIEW_WIDTH] = size.width;
+      params.params[dConnectSDK.constants.mediaStreamRecording.PARAM_PREVIEW_HEIGHT] = size.height;
       // NOTE: The previewMaxFrameRate parameter will be tested by scenario tests.
     }
     sdk.put(params).then(json => {
@@ -154,12 +159,13 @@ if (IS_TEST_STATUS != 'record') {
 MediaStreamRecordingProfileNormalTest.takePhotoNormalTest001 = function(assert) {
   let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_TAKE_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'uri=' + json.uri);
@@ -205,12 +211,13 @@ if (IS_TEST_STATUS != 'record') {
 MediaStreamRecordingProfileNormalTest.recordNormalTest001 = function(assert) {
   let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RECORD,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'uri=' + json.uri);
@@ -219,7 +226,9 @@ MediaStreamRecordingProfileNormalTest.recordNormalTest001 = function(assert) {
       sdk.put({
         profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-        serviceId: serviceId
+        params: {
+          serviceId: getCurrentServiceId()
+        }
       }).then(json => {
         assert.ok(true, "stop ok");
         done();
@@ -253,12 +262,13 @@ if (IS_TEST_STATUS != 'picture') {
 MediaStreamRecordingProfileNormalTest.mutetrackNormalTest001 = function(assert) {
   let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_MUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -284,12 +294,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.unmutetrackNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_UNMUTETRACK,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -317,21 +328,24 @@ if (IS_TEST_STATUS != 'picture') {
 MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001 = function(assert) {
   let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   record().then(uri => {
     setTimeout(() => {
       sdk.put({
         profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
         attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PAUSE,
-        serviceId: serviceId
+        params: {
+          serviceId: getCurrentServiceId()
+        }
       }).then(json => {
         assert.ok(true, 'pause ok. result=' + json.result);
         setTimeout(() => {
           sdk.put({
             profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
             attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_RESUME,
-            serviceId: serviceId
+            params: {
+              serviceId: getCurrentServiceId()
+            }
           }).then(json => {
             assert.ok(true, 'resume ok. result=' + json.result);
             done();
@@ -339,12 +353,12 @@ MediaStreamRecordingProfileNormalTest.pauseAndResumeNormalTest001 = function(ass
             assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
             done();
           });
-        }, 1.5 * 1000);
+        }, 3 * 1000);
       }).catch(e => {
         assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
         done();
       });
-    }, 1.5 * 1000);
+    }, 3 * 1000);
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
     done();
@@ -368,14 +382,14 @@ if (IS_TEST_STATUS != 'picture') {
 MediaStreamRecordingProfileNormalTest.stopNormalTest001 = function(assert) {
   let img = document.getElementById('images');
   img.style.visibility = 'visible';
-
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   setTimeout(function(){
     sdk.put({
       profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_STOP,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       assert.ok(true, 'resume ok. result=' + json.result);
       done();
@@ -402,12 +416,13 @@ if (IS_TEST_STATUS != 'picture') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.previewNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PREVIEW,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'preview ok. result=' + json.result);
     done();
@@ -432,12 +447,13 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.previewNormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_PREVIEW,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
     done();
@@ -465,11 +481,12 @@ if (IS_TEST_STATUS != 'record') {
 MediaStreamRecordingProfileNormalTest.onPhotoNormalTest001 = function(assert) {
   let img = document.getElementById('images');
   img.style.visibility = 'visible';
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_PHOTO,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);
@@ -506,11 +523,12 @@ if (IS_TEST_STATUS != 'record') {
  * </p>
  */
 MediaStreamRecordingProfileNormalTest.onRecordingChangeNormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: dConnectSDK.constants.mediaStreamRecording.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaStreamRecording.ATTR_ON_RECORDING_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
     let json = JSON.parse(message);

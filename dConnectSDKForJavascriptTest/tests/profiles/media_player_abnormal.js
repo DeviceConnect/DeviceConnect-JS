@@ -24,12 +24,13 @@ let MediaPlayerProfileAbnormalTest = {};
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -54,12 +55,13 @@ QUnit.test('medialistAbnormalTest001(Calling a put method that does not support.
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -84,12 +86,13 @@ QUnit.test('mediaListAbnormalTest002(Calling a post method that does not support
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -114,13 +117,14 @@ QUnit.test('mediaListAbnormalTest003(Calling a delete method that does not suppo
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    order: 'desc'
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'desc'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -145,13 +149,14 @@ QUnit.test('mediaListAbnormalTest004(order is desc)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    order: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|},!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -176,13 +181,14 @@ QUnit.test('mediaListAbnormalTest005(order is special characters.)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    limit: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      limit: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -191,7 +197,8 @@ MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006 = function(assert) {
     done();
   });
 };
-QUnit.test('mediaListAbnormalTest006(limit is minus(-1))', MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006);
+QUnit.test('mediaListAbnormalTest006(limit is minus(-1))',
+      MediaPlayerProfileAbnormalTest.mediaListAbnormalTest006);
 
 /**
  * パラメータlimitに10.6を指定してメディアリストを取得するテストを行う。
@@ -206,13 +213,14 @@ QUnit.test('mediaListAbnormalTest006(limit is minus(-1))', MediaPlayerProfileAbn
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest007 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    limit: 10.6
+    params: {
+      serviceId: getCurrentServiceId(),
+      limit: 10.6
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -237,13 +245,14 @@ QUnit.test('mediaListAbnormalTest007(limit is float(10.6))',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest008 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    limit: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      limit: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -268,13 +277,14 @@ QUnit.test('mediaListAbnormalTest008(limit is string)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest010 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    offset: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      offset: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -299,13 +309,14 @@ QUnit.test('mediaListAbnormalTest010(offest is -1)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest011 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    offset: 2.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      offset: 2.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -330,13 +341,14 @@ QUnit.test('mediaListAbnormalTest011(offest is float(2.5))',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaListAbnormalTest012 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA_LIST,
-    serviceId: serviceId,
-    offset: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      offset: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -361,12 +373,13 @@ QUnit.test('mediaListAbnormalTest012(offest is string)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -390,12 +403,13 @@ QUnit.test('mediaAbnormalTest001(Calling a post method that does not support.)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -419,13 +433,14 @@ QUnit.test('mediaAbnormalTest002(Calling a delete method that does not support.)
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-    serviceId: serviceId,
-    mediaId: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      mediaId: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -449,13 +464,14 @@ QUnit.test('mediaAbnormalTest003(mediaId is empty.)', MediaPlayerProfileAbnormal
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-    serviceId: serviceId,
-    mediaId: "!\"#$%&'()-^¥@[;:],./__?><}*+{`|~="
+    params: {
+      serviceId: getCurrentServiceId(),
+      mediaId: "!\"#$%&'()-^¥@[;:],./__?><}*+{`|~="
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -480,12 +496,13 @@ QUnit.test('mediaAbnormalTest004(mediaId is specail charactors.)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -510,13 +527,14 @@ QUnit.test('mediaAbnormalTest005(mediaId is omitted)',
  * </p>
  */
 MediaPlayerProfileAbnormalTest.mediaAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MEDIA,
-    serviceId: serviceId,
-    mediaId: "media_test"
+    params: {
+      serviceId: getCurrentServiceId(),
+      mediaId: "media_test"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -546,7 +564,9 @@ MediaPlayerProfileAbnormalTest.PlayAbnormalTest001 = function(assert) {
     sdk.post({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-      serviceId: serviceId
+      params: {
+        serviceId: getCurrentServiceId()
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -579,7 +599,9 @@ MediaPlayerProfileAbnormalTest.PlayAbnormalTest002 = function(assert) {
     sdk.get({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -612,7 +634,9 @@ MediaPlayerProfileAbnormalTest.PlayAbnormalTest003 = function(assert) {
     sdk.delete({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY,
-      serviceId: serviceId
+      params: {
+        serviceId: serviceId
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -642,12 +666,13 @@ QUnit.test('PlayAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayAbnormalTes
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PauseAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -671,12 +696,13 @@ QUnit.test('PauseAbnormalTest001', MediaPlayerProfileAbnormalTest.PauseAbnormalT
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PauseAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -700,12 +726,13 @@ QUnit.test('PauseAbnormalTest002', MediaPlayerProfileAbnormalTest.PauseAbnormalT
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PauseAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_PAUSE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -729,12 +756,13 @@ QUnit.test('PauseAbnormalTest003', MediaPlayerProfileAbnormalTest.PauseAbnormalT
  * </p>
  */
 MediaPlayerProfileAbnormalTest.ResumeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -758,12 +786,13 @@ QUnit.test('ResumeAbnormalTest001', MediaPlayerProfileAbnormalTest.ResumeAbnorma
  * </p>
  */
 MediaPlayerProfileAbnormalTest.ResumeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -787,12 +816,13 @@ QUnit.test('ResumeAbnormalTest002', MediaPlayerProfileAbnormalTest.ResumeAbnorma
  * </p>
  */
 MediaPlayerProfileAbnormalTest.ResumeAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_RESUME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -816,12 +846,13 @@ QUnit.test('ResumeAbnormalTest003', MediaPlayerProfileAbnormalTest.ResumeAbnorma
  * </p>
  */
 MediaPlayerProfileAbnormalTest.StopAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -845,12 +876,13 @@ QUnit.test('StopAbnormalTest001', MediaPlayerProfileAbnormalTest.StopAbnormalTes
  * </p>
  */
 MediaPlayerProfileAbnormalTest.StopAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -874,12 +906,13 @@ QUnit.test('StopAbnormalTest002', MediaPlayerProfileAbnormalTest.StopAbnormalTes
  * </p>
  */
 MediaPlayerProfileAbnormalTest.StopAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_STOP,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -903,12 +936,13 @@ QUnit.test('StopAbnormalTest003', MediaPlayerProfileAbnormalTest.StopAbnormalTes
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -933,12 +967,13 @@ QUnit.test('PlayStatusAbnormalTest001', MediaPlayerProfileAbnormalTest.PlayStatu
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -963,12 +998,13 @@ QUnit.test('PlayStatusAbnormalTest002', MediaPlayerProfileAbnormalTest.PlayStatu
  * </p>
  */
 MediaPlayerProfileAbnormalTest.PlayStatusAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_PLAY_STATUS,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -993,13 +1029,14 @@ QUnit.test('PlayStatusAbnormalTest003', MediaPlayerProfileAbnormalTest.PlayStatu
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-    serviceId: serviceId,
-    mediaId: 'ZZZZZZZ'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mediaId: 'ZZZZZZZ'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1024,13 +1061,14 @@ QUnit.test('seekAbnormalTest001', MediaPlayerProfileAbnormalTest.seekAbnormalTes
  * </p>
  */
 MediaPlayerProfileAbnormalTest.seekAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-    serviceId: serviceId,
-    mediaId: 'ZZZZZZZ'
+    params: {
+      serviceId: getCurrentServiceId(),
+      mediaId: 'ZZZZZZZ'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1061,8 +1099,10 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest003 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: 10.5
+      params: {
+        serviceId: serviceId,
+        pos: 10.5
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -1073,7 +1113,6 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest003 = function(assert) {
       stopMedia(done);
     });
   }).catch(e => {
-    console.log(e);
     assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
     stopMedia(done);
   });
@@ -1098,8 +1137,10 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest004 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: -10
+      params: {
+        serviceId: serviceId,
+        pos: -10
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -1133,8 +1174,10 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest005 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: 100000000
+      params: {
+        serviceId: serviceId,
+        pos: 100000000
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -1168,8 +1211,10 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest006 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: 'this is a test.'
+      params: {
+        serviceId: serviceId,
+        pos: 'this is a test.'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -1203,8 +1248,10 @@ MediaPlayerProfileAbnormalTest.seekAbnormalTest007 = function(assert) {
     sdk.put({
       profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
       attribute: dConnectSDK.constants.mediaPlayer.ATTR_SEEK,
-      serviceId: serviceId,
-      pos: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+      params: {
+        serviceId: serviceId,
+        pos: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -1233,12 +1280,13 @@ QUnit.test('seekAbnormalTest007', MediaPlayerProfileAbnormalTest.seekAbnormalTes
  * </p>
  */
 MediaPlayerProfileAbnormalTest.muteAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_MUTE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1261,13 +1309,14 @@ QUnit.test('muteAbnormalTest001', MediaPlayerProfileAbnormalTest.muteAbnormalTes
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-    serviceId: serviceId,
-    volume: -1
+    params: {
+      serviceId: getCurrentServiceId(),
+      volume: -1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1290,13 +1339,14 @@ QUnit.test('volumeAbnormalTest001', MediaPlayerProfileAbnormalTest.volumeAbnorma
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-    serviceId: serviceId,
-    volume: 10
+    params: {
+      serviceId: getCurrentServiceId(),
+      volume: 10
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1320,13 +1370,14 @@ QUnit.test('volumeAbnormalTest002', MediaPlayerProfileAbnormalTest.volumeAbnorma
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-    serviceId: serviceId,
-    volume: 'this is a test.'
+    params: {
+      serviceId: getCurrentServiceId(),
+      volume: 'this is a test.'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1349,13 +1400,14 @@ QUnit.test('volumeAbnormalTest003', MediaPlayerProfileAbnormalTest.volumeAbnorma
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest004 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-    serviceId: serviceId,
-    volume: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+    params: {
+      serviceId: getCurrentServiceId(),
+      volume: "!\"#$%&'()0=~|@[';:],./_<>?_+*}`{~|}"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1378,13 +1430,14 @@ QUnit.test('volumeAbnormalTest004', MediaPlayerProfileAbnormalTest.volumeAbnorma
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest005 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-    serviceId: serviceId,
-    volume: 0.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      volume: 0.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1407,13 +1460,14 @@ QUnit.test('volumeAbnormalTest005', MediaPlayerProfileAbnormalTest.volumeAbnorma
  * ・resultに1が返ってくること。<br/>
  */
 MediaPlayerProfileAbnormalTest.volumeAbnormalTest006 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_VOLUME,
-    serviceId: serviceId,
-    volume: 0.5
+    params: {
+      serviceId: getCurrentServiceId(),
+      volume: 0.5
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1437,12 +1491,13 @@ QUnit.test('volumeAbnormalTest006', MediaPlayerProfileAbnormalTest.volumeAbnorma
  * </p>
  */
 MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.get({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_ON_STATUS_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -1466,12 +1521,13 @@ QUnit.test('onStatusChangeAbnormalTest001', MediaPlayerProfileAbnormalTest.onSta
  * </p>
  */
 MediaPlayerProfileAbnormalTest.onStatusChangeAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.mediaPlayer.PROFILE_NAME,
     attribute: dConnectSDK.constants.mediaPlayer.ATTR_ON_STATUS_CHANGE,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

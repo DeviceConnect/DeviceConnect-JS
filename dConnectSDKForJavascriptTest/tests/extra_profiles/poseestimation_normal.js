@@ -25,29 +25,13 @@ let PoseEstimationProfileNormalTest = {};
  * </p>
  */
 PoseEstimationProfileNormalTest.poseNormalTest = function (assert) {
-  let accessToken = getCurrentAccessToken();
-  let serviceId = getCurrentServiceId();
-  let builder = new dConnectSDK.URIBuilder();
-  builder.setProfile("poseEstimation");
-  builder.setAttribute("onPoseEstimation");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  let uri = builder.build();
-  dConnectSDK.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok(json.pose != undefined, "pose=" + json.pose);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
-  });
   let done = assert.async();
   sdk.get({
     profile: 'poseEstimation',
     attribute: 'onPoseEstimation',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, "result=" + json.result);
     assert.ok(json.pose != undefined, "pose=" + json.pose);
@@ -74,11 +58,12 @@ QUnit.test("pose", PoseEstimationProfileNormalTest.poseNormalTest);
  * </p>
  */
 PoseEstimationProfileNormalTest.poseEventNormalTest001 = function (assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: 'poseEstimation',
     attribute: 'onPoseEstimation',
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
         let json = JSON.parse(message);

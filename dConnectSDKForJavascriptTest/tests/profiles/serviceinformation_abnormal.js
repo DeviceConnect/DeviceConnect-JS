@@ -23,11 +23,12 @@ let ServiceInformationProfileAbnormalTest = {};
  * </p>
  */
 ServiceInformationProfileAbnormalTest.serviceInformationAbnormalTest001 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.post({
     profile: dConnectSDK.constants.serviceInformation.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -53,11 +54,12 @@ QUnit.test('serviceInformationAbnormalTest001(post)',
  * </p>
  */
 ServiceInformationProfileAbnormalTest.serviceInformationAbnormalTest002 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.put({
     profile: dConnectSDK.constants.serviceInformation.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -82,11 +84,12 @@ QUnit.test('serviceInformationAbnormalTest002(put)',
  * </p>
  */
 ServiceInformationProfileAbnormalTest.serviceInformationAbnormalTest003 = function(assert) {
-  let serviceId = getCurrentServiceId();
   let done = assert.async();
   sdk.delete({
     profile: dConnectSDK.constants.serviceInformation.PROFILE_NAME,
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();

@@ -29,7 +29,9 @@ HealthProfileNormalTest.heartNormalTest = function (assert) {
   sdk.get({
     profile: 'health',
     attribute: 'heart',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, "result=" + json.result);
     assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
@@ -56,11 +58,12 @@ QUnit.test("heart", HealthProfileNormalTest.heartNormalTest);
  * </p>
  */
 HealthProfileNormalTest.heartEventNormalTest001 = function (assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: "health",
     attribute: "heart",
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
         let json = JSON.parse(message);
@@ -94,7 +97,9 @@ HealthProfileNormalTest.onheartNormalTest = function (assert) {
   sdk.get({
     profile: 'health',
     attribute: 'onHeart',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(true, "result=" + json.result);
     assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
@@ -121,11 +126,12 @@ QUnit.test("onHeart", HealthProfileNormalTest.onheartNormalTest);
  * </p>
  */
 HealthProfileNormalTest.onheartEventNormalTest001 = function (assert) {
-  let serviceId = getCurrentServiceId();
   let params = {
     profile: "health",
     attribute: "onHeart",
-    serviceId: serviceId
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   };
   openWebsocket(params, assert, 10000, message => {
         let json = JSON.parse(message);

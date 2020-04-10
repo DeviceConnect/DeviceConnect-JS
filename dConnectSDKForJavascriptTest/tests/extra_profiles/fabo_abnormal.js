@@ -27,7 +27,9 @@ FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest001 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -56,8 +58,10 @@ FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest002 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      name: "0123456789012345678901234567890123"
+      params: {
+        serviceId: getCurrentServiceId(),
+        name: "0123456789012345678901234567890123"
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -86,8 +90,10 @@ FaBoProfileAbnormalTest.postFaBoServiceAbnormalTest003 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'service',
-      serviceId: getCurrentServiceId(),
-      name: ""
+      params: {
+        serviceId: getCurrentServiceId(),
+        name: ""
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
       done();
@@ -117,8 +123,10 @@ FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest001 = function(assert) {
   sdk.put({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    name: "TEST"
+    params: {
+      serviceId: getCurrentServiceId(),
+      name: "TEST"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -146,8 +154,10 @@ FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest002 = function(assert) {
   sdk.put({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    vid: "mouse_service_id"
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: "mouse_service_id"
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -175,9 +185,11 @@ FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest003 = function(assert) {
   sdk.put({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    vid: "mouse_service_id",
-    name: '0123456789012345678901234567890123'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: "mouse_service_id",
+      name: '0123456789012345678901234567890123'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -206,9 +218,11 @@ FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest004 = function(assert) {
   sdk.put({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    vid: "mouse_service_id",
-    name: ''
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: "mouse_service_id",
+      name: ''
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -238,9 +252,11 @@ FaBoProfileAbnormalTest.putFaBoServiceAbnormalTest005 = function(assert) {
   sdk.put({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    vid: "001",
-    name: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: "001",
+      name: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -268,7 +284,9 @@ FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest001 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -297,8 +315,10 @@ FaBoProfileAbnormalTest.deleteFaBoServiceAbnormalTest002 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'service',
-    serviceId: getCurrentServiceId(),
-    vid: '001'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: '001'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -328,7 +348,9 @@ FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest001 = function(assert) {
   sdk.get({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -359,8 +381,10 @@ FaBoProfileAbnormalTest.getFaBoProfileAbnormalTest002 = function(assert) {
   sdk.get({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: '001'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: '001'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -390,7 +414,9 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest001 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -421,8 +447,10 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest002 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: '001'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: '001'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -452,9 +480,11 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest003 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id',
-    type: 111111
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id',
+      type: 111111
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -484,9 +514,11 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest004 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id',
-    type: 1
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id',
+      type: 1
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -515,10 +547,12 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest005 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id',
-    type: 1,
-    pins: '1000'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id',
+      type: 1,
+      pins: '1000'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -548,10 +582,12 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest007 = function(assert) {
   sdk.post({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id',
-    type: 1,
-    pins: 'test'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id',
+      type: 1,
+      pins: 'test'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -582,10 +618,12 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest008 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'profile',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      type: 3,
-      pins: 'D2'
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        type: 3,
+        pins: 'D2'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -620,10 +658,12 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest009 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'profile',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      type: 2,
-      pins: 'A1,A2'
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        type: 2,
+        pins: 'A1,A2'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -659,10 +699,12 @@ FaBoProfileAbnormalTest.postFaBoProfileAbnormalTest010 = function(assert) {
     sdk.post({
       profile: 'fabo',
       attribute: 'profile',
-      serviceId: getCurrentServiceId(),
-      vid: vid,
-      type: 2,
-      pins: 'D4'
+      params: {
+        serviceId: getCurrentServiceId(),
+        vid: vid,
+        type: 2,
+        pins: 'D4'
+      }
     }).then(json => {
       assert.ok(false, 'json: ' + JSON.stringify(json));
     }).catch(e => {
@@ -696,7 +738,9 @@ FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest001 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId()
+    params: {
+      serviceId: getCurrentServiceId()
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -725,8 +769,10 @@ FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest002 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: '001'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: '001'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -755,8 +801,10 @@ FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest003 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -785,9 +833,11 @@ FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id',
-    type: 1000
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id',
+      type: 1000
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
@@ -817,9 +867,11 @@ FaBoProfileAbnormalTest.deleteFaBoProfileAbnormalTest004 = function(assert) {
   sdk.delete({
     profile: 'fabo',
     attribute: 'profile',
-    serviceId: getCurrentServiceId(),
-    vid: 'mouse_service_id',
-    type: 'TEST'
+    params: {
+      serviceId: getCurrentServiceId(),
+      vid: 'mouse_service_id',
+      type: 'TEST'
+    }
   }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
     done();
