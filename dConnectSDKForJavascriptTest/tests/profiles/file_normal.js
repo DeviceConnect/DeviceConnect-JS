@@ -740,10 +740,12 @@ FileProfileNormalTest.removeNormalTest001 = function(assert) {
         done();
       }).catch(e => {
         assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        removeFile('/rm_test.jpg').then(json =>{}).catch(e => {});
         done();
       });
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    removeFile('/rm_test.jpg').then(json =>{}).catch(e => {});
     done();
   });
 
@@ -848,10 +850,9 @@ FileProfileNormalTest.mkdirNormalTest002 = function(assert) {
     }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    rmdir('dir2').then(json =>{}).catch(e => {});
-    done();
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+  }).finally(() => {
     rmdir('dir2').then(json =>{}).catch(e => {});
     done();
   });
@@ -870,27 +871,31 @@ QUnit.test('mkdirNormalTest002', FileProfileNormalTest.mkdirNormalTest002);
  * ・resultに0が返ってくること。<br />
  * </p>
  */
-FileProfileNormalTest.rmdirNormalTest002 = function(assert) {
+FileProfileNormalTest.rmdirNormalTest001 = function(assert) {
   let done = assert.async();
-  sdk.post({
-    profile: dConnectSDK.constants.file.PROFILE_NAME,
-    attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
-    params: {
-      serviceId: getCurrentServiceId(),
-      path: '/dir2/dir3',
-      forceRemove: true
-    }
-  }).then(json => {
-    assert.ok(true, 'result=' + json.result);
-    rmdir('dir2').then(json =>{}).catch(e => {});
-    done();
+  mkdir('/dir2/dir3').then(serviceId => {
+    sdk.delete({
+      profile: dConnectSDK.constants.file.PROFILE_NAME,
+      attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+      params: {
+        serviceId: getCurrentServiceId(),
+        path: '/dir2/dir3',
+        forceRemove: true
+      }
+    }).then(json => {
+      assert.ok(true, 'result=' + json.result);
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    }).finally(() => {
+      rmdir('dir2').then(json =>{}).catch(e => {});
+      done();
+    });
   }).catch(e => {
     assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
-    rmdir('dir2').then(json =>{}).catch(e => {});
     done();
   });
 };
-QUnit.test('rmdirNormalTest002', FileProfileNormalTest.rmdirNormalTest002);
+QUnit.test('rmdirNormalTest001', FileProfileNormalTest.rmdirNormalTest001);
 
 /**
  * /mvdirNormalTest001_1を/mvdirNormalTest001_2に移動する。
