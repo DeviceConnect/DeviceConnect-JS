@@ -1,6 +1,6 @@
 /**
  temperature.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -15,11 +15,11 @@ function showTemperatureProfile(serviceId) {
   initAll();
   setTitle('Temperature Profile');
 
-  var btnStr = getBackButton('Device Top', 'doTemperatureBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doTemperatureBack', serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showGetTemperature(\'' +
           serviceId + '\',\'\');">Get Temperature</a></li>';
   str += '<li><a href="javascript:showSetTemperature(\'' +
@@ -37,8 +37,8 @@ function showGetTemperature(serviceId, html) {
 
   setTitle('Temperature Profile');
 
-  var btnStr = '';
-  btnStr = getBackButton('Temperature Top', 'doTemperatureMenuBack', serviceId, '');
+  let btnStr = '';
+  btnStr = getBackButton('Temperature Top', 'doTemperatureMenuBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
   btnStr = '';
@@ -63,38 +63,31 @@ function showGetTemperature(serviceId, html) {
  * @param {String} serviceId サービスID
  */
 function getTemperature(serviceId) {
-  var type = $('#type').val();
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter("type", type);
-
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
+  let type = $('#type').val();
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'temperature',
+    params: {
+      serviceId: serviceId,
+      type: type
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-    var temp = json.temperature * 100;
+    let temp = json.temperature * 100;
     temp = Math.round(temp) / 100;
 
-    var str = '';
+    let str = '';
     str += '<center><h1>' + temp + '<h1></center>';
     showGetTemperature(serviceId, str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('GET temperature', errorCode, errorMessage);
+    showError('GET temperature', e.errorCode, e.errorMessage);
   });
 }
 
@@ -109,8 +102,8 @@ function showSetTemperature(serviceId) {
 
   setTitle('Temperature Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Temperature Top', 'doTemperatureMenuBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Temperature Top', 'doTemperatureMenuBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
   btnStr += '<h2>Temperature Info</h2>';
@@ -134,32 +127,27 @@ function showSetTemperature(serviceId) {
 * @param {String} serviceId サービスID
 */
 function setTemperature(serviceId) {
-  var temp = $('#temperature').val();
-  var type = $('#type').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter("temperature", temp);
-  builder.addParameter("type", type);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
+  let temp = $('#temperature').val();
+  let type = $('#type').val();
   closeLoading();
   showLoading();
 
-  dConnect.put(uri, null, null,function(json) {
+  sdk.put({
+    profile: 'temperature',
+    params: {
+      serviceId: serviceId,
+      type: type,
+      temperature: temp
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('PUT temperature', errorCode, errorMessage);
+    showError('PUT temperature', e.errorCode, e.errorMessage);
   });
 }
 
@@ -168,9 +156,8 @@ function setTemperature(serviceId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doTemperatureMenuBack(serviceId, sessionKey) {
+function doTemperatureMenuBack(serviceId) {
   showTemperatureProfile(serviceId);
 }
 
@@ -179,8 +166,7 @@ function doTemperatureMenuBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doTemperatureBack(serviceId, sessionKey) {
+function doTemperatureBack(serviceId) {
   searchDevice(serviceId);
 }

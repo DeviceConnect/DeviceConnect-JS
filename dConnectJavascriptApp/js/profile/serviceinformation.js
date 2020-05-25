@@ -1,6 +1,6 @@
 /**
  serviceinformation.js
- Copyright (c) 2015 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -16,48 +16,43 @@ function showServiceInformation(serviceId) {
 
   setTitle('ServiceInformation Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doServiceInformationBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'doServiceInformationBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('serviceinformation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
 
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'serviceinformation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var connect = json.connect;
+    let connect = json.connect;
 
-    var wifi = typeof connect.wifi === 'undefined' ? 'none' : connect.wifi;
-    var bluetooth = typeof connect.bluetooth === 'undefined' ? 'none' : connect.bluetooth;
-    var nfc = typeof connect.nfc === 'undefined' ? 'none' : connect.nfc;
-    var ble = typeof connect.ble === 'undefined' ? 'none' : connect.ble;
+    let wifi = typeof connect.wifi === 'undefined' ? 'none' : connect.wifi;
+    let bluetooth = typeof connect.bluetooth === 'undefined' ? 'none' : connect.bluetooth;
+    let nfc = typeof connect.nfc === 'undefined' ? 'none' : connect.nfc;
+    let ble = typeof connect.ble === 'undefined' ? 'none' : connect.ble;
 
-    var str = '';
+    let str = '';
     str += '<center>Wi-Fi : <h1>' + wifi + '<h1></center>';
     str += '<center>Bluetooth : <h1>' + bluetooth + '<h1></center>';
     str += '<center>NFC : <h1>' + nfc + '<h1></center>';
     str += '<center>BLE : <h1>' + ble + '<h1></center>';
 
     reloadContent(str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('GET serviceinformation', errorCode, errorMessage);
+    showError('GET serviceinformation', e.errorCode, e.errorMessage);
   });
 }
 
@@ -65,8 +60,7 @@ function showServiceInformation(serviceId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doServiceInformationBack(serviceId, sessionKey) {
+function doServiceInformationBack(serviceId) {
   searchDevice(serviceId);
 }

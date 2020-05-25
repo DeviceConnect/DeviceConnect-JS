@@ -1,5 +1,5 @@
-module('MessageHook Profile Abnormal Test', {
-    setup: function() {
+QUnit.module('MessageHook Profile Abnormal Test', {
+    before: function() {
         init();
     }
 });
@@ -8,7 +8,7 @@ module('MessageHook Profile Abnormal Test', {
  * MessageHookプロファイルの異常系テストを行うクラス。
  * @class
  */
-var MessageHookProfileAbnormalTest = {};
+let MessageHookProfileAbnormalTest = {};
 
 /**
  * メッセージを設定せずに送信を取得するテストを行う。
@@ -23,24 +23,23 @@ var MessageHookProfileAbnormalTest = {};
  * </p>
  */
 MessageHookProfileAbnormalTest.messageTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messageHook');
-  builder.setAttribute('message');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('channelId', SLACK_CHANNEL_ID);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'messageHook',
+    attribute: 'message',
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('messageTest001', MessageHookProfileAbnormalTest.messageTest001);
+QUnit.test('messageTest001', MessageHookProfileAbnormalTest.messageTest001);
 
 /**
  * チャンネルIDを設定せずに送信を取得するテストを行う。
@@ -55,24 +54,23 @@ QUnit.asyncTest('messageTest001', MessageHookProfileAbnormalTest.messageTest001)
  * </p>
  */
 MessageHookProfileAbnormalTest.messageTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messageHook');
-  builder.setAttribute('message');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('text', 'qunitテストメッセージ');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'messageHook',
+    attribute: 'message',
+    params: {
+      serviceId: getCurrentServiceId(),
+      text: 'qunitテストメッセージ'
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('messageTest002', MessageHookProfileAbnormalTest.messageTest002);
+QUnit.test('messageTest002', MessageHookProfileAbnormalTest.messageTest002);
 
 /**
  * チャンネルIDに適当な文字を設定して送信を取得するテストを行う。
@@ -87,25 +85,24 @@ QUnit.asyncTest('messageTest002', MessageHookProfileAbnormalTest.messageTest002)
  * </p>
  */
 MessageHookProfileAbnormalTest.messageTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messageHook');
-  builder.setAttribute('message');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('channelId', 'TEST_CHANNEL_ID');
-  builder.addParameter('text', 'qunitテストメッセージ');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'messageHook',
+    attribute: 'message',
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: 'TEST_CHANNEL_ID',
+      text: 'qunitテストメッセージ'
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('messageTest003', MessageHookProfileAbnormalTest.messageTest003);
+QUnit.test('messageTest003', MessageHookProfileAbnormalTest.messageTest003);
 
 /**
  * resourceに適当な文字を設定して送信を取得するテストを行う。
@@ -120,26 +117,25 @@ QUnit.asyncTest('messageTest003', MessageHookProfileAbnormalTest.messageTest003)
  * </p>
  */
 MessageHookProfileAbnormalTest.messageTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messageHook');
-  builder.setAttribute('message');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('channelId', SLACK_CHANNEL_ID);
-  builder.addParameter('text', 'qunitテストメッセージ');
-  builder.addParameter('resource', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'messageHook',
+    attribute: 'message',
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: 'qunitテストメッセージ',
+      resource: 'abc'
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('messageTest004', MessageHookProfileAbnormalTest.messageTest004);
+QUnit.test('messageTest004', MessageHookProfileAbnormalTest.messageTest004);
 
 /**
  * textに空文字を設定して送信を取得するテストを行う。
@@ -154,25 +150,21 @@ QUnit.asyncTest('messageTest004', MessageHookProfileAbnormalTest.messageTest004)
  * </p>
  */
 MessageHookProfileAbnormalTest.messageTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messageHook');
-  builder.setAttribute('message');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('channelId', SLACK_CHANNEL_ID);
-  builder.addParameter('text', '');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode);
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'messageHook',
+    attribute: 'message',
+    params: {
+      serviceId: getCurrentServiceId(),
+      channelId: SLACK_CHANNEL_ID,
+      text: ''
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('messageTest005', MessageHookProfileAbnormalTest.messageTest005);
-
-
-
+QUnit.test('messageTest005', MessageHookProfileAbnormalTest.messageTest005);

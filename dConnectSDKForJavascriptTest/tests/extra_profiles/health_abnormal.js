@@ -1,5 +1,5 @@
-module("Health Profile Abnormal Test", {
-    setup: function () {
+QUnit.module("Health Profile Abnormal Test", {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ module("Health Profile Abnormal Test", {
  * Healthプロファイルの異常系テストを行うクラス。
  * @class
  */
-var HealthProfileAbnormalTest = {};
+let HealthProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドで心拍数にアクセスするテストを行う。
@@ -24,29 +24,22 @@ var HealthProfileAbnormalTest = {};
  * </p>
  */
 HealthProfileAbnormalTest.heartAbormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("health");
-  builder.setAttribute("heart");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function (json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-  }, function (errorCode, errorMessage) {
-      if (errorCode == 8) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-      } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'health',
+    attribute: 'heart',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 }
-QUnit.asyncTest("heart", HealthProfileAbnormalTest.heartAbormalTest);
+QUnit.test("heart", HealthProfileAbnormalTest.heartAbormalTest);
 
 /**
  * 定義されていないPOSTメソッドで心拍数にアクセスするテストを行う。
@@ -61,27 +54,19 @@ QUnit.asyncTest("heart", HealthProfileAbnormalTest.heartAbormalTest);
  * </p>
  */
 HealthProfileAbnormalTest.onHeartAbormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("health");
-  builder.setAttribute("onHeart");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function (json) {
-      assert.ok(false, 'json: ' + JSON.stringify(json));
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      if (errorCode == 8) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-      } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      }
-      QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: 'health',
+    attribute: 'onHeart',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 }
-QUnit.asyncTest("onheart", HealthProfileAbnormalTest.onHeartAbormalTest);
+QUnit.test("onheart", HealthProfileAbnormalTest.onHeartAbormalTest);

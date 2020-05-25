@@ -1,5 +1,5 @@
-module('Proximity Profile Normal Test', {
-  setup: function() {
+QUnit.module('Proximity Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Proximity Profile Normal Test', {
  * Proximityプロファイルの正常系テストを行うクラス。
  * @class
  */
-var ProximityProfileNormalTest = {};
+let ProximityProfileNormalTest = {};
 
 /**
  * デバイス近接センサー値取得イベントの登録と削除のテストを行う。
@@ -23,12 +23,17 @@ var ProximityProfileNormalTest = {};
  * </p>
  */
 ProximityProfileNormalTest.onDeviceProximityNormallTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.proximity.ATTR_ON_DEVICE_PROXIMITY);
-  openWebsocket(builder, assert, 2000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.proximity.PROFILE_NAME && json.attribute === dConnect.constants.proximity.ATTR_ON_DEVICE_PROXIMITY) {
+  let params = {
+    profile: dConnectSDK.constants.proximity.PROFILE_NAME,
+    attribute: dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 2000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.proximity.PROFILE_NAME
+          && json.attribute === dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY) {
       if (json.proximity) {
         assert.ok(true, message);
         return true;
@@ -38,8 +43,36 @@ ProximityProfileNormalTest.onDeviceProximityNormallTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onDeviceProximityNormalTest001', ProximityProfileNormalTest.onDeviceProximityNormallTest001);
-
+QUnit.test('onDeviceProximityNormalTest001', ProximityProfileNormalTest.onDeviceProximityNormallTest001);
+/**
+ * GETメソッドで、onuserproximityにアクセスするテストを行う。
+ * <h3>【HTTP通信】</h3
+ * <p id="test">
+ * Method: GET<br/>
+ * Path: /proximity/onuserproximity?serviceId=xxxx&accessToken=xxx<br/>
+ * </p>
+ * <h3>【期待する動作】</h3>
+ * <p id="expected">
+ * ・resultに0が返ってくること。<br/>
+ * </p>
+ */
+ProximityProfileNormalTest.onDeviceProximityNormalTest002 = function(assert) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.proximity.PROFILE_NAME,
+    attribute: dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
+  });
+};
+QUnit.test('onDeviceProximityNormalTest002', ProximityProfileNormalTest.onDeviceProximityNormalTest002);
 /**
  * ユーザー近接センサー値取得イベントの登録と削除のテストを行う。
  * <h3>【HTTP通信】</h3
@@ -53,12 +86,17 @@ QUnit.asyncTest('onDeviceProximityNormalTest001', ProximityProfileNormalTest.onD
  * </p>
  */
 ProximityProfileNormalTest.onUserProximityNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.proximity.ATTR_ON_USER_PROXIMITY);
-  openWebsocket(builder, assert, 2000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.proximity.PROFILE_NAME && json.attribute === dConnect.constants.proximity.ATTR_ON_USER_PROXIMITY) {
+  let params = {
+    profile: dConnectSDK.constants.proximity.PROFILE_NAME,
+    attribute: dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 2000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.proximity.PROFILE_NAME
+          && json.attribute === dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY) {
       if (json.proximity) {
         assert.ok(true, message);
         return true;
@@ -68,7 +106,7 @@ ProximityProfileNormalTest.onUserProximityNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onUserProximityNormalTest001', ProximityProfileNormalTest.onUserProximityNormalTest001);
+QUnit.test('onUserProximityNormalTest001', ProximityProfileNormalTest.onUserProximityNormalTest001);
 
 /**
  * GETメソッドで、onuserproximityにアクセスするテストを行う。
@@ -83,20 +121,19 @@ QUnit.asyncTest('onUserProximityNormalTest001', ProximityProfileNormalTest.onUse
  * </p>
  */
 ProximityProfileNormalTest.onUserProximityNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.proximity.ATTR_ON_USER_PROXIMITY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(json.proximity != undefined, JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.proximity.PROFILE_NAME,
+    attribute: dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('onUserProximityNormalTest002', ProximityProfileNormalTest.onUserProximityNormalTest002);
+QUnit.test('onUserProximityNormalTest002', ProximityProfileNormalTest.onUserProximityNormalTest002);

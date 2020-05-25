@@ -1,5 +1,5 @@
-module('Notification Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Notification Profile Abnormal Test', {
+  before: function() {
     TEST_TIMEOUT = 60000;
     init();
   }
@@ -9,7 +9,7 @@ module('Notification Profile Abnormal Test', {
  * Notificationプロファイルの異常系テストを行うクラス。
  * @class
  */
-var NotificationProfileAbnormalTest = {};
+let NotificationProfileAbnormalTest = {};
 
 /**
  * パラメータtypeを-1でNotificationに文字列を通知するテストを行う。
@@ -24,39 +24,32 @@ var NotificationProfileAbnormalTest = {};
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, -1);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(-1).)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: -1,
+      body: 'notify(type is invalid parameter(-1).)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest001(type is invalid parameter(-1).)', NotificationProfileAbnormalTest.notifyAbnormalTest001);
+QUnit.test('notifyAbnormalTest001(type is invalid parameter(-1).)', NotificationProfileAbnormalTest.notifyAbnormalTest001);
 
 /**
  * パラメータtypeを指定しないでNotificationに文字列を通知するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /notification/notify?serviceId=xxxx&body='notify(type is invalid parameter(-1).)'&tag='TEST'<br/>
+ * Path: /notification/notify?serviceId=xxxx&body='notifyAbnormalTest002(omitted type.)'&tag='TEST'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -64,31 +57,24 @@ QUnit.asyncTest('notifyAbnormalTest001(type is invalid parameter(-1).)', Notific
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(-1).)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      body: 'notifyAbnormalTest002(omitted type.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest002(omitted type.)', NotificationProfileAbnormalTest.notifyAbnormalTest002);
+QUnit.test('notifyAbnormalTest002(omitted type.)', NotificationProfileAbnormalTest.notifyAbnormalTest002);
 
 /**
  * パラメータtypeを文字列(test)でNotificationに文字列を通知するテストを行う。
@@ -103,32 +89,25 @@ QUnit.asyncTest('notifyAbnormalTest002(omitted type.)', NotificationProfileAbnor
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, 'test');
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is invalid parameter(test).)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: 'test',
+      body: 'notify(type is invalid parameter(test).)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest003(type is invalid parameter(test).)', NotificationProfileAbnormalTest.notifyAbnormalTest003);
+QUnit.test('notifyAbnormalTest003(type is invalid parameter(test).)', NotificationProfileAbnormalTest.notifyAbnormalTest003);
 
 /**
  * 定義されていなPUTメソッドでNotificationを通知するテストを行う。
@@ -143,32 +122,25 @@ QUnit.asyncTest('notifyAbnormalTest003(type is invalid parameter(test).)', Notif
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a put method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(Calling a put method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest004(Calling a put method that does not support.)', NotificationProfileAbnormalTest.notifyAbnormalTest004);
+QUnit.test('notifyAbnormalTest004(Calling a put method that does not support.)', NotificationProfileAbnormalTest.notifyAbnormalTest004);
 
 /**
  * 定義されていなGETメソッドでNotificationを通知するテストを行う。
@@ -183,32 +155,25 @@ QUnit.asyncTest('notifyAbnormalTest004(Calling a put method that does not suppor
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest005(Calling a get method that does not support.)', NotificationProfileAbnormalTest.notifyAbnormalTest005);
+QUnit.test('notifyAbnormalTest005(Calling a get method that does not support.)', NotificationProfileAbnormalTest.notifyAbnormalTest005);
 
 /**
  * 存在しないnotficationIdを指定してNotificationを通知を削除するテストを行う。
@@ -223,30 +188,23 @@ QUnit.asyncTest('notifyAbnormalTest005(Calling a get method that does not suppor
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, 'this is a test.');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      notificationId: 'this is a test.'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest006(notificationId is not exist.)', NotificationProfileAbnormalTest.notifyAbnormalTest006);
+QUnit.test('notifyAbnormalTest006(notificationId is not exist.)', NotificationProfileAbnormalTest.notifyAbnormalTest006);
 
 /**
  * notficationIdを指定しないでNotificationを通知を削除するテストを行う。
@@ -261,29 +219,22 @@ QUnit.asyncTest('notifyAbnormalTest006(notificationId is not exist.)', Notificat
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest007(omitted notificationId)', NotificationProfileAbnormalTest.notifyAbnormalTest007);
+QUnit.test('notifyAbnormalTest007(omitted notificationId)', NotificationProfileAbnormalTest.notifyAbnormalTest007);
 
 /**
  * notficationに空文字を指定してNotificationを通知を削除するテストを行う。
@@ -298,30 +249,23 @@ QUnit.asyncTest('notifyAbnormalTest007(omitted notificationId)', NotificationPro
  * </p>
  */
 NotificationProfileAbnormalTest.notifyAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, '');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      notificationId: ''
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('notifyAbnormalTest008(notificationId is empty.)', NotificationProfileAbnormalTest.notifyAbnormalTest008);
+QUnit.test('notifyAbnormalTest008(notificationId is empty.)', NotificationProfileAbnormalTest.notifyAbnormalTest008);
 
 /**
  * 定義されていないPOSTメソッドでClick検知イベントにアクセスするテストを行う。
@@ -336,32 +280,25 @@ QUnit.asyncTest('notifyAbnormalTest008(notificationId is empty.)', NotificationP
  * </p>
  */
 NotificationProfileAbnormalTest.onClickAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_CLICK,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onClickAbnormalTest001', NotificationProfileAbnormalTest.onClickAbnormalTest001);
+QUnit.test('onClickAbnormalTest001', NotificationProfileAbnormalTest.onClickAbnormalTest001);
 
 /**
  * 定義されていないGETメソッドでClick検知イベントにアクセスするテストを行う。
@@ -376,32 +313,25 @@ QUnit.asyncTest('onClickAbnormalTest001', NotificationProfileAbnormalTest.onClic
  * </p>
  */
 NotificationProfileAbnormalTest.onClickAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
+ let done = assert.async();
+ sdk.get({
+   profile: dConnectSDK.constants.notification.PROFILE_NAME,
+   attribute: dConnectSDK.constants.notification.ATTR_ON_CLICK,
+   params: {
+     serviceId: getCurrentServiceId(),
+     type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+     body:'notify(Calling a get method that does not support.)',
+     tag: 'TEST'
+   }
+ }).then(json => {
+   assert.ok(false, 'json: ' + JSON.stringify(json));
+   done();
+ }).catch(e => {
+   checkSuccessErrorCode(assert, e, 3);
+   done();
  });
 };
-QUnit.asyncTest('onClickAbnormalTest002', NotificationProfileAbnormalTest.onClickAbnormalTest002);
+QUnit.test('onClickAbnormalTest002', NotificationProfileAbnormalTest.onClickAbnormalTest002);
 
 /**
  * Notificationプロファイルのonshowを登録するテストを行う。
@@ -416,32 +346,25 @@ QUnit.asyncTest('onClickAbnormalTest002', NotificationProfileAbnormalTest.onClic
  * </p>
  */
 NotificationProfileAbnormalTest.onShowAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_SHOW,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onShowAbnormalTest001', NotificationProfileAbnormalTest.onShowAbnormalTest001);
+QUnit.test('onShowAbnormalTest001', NotificationProfileAbnormalTest.onShowAbnormalTest001);
 
 /**
  * Notificationプロファイルのonshowを登録するテストを行う。
@@ -456,78 +379,63 @@ QUnit.asyncTest('onShowAbnormalTest001', NotificationProfileAbnormalTest.onShowA
  * </p>
  */
 NotificationProfileAbnormalTest.onShowAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_SHOW,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a get method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('onShowAbnormalTest002', NotificationProfileAbnormalTest.onShowAbnormalTest002);
+QUnit.test('onShowAbnormalTest002', NotificationProfileAbnormalTest.onShowAbnormalTest002);
 
 /**
  * Notificationプロファイルのoncloseを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /notification/onclose?serviceId=xxxx&accessToken=xxx&body='notify(Calling a get method that does not support.)'&tag='TEST'<br/>
+ * Path: /notification/onclose?serviceId=xxxx&accessToken=xxx&body='notify(Calling a post method that does not support.)'&tag='TEST'<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
  * ・resultに1が返ってくること。<br/>
- * ・イベント通知が送られてくること。<br/>
  * </p>
  */
 NotificationProfileAbnormalTest.onCloseAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_CLOSE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a post method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('onCloseAbnormalTest001', NotificationProfileAbnormalTest.onCloseAbnormalTest001);
+QUnit.test('onCloseAbnormalTest001', NotificationProfileAbnormalTest.onCloseAbnormalTest001);
 /**
  * Notificationプロファイルのoncloseを登録するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
- * Method: POST<br/>
+ * Method: GET<br/>
  * Path: /notification/onclose?serviceId=xxxx&accessToken=xxx&body='notify(Calling a get method that does not support.)'&tag='TEST'br/>
  * </p>
  * <h3>【期待する動作】</h3>
@@ -537,29 +445,23 @@ QUnit.asyncTest('onCloseAbnormalTest001', NotificationProfileAbnormalTest.onClos
  * </p>
  */
 NotificationProfileAbnormalTest.onCloseAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(Calling a get method that does not support.)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_CLOSE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body:'notify(Calling a post method that does not support.)',
+      tag: 'TEST'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
+
 };
-QUnit.asyncTest('onCloseAbnormalTest002', NotificationProfileAbnormalTest.onCloseAbnormalTest002);
+QUnit.test('onCloseAbnormalTest002', NotificationProfileAbnormalTest.onCloseAbnormalTest002);

@@ -1,5 +1,5 @@
-module('HumanDetect Profile Normal Test', {
-  setup: function() {
+QUnit.module('HumanDetect Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('HumanDetect Profile Normal Test', {
  * HumanDetectプロファイルの正常系テストを行うクラス。
  * @class
  */
-var HumanDetectProfileNormalTest = {};
+let HumanDetectProfileNormalTest = {};
 
 /**
  * 人体検出通知イベントの登録と解除のテストを行う。
@@ -23,13 +23,17 @@ var HumanDetectProfileNormalTest = {};
  * </p>
  */
 HumanDetectProfileNormalTest.onDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_DETECTION = 'ondetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_DETECTION = 'ondetection';
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_DETECTION,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -37,7 +41,7 @@ HumanDetectProfileNormalTest.onDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionNormalTest001);
+QUnit.test('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetectionNormalTest001);
 
 
 /**
@@ -53,13 +57,17 @@ QUnit.asyncTest('onDetectionNormalTest001', HumanDetectProfileNormalTest.onDetec
  * </p>
  */
 HumanDetectProfileNormalTest.onBodyDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_BODY_DETECTION = 'onbodydetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_BODY_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_BODY_DETECTION = 'onbodydetection';
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_BODY_DETECTION,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_BODY_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -67,7 +75,7 @@ HumanDetectProfileNormalTest.onBodyDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onBodyDetectionNormalTest001);
+QUnit.test('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onBodyDetectionNormalTest001);
 
 /**
  * 手検出通知イベントの登録と解除のテストを行う。
@@ -82,13 +90,17 @@ QUnit.asyncTest('onBodyDetectionNormalTest001', HumanDetectProfileNormalTest.onB
  * </p>
  */
 HumanDetectProfileNormalTest.onHandDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_HAND_DETECTION = 'onhanddetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_HAND_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_HAND_DETECTION = 'onhanddetection';
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_HAND_DETECTION,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_HAND_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -96,7 +108,7 @@ HumanDetectProfileNormalTest.onHandDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onHandDetectionNormalTest001);
+QUnit.test('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onHandDetectionNormalTest001);
 
 /**
  * 顔検出通知イベントの登録と解除のテストを行う。
@@ -111,13 +123,17 @@ QUnit.asyncTest('onHandDetectionNormalTest001', HumanDetectProfileNormalTest.onH
  * </p>
  */
 HumanDetectProfileNormalTest.onFaceDetectionNormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humandetect';
-  var ATTR_ON_FACE_DETECTION = 'onfacedetection';
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ON_FACE_DETECTION);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let PROFILE_NAME = 'humandetect';
+  let ATTR_ON_FACE_DETECTION = 'onfacedetection';
+  let params = {
+    profile: PROFILE_NAME,
+    attribute: ATTR_ON_FACE_DETECTION,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === PROFILE_NAME && json.attribute === ATTR_ON_FACE_DETECTION) {
       assert.ok(true, message);
       return true;
@@ -125,7 +141,4 @@ HumanDetectProfileNormalTest.onFaceDetectionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onFaceDetectionNormalTest001', HumanDetectProfileNormalTest.onFaceDetectionNormalTest001);
-
-
-
+QUnit.test('onFaceDetectionNormalTest001', HumanDetectProfileNormalTest.onFaceDetectionNormalTest001);

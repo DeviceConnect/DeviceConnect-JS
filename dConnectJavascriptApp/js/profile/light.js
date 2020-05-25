@@ -1,11 +1,11 @@
 /**
  light.js
- Copyright (c) 2015 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
 
-var lightProfileOriginalLightName;
+let lightProfileOriginalLightName;
 
 /**
  * Light Menu
@@ -17,37 +17,26 @@ function showSearchLight(serviceId) {
   initAll();
 
   setTitle('Light List');
-  var btnStr = getBackButton('Device Top', 'doSearchLightBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   showLoading();
-  requestLightSearchLight(serviceId, accessToken,function(json){
+  requestLightSearchLight(serviceId).then(json => {
     listLights(serviceId, json.lights);
     closeLoading();
-  },function(errorCode, errorMessage){
-    showError('GET light', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET light', e.errorCode, e.errorMessage);
     closeLoading();
   });
-}
-
-/**
- * Back button to profile list
- *
- * @param {String}serviceId service ID
- * @param {String}sessionKey session key
- */
-function doSearchLightBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
 }
 
 /**
  * Back button to light list
  *
  * @param {String}serviceId service ID
- * @param {String}sessionKey session key
  */
-function doLightBack(serviceId, sessionKey) {
+function doLightBack(serviceId) {
   showSearchLight(serviceId);
 }
 
@@ -57,9 +46,9 @@ function doLightBack(serviceId, sessionKey) {
  * @param {Array}lights array of light name
  */
 function listLights(serviceId, lights) {
-  var str = '';
-  for (var i = 0; i < lights.length; i++) {
-    var lightName = lights[i].name;
+  let str = '';
+  for (let i = 0; i < lights.length; i++) {
+    let lightName = lights[i].name;
 
     if (lightName == 'Dice+ 1') {
       lightName = 'Dice+ [1]';
@@ -95,11 +84,11 @@ function showLight(serviceId, lightId, lightName) {
   lightProfileOriginalLightName = lightName;
 
   setTitle('Light Profile (Light)');
-  var btnStr = getBackButton('Light List', 'doLightBack', serviceId, '');
+  let btnStr = getBackButton('Light List', 'doLightBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var contents = $('#contents');
+  let contents = $('#contents');
 
   contents.append('<h3>Light Name</h3>');
   contents.append('<input type="text" id="light-name-form" data-inline="true" value="' + lightName + '" />');
@@ -111,7 +100,7 @@ function showLight(serviceId, lightId, lightName) {
                   ' id="brightness" value="100" min="0" max="100" step="1" />'));
 
   contents.append('<h3>Color of light</h3>');
-  var divColor = $('<div />');
+  let divColor = $('<div />');
   divColor.append($('<label for="slider-0">Red:</label>'));
   divColor.append($('<input type="range" name="slider" id="red" value="25" min="0" max="255"  />'));
 
@@ -123,7 +112,7 @@ function showLight(serviceId, lightId, lightName) {
   contents.append(divColor);
 
   contents.append('<h3>Flashing of light</h3>');
-  var divFlashing = $('<div />');
+  let divFlashing = $('<div />');
   divFlashing.append($('<input type="text" id="input-flashing" value="" placeholder="500,500,500,500,500,500,500,500"/>'));
   contents.append(divFlashing);
 
@@ -154,31 +143,31 @@ function doLight(serviceId, lightId, value) {
     if(!checkFlashing()){
       return;
     }
-    var brightness = document.getElementById('brightness').value / 100;
-    var red = document.getElementById('red').value;
-    var green = document.getElementById('green').value;
-    var blue = document.getElementById('blue').value;
+    let brightness = document.getElementById('brightness').value / 100;
+    let red = document.getElementById('red').value;
+    let green = document.getElementById('green').value;
+    let blue = document.getElementById('blue').value;
     red = zeroPadding(parseInt(red).toString(16));
     green = zeroPadding(parseInt(green).toString(16));
     blue = zeroPadding(parseInt(blue).toString(16));
-    var color = red + green + blue;
-    var flashing = getFlashing();
+    let color = red + green + blue;
+    let flashing = getFlashing();
 
     showLoading();
-    requestLightOn(serviceId, accessToken, lightId, brightness, color, flashing,function(json){
+    requestLightOn(serviceId, lightId, brightness, color, flashing).then(json => {
       alert('Success');
       closeLoading();
-    },function(errorCode, errorMessage){
-      showError('POST light', errorCode, errorMessage);
+    }).catch(e => {
+      showError('POST light', e.errorCode, e.errorMessage);
       closeLoading();
     });
   } else {
     showLoading();
-    requestLightOff(serviceId, accessToken, lightId,function(json){
+    requestLightOff(serviceId, lightId).then(json => {
       alert('Success');
       closeLoading();
-    },function(errorCode, errorMessage){
-      showError('DELETE light', errorCode, errorMessage);
+    }).catch(e => {
+      showError('DELETE light', e.errorCode, e.errorMessage);
       closeLoading();
     });
   }
@@ -195,25 +184,25 @@ function doStatusChange(serviceId, lightId) {
   if(!checkFlashing()){
     return;
   }
-  var brightness = document.getElementById('brightness').value / 100;
-  var red = document.getElementById('red').value;
-  var green = document.getElementById('green').value;
-  var blue = document.getElementById('blue').value;
+  let brightness = document.getElementById('brightness').value / 100;
+  let red = document.getElementById('red').value;
+  let green = document.getElementById('green').value;
+  let blue = document.getElementById('blue').value;
   red = zeroPadding(parseInt(red).toString(16));
   green = zeroPadding(parseInt(green).toString(16));
   blue = zeroPadding(parseInt(blue).toString(16));
-  var color = red + green + blue;
-  var flashing = getFlashing();
+  let color = red + green + blue;
+  let flashing = getFlashing();
 
-  var name = $('#light-name-form').val();
+  let name = $('#light-name-form').val();
 
   showLoading();
-  requestLightChangeStatus(serviceId, accessToken, lightId, name, brightness, color, flashing, function(json){
+  requestLightChangeStatus(serviceId, lightId, name, brightness, color, flashing).then(json => {
     alert('Success');
     lightProfileOriginalLightName = name;
     closeLoading();
-  },function(errorCode, errorMessage){
-    showError('PUT light', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT light', e.errorCode, e.errorMessage);
     $('#light-name-form').val(lightProfileOriginalLightName);
     closeLoading();
   });
@@ -223,22 +212,20 @@ function doStatusChange(serviceId, lightId) {
  * Request light list.
  *
  * @param {String}serviceId service ID
- * @param {String}accessToken access token
- * @param {function}successCallback called when request succeeded
- * @param {function}errorCallback called when request failed
  */
-function requestLightSearchLight(serviceId, accessToken, successCallback, errorCallback){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' + uri); }
-  dConnect.get(uri, null, function(json){
-    if (DEBUG) { console.log('Response: ', json); }
-    successCallback(json);
-  }, function(errorCode, errorMessage) {
-    errorCallback(errorCode, errorMessage);
+function requestLightSearchLight(serviceId){
+  return new Promise((resolve, reject) => {
+    sdk.get({
+      profile: 'light',
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
+      if (DEBUG) { console.log('Response: ', json); }
+      resolve(json);
+    }).catch(e => {
+      reject(e);
+    });
   });
 }
 
@@ -246,36 +233,35 @@ function requestLightSearchLight(serviceId, accessToken, successCallback, errorC
  * Request light on.
  *
  * @param {String}serviceId service ID
- * @param {String}accessToken access token
  * @param {String}lightId light ID
  * @param {String}brightness brightness(option)
  * @param {String}color color(option)
  * @param {String}flashing flashing(option)
- * @param {function}successCallback called when request succeeded
- * @param {function}errorCallback called when request failed
  */
-function requestLightOn(serviceId, accessToken, lightId, brightness, color, flashing, successCallback, errorCallback){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('lightId', lightId);
+function requestLightOn(serviceId, lightId, brightness, color, flashing){
+  let params = {
+    profile: 'light',
+    params: {
+      serviceId: serviceId,
+      lightId: lightId
+    }
+  };
   if(color !== undefined){
-    builder.addParameter('color', color);
+    params.params['color'] = color;
   }
   if(brightness !== undefined){
-    builder.addParameter('brightness', brightness);
+    params.params['brightness'] = brightness;
   }
   if(flashing !== undefined){
-    builder.addParameter('flashing', flashing);
+    params.params['flashing'] = flashing;
   }
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri: ' + uri); }
-  dConnect.post(uri, null, null, function(json) {
-    if (DEBUG) { console.log('Response: ', json); }
-    successCallback(json);
-  }, function(errorCode, errorMessage) {
-    errorCallback(errorCode, errorMessage);
+  return new Promise((resolve, reject) => {
+    sdk.post(params).then(json => {
+      if (DEBUG) { console.log('Response: ', json); }
+      resolve(json);
+    }).catch(e => {
+      reject(e);
+    });
   });
 }
 
@@ -283,24 +269,22 @@ function requestLightOn(serviceId, accessToken, lightId, brightness, color, flas
  * Request light off.
  *
  * @param {String}serviceId service ID
- * @param {String}accessToken access token
  * @param {String}lightId light ID
- * @param {function}successCallback called when request succeeded
- * @param {function}errorCallback called when request failed
  */
-function requestLightOff(serviceId, accessToken, lightId, successCallback, errorCallback){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('lightId', lightId);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri: ' + uri); }
-  dConnect.delete(uri, null, function(json) {
-    if (DEBUG) { console.log('Response: ', json); }
-    successCallback(json);
-  }, function(errorCode, errorMessage) {
-    errorCallback(errorCode, errorMessage);
+function requestLightOff(serviceId, lightId){
+  return new Promise((resolve, reject) => {
+    sdk.delete({
+      profile: 'light',
+      params: {
+        serviceId: serviceId,
+        lightId: lightId
+      }
+    }).then(json => {
+      if (DEBUG) { console.log('Response: ', json); }
+      resolve(json);
+    }).catch(e => {
+      reject(e);
+    });
   });
 }
 
@@ -308,38 +292,37 @@ function requestLightOff(serviceId, accessToken, lightId, successCallback, error
  * Request change light status.
  *
  * @param {String}serviceId service ID
- * @param {String}accessToken access token
  * @param {String}lightId light ID
  * @param {String}name light name
  * @param {String}brightness brightness(option)
  * @param {String}color color(option)
  * @param {String}flashing flashing(option)
- * @param {function}successCallback called when request succeeded
- * @param {function}errorCallback called when request failed
  */
-function requestLightChangeStatus(serviceId, accessToken, lightId, name, brightness, color, flashing, successCallback, errorCallback){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('lightId', lightId);
-  builder.addParameter('name', name);
+function requestLightChangeStatus(serviceId, lightId, name, brightness, color, flashing){
+  let params = {
+    profile: 'light',
+    params: {
+      serviceId: serviceId,
+      lightId: lightId,
+      name: name
+    }
+  };
   if(color !== undefined){
-    builder.addParameter('color', color);
+    params.params['color'] = color;
   }
   if(brightness !== undefined){
-    builder.addParameter('brightness', brightness);
+    params.params['brightness'] = brightness;
   }
   if(flashing !== undefined){
-    builder.addParameter('flashing', flashing);
+    params.params['flashing'] = flashing;
   }
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri: ' + uri); }
-  dConnect.put(uri, null, null, function(json) {
-    if (DEBUG) { console.log('Response: ', json); }
-    successCallback(json);
-  }, function(errorCode, errorMessage) {
-    errorCallback(errorCode, errorMessage);
+  return new Promise((resolve, reject) => {
+    sdk.put(params).then(json => {
+      if (DEBUG) { console.log('Response: ', json); }
+      resolve(json);
+    }).catch(e => {
+      reject(e);
+    });
   });
 }
 
@@ -349,12 +332,12 @@ function requestLightChangeStatus(serviceId, accessToken, lightId, name, brightn
  * @return 適正値であればtrue
  */
 function checkFlashing(){
-  var flashing = getFlashing();
+  let flashing = getFlashing();
   if(flashing === undefined){
     return true;
   }
-  var values = flashing.split(',');
-  var wrongValue = false;
+  let values = flashing.split(',');
+  let wrongValue = false;
   $.each(values, function(index, value){
     if(wrongValue){
       return;
@@ -377,7 +360,7 @@ function checkFlashing(){
  * @return flashing値。未入力の場合はundefined
  */
 function getFlashing(){
-  var flashing = $('#input-flashing').val();
+  let flashing = $('#input-flashing').val();
   if(flashing === ''){
     return undefined;
   }

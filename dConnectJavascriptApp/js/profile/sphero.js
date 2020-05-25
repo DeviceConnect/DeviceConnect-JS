@@ -1,6 +1,6 @@
 /**
  sphero.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,13 +14,13 @@ function showSphero(serviceId) {
   initAll();
   setTitle('Sphero Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doSpheroBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
-  var path = '/';
+  let str = '';
+  let path = '/';
   str += '<li><a href="javascript:showOnQuaternion(\'' + serviceId +
             '\');" value="list">onQuaternion</a></li>';
   str += '<li><a href="javascript:showOnLocator(\'' + serviceId +
@@ -40,15 +40,12 @@ function showOnQuaternion(serviceId) {
 
   setTitle('OnQuaternion Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = '';
-  btnStr += getBackButton('Sphero Top', 'doOnQuaternionBack',
-                        serviceId, sessionKey);
+  let btnStr = '';
+  btnStr += getBackButton('Sphero Top', 'doOnQuaternionBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doGetOnQuaternion(\'' +
         serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -56,13 +53,12 @@ function showOnQuaternion(serviceId) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" onclick=\"doRegisterOnQuaternion(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Register\" />';
+        serviceId + '\')\" type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\"' +
         ' onclick=\"doUnregisterOnQuaternion(\'' + serviceId +
-        '\', \'' + sessionKey + '\')\" type=\"button\" value=\"Unregister\" />';
+        '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
   str += '<form  name="spheroForm">';
@@ -86,15 +82,12 @@ function showOnLocator(serviceId) {
 
   setTitle('OnLocator Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = '';
-  btnStr += getBackButton('Sphero Top', 'doOnLocatorBack',
-                        serviceId, sessionKey);
+  let btnStr = '';
+  btnStr += getBackButton('Sphero Top', 'doOnLocatorBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doGetOnLocator(\'' +
         serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -102,13 +95,11 @@ function showOnLocator(serviceId) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" onclick=\"doRegisterOnLocator(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Register\" />';
+        serviceId + '\')\" type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\" onclick=\"doUnregisterOnLocator(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Unregister\" />';
+        serviceId + '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
   str += '<form  name="spheroForm">';
@@ -129,15 +120,13 @@ function showOnLocator(serviceId) {
 function showOnCollision(serviceId) {
   initAll();
 
-  var sessionKey = currentClientId;
-
-  var btnStr = '';
+  let btnStr = '';
   btnStr += getBackButton('Sphero Top', 'doOnCollisionBack',
-                      serviceId, sessionKey);
+                      serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doGetOnCollision(\'' +
         serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -145,14 +134,12 @@ function showOnCollision(serviceId) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" onclick=\"doRegisterOnCollision(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Register\" />';
+        serviceId + '\')\" type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\" ' +
         'onclick=\"doUnregisterOnCollision(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Unregister\" />';
+        serviceId + '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
   str += '<form  name="spheroForm">';
@@ -170,48 +157,34 @@ function showOnCollision(serviceId) {
   str += '</form>';
   reloadContent(str);
 }
-
 /**
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doSpheroBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
+function doOnQuaternionBack(serviceId) {
+  showSphero(serviceId);
+  doUnregisterOnQuaternion(serviceId);
 }
 
 /**
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doOnQuaternionBack(serviceId, sessionKey) {
+function doOnLocatorBack(serviceId) {
   showSphero(serviceId);
-  doUnregisterOnQuaternion(serviceId, sessionKey);
-}
-
-/**
- * Backボタン
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
- */
-function doOnLocatorBack(serviceId, sessionKey) {
-  showSphero(serviceId);
-  doUnregisterOnLocator(serviceId, sessionKey);
+  doUnregisterOnLocator(serviceId);
 }
 
 /**
  * Backボタン
  *
  * @param {String }serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doOnCollisionBack(serviceId, sessionKey) {
+function doOnCollisionBack(serviceId) {
   showSphero(serviceId);
-  doUnregisterOnCollision(serviceId, sessionKey);
+  doUnregisterOnCollision(serviceId);
 }
 
 /**
@@ -220,17 +193,14 @@ function doOnCollisionBack(serviceId, sessionKey) {
  * @param {String} serviceId サービスID
  */
 function doGetOnQuaternion(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('quaternion');
-  builder.setAttribute('onquaternion');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log(uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'sphero',
+    interface: 'quaternion',
+    attribute: 'onquaternion',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (json.quaternion) {
       $('#q0').val(json.quaternion.q0);
       $('#q1').val(json.quaternion.q1);
@@ -238,8 +208,8 @@ function doGetOnQuaternion(serviceId) {
       $('#q3').val(json.quaternion.q3);
       $('#interval').val(json.quaternion.interval);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -248,25 +218,20 @@ function doGetOnQuaternion(serviceId) {
  *
  * @param {String}serviceId サービスID
  */
-function doRegisterOnQuaternion(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('quaternion');
-  builder.setAttribute('onquaternion');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log(uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterOnQuaternion(serviceId) {
+  sdk.addEventListener({
+    profile: 'sphero',
+    interface: 'quaternion',
+    attribute: 'onquaternion',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message)
     }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.quaternion) {
       $('#q0').val(json.quaternion.q0);
       $('#q1').val(json.quaternion.q1);
@@ -274,12 +239,12 @@ function doRegisterOnQuaternion(serviceId, sessionKey) {
       $('#q3').val(json.quaternion.q3);
       $('#interval').val(json.quaternion.interval);
     }
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -288,23 +253,20 @@ function doRegisterOnQuaternion(serviceId, sessionKey) {
  *
  * @param {String} serviceId サービスID
  */
-function doUnregisterOnQuaternion(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('quaternion');
-  builder.setAttribute('onquaternion');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-  dConnect.removeEventListener(uri, function() {
+function doUnregisterOnQuaternion(serviceId) {
+  sdk.removeEventListener({
+    profile: 'sphero',
+    interface: 'quaternion',
+    attribute: 'onquaternion',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -315,26 +277,22 @@ function doUnregisterOnQuaternion(serviceId, sessionKey) {
  * @param {String} sessionKey セッションキー
  */
 function doGetOnLocator(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('locator');
-  builder.setAttribute('onlocator');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'sphero',
+    interface: 'locator',
+    attribute: 'onlocator',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (json.locator) {
       $('#posx').val(json.locator.positionX);
       $('#posy').val(json.locator.positionY);
       $('#velx').val(json.locator.velocityX);
       $('#vely').val(json.locator.velocityY);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -343,36 +301,32 @@ function doGetOnLocator(serviceId) {
  *
  * @param {String}serviceId サービスID
  */
-function doRegisterOnLocator(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('locator');
-  builder.setAttribute('onlocator');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterOnLocator(serviceId) {
+  sdk.addEventListener({
+    profile: 'sphero',
+    interface: 'locator',
+    attribute: 'onlocator',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message)
     }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.locator) {
       $('#posx').val(json.locator.positionX);
       $('#posy').val(json.locator.positionY);
       $('#velx').val(json.locator.velocityX);
       $('#vely').val(json.locator.velocityY);
     }
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -381,23 +335,20 @@ function doRegisterOnLocator(serviceId, sessionKey) {
  *
  * @param {String} serviceId サービスID
  */
-function doUnregisterOnLocator(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('locator');
-  builder.setAttribute('onlocator');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-  dConnect.removeEventListener(uri, function() {
+function doUnregisterOnLocator(serviceId) {
+  sdk.removeEventListener({
+    profile: 'sphero',
+    interface: 'locator',
+    attribute: 'onlocator',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -407,18 +358,14 @@ function doUnregisterOnLocator(serviceId, sessionKey) {
  * @param {String}serviceId サービスID
  */
 function doGetOnCollision(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'sphero',
+    interface: 'collision',
+    attribute: 'oncollision',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (json.collision) {
       $('#time').val(json.collision.impactTimeStamp);
       $('#timeString').val(json.collision.impactTimeStampString);
@@ -431,8 +378,8 @@ function doGetOnCollision(serviceId) {
       $('#axx').val(json.collision.impactAxis.y);
       $('#axy').val(json.collision.impactAxis.x);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 /**
@@ -440,25 +387,21 @@ function doGetOnCollision(serviceId) {
  *
  * @param {String }serviceId サービスID
  */
-function doRegisterOnCollision(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterOnCollision(serviceId) {
+  sdk.addEventListener({
+    profile: 'sphero',
+    interface: 'collision',
+    attribute: 'oncollision',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.collision) {
       $('#time').val(json.collision.impactTimeStamp);
       $('#timeString').val(json.collision.impactTimeStampString);
@@ -471,12 +414,12 @@ function doRegisterOnCollision(serviceId, sessionKey) {
       $('#axx').val(json.collision.impactAxis.y);
       $('#axy').val(json.collision.impactAxis.x);
     }
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }
 
@@ -485,24 +428,19 @@ function doRegisterOnCollision(serviceId, sessionKey) {
  *
  * @param {String} serviceId サービスID
  */
-function doUnregisterOnCollision(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.removeEventListener(uri, function() {
+function doUnregisterOnCollision(serviceId) {
+  sdk.removeEventListener({
+    profile: 'sphero',
+    interface: 'collision',
+    attribute: 'oncollision',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ',  errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ',  errorMessage=' + e.errorMessage);
   });
 }

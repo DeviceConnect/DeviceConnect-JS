@@ -1,6 +1,6 @@
 /**
  dice.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -15,13 +15,13 @@ function showDice(serviceId) {
 
   setTitle('Dice Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doDiceBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
-  var path = '/';
+  let str = '';
+  let path = '/';
   str += '<li><a href="javascript:showOnRoll(\'' + serviceId + '\',\'' +
           path + '\');" value="list">onRoll</a></li>';
   str += '<li><a href="javascript:showOnMagnetometer(\'' + serviceId +
@@ -37,14 +37,12 @@ function showDice(serviceId) {
 function showOnRoll(serviceId) {
   initAll();
 
-  var sessionKey = currentClientId;
-
-  var btnStr = '';
-  btnStr += getBackButton('Dice Top', 'doOnDiceBack', serviceId, sessionKey);
+  let btnStr = '';
+  btnStr += getBackButton('Dice Top', 'doOnDiceBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doGetOnDice(\'' +
         serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -52,13 +50,11 @@ function showOnRoll(serviceId) {
   str += '<fieldset class=\"ui-grid-a\">';
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" onclick=\"doRegisterOnDice(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Register\" />';
+        serviceId + '\')\" type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\" onclick=\"doUnregisterOnDice(\'' +
-        serviceId + '\', \'' + sessionKey +
-        '\')\" type=\"button\" value=\"Unregister\" />';
+        serviceId + '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
   str += '<form  name="diceForm">';
@@ -77,15 +73,13 @@ function showOnMagnetometer(serviceId) {
 
   initAll();
 
-  var sessionKey = currentClientId;
-
-  var btnStr = '';
+  let btnStr = '';
   btnStr += getBackButton('Dice Top', 'doOnMagnetBack',
-                  serviceId, sessionKey);
+                  serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" ' +
         'onclick=\"doGetOnMagnetometer(\'' +
@@ -95,13 +89,13 @@ function showOnMagnetometer(serviceId) {
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\"' +
         ' onclick=\"doRegisterOnMagnetometer(\'' +
-        serviceId + '\', \'' + sessionKey + '\')\" type=\"button\" ' +
+        serviceId + '\')\" type=\"button\" ' +
         'value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\" ' +
         'onclick=\"doUnregisterOnMagnetometer(\'' +
-        serviceId + '\', \'' + sessionKey + '\')\" type=\"button\"' +
+        serviceId + '\')\" type=\"button\"' +
         ' value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
@@ -114,56 +108,40 @@ function showOnMagnetometer(serviceId) {
   str += '</form>';
   reloadContent(str);
 }
-
 /**
  * Backボタン
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doDiceBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
+function doOnDiceBack(serviceId) {
+  showDice(serviceId);
+  doUnregisterOnDice(serviceId);
 }
 
 /**
  * Backボタン
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doOnDiceBack(serviceId, sessionKey) {
+function doOnMagnetBack(serviceId) {
   showDice(serviceId);
-  doUnregisterOnDice(serviceId, sessionKey);
-}
-
-/**
- * Backボタン
- *
- * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
- */
-function doOnMagnetBack(serviceId, sessionKey) {
-  showDice(serviceId);
-  doUnregisterOnMagnetometer(serviceId, sessionKey);
+  doUnregisterOnMagnetometer(serviceId);
 }
 
 function doGetOnDice(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setAttribute('ondice');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'dice',
+    attribute: 'ondice',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (json.dice) {
-      var img = document.getElementById('dice');
+      let img = document.getElementById('dice');
       img.src = './css/images/dice_' + json.dice.pip + '.png';
     }
-  }, null, function(errorCode, errorMessage) {
-    alert('errorCode: ' + errorCode + ', errorMessage: ' + errorMessage);
+  }).catch(e => {
+    alert('errorCode: ' + e.errorCode + ', errorMessage: ' + e.errorMessage);
   });
 }
 
@@ -171,34 +149,29 @@ function doGetOnDice(serviceId) {
  * Dice ondiceイベントの登録
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
 function doRegisterOnDice(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setAttribute('ondice');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener({
+    profile: 'dice',
+    attribute: 'ondice',
+    params: {
+      serviceId: serviceId
+    }
+  }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
 
     if (json.dice) {
-      var img = document.getElementById('dice');
+      let img = document.getElementById('dice');
       img.src = './css/images/dice_' + json.dice.pip + '.png';
     }
 
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -209,33 +182,26 @@ function doRegisterOnDice(serviceId, sessionKey) {
  * @param {String}sessionKey セッションKEY
  */
 function doUnregisterOnDice(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setAttribute('ondice');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  sdk.removeEventListener({
+    profile: 'dice',
+    attribute: 'ondice',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e =>  {
+    alert(e.errorMessage);
   });
 }
 
 function doGetOnMagnetometer(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'dice',
+    interface: 'magnetometer',
+    attribute: 'onmagnetometer',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (json.magnetometer) {
       $('#x').val(json.magnetometer.x);
       $('#y').val(json.magnetometer.y);
@@ -243,8 +209,8 @@ function doGetOnMagnetometer(serviceId) {
       $('#filter').val(json.magnetometer.filter);
       $('#interval').val(json.magnetometer.interval);
     }
-  }, null, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  }).catch(e =>  {
+    alert('errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
   });
 }
 
@@ -252,27 +218,22 @@ function doGetOnMagnetometer(serviceId) {
  * Dice OnMagnetometerイベントの登録
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doRegisterOnMagnetometer(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterOnMagnetometer(serviceId) {
+  sdk.addEventListener({
+    profile: 'dice',
+    interface: 'magnetometer',
+    attribute: 'onmagnetometer',
+    params: {
+      serviceId: serviceId
+    }
+  }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
 
     if (json.magnetometer) {
       $('#x').val(json.magnetometer.x);
@@ -281,8 +242,8 @@ function doRegisterOnMagnetometer(serviceId, sessionKey) {
       $('#filter').val(json.magnetometer.filter);
       $('#interval').val(json.magnetometer.interval);
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -290,21 +251,16 @@ function doRegisterOnMagnetometer(serviceId, sessionKey) {
  * Dice OnMagnetometerイベントの削除
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doUnregisterOnMagnetometer(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doUnregisterOnMagnetometer(serviceId) {
+  sdk.removeEventListener({
+    profile: 'dice',
+    interface: 'magnetometer',
+    attribute: 'onmagnetometer',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e =>  {
+    alert(e.errorMessage);
   });
 }

@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <title>Device Connect Javascript Test</title>
-  <link rel="stylesheet" href="qunit/qunit-1.15.0.css">
+  <link rel="stylesheet" href="qunit/qunit-2.9.2.css">
 </head>
 <body onload="onInit();">
-  <script src="dconnectsdk-2.2.0.js"></script>
+  <script src="qunit/qunit-2.9.2.js"></script>
+  <script src="qunit/qunit-reporter-junit.js"></script>
+  <script src="dconnectsdk-2.3.0.js"></script>
+  <script src="dconnect-test-config.js"></script>
   <script src="dconnect-test-util.js"></script>
 <H1>IP設定</H1>
 <form name="form1" id="form1" action="">
@@ -18,7 +21,7 @@
       <input type="text" name="ip" value="localhost" size="30" onkeydown="return onInputTextEnter(event);">
     </td>
     <td>
-      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="searchDevice();"/>
+      <input data-role="button" type="button" name="button" id="button" value="更新" onclick="update();"/>
     </td>
   </tr>
   <tr>
@@ -59,22 +62,6 @@
     </tr>
 
   <tr>
-    <td><b>Pebbleデバイスプラグイン</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/pebble_test.html');">テスト</button></td>
-  </tr>
-  <tr>
-    <td><b>SonyCameraデバイスプラグイン</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/sony_camera_test.html');">テスト</button></td>
-  </tr>
-  <tr>
-    <td><b>Sony SmartWatchデバイスプラグイン</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/sony_sw_test.html');">テスト</button></td>
-  </tr>
-  <tr>
-    <td><b>Spheroデバイスプラグイン</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/sphero_test.html');">テスト</button></td>
-  </tr>
-  <tr>
     <td><b>Android Wearデバイスプラグイン</b></td>
     <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/wear_test.html');">テスト</button></td>
   </tr>
@@ -82,24 +69,6 @@
     <td><b>Health(BLE) デバイスプラグイン (Mio Alpha)</b></td>
     <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/mio_alpha_health_test.html');">テスト</button></td>
   </tr>
-  <tr>
-    <td><b>HVC-Cデバイスプラグイン</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hvcc_test.html');">テスト</button></td>
-  </tr>
-    <tr>
-        <td><b>HVC-Pデバイスプラグイン</b></td>
-        <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hvcc_test.html');">テスト</button></td>
-    </tr>
-    <tr>
-        <td><b>HVC-C2Wデバイスプラグイン</b></td>
-        <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hvcc_test.html');">テスト</button></td>
-    </tr>
-    <tr>
-        <td><b>Dice+デバイスプラグイン</b></td>
-        <td><button style="padding:10px;" type="button" name="テスト"
-                    onclick="onTestClick('tests/dice_plus_test.html');">テスト
-        </button></td>
-    </tr>
     <tr>
         <td><b>Thetaデバイスプラグイン(静止画）</b></td>
         <td><button style="padding:10px;" type="button" name="テスト"
@@ -113,34 +82,11 @@
         </button></td>
     </tr>
     <tr>
-        <td><b>WebRTCデバイスプラグイン</b></td>
-        <td><button style="padding:10px;" type="button" name="テスト"
-          onclick="onTestClick('tests/webrtc_test.html');">テスト
-        </button></td>
-    </tr>
         <td><b>Thetaデバイスプラグイン(ROI画像表示）</b></td>
         <td><button style="padding:10px;" type="button" name="テスト"
                     onclick="onTestClick('tests/theta_omnidirectional_image_test.html');">テスト
         </button></td>
     </tr>
-  <tr>
-      <td><b>AllJoynデバイスプラグイン</b></td>
-      <td><button style="padding:10px;" type="button" name="テスト"
-          onclick="onTestClick('tests/all_joyn_test.html');">テスト
-      </button></td>
-   </tr>
-  <tr>
-    <td><b>F-PLUGデバイスプラグイン</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/fplug_test.html');">テスト</button></td>
-  </tr>
-  <tr>
-    <td><b>Kadecotデバイスプラグイン(エアコン)</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/kadecot_airconditioner_test.html');">テスト</button></td>
-  </tr>
-  <tr>
-    <td><b>Kadecotデバイスプラグイン(照明)</b></td>
-    <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/kadecot_generallighting_test.html');">テスト</button></td>
-  </tr>
   <tr>
     <td><b>UVCデバイスプラグイン</b></td>
     <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/uvc_test.html');">テスト</button></td>
@@ -153,10 +99,6 @@
     <td><b>FaBoデバイスプラグイン</b></td>
     <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/fabo_test.html');">テスト</button></td>
   </tr>
-    <tr>
-        <td><b>Hitoeデバイスプラグイン</b></td>
-        <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hitoe_test.html');">テスト</button></td>
-    </tr>
     <tr>
         <td><b>HOGPデバイスプラグイン</b></td>
         <td><button style="padding:10px;" type="button" name="テスト" onclick="onTestClick('tests/hogp_test.html');">テスト</button></td>
@@ -185,7 +127,7 @@
 
 function onInputTextEnter(evt) {
   evt = (evt) ? evt : event;
-  var charCode=(evt.charCode) ? evt.charCode : ((evt.which) ? evt.which : evt.keyCode);
+  let charCode=(evt.charCode) ? evt.charCode : ((evt.which) ? evt.which : evt.keyCode);
   if ((Number(charCode) == 13 || Number(charCode) == 3)) {
     searchDevice();
     return false;
@@ -195,31 +137,44 @@ function onInputTextEnter(evt) {
 }
 
 function onInit() {
-    var data = getCookies();
-    if (data['ip']) {
-        document.forms.form1.ip.value = data['ip'];
-    }
-    if (data['accessToken']) {
-        mAccessToken = data['accessToken'];
-    }
-    searchDevice();
+  if (_quertyString['ip']) {
+      document.forms.form1.ip.value = _quertyString['ip'];
+  } else if (document.forms.form1.ip.value) {
+    let r = document.cookie.split(';');
+    r.forEach((value) => {
+
+      //cookie名と値に分ける
+      let content = value.split('=');
+      if (content[0] == 'ip') {
+        document.forms.form1.ip.value = content[1];
+        DEVICE_CONNECT_HOST = content[1];
+      }
+      console.log( content[1] );
+    });
+  }
+  init();
+  searchDevice();
 }
 
+function update() {
+  DEVICE_CONNECT_HOST = document.forms.form1.ip.value;
+  document.cookie = 'ip=' + DEVICE_CONNECT_HOST;
+  init();
+  searchDevice();
+}
+
+
 function onTestClick(uri) {
-    var ip = document.forms.form1.ip.value;
-    var serviceId = document.forms.form1.type.value;
+    let ip = document.forms.form1.ip.value;
+    let serviceId = document.forms.form1.type.value;
     if (!serviceId) {
        alert('サービスIDを選択してください。');
-       return;
-    }
-    if (!mAccessToken) {
-       alert('LocalOAuthをONにし、アクセストークンを取得してください。');
        return;
     }
 
     document.cookie = 'ip=' + ip;
     document.cookie = 'serviceId=' + serviceId;
-    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId + "&accessToken=" + mAccessToken;
+    location.href = uri + '?ip=' + ip + "&serviceId=" + serviceId ;
 }
 
 </script>

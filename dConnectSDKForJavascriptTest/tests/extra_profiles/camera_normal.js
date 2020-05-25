@@ -1,5 +1,5 @@
-module('CameraProfileNormalTest', {
-  setup: function() {
+QUnit.module('CameraProfileNormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('CameraProfileNormalTest', {
  * Cameraプロファイルの正常系テストを行うクラス。
  * @class
  */
-var CameraProfileNormalTest = {};
+let CameraProfileNormalTest = {};
 
 /**
  * ズーム倍率取得のテストを行う。
@@ -24,27 +24,26 @@ var CameraProfileNormalTest = {};
  * </p>
  */
 CameraProfileNormalTest.zoomPositionNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok((json.zoomPosition !== undefined &&
     json.zoomPosition <= 1.0 && 0.0 <= json.zoomPosition),
        'zoomPosition: ' + json.zoomPosition);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('zoomPositionNormalTest001(get)', CameraProfileNormalTest.zoomPositionNormalTest001);
+QUnit.test('zoomPositionNormalTest001(get)', CameraProfileNormalTest.zoomPositionNormalTest001);
 
 /**
  * ズームインを行うテストを行う。
@@ -59,48 +58,43 @@ QUnit.asyncTest('zoomPositionNormalTest001(get)', CameraProfileNormalTest.zoomPo
  * </p>
  */
 CameraProfileNormalTest.zoomNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', 'in-start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'in-start'
+    }
+  }).then(json => {
     assert.ok(true,
         'Success of the zoom to start. result=' + json.result);
-    setTimeout(function() {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile('camera');
-      builder.setAttribute('zoom');
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter('direction', 'in');
-      builder.addParameter('movement', 'in-stop');
-      var uri = builder.build();
-      dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(true,
-                'Success of the zoom to stop.result=' +
-                json.result);
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-            QUnit.start();
-          });
-    }, 2000);
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    setTimeout(() => {
+      sdk.put({
+        profile: 'camera',
+        attribute: 'zoom',
+        serviceId: getCurrentServiceId(),
+        direction: 'in',
+        movement: 'in-stop'
+      }).then(json => {
+        assert.ok(true,
+            'Success of the zoom to stop.result=' +
+            json.result);
+        done();
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+        done();
+      });
+    }, 2 * 1000);
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('zoomNormalTest001(Zoom in the camera.)',
+QUnit.test('zoomNormalTest001(Zoom in the camera.)',
     CameraProfileNormalTest.zoomNormalTest001);
 
 /**
@@ -116,26 +110,24 @@ QUnit.asyncTest('zoomNormalTest001(Zoom in the camera.)',
  * </p>
  */
 CameraProfileNormalTest.zoomNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', '1shot');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: '1shot'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('zoomNormalTest002(Zoom in the camera only 1shot.)',
+QUnit.test('zoomNormalTest002(Zoom in the camera only 1shot.)',
     CameraProfileNormalTest.zoomNormalTest002);
 
 /**
@@ -151,48 +143,43 @@ QUnit.asyncTest('zoomNormalTest002(Zoom in the camera only 1shot.)',
  * <p>
  */
 CameraProfileNormalTest.zoomNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'out');
-  builder.addParameter('movement', 'in-start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'out',
+      movement: 'in-start'
+    }
+  }).then(json => {
     assert.ok(true,
         'Success of the zoom out to start. result=' + json.result);
-    setTimeout(function() {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile('camera');
-      builder.setAttribute('zoom');
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter('direction', 'out');
-      builder.addParameter('movement', 'in-stop');
-      var uri = builder.build();
-      dConnect.put(uri, null, null,
-          function(json) {
-            assert.ok(true,
-                'Success of the zoom to stop.result=' +
-                json.result);
-            QUnit.start();
-          },
-          function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-            QUnit.start();
-          });
-    }, 1500);
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    setTimeout(() => {
+      sdk.put({
+        profile: 'camera',
+        attribute: 'zoom',
+        serviceId: getCurrentServiceId(),
+        direction: 'out',
+        movement: 'in-stop'
+      }).then(json => {
+        assert.ok(true,
+            'Success of the zoom out to stop.result=' +
+            json.result);
+        done();
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+        done();
+      });
+    }, 2 * 1000);
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('zoomNormalTest003(Zoom out the camera.)',
+QUnit.test('zoomNormalTest003(Zoom out the camera.)',
     CameraProfileNormalTest.zoomNormalTest003);
 
 /**
@@ -208,24 +195,22 @@ QUnit.asyncTest('zoomNormalTest003(Zoom out the camera.)',
  * <p>
  */
 CameraProfileNormalTest.zoomNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'out');
-  builder.addParameter('movement', '1shot');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'out',
+      movement: '1shot'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e,errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('zoom(Zoom out the camera only 1shot.)',
+QUnit.test('zoom(Zoom out the camera only 1shot.)',
     CameraProfileNormalTest.zoomNormalTest004);

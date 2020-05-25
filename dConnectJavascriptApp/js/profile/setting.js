@@ -1,17 +1,17 @@
 /**
  setting.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
-var VOLUME_TYPE_ALERM = 1;
-var VOLUME_TYPE_CALL = 2;
-var VOLUME_TYPE_RINGTONE = 3;
-var VOLUME_TYPE_MAIL = 4;
-var VOLUME_TYPE_MEDIA_PLAYER = 5;
-var VOLUME_TYPE_OTHER = 6;
-var processCount = 0;
-var finishCount = 3;
+let VOLUME_TYPE_ALERM = 1;
+let VOLUME_TYPE_CALL = 2;
+let VOLUME_TYPE_RINGTONE = 3;
+let VOLUME_TYPE_MAIL = 4;
+let VOLUME_TYPE_MEDIA_PLAYER = 5;
+let VOLUME_TYPE_OTHER = 6;
+let processCount = 0;
+let finishCount = 3;
 
 /**
  * Setting menu
@@ -24,12 +24,12 @@ function showSetting(serviceId) {
 
   setTitle('Setting Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doSettingBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
 
   if (myDeviceName.indexOf('Pebble') != -1) {
     str += '<center>Date</center><br>';
@@ -105,7 +105,7 @@ function showSetting(serviceId) {
     finishCount = 1;
   } else {
     doCheckDate(serviceId);
-    for (var i = 1; i < VOLUME_TYPE_OTHER; i++) {
+    for (let i = 1; i < VOLUME_TYPE_OTHER; i++) {
       doCheckVolume(serviceId, i);
     }
     doCheckbrightness(serviceId);
@@ -116,48 +116,32 @@ function showSetting(serviceId) {
 }
 
 /**
- * Backボタン
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
- */
-function doSettingBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
-/**
  * 時刻の設定
  *
  * @param {String} serviceId サービスID
  */
 function doSetDate(serviceId) {
-  var newDate = $('#newDate').val();
-  var newTime = $('#newTime').val();
+  let newDate = $('#newDate').val();
+  let newTime = $('#newTime').val();
 
-  var newDateStr = newDate + 'T' + newTime + ':00+09:00';
+  let newDateStr = newDate + 'T' + newTime + ':00+09:00';
   alert(newDateStr);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setAttribute('date');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('date', newDateStr);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'setting',
+    attribute: 'date',
+    params: {
+      serviceId: serviceId,
+      date: newDateStr
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     alert('Success: set date');
     doCheckDate(serviceId);
-  }, function(errorCode, errorMessage) {
-    showError('PUT setting/date', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT setting/date', e.errorCode, e.errorMessage);
   });
 
 }
@@ -168,32 +152,26 @@ function doSetDate(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doCheckDate(serviceId) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setAttribute('date');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  var oncomplete = function() {
+  let oncomplete = function() {
     processCount++;
     loadingCheck(processCount);
   };
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'setting',
+    attribute: 'date',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     $('#deviceDate').val(json.date);
     oncomplete();
-  }, function(errorCode, errorMessage) {
-    showError('GET setting/date', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET setting/date', e.errorCode, e.errorMessage);
     oncomplete();
   });
 }
@@ -206,26 +184,20 @@ function doCheckDate(serviceId) {
  * @param {int} kind Volumeのタイプ
  */
 function doCheckVolume(serviceId, kind) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setInterface('sound');
-  builder.setAttribute('volume');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', kind);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  var oncomplete = function() {
+  let oncomplete = function() {
     processCount++;
     loadingCheck(processCount);
   };
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'setting',
+    interface: 'sound',
+    attribute: 'volume',
+    params: {
+      serviceId: serviceId,
+      kind: kind
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response1: ', json);
     }
@@ -248,8 +220,8 @@ function doCheckVolume(serviceId, kind) {
       // no op VOLUME_TYPE_OTHER
     }
     oncomplete();
-  }, function(errorCode, errorMessage) {
-    showError('GET setting/sound/volume', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET setting/sound/volume', e.errorCode, e.errorMessage);
     oncomplete();
   });
 }
@@ -260,24 +232,19 @@ function doCheckVolume(serviceId, kind) {
  * @param {String} serviceId サービスID
  */
 function doCheckbrightness(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setInterface('display');
-  builder.setAttribute('brightness');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  var oncomplete = function() {
+  let oncomplete = function() {
     processCount++;
     loadingCheck(processCount);
   };
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'setting',
+    interface: 'display',
+    attribute: 'brightness',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -285,8 +252,8 @@ function doCheckbrightness(serviceId) {
     $('#brightness').val((json.level * 100));
     $('#brightness').slider('refresh');
     oncomplete();
-  }, function(errorCode, errorMessage) {
-    showError('GET setting/display/brightness', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET setting/display/brightness', e.errorCode, e.errorMessage);
     oncomplete();
   });
 }
@@ -297,27 +264,22 @@ function doCheckbrightness(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doSetbrightness(serviceId) {
-  var level = $('#brightness').val() / 100;
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setInterface('display');
-  builder.setAttribute('brightness');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('level', level);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  let level = $('#brightness').val() / 100;
+  sdk.put({
+    profile: 'setting',
+    interface: 'display',
+    attribute: 'brightness',
+    params: {
+      serviceId: serviceId,
+      level: level
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     alert('success');
-  }, function(errorCode, errorMessage) {
-    showError('PUT setting/display/brightness', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT setting/display/brightness', e.errorCode, e.errorMessage);
   });
 }
 
@@ -327,28 +289,22 @@ function doSetbrightness(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doSetSleep(serviceId) {
-  var time = $('#sleep').val();
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setInterface('display');
-  builder.setAttribute('sleep');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time', time);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  let time = $('#sleep').val();
+  sdk.put({
+    profile: 'setting',
+    interface: 'display',
+    attribute: 'sleep',
+    params: {
+      serviceId: serviceId,
+      time: time
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     alert('success');
-  }, function(errorCode, errorMessage) {
-    showError('PUT setting/display/sleep', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT setting/display/sleep', e.errorCode, e.errorMessage);
   });
 }
 
@@ -358,32 +314,26 @@ function doSetSleep(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doCheckSleep(serviceId) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setInterface('display');
-  builder.setAttribute('sleep');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  var oncomplete = function() {
+  let oncomplete = function() {
     processCount++;
     loadingCheck(processCount);
   };
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'setting',
+    interface: 'display',
+    attribute: 'sleep',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     $('#sleep').val(json.time);
     oncomplete();
-  }, function(errorCode, errorMessage) {
-    showError('GET setting/volume/sound', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET setting/volume/sound', e.errorCode, e.errorMessage);
     oncomplete();
   });
 }
@@ -408,19 +358,19 @@ function loadingCheck(count) {
 function doChangeSoundLevel(serviceId, type) {
 
   if (type == VOLUME_TYPE_ALERM) {
-    var level = $('#volumeAlerm').val() / 100;
+    let level = $('#volumeAlerm').val() / 100;
     doSetSoundLevel(type, serviceId, level);
   } else if (type == VOLUME_TYPE_CALL) {
-    var level = $('#volumeCall').val() / 100;
+    let level = $('#volumeCall').val() / 100;
     doSetSoundLevel(type, serviceId, level);
   } else if (type == VOLUME_TYPE_RINGTONE) {
-    var level = $('#volumeRingtone').val() / 100;
+    let level = $('#volumeRingtone').val() / 100;
     doSetSoundLevel(type, serviceId, level);
   } else if (type == VOLUME_TYPE_MAIL) {
-    var level = $('#volumeMail').val() / 100;
+    let level = $('#volumeMail').val() / 100;
     doSetSoundLevel(type, serviceId, level);
   } else if (type == VOLUME_TYPE_MEDIA_PLAYER) {
-    var level = $('#volumeMediaplayer').val() / 100;
+    let level = $('#volumeMediaplayer').val() / 100;
     doSetSoundLevel(type, serviceId, level);
   }
 }
@@ -433,26 +383,21 @@ function doChangeSoundLevel(serviceId, type) {
  * @param {String} level 音のレベル
  */
 function doSetSoundLevel(type, serviceId, level) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('setting');
-  builder.setAttribute('volume');
-  builder.setInterface('sound');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', type);
-  builder.addParameter('level', level);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'setting',
+    interface: 'volume',
+    attribute: 'sound',
+    params: {
+      serviceId: serviceId,
+      kind: type,
+      level: level
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     alert('success');
-  }, function(errorCode, errorMessage) {
-    showError('PUT setting/volume/sound', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT setting/volume/sound', e.errorCode, e.errorMessage);
   });
 }

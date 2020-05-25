@@ -1,5 +1,5 @@
 /*!
- * QUnit 1.15.0
+ * QUnit 2.9.2
  * http://qunitjs.com/
  *
  * Copyright 2014 jQuery Foundation and other contributors

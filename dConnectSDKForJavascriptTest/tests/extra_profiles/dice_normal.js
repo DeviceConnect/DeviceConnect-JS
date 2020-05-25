@@ -1,5 +1,5 @@
-module('DiceProfileNormalTest', {
-  setup: function() {
+QUnit.module('DiceProfileNormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('DiceProfileNormalTest', {
  * Diceプロファイルの正常系テストを行うクラス。
  * @class
  */
-var DiceProfileNormalTest = {};
+let DiceProfileNormalTest = {};
 
 /**
  * ダイスの目を取得する
@@ -24,11 +24,15 @@ var DiceProfileNormalTest = {};
  * </p>
  */
 DiceProfileNormalTest.ondiceNormalTest = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setAttribute('ondice');
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let params = {
+    profile: 'dice',
+    attribute: 'ondice',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'dice' && json.attribute === 'ondice') {
       assert.ok(true, message);
       return true;
@@ -36,7 +40,7 @@ DiceProfileNormalTest.ondiceNormalTest = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
+QUnit.test('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
 
 /**
  * 磁力センサー値を通知するイベント
@@ -52,12 +56,16 @@ QUnit.asyncTest('ondiceNormalTest', DiceProfileNormalTest.ondiceNormalTest);
  * </p>
  */
 DiceProfileNormalTest.onmagnetometerNormalTest = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('dice');
-  builder.setInterface('magnetometer');
-  builder.setAttribute('onmagnetometer');
-  openWebsocket(builder, assert, 2000, function(message) {
-    var json = JSON.parse(message);
+  let params = {
+    profile: 'dice',
+    interface: 'magnetometer',
+    attribute: 'ondice',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 2000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'dice' &&
         json.interface === 'magnetometer' &&
         json.attribute === 'onmagnetometer') {
@@ -67,5 +75,5 @@ DiceProfileNormalTest.onmagnetometerNormalTest = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onmagnetometerNormalTest.',
+QUnit.test('onmagnetometerNormalTest.',
     DiceProfileNormalTest.onmagnetometerNormalTest);

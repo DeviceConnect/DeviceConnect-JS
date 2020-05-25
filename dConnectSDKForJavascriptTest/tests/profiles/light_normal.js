@@ -1,5 +1,5 @@
-module('LightProfileNormalTest', {
-  setup: function() {
+QUnit.module('LightProfileNormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,24 +8,7 @@ module('LightProfileNormalTest', {
  * Lightプロファイルの正常系テストを行うクラス。
  * @class
  */
-var LightProfileNormalTest = {};
-
-function getLightId(successCallback, errorCallback) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    successCallback(accessToken, serviceId, json);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    errorCallback(errorCode, errorMessage);
-    QUnit.start();
-  });
-}
+let LightProfileNormalTest = {};
 
 /**
  * ライト情報を取得するテストを行う。
@@ -40,23 +23,22 @@ function getLightId(successCallback, errorCallback) {
  * </p>
  */
 LightProfileNormalTest.getLightIdNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('light');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'light',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result + ", light:" + json.lights[0].lightId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('getLightIdNormalTest001(get)', LightProfileNormalTest.getLightIdNormalTest001);
+QUnit.test('getLightIdNormalTest001(get)', LightProfileNormalTest.getLightIdNormalTest001);
 
 /**
  * ライトを点灯するテストを行う。
@@ -71,37 +53,37 @@ QUnit.asyncTest('getLightIdNormalTest001(get)', LightProfileNormalTest.getLightI
  * </p>
  */
 LightProfileNormalTest.lightOnNormalTest001 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
+  let done = assert.async();
+  getLightId().then(json => {
     if (json.lights) {
-      for (var i = 0; i < json.lights.length; i++) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('light');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('color', 'ff0000');
-        builder.addParameter('lightId', json.lights[i].lightId);
-        builder.addParameter('flashing', '500,500,500,500,500,500');
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
+      for (let i = 0; i < json.lights.length; i++) {
+        sdk.post({
+          profile: 'light',
+          params: {
+            serviceId: getCurrentServiceId(),
+            lightId: json.lights[i].lightId,
+            flashing: '500,500,500,500,500,500'
+          }
+        }).then(json => {
           assert.ok(true, 'result=' + json.result);
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode),
-              'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+        }).catch(e => {
+          assert.ok(checkErrorCode(e.errorCode),
+              'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
         });
       }
       setTimeout(function() {
-        QUnit.start();
-      }, 5000);
+        done();
+      }, 5 * 1000);
     } else {
-      QUnit.start();
+      done();
     }
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('lightOnNormalTest001(post)', LightProfileNormalTest.lightOnNormalTest001);
+QUnit.test('lightOnNormalTest001(post)', LightProfileNormalTest.lightOnNormalTest001);
 
 /**
  * ライトのステータスを変更するテストを行う。
@@ -116,38 +98,39 @@ QUnit.asyncTest('lightOnNormalTest001(post)', LightProfileNormalTest.lightOnNorm
  * </p>
  */
 LightProfileNormalTest.statusChangeNormalTest001 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
+  let done = assert.async();
+  getLightId().then(json => {
     if (json.lights) {
-      for (var i = 0; i < json.lights.length; i++) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('light');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('color', 'ff0000');
-        builder.addParameter('name', 'Hue Light Test');
-        builder.addParameter('lightId', json.lights[i].lightId);
-        builder.addParameter('flashing', '500,500,500,500,500,500');
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
+      for (let i = 0; i < json.lights.length; i++) {
+        sdk.put({
+          profile: 'light',
+          params: {
+            serviceId: getCurrentServiceId(),
+            lightId: json.lights[i].lightId,
+            name: 'Hue Light Test',
+            color: 'ff0000',
+            flashing: '500,500,500,500,500,500'
+          }
+        }).then(json => {
           assert.ok(true, 'result=' + json.result);
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode),
-              'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+        }).catch(e => {
+          assert.ok(checkErrorCode(e.errorCode),
+              'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
         });
       }
       setTimeout(function() {
-        QUnit.start();
-      }, 5000);
+        done();
+      }, 5 * 1000);
     } else {
-      QUnit.start();
+      done();
     }
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('statusChangeNormalTest001(put)', LightProfileNormalTest.statusChangeNormalTest001);
+QUnit.test('statusChangeNormalTest001(put)', LightProfileNormalTest.statusChangeNormalTest001);
 
 
 /**
@@ -163,51 +146,49 @@ QUnit.asyncTest('statusChangeNormalTest001(put)', LightProfileNormalTest.statusC
  * </p>
  */
 LightProfileNormalTest.lightOffNormalTest001 = function(assert) {
-  getLightId(function(accessToken, serviceId, json) {
+  let done = assert.async();
+  getLightId().then(json => {
     if (json.lights) {
-
-      for (var i = 0; i < json.lights.length; i++) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('light');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('lightId', json.lights[i].lightId);
-        var uri = builder.build();
-        dConnect.post(uri, null, null, function(json) {
+      for (let i = 0; i < json.lights.length; i++) {
+        sdk.post({
+          profile: 'light',
+          params: {
+            serviceId: getCurrentServiceId(),
+            lightId: json.lights[i].lightId
+          }
+        }).then(json => {
           assert.ok(true, 'result=' + json.result);
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode),
-              'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+        }).catch(e => {
+          assert.ok(checkErrorCode(e.errorCode),
+              'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
         });
       }
-
       setTimeout(function() {
-        for (var i = 0; i < json.lights.length; i++) {
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile('light');
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          builder.addParameter('lightId', json.lights[i].lightId);
-          var uri = builder.build();
-          dConnect.delete(uri, null, function(json) {
+        for (let i = 0; i < json.lights.length; i++) {
+          sdk.delete({
+            profile: 'light',
+            params: {
+              serviceId: getCurrentServiceId(),
+              lightId: json.lights[i].lightId
+            }
+          }).then(json => {
             assert.ok(true, 'result=' + json.result);
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+          }).catch(e => {
+            assert.ok(checkErrorCode(e.errorCode),
+                'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
           });
         }
       }, 2000);
-
       setTimeout(function() {
-        QUnit.start();
-      }, 3000);
+        done();
+      }, 3 * 1000);
     } else {
-      QUnit.start();
+      done();
     }
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('lightOffNormalTest001(delete)', LightProfileNormalTest.lightOffNormalTest001);
+QUnit.test('lightOffNormalTest001(delete)', LightProfileNormalTest.lightOffNormalTest001);

@@ -1,5 +1,5 @@
-module('Connection Profile Normal Test', {
-  setup: function() {
+QUnit.module('Connection Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Connection Profile Normal Test', {
  * Connectionプロファイルのテストを行うクラス。
  * @class
  */
-var ConnectionProfileNormalTest = {};
+let ConnectionProfileNormalTest = {};
 
 /**
  * Wi-Fiの接続状態を取得するテストを行う。
@@ -24,25 +24,24 @@ var ConnectionProfileNormalTest = {};
  * </p>
  */
 ConnectionProfileNormalTest.wifiTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_WIFI,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable !== undefined, 'enable=' + json.enable);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiTest001);
+QUnit.test('wifiNormalTest001', ConnectionProfileNormalTest.wifiTest001);
 
 /**
  * Wi-Fiの接続状態を有効にするテストを行う。
@@ -57,23 +56,22 @@ QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiTest001);
  * </p>
  */
 ConnectionProfileNormalTest.wifiNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_WIFI,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiNormalTest001);
+QUnit.test('wifiNormalTest001', ConnectionProfileNormalTest.wifiNormalTest001);
 
 /**
  * Wi-Fiの接続状態を無効にするテストを行う。
@@ -88,23 +86,22 @@ QUnit.asyncTest('wifiNormalTest001', ConnectionProfileNormalTest.wifiNormalTest0
  * </p>
  */
 ConnectionProfileNormalTest.wifiNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_WIFI);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_WIFI,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('wifiNormalTest002', ConnectionProfileNormalTest.wifiNormalTest002);
+QUnit.test('wifiNormalTest002', ConnectionProfileNormalTest.wifiNormalTest002);
 
 /**
  * Connectionプロファイルのonwifichangeを登録するテストを行う。
@@ -120,12 +117,17 @@ QUnit.asyncTest('wifiNormalTest002', ConnectionProfileNormalTest.wifiNormalTest0
  * </p>
  */
 ConnectionProfileNormalTest.onWifichangeTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_ON_WIFI_CHANGE);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.connection.PROFILE_NAME && json.attribute === dConnect.constants.connection.ATTR_ON_WIFI_CHANGE) {
+  let params = {
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_ON_WIFI_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.connection.PROFILE_NAME
+        && json.attribute === dConnectSDK.constants.connection.ATTR_ON_WIFI_CHANGE) {
       if (json.connectStatus) {
         assert.ok(true, message);
         return true;
@@ -136,7 +138,7 @@ ConnectionProfileNormalTest.onWifichangeTest001 = function(assert) {
   });
 };
 
-QUnit.asyncTest('onwifichangeNormalTest001', ConnectionProfileNormalTest.onWifichangeTest001);
+QUnit.test('onwifichangeNormalTest001', ConnectionProfileNormalTest.onWifichangeTest001);
 
 /**
  * Bluetoothの接続状態を取得するテストを行う。
@@ -152,25 +154,24 @@ QUnit.asyncTest('onwifichangeNormalTest001', ConnectionProfileNormalTest.onWific
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable !== undefined, 'enable=' + json.enable);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('bluetoothNormalTest001', ConnectionProfileNormalTest.bluetoothNormalTest001);
+QUnit.test('bluetoothNormalTest001', ConnectionProfileNormalTest.bluetoothNormalTest001);
 
 /**
  * Bluetoothの接続状態を有効にするテストを行う。
@@ -185,24 +186,23 @@ QUnit.asyncTest('bluetoothNormalTest001', ConnectionProfileNormalTest.bluetoothN
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('bluetoothNormalTest002', ConnectionProfileNormalTest.bluetoothNormalTest002);
+QUnit.test('bluetoothNormalTest002', ConnectionProfileNormalTest.bluetoothNormalTest002);
 
 /**
  * Bluetoothの接続状態を無効にするテストを行う。
@@ -217,24 +217,23 @@ QUnit.asyncTest('bluetoothNormalTest002', ConnectionProfileNormalTest.bluetoothN
  * </p>
  */
 ConnectionProfileNormalTest.bluetoothNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLUETOOTH);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLUETOOTH,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('bluetoothNormalTest003', ConnectionProfileNormalTest.bluetoothNormalTest003);
+QUnit.test('bluetoothNormalTest003', ConnectionProfileNormalTest.bluetoothNormalTest003);
 
 /**
  * Connectionプロファイルのonbluetoothchangeを登録するテストを行う。
@@ -250,12 +249,17 @@ QUnit.asyncTest('bluetoothNormalTest003', ConnectionProfileNormalTest.bluetoothN
  * </p>
  */
 ConnectionProfileNormalTest.onBluetoothChangeNormalTest003 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_ON_BLUETOOTH_CHANGE);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.connection.PROFILE_NAME && json.attribute === dConnect.constants.connection.ATTR_ON_BLUETOOTH_CHANGE) {
+  let params = {
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_ON_BLUETOOTH_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.connection.PROFILE_NAME
+      && json.attribute === dConnectSDK.constants.connection.ATTR_ON_BLUETOOTH_CHANGE) {
       if (json.connectStatus) {
         assert.ok(true, message);
         return true;
@@ -266,7 +270,7 @@ ConnectionProfileNormalTest.onBluetoothChangeNormalTest003 = function(assert) {
   });
 };
 
-QUnit.asyncTest('onBluetoothChangeNormalTest003', ConnectionProfileNormalTest.onBluetoothChangeNormalTest003);
+QUnit.test('onBluetoothChangeNormalTest003', ConnectionProfileNormalTest.onBluetoothChangeNormalTest003);
 
 /**
  * Bluetoothの検索可能状態を有効にするテストを行う。
@@ -281,25 +285,24 @@ QUnit.asyncTest('onBluetoothChangeNormalTest003', ConnectionProfileNormalTest.on
  * </p>
  */
 ConnectionProfileNormalTest.discoverableNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
-  builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
+    attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('discoverableNormalTest001', ConnectionProfileNormalTest.discoverableNormalTest001);
+QUnit.test('discoverableNormalTest001', ConnectionProfileNormalTest.discoverableNormalTest001);
 
 /**
  * Bluetoothの検索可能状態を無効にするテストを行う。
@@ -314,25 +317,24 @@ QUnit.asyncTest('discoverableNormalTest001', ConnectionProfileNormalTest.discove
  * </p>
  */
 ConnectionProfileNormalTest.discoverableNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.connection.INTERFACE_BLUETOOTH);
-  builder.setAttribute(dConnect.constants.connection.ATTR_DISCOVERABLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    interface: dConnectSDK.constants.connection.INTERFACE_BLUETOOTH,
+    attribute: dConnectSDK.constants.connection.ATTR_DISCOVERABLE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('discoverableNormalTest002', ConnectionProfileNormalTest.discoverableNormalTest002);
+QUnit.test('discoverableNormalTest002', ConnectionProfileNormalTest.discoverableNormalTest002);
 
 /**
  * NFCの接続状態を取得にするテストを行う。
@@ -348,25 +350,24 @@ QUnit.asyncTest('discoverableNormalTest002', ConnectionProfileNormalTest.discove
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_NFC,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable !== undefined, 'enable=' + json.enable);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('nfcNormalTest001', ConnectionProfileNormalTest.nfcNormalTest001);
+QUnit.test('nfcNormalTest001', ConnectionProfileNormalTest.nfcNormalTest001);
 
 /**
  * NFCの接続状態を有効にするテストを行う。
@@ -381,24 +382,23 @@ QUnit.asyncTest('nfcNormalTest001', ConnectionProfileNormalTest.nfcNormalTest001
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_NFC,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('nfcNormalTest002', ConnectionProfileNormalTest.nfcNormalTest002);
+QUnit.test('nfcNormalTest002', ConnectionProfileNormalTest.nfcNormalTest002);
 
 /**
  * NFCの接続状態を無効にするテストを行う。
@@ -413,24 +413,23 @@ QUnit.asyncTest('nfcNormalTest002', ConnectionProfileNormalTest.nfcNormalTest002
  * </p>
  */
 ConnectionProfileNormalTest.nfcNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_NFC);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_NFC,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('nfcNormalTest003', ConnectionProfileNormalTest.nfcNormalTest003);
+QUnit.test('nfcNormalTest003', ConnectionProfileNormalTest.nfcNormalTest003);
 
 /**
  * Connectionプロファイルのonnfcchangeを登録するテストを行う。
@@ -446,12 +445,17 @@ QUnit.asyncTest('nfcNormalTest003', ConnectionProfileNormalTest.nfcNormalTest003
  * </p>
  */
 ConnectionProfileNormalTest.onNfcChangeNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_ON_NFC_CHANGE);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.connection.PROFILE_NAME && json.attribute === dConnect.constants.connection.ATTR_ON_NFC_CHANGE) {
+  let params = {
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_ON_NFC_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.connection.PROFILE_NAME
+      && json.attribute === dConnectSDK.constants.connection.ATTR_ON_NFC_CHANGE) {
       if (json.connectStatus) {
         assert.ok(true, message);
         return true;
@@ -462,7 +466,7 @@ ConnectionProfileNormalTest.onNfcChangeNormalTest001 = function(assert) {
   });
 };
 
-QUnit.asyncTest('onNfcChangeNormalTest001', ConnectionProfileNormalTest.onNfcChangeNormalTest001);
+QUnit.test('onNfcChangeNormalTest001', ConnectionProfileNormalTest.onNfcChangeNormalTest001);
 
 /**
  * BLEの接続状態を取得にするテストを行う。
@@ -478,25 +482,24 @@ QUnit.asyncTest('onNfcChangeNormalTest001', ConnectionProfileNormalTest.onNfcCha
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.enable != undefined, 'enable=' + json.enable);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('bleNormalTest001', ConnectionProfileNormalTest.bleNormalTest001);
+QUnit.test('bleNormalTest001', ConnectionProfileNormalTest.bleNormalTest001);
 
 /**
  * BLEの接続状態を有効にするテストを行う。
@@ -511,24 +514,23 @@ QUnit.asyncTest('bleNormalTest001', ConnectionProfileNormalTest.bleNormalTest001
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('bleNormalTest002', ConnectionProfileNormalTest.bleNormalTest002);
+QUnit.test('bleNormalTest002', ConnectionProfileNormalTest.bleNormalTest002);
 
 /**
  * BLEの接続状態を無効にするテストを行う。
@@ -543,24 +545,23 @@ QUnit.asyncTest('bleNormalTest002', ConnectionProfileNormalTest.bleNormalTest002
  * </p>
  */
 ConnectionProfileNormalTest.bleNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_BLE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_BLE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
 
-QUnit.asyncTest('bleNormalTest003', ConnectionProfileNormalTest.bleNormalTest003);
+QUnit.test('bleNormalTest003', ConnectionProfileNormalTest.bleNormalTest003);
 
 /**
  * Connectionプロファイルのonblechangeを登録するテストを行う。
@@ -576,12 +577,17 @@ QUnit.asyncTest('bleNormalTest003', ConnectionProfileNormalTest.bleNormalTest003
  * </p>
  */
 ConnectionProfileNormalTest.onBleChangeNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.connection.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.connection.ATTR_ON_BLE_CHANGE);
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.connection.PROFILE_NAME && json.attribute === dConnect.constants.connection.ATTR_ON_BLE_CHANGE) {
+  let params = {
+    profile: dConnectSDK.constants.connection.PROFILE_NAME,
+    attribute: dConnectSDK.constants.connection.ATTR_ON_BLE_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.connection.PROFILE_NAME
+      && json.attribute === dConnectSDK.constants.connection.ATTR_ON_BLE_CHANGE) {
       if (json.connectStatus) {
         assert.ok(true, message);
         return true;
@@ -592,4 +598,4 @@ ConnectionProfileNormalTest.onBleChangeNormalTest001 = function(assert) {
   });
 };
 
-QUnit.asyncTest('onBleChangeNormalTest001', ConnectionProfileNormalTest.onBleChangeNormalTest001);
+QUnit.test('onBleChangeNormalTest001', ConnectionProfileNormalTest.onBleChangeNormalTest001);

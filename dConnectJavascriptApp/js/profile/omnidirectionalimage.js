@@ -1,6 +1,6 @@
 /**
  omnidirectionalimage.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -13,9 +13,9 @@
 function showOmnidirectionalImage(serviceId) {
   clearRefreshTimer();
 
-  var defaultWidth = 280;
-  var defaultHeight = 210;
-  var paramIncrementPatterns = [
+  let defaultWidth = 280;
+  let defaultHeight = 210;
+  let paramIncrementPatterns = [
     { id: 'patternX', name: 'x', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
     { id: 'patternY', name: 'y', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
     { id: 'patternZ', name: 'z', type: 'number', min: -1.0, max: 1.0, by: 0.2 },
@@ -31,11 +31,11 @@ function showOmnidirectionalImage(serviceId) {
   initAll();
   setTitle('Omnidirectional Image Profile');
 
-  var btnStr = getBackButton('Device Top', 'doOmnidirectionalImageBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var content = '';
+  let content = '';
   content += '<b>Omnidirectional Image:</b><br>';
   content += '<input id="omniUri" type="text">';
   content += '<button id="buttonShutter">Shot</button><br>';
@@ -105,12 +105,12 @@ function showOmnidirectionalImage(serviceId) {
   content += 'Height: <input id="paramHeight" type="text" value="' + defaultHeight + '"><br>';
 　reloadContent(content);
 
-  var omniUri;
-  var roiUri;
-  var imgType;
-  var isStarted = false;
+  let omniUri;
+  let roiUri;
+  let imgType;
+  let isStarted = false;
 
-  var omniImg = $('#omniImg');
+  let omniImg = $('#omniImg');
   omniImg.css('width', defaultWidth + 'px');
   omniImg.css('height', defaultHeight + 'px');
   omniImg.css('border', '1px solid #000000');
@@ -138,52 +138,48 @@ function showOmnidirectionalImage(serviceId) {
   showOmniImageUpdatedDate();
 
   function shot() {
-    searchTHETA({
-      onfound: function(theta) {
-        var uri = new dConnect.URIBuilder()
-          .setProfile('mediastreamrecording')
-          .setAttribute('takephoto')
-          .setServiceId(theta.id)
-          .setAccessToken(accessToken)
-          .build();
-        dConnect.post(uri, null, null,
-          function(json) {
-            omniUri = json.uri;
-            $('#omniUri').val(omniUri);
-
-            showOmniImageUpdatedDate();
-          },
-          function(errorCode, errorMessage) {
-            alert('Failed to take photo.');
-          });
-      },
-      onnotfound: function() {
+    searchTHETA().then(theta => {
+      if (!theta) {
         alert('THETA is not found.');
-      },
-      onerror: function() {
-        alert('Failed communication between Manager and this app.');
+        return;
       }
+      sdk.post({
+        profile: 'mediastreamrecording',
+        attribute: 'takephoto',
+        params: {
+          serviceId: theta.id
+        }
+      }).then(json => {
+          omniUri = json.uri;
+          $('#omniUri').val(omniUri);
+
+          showOmniImageUpdatedDate();
+      }).catch(e => {
+          alert('Failed to take photo.');
+      });
+    }).catch(e => {
+      alert('Failed communication between Manager and this app.');
     });
   }
 
-  function searchTHETA(cb) {
-    dConnect.discoverDevices(accessToken,
-      function(json) {
-        var i,
+  function searchTHETA() {
+    return new Promise((resolve, reject) => {
+      sdk.discoverDevices().then(json => {
+        let i,
             devices = json.services;
         for (i = 0; i < devices.length; i++) {
-          var id = devices[i].id;
+          let id = devices[i].id;
           if (id.indexOf('theta') >= 0) {
-            cb.onfound(devices[i]);
+            resolve(devices[i]);
             return;
           }
         }
-        cb.onnotfound();
-      },
-      function(errorCode, errorMessage) {
-        console.error('Failed to search THETA: errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-        cb.onerror();
+        resolve();
+      }).catch(e => {
+        console.error('Failed to search THETA: errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+        reject();
       });
+    });
   }
 
   function sendParams() {
@@ -191,33 +187,29 @@ function showOmnidirectionalImage(serviceId) {
       alert('ROI Image View is not started.');
       return;
     }
-    var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectionalimage')
-      .setInterface('roi')
-      .setAttribute('settings')
-      .setServiceId(serviceId)
-      .setAccessToken(accessToken)
-      .addParameter('uri', roiUri)
-      .addParameter('vr', $('[name=vrMode]').val())
-      .addParameter('stereo', $('[name=stereoMode]').val())
-      .addParameter('x', $('#paramX').val())
-      .addParameter('y', $('#paramY').val())
-      .addParameter('z', $('#paramZ').val())
-      .addParameter('roll', $('#paramRoll').val())
-      .addParameter('yaw', $('#paramYaw').val())
-      .addParameter('pitch', $('#paramPitch').val())
-      .addParameter('fov', $('#paramFov').val())
-      .addParameter('sphereSize', $('#paramSphereSize').val())
-      .addParameter('width', $('#paramWidth').val())
-      .addParameter('height', $('#paramHeight').val())
-      .build();
-
-    dConnect.put(uri, null, null,
-      function(json) {
-      },
-      function(errorCode, errorMessage) {
-        alert('Faile to send settings: errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      });
+    sdk.put({
+      profile: 'omnidirectionalimage',
+      interface: 'roi',
+      attribute: 'settings',
+      params: {
+        serviceId: serviceId,
+        uri: roiUri,
+        vr: $('[name=vrMode]').val(),
+        stereo: $('[name=stereoMode]').val(),
+        x: $('#paramX').val(),
+        y: $('#paramY').val(),
+        z: $('#paramZ').val(),
+        roll: $('#paramRoll').val(),
+        yaw: $('#paramYaw').val(),
+        pitch: $('#paramPitch').val(),
+        fov: $('#paramFov').val(),
+        sphereSize: $('#paramSphereSize').val(),
+        width: $('#paramWidth').val(),
+        height: $('#paramHeight').val()
+      }
+    }).then(json => {}).catch(e => {
+      alert('Faile to send settings: errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    });
   }
 
   function switchView() {
@@ -230,7 +222,7 @@ function showOmnidirectionalImage(serviceId) {
           imgType = type;
           changeToStop($('#buttonStartStop'));
           $('#roiUri').val(uri);
-          
+
         }
       });
     } else {
@@ -272,9 +264,9 @@ function showOmnidirectionalImage(serviceId) {
       return;
     }
 
-    var outputParams = [];
-    var overlaySwitch = $('[name=overlaySwitch]').val();
-    var imageServerSwitch = $('[name=imageServerSwitch]').val();
+    let outputParams = [];
+    let overlaySwitch = $('[name=overlaySwitch]').val();
+    let imageServerSwitch = $('[name=imageServerSwitch]').val();
     if (overlaySwitch !== 'off') {
       outputParams.push('overlay');
     }
@@ -282,7 +274,7 @@ function showOmnidirectionalImage(serviceId) {
       outputParams.push('mjpeg');
     }
 
-    var method;
+    let method;
     if (imageServerSwitch === 'jpeg') {
       method = 'GET';
     } else {
@@ -293,26 +285,8 @@ function showOmnidirectionalImage(serviceId) {
       alert('Please turn ON "Overlay" or "Image Server".');
       return;
     }
-
-    var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectionalimage')
-      .setAttribute('roi')
-      .setServiceId(serviceId)
-      .setAccessToken(accessToken)
-      .addParameter('source', $('#omniUri').val())
-      .addParameter('output', concat(outputParams))
-      .build();
-
-    dConnect.sendRequest(method, uri, null, null,
-      function(json) {
-        cb.onstart(json.uri, ((imageServerSwitch === 'off') ? null : imageServerSwitch));
-      },
-      function(errorCode, errorMessage) {
-      
-      });
-
     function concat(array) {
-      var i, result = '';
+      let i, result = '';
       for (i = 0; i < array.length; i++) {
         if (i > 0) {
           result += ',';
@@ -321,6 +295,20 @@ function showOmnidirectionalImage(serviceId) {
       }
       return result;
     }
+
+    sdk.sendRequest(method, {
+      profile: 'omnidirectionalimage',
+      attribute: 'roi',
+      params: {
+        serviceId: serviceId,
+        source: $('#omniUri').val(),
+        output: concat(outputParams)
+      }
+    }).then(json => {
+      cb.onstart(json.uri, ((imageServerSwitch === 'off') ? null : imageServerSwitch));
+    },
+      function(errorCode, errorMessage) {
+    });
   }
 
   function stopView(cb) {
@@ -329,21 +317,16 @@ function showOmnidirectionalImage(serviceId) {
     }
     clearRefreshTimer();
 
-    var uri = new dConnect.URIBuilder()
-      .setProfile('omnidirectionalimage')
-      .setAttribute('roi')
-      .setServiceId(serviceId)
-      .setAccessToken(accessToken)
-      .addParameter('uri', roiUri)
-      .build();
-
-    dConnect.delete(uri, null,
-      function(json) {
+    sdk.delete({
+      profile: 'omnidirectionalimage',
+      attribute: 'roi',
+      params: {
+        serviceId: serviceId,
+        uri: roiUri
+      }
+    }).then(json => {
         cb.onstop();
-      },
-      function(errorCode, errorMessage) {
-      
-      });
+    })
   }
 
   function changeToStop(button) {
@@ -355,7 +338,7 @@ function showOmnidirectionalImage(serviceId) {
   }
 
   function findPattern(id) {
-    var i, pattern;
+    let i, pattern;
     for (i = 0; i < paramIncrementPatterns.length; i++) {
       pattern = paramIncrementPatterns[i];
       if (pattern.id === id) {
@@ -366,8 +349,8 @@ function showOmnidirectionalImage(serviceId) {
   }
 
   function startSettingsPattern() {
-    var patternId = $('[name=patterns]').val();
-    var pattern = findPattern(patternId);
+    let patternId = $('[name=patterns]').val();
+    let pattern = findPattern(patternId);
     if (!pattern) {
       return;
     }
@@ -389,50 +372,38 @@ function showOmnidirectionalImage(serviceId) {
     if (num === undefined) {
       num = option.pattern.min;
     }
-    var width = option.pattern.name === 'width' ? num : defaultWidth;
-    var height = option.pattern.name === 'height' ? num : defaultHeight;
-    var builder = new dConnect.URIBuilder()
-      .setProfile('omnidirectionalimage')
-      .setInterface('roi')
-      .setAttribute('settings')
-      .setServiceId(serviceId)
-      .setAccessToken(accessToken)
-      .addParameter('uri', roiUri)
-      .addParameter('width', parseInt(width).toString())
-      .addParameter('height', parseInt(height).toString())
+    let width = option.pattern.name === 'width' ? num : defaultWidth;
+    let height = option.pattern.name === 'height' ? num : defaultHeight;
+    let params = {
+      profile: 'omnidirectionalimage',
+      interface: 'roi',
+      attribute: 'settings',
+      params: {
+        serviceId: serviceId,
+        uri: roiUri,
+        width: parseInt(width).toString(),
+        height: parseInt(height).toString()
+      }
+    };
     if (option.pattern.name !== 'width' && option.pattern.name !== 'height') {
-      builder.addParameter(option.pattern.name, parseFloat(num.toString()).toFixed(3));
+      params[option.pattern.name] = parseFloat(num.toString()).toFixed(3);
     }
-    var uri = builder.build();
-    dConnect.put(uri, null, null,
-      function(json) {
-
-        setTimeout(function() {
-          var nextNum = num + option.pattern.by;
-          if (nextNum > option.pattern.max) {
-            option.onend();
-            return;
-          }
-          executePatternOfNumber(option, nextNum);
-        }, 500);
-      },
-      function(errorCode, errorMessage) {
-        console.log(errorCode + ":" + errorMessage);
-        alert('ERROR: Failed to send settings param.'+ errorCode + ":" + errorMessage);
-      });
+    sdk.put(params).then(json => {
+      setTimeout(() => {
+        let nextNum = num + option.pattern.by;
+        if (nextNum > option.pattern.max) {
+          option.onend();
+          return;
+        }
+        executePatternOfNumber(option, nextNum);
+      }, 500);
+    }).catch( e => {
+      console.log(e.errorCode + ":" + e.errorMessage);
+      alert('ERROR: Failed to send settings param.'+ e.errorCode + ":" + e.errorMessage);
+    });
 
     $('#omniImg').css('width', width + 'px');
     $('#omniImg').css('height', height + 'px');
   }
 
-}
-
-/**
- * Backボタン
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
- */
-function doOmnidirectionalImageBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
 }

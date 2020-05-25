@@ -1,6 +1,6 @@
-module('Event Test', {
-  setup: function() {
-    TEST_TIMEOUT = 120000;
+QUnit.module('Event Test', {
+  before: function() {
+    TEST_TIMEOUT = 240000;
     init();
   }
 });
@@ -10,7 +10,7 @@ module('Event Test', {
  * 実用的なテストは、各デバイスプラグインで行うため、こちらでは割愛する。
  * @class
  */
-var EventTest = {};
+let EventTest = {};
 
 ///etc
 /**
@@ -22,15 +22,19 @@ var EventTest = {};
  * </p>
  */
 EventTest.addEventTest001 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener();
+    sdk.addEventListener().catch(e => {
+      assert.ok(true, 'No Event.');
+      done();
+    });;
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
-QUnit.asyncTest('addEvent, non exist parameter.',
+QUnit.test('addEvent, non exist parameter.',
   EventTest.addEventTest001);
 
 /**
@@ -42,15 +46,16 @@ QUnit.asyncTest('addEvent, non exist parameter.',
  * </p>
  */
 EventTest.addEventTest002 = function(assert) {
-  dConnect.addEventListener("http://www.google.com", function(){}, function() {
+  let done = assert.async();
+  sdk.addEventListener("http://www.google.com", (message) => {}).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'No Event.');
-    QUnit.start();
+    done();
   });
 };
-QUnit.asyncTest('addEvent, uri "http://www.google.com".',
+QUnit.test('addEvent, uri "http://www.google.com".',
   EventTest.addEventTest002);
 
 
@@ -65,22 +70,23 @@ QUnit.asyncTest('addEvent, uri "http://www.google.com".',
  * </p>
  */
 EventTest.addEventTest011 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener(null, null, function() {
+    sdk.addEventListener(null, (message) => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Error.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
           'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback null.',
+QUnit.test('addEvent, uri and eventCallback null.',
   EventTest.addEventTest011);
 
 /**
@@ -92,16 +98,17 @@ QUnit.asyncTest('addEvent, uri and eventCallback null.',
  * </p>
  */
 EventTest.addEventTest012 = function(assert) {
-    dConnect.addEventListener(null, function(){}, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(true, 'Success Timeout.');
-      QUnit.start();
-    });
+  let done = assert.async();
+  sdk.addEventListener(null, (message) => {}).then(json => {
+    assert.ok(false, 'Error.');
+    done();
+  }).catch(e => {
+    assert.ok(true, 'Success Timeout.');
+    done();
+  });
 };
 
-QUnit.asyncTest('addEvent, uri null.', EventTest.addEventTest012);
+QUnit.test('addEvent, uri null.', EventTest.addEventTest012);
 
 
 /**
@@ -113,17 +120,19 @@ QUnit.asyncTest('addEvent, uri null.', EventTest.addEventTest012);
  * </p>
  */
 EventTest.addEventTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener(null, function(){}, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener(null, (message) => {}).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback null.',
+QUnit.test('addEvent, uri and successCallback, errorCallback null.',
   EventTest.addEventTest013);
 
 
@@ -137,22 +146,23 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback null.',
  * </p>
  */
 EventTest.addEventTest021 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener(undefined, undefined, function() {
+    sdk.addEventListener(undefined, undefined).then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback undefined.',
+QUnit.test('addEvent, uri and eventCallback undefined.',
   EventTest.addEventTest021);
 
 /**
@@ -164,16 +174,17 @@ QUnit.asyncTest('addEvent, uri and eventCallback undefined.',
  * </p>
  */
 EventTest.addEventTest022 = function(assert) {
-  dConnect.addEventListener(undefined, function(){}, function() {
+  let done = assert.async();
+  sdk.addEventListener(undefined, (message) => {}).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'Success Timeout.');
-    QUnit.start();
+    done();
   });
 };
 
-QUnit.asyncTest('addEvent, uri undefined.', EventTest.addEventTest022);
+QUnit.test('addEvent, uri undefined.', EventTest.addEventTest022);
 
 
 /**
@@ -185,17 +196,19 @@ QUnit.asyncTest('addEvent, uri undefined.', EventTest.addEventTest022);
  * </p>
  */
 EventTest.addEventTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener(undefined, function(){}, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener(undefined, (message) => {}).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback undefined.',
+QUnit.test('addEvent, uri and successCallback, errorCallback undefined.',
   EventTest.addEventTest023);
 
 /// 数字
@@ -208,22 +221,23 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback undefined.',
  * </p>
  */
 EventTest.addEventTest031 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener(123, 123, function() {
+    sdk.addEventListener(123, 123).then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Error.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback number.',
+QUnit.test('addEvent, uri and eventCallback number.',
   EventTest.addEventTest031);
 
 /**
@@ -235,16 +249,17 @@ QUnit.asyncTest('addEvent, uri and eventCallback number.',
  * </p>
  */
 EventTest.addEventTest032 = function(assert) {
-  dConnect.addEventListener(123, function(){}, function() {
+  let done = assert.async();
+  sdk.addEventListener(123, (message) => {}).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'Success Timeout.');
-    QUnit.start();
+    done();
   });
 };
 
-QUnit.asyncTest('addEvent, uri number.', EventTest.addEventTest032);
+QUnit.test('addEvent, uri number.', EventTest.addEventTest032);
 
 
 /**
@@ -256,17 +271,19 @@ QUnit.asyncTest('addEvent, uri number.', EventTest.addEventTest032);
  * </p>
  */
 EventTest.addEventTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener(123, function(){}, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener(123, (message) => {}).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });;
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback number.',
+QUnit.test('addEvent, uri and successCallback, errorCallback number.',
   EventTest.addEventTest033);
 
 /// 英字
@@ -279,22 +296,23 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback number.',
  * </p>
  */
 EventTest.addEventTest041 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('abc', 'abc', function() {
+    sdk.addEventListener('abc', 'abc').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback alphabet.',
+QUnit.test('addEvent, uri and eventCallback alphabet.',
   EventTest.addEventTest041);
 
 /**
@@ -306,17 +324,18 @@ QUnit.asyncTest('addEvent, uri and eventCallback alphabet.',
  * </p>
  */
 EventTest.addEventTest042 = function(assert) {
-  dConnect.addEventListener('abc', function() {
-  }, function() {
+  let done = assert.async();
+  sdk.addEventListener('abc', (message) => {
+  }).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'Success Timeout.');
-    QUnit.start();
+    done();
   });
 };
 
-QUnit.asyncTest('addEvent, uri alphabet.', EventTest.addEventTest042);
+QUnit.test('addEvent, uri alphabet.', EventTest.addEventTest042);
 
 
 /**
@@ -328,17 +347,19 @@ QUnit.asyncTest('addEvent, uri alphabet.', EventTest.addEventTest042);
  * </p>
  */
 EventTest.addEventTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('abc', function(){}, 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener('abc', (message) => {}).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback alphabet.',
+QUnit.test('addEvent, uri and successCallback, errorCallback alphabet.',
   EventTest.addEventTest043);
 
 
@@ -352,22 +373,23 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback alphabet.',
  * </p>
  */
 EventTest.addEventTest051 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('あいう', 'あいう', function() {
+    sdk.addEventListener('あいう', 'あいう').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Error.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback hiragana.',
+QUnit.test('addEvent, uri and eventCallback hiragana.',
   EventTest.addEventTest051);
 
 /**
@@ -379,17 +401,18 @@ QUnit.asyncTest('addEvent, uri and eventCallback hiragana.',
  * </p>
  */
 EventTest.addEventTest052 = function(assert) {
-  dConnect.addEventListener('あいう', function() {
-  }, function() {
+  let done = assert.async();
+  sdk.addEventListener('あいう', (message) => {
+  }).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'Success Timeout.');
-    QUnit.start();
+    done();
   });
 };
 
-QUnit.asyncTest('addEvent, uri hiragana.', EventTest.addEventTest052);
+QUnit.test('addEvent, uri hiragana.', EventTest.addEventTest052);
 
 
 /**
@@ -401,17 +424,19 @@ QUnit.asyncTest('addEvent, uri hiragana.', EventTest.addEventTest052);
  * </p>
  */
 EventTest.addEventTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('あいう', function(){}, 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener('あいう', (message) => {}).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback hiragana.',
+QUnit.test('addEvent, uri and successCallback, errorCallback hiragana.',
   EventTest.addEventTest053);
 
 /// 記号
@@ -424,23 +449,24 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback hiragana.',
  * </p>
  */
 EventTest.addEventTest061 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function() {
+    sdk.addEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'Error.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback symbol.',
+QUnit.test('addEvent, uri and eventCallback symbol.',
   EventTest.addEventTest061);
 
 /**
@@ -452,17 +478,18 @@ QUnit.asyncTest('addEvent, uri and eventCallback symbol.',
  * </p>
  */
 EventTest.addEventTest062 = function(assert) {
-  dConnect.addEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function() {
-  }, function() {
+  let done = assert.async();
+  sdk.addEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', message => {
+  }).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'Success Timeout.');
-    QUnit.start();
+    done();
   });
 };
 
-QUnit.asyncTest('addEvent, uri symbol.', EventTest.addEventTest062);
+QUnit.test('addEvent, uri symbol.', EventTest.addEventTest062);
 
 
 /**
@@ -474,18 +501,19 @@ QUnit.asyncTest('addEvent, uri symbol.', EventTest.addEventTest062);
  * </p>
  */
 EventTest.addEventTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function(){},
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', (message) => {}).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback symbol.',
+QUnit.test('addEvent, uri and successCallback, errorCallback symbol.',
   EventTest.addEventTest063);
 
 
@@ -499,23 +527,21 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback symbol.',
  * </p>
  */
 EventTest.addEventTest071 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl', function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
-      assert.ok(false, 'Error.');
-      QUnit.start();
+    sdk.addEventListener('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+      assert.ok(true, 'Error.');
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and eventCallback limit.',
+QUnit.test('addEvent, uri and eventCallback limit.',
   EventTest.addEventTest071);
 
 /**
@@ -527,17 +553,18 @@ QUnit.asyncTest('addEvent, uri and eventCallback limit.',
  * </p>
  */
 EventTest.addEventTest072 = function(assert) {
-  dConnect.addEventListener('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl', function() {
-  }, function() {
+  let done = assert.async();
+  sdk.addEventListener('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl', message => {
+  }).then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'Success Timeout.');
-    QUnit.start();
+    done();
   });
 };
 
-QUnit.asyncTest('addEvent, uri limit.', EventTest.addEventTest072);
+QUnit.test('addEvent, uri limit.', EventTest.addEventTest072);
 
 
 /**
@@ -549,19 +576,20 @@ QUnit.asyncTest('addEvent, uri limit.', EventTest.addEventTest072);
  * </p>
  */
 EventTest.addEventTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.addEventListener('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(){}, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.addEventListener('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      message => {}).catch(e => {
+        assert.ok(true, 'Nothing happens.');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('addEvent, uri and successCallback, errorCallback limit.',
+QUnit.test('addEvent, uri and successCallback, errorCallback limit.',
   EventTest.addEventTest073);
 
 
@@ -576,11 +604,13 @@ QUnit.asyncTest('addEvent, uri and successCallback, errorCallback limit.',
  * </p>
  */
 EventTest.removeEventTest001 = function(assert) {
-    dConnect.removeEventListener();
-    assert.ok(true, "Error");
-    QUnit.start();
+  let done = assert.async();
+  sdk.removeEventListener().catch(e => {
+    assert.ok(true, "Nothing happens");
+    done();
+  });
 };
-QUnit.asyncTest('removeEvent, non exist parameter.',
+QUnit.test('removeEvent, non exist parameter.',
   EventTest.removeEventTest001);
 
 /**
@@ -592,15 +622,16 @@ QUnit.asyncTest('removeEvent, non exist parameter.',
  * </p>
  */
 EventTest.removeEventTest002 = function(assert) {
-  dConnect.removeEventListener("http://www.google.com", function() {
+  let done = assert.async();
+  sdk.removeEventListener("http://www.google.com").then(json => {
     assert.ok(false, 'Error.');
-    QUnit.start();
-  }, function() {
+    done();
+  }).catch(e => {
     assert.ok(true, 'No Event.');
-    QUnit.start();
+    done();
   });
 };
-QUnit.asyncTest('removeEvent, uri "http://www.google.com".',
+QUnit.test('removeEvent, uri "http://www.google.com".',
   EventTest.removeEventTest002);
 
 /// null
@@ -613,22 +644,23 @@ QUnit.asyncTest('removeEvent, uri "http://www.google.com".',
  * </p>
  */
 EventTest.removeEventTest011 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener(null, function() {
+    sdk.removeEventListener(null).then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri null.',
+QUnit.test('removeEvent, uri null.',
   EventTest.removeEventTest011);
 
 /**
@@ -640,18 +672,19 @@ QUnit.asyncTest('removeEvent, uri null.',
  * </p>
  */
 EventTest.removeEventTest012 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener(null, null, function() {
+    sdk.removeEventListener(null).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback null.',
+QUnit.test('removeEvent, uri and successCallback null.',
   EventTest.removeEventTest012);
 
 /**
@@ -663,17 +696,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback null.',
  * </p>
  */
 EventTest.removeEventTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener(null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener(null).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback null.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback null.',
   EventTest.removeEventTest013);
 
 /// undefined
@@ -686,21 +721,22 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback null.',
  * </p>
  */
 EventTest.removeEventTest021 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener(undefined, function() {
+    sdk.removeEventListener(undefined).then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.ok(true, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri undefined.',
+QUnit.test('removeEvent, uri undefined.',
   EventTest.removeEventTest021);
 
 /**
@@ -712,18 +748,19 @@ QUnit.asyncTest('removeEvent, uri undefined.',
  * </p>
  */
 EventTest.removeEventTest022 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener(undefined, undefined, function() {
+    sdk.removeEventListener(undefined).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback undefined.',
+QUnit.test('removeEvent, uri and successCallback undefined.',
   EventTest.removeEventTest022);
 
 /**
@@ -735,17 +772,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback undefined.',
  * </p>
  */
 EventTest.removeEventTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener(undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener(undefined).catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback undefined.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback undefined.',
   EventTest.removeEventTest023);
 
 
@@ -759,22 +798,23 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback undefined.'
  * </p>
  */
 EventTest.removeEventTest031 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('123', function() {
+    sdk.removeEventListener('123').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri number.',
+QUnit.test('removeEvent, uri number.',
   EventTest.removeEventTest031);
 
 /**
@@ -786,18 +826,19 @@ QUnit.asyncTest('removeEvent, uri number.',
  * </p>
  */
 EventTest.removeEventTest032 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('123', '123', function() {
+    sdk.removeEventListener('123').catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback number.',
+QUnit.test('removeEvent, uri and successCallback number.',
   EventTest.removeEventTest032);
 
 /**
@@ -809,17 +850,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback number.',
  * </p>
  */
 EventTest.removeEventTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('123', '123', '123');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener('123').catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback number.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback number.',
   EventTest.removeEventTest033);
 
 
@@ -833,22 +876,23 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback number.',
  * </p>
  */
 EventTest.removeEventTest041 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('abc', function() {
+    sdk.removeEventListener('abc').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri alphabet.',
+QUnit.test('removeEvent, uri alphabet.',
   EventTest.removeEventTest041);
 
 /**
@@ -860,18 +904,19 @@ QUnit.asyncTest('removeEvent, uri alphabet.',
  * </p>
  */
 EventTest.removeEventTest042 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('abc', 'abc', function() {
+    sdk.removeEventListener('abc').catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback alphabet.',
+QUnit.test('removeEvent, uri and successCallback alphabet.',
   EventTest.removeEventTest042);
 
 /**
@@ -883,17 +928,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback alphabet.',
  * </p>
  */
 EventTest.removeEventTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener('abc').catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback alphabet.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback alphabet.',
   EventTest.removeEventTest043);
 
 
@@ -907,22 +954,23 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback alphabet.',
  * </p>
  */
 EventTest.removeEventTest051 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('あいう', function() {
+    sdk.removeEventListener('あいう').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e =>{
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri hiragana.',
+QUnit.test('removeEvent, uri hiragana.',
   EventTest.removeEventTest051);
 
 /**
@@ -934,18 +982,19 @@ QUnit.asyncTest('removeEvent, uri hiragana.',
  * </p>
  */
 EventTest.removeEventTest052 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('あいう', 'あいう', function() {
+    sdk.removeEventListener('あいう').catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
-    assert.equal(false, e.message);
-    QUnit.start();
+    assert.ok(false, e.message);
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback hiragana.',
+QUnit.test('removeEvent, uri and successCallback hiragana.',
   EventTest.removeEventTest052);
 
 /**
@@ -957,17 +1006,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback hiragana.',
  * </p>
  */
 EventTest.removeEventTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener('あいう').catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback hiragana.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback hiragana.',
   EventTest.removeEventTest053);
 
 
@@ -981,22 +1032,23 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback hiragana.',
  * </p>
  */
 EventTest.removeEventTest061 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function() {
+    sdk.removeEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri symbol.',
+QUnit.test('removeEvent, uri symbol.',
   EventTest.removeEventTest061);
 
 /**
@@ -1008,19 +1060,20 @@ QUnit.asyncTest('removeEvent, uri symbol.',
  * </p>
  */
 EventTest.removeEventTest062 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', function() {
+    sdk.removeEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+    .catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback symbol.',
+QUnit.test('removeEvent, uri and successCallback symbol.',
   EventTest.removeEventTest062);
 
 /**
@@ -1032,18 +1085,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback symbol.',
  * </p>
  */
 EventTest.removeEventTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=', '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback symbol.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback symbol.',
   EventTest.removeEventTest063);
 
 
@@ -1057,23 +1111,23 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback symbol.',
  * </p>
  */
 EventTest.removeEventTest071 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function() {
+    sdk.removeEventListener('hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').then(json => {
       assert.ok(false, 'Error.');
-      QUnit.start();
-    }, function() {
+      done();
+    }).catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri limit.',
+QUnit.test('removeEvent, uri limit.',
   EventTest.removeEventTest071);
 
 /**
@@ -1085,19 +1139,20 @@ QUnit.asyncTest('removeEvent, uri limit.',
  * </p>
  */
 EventTest.removeEventTest072 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl', function() {
+    sdk.removeEventListener('hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+    .catch(e => {
       assert.ok(true, 'Success.');
-      QUnit.start();
+      done();
     });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback limit.',
+QUnit.test('removeEvent, uri and successCallback limit.',
   EventTest.removeEventTest072);
 
 /**
@@ -1109,19 +1164,19 @@ QUnit.asyncTest('removeEvent, uri and successCallback limit.',
  * </p>
  */
 EventTest.removeEventTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.removeEventListener('hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.removeEventListener('hijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+      assert.ok(true, 'Nothing happens.');
+      done();
+    });
   } catch (e) {
     assert.equal(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback limit.',
+QUnit.test('removeEvent, uri and successCallback, errorCallback limit.',
   EventTest.removeEventTest073);
 
 
@@ -1140,26 +1195,27 @@ QUnit.asyncTest('removeEvent, uri and successCallback, errorCallback limit.',
  * </p>
  */
 EventTest.addEventTest999 = function(assert) {
-  var testFunc = function(count) {
+  let done = assert.async();
+  let testFunc = (count) => {
     if (count >= 100) {
-      QUnit.start();
+      done();
       return;
     }
 
-    dConnect.connectWebSocket('test_' + count,
-      function(eventCode, eventMessage) {
-        if (eventCode == 0) {
+    sdk.connectWebSocket((eventCode, eventMessage) => {
+        if (eventCode == 0 || eventCode == -1) {
           assert.ok(true, 'test_' + count + ' connected.');
-          setTimeout(function() {
-            dConnect.disconnectWebSocket();
+          setTimeout(() => {
+            sdk.disconnectWebSocket();
           }, 200);
         } else if (eventCode == 1) {
           assert.ok(true, 'test_' + count + ' disconnected.');
-          setTimeout(function() {
+          setTimeout(() => {
             testFunc(count + 1);
           }, 200);
         } else {
           assert.ok(false, 'error: ' + eventMessage);
+          done();
         }
       });
   }
@@ -1167,5 +1223,5 @@ EventTest.addEventTest999 = function(assert) {
 
 };
 
-QUnit.asyncTest('100 times the connect and disconnect of Websocket.',
+QUnit.test('100 times the connect and disconnect of Websocket.',
           EventTest.addEventTest999);

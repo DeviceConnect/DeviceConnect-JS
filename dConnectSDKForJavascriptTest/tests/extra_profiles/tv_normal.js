@@ -1,5 +1,5 @@
-module('TV Profile Normal Test', {
-  setup: function() {
+QUnit.module('TV Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('TV Profile Normal Test', {
  * TVプロファイルの正常系テストを行うクラス。
  * @class
  */
-var TVProfileNormalTest = {};
+let TVProfileNormalTest = {};
 
 /**
  * スマートデバイスの電源状態を取得する。
@@ -23,23 +23,24 @@ var TVProfileNormalTest = {};
  * </p>
  */
 TVProfileNormalTest.powerStatusNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '0.5'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNormalTest001);
+QUnit.test('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNormalTest001);
 
 
 /**
@@ -55,23 +56,22 @@ QUnit.asyncTest('GetPowerStatusNormalTest001', TVProfileNormalTest.powerStatusNo
  * </p>
  */
 TVProfileNormalTest.powerOnNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVPowerOnNormalTest001', TVProfileNormalTest.powerOnNormalTest001);
+QUnit.test('TVPowerOnNormalTest001', TVProfileNormalTest.powerOnNormalTest001);
 
 /**
  * スマートデバイスの電源をオフにする。
@@ -86,23 +86,23 @@ QUnit.asyncTest('TVPowerOnNormalTest001', TVProfileNormalTest.powerOnNormalTest0
  * </p>
  */
 TVProfileNormalTest.powerOffNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'tv',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVPowerOffNormalTest001', TVProfileNormalTest.powerOffNormalTest001);
+QUnit.test('TVPowerOffNormalTest001', TVProfileNormalTest.powerOffNormalTest001);
 
 
 /**
@@ -118,25 +118,24 @@ QUnit.asyncTest('TVPowerOffNormalTest001', TVProfileNormalTest.powerOffNormalTes
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '1');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '1'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest001', TVProfileNormalTest.changeChannelNormalTest001);
+QUnit.test('TVChangeChannelTest001', TVProfileNormalTest.changeChannelNormalTest001);
 
 /**
  * スマートデバイスのチャンネルを2に変更する。
@@ -151,25 +150,25 @@ QUnit.asyncTest('TVChangeChannelTest001', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '2');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '2'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest002', TVProfileNormalTest.changeChannelNormalTest002);
+QUnit.test('TVChangeChannelTest002', TVProfileNormalTest.changeChannelNormalTest002);
 
 /**
  * スマートデバイスのチャンネルを3に変更する。
@@ -184,25 +183,25 @@ QUnit.asyncTest('TVChangeChannelTest002', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '3');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '3'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest003', TVProfileNormalTest.changeChannelNormalTest003);
+QUnit.test('TVChangeChannelTest003', TVProfileNormalTest.changeChannelNormalTest003);
 
 
 /**
@@ -218,25 +217,25 @@ QUnit.asyncTest('TVChangeChannelTest003', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '4');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '4'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest004', TVProfileNormalTest.changeChannelNormalTest004);
+QUnit.test('TVChangeChannelTest004', TVProfileNormalTest.changeChannelNormalTest004);
 
 /**
  * スマートデバイスのチャンネルを5に変更する。
@@ -251,25 +250,25 @@ QUnit.asyncTest('TVChangeChannelTest004', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '5');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '5'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest005', TVProfileNormalTest.changeChannelNormalTest005);
+QUnit.test('TVChangeChannelTest005', TVProfileNormalTest.changeChannelNormalTest005);
 
 /**
  * スマートデバイスのチャンネルを6に変更する。
@@ -284,25 +283,25 @@ QUnit.asyncTest('TVChangeChannelTest005', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '6');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '6'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest006', TVProfileNormalTest.changeChannelNormalTest006);
+QUnit.test('TVChangeChannelTest006', TVProfileNormalTest.changeChannelNormalTest006);
 
 
 /**
@@ -318,25 +317,25 @@ QUnit.asyncTest('TVChangeChannelTest006', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '7');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '7'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest007', TVProfileNormalTest.changeChannelNormalTest007);
+QUnit.test('TVChangeChannelTest007', TVProfileNormalTest.changeChannelNormalTest007);
 
 /**
  * スマートデバイスのチャンネルを8に変更する。
@@ -351,25 +350,24 @@ QUnit.asyncTest('TVChangeChannelTest007', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '8');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '8'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest008', TVProfileNormalTest.changeChannelNormalTest008);
+QUnit.test('TVChangeChannelTest008', TVProfileNormalTest.changeChannelNormalTest008);
 
 /**
  * スマートデバイスのチャンネルを9に変更する。
@@ -384,25 +382,25 @@ QUnit.asyncTest('TVChangeChannelTest008', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '9');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '9'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest009', TVProfileNormalTest.changeChannelNormalTest009);
+QUnit.test('TVChangeChannelTest009', TVProfileNormalTest.changeChannelNormalTest009);
 
 /**
  * スマートデバイスのチャンネルを10に変更する。
@@ -417,25 +415,25 @@ QUnit.asyncTest('TVChangeChannelTest009', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '10');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '10'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest010', TVProfileNormalTest.changeChannelNormalTest010);
+QUnit.test('TVChangeChannelTest010', TVProfileNormalTest.changeChannelNormalTest010);
 
 /**
  * スマートデバイスのチャンネルを11に変更する。
@@ -450,25 +448,25 @@ QUnit.asyncTest('TVChangeChannelTest010', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '11');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '11'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest011', TVProfileNormalTest.changeChannelNormalTest011);
+QUnit.test('TVChangeChannelTest011', TVProfileNormalTest.changeChannelNormalTest011);
 
 /**
  * スマートデバイスのチャンネルを12に変更する。
@@ -483,25 +481,25 @@ QUnit.asyncTest('TVChangeChannelTest011', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('tuning', '12');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      tuning: '12'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVChangeChannelTest012', TVProfileNormalTest.changeChannelNormalTest012);
+QUnit.test('TVChangeChannelTest012', TVProfileNormalTest.changeChannelNormalTest012);
 
 /**
  * スマートデバイスのチャンネルを次局に変更する。
@@ -516,25 +514,24 @@ QUnit.asyncTest('TVChangeChannelTest012', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'next');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'next'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest013', TVProfileNormalTest.changeChannelNormalTest013);
+QUnit.test('TVChangeChannelTest013', TVProfileNormalTest.changeChannelNormalTest013);
 
 /**
  * スマートデバイスのチャンネルを前局に変更する。
@@ -549,25 +546,24 @@ QUnit.asyncTest('TVChangeChannelTest013', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeChannelNormalTest014 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'previous');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'previous'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVChangeChannelTest014', TVProfileNormalTest.changeChannelNormalTest014);
+QUnit.test('TVChangeChannelTest014', TVProfileNormalTest.changeChannelNormalTest014);
 
 /**
  * スマートデバイスのボリュームを上げる。
@@ -582,25 +578,24 @@ QUnit.asyncTest('TVChangeChannelTest014', TVProfileNormalTest.changeChannelNorma
  * </p>
  */
 TVProfileNormalTest.changeVolumeNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'up');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'volume',
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'up'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVchangeVolumeNormalTest001', TVProfileNormalTest.changeVolumeNormalTest001);
+QUnit.test('TVchangeVolumeNormalTest001', TVProfileNormalTest.changeVolumeNormalTest001);
 
 
 /**
@@ -616,25 +611,24 @@ QUnit.asyncTest('TVchangeVolumeNormalTest001', TVProfileNormalTest.changeVolumeN
  * </p>
  */
 TVProfileNormalTest.changeVolumeNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('control', 'down');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'volume',
+    params: {
+      serviceId: getCurrentServiceId(),
+      control: 'down'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVchangeVolumeNormalTest002', TVProfileNormalTest.changeVolumeNormalTest002);
+QUnit.test('TVchangeVolumeNormalTest002', TVProfileNormalTest.changeVolumeNormalTest002);
 
 
 
@@ -651,25 +645,24 @@ QUnit.asyncTest('TVchangeVolumeNormalTest002', TVProfileNormalTest.changeVolumeN
  * </p>
  */
 TVProfileNormalTest.changeBroadcastwaveNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select', 'DTV');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'DTV'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVchangeBroadcastwaveNormalTest001', TVProfileNormalTest.changeBroadcastwaveNormalTest001);
+QUnit.test('TVchangeBroadcastwaveNormalTest001', TVProfileNormalTest.changeBroadcastwaveNormalTest001);
 
 
 /**
@@ -685,25 +678,25 @@ QUnit.asyncTest('TVchangeBroadcastwaveNormalTest001', TVProfileNormalTest.change
  * </p>
  */
 TVProfileNormalTest.changeBroadcastwaveNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select', 'BS');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'BS'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVchangeBroadcastwaveNormalTest002', TVProfileNormalTest.changeBroadcastwaveNormalTest002);
+QUnit.test('TVchangeBroadcastwaveNormalTest002', TVProfileNormalTest.changeBroadcastwaveNormalTest002);
 
 
 /**
@@ -719,25 +712,24 @@ QUnit.asyncTest('TVchangeBroadcastwaveNormalTest002', TVProfileNormalTest.change
  * </p>
  */
 TVProfileNormalTest.changeBroadcastwaveNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('select', 'CS');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    params: {
+      serviceId: getCurrentServiceId(),
+      select: 'CS'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVchangeBroadcastwaveNormalTest003', TVProfileNormalTest.changeBroadcastwaveNormalTest003);
+QUnit.test('TVchangeBroadcastwaveNormalTest003', TVProfileNormalTest.changeBroadcastwaveNormalTest003);
 
 
 /**
@@ -753,24 +745,23 @@ QUnit.asyncTest('TVchangeBroadcastwaveNormalTest003', TVProfileNormalTest.change
  * </p>
  */
 TVProfileNormalTest.muteOnNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('mute');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'mute',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('TVmuteOnNormalTest001', TVProfileNormalTest.muteOnNormalTest001);
+QUnit.test('TVmuteOnNormalTest001', TVProfileNormalTest.muteOnNormalTest001);
 
 
 /**
@@ -786,24 +777,24 @@ QUnit.asyncTest('TVmuteOnNormalTest001', TVProfileNormalTest.muteOnNormalTest001
  * </p>
  */
 TVProfileNormalTest.muteOffNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('mute');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'tv',
+    attribute: 'mute',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('TVmuteOffNormalTest001', TVProfileNormalTest.muteOffNormalTest001);
+QUnit.test('TVmuteOffNormalTest001', TVProfileNormalTest.muteOffNormalTest001);
 
 
 
@@ -820,25 +811,24 @@ QUnit.asyncTest('TVmuteOffNormalTest001', TVProfileNormalTest.muteOffNormalTest0
  * </p>
  */
 TVProfileNormalTest.getEchonetLitePropertyNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128,129');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128,129'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('GetEchonetLitePropertyNormalTest001', TVProfileNormalTest.getEchonetLitePropertyNormalTest001);
+QUnit.test('GetEchonetLitePropertyNormalTest001', TVProfileNormalTest.getEchonetLitePropertyNormalTest001);
 
 
 /**
@@ -854,23 +844,22 @@ QUnit.asyncTest('GetEchonetLitePropertyNormalTest001', TVProfileNormalTest.getEc
  * </p>
  */
 TVProfileNormalTest.setEchonetLitePropertyNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('enlproperty');
-  builder.setAccessToken(accessToken);
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', '128');
-  builder.addParameter('value', '49');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: 'tv',
+    attribute: 'enlproperty',
+    params: {
+      serviceId: getCurrentServiceId(),
+      epc: '128',
+      value: '49'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('SetEchonetLitePropertyNormalTest001', TVProfileNormalTest.setEchonetLitePropertyNormalTest001);
+QUnit.test('SetEchonetLitePropertyNormalTest001', TVProfileNormalTest.setEchonetLitePropertyNormalTest001);

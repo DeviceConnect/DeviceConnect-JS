@@ -1,6 +1,6 @@
 /**
  vibration.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -15,12 +15,12 @@ function showVibration(serviceId) {
 
   setTitle('Vibration Profile(Vibrate)');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doVibrationBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="vibrationForm">';
   str += '<SELECT name="pattern" id="pattern">';
   str += '<OPTION value="null_value">指定なし</OPTION>';
@@ -42,17 +42,6 @@ function showVibration(serviceId) {
 
   reloadContent(str);
 }
-
-/**
- * Back Button
- *
- * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションキー
- */
-function doVibrationBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
 /**
  * Vibrationを実行
  *
@@ -60,31 +49,26 @@ function doVibrationBack(serviceId, sessionKey) {
  */
 function doVibrateVibration(serviceId) {
 
-  var patternValue = $('#pattern').val();
+  let patternValue = $('#pattern').val();
   if (patternValue == 'null_value') {
     patternValue = null;
   }
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('vibration');
-  builder.setAttribute('vibrate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'vibration',
+    attribute: 'vibrate',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (patternValue) {
-    builder.addParameter('pattern', patternValue);
+    params.params['pattern'] = patternValue;
   }
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('PUT vibration/vibrate', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT vibration/vibrate', e.errorCode, e.errorMessage);
   });
 }
 
@@ -94,22 +78,17 @@ function doVibrateVibration(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doStopVibration(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('vibration');
-  builder.setAttribute('vibrate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.delete(uri, null, function(json) {
+  sdk.delete({
+    profile: 'vibration',
+    attribute: 'vibrate',
+    params: {
+      serviceId: serviceId
+    }
+  }).thne(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('DELETE vibration/vibrate', errorCode, errorMessage);
+  }).catch(e => {
+    showError('DELETE vibration/vibrate', e.errorCode, e.errorMessage);
   });
 }

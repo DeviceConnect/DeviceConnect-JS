@@ -1,6 +1,6 @@
 /**
  gpio.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,23 +14,23 @@ function showGPIO(serviceId) {
 
     initAll();
 
-    var btnStr = '';
-    btnStr += getBackButton('Device Top', 'doGPIOBack', serviceId, '');
+    let btnStr = '';
+    btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
     setTitle('GPIO Profile');
 
-    var str = '';
+    let str = '';
     str += '<div data-role="controlgroup" data-type="horizontal" style="text-align:center" >';
     str += '<input data-icon="plus" onclick="javascript:doRegisterOnChangeEvent(\'' + serviceId + '\');" type="button" value="add onChange Event" /><br>';
     str += '<input data-icon="minus" onclick="javascript:doUnregisterOnChangeEvent(\'' + serviceId + '\');" type="button" value="del onChange Event" /><br>';
     str += '</div>';
     str += '<div role="main" class="ui-content">';
     str += '<center><table>';
-	
-    var d = 0;
-    for (var i = 2; i < 20; i++) {
+
+    let d = 0;
+    for (let i = 2; i < 20; i++) {
 
         if (i < 14) {
 
@@ -94,42 +94,31 @@ function showGPIO(serviceId) {
 
     reloadContent(str);
 }
-
-/**
- * Menu Back button
- *
- * serviceId {String} service ID
- * sessionKey {String} session Key
- */
-function doGPIOBack(serviceId, sessionKey) {
-    searchSystem(serviceId);
-}
-
 /**
  * Export<br>
  * POST: /gpio/export/pin_no
  *
  * serviceId {String} service ID
- * sessionKey {String} select object
+ * obj {String} select object
  */
 function doGPIOExport(serviceId, obj) {
-    var selectMode = obj.options[obj.selectedIndex].value;
+    let selectMode = obj.options[obj.selectedIndex].value;
 
-    var pin = 'D' + obj.id;
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("export");
-    builder.setAttribute(pin);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter("mode", selectMode);
-    var uri = builder.build();
-    var tagIdValue = "#pinNo" + pin + "Value";
+    let pin = 'D' + obj.id;
+    let tagIdValue = "#pinNo" + pin + "Value";
 
-    dConnect.post(uri, null, null, function(json) {
+    sdk.post({
+      profile: 'gpio',
+      interface: 'export',
+      attribute: pin,
+      params: {
+        serviceId: serviceId,
+        mode: selectMode
+      }
+    }).then(json => {
 
         if (json.result == 0) {
-            var str = "";
+            let str = "";
             if (selectMode == 0) {
                 str += '';
                 str += '<br>';
@@ -147,7 +136,7 @@ function doGPIOExport(serviceId, obj) {
                 setContents(tagIdValue, str);
                 doGPIOAnalogRead(serviceId, pin);
             } else if (selectMode == 3) {
-                var value = 0;
+                let value = 0;
                 str += '<input type="range" id=\'' + pin + '\'  value="' + value + '" min="0" max="255" ';
                 str += 'onChange=\"doGPIOGetSlider(\'' + serviceId + '\',this)\" type="slider" width="200">';
                 setContents(tagIdValue, str);
@@ -156,8 +145,8 @@ function doGPIOExport(serviceId, obj) {
             //alert(json.result);
         }
 
-    }, function(errorCode, errorMessage) {
-        alert("Error:" + errorMessage);
+    }).catch(e =>  {
+        alert("Error:" + e.errorMessage);
     });
 }
 
@@ -167,8 +156,8 @@ function doGPIOExport(serviceId, obj) {
  * obj {Object} object of slider.
  */
 function doGPIOGetSlider(serviceId, obj) {
-    var value = obj.value;
-    var pin = obj.id;
+    let value = obj.value;
+    let pin = obj.id;
     doGPIOAnalogWrite(serviceId, pin, value);
 }
 
@@ -180,28 +169,25 @@ function doGPIOGetSlider(serviceId, obj) {
  * pin {String} pin no
  */
 function doGPIOAnalogRead(serviceId, pin) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("analog");
-    builder.setAttribute(pin);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
-    var tagId = "pinNo" + pin + "Value";
-    dConnect.get(uri, null, function(json) {
+    let tagId = "pinNo" + pin + "Value";
+    sdk.get({
+      profile: 'gpio',
+      interface: 'analog',
+      attribute: pin,
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
         if (json.result == 0) {
-            var str = "";
+            let str = "";
             str += json.value;
             str += '<br>';
             document.getElementById(tagId).innerHTML = str;
         } else {
 
         }
-    }, function(errorCode, errorMessage) {
-        alert("read Error:" + errorMessage);
+    }).catch(e => {
+        alert("read Error:" + e.errorMessage);
     });
 }
 
@@ -213,28 +199,25 @@ function doGPIOAnalogRead(serviceId, pin) {
  * pin {String} pin no
  */
 function doGPIODigitalRead(serviceId, pin) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("digital");
-    builder.setAttribute(pin);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
-    var tagId = "pinNo" + pin + "Value";
-    dConnect.get(uri, null, function(json) {
+    let tagId = "pinNo" + pin + "Value";
+    sdk.get({
+      profile: 'gpio',
+      interface: 'digital',
+      attribute: pin,
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
         if (json.result == 0) {
-            var str = "";
+            let str = "";
             str += json.value;
             str += '<br>';
             document.getElementById(tagId).innerHTML = str;
         } else {
 
         }
-    }, function(errorCode, errorMessage) {
-        alert("read Error:" + errorMessage);
+    }).catch(e => {
+        alert("read Error:" + e.errorMessage);
     });
 }
 
@@ -248,24 +231,19 @@ function doGPIODigitalRead(serviceId, pin) {
  */
 function doGPIOAnalogWrite(serviceId, pin, value) {
 
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("analog");
-    builder.setAttribute(pin);
-    builder.addParameter("value", value);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
-    dConnect.post(uri, null, null,
-        function(json) {
-            if (json.result == 0) {} else {}
-        },
-        function(errorCode, errorMessage) {
-            alert("Error:" + errorMessage);
-        });
+    sdk.post({
+      profile: 'gpio',
+      interface: 'analog',
+      attribute: pin,
+      params: {
+        serviceId: serviceId,
+        value: value
+      }
+    }).then(json => {
+        if (json.result == 0) {} else {}
+    }).catch(e => {
+        alert("Error:" + e.errorMessage);
+    });
 }
 
 /**
@@ -277,52 +255,44 @@ function doGPIOAnalogWrite(serviceId, pin, value) {
  * pin {Number} value
  */
 function doGPIODigitalWrite(serviceId, pin, value) {
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("digital");
-    builder.setAttribute(pin);
-    builder.addParameter("value", value);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
-    var tagId = "#pinNo" + pin;
-    var tagIdValue = "#pinNo" + pin + "Value";
-
+    let tagId = "#pinNo" + pin;
+    let tagIdValue = "#pinNo" + pin + "Value";
+    let params = {
+      profile: 'gpio',
+      interface: 'digital',
+      attribute: pin,
+      params: {
+        serviceId: serviceId,
+        value: value
+      }
+    };
     if (value == 1) {
-        dConnect.put(uri, null, null,
-            function(json) {
-                if (json.result == 0) {
-                	var str = "";
-                    str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
-                	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',0);"';
-                	str += 'type="button" value="LOW" />';
-                	str += '<br>';
-                	setContents(tagIdValue, str);
-                	
-                } else {}
-            },
-            function(errorCode, errorMessage) {
-                alert("Error:" + errorMessage);
-            });
+        sdk.put(params).then(json => {
+            if (json.result == 0) {
+            	let str = "";
+                str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
+            	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',0);"';
+            	str += 'type="button" value="LOW" />';
+            	str += '<br>';
+            	setContents(tagIdValue, str);
+
+            } else {}
+        }).catch(e => {
+            alert("Error:" + e.errorMessage);
+        });
     } else if (value == 0) {
-        dConnect.delete(uri, null,
-            function(json) {
-                if (json.result == 0) {
-                    var str = "";
-                    str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
-                	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',1);"';
-                	str += 'type="button" value="HIGH" />';
-                	str += '<br>';
-                	setContents(tagIdValue, str);
-                } else {}
-            },
-            function(errorCode, errorMessage) {
-                alert("Error:" + errorMessage);
-            });
+        sdk.delete(params).then(json => {
+            if (json.result == 0) {
+                let str = "";
+                str += '<input id=\'pinNo' + pin + '\' data-icon="power" data-inline="true" data-mini="true"';
+            	str += 'onclick="javascript:doGPIODigitalWrite(\'' + serviceId + '\', \'' + pin + '\',1);"';
+            	str += 'type="button" value="HIGH" />';
+            	str += '<br>';
+            	setContents(tagIdValue, str);
+            } else {}
+        }).catch(e => {
+            alert("Error:" + e.errorMessage);
+        });
     } else {
         alert("Error: Value is not 1 or 0, DigitalWrite, must use 1 or 0");
     }
@@ -335,43 +305,30 @@ function doGPIODigitalWrite(serviceId, pin, value) {
  * @param {String} serviceId service ID
  */
 function doRegisterOnChangeEvent(serviceId) {
+    sdk.addEventListener({
+      profile: 'gpio',
+      attribute: 'onchange',
+      params: {
+        serviceId: serviceId
+      }
+    }, message => {
+      console.log(message);
+      let json = JSON.parse(message);
+      let pins = json.pins;
+      for (let pin in pins) {
+          let value = pins[pin];
+          let tagId = "pinNo" + pin + "Value";
 
-    var sessionKey = currentClientId;
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("onchange");
-    builder.setAttribute("");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
-    dConnect.addEventListener(uri,
-        //イベントのメッセージ
-        function(message) {
-            console.log(message);
-            var json = JSON.parse(message);
-            var pins = json.pins;
-            for (var pin in pins) {
-                var value = pins[pin];
-                var tagId = "pinNo" + pin + "Value";
-
-                var str = "";
-                str += value;
-                str += '<br>';
-                document.getElementById(tagId).innerHTML = str;
-            }
-        },
-        //イベント登録が成功した
-        function() {
-            console.log("SUCCESS");
-        },
-        //イベント登録が失敗した
-        function(errorCode, errorMessage) {
-            alert(errorMessage);
-        });
+          let str = "";
+          str += value;
+          str += '<br>';
+          document.getElementById(tagId).innerHTML = str;
+      }
+  }).then(json => {
+      console.log("SUCCESS");
+  }).catch(e => {
+      alert(e.errorMessage);
+  });
 }
 
 /*
@@ -382,23 +339,17 @@ function doRegisterOnChangeEvent(serviceId) {
  */
 function doUnregisterOnChangeEvent(serviceId) {
 
-    var sessionKey = currentClientId;
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("gpio");
-    builder.setInterface("onchange");
-    builder.setAttribute("");
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    if (DEBUG) {
-        console.log('Uri: ' + uri);
-    }
-    dConnect.removeEventListener(uri, function() {
+    sdk.removeEventListener({
+      profile: 'gpio',
+      attribute: 'onchange',
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
         if (DEBUG) {
           console.log('Successed register Device Orientation.');
         }
-    }, function(errorCode, errorMessage) {
-        console.log(errorMessage);
+    }).catch(e => {
+        alert(e.errorMessage);
     });
 }

@@ -1,6 +1,6 @@
 /**
  keyboard.js
- Copyright (c) 2017 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -10,12 +10,11 @@ function showKeyboard(serviceId) {
     initAll();
     setTitle('Keyboard Profile');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'searchSystem', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var keyMap = [
+    let keyMap = [
         [
             ['1', 0, 0x00, 0x1E],
             ['2', 0, 0x00, 0x1F],
@@ -83,12 +82,12 @@ function showKeyboard(serviceId) {
         ]
     ];
 
-    var contents = '<div>';
+    let contents = '<div>';
     contents += '<h3>/keyboard</h3>';
     contents += '<div style="text-align: center;">';
-    for (var i = 0; i < keyMap.length; i++) {
+    for (let i = 0; i < keyMap.length; i++) {
         contents += '<div>';
-        for (var j = 0; j < keyMap[i].length; j++) {
+        for (let j = 0; j < keyMap[i].length; j++) {
             contents += '<button class="ui-btn ui-btn-inline" onclick="sendKeyCode(\'' + serviceId +  '\', ' + keyMap[i][j][2] + ', ' + keyMap[i][j][3] + ')">' + keyMap[i][j][0] + '</button>';
         }
         contents += '</div>';
@@ -106,52 +105,49 @@ function showKeyboard(serviceId) {
 }
 
 function sendKeyboard(serviceId) {
-    var modifier = $('#modifier').val();
-    var keyCode = $('#keyCode').val();
+    let modifier = $('#modifier').val();
+    let keyCode = $('#keyCode').val();
     sendKeyCode(modifier, keyCode);
 }
 
 function sendKeyCode(serviceId, modifier, keyCode) {
-     var builder = new dConnect.URIBuilder();
-    builder.setProfile('keyboard');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
+    let params = {
+      profile: 'keyboard',
+      params: {
+        serviceId: serviceId
+      }
+    };
     if (modifier == 0x01) {
-        builder.addParameter('modifier', 'ctrl');
+      params.params['modifier'] = 'ctrl';
     } else if (modifier == 0x02) {
-        builder.addParameter('modifier', 'shift');
+      params.params['modifier'] = 'shift';
     } else if (modifier == 0x04) {
-        builder.addParameter('modifier', 'alt');
+      params.params['modifier'] = 'alt';
     } else if (modifier == 0x08) {
-        builder.addParameter('modifier', 'gui');
+      params.params['modifier'] = 'gui';
     }
-    builder.addParameter('keyCode', keyCode);
-    
-    var uri = builder.build();
-    console.log(uri);
-    dConnect.post(uri, null, null, function(json) {
+    params.params['keyCode'] = keyCode;
+
+    sdk.post(params).then(json => {
         console.log('success');
-    }, function(errorCode, errorMessage) {
-        console.log('Failed to send keyCode. message=' + errorMessage);
+    }).catch(e => {
+        console.log('Failed to send keyCode. message=' + e.errorMessage);
     });
 }
 
 function sendAscii(serviceId) {
-    var string = $('#string').val();
+    let string = $('#string').val();
 
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('keyboard');
-    builder.setAttribute('ascii');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('string', string);
-    
-    var uri = builder.build();
-    console.log(uri);
-    dConnect.post(uri, null, null, function(json) {
+    sdk.post({
+      profile: 'keyboard',
+      attribute: 'ascii',
+      params: {
+        serviceId: serviceId,
+        string: string
+      }
+    }).then(json => {
         console.log('success');
-    }, function(errorCode, errorMessage) {
-        console.log('Failed to send ascii. message=' + errorMessage);
+    }).catch(e => {
+        console.log('Failed to send ascii. message=' + e.errorMessage);
     });
 }
-

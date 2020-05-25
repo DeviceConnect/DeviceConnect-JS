@@ -1,6 +1,6 @@
 /**
  drivecontroller.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -15,12 +15,12 @@ function showDriveController(serviceId) {
   initAll();
   setTitle('Drive Controller Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doDriveControllerBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<center>';
   str += '<form name="formDrive">';
   str += '<div id="power">';
@@ -44,42 +44,26 @@ function showDriveController(serviceId) {
     doDriveRotate(serviceId);
   })
 }
-
-/**
- * Backボタン
- *
- * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
- */
-function doDriveControllerBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
 /**
  * 回転する
  *
  * @param {String} serviceId サービスID
  */
 function doDriveRotate(serviceId) {
-  var angle = document.formDrive.rotation.value;
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('rotate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('angle', angle);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('doDriveRotate:' + uri);
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  let angle = document.formDrive.rotation.value;
+  sdk.put({
+    profile: 'drivecontroller',
+    attribute: 'rotate',
+    params: {
+      serviceId: serviceId,
+      angle: angle
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('PUT drivecontroller/rotate', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT drivecontroller/rotate', e.errorCode, e.errorMessage);
   });
 }
 
@@ -89,22 +73,18 @@ function doDriveRotate(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doDriveStop(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setAttribute('stop');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('doDriveStop:' + uri);
-  }
-
-  dConnect.delete(uri, null, function(json) {
+  sdk.delete({
+    profile: 'drivecontroller',
+    attribute: 'stop',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('DELETE drivecontroller/stop', errorCode, errorMessage);
+  }).catch(e => {
+    showError('DELETE drivecontroller/stop', e.errorCode, e.errorMessage);
   });
 }
 
@@ -114,25 +94,21 @@ function doDriveStop(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doDriveMove(serviceId) {
-  var power = (document.formDrive.power.value) / 100;
-  var angle = document.formDrive.rotation.value;
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('drivecontroller');
-  builder.setServiceId(serviceId);
-  builder.setAttribute('move');
-  builder.setAccessToken(accessToken);
-  builder.addParameter('speed', power);
-  builder.addParameter('angle', angle);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('doDriveMove:' + uri);
-  }
-  dConnect.post(uri, null, null, function(json) {
+  let power = (document.formDrive.power.value) / 100;
+  let angle = document.formDrive.rotation.value;
+  sdk.post({
+    profile: 'drivecontroller',
+    attribute: 'move',
+    params: {
+      serviceId: serviceId,
+      angle: angle,
+      speed: speed
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('POST drivecontroller/move', errorCode, errorMessage);
+  }).catch(e =>  {
+    showError('POST drivecontroller/move', e.errorCode, e.errorMessage);
   });
 }

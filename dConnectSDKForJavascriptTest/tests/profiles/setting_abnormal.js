@@ -1,5 +1,5 @@
-module('Setting Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Setting Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Setting Profile Abnormal Test', {
  * Settingプロファイルの異常系テストを行うクラス。
  * @class
  */
-var SettingProfileAbnormalTest = {};
+let SettingProfileAbnormalTest = {};
 
 /**
  * 定義されていないkindのボリュームを取得するテストを行う。
@@ -23,31 +23,24 @@ var SettingProfileAbnormalTest = {};
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest001(get)(kind is -1)', SettingProfileAbnormalTest.volumeAbnormalTest001);
+QUnit.test('volumeAbnormalTest001(get)(kind is -1)', SettingProfileAbnormalTest.volumeAbnormalTest001);
 
 /**
  * kindを文字列(this is a test.)でボリュームを取得するテストを行う。
@@ -62,31 +55,25 @@ QUnit.asyncTest('volumeAbnormalTest001(get)(kind is -1)', SettingProfileAbnormal
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 'this is a test.');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 'this is a test.'
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest002(get)(kind is string)', SettingProfileAbnormalTest.volumeAbnormalTest002);
+QUnit.test('volumeAbnormalTest002(get)(kind is string)',
+      SettingProfileAbnormalTest.volumeAbnormalTest002);
 
 /**
  * kindを指定しないでボリュームを取得するテストを行う。
@@ -101,30 +88,24 @@ QUnit.asyncTest('volumeAbnormalTest002(get)(kind is string)', SettingProfileAbno
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest003(get)(omitted kind.)', SettingProfileAbnormalTest.volumeAbnormalTest003);
+QUnit.test('volumeAbnormalTest003(get)(omitted kind.)',
+      SettingProfileAbnormalTest.volumeAbnormalTest003);
 
 /**
  * kindに特殊文字を指定してボリュームを取得するテストを行う。
@@ -139,31 +120,24 @@ QUnit.asyncTest('volumeAbnormalTest003(get)(omitted kind.)', SettingProfileAbnor
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest004(get)(kind is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest004);
+QUnit.test('volumeAbnormalTest004(get)(kind is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest004);
 
 /**
  * kindに大きな数値を指定してボリュームを取得するテストを行う。
@@ -178,31 +152,24 @@ QUnit.asyncTest('volumeAbnormalTest004(get)(kind is special characters.)', Setti
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 10000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 10000000
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest005(get)(kind is big number.)', SettingProfileAbnormalTest.volumeAbnormalTest005);
+QUnit.test('volumeAbnormalTest005(get)(kind is big number.)', SettingProfileAbnormalTest.volumeAbnormalTest005);
 
 /**
  * kindに-1を指定してボリュームを設定するテストを行う。
@@ -217,32 +184,25 @@ QUnit.asyncTest('volumeAbnormalTest005(get)(kind is big number.)', SettingProfil
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', -1);
-  builder.addParameter('level', 1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: -1,
+      level: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest006(put)(kind is -1.)', SettingProfileAbnormalTest.volumeAbnormalTest006);
+QUnit.test('volumeAbnormalTest006(put)(kind is -1.)', SettingProfileAbnormalTest.volumeAbnormalTest006);
 
 /**
  * kindに文字列(this is a test.)を指定してボリュームを設定するテストを行う。
@@ -257,32 +217,25 @@ QUnit.asyncTest('volumeAbnormalTest006(put)(kind is -1.)', SettingProfileAbnorma
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 'this is a test.');
-  builder.addParameter('level', 1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 'this is a test.',
+      level: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest007(put)(kind is string.)', SettingProfileAbnormalTest.volumeAbnormalTest007);
+QUnit.test('volumeAbnormalTest007(put)(kind is string.)', SettingProfileAbnormalTest.volumeAbnormalTest007);
 
 /**
  * kindに特殊文字を指定してボリュームを設定するテストを行う。
@@ -297,32 +250,25 @@ QUnit.asyncTest('volumeAbnormalTest007(put)(kind is string.)', SettingProfileAbn
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-  builder.addParameter('level', 1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: "!\"#$%&'()0=~|'{}@`*+;<,.>/_",
+      level: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest008(put)(kind is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest008);
+QUnit.test('volumeAbnormalTest008(put)(kind is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest008);
 
 /**
  * kindに大きな数値を指定してボリュームを設定するテストを行う。
@@ -337,32 +283,25 @@ QUnit.asyncTest('volumeAbnormalTest008(put)(kind is special characters.)', Setti
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 10000000);
-  builder.addParameter('level', 1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 10000000,
+      level: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest009(put)(kind is big number.)', SettingProfileAbnormalTest.volumeAbnormalTest009);
+QUnit.test('volumeAbnormalTest009(put)(kind is big number.)', SettingProfileAbnormalTest.volumeAbnormalTest009);
 
 /**
  * levelに-1を指定してボリュームを設定するテストを行う。
@@ -377,32 +316,25 @@ QUnit.asyncTest('volumeAbnormalTest009(put)(kind is big number.)', SettingProfil
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  builder.addParameter('level', -1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: -1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest010(put)(level is -1.)', SettingProfileAbnormalTest.volumeAbnormalTest010);
+QUnit.test('volumeAbnormalTest010(put)(level is -1.)', SettingProfileAbnormalTest.volumeAbnormalTest010);
 
 /**
  * levelに100を指定してボリュームを設定するテストを行う。
@@ -417,32 +349,25 @@ QUnit.asyncTest('volumeAbnormalTest010(put)(level is -1.)', SettingProfileAbnorm
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  builder.addParameter('level', 100);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 100
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest011(put)(level is 100.)', SettingProfileAbnormalTest.volumeAbnormalTest011);
+QUnit.test('volumeAbnormalTest011(put)(level is 100.)', SettingProfileAbnormalTest.volumeAbnormalTest011);
 
 /**
  * levelに文字列を指定してボリュームを設定するテストを行う。
@@ -457,32 +382,25 @@ QUnit.asyncTest('volumeAbnormalTest011(put)(level is 100.)', SettingProfileAbnor
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  builder.addParameter('level', 'this is a test.');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 'this is a test.'
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest012(put)(level is string.)', SettingProfileAbnormalTest.volumeAbnormalTest012);
+QUnit.test('volumeAbnormalTest012(put)(level is string.)', SettingProfileAbnormalTest.volumeAbnormalTest012);
 
 /**
  * levelに特殊文字を指定してボリュームを設定するテストを行う。
@@ -497,32 +415,25 @@ QUnit.asyncTest('volumeAbnormalTest012(put)(level is string.)', SettingProfileAb
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  builder.addParameter('level', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest013(put)(level is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest013);
+QUnit.test('volumeAbnormalTest013(put)(level is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest013);
 
 /**
  * levelを指定しないでボリュームを設定するテストを行う。
@@ -537,31 +448,24 @@ QUnit.asyncTest('volumeAbnormalTest013(put)(level is special characters.)', Sett
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest014 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest014(put)(level is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest014);
+QUnit.test('volumeAbnormalTest014(put)(level is special characters.)', SettingProfileAbnormalTest.volumeAbnormalTest014);
 
 /**
  * 定義されていないPOSTメソッドでvolumeにアクセスするテストを行う。
@@ -576,32 +480,25 @@ QUnit.asyncTest('volumeAbnormalTest014(put)(level is special characters.)', Sett
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest015 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  builder.addParameter('level', 1);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest015(Calling a post method that does not support.)', SettingProfileAbnormalTest.volumeAbnormalTest015);
+QUnit.test('volumeAbnormalTest015(Calling a post method that does not support.)', SettingProfileAbnormalTest.volumeAbnormalTest015);
 
 /**
  * 定義されていないDELETEメソッドでvolumeにアクセスするテストを行う。
@@ -616,32 +513,25 @@ QUnit.asyncTest('volumeAbnormalTest015(Calling a post method that does not suppo
  * </p>
  */
 SettingProfileAbnormalTest.volumeAbnormalTest016 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-  builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('kind', 1);
-  builder.addParameter('level', 1);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+    attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      kind: 1,
+      level: 1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('volumeAbnormalTest016(Calling a delete method that does not support.)', SettingProfileAbnormalTest.volumeAbnormalTest016);
+QUnit.test('volumeAbnormalTest016(Calling a delete method that does not support.)', SettingProfileAbnormalTest.volumeAbnormalTest016);
 
 /**
  * 定義されていないPOSTメソッドでdateにアクセスするテストを行う。
@@ -656,30 +546,23 @@ QUnit.asyncTest('volumeAbnormalTest016(Calling a delete method that does not sup
  * </p>
  */
 SettingProfileAbnormalTest.dateAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('date', '');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    attribute: dConnectSDK.constants.setting.ATTR_DATE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: ''
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('dateAbnormalTest001(Calling a post method that does not support.)', SettingProfileAbnormalTest.dateAbnormalTest001);
+QUnit.test('dateAbnormalTest001(Calling a post method that does not support.)', SettingProfileAbnormalTest.dateAbnormalTest001);
 
 /**
  * 定義されていないDELETEメソッドでdateにアクセスするテストを行う。
@@ -694,30 +577,23 @@ QUnit.asyncTest('dateAbnormalTest001(Calling a post method that does not support
  * </p>
  */
 SettingProfileAbnormalTest.dateAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('date', '');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    attribute: dConnectSDK.constants.setting.ATTR_DATE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: ''
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('dateAbnormalTest002(Calling a delete method that does not support.)', SettingProfileAbnormalTest.dateAbnormalTest002);
+QUnit.test('dateAbnormalTest002(Calling a delete method that does not support.)', SettingProfileAbnormalTest.dateAbnormalTest002);
 
 /**
  * levelに-1を指定して、ライト点灯のテストを行う。
@@ -732,31 +608,24 @@ QUnit.asyncTest('dateAbnormalTest002(Calling a delete method that does not suppo
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('level', -1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: -1
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('lightAbnormalTest001(level is -1)', SettingProfileAbnormalTest.lightAbnormalTest001);
+QUnit.test('lightAbnormalTest001(level is -1)', SettingProfileAbnormalTest.lightAbnormalTest001);
 
 /**
  * levelに文字を指定して、ライト点灯のテストを行う。
@@ -771,31 +640,24 @@ QUnit.asyncTest('lightAbnormalTest001(level is -1)', SettingProfileAbnormalTest.
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('level', 'this is a test.');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: 'this is a test.'
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('lightAbnormalTest002(level is string)', SettingProfileAbnormalTest.lightAbnormalTest002);
+QUnit.test('lightAbnormalTest002(level is string)', SettingProfileAbnormalTest.lightAbnormalTest002);
 
 /**
  * levelに特殊文字を指定して、ライト点灯のテストを行う。
@@ -810,31 +672,24 @@ QUnit.asyncTest('lightAbnormalTest002(level is string)', SettingProfileAbnormalT
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('level', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('lightAbnormalTest003(level is special characters.)', SettingProfileAbnormalTest.lightAbnormalTest003);
+QUnit.test('lightAbnormalTest003(level is special characters.)', SettingProfileAbnormalTest.lightAbnormalTest003);
 
 /**
  * levelに最大値を超える数値を指定して、ライト点灯のテストを行う。
@@ -849,31 +704,24 @@ QUnit.asyncTest('lightAbnormalTest003(level is special characters.)', SettingPro
  * </p>
  */
 SettingProfileAbnormalTest.lightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('level', 100000);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: 100000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('lightAbnormalTest004(level is big number.)', SettingProfileAbnormalTest.lightAbnormalTest004);
+QUnit.test('lightAbnormalTest004(level is big number.)', SettingProfileAbnormalTest.lightAbnormalTest004);
 
 /**
  * timeに-1を指定して、スリープ時間設定のテストを行う。
@@ -888,32 +736,24 @@ QUnit.asyncTest('lightAbnormalTest004(level is big number.)', SettingProfileAbno
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time', -1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
-
 };
-QUnit.asyncTest('sleepAbnormalTest001(time is -1)', SettingProfileAbnormalTest.sleepAbnormalTest001);
+QUnit.test('sleepAbnormalTest001(time is -1)', SettingProfileAbnormalTest.sleepAbnormalTest001);
 
 /**
  * sleepに文字を指定して、スリープ時間設定のテストを行う。
@@ -928,31 +768,24 @@ QUnit.asyncTest('sleepAbnormalTest001(time is -1)', SettingProfileAbnormalTest.s
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time', 'this is a test');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert(false, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: 'this is a test'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('sleepAbnormalTest002(time is string)', SettingProfileAbnormalTest.sleepAbnormalTest002);
+QUnit.test('sleepAbnormalTest002(time is string)', SettingProfileAbnormalTest.sleepAbnormalTest002);
 
 /**
  * sleepに特殊文字を指定して、スリープ時間設定のテストを行う。
@@ -967,31 +800,24 @@ QUnit.asyncTest('sleepAbnormalTest002(time is string)', SettingProfileAbnormalTe
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time', "!\"#$%&'()0=~|'{}@`*+;<,.>/_");
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: "!\"#$%&'()0=~|'{}@`*+;<,.>/_"
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('sleepAbnormalTest003(time is special characters.)', SettingProfileAbnormalTest.sleepAbnormalTest003);
+QUnit.test('sleepAbnormalTest003(time is special characters.)', SettingProfileAbnormalTest.sleepAbnormalTest003);
 
 /**
  * 定義されていないPOSTメソッドで、sleepにアクセスするテストを行う。
@@ -1006,31 +832,24 @@ QUnit.asyncTest('sleepAbnormalTest003(time is special characters.)', SettingProf
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time',1000);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: 1000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('sleepAbnormalTest004(Calling a post method that does not support.)', SettingProfileAbnormalTest.sleepAbnormalTest004);
+QUnit.test('sleepAbnormalTest004(Calling a post method that does not support.)', SettingProfileAbnormalTest.sleepAbnormalTest004);
 
 /**
  * 定義されていないDELETEメソッドで、sleepにアクセスするテストを行う。
@@ -1045,28 +864,21 @@ QUnit.asyncTest('sleepAbnormalTest004(Calling a post method that does not suppor
  * </p>
  */
 SettingProfileAbnormalTest.sleepAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time',1000);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: 1000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('sleepAbnormalTest005(Calling a delete method that does not support.)', SettingProfileAbnormalTest.sleepAbnormalTest005);
+QUnit.test('sleepAbnormalTest005(Calling a delete method that does not support.)', SettingProfileAbnormalTest.sleepAbnormalTest005);

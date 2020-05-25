@@ -1,6 +1,6 @@
 /**
  mediastreamrecording.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -13,18 +13,15 @@
 function showMediastreamRecording(serviceId) {
   showMediastreamRecording.serviceId = serviceId;
 
-  doGetMediaRecorderList(serviceId, {
-    onrecorders: function(recorders) {
-      showRecorderList(serviceId, recorders);
-    },
-    onerror: function(errorCode, errorMessage) {
-      showRecorderList(serviceId);
-    }
+  doGetMediaRecorderList(serviceId).then(recorders => {
+    showRecorderList(serviceId, recorders);
+  }).catch(e => {
+    showRecorderList(serviceId);
   });
 }
 
 function showRecorderList(serviceId, recorders) {
-  var btnStr = getBackButton('Device Top', 'doMediaStreamRecordingBack', serviceId, ''),
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId),
       list = '',
       i, r;
 
@@ -46,7 +43,7 @@ function showRecorderList(serviceId, recorders) {
 }
 
 function showRecorderFeatureListByIndex(serviceId, index) {
-  var recorder;
+  let recorder;
   if (index !== undefined && showRecorderList.recorders !== undefined) {
     recorder = showRecorderList.recorders[index];
   }
@@ -54,7 +51,7 @@ function showRecorderFeatureListByIndex(serviceId, index) {
 }
 
 function showRecorderFeatureListByTarget(serviceId, target) {
-  var recorder, i;
+  let recorder, i;
   if (target !== undefined && showRecorderList.recorders !== undefined) {
     for (i = 0; i < showRecorderList.recorders.length; i++) {
       if (target === showRecorderList.recorders[i].id) {
@@ -69,12 +66,12 @@ function showRecorderFeatureListByTarget(serviceId, target) {
 function showRecorderFeatureList(serviceId, recorder) {
   showRecorderFeatureList.recorder = recorder;
 
-  var btnStr = getBackButton('Recorder List', 'doFeatureListBack', serviceId, ''),
+  let btnStr = getBackButton('Recorder List', 'doFeatureListBack', serviceId),
       list = '',
       contents = '';
 
   initAll();
-  
+
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -95,7 +92,7 @@ function showRecorderFeatureList(serviceId, recorder) {
 }
 
 function showRecorderInfo(serviceId) {
-  var btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId, ''),
+  let btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId),
       contents = '',
       recorder = showRecorderFeatureList.recorder;
 
@@ -123,26 +120,26 @@ function showRecorderInfo(serviceId) {
 }
 
 function doRecorderOptions(serviceId, target) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('options');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'mediastreamrecording',
+    attribute: 'options',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (target !== null && target !== undefined) {
-    builder.addParameter('target', target);
+    params.params['target'] = target;
   }
-  var uri = builder.build();
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get(params).then(json => {
     showOptionList(serviceId, target, json);
-  }, function(errorCode, errorMessage) {
-    showError('GET mediastreamrecording/options', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET mediastreamrecording/options', e.errorCode, e.errorMessage);
   });
 }
 
 function showOptionList(serviceId, target, currentOptions) {
-  var str = '',
-      btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId, ''),
+  let str = '',
+      btnStr = getBackButton('Recorder Features', 'doOptionsBack', serviceId),
       recorder = showRecorderFeatureList.recorder || {},
       imageSizes = currentOptions.imageSizes,
       previewSizes = currentOptions.previewSizes,
@@ -151,7 +148,7 @@ function showOptionList(serviceId, target, currentOptions) {
 
   initAll();
   setTitle('Media Recorder Options');
-  
+
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
@@ -187,11 +184,11 @@ function showOptionList(serviceId, target, currentOptions) {
     str += '</select><br>';
 
     str += '<b>Preview Bit Rate (fps):</b>';
-    str += '<input id="textBitRate" type="text" value="' + 
+    str += '<input id="textBitRate" type="text" value="' +
             ((recorder.previewBitRate !== undefined) ? recorder.previewBitRate : '') + '"></input><br>';
 
     str += '<b>Preview Max Frame Rate (fps):</b>';
-    str += '<input id="textMaxFrameRate" type="text" value="' + 
+    str += '<input id="textMaxFrameRate" type="text" value="' +
             ((recorder.previewMaxFrameRate !== undefined) ? recorder.previewMaxFrameRate : '') + '"></input><br>';
   }
   if (mimeTypes != undefined) {
@@ -212,38 +209,38 @@ function showOptionList(serviceId, target, currentOptions) {
   reloadContent(str);
 
   $('#submitOptions').on('click', function(e) {
-    var op = {};
+    let op = {};
     op.serviceId = serviceId;
     op.target = target;
     op.mimeType = mimeTypes[0];
 
     // imageSizes
     if (imageSizes !== undefined) {
-      var imageSizeIndex = $('[name=selectImageSizes]').val();
-      var imageSize = imageSizes[imageSizeIndex];
+      let imageSizeIndex = $('[name=selectImageSizes]').val();
+      let imageSize = imageSizes[imageSizeIndex];
       op.imageWidth = imageSize.width;
       op.imageHeight = imageSize.height;
     }
 
     // previewSizes
     if (previewSizes !== undefined) {
-      var previewSizeIndex = $('[name=selectPreviewSizes]').val();
-      var previewSize = previewSizes[previewSizeIndex];
+      let previewSizeIndex = $('[name=selectPreviewSizes]').val();
+      let previewSize = previewSizes[previewSizeIndex];
       op.previewWidth = previewSize.width;
       op.previewHeight = previewSize.height;
 
       // bitrate
-      var bitrate = $('#textBitRate').val();
+      let bitrate = $('#textBitRate').val();
       op.previewBitRate = bitrate !== '' ? bitrate : undefined;
 
       // previewMaxFrameRate
-      var frameRate = $('#textMaxFrameRate').val();
+      let frameRate = $('#textMaxFrameRate').val();
       op.previewMaxFrameRate = frameRate !== '' ? frameRate : undefined;
     }
 
     // mimeType
     if (mimeTypes !== undefined) {
-      var mimeTypeIndex = $('[name=selectMimeType]').val();
+      let mimeTypeIndex = $('[name=selectMimeType]').val();
       op.mimeType = mimeTypes[mimeTypeIndex];
     }
 
@@ -256,69 +253,63 @@ function showOptionList(serviceId, target, currentOptions) {
  * @param {String} op オプション
  */
 function doChangeRecorderOptions(op) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('options');
-  builder.setServiceId(op.serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'mediastreamrecording',
+    attribute: 'options',
+    params: {
+      serviceId: op.serviceId
+    }
+  };
   if (op.target !== undefined) {
-    builder.addParameter('target', op.target);
+    params.params['target'] = op.target;
   }
   if (op.imageWidth !== undefined) {
-    builder.addParameter('imageWidth', op.imageWidth);
+    params.params['imageWidth'] = op.imageWidth;
   }
   if (op.imageHeight !== undefined) {
-    builder.addParameter('imageHeight', op.imageHeight);
+    params.params['imageHeight'] = op.imageHeight;
   }
   if (op.previewWidth !== undefined) {
-    builder.addParameter('previewWidth', op.previewWidth);
+    params.params['previewWidth'] = op.previewWidth;
   }
   if (op.previewHeight !== undefined) {
-    builder.addParameter('previewHeight', op.previewHeight);
+    params.params['previewHeight'] = op.previewHeight;
   }
   if (op.previewBitRate !== undefined) {
-    builder.addParameter('previewBitRate', op.previewBitRate);
+    params.params['previewBitRate'] = op.previewBitRate;
   }
   if (op.previewMaxFrameRate !== undefined) {
-    builder.addParameter('previewMaxFrameRate', op.previewMaxFrameRate);
+    params.params['previewMaxFrameRate'] = op.previewMaxFrameRate;
   }
   if (op.mimeType !== undefined) {
-    builder.addParameter('mimeType', op.mimeType);
+    params.params['mimeType'] = op.mimeType;
   }
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
   showLoading();
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
-    doGetMediaRecorder(op.serviceId, op.target, {
-      onrecorder: function(recorder) {
-        closeLoading();
+    doGetMediaRecorder(op.serviceId, op.target).then(recorder => {
+      closeLoading();
 
-        if (recorder === undefined) {
-          alert('ERROR: ' + target + ' is not found.');
-          return;
-        }
-
-        showRecorderFeatureList.recorder = recorder;
-        alert("Success. Media Recorder options was set.");
-      },
-      onerror: function(errorCode, errorMessage) {
-        closeLoading()
-        alert('ERROR: Failed to reload options: ' + errorMessage);
+      if (recorder === undefined) {
+        alert('ERROR: ' + target + ' is not found.');
+        return;
       }
+
+      showRecorderFeatureList.recorder = recorder;
+      alert("Success. Media Recorder options was set.");
+    }).catch(e => {
+      closeLoading()
+      alert('ERROR: Failed to reload options: ' + errorMessage);
     });
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     // Options API PUTがサポートされていない等、
     // エラーが発生した場合はデフォルト設定でプレビューを開始する.
     closeLoading();
-    console.log('ERROR: PUT /mediastreamrecording/options: errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    alert('ERROR: Failed to put options: ' + errorMessage);
+    console.log('ERROR: PUT /mediastreamrecording/options: errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    alert('ERROR: Failed to put options: ' + e.errorMessage);
   });
 }
 
@@ -333,22 +324,17 @@ function doRegisterPreview(serviceId, target) {
     clearInterval(doRegisterPreview.refreshTimerId);
     doRegisterPreview.refreshTimerId = undefined;
   }
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('preview');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'mediastreamrecording',
+    attribute: 'preview',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (target !== null && target !== undefined) {
-    builder.addParameter('target', target);
+    params.params['target'] = target;
   }
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -362,10 +348,10 @@ function doRegisterPreview(serviceId, target) {
       registerAudioSocket(json.audio.uri);
       return;
     }
-    var myUri = json.uri;
+    let myUri = json.uri;
     myUri = myUri.replace('localhost', ip);
     $('#preview-uri').text(myUri);
-    var img = $('#preview');
+    let img = $('#preview');
     if (img) {
       img.error(function() {
         alert('Failed to get a preview: URL=' + myUri);
@@ -374,18 +360,18 @@ function doRegisterPreview(serviceId, target) {
       if (useMJPEG()) {
         img.attr('src', myUri);
       } else {
-        var timerId = setInterval(function() {
+        let timerId = setInterval(function() {
           img.attr('src', myUri + '?snapshot&' + Date.now());
         }, 250); // 10 fps
         doRegisterPreview.refreshTimerId = timerId;
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('PUT mediastreamrecording/preview', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT mediastreamrecording/preview', e.errorCode, e.errorMessage);
   });
 
   function useMJPEG() {
-    var v = getWebkitMajorVersion();
+    let v = getWebkitMajorVersion();
     if (v === null) {
         return true;
     }
@@ -393,8 +379,8 @@ function doRegisterPreview(serviceId, target) {
   }
 
   function getWebkitMajorVersion() {
-    var ua = window.navigator.userAgent;
-    var group = ua.match(/^.* applewebkit\/(\d+)\..*$/i);
+    let ua = window.navigator.userAgent;
+    let group = ua.match(/^.* applewebkit\/(\d+)\..*$/i);
     if (group === null) {
       return null;
     }
@@ -417,26 +403,22 @@ function doUnregisterPreview(serviceId, recorder) {
     doRegisterPreview.refreshTimerId = undefined;
   }
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('preview');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'mediastreamrecording',
+    attribute: 'preview',
+    params: {
+      serviceId: serviceId
+    }  };
   if (recorder !== null && recorder !== undefined) {
-    builder.addParameter('target', recorder.id);
-  }
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
+    params.params['target'] = recorder.id;
   }
 
-  dConnect.delete(uri, null, function(json) {
+  sdk.delete(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('DELETE mediastreamrecording/preview', errorCode, errorMessage);
+  }).catch(e => {
+    showError('DELETE mediastreamrecording/preview', e.errorCode, e.errorMessage);
   });
 }
 
@@ -450,11 +432,11 @@ function doPreviewStart(serviceId, target) {
   initAll();
   setTitle('Preview');
 
-  var btnStr = getBackButton('Recorder Features', 'doPreviewBack', serviceId);
+  let btnStr = getBackButton('Recorder Features', 'doPreviewBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<center>';
   str += '<div id="preview-uri"></div>';
   str += '<img src="./css/images/cameraWait.png" width="100%" id="preview">';
@@ -476,14 +458,11 @@ function doTakePhoto(serviceId, target) {
 
   showLoading();
   loadFlag = false;
-  var sessionKey = currentClientId;
-
-  var str = '';
-  str += getBackButton('Recorder Features', 'doTakephotoBack', serviceId, sessionKey);
+  let str = '';
+  str += getBackButton('Recorder Features', 'doTakephotoBack', serviceId);
   reloadHeader(str);
   reloadFooter(str);
 
-  var str = '';
   str += makeInputText('onPhoto', 'onPhoto', 'onPhoto')
   str += '<center>';
   str += '<img src="./css/images/cameraWait.png" width="100%" id="photo">';
@@ -492,41 +471,35 @@ function doTakePhoto(serviceId, target) {
 
   reloadContent(str);
 
-  doRegisterOnPhoto(serviceId, function() {
-	  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-		console.log("Failed to connect websocket. errorCode=" + errorCode + " errorMessage=" + errorMessage);
+  doRegisterOnPhoto(serviceId).then(json => {
+    let params = {
+      profile: 'mediastreamrecording',
+      attribute: 'takephoto',
+      params: {
+        serviceId: serviceId
+      }    };
+    if (target !== null && target !== undefined) {
+      params.params['target'] = target;
+    }
+	  sdk.post(params).then(json => {
+  		if (DEBUG) {
+  		  console.log('Response: ', json);
+  		}
+
+  		let myUri = json.uri;
+  		myUri = myUri.replace('localhost', ip);
+  		refreshImg(myUri, 'photo');
+  		closeLoading();
+
+  		$('#onPhoto').val(json.uri);
+
+	  }).catch(e => {
+  		showError('POST mediastreamrecording/takephoto', e.errorCode, e.errorMessage);
+  		closeLoading();
 	  });
-
-	  var builder = new dConnect.URIBuilder();
-	  builder.setProfile('mediastreamrecording');
-	  builder.setAttribute('takephoto');
-	  builder.setServiceId(serviceId);
-	  builder.setAccessToken(accessToken);
-	  if (target !== null && target !== undefined) {
-		builder.addParameter('target', target);
-	  }
-	  var uri = builder.build();
-
-	  if (DEBUG) {
-		console.log('Uri: ' + uri)
-	  }
-
-	  dConnect.post(uri, null, null, function(json) {
-		if (DEBUG) {
-		  console.log('Response: ', json);
-		}
-
-		var myUri = json.uri;
-		myUri = myUri.replace('localhost', ip);
-		refreshImg(myUri, 'photo');
-		closeLoading();
-
-		$('#onPhoto').val(json.uri);
-	
-	  }, function(errorCode, errorMessage) {
-		showError('POST mediastreamrecording/takephoto', errorCode, errorMessage);
-		closeLoading();
-	  });
+  }).catch(e => {
+    showError('POST mediastreamrecording/onphoto', e.errorCode, e.errorMessage);
+    closeLoading();
   });
 
 }
@@ -535,10 +508,9 @@ function doTakePhoto(serviceId, target) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションキー
  */
-function doTakephotoBack(serviceId, sessionKey) {
-  var recorder = showRecorderFeatureList.recorder;
+function doTakephotoBack(serviceId) {
+  let recorder = showRecorderFeatureList.recorder;
   doUnregisterOnPhoto(serviceId);
   showRecorderFeatureList(serviceId, recorder);
 }
@@ -549,7 +521,7 @@ function doTakephotoBack(serviceId, sessionKey) {
  * @param {String} serviceId サービスID
  */
 function doPreviewBack(serviceId) {
-  var recorder = showRecorderFeatureList.recorder;
+  let recorder = showRecorderFeatureList.recorder;
   doUnregisterPreview(serviceId, recorder);
   showRecorderFeatureList(serviceId, recorder);
 }
@@ -560,7 +532,7 @@ function doPreviewBack(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doRecordMediaBack(serviceId) {
-  var recorder = showRecorderFeatureList.recorder;
+  let recorder = showRecorderFeatureList.recorder;
   doUnregisterOnRecordingChange(serviceId);
   showRecorderFeatureList(serviceId, recorder);
 }
@@ -571,7 +543,7 @@ function doRecordMediaBack(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doOptionsBack(serviceId) {
-  var recorder = showRecorderFeatureList.recorder;
+  let recorder = showRecorderFeatureList.recorder;
   showRecorderFeatureList(serviceId, recorder);
 }
 
@@ -583,16 +555,6 @@ function doOptionsBack(serviceId) {
 function doFeatureListBack(serviceId) {
   showMediastreamRecording(serviceId);
 }
-
-/**
- * Backボタン
- *
- * @param {String} serviceId サービスID
- */
-function doMediaStreamRecordingBack(serviceId) {
-  searchSystem(serviceId);
-}
-
 /**
  * 画像のリフレッシュ
  *
@@ -602,10 +564,10 @@ function doMediaStreamRecordingBack(serviceId) {
 function refreshImg(uri, id) {
   if (!loadFlag) {
     loadFlag = true;
-    var img = $('#' + id);
+    let img = $('#' + id);
     if (img) {
       // MEMO: iOSではonloadがこないタイミングがあるので、その場合はタイムアウトさせる
-      var timeout = setInterval(function() {
+      let timeout = setInterval(function() {
         loadFlag = false;
         clearInterval(timeout);
       }, 500);
@@ -631,48 +593,45 @@ function refreshImg(uri, id) {
  * @param {String} target レコーダーID
  */
 function doMediaRecord(serviceId, target) {
-  doRegisterOnRecordingChange(serviceId, function() {
+  doRegisterOnRecordingChange(serviceId).then(json => {
 	  initAll();
-	  var btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId, '');
+	  let btnStr = getBackButton('Recorder Features', 'doRecordMediaBack', serviceId);
 	  reloadHeader(btnStr);
 	  reloadContent(mediaStopButton(serviceId, target));
 	  reloadFooter(btnStr);
 
 	  setTitle('Recording, now');
 
-	　sendRecordRequest(serviceId, target, {
-		onsuccess: function() {
-		},
-		onerror: function(errorCode, errorMessage) {
-		  showError('POST mediastreamrecording/record', errorCode, errorMessage);
-		}
+	  sendRecordRequest(serviceId, target).then(json => {
+    }).catch(e => {
+      showError('POST mediastreamrecording/record', e.errorCode, e.errorMessage);
 	  });
 
-	  function sendRecordRequest(serviceId, target, cb) {
-		var builder = new dConnect.URIBuilder();
-		builder.setProfile('mediastreamrecording');
-		builder.setAttribute('record');
-		builder.setServiceId(serviceId);
-		builder.setAccessToken(accessToken);
-		if (target !== null && target !== undefined) {
-		  builder.addParameter('target', target);
-		}
-		var uri = builder.build();
+	  function sendRecordRequest(serviceId, target) {
+      let params = {
+        profile: 'mediastreamrecording',
+        attribute: 'record',
+        params: {
+          serviceId: serviceId
+        }
+      };
+      if (target !== null && target !== undefined) {
+        params.params['target'] = target;
+      }
+      return new Promise((resolve, reject) => {
+    		sdk.post(params).then(json => {
+    		  if (DEBUG) {
+    			console.log('Response: ', json);
+    		  }
 
-		if (DEBUG) {
-		  console.log('Uri: ' + uri);
-		}
-
-		dConnect.post(uri, null, null, function(json) {
-		  if (DEBUG) {
-			console.log('Response: ', json);
-		  }
-
-		  cb.onsuccess();
-		}, function(errorCode, errorMessage) {
-		  cb.onerror(errorCode, errorMessage);
-		});
+    		  resolve();
+    		}).catch(e => {
+    		  reject(e);
+    		});
+      });
 	  }
+  }).catch(e => {
+    showError('POST mediastreamrecording/onStatusChange', e.errorCode, e.errorMessage);
 
   });
 }
@@ -683,25 +642,22 @@ function doMediaRecord(serviceId, target) {
  * @param {String} serviceId サービスID
  */
 function doMediaStop(serviceId, target) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('stop');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'mediastreamrecording',
+    attribute: 'stop',
+    params: {
+      serviceId: serviceId
+    }  };
   if (target !== null && target !== undefined) {
-    builder.addParameter('target', target);
-  }
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
+    params.params['target'] = target;
   }
 
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('PUT mediastreamrecording/stop', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT mediastreamrecording/stop', e.errorCode, e.errorMessage);
   });
 }
 
@@ -709,25 +665,24 @@ function doMediaStop(serviceId, target) {
  * レコーダー情報リストを取得する.
  *
  * @param {String} serviceId サービスID
- * @param {Object} callback レコーダー情報リスト取得処理のコールバック
  */
 function doGetMediaRecorderList(serviceId, callback) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('mediarecorder');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.get(uri, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
-    }
-    callback.onrecorders(json.recorders);
-  }, callback.onerror);
+  return new Promise((resolve, reject) => {
+    sdk.get({
+      profile: 'mediastreamrecording',
+      attribute: 'mediarecorder',
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+      resolve(json.recorders);
+    }).catch(e => {
+      reject(e);
+    });
+  });
 }
 
 /**
@@ -735,36 +690,34 @@ function doGetMediaRecorderList(serviceId, callback) {
  *
  * @param {String} serviceId サービスID
  * @param {String} target レコーダーID
- * @param {Object} callback レコーダー情報取得処理のコールバック
  */
-function doGetMediaRecorder(serviceId, target, callback) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('mediarecorder');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.get(uri, null, function(json) {
-    if (DEBUG) {
-      console.log('Response: ', json);
-    }
-
-    var targetRecorder = undefined;
-    var recorders = json.recorders;
-    for (var i = 0; i < recorders.length; i++) {
-      var recorder = recorders[i];
-      if (recorder.id.indexOf(target) !== -1) {
-        targetRecorder = recorder;
-        break;
+function doGetMediaRecorder(serviceId, target) {
+  return new Promise((resolve, reject) => {
+    sdk.get({
+      profile: 'mediastreamrecording',
+      attribute: 'mediarecorder',
+      params: {
+        serviceId: serviceId
       }
-    }
-    callback.onrecorder(targetRecorder);
-  }, callback.onerror);
+    }).then(json => {
+      if (DEBUG) {
+        console.log('Response: ', json);
+      }
+
+      let targetRecorder = undefined;
+      let recorders = json.recorders;
+      for (let i = 0; i < recorders.length; i++) {
+        let recorder = recorders[i];
+        if (recorder.id.indexOf(target) !== -1) {
+          targetRecorder = recorder;
+          break;
+        }
+      }
+      resolve(targetRecorder);
+    }).catch(e => {
+      reject(e);
+    });
+  });
 }
 
 /**
@@ -774,7 +727,7 @@ function doGetMediaRecorder(serviceId, target, callback) {
  * @param {String} target 動作させているデバイスのターゲット
  */
 function mediaStopButton(serviceId, target) {
-  var str = '';
+  let str = '';
   str += makeInputText('Status', 'status', 'status');
   str += makeInputText('URI', 'uri', 'uri');
   str += makeInputText('Path', 'path', 'path');
@@ -806,7 +759,7 @@ function mediaStopButton(serviceId, target) {
  * @param {String} serviceId サービスID
  */
 function takePhotoButton(serviceId, target) {
-  var str = '';
+  let str = '';
   str += '<center>';
   str += '<input data-icon="stop"  ';
   if (target !== undefined && target !== null) {
@@ -824,38 +777,30 @@ function takePhotoButton(serviceId, target) {
  * onPhotoイベントの登録
  *
  * @param {String} serviceId サービスID
- * @param {Function} cb イベント登録後に実行される関数
  */
-function doRegisterOnPhoto(serviceId, cb) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('onphoto');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+function doRegisterOnPhoto(serviceId) {
+  return new Promise((resolve, reject) => {
+    sdk.addEventListener({
+      profile: 'mediastreamrecording',
+      attribute: 'onphoto',
+      params: {
+        serviceId: serviceId
+      }
+    }, message => {
+      // イベントメッセージが送られてくる
+      if (DEBUG) {
+        console.log('Event-Message:' + message)
+      }
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
+      let json = JSON.parse(message);
+      $('#onPhoto').val(json.photo.path + ':' + json.photo.mimeType);
 
-  dConnect.addEventListener(uri, function(message) {
-    // イベントメッセージが送られてくる
-    if (DEBUG) {
-      console.log('Event-Message:' + message)
-    }
-
-    var json = JSON.parse(message);
-    $('#onPhoto').val(json.photo.path + ':' + json.photo.mimeType);
-
-  }, function() {
-    if (cb) {
-    	cb();
-    }
-  }, function(errorCode, errorMessage) {
-    alert(errorMessage);
-    if (cb) {
-    	cb();
-    }
+    }).then(json => {
+      resolve(json);
+    }).catch(e => {
+      alert(e.errorMessage);
+      reject(e);
+    });
   });
 }
 
@@ -865,18 +810,14 @@ function doRegisterOnPhoto(serviceId, cb) {
  * @param {String} serviceId サービスID
  */
 function doUnregisterOnPhoto(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('onphoto');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  sdk.removeEventListener({
+    profile: 'mediastreamrecording',
+    attribute: 'onphoto',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -886,41 +827,34 @@ function doUnregisterOnPhoto(serviceId) {
  *
  * @param {String} serviceId サービスID
  */
-function doRegisterOnRecordingChange(serviceId, cb) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('onRecordingChange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+function doRegisterOnRecordingChange(serviceId) {
+  return new Promise((resolve, reject) => {
+    sdk.addEventListener({
+      profile: 'mediastreamrecording',
+      attribute: 'onRecordingChange',
+      params: {
+        serviceId: serviceId
+      }
+    }, message => {
+      // イベントメッセージが送られてくる
+      if (DEBUG) {
+        console.log('Event-Message:' + message)
+      }
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.addEventListener(uri, function(message) {
-    // イベントメッセージが送られてくる
-    if (DEBUG) {
-      console.log('Event-Message:' + message)
-    }
-
-    var json = JSON.parse(message);
-    $('#status').val(json.media.status);
-    $('#uri').val(json.media.uri);
-    $('#path').val(json.media.path);
-    $('#mimeType').val(json.media.mimeType);
-    if (json.media.errorMessage) {
-	    $('#errorMessage').val(json.media.errorMessage);
-	}
-  }, function() {
-  	if (cb) {
-  		cb();
-  	}
-   }, function(errorCode, errorMessage) {
-    alert(errorMessage);
-    if (cb) {
-  		cb();
-  	}
+      let json = JSON.parse(message);
+      $('#status').val(json.media.status);
+      $('#uri').val(json.media.uri);
+      $('#path').val(json.media.path);
+      $('#mimeType').val(json.media.mimeType);
+      if (json.media.errorMessage) {
+  	    $('#errorMessage').val(json.media.errorMessage);
+  	   }
+    }).then(json => {
+    	resolve(json);
+    }).catch(e => {
+      alert(e.errorMessage);
+      reject(e);
+    });
   });
 }
 
@@ -930,26 +864,22 @@ function doRegisterOnRecordingChange(serviceId, cb) {
  * @param {String} serviceId サービスID
  */
 function doUnregisterOnRecordingChange(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mediastreamrecording');
-  builder.setAttribute('onRecordingChange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  sdk.removeEventListener({
+    profile: 'mediastreamrecording',
+    attribute: 'onRecordingChange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 
-var ws;
-var ctx = new (window.AudioContext || window.webkitAudioContext);
-var initial_delay_sec = 0;
-var scheduled_time = 0;
+let ws;
+let ctx = new (window.AudioContext || window.webkitAudioContext);
+let initial_delay_sec = 0;
+let scheduled_time = 0;
 
 function playChunk(audio_src, scheduled_time) {
   if (audio_src.start) {
@@ -962,9 +892,9 @@ function playChunk(audio_src, scheduled_time) {
 function playAudioStream(audio_f32) {
   console.log("DATA: " + audio_f32.length);
 
-  var audio_buf = ctx.createBuffer(1, audio_f32.length, 44100);
-  var audio_src = ctx.createBufferSource();
-  var current_time = ctx.currentTime;
+  let audio_buf = ctx.createBuffer(1, audio_f32.length, 44100);
+  let audio_src = ctx.createBufferSource();
+  let current_time = ctx.currentTime;
 
   audio_buf.getChannelData(0).set(audio_f32);
 
@@ -981,7 +911,7 @@ function playAudioStream(audio_f32) {
 }
 
 function registerAudioSocket(uri) {
-  var wsUrl = uri.replace('localhost', ip);
+  let wsUrl = uri.replace('localhost', ip);
   $('#preview-uri').text(wsUrl);
   ws = new WebSocket(wsUrl.replace("http", "ws"));
   ws.binaryType = "arraybuffer";
@@ -1006,11 +936,11 @@ function registerAudioSocket(uri) {
     }
    //playAudioStream(new Int16Array(evt.data));
 
-    var audio = new Int16Array(evt.data);
-    var len = audio.length;
+    let audio = new Int16Array(evt.data);
+    let len = audio.length;
 
-    var audioFloat32 = new Float32Array(len);
-    for (var i = 0; i < len; i++) {
+    let audioFloat32 = new Float32Array(len);
+    for (let i = 0; i < len; i++) {
       audioFloat32[i] = audio[i] / 32768.0;
     }
     playAudioStream(audioFloat32);

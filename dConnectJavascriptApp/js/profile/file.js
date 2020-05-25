@@ -1,12 +1,12 @@
 /**
  file.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
+let currentPath = '/';
 
-var currentPath = '/';
-var deleteMode;
+let deleteMode;
 const FILE_MODE_NORMAL = 1;
 const FILE_MODE_DELETE = 2;
 const FILE_TYPE_FOLDER = '0';
@@ -20,12 +20,12 @@ function showFile(serviceId) {
   initAll();
   setTitle('File Profile', 'black');
 
-  var btnStr = getBackButton('Device Top', 'doFileBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doFileBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
-  var path = '/';
+  let str = '';
+  let path = '/';
   str += '<li><a href="javascript:showFileList(\'' +
         serviceId + '\',\'' + path +
         '\');" value="list">File Manager</a></li>';
@@ -48,11 +48,11 @@ function showFile(serviceId) {
 function showFileMove(serviceId) {
   initAll();
 
-  var btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId, '');
+  let btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += makeSelectBoolean('forceOverwrite');
   str += makeInputText('oldPath', 'oldPath', 'oldPath');
   str += makeInputText('newPath', 'newPath', 'newPath');
@@ -67,28 +67,25 @@ function showFileMove(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doFileMove(serviceId) {
-  var forceOverwrite = $('#forceOverwrite').val();
-  var oldPath = $('#oldPath').val();
-  var newPath = $('#newPath').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('oldPath', oldPath);
-  builder.addParameter('newPath', newPath);
-  builder.addParameter('forceOverwrite', forceOverwrite);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
+  let forceOverwrite = $('#forceOverwrite').val();
+  let oldPath = $('#oldPath').val();
+  let newPath = $('#newPath').val();
 
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'file',
+    params: {
+      serviceId: serviceId,
+      oldPath: oldPath,
+      newPath: newPath,
+      forceOverwrite: forceOverwrite
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     alert(oldPath + 'を' + 'へ' + newPath + '移動しました。');
-  }, function(errorCode, errorMessage) {
-    showError('PUT file', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT file', e.errorCode, e.errorMessage);
   });
 }
 /**
@@ -99,11 +96,11 @@ function doFileMove(serviceId) {
 function showMoveDirectory(serviceId) {
   initAll();
 
-  var btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId, '');
+  let btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += makeInputText('oldPath', 'oldPath', 'oldPath');
   str += makeInputText('newPath', 'newPath', 'newPath');
   str += '<input type="button" onclick="javascript:doDirectoryMove(\'' +
@@ -117,28 +114,24 @@ function showMoveDirectory(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doDirectoryMove(serviceId) {
-  var oldPath = $('#oldPath').val();
-  var newPath = $('#newPath').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setAttribute('directory');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('oldPath', oldPath);
-  builder.addParameter('newPath', newPath);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  let oldPath = $('#oldPath').val();
+  let newPath = $('#newPath').val();
+  sdk.put({
+    profile: 'file',
+    attribute: 'directory',
+    params: {
+      serviceId: serviceId,
+      oldPath: oldPath,
+      newPath: newPath
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     alert(oldPath + 'を' + 'へ' + newPath + '移動しました。');
-  }, function(errorCode, errorMessage) {
-    showError('PUT file/directory', errorCode, errorMessage);
+  }).catch(e => {
+    showError('PUT file/directory', e.errorCode, e.errorMessage);
   });
 }
 
@@ -151,11 +144,11 @@ function doDirectoryMove(serviceId) {
 function showFileReceive(serviceId, path) {
   initAll();
 
-  var btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId, '');
+  let btnStr = getBackButton('File Top', 'doFileRecieveBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += makeInputText('path', 'path', 'path');
   str += '<input type="button" onclick="javascript:doFileGetUriFromPath(\'' +
         serviceId + '\');" value="Get URI from PATH" type="button" >';
@@ -168,25 +161,21 @@ function showFileReceive(serviceId, path) {
  * @param {String} serviceId サービスID
  */
 function doFileGetUriFromPath(serviceId) {
-  var path = $('#path').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', path);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  let path = $('#path').val();
+  sdk.get({
+    profile: 'file',
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     alert('uri:' + json.uri + '\n' + 'mimeType:' + json.mimeType);
-  }, function(errorCode, errorMessage) {
-    showError('GET file/receive', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET file/receive', e.errorCode, e.errorMessage);
   });
 }
 
@@ -194,9 +183,8 @@ function doFileGetUriFromPath(serviceId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doFileBack(serviceId, sessionKey) {
+function doFileBack(serviceId) {
   searchDevice(serviceId);
 }
 
@@ -214,9 +202,8 @@ function doFileListBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doFileSendBack(serviceId, sessionKey) {
+function doFileSendBack(serviceId) {
   showFile(serviceId);
 }
 
@@ -224,9 +211,8 @@ function doFileSendBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doFileRecieveBack(serviceId, sessionKey) {
+function doFileRecieveBack(serviceId) {
   showFile(serviceId);
 }
 
@@ -244,24 +230,19 @@ function showFileList(serviceId, path, mode) {
   closeLoading();
   showLoading();
 
-  var btnStr = getBackButton('File Top', 'doFileListBack', serviceId, '');
+  let btnStr = getBackButton('File Top', 'doFileListBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   deleteMode = false;
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setAttribute('list');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', path);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'file',
+    attribute: 'list',
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -273,7 +254,7 @@ function showFileList(serviceId, path, mode) {
     }
     currentPath = path;
 
-    var cmdStr = '<input data-icon="folder" data-inline="true"' +
+    let cmdStr = '<input data-icon="folder" data-inline="true"' +
                 ' data-mini="true"' +
                 ' onclick="javascript:showFileList(\'' + serviceId +
                 '\',\'/\');" type="button" value=" / "/>';
@@ -288,9 +269,9 @@ function showFileList(serviceId, path, mode) {
       reloadMenu(cmdStr);
     }
 
-    var listStr = '';
-    for (var i = 0; i < json.files.length; i++) {
-      var iconName = getFileIcon(json.files[i].mimeType,
+    let listStr = '';
+    for (let i = 0; i < json.files.length; i++) {
+      let iconName = getFileIcon(json.files[i].mimeType,
                     json.files[i].fileType);
       if (json.files[i].fileType == FILE_TYPE_FILE) {
         listStr += '<li>';
@@ -316,9 +297,9 @@ function showFileList(serviceId, path, mode) {
     }
     closeLoading();
     reloadList(listStr);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('GET file/list', errorCode, errorMessage);
+    showError('GET file/list', e.errorCode, e.errorMessage);
   });
 }
 
@@ -332,7 +313,7 @@ function changeDeleteMode(serviceId) {
 
   showFileList(serviceId, currentPath, FILE_MODE_DELETE);
 
-  var cmdStr = '';
+  let cmdStr = '';
   cmdStr += '<input data-icon="folder" data-inline="true"' +
             ' data-mini="true" onclick="javascript:showFileList(\'' +
             serviceId +
@@ -359,7 +340,7 @@ function changeNormalMode(serviceId) {
 
   showFileList(serviceId, currentPath, FILE_MODE_NORMAL);
 
-  var cmdStr = '';
+  let cmdStr = '';
   cmdStr = '<input data-icon="folder" data-inline="true" data-mini="true"' +
           ' onclick="javascript:showFileList(\'' + serviceId +
           '\',\'/\');" type="button" value=" / " />';
@@ -431,7 +412,6 @@ function doFileAction(serviceId, path, mimeType) {
     } else {
       alert('Unsupported MIME-Type: ' + mimeType);
       showFileList(serviceId, currentPath, 1);
-
     }
   }
 }
@@ -443,8 +423,7 @@ function doFileAction(serviceId, path, mimeType) {
  * @param {String} path パス
  */
 function doMediaPlay(serviceId, path) {
-  var sessionKey = currentClientId;
-  doRegisterOnStatusChange(serviceId, sessionKey);
+  doRegisterOnStatusChange(serviceId);
   doMediaPlayer(serviceId, path, FILE_MODE_DELETE);
 }
 
@@ -455,25 +434,21 @@ function doMediaPlay(serviceId, path) {
  * @path {String} path パス
  */
 function doDeleteFile(serviceId, path) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', path);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.delete(uri, null, function(json) {
+  sdk.delete({
+    profile: 'file',
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     alert('deleted ' + path);
     changeDeleteMode(serviceId);
-  }, function(errorCode, errorMessage) {
-    showError('DELETE file/remove', errorCode, errorMessage);
+  }).catch(e => {
+    showError('DELETE file/remove', e.errorCode, e.errorMessage);
     changeDeleteMode(serviceId);
   });
 }
@@ -484,29 +459,18 @@ function doDeleteFile(serviceId, path) {
  * @param {String} serviceId サービスID
  */
 function doMKDir(serviceId) {
-  var path = window.prompt('ディレクトリ名を入力してください');
+  let path = window.prompt('ディレクトリ名を入力してください');
   if (path == null) {
     return;
   }
-  var defaultPath = path;
+  let defaultPath = path;
   if (path.substring(0, 1) != '/') {
     path = currentPath + '/' + path;
   } else {
     path = currentPath + path;
   }
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setAttribute('directory');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', path);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  var oncomplete = function() {
-    var fileMode = FILE_MODE_NORMAL;
+  let oncomplete = () => {
+    let fileMode = FILE_MODE_NORMAL;
     if (deleteMode) {
       fileMode = FILE_MODE_DELETE;
     }
@@ -518,14 +482,21 @@ function doMKDir(serviceId) {
     showFileList(serviceId, currentPath, fileMode);
   };
 
-  dConnect.post(uri, null, null, function(json) {
+  sdk.post({
+    profile: 'file',
+    attribute: 'directory',
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     alert('mkdir ' + defaultPath);
     oncomplete();
-  }, function(errorCode, errorMessage) {
-    showError('POST file/mkdir', errorCode, errorMessage);
+  }).catch(e => {
+    showError('POST file/mkdir', e.errorCode, e.errorMessage);
     oncomplete();
   });
 }
@@ -537,20 +508,8 @@ function doMKDir(serviceId) {
  * @param {Boolean} forceRemove 強制削除フラグ
  */
 function doRMDir(serviceId, dir, forceRemove) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setAttribute('directory');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', dir);
-  builder.addParameter('forceRemove', forceRemove);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  var oncomplete = function() {
-    var fileMode = FILE_MODE_DELETE;
+  let oncomplete = function() {
+    let fileMode = FILE_MODE_DELETE;
     if (deleteMode) {
       fileMode = FILE_MODE_NORMAL;
     }
@@ -564,20 +523,28 @@ function doRMDir(serviceId, dir, forceRemove) {
     showFileList(serviceId, currentPath, fileMode);
   };
 
-  dConnect.delete(uri, null, function(json) {
+  sdk.delete({
+    profile: 'file',
+    attribute: 'directory',
+    params: {
+      serviceId: serviceId,
+      path: dir,
+      forceRemove: forceRemove
+    }
+  }).then(json =>  {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     alert('rmdir ' + dir);
     oncomplete();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 16) {   //Illegal device state.
+  }).catch(e => {
+    if (e.errorCode == 16) {   //Illegal device state.
       if(window.confirm('削除に失敗しました。ディレクトリの中にファイルがあります。全て削除しますか？')) {
          doRMDir(serviceId, dir, true);
          return;
       }
     } else {
-       showError('DELETE file/rmdir', errorCode, errorMessage);
+       showError('DELETE file/rmdir', e.errorCode, e.errorMessage);
     }
     oncomplete();
   });
@@ -591,23 +558,23 @@ function showFileSend(serviceId) {
   initAll();
   setTitle('File Profile(Send)');
 
-  var btnStr = getBackButton('File Top', 'doFileSendBack', serviceId, '');
+  let btnStr = getBackButton('File Top', 'doFileSendBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var builder = new dConnect.URIBuilder();
+  let builder = new sdk.URIBuilder();
   builder.setProfile('file');
-  var uri = builder.build();
+  let uri = builder.build();
 
   if (DEBUG) {
     console.log('Uri: ' + uri);
   }
 
-  var str = '';
+  let str = '';
   str += '<form action="' + uri + '" method="POST"' +
         ' enctype="multipart/form-data" id="fileForm"><br>';
   str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
-  str += '<input type="hidden" name="accessToken" value="' + accessToken + '"/>';
+  str += '<input type="hidden" name="accessToken" value="' + sdk.getAccessToken() + '"/>';
   str += makeSelectBoolean('forceOverwrite');
   str += makeInputText('path', 'path', 'path');
   str += makeInputText('uri', 'uri', 'uri');
@@ -623,7 +590,7 @@ function showFileSend(serviceId) {
         if (!this.files.length) {
           alert('File is null');
         } else {
-          var file = '/' + this.files[0].name;
+          let file = '/' + this.files[0].name;
         }
       }
   );
@@ -638,9 +605,9 @@ function doFileSend(serviceId) {
   closeLoading();
   showLoading();
 
-  var myForm = document.getElementById('fileForm');
-  var myFormData = new FormData(myForm);
-  
+  let myForm = document.getElementById('fileForm');
+  let myFormData = new FormData(myForm);
+
   try {
     if (myFormData.get('uri') === '') {
       myFormData.delete('uri');
@@ -648,7 +615,7 @@ function doFileSend(serviceId) {
   } catch (e) {
   }
 
-  var myXhr = new XMLHttpRequest();
+  let myXhr = new XMLHttpRequest();
   myXhr.open(myForm.method, myForm.action, true);
   myXhr.onreadystatechange = function() {
     if (myXhr.readyState === 4) {
@@ -656,8 +623,8 @@ function doFileSend(serviceId) {
         if (DEBUG) {
           console.log('Response:' + myXhr.responseText)
         }
-        var str = '';
-        var obj = JSON.parse(myXhr.responseText);
+        let str = '';
+        let obj = JSON.parse(myXhr.responseText);
         if (obj.result == 0) {
           alert('success:file/send');
         } else {
@@ -682,33 +649,28 @@ function doImageShow(serviceId, path) {
   initAll();
   setTitle('ImageShow');
 
-  var btnStr = getBackButton('File List', 'doImageShowBack', serviceId, '');
+  let btnStr = getBackButton('File List', 'doImageShowBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('file');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('path', path);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'file',
+    params: {
+      serviceId: serviceId,
+      path: path
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     json.uri = json.uri.replace('localhost', ip);
-    var str = '';
+    let str = '';
     str += '<img crossorigin="anonymous" src="' + json.uri + '" width="100%">';
     str += '</center><br>';
     reloadContent(str);
-  }, function(errorCode, errorMessage) {
-    showError('GET file/receive', errorCode, errorMessage);
+  }).catch(e =>  {
+    showError('GET file/receive', e.errorCode, e.errorMessage);
   });
 }
 
@@ -716,18 +678,17 @@ function doImageShow(serviceId, path) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doImageShowBack(serviceId, sessionKey) {
+function doImageShowBack(serviceId) {
   showFileList(serviceId, currentPath);
 }
 
 /**
  * Selectタグによる選択用のUIの作成.
- * 
+ *
  */
 function makeSelectBoolean(typeName) {
-  var btnStr = '';
+  let btnStr = '';
   btnStr += '<div data-role="fieldcontain">';
   btnStr += '  <label for="boolean">' + typeName +':</label>';
   btnStr += '  <select id="' + typeName + '" name="' + typeName + '">';

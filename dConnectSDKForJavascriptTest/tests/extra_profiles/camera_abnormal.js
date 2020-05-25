@@ -1,5 +1,5 @@
-module('CameraProfileAbnormalTest', {
-  setup: function() {
+QUnit.module('CameraProfileAbnormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('CameraProfileAbnormalTest', {
  * Cameraプロファイルの異常系テストを行うクラス。
  * @class
  */
-var CameraProfileAbnormalTest = {};
+let CameraProfileAbnormalTest = {};
 
 /**
  * directionにtestを指定してズームにアクセスするテストを行う。
@@ -23,32 +23,24 @@ var CameraProfileAbnormalTest = {};
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'test');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'test',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest001(Calling direction parameter in test.)',
+QUnit.test('zoomAbnormalTest001(Calling direction parameter in test.)',
     CameraProfileAbnormalTest.zoomAbnormalTest001);
 
 /**
@@ -63,32 +55,24 @@ QUnit.asyncTest('zoomAbnormalTest001(Calling direction parameter in test.)',
  * ・resultに1が返ってくること。<br/>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', '');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: '',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest002(Calling direction parameter in empty string.)',
+QUnit.test('zoomAbnormalTest002(Calling direction parameter in empty string.)',
     CameraProfileAbnormalTest.zoomAbnormalTest002);
 
 /**
@@ -104,32 +88,24 @@ QUnit.asyncTest('zoomAbnormalTest002(Calling direction parameter in empty string
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 1000);
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    QUnit.start();
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 1000,
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest003(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest003(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest003);
 
 /**
@@ -145,33 +121,24 @@ QUnit.asyncTest('zoomAbnormalTest003(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction',
-      1000000000000000000000000000000000000000000000000000000000);
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 1000000000000000000000000000000000000000000000000000000000,
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest004(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest004(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest004);
 
 /**
@@ -187,32 +154,24 @@ QUnit.asyncTest('zoomAbnormalTest004(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', -1);
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: -1,
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest005(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest005(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest005);
 
 /**
@@ -228,14 +187,13 @@ QUnit.asyncTest('zoomAbnormalTest005(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction',
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -243,26 +201,18 @@ CameraProfileAbnormalTest.zoomAbnormalTest006 = function(assert) {
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest006(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest006(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest006);
 
 /**
@@ -278,14 +228,13 @@ QUnit.asyncTest('zoomAbnormalTest006(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction',
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -293,26 +242,18 @@ CameraProfileAbnormalTest.zoomAbnormalTest007 = function(assert) {
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest007(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest007(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest007);
 
 /**
@@ -328,14 +269,13 @@ QUnit.asyncTest('zoomAbnormalTest007(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction',
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -343,26 +283,18 @@ CameraProfileAbnormalTest.zoomAbnormalTest008 = function(assert) {
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest008(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest008(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest008);
 
 /**
@@ -378,31 +310,23 @@ QUnit.asyncTest('zoomAbnormalTest008(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest009(Calling no paramters.)',
+QUnit.test('zoomAbnormalTest009(Calling no paramters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest009);
 
 /**
@@ -418,32 +342,24 @@ QUnit.asyncTest('zoomAbnormalTest009(Calling no paramters.)',
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', 'test');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'test'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest010(Calling movement parameter in test.)',
+QUnit.test('zoomAbnormalTest010(Calling movement parameter in test.)',
     CameraProfileAbnormalTest.zoomAbnormalTest010);
 
 /**
@@ -459,32 +375,24 @@ QUnit.asyncTest('zoomAbnormalTest010(Calling movement parameter in test.)',
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', '');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: ''
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest011(Calling movement parameter in empty string.)',
+QUnit.test('zoomAbnormalTest011(Calling movement parameter in empty string.)',
     CameraProfileAbnormalTest.zoomAbnormalTest011);
 
 /**
@@ -500,32 +408,24 @@ QUnit.asyncTest('zoomAbnormalTest011(Calling movement parameter in empty string.
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', 1000);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 1000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest012(Calling movement parameter in empty string.)',
+QUnit.test('zoomAbnormalTest012(Calling movement parameter in empty string.)',
     CameraProfileAbnormalTest.zoomAbnormalTest012);
 
 /**
@@ -541,33 +441,24 @@ QUnit.asyncTest('zoomAbnormalTest012(Calling movement parameter in empty string.
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest013(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest013(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest013);
 
 /**
@@ -583,32 +474,24 @@ QUnit.asyncTest('zoomAbnormalTest013(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest014 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', -1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest014(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest014(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest014);
 
 /**
@@ -624,15 +507,14 @@ QUnit.asyncTest('zoomAbnormalTest014(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest015 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement',
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -640,25 +522,18 @@ CameraProfileAbnormalTest.zoomAbnormalTest015 = function(assert) {
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('zoomAbnormalTest015(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest015(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest015);
 
 /**
@@ -674,15 +549,14 @@ QUnit.asyncTest('zoomAbnormalTest015(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest016 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement',
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -690,25 +564,17 @@ CameraProfileAbnormalTest.zoomAbnormalTest016 = function(assert) {
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest016(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest016(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest016);
 
 /**
@@ -724,15 +590,14 @@ QUnit.asyncTest('zoomAbnormalTest016(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest017 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement',
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -740,25 +605,17 @@ CameraProfileAbnormalTest.zoomAbnormalTest017 = function(assert) {
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest017(Calling direction parameter in special characters.)',
+QUnit.test('zoomAbnormalTest017(Calling direction parameter in special characters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest017);
 
 /**
@@ -774,31 +631,23 @@ QUnit.asyncTest('zoomAbnormalTest017(Calling direction parameter in special char
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest018 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest018(Calling no paramters.)',
+QUnit.test('zoomAbnormalTest018(Calling no paramters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest018);
 
 /**
@@ -814,30 +663,22 @@ QUnit.asyncTest('zoomAbnormalTest018(Calling no paramters.)',
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest019 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest019(Calling no paramters.)',
+QUnit.test('zoomAbnormalTest019(Calling no paramters.)',
     CameraProfileAbnormalTest.zoomAbnormalTest019);
 
 /**
@@ -853,32 +694,24 @@ QUnit.asyncTest('zoomAbnormalTest019(Calling no paramters.)',
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest020 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest020(Calling a post method that does not support.)',
+QUnit.test('zoomAbnormalTest020(Calling a post method that does not support.)',
     CameraProfileAbnormalTest.zoomAbnormalTest020);
 
 /**
@@ -894,30 +727,22 @@ QUnit.asyncTest('zoomAbnormalTest020(Calling a post method that does not support
  * </p>
  */
 CameraProfileAbnormalTest.zoomAbnormalTest021 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('direction', 'in');
-  builder.addParameter('movement', 'start');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: getCurrentServiceId(),
+      direction: 'in',
+      movement: 'start'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('zoomAbnormalTest021(Calling a delete method that does not support.)',
+QUnit.test('zoomAbnormalTest021(Calling a delete method that does not support.)',
     CameraProfileAbnormalTest.zoomAbnormalTest021);

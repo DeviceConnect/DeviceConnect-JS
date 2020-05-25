@@ -1,6 +1,6 @@
 /**
  humidity.js
- Copyright (c) 2015 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -16,38 +16,32 @@ function showHumidity(serviceId) {
 
   setTitle('Humidity Profile');
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doHumidityBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'doHumidityBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humidity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'humidity',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-    var temp = json.humidity * 100;
+    let temp = json.humidity * 100;
 
-    var str = '';
+    let str = '';
     str += '<center><h1>' + temp + ' %<h1></center>';
     reloadContent(str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('GET humidity', errorCode, errorMessage);
+    showError('GET humidity', e.errorCode, e.errorMessage);
   });
 }
 
@@ -55,8 +49,7 @@ function showHumidity(serviceId) {
  * Back button
  *
  * @param {String} serviceId service ID
- * @param {String} sessionKey session KEY
  */
-function doHumidityBack(serviceId, sessionKey) {
+function doHumidityBack(serviceId) {
   searchDevice(serviceId);
 }

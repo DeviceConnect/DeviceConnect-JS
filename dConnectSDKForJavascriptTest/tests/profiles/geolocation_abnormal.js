@@ -1,5 +1,5 @@
-module('Geolocation Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Geolocation Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Geolocation Profile Abnormal Test', {
  * Geolocationプロファイルのテストを行なうクラス
  *@class
  */
-var GeolocationProfileAbnormalTest = {};
+let GeolocationProfileAbnormalTest = {};
 
 /**
  * 定義されていないGETメソッドで位置情報の通知イベントにアクセスするテストを行なう。
@@ -23,23 +23,22 @@ var GeolocationProfileAbnormalTest = {};
  * </p>
  */
 GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.geolocation.ATTR_ON_WATCH_POSITION,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('onWatchPositionAbnormalTest001(Calling a get method that does not support.)', 
+QUnit.test('onWatchPositionAbnormalTest001(Calling a get method that does not support.)',
     GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest001);
 
 /**
@@ -56,30 +55,22 @@ QUnit.asyncTest('onWatchPositionAbnormalTest001(Calling a get method that does n
  */
 
 GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.geolocation.ATTR_ON_WATCH_POSITION);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.geolocation.ATTR_ON_WATCH_POSITION,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onWatchPositionAbnormalTest002(Calling a post method that does not support.)', 
+QUnit.test('onWatchPositionAbnormalTest002(Calling a post method that does not support.)',
     GeolocationProfileAbnormalTest.onWatchPositionAbnormalTest002);
 
 /**
@@ -95,29 +86,22 @@ QUnit.asyncTest('onWatchPositionAbnormalTest002(Calling a post method that does 
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-          assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, 'not support [errorCode=' + errorCode + ', errorMessage=' + errorMessage +']');
-        } else {
-          assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        }
-    QUnit.start();
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('currentPositionAbnormalTest001(Calling a put method that does not support.)',
+QUnit.test('currentPositionAbnormalTest001(Calling a put method that does not support.)',
     GeolocationProfileAbnormalTest.currentPositionAbnormalTest001);
 
 /**
@@ -133,29 +117,22 @@ QUnit.asyncTest('currentPositionAbnormalTest001(Calling a put method that does n
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('currentPositionAbnormalTest002(Calling a post method that does not support.)',
+QUnit.test('currentPositionAbnormalTest002(Calling a post method that does not support.)',
     GeolocationProfileAbnormalTest.currentPositionAbnormalTest002);
 
 /**
@@ -171,27 +148,21 @@ QUnit.asyncTest('currentPositionAbnormalTest002(Calling a post method that does 
  * </p>
  */
 GeolocationProfileAbnormalTest.currentPositionAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.geolocation.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.geolocation.ATTR_CURRENT_POSITION);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.geolocation.PROFILE_NAME,
+    attribute: dConnectSDK.constants.geolocation.ATTR_CURRENT_POSITION,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
+
 };
-QUnit.asyncTest('currentPositionAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('currentPositionAbnormalTest003(Calling a delete method that does not support.)',
     GeolocationProfileAbnormalTest.currentPositionAbnormalTest003);

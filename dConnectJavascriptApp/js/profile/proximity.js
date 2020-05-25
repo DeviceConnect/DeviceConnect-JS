@@ -1,6 +1,6 @@
 /**
  proximity.js
- Copyright (c) 2016 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showProximity(serviceId) {
   initAll();
 
   setTitle('Proximity Profile');
-  var btnStr = getBackButton('Device Top', 'doProximityBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showUserProximity(\'' + serviceId +
          '\');" value="Setting">user proximity</a></li>';
 
@@ -37,13 +37,11 @@ function showDeviceProximity(serviceId) {
   initAll();
   setTitle('Device Proximity');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Proximity Top', 'doDeviceProximityBack',
-                    serviceId, sessionKey);
+  let btnStr = getBackButton('Proximity Top', 'doDeviceProximityBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
 
   str += '<input data-icon="search" onclick="doGetDeviceProximity(\'' +
@@ -53,11 +51,11 @@ function showDeviceProximity(serviceId) {
   str += '<fieldset class="ui-grid-a">';
   str += '<div class="ui-block-a">';
   str += '<input data-icon="search" onclick="doRegisterDeviceProximity(\'' +
-          serviceId + '\', \'' + sessionKey + '\')" type="button" value="Register" />';
+          serviceId + '\')" type="button" value="Register" />';
   str += '</div>';
   str += '<div class="ui-block-b">';
   str += '<input data-icon="search" onclick="doUnregisterDeviceProximity(\'' +
-          serviceId + '\', \'' +  sessionKey + '\')" type="button" value="Unregister" />';
+          serviceId + '\')" type="button" value="Unregister" />';
   str += '</div>';
   str += '</fieldset>';
 
@@ -89,13 +87,11 @@ function showUserProximity(serviceId) {
   initAll();
   setTitle('User Proximity');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Proximity Top', 'doUserProximityBack',
-                      serviceId, sessionKey);
+  let btnStr = getBackButton('Proximity Top', 'doUserProximityBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '<input data-icon="search" onclick="doGetUserProximity(\'' +
           serviceId + '\')" type="button" value="Get" />';
@@ -103,11 +99,11 @@ function showUserProximity(serviceId) {
   str += '<fieldset class="ui-grid-a">';
   str += '<div class="ui-block-a">';
   str += '<input data-icon="search" onclick="doRegisterUserProximity(\'' +
-          serviceId + '\', \'' +  sessionKey + '\')" type="button" value="Register" />';
+          serviceId + '\')" type="button" value="Register" />';
   str += '</div>';
   str += '<div class="ui-block-b">';
   str += '<input data-icon="search" onclick="doUnregisterUserProximity(\'' +
-          serviceId + '\', \'' + sessionKey + '\')" type="button" value="Unregister" />';
+          serviceId + '\')" type="button" value="Unregister" />';
   str += '</div>';
   str += '</fieldset>';
 
@@ -120,35 +116,23 @@ function showUserProximity(serviceId) {
 }
 
 /**
- * Menu Back button
+ * User Proximity Back Button
  *
  * serviceId {String} service ID
- * sessionKey {String} session Key
  */
-function doProximityBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
+function doUserProximityBack(serviceId) {
+  showProximity(serviceId);
+  doUnregisterUserProximity(serviceId);
 }
 
 /**
  * User Proximity Back Button
  *
  * serviceId {String} service ID
- * sessionKey {String} session Key
  */
-function doUserProximityBack(serviceId, sessionKey) {
+function doDeviceProximityBack(serviceId) {
   showProximity(serviceId);
-  doUnregisterUserProximity(serviceId, sessionKey);
-}
-
-/**
- * User Proximity Back Button
- *
- * serviceId {String} service ID
- * sessionKey {String} session Key
- */
-function doDeviceProximityBack(serviceId, sessionKey) {
-  showProximity(serviceId);
-  doUnregisterDeviceProximity(serviceId, sessionKey);
+  doUnregisterDeviceProximity(serviceId);
 }
 
 /**
@@ -156,14 +140,13 @@ function doDeviceProximityBack(serviceId, sessionKey) {
  * @param {String} serviceId service ID
  */
 function doGetDeviceProximity(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('proximity');
-  builder.setAttribute('ondeviceproximity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' +  uri); }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'proximity',
+    attribute: 'ondeviceproximity',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) { console.log('result:' +  json); }
     alert(JSON.stringify(json));
     if (json.proximity) {
@@ -173,8 +156,8 @@ function doGetDeviceProximity(serviceId) {
       $('#threshold').val(json.proximity.threshold);
       $('#range').val(json.proximity.range);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' +  errorCode + ' errorMessage=' +  errorMessage);
+  }).catch(e => {
+    alert('errorCode=' +  e.errorCode + ' errorMessage=' +  e.errorMessage);
   });
 }
 
@@ -182,19 +165,17 @@ function doGetDeviceProximity(serviceId) {
  * Register Device Proximity Event
  *
  * @param {String} serviceId {String} service ID
- * @param {String} sessionKey {String} session Key
  */
-function doRegisterDeviceProximity(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('proximity');
-  builder.setAttribute('ondeviceproximity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' +  uri); }
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterDeviceProximity(serviceId) {
+  sdk.addEventListener({
+    profile: 'proximity',
+    attribute: 'ondeviceproximity',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     if (DEBUG) { console.log('Event-Message:' +  message); }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.proximity) {
       $('#value').val(json.proximity.value);
       $('#min').val(json.proximity.min);
@@ -202,10 +183,10 @@ function doRegisterDeviceProximity(serviceId, sessionKey) {
       $('#threshold').val(json.proximity.threshold);
       $('#range').val(json.proximity.range);
     }
-  }, function() {
+  }).then(json => {
     if (DEBUG) { console.log('Success to register proximity'); }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' +  errorCode + ' errorMessage=' +  errorMessage);
+  }).catch(e => {
+    alert('errorCode=' +  e.errorCode + ' errorMessage=' +  e.errorMessage);
   });
 }
 
@@ -213,39 +194,36 @@ function doRegisterDeviceProximity(serviceId, sessionKey) {
  * Delete Device Proximity Event
  *
  * @param {String} serviceId service ID
- * @param {String} sessionKey session Key
  */
-function doUnregisterDeviceProximity(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('proximity');
-  builder.setAttribute('ondeviceproximity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' +  uri); }
-  dConnect.removeEventListener(uri, function() {
+function doUnregisterDeviceProximity(serviceId) {
+  sdk.removeEventListener({
+    profile: 'proximity',
+    attribute: 'ondeviceproximity',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) { console.log('Success to unregister proximity'); }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' +  errorCode + ' errorMessage=' +  errorMessage);
+  }).catch(e => {
+    alert('errorCode=' +  e.errorCode + ' errorMessage=' +  e.errorMessage);
   });
 }
 
 function doGetUserProximity(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('proximity');
-  builder.setAttribute('onuserproximity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' +  uri); }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'proximity',
+    attribute: 'onuserproximity',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) { console.log('Response:' +  json); }
     alert(JSON.stringify(json));
     if (json.proximity) {
       $('#user').val(json.proximity.near);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' +  errorCode + ' errorMessage=' +  errorMessage);
+  }).catch(e => {
+    alert('errorCode=' +  e.errorCode + ' errorMessage=' +  e.errorMessage);
   });
 }
 
@@ -253,26 +231,24 @@ function doGetUserProximity(serviceId) {
  * Register User Proximity Event
  *
  * @param {String} serviceId service ID
- * @param {String} sessionKey session Key
  */
-function doRegisterUserProximity(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('proximity');
-  builder.setAttribute('onuserproximity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' +  uri); }
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterUserProximity(serviceId) {
+  sdk.addEventListener({
+    profile: 'proximity',
+    attribute: 'onuserproximity',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     if (DEBUG) { console.log('Event-Message:' +  message); }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.proximity) {
       $('#user').val(json.proximity.near);
     }
-  }, function() {
+  }).then(json => {
     if (DEBUG) { console.log('Success to register proximity'); }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' +  errorCode + ' errorMessage=' +  errorMessage);
+  }).catch(e => {
+    alert('errorCode=' +  e.errorCode + ' errorMessage=' +  e.errorMessage);
   });
 }
 
@@ -280,19 +256,17 @@ function doRegisterUserProximity(serviceId, sessionKey) {
  * Delete User Proximity Event
  *
  * @param {String} serviceId service ID
- * @param {String} sessionKey session Key
  */
-function doUnregisterUserProximity(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('proximity');
-  builder.setAttribute('onuserproximity');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) { console.log('Uri:' +  uri); }
-  dConnect.removeEventListener(uri, function() {
+function doUnregisterUserProximity(serviceId) {
+  sdk.removeEventListener({
+    profile: 'proximity',
+    attribute: 'onuserproximity',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) { console.log('Success to unregister proximity'); }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' +  errorCode + ' errorMessage=' +  errorMessage);
+  }).catch(e => {
+    alert('errorCode=' +  e.errorCode + ' errorMessage=' +  e.errorMessage);
   });
 }

@@ -1,5 +1,5 @@
-module('Phone Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Phone Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Phone Profile Abnormal Test', {
  * Phoneプロファイルの異常系テストを行うクラス。
  * @class
  */
-var PhoneProfileAbnormalTest = {};
+let PhoneProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドでリクエストを送信する。
@@ -23,29 +23,23 @@ var PhoneProfileAbnormalTest = {};
  * </p>
  */
 PhoneProfileAbnormalTest.callStateAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('callState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'callState',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 }
-QUnit.asyncTest('callStateAbnormalTest001(Calling a post method that does not support', PhoneProfileAbnormalTest.callStateAbnormalTest001);
+QUnit.test('callStateAbnormalTest001(Calling a post method that does not support',
+            PhoneProfileAbnormalTest.callStateAbnormalTest001);
 
 /**
  * 定義されていないPUTメソッドでリクエストを送信する。
@@ -60,29 +54,23 @@ QUnit.asyncTest('callStateAbnormalTest001(Calling a post method that does not su
  * </p>
  */
 PhoneProfileAbnormalTest.callStateAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('callState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'callState',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 }
-QUnit.asyncTest('callStateAbnormalTest002(Calling a put method that does not support', PhoneProfileAbnormalTest.callStateAbnormalTest002);
+QUnit.test('callStateAbnormalTest002(Calling a put method that does not support',
+          PhoneProfileAbnormalTest.callStateAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでリクエストを送信する。
@@ -97,29 +85,23 @@ QUnit.asyncTest('callStateAbnormalTest002(Calling a put method that does not sup
  * </p>
  */
 PhoneProfileAbnormalTest.callStateAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('callState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'callState',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 }
-QUnit.asyncTest('callStateAbnormalTest003(Calling a delete method that does not support', PhoneProfileAbnormalTest.callStateAbnormalTest003);
+QUnit.test('callStateAbnormalTest003(Calling a delete method that does not support',
+              PhoneProfileAbnormalTest.callStateAbnormalTest003);
 
 /**
  * 定義されていないGETメソッドでリクエストを送信する。
@@ -134,29 +116,23 @@ QUnit.asyncTest('callStateAbnormalTest003(Calling a delete method that does not 
  * </p>
  */
 PhoneProfileAbnormalTest.acceptCallAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('acceptCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'acceptCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('acceptCallAbnormalTest001(Calling a get method that does not support', PhoneProfileAbnormalTest.acceptCallAbnormalTest001);
+QUnit.test('acceptCallAbnormalTest001(Calling a get method that does not support',
+          PhoneProfileAbnormalTest.acceptCallAbnormalTest001);
 
 /**
  * 定義されていないPUTメソッドでリクエストを送信する。
@@ -171,29 +147,23 @@ QUnit.asyncTest('acceptCallAbnormalTest001(Calling a get method that does not su
  * </p>
  */
 PhoneProfileAbnormalTest.acceptCallAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('acceptCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'acceptCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('acceptCallAbnormalTest002(Calling a put method that does not support', PhoneProfileAbnormalTest.acceptCallAbnormalTest002);
+QUnit.test('acceptCallAbnormalTest002(Calling a put method that does not support',
+      PhoneProfileAbnormalTest.acceptCallAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでリクエストを送信する。
@@ -208,29 +178,23 @@ QUnit.asyncTest('acceptCallAbnormalTest002(Calling a put method that does not su
  * </p>
  */
 PhoneProfileAbnormalTest.acceptCallAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('acceptCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'acceptCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('acceptCallAbnormalTest003(Calling a delete method that does not support', PhoneProfileAbnormalTest.acceptCallAbnormalTest003);
+QUnit.test('acceptCallAbnormalTest003(Calling a delete method that does not support',
+          PhoneProfileAbnormalTest.acceptCallAbnormalTest003);
 
 /**
  * 定義されていないGETメソッドでリクエストを送信する。
@@ -245,29 +209,22 @@ QUnit.asyncTest('acceptCallAbnormalTest003(Calling a delete method that does not
  * </p>
  */
 PhoneProfileAbnormalTest.rejectCallAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('rejectCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'rejectCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('rejectCallAbnormalTest001(Calling a get method that does not support', PhoneProfileAbnormalTest.rejectCallAbnormalTest001);
+QUnit.test('rejectCallAbnormalTest001(Calling a get method that does not support', PhoneProfileAbnormalTest.rejectCallAbnormalTest001);
 
 /**
  * 定義されていないPUTメソッドでリクエストを送信する。
@@ -282,29 +239,22 @@ QUnit.asyncTest('rejectCallAbnormalTest001(Calling a get method that does not su
  * </p>
  */
 PhoneProfileAbnormalTest.rejectCallAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('rejectCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'rejectCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('rejectCallAbnormalTest002(Calling a put method that does not support', PhoneProfileAbnormalTest.rejectCallAbnormalTest002);
+QUnit.test('rejectCallAbnormalTest002(Calling a put method that does not support', PhoneProfileAbnormalTest.rejectCallAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでリクエストを送信する。
@@ -319,29 +269,22 @@ QUnit.asyncTest('rejectCallAbnormalTest002(Calling a put method that does not su
  * </p>
  */
 PhoneProfileAbnormalTest.rejectCallAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('rejectCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'rejectCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('rejectCallAbnormalTest003(Calling a delete method that does not support', PhoneProfileAbnormalTest.rejectCallAbnormalTest003);
+QUnit.test('rejectCallAbnormalTest003(Calling a delete method that does not support', PhoneProfileAbnormalTest.rejectCallAbnormalTest003);
 
 /**
  * 定義されていないGETメソッドでリクエストを送信する。
@@ -356,29 +299,22 @@ QUnit.asyncTest('rejectCallAbnormalTest003(Calling a delete method that does not
  * </p>
  */
 PhoneProfileAbnormalTest.endCallAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('endCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'endCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('endCallAbnormalTest001(Calling a get method that does not support', PhoneProfileAbnormalTest.endCallAbnormalTest001);
+QUnit.test('endCallAbnormalTest001(Calling a get method that does not support', PhoneProfileAbnormalTest.endCallAbnormalTest001);
 
 /**
  * 定義されていないPUTメソッドでリクエストを送信する。
@@ -393,29 +329,22 @@ QUnit.asyncTest('endCallAbnormalTest001(Calling a get method that does not suppo
  * </p>
  */
 PhoneProfileAbnormalTest.endCallAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('endCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'endCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('endCallAbnormalTest002(Calling a put method that does not support', PhoneProfileAbnormalTest.endCallAbnormalTest002);
+QUnit.test('endCallAbnormalTest002(Calling a put method that does not support', PhoneProfileAbnormalTest.endCallAbnormalTest002);
 
 /**
  * 定義されていないDELETEメソッドでリクエストを送信する。
@@ -430,29 +359,22 @@ QUnit.asyncTest('endCallAbnormalTest002(Calling a put method that does not suppo
  * </p>
  */
 PhoneProfileAbnormalTest.endCallAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('endCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'endCall',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('endCallAbnormalTest003(Calling a delete method that does not support', PhoneProfileAbnormalTest.endCallAbnormalTest003);
+QUnit.test('endCallAbnormalTest003(Calling a delete method that does not support', PhoneProfileAbnormalTest.endCallAbnormalTest003);
 
 /**
  * phoneNumberを指定せずに電話発信をするテストを行う。
@@ -467,29 +389,22 @@ QUnit.asyncTest('endCallAbnormalTest003(Calling a delete method that does not su
  * <p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_CALL,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('callAbnormalTest001(omitted phoneNumber)', PhoneProfileAbnormalTest.callAbnormalTest001);
+QUnit.test('callAbnormalTest001(omitted phoneNumber)', PhoneProfileAbnormalTest.callAbnormalTest001);
 
 /**
  * 桁が非常に大きいphoneNumberを指定して電話発信するテストを行う。
@@ -504,50 +419,42 @@ QUnit.asyncTest('callAbnormalTest001(omitted phoneNumber)', PhoneProfileAbnormal
  * <p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER,
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000' +
-    '00000000000000000000000000000000000000000000000000');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_CALL,
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000' +
+      '00000000000000000000000000000000000000000000000000'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('callAbnormalTest002(phoneNumber is long string)', PhoneProfileAbnormalTest.callAbnormalTest002);
+QUnit.test('callAbnormalTest002(phoneNumber is long string)', PhoneProfileAbnormalTest.callAbnormalTest002);
 
 /**
  * phoneNumberに特殊文字を指定して電話発信するテストを行う。
@@ -562,30 +469,23 @@ QUnit.asyncTest('callAbnormalTest002(phoneNumber is long string)', PhoneProfileA
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'");
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_CALL,
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'"
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('callAbnormalTest003(phoneNumber is special characters)', PhoneProfileAbnormalTest.callAbnormalTest003);
+QUnit.test('callAbnormalTest003(phoneNumber is special characters)', PhoneProfileAbnormalTest.callAbnormalTest003);
 
 /**
  * 定義されていないGETメソッドで電話発信にアクセスするテスト行う。
@@ -600,30 +500,23 @@ QUnit.asyncTest('callAbnormalTest003(phoneNumber is special characters)', PhoneP
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_CALL,
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('callAbnormalTest004(Calling a get method that does not support', PhoneProfileAbnormalTest.callAbnormalTest004);
+QUnit.test('callAbnormalTest004(Calling a get method that does not support', PhoneProfileAbnormalTest.callAbnormalTest004);
 
 /**
  * 定義されていないPUTメソッドで電話発信にアクセスするテスト行う。
@@ -638,30 +531,23 @@ QUnit.asyncTest('callAbnormalTest004(Calling a get method that does not support'
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_CALL,
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('callAbnormalTest005(Calling a put method that does not support', PhoneProfileAbnormalTest.callAbnormalTest005);
+QUnit.test('callAbnormalTest005(Calling a put method that does not support', PhoneProfileAbnormalTest.callAbnormalTest005);
 
 /**
  * 定義されていないDELETEメソッドで電話発信にアクセスするテスト行う。
@@ -676,30 +562,23 @@ QUnit.asyncTest('callAbnormalTest005(Calling a put method that does not support'
  * </p>
  */
 PhoneProfileAbnormalTest.callAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_CALL);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_PHONE_NUMBER, '117');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_CALL,
+    params: {
+      serviceId: getCurrentServiceId(),
+      phoneNumber: '117'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('callAbnormalTest006(Calling a delete method that does not support', PhoneProfileAbnormalTest.callAbnormalTest006);
+QUnit.test('callAbnormalTest006(Calling a delete method that does not support', PhoneProfileAbnormalTest.callAbnormalTest006);
 
 /**
  * modeを指定せずにモード設定のテストを行う。
@@ -714,29 +593,22 @@ QUnit.asyncTest('callAbnormalTest006(Calling a delete method that does not suppo
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_SET,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('setModeAbnormalTest001(omitted mode)', PhoneProfileAbnormalTest.setModeAbnormalTest001);
+QUnit.test('setModeAbnormalTest001(omitted mode)', PhoneProfileAbnormalTest.setModeAbnormalTest001);
 
 /**
  * modeに-1を指定してモード設定のテストを行う。
@@ -751,30 +623,23 @@ QUnit.asyncTest('setModeAbnormalTest001(omitted mode)', PhoneProfileAbnormalTest
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_MODE, -1);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_SET,
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('setModeAbnormalTest002(mode is invalid(-1))', PhoneProfileAbnormalTest.setModeAbnormalTest002);
+QUnit.test('setModeAbnormalTest002(mode is invalid(-1))', PhoneProfileAbnormalTest.setModeAbnormalTest002);
 
 /**
  * modeに文字を指定してモード設定のテストを行う。
@@ -789,30 +654,23 @@ QUnit.asyncTest('setModeAbnormalTest002(mode is invalid(-1))', PhoneProfileAbnor
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_MODE, 'test');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_SET,
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 'test'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('setModeAbnormalTest003(mode is string)', PhoneProfileAbnormalTest.setModeAbnormalTest003);
+QUnit.test('setModeAbnormalTest003(mode is string)', PhoneProfileAbnormalTest.setModeAbnormalTest003);
 
 /**
  * modeに特殊文字を指定してモード設定のテストを行う。
@@ -827,30 +685,23 @@ QUnit.asyncTest('setModeAbnormalTest003(mode is string)', PhoneProfileAbnormalTe
  * </p>
  */
 PhoneProfileAbnormalTest.setModeAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_SET);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.phone.PARAM_MODE, "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'");
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_SET,
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: "!\"#$%&'()0=~|`{@[}*+;:]_?><,./'"
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('setAbnormalTest004(mode is special characters)', PhoneProfileAbnormalTest.setModeAbnormalTest004);
+QUnit.test('setAbnormalTest004(mode is special characters)', PhoneProfileAbnormalTest.setModeAbnormalTest004);
 
 /**
  * 定義されていないPOSTメソッドでリクエストを送信する。
@@ -865,29 +716,22 @@ QUnit.asyncTest('setAbnormalTest004(mode is special characters)', PhoneProfileAb
  * </p>
  */
 PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('onCallStateChange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'onCallStateChange',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onCallStateChangeAbnormalTest001(Calling a post method that does not support', PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest001);
+QUnit.test('onCallStateChangeAbnormalTest001(Calling a post method that does not support', PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest001);
 
 /**
  * 定義されていないGETメソッドでリクエストを送信する。
@@ -902,30 +746,23 @@ QUnit.asyncTest('onCallStateChangeAbnormalTest001(Calling a post method that doe
  * </p>
  */
 PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute('onCallStateChange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: 'onCallStateChange',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onCallStateChangeAbnormalTest002(Calling a get method that does not support', PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002);
+QUnit.test('onCallStateChangeAbnormalTest002(Calling a get method that does not support',
+        PhoneProfileAbnormalTest.onCallStateChangeAbnormalTest002);
 
 /**
  * 定義されていないPOSTメソッドでリクエストを送信する。
@@ -940,64 +777,19 @@ QUnit.asyncTest('onCallStateChangeAbnormalTest002(Calling a get method that does
  * </p>
  */
 PhoneProfileAbnormalTest.onConnectAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.phone.PROFILE_NAME,
+    attribute: dConnectSDK.constants.phone.ATTR_ON_CONNECT,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onConnectAbnormalTest001(Calling a post method that does not support', PhoneProfileAbnormalTest.onConnectAbnormalTest001);
-
-/**
- * 定義されていないGETメソッドでリクエストを送信する。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: GET<br/>
- * Path: /phone/onConnect?serviceId=xxx&accessToken=xxx<br/>
- * </p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultに1が返ってくること。
- * </p>
- */
-PhoneProfileAbnormalTest.onConnectAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.phone.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.phone.ATTR_ON_CONNECT);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    }
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('onConnectAbnormalTest002(Calling a get method that does not support', PhoneProfileAbnormalTest.onConnectAbnormalTest002);
+QUnit.test('onConnectAbnormalTest001(Calling a post method that does not support', PhoneProfileAbnormalTest.onConnectAbnormalTest001);

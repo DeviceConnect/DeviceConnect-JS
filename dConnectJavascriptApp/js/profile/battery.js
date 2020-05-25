@@ -1,6 +1,6 @@
 /**
  battery.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showBattery(serviceId) {
   initAll();
   setTitle('Battery Profile');
 
-  var btnStr = getBackButton('Device Top', 'doBatteryBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doBatteryBack', serviceId, '');
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   if (myDeviceName.indexOf('Host') != -1) {
     str += '<li><a href="javascript:doBatteryAll(\'' + serviceId +
            '\');">Show battery info</a></li>';
@@ -44,14 +44,12 @@ function showBatteryChangeEvent(serviceId) {
   initAll();
   setTitle('Battery Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Device Top', 'doBatteryChangeBack',
-              serviceId, sessionKey);
+  let btnStr = getBackButton('Device Top', 'doBatteryChangeBack',
+              serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="batteryForm">';
   str += 'Battery<br>';
   str += makeInputText('chargingTime', 'chargingTime', 'chargingTime');
@@ -60,9 +58,7 @@ function showBatteryChangeEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doRegisterBatteryChangeEvent(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-  });
+  doRegisterBatteryChangeEvent(serviceId);
 }
 
 /**
@@ -74,34 +70,27 @@ function showChargeEvent(serviceId) {
   initAll();
   setTitle('Battery Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Battery Top', 'doBatteryChargingBack',
-          serviceId, sessionKey);
+  let btnStr = getBackButton('Battery Top', 'searchSystem',
+          serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('battery');
-  builder.setAttribute('charging');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'battery',
+    attribute: 'charging',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var charging = json.charging;
-    var str = '';
+    let charging = json.charging;
+    let str = '';
     str += '<center>';
     str += '<form  name="batteryForm">';
     str += '<select name="charging" id="charging" data-role="slider">';
@@ -117,12 +106,10 @@ function showChargeEvent(serviceId) {
     str += '</center>';
     reloadContent(str);
 
-    doRegisterChargingEvent(serviceId, sessionKey);
-    dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-    });
-  }, function(errorCode, errorMessage) {
+    doRegisterChargingEvent(serviceId);
+  }).catch(e => {
     closeLoading();
-    showError('GET battery/charging', errorCode, errorMessage);
+    showError('GET battery/charging', e.errorCode, e.errorMessage);
   });
 }
 
@@ -130,10 +117,9 @@ function showChargeEvent(serviceId) {
  * Backボタン
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doBatteryChargingBack(serviceId, sessionKey) {
-  doUnregisterChargingEvent(serviceId, sessionKey);
+function doBatteryChargingBack(serviceId) {
+  doUnregisterChargingEvent(serviceId);
   showBattery(serviceId);
 }
 
@@ -141,20 +127,9 @@ function doBatteryChargingBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doBatteryBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
-/**
- * Backボタン
- *
- * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
- */
-function doBatteryChangeBack(serviceId, sessionKey) {
-  doUnregisterBatteryChangeEvent(serviceId, sessionKey);
+function doBatteryChangeBack(serviceId) {
+  doUnregisterBatteryChangeEvent(serviceId);
   showBattery(serviceId);
 }
 
@@ -162,9 +137,8 @@ function doBatteryChangeBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
  */
-function doBatteryAllBack(serviceId, sessionKey) {
+function doBatteryAllBack(serviceId) {
   showBattery(serviceId);
 }
 
@@ -172,27 +146,21 @@ function doBatteryAllBack(serviceId, sessionKey) {
  * Register Battery Charging Event
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doRegisterChargingEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('battery');
-  builder.setAttribute('onchargingchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterChargingEvent(serviceId) {
+  sdk.addEventListener({
+    profile: 'battery',
+    attribute: 'onchargingchange',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.battery) {
       if (json.battery.charging) {
         $('#charging').prop('selectedIndex', 1);
@@ -202,8 +170,8 @@ function doRegisterChargingEvent(serviceId, sessionKey) {
         $('#charging').slider('refresh');
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -211,21 +179,16 @@ function doRegisterChargingEvent(serviceId, sessionKey) {
  * Unregister Battery Charging Event
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doUnregisterChargingEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('battery');
-  builder.setAttribute('onchargingchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doUnregisterChargingEvent(serviceId) {
+  sdk.removeEventListener({
+    profile: 'battery',
+    attribute: 'onchargingchange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -233,26 +196,21 @@ function doUnregisterChargingEvent(serviceId, sessionKey) {
  * Register Battery Change Event
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doRegisterBatteryChangeEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('battery');
-  builder.setAttribute('onbatterychange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterBatteryChangeEvent(serviceId) {
+  sdk.addEventListener({
+    profile: 'battery',
+    attribute: 'onbatterychange',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.battery) {
       if (json.battery.chargingTime) {
         document.batteryForm.chargingTime.value = json.battery.chargingTime;
@@ -265,8 +223,8 @@ function doRegisterBatteryChangeEvent(serviceId, sessionKey) {
         document.batteryForm.level.value = json.battery.level;
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -277,18 +235,14 @@ function doRegisterBatteryChangeEvent(serviceId, sessionKey) {
  * @param {String}sessionKey セッションキー
  */
 function doUnregisterBatteryChangeEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('battery');
-  builder.setAttribute('onbatterychange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  sdk.removeEventListener({
+    profile: 'battery',
+    attribute: 'onbatterychange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -299,30 +253,26 @@ function doBatteryAll(serviceId) {
   initAll();
   setTitle('Battery Info');
 
-  var btnStr = getBackButton('Battery Top', 'doBatteryAllBack', serviceId, '');
+  let btnStr = getBackButton('Battery Top', 'doBatteryAllBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('battery');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
 
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'battery',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-    var level = json.level * 100;
-    var str = '';
+    let level = json.level * 100;
+    let str = '';
     str += '<label for="slider-0">LEVEL:</label>';
     str += '<input type="range" name="slider" id="volume" value="' + level +
                 '" min="0" max="100"  />';
@@ -334,8 +284,8 @@ function doBatteryAll(serviceId) {
     }
 
     reloadContent(str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('GET battery', errorCode, errorMessage);
+    showError('GET battery', e.errorCode, e.errorMessage);
   });
 }

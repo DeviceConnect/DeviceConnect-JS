@@ -1,6 +1,6 @@
 /**
  powermeter.js
- Copyright (c) 2015 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,13 +14,11 @@ function showPowerMeter(serviceId) {
   initAll();
   setTitle('PowerMeter Profile');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Device Top', 'doPowerMeterBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
 
   str += makeInputText('PowerStatus', 'power-status', 'power-status');
   str += pmMakeButton('GetPowerStatus','doPowerMeterGetPowerStatus',serviceId);
@@ -48,7 +46,7 @@ function showPowerMeter(serviceId) {
   str += '<OPTION value="48">count : 48</OPTION>';
   str += '<OPTION value="96">count : 96 (Error Case)</OPTION>';
   str += '</SELECT>';
-  str += '</form>'; 
+  str += '</form>';
 
   str += '<form name="integratedPowerPowerFlowForm">';
   str += '<SELECT name="powerFlow-power" id="powerFlow-power">';
@@ -98,114 +96,105 @@ function showPowerMeter(serviceId) {
 }
 
 function doPowerMeterGetPowerStatus(serviceId){
-  var builder = pmMakeUriBuilder(serviceId);
-  var successCallback = function (json){
+  let params = pmMakeUriBuilder(serviceId);
+  let successCallback = function (json){
     console.log('Response: ', json);
     $('#power-status').val(json.powerstatus);
   };
-  dConnect.get(builder.build(), null, successCallback, pmAlertError);
+  sdk.get(params).then(json => { successCallback(json);}).catch(e => { pmAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doPowerMeterPutPowerOn(serviceId){
-  var builder = pmMakeUriBuilder(serviceId);
-  dConnect.put(builder.build(),null,null,pmLoggingSuccess,pmAlertError);
+  let params = pmMakeUriBuilder(serviceId);
+  sdk.put(params).then(json => { pmLoggingSuccess(json);}).catch(e => { pmAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doPowerMeterDeletePowerOff(serviceId){
-  var builder = pmMakeUriBuilder(serviceId);
-  dConnect.delete(builder.build(),null,pmLoggingSuccess,pmAlertError);
+  let params = pmMakeUriBuilder(serviceId);
+  dConnect.delete(params).then(json => { pmLoggingSuccess(json);}).catch(e => { pmAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doPowerMeterGetIntegratedPower(serviceId){
-  var builder = pmMakeUriBuilder(serviceId,'integratedpower');
+  let params = pmMakeUriBuilder(serviceId,'integratedpower');
 
-  var newDate = $('#newDate').val();
-  var newTime = $('#newTime').val();
+  let newDate = $('#newDate').val();
+  let newTime = $('#newTime').val();
 
   if(newDate && newTime){
-    var newDateStr = newDate + 'T' + newTime + ':00+09:00';
-    builder.addParameter('date', newDateStr);
+    let newDateStr = newDate + 'T' + newTime + ':00+09:00';
+    params.params['date'] = newDateStr;
   }
 
-  var unit = $('#integrated-unit').val();
+  let unit = $('#integrated-unit').val();
 
   if (unit != 'null_value') {
-    builder.addParameter('unit', unit);
+    params.params['unit'] = unit;
   }
 
-  var count = $('#count-power').val();
+  let count = $('#count-power').val();
 
   if (count != 'null_value') {
-    builder.addParameter('count', count);
+    params.params['count'] = count;
   }
 
-  var powerFlow = $('#powerFlow-power').val();
+  let powerFlow = $('#powerFlow-power').val();
 
   if (powerFlow != 'null_value') {
-    builder.addParameter('powerFlow', powerFlow);
+    params.params['powerFlow'] = powerFlow;
   }
 
-  var successCallback = function (json){
+  let successCallback = function (json){
     $('#integrated-power').val(json.integratedpower);
     $('#integrated-power-unit').val(json.unit);
     $('#integrated-power-count').val(json.count);
     $('#integrated-power-powerflow').val(json.powerFlow);
   };
-  dConnect.get(builder.build(), null, successCallback, pmAlertError);
+  sdk.get(params).then(json => { successCallback(json);}).catch(e => { pmAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doPowerMeterGetInstantaneousPower(serviceId){
-  var builder = pmMakeUriBuilder(serviceId,'instantaneouspower');
-  var unit = $('#unit-power').val();
+  let params = pmMakeUriBuilder(serviceId,'instantaneouspower');
+  let unit = $('#unit-power').val();
 
   if (unit != 'null_value') {
-    builder.addParameter('unit', unit);
+    params.params['unit'] = unit;
   }
 
-  var successCallback = function (json){
+  let successCallback = function (json){
     console.log('Response: ', json);
     $('#instantaneous-power').val(json.instantaneouspower);
     $('#instantaneous-power-unit').val(json.unit);
   };
-  dConnect.get(builder.build(), null, successCallback, pmAlertError);
+  sdk.get(params).then(json => { successCallback(json);}).catch(e => { pmAlertError(e.errorCode, e.errorMessage);});
 }
 
 function doPowerMeterGetInstantaneousCurrent(serviceId){
-  var builder = pmMakeUriBuilder(serviceId,'instantaneouscurrent');
-  var unit = $('#unit-current').val();
+  let params = pmMakeUriBuilder(serviceId,'instantaneouscurrent');
+  let unit = $('#unit-current').val();
 
   if (unit != 'null_value') {
-    builder.addParameter('unit', unit);
+    params.params['unit'] = unit;
   }
 
-  var successCallback = function (json){
+  let successCallback = function (json){
     console.log('Response: ', json);
     $('#instantaneous-current-r').val(json.instantaneouscurrent.rphase);
     $('#instantaneous-current-t').val(json.instantaneouscurrent.tphase);
     $('#instantaneous-current-unit').val(json.instantaneouscurrent.unit);
   };
-  dConnect.get(builder.build(), null, successCallback, pmAlertError);
+  sdk.get(params).then(json => { successCallback(json);}).catch(e => { pmAlertError(e.errorCode, e.errorMessage);});
 }
 
-/**
- * Back button
- *
- * @param {String}serviceId service id
- * @param {String}sessionKey session key
- */
-function doPowerMeterBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
 
 //////common (pm = powermeter)
 
 function pmMakeButton(title,functionName,params) {
-  var paramStr = '';
+  let paramStr = '';
   if(params !== null && params.length > 0){
     if( typeof params === 'string' ) {
       params = [ params ];
     }
-    for (var i = 0;i<params.length;i++){
+    for (let i = 0;i<params.length;i++){
       paramStr += '\''+params[i]+'\'';
       paramStr += ',';
     }
@@ -215,18 +204,20 @@ function pmMakeButton(title,functionName,params) {
 }
 
 function pmMakeUriBuilder(serviceId, attribute){
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('powermeter');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+   let params = {
+    profile: 'powermeter',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if(typeof attribute !== 'undefined'){
-    builder.setAttribute(attribute);
+    params['attribute'] = attribute;
   }
-  return builder;
+  return params;
 }
 
 function pmLoggingSuccess(json){
-  console.log('Response: ', json);
+  console.log('Response: ', JSON.stringify(json));
 }
 
 function pmAlertError(errorCode, errorMessage){

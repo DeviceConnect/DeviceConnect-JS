@@ -1,19 +1,19 @@
-module('Request AccessToken Method Test', {
-  setup: function() {
+QUnit.module('Request AccessToken Method Test', {
+  before: function() {
     TEST_TIMEOUT = 150000;
     init();
   }
 });
 
 /**
- * dConnect.requestAccessTokenメソッドのテストを行うクラス。
+ * sdk.requestAccessTokenメソッドのテストを行うクラス。
  * 実用的なテストは、各デバイスプラグインで行うため、こちらでは割愛する。
  * @class
  */
-var RequestAccessTokenMethodTest = {};
+let RequestAccessTokenMethodTest = {};
 
 
-/* dConnect.requestAccessToken */
+/* sdk.requestAccessToken */
 ////etc
 /**
  *　引数を無しにした場合のテストを行う
@@ -24,18 +24,20 @@ var RequestAccessTokenMethodTest = {};
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest001 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken();
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.requestAccessToken().catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 
 };
-QUnit.asyncTest('requestAccessTokenTest, non exist parameters.',
+QUnit.test('requestAccessTokenTest, non exist parameters.',
   RequestAccessTokenMethodTest.requestAccessTokenTest001);
 
 
@@ -50,23 +52,22 @@ QUnit.asyncTest('requestAccessTokenTest, non exist parameters.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest011 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(null, null, function(json) {
-      assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.requestAccessToken(null, null, null).then(accessToken => {
+      assert.ok(false, 'Success.=' + accessToken);
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope null.',
+QUnit.test('requestAccessTokenTest,  clientId and scope null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest011);
 
 /**
@@ -78,21 +79,19 @@ QUnit.asyncTest('requestAccessTokenTest,  clientId and scope null.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest012 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(null, null, null, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.requestAccessToken(null, null, null).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback  null.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback  null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest012);
 
 /**
@@ -104,17 +103,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(null, null, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.requestAccessToken(null, null, null).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback null.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest013);
 
 /**
@@ -126,18 +127,20 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest014 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = [null];
-    dConnect.requestAccessToken(null, scope, null, null);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scope = [null];
+    sdk.requestAccessToken(null, scope, null).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array null.',
+QUnit.test('requestAccessTokenTest, scope array null.',
   RequestAccessTokenMethodTest.requestAccessTokenTest014);
 
 
@@ -153,24 +156,22 @@ QUnit.asyncTest('requestAccessTokenTest, scope array null.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest021 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.get(undefined, undefined, function(json) {
+    sdk.get(undefined, undefined, undefined).then(accessToken => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    //assert.ok(true, 'Nothing happens');
-    //QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope undefined.',
+QUnit.test('requestAccessTokenTest, clientId and scope undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest021);
 
 /**
@@ -182,21 +183,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope undefined.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest022 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(undefined, undefined, undefined, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.requestAccessToken(undefined, undefined, undefined).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback undefined.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest022);
 
 /**
@@ -208,17 +207,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(undefined, undefined, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.requestAccessToken(undefined, undefined, undefined).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback undefined.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest023);
 
 /**
@@ -230,18 +231,20 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest024 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = [undefined];
-    dConnect.requestAccessToken(undefined, scope, undefined, undefined);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scope = [undefined];
+    sdk.requestAccessToken(undefined, scope, undefined).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array undefined.',
+QUnit.test('requestAccessTokenTest, scope array undefined.',
   RequestAccessTokenMethodTest.requestAccessTokenTest024);
 
 
@@ -257,24 +260,22 @@ QUnit.asyncTest('requestAccessTokenTest, scope array undefined.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest031 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(123, 123, function(json) {
+    sdk.requestAccessToken(123, 123, 123).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope number.',
+QUnit.test('requestAccessTokenTest, clientId and scope number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest031);
 
 /**
@@ -286,21 +287,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope number.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest032 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(123, 123, 123, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.requestAccessToken(123, 123, 123).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback number.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest032);
 
 /**
@@ -312,17 +311,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken(123, 123, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.requestAccessToken(123, 123, 123).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback number.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest033);
 
 /**
@@ -334,18 +335,20 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest034 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = [123];
-    dConnect.requestAccessToken(123, scope, 123, 123);
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scope = [123];
+    sdk.requestAccessToken(123, scope, 123).catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array  number.',
+QUnit.test('requestAccessTokenTest, scope array  number.',
   RequestAccessTokenMethodTest.requestAccessTokenTest034);
 
 
@@ -361,24 +364,22 @@ QUnit.asyncTest('requestAccessTokenTest, scope array  number.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest041 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('abc', 'abc', function(json) {
+    sdk.requestAccessToken('abc', 'abc', 'abc').then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope alphabet.',
+QUnit.test('requestAccessTokenTest,  clientId and scope alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest041);
 
 /**
@@ -390,21 +391,19 @@ QUnit.asyncTest('requestAccessTokenTest,  clientId and scope alphabet.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest042 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('abc', 'abc', 'abc', function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.requestAccessToken('abc', 'abc', 'abc').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback alphabet.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest042);
 
 /**
@@ -416,17 +415,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('abc', 'abc', 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.requestAccessToken('abc', 'abc', 'abc').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest043);
 
 /**
@@ -438,18 +439,20 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest044 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = ['abc'];
-    dConnect.requestAccessToken('abc', scope, 'abc', 'abc');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scope = ['abc'];
+    sdk.requestAccessToken('abc', scope, 'abc').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback alphabet.',
   RequestAccessTokenMethodTest.requestAccessTokenTest044);
 
 
@@ -466,24 +469,22 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest051 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('あいう', 'あいう', function(json) {
+    sdk.requestAccessToken('あいう', 'あいう', 'あいう').then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope hiragana.',
+QUnit.test('requestAccessTokenTest,  clientId and scope hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest051);
 
 /**
@@ -495,21 +496,19 @@ QUnit.asyncTest('requestAccessTokenTest,  clientId and scope hiragana.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest052 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('あいう', 'あいう', 'あいう', function(errorCode, errorMessage) {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.requestAccessToken('あいう', 'あいう', 'あいう').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback hiragana.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest052);
 
 /**
@@ -521,17 +520,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('あいう', 'あいう', 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    sdk.requestAccessToken('あいう', 'あいう', 'あいう').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback hiragana.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest053);
 
 /**
@@ -543,18 +544,20 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest054 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = ['あいう'];
-    dConnect.requestAccessToken('あいう', scope, 'あいう', 'あいう');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scope = ['あいう'];
+    sdk.requestAccessToken('あいう', scope, 'あいう').catch(e => {
+      assert.ok(true, 'Nothing happens');
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array hiragana.',
+QUnit.test('requestAccessTokenTest, scope array hiragana.',
   RequestAccessTokenMethodTest.requestAccessTokenTest054);
 
 
@@ -570,26 +573,25 @@ QUnit.asyncTest('requestAccessTokenTest, scope array hiragana.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest061 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function(json) {
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+      .then(json => {
         assert.ok(false, 'Success.=' + json);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+        done();
+      }).catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope symbol.',
+QUnit.test('requestAccessTokenTest,  clientId and scope symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest061);
 
 /**
@@ -601,24 +603,22 @@ QUnit.asyncTest('requestAccessTokenTest,  clientId and scope symbol.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest062 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+      .catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback symbol.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest062);
 
 /**
@@ -630,20 +630,21 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+        assert.ok(true, 'Nothing happens');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and errorCallback symbol.',
+QUnit.test('requestAccessTokenTest, clientId and scope successCallback and errorCallback symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest063);
 
 /**
@@ -655,21 +656,22 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope successCallback and 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest064 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = ['!"#$%&\'()-^¥@[;:],./__?><}*+{`|~='];
-    dConnect.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    let scope = ['!"#$%&\'()-^¥@[;:],./__?><}*+{`|~='];
+    sdk.requestAccessToken('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       scope,
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=').catch(e => {
+        assert.ok(true, 'Nothing happens');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array symbol.',
+QUnit.test('requestAccessTokenTest, scope array symbol.',
   RequestAccessTokenMethodTest.requestAccessTokenTest064);
 
 
@@ -686,26 +688,25 @@ QUnit.asyncTest('requestAccessTokenTest, scope array symbol.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest071 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(json) {
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+    .then(json => {
         assert.ok(false, 'Success.=' + json);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
+        done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest,  clientId and scope limit.',
+QUnit.test('requestAccessTokenTest,  clientId and scope limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest071);
 
 /**
@@ -717,24 +718,22 @@ QUnit.asyncTest('requestAccessTokenTest,  clientId and scope limit.',
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest072 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(errorCode, errorMessage) {
-        assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
-
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+    .catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback limit.',
+QUnit.test('requestAccessTokenTest, clientId and scope and successCallback limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest072);
 
 /**
@@ -746,20 +745,21 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scope and successCallback 
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+        assert.ok(true, 'Nothing happens');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, clientId and scopes successCallback and errorCallback limit.',
+QUnit.test('requestAccessTokenTest, clientId and scopes successCallback and errorCallback limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest073);
 
 
@@ -772,19 +772,19 @@ QUnit.asyncTest('requestAccessTokenTest, clientId and scopes successCallback and
  * </p>
  */
 RequestAccessTokenMethodTest.requestAccessTokenTest074 = function(assert) {
+  let done = assert.async();
   try {
-    var scope = ['abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl'];
-    dConnect.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      scope, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    let scope = ['abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl'];
+    sdk.requestAccessToken('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+      scope, 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl').catch(e => {
+        assert.ok(true, 'Nothing happens');
+        done();
+      });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('requestAccessTokenTest, scope array limit.',
+QUnit.test('requestAccessTokenTest, scope array limit.',
   RequestAccessTokenMethodTest.requestAccessTokenTest074);
-

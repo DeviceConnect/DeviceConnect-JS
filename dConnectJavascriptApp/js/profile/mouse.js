@@ -1,27 +1,26 @@
 /**
  mouse.js
- Copyright (c) 2017 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
 
-var mMouseLastX;
-var mMouseLastY;
-var mStartTime;
-var mDragFlag = false;
-var mMouseMode;
+let mMouseLastX;
+let mMouseLastY;
+let mStartTime;
+let mDragFlag = false;
+let mMouseMode;
 
 /* Show Mouse page */
 function showMouse(serviceId) {
     initAll();
     setTitle('Mouse Profile');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'searchSystem', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var contents = '<div style="text-align: center;">';
+    let contents = '<div style="text-align: center;">';
     contents += '<div id="hogpBox" style="margin: auto;background-color:#ccc; width: 320px;height: 320px;"></div>';
     contents += '<div>';
     contents += '<button class="ui-btn ui-btn-inline" onclick="sendMouseClick(\'' + serviceId +  '\', \'left\')">左</button>';
@@ -33,30 +32,30 @@ function showMouse(serviceId) {
     contents += '<p id="mouseOutputY">Ｙ座標：</p>';
     reloadContent(contents);
 
-    var supportTouch = 'ontouchend' in document;
+    let supportTouch = 'ontouchend' in document;
 
-    var EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
-    var EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
-    var EVENTNAME_TOUCHEND = supportTouch ? 'touchend' : 'mouseup';
+    let EVENTNAME_TOUCHSTART = supportTouch ? 'touchstart' : 'mousedown';
+    let EVENTNAME_TOUCHMOVE = supportTouch ? 'touchmove' : 'mousemove';
+    let EVENTNAME_TOUCHEND = supportTouch ? 'touchend' : 'mouseup';
 
-    $("#hogpBox").bind(EVENTNAME_TOUCHSTART, function(event) {
+    $("#hogpBox").bind(EVENTNAME_TOUCHSTART, event => {
         onMouseDown(serviceId, event);
     });
 
-    $("#hogpBox").bind(EVENTNAME_TOUCHEND, function(event) {
+    $("#hogpBox").bind(EVENTNAME_TOUCHEND, event => {
         onMouseUp(serviceId, event);
     });
 
-    $("#hogpBox").bind(EVENTNAME_TOUCHMOVE, function(event) {
+    $("#hogpBox").bind(EVENTNAME_TOUCHMOVE, event => {
         onMouseMove(serviceId, event);
         event.preventDefault();
     });
-    
-    $("#hogpBox").bind('mouseleave', function(event) {
+
+    $("#hogpBox").bind('mouseleave', event => {
         onMouseUp(serviceId, event);
     });
 
-    $("#hogpBox").bind('touchcancel', function(event) {
+    $("#hogpBox").bind('touchcancel', event => {
         onMouseUp(serviceId, event);
     });
 
@@ -79,13 +78,13 @@ function onMouseMove(serviceId, event) {
         return;
     }
 
-    var endTime = Date.now();
+    let endTime = Date.now();
     if (endTime - mStartTime < 40) {
         return;
     }
 
-    var original = event.originalEvent;
-    var x, y;
+    let original = event.originalEvent;
+    let x, y;
     if (original.changedTouches) {
         x = original.changedTouches[0].pageX;
         y = original.changedTouches[0].pageY;
@@ -113,51 +112,46 @@ function onMouseMove(serviceId, event) {
 }
 
 function sendMouseMove(serviceId, x, y) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('mouse');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('x', x);
-    builder.addParameter('y', y);
-    
-    var uri = builder.build();
-    console.log(uri);
-    dConnect.post(uri, null, null, function(json) {
+    sdk.post({
+      profile: 'mouse',
+      params: {
+        serviceId: serviceId,
+        x: x,
+        y: y
+      }
+    }).then(json => {
         console.log('success');
-    }, function(errorCode, errorMessage) {
-        console.log('Failed to send move pointer. message=' + errorMessage);
+    }).catch(e => {
+        console.log('Failed to send move pointer. message=' + e.errorMessage);
     });
 }
 
 function sendMouseClick(serviceId, button) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('mouse');
-    builder.setAttribute('click');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('button', button);
-    
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
+    sdk.post({
+      profile: 'mouse',
+      attribute: 'click',
+      params: {
+        serviceId: serviceId,
+        button: button
+      }
+    }).then(json => {
         console.log('success');
-    }, function(errorCode, errorMessage) {
-        console.log('Failed to send move pointer. message=' + errorMessage);
+    }).catch(e => {
+        console.log('Failed to send move pointer. message=' + e.errorMessage);
     });
 }
 
 function getMouseMode(serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('mouse');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
+    sdk.get({
+      profile: 'mouse',
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
         console.log('success');
         console.log(json);
         mMouseMode = json.mouse.type;
-    }, function(errorCode, errorMessage) {
-        console.log('Failed to get mouse info. message=' + errorMessage);
+    }).catch(e => {
+        console.log('Failed to get mouse info. message=' + e.errorMessage);
     });
 }
-

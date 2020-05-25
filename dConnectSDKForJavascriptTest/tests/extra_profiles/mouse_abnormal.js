@@ -1,5 +1,5 @@
-module('Mouse Profile Abnormal Test', {
-    setup: function() {
+QUnit.module('Mouse Profile Abnormal Test', {
+    before: function() {
         init();
     }
 });
@@ -8,7 +8,7 @@ module('Mouse Profile Abnormal Test', {
  * Mouseプロファイルの異常系テストを行うクラス。
  * @class
  */
-var MouseProfileAbnormalTest = {};
+let MouseProfileAbnormalTest = {};
 
 /**
  * マウスのxに範囲外の値を送信するテストを行う。
@@ -24,29 +24,22 @@ var MouseProfileAbnormalTest = {};
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('x', 100);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      x: 100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest001', MouseProfileAbnormalTest.mouseTest001);
+QUnit.test('mouseTest001', MouseProfileAbnormalTest.mouseTest001);
 
 /**
  * マウスのyに範囲外の値を送信するテストを行う。
@@ -62,29 +55,22 @@ QUnit.asyncTest('mouseTest001', MouseProfileAbnormalTest.mouseTest001);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('y', 100);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      y: 100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest002', MouseProfileAbnormalTest.mouseTest002);
+QUnit.test('mouseTest002', MouseProfileAbnormalTest.mouseTest002);
 
 /**
  * マウスのwheelに範囲外の値を送信するテストを行う。
@@ -100,29 +86,22 @@ QUnit.asyncTest('mouseTest002', MouseProfileAbnormalTest.mouseTest002);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('wheel', 100);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      wheel: 100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest003', MouseProfileAbnormalTest.mouseTest003);
+QUnit.test('mouseTest003', MouseProfileAbnormalTest.mouseTest003);
 
 /**
  * マウスのrightButtonにboolean以外を送信するテストを行う。
@@ -138,29 +117,22 @@ QUnit.asyncTest('mouseTest003', MouseProfileAbnormalTest.mouseTest003);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('rightButton', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      rightButton: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest004', MouseProfileAbnormalTest.mouseTest004);
+QUnit.test('mouseTest004', MouseProfileAbnormalTest.mouseTest004);
 
 /**
  * マウスのleftButtonにboolean以外を送信するテストを行う。
@@ -176,29 +148,22 @@ QUnit.asyncTest('mouseTest004', MouseProfileAbnormalTest.mouseTest004);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('leftButton', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      leftButton: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest005', MouseProfileAbnormalTest.mouseTest005);
+QUnit.test('mouseTest005', MouseProfileAbnormalTest.mouseTest005);
 
 /**
  * マウスのmiddleButtonにboolean以外を送信するテストを行う。
@@ -214,29 +179,22 @@ QUnit.asyncTest('mouseTest005', MouseProfileAbnormalTest.mouseTest005);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('middleButton', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      middleButton: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest006', MouseProfileAbnormalTest.mouseTest006);
+QUnit.test('mouseTest006', MouseProfileAbnormalTest.mouseTest006);
 
 /**
  * マウスのxに文字列を送信するテストを行う。
@@ -252,29 +210,22 @@ QUnit.asyncTest('mouseTest006', MouseProfileAbnormalTest.mouseTest006);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('x', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      x: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest007', MouseProfileAbnormalTest.mouseTest007);
+QUnit.test('mouseTest007', MouseProfileAbnormalTest.mouseTest007);
 
 /**
  * マウスのyに文字列を送信するテストを行う。
@@ -290,36 +241,29 @@ QUnit.asyncTest('mouseTest007', MouseProfileAbnormalTest.mouseTest007);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('y', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      y: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest008', MouseProfileAbnormalTest.mouseTest008);
+QUnit.test('mouseTest008', MouseProfileAbnormalTest.mouseTest008);
 
 /**
- * マウスのyに文字列を送信するテストを行う。
+ * マウスのwheelに文字列を送信するテストを行う。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: POST<br/>
- * Path: /mouse?serviceId=xxxx&y=abc<br/>
+ * Path: /mouse?serviceId=xxxx&wheel=abc<br/>
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -328,29 +272,22 @@ QUnit.asyncTest('mouseTest008', MouseProfileAbnormalTest.mouseTest008);
  * </p>
  */
 MouseProfileAbnormalTest.mouseTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('wheel', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    params: {
+      serviceId: getCurrentServiceId(),
+      wheel: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mouseTest009', MouseProfileAbnormalTest.mouseTest009);
+QUnit.test('mouseTest009', MouseProfileAbnormalTest.mouseTest009);
 
 /**
  * クリックするボタンを指定しないで送信するテストを行う。
@@ -366,29 +303,22 @@ QUnit.asyncTest('mouseTest009', MouseProfileAbnormalTest.mouseTest009);
  * </p>
  */
 MouseProfileAbnormalTest.clickTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setInterface('click');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    attribute: 'click',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('clickTest001', MouseProfileAbnormalTest.clickTest001);
+QUnit.test('clickTest001', MouseProfileAbnormalTest.clickTest001);
 
 
 /**
@@ -405,30 +335,23 @@ QUnit.asyncTest('clickTest001', MouseProfileAbnormalTest.clickTest001);
  * </p>
  */
 MouseProfileAbnormalTest.clickTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setInterface('click');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('button', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    attribute: 'click',
+    params: {
+      serviceId: getCurrentServiceId(),
+      button: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('clickTest002', MouseProfileAbnormalTest.clickTest002);
+QUnit.test('clickTest002', MouseProfileAbnormalTest.clickTest002);
 
 /**
  * ダブルクリックするボタンを指定しないで送信するテストを行う。
@@ -444,29 +367,22 @@ QUnit.asyncTest('clickTest002', MouseProfileAbnormalTest.clickTest002);
  * </p>
  */
 MouseProfileAbnormalTest.doubleClickTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setInterface('doubleClick');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    attribute: 'doubleClick',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('doubleClickTest001', MouseProfileAbnormalTest.doubleClickTest001);
+QUnit.test('doubleClickTest001', MouseProfileAbnormalTest.doubleClickTest001);
 
 
 /**
@@ -483,27 +399,20 @@ QUnit.asyncTest('doubleClickTest001', MouseProfileAbnormalTest.doubleClickTest00
  * </p>
  */
 MouseProfileAbnormalTest.doubleClickTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mouse');
-  builder.setInterface('doubleClick');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('button', 'abc');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'mouse',
+    attribute: 'doubleClick',
+    params: {
+      serviceId: getCurrentServiceId(),
+      button: 'abc'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('doubleClickTest002', MouseProfileAbnormalTest.doubleClickTest002);
+QUnit.test('doubleClickTest002', MouseProfileAbnormalTest.doubleClickTest002);

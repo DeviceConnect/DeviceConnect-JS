@@ -1,6 +1,6 @@
 /**
  ecg.js
- Copyright (c) 2016 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showECGProfile(serviceId) {
   initAll();
   setTitle('ECG Profile');
 
-  var btnStr = getBackButton('Device Top', 'doECGBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doECGBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showECG(\'' +
           serviceId + '\');">ECG</a></li>';
   reloadList(str);
@@ -28,13 +28,13 @@ function showECG(serviceId) {
   initAll();
   setTitle('ECG');
 
-  var btnStr = getBackButton('ECG Top', 'doECGAllBack', serviceId, '');
+  let btnStr = getBackButton('ECG Top', 'doECGAllBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   closeLoading();
 
-  var str = '';
+  let str = '';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get ECG"' +
         ' onclick="javascript:doGetECG(\'' +
@@ -66,79 +66,66 @@ function showECG(serviceId) {
 }
 
 function doGetECG(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('ecg');
-  builder.setAttribute('onECG');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'ecg',
+    attribute: 'onECG',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     closeLoading();
     showResponseECG(json);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function doRegisterECG(serviceId) {
-  var intervalParam = $('#interval').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('ecg');
-  builder.setAttribute('onECG');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let intervalParam = $('#interval').val();
+  let params = {
+    profile: 'ecg',
+    attribute: 'onECG',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
+    params.interval = intervalParam;
   }
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener(params, function(message) {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     showResponseECG(json);
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function unregisterECG(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('ecg');
-  builder.setAttribute('onECG');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile: 'ecg',
+    attribute: 'onECG',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
@@ -146,7 +133,7 @@ function doECGBack(serviceId) {
   searchDevice(serviceId);
 }
 
-function doECGAllBack(serviceId, sessionKey) {
+function doECGAllBack(serviceId) {
   showECGProfile(serviceId);
 }
 
