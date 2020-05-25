@@ -1,6 +1,6 @@
 /**
  health.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showHealth(serviceId) {
   initAll();
   setTitle('Health Profile');
 
-  var btnStr = getBackButton('Device Top', 'doHealthBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doHealthBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showHeartRate(\'' +
           serviceId + '\');">Heart Rate</a></li>';
   reloadList(str);
@@ -28,13 +28,13 @@ function showHeartRate(serviceId) {
   initAll();
   setTitle('Heart Rate');
 
-  var btnStr = getBackButton('Health Top', 'doHealthAllBack', serviceId, '');
+  let btnStr = getBackButton('Health Top', 'doHealthAllBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   closeLoading();
 
-  var str = '';
+  let str = '';
   str += "<h2>HeartRate /health/heartrate</h2>"
   str += makeInputText('HeartRate', 'heartRate', 'HeartRate');
   str += '<input data-role="button" type="button" name="button"' +
@@ -159,83 +159,72 @@ function doUnregisterHeartrateOnHeart(serviceId) {
 
 
 function doGetHeartRate(serviceId, attribute) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('health');
-  builder.setAttribute(attribute);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'health',
+    attribute: attribute,
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     closeLoading();
     showResponseHealth(json);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function doRegisterHeartRate(serviceId, attribute) {
-  var intervalParam = $('#interval').val();
+  let intervalParam = $('#interval').val();
   if (attribute == 'onheart') {
     intervalParam = $('#onInterval').val();
   } else {
     intervalParam = $('#interval').val();
   }
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('health');
-  builder.setAttribute(attribute);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+
+  let params = {
+    profile: 'health',
+    attribute: attribute,
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
-  }
-  
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
+    params['interval'] = intervalParam;
   }
 
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener(params, message => {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     showResponseHealth(json);
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function unregisterHeartRate(serviceId, attribute) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('health');
-  builder.setAttribute(attribute);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile: 'health',
+    attribute: attribute,
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
@@ -301,74 +290,60 @@ function showResponseHealth(json) {
 }
 
 function doGetHeartRateOld(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('health');
-  builder.setAttribute('heartrate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'health',
+    attribute: 'heartrate',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     closeLoading();
     $('#heartRate').val(json.heartRate);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function doRegisterHeartRateOld(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('health');
-  builder.setAttribute('heartrate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener({
+    profile: 'health',
+    attribute: 'heartrate',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     $('#heartRate').val(json.heartRate);
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch( e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function unregisterHeartRateOld(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('health');
-  builder.setAttribute('heartrate');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile: 'health',
+    attribute: 'heartrate',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }

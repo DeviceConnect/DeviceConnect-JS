@@ -1,5 +1,5 @@
-module('Power Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Power Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Power Profile Abnormal Test', {
  * Powerプロファイルの異常系テストを行うクラス。
  * @class
  */
-var PowerProfileAbnormalTest = {};
+let PowerProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドで電源状態にアクセスするテストを行う。
@@ -23,25 +23,18 @@ var PowerProfileAbnormalTest = {};
  * </p>
  */
 PowerProfileAbnormalTest.powerStatusAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-	var builder = new dConnect.URIBuilder();
-	builder.setProfile('power');
-	builder.setAccessToken(accessToken);
-	builder.setServiceId(serviceId);
-	var uri = builder.build();
-	dConnect.post(uri, null, null, function(json) {
-		assert.ok(false, 'json: ' + JSON.stringify(json));
-		QUnit.start();
-	}, function(errorCode, errorMessage) {
-		if (errorCode == 8) {
-			assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-		} else if (checkErrorCode(errorCode)) {
-			assert.ok(true, "not support");
-		} else {
-			assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-		}
-		QUnit.start();
-	});
+  let done = assert.async();
+  sdk.post({
+    profile: 'power',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
+  });
 };
-QUnit.asyncTest('GetPowerStatusAbnormalTest001', PowerProfileAbnormalTest.powerStatusAbnormalTest001);
+QUnit.test('GetPowerStatusAbnormalTest001', PowerProfileAbnormalTest.powerStatusAbnormalTest001);

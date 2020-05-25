@@ -5,22 +5,22 @@
  http://opensource.org/licenses/mit-license.php
  */
 
-var PowerStatus = null;
+let PowerStatus = null;
 
-var PowerSaving = null;
+let PowerSaving = null;
 
-var OperationMode = null;
+let OperationMode = null;
 
-var RoomTemperature = null;
+let RoomTemperature = null;
 
-var TemperatureMin = 0;
-var TemperatureMax = 50;
-var Temperature = 25;
+let TemperatureMin = 0;
+let TemperatureMax = 50;
+let Temperature = 25;
 
-var AirFlowMin = 0;
-var AirFlowMax = 100;
-var AirFlow = 0;
-var AirFlowAuto = "false";
+let AirFlowMin = 0;
+let AirFlowMax = 100;
+let AirFlow = 0;
+let AirFlowAuto = "false";
 
 
 /**
@@ -30,22 +30,20 @@ function showAirConditioner(serviceId) {
   initAll();
   setTitle('AirConditioner Profile');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Device Top', 'doAirConditionerBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-  
+
   getAirConditionerTemperatureStatus(serviceId);
   getAirConditionerPowerStatus(serviceId);
   getAirConditionerPowerSavingStatus(serviceId);
   getAirConditionerModeSettingStatus(serviceId);
   getAirConditionerRoomTemperatureStatus(serviceId);
   getAirConditionerAirFlowStatus(serviceId);
-  
-  var str = '';
+
+  let str = '';
   str += '<form name="AirConditionerForm">';
-  
+
   str += '<div>';
   str += '<label for="idPowerState">Power Status:</label>';
   str += '<input type="text" id="idPowerState" width="100%" value="'+ PowerStatus + '" readonly>';
@@ -89,7 +87,7 @@ function showAirConditioner(serviceId) {
   str += '<label for="idTemperatureStatus">Temperature Value (℃):</label>';
   str += '<input type="text" id="idTemperatureStatus" width="100%" value="'+ Temperature + '" readonly>';
   str += '<input id="idTemperature" name="idTemperature" type="range" min="' +
-           TemperatureMin + '" max="' + TemperatureMax + 
+           TemperatureMin + '" max="' + TemperatureMax +
            '" step="1" onchange="showTemperature()" value="'+ Temperature + '" />';
   str += '<input type="button" onclick="doAirConditionerSetTemperatureValue(\'' + serviceId + '\');" value="Set Temperature Value" >';
   str += '</div>';
@@ -107,7 +105,7 @@ function showAirConditioner(serviceId) {
 
   str += '<div>';
   str += '<input id="idAirFlow" name="idAirFlow" type="range" min="' +
-           AirFlowMin + '" max="' + AirFlowMax + 
+           AirFlowMin + '" max="' + AirFlowMax +
            '" step="1" onchange="showAirFlow()" value="'+ AirFlow + '" />';
   str += '<input type="button" onclick="doAirConditionerSetAirFlow(\'' + serviceId + '\');" value="Set Air Flow Value" >';
   str += '</div>';
@@ -141,15 +139,11 @@ function showAirFlow() {
 function showENLGet(serviceId) {
   initAll();
   setTitle('Get ECHONETLite Property');
-
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('AirConditioner Top', 'doENLGetBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('AirConditioner Top', 'showAirConditioner', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="ENLGetForm">';
   str += 'ECHONETLite Property Get<br>';
 
@@ -173,15 +167,11 @@ function showENLGet(serviceId) {
 function showENLSet(serviceId) {
   initAll();
   setTitle('Set ECHONETLite Property');
-
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('AirConditioner Top', 'doENLSetBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('AirConditioner Top', 'showAirConditioner', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="ENLSetForm">';
   str += 'ECHONETLite Property Set<br>';
 
@@ -199,65 +189,31 @@ function showENLSet(serviceId) {
 }
 
 /**
- * Back button
- *
- * serviceId service ID
- * sessionKey session KEY
- */
-function doAirConditionerBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
-/**
- * Back button
- *
- * serviceId Service ID
- * sessionKey Session KEY
- */
-function doENLGetBack(serviceId, sessionKey) {
-  showAirConditioner(serviceId);
-}
-
-/**
- * Back button
- *
- * serviceId Service ID
- * sessionKey Session KEY
- */
-function doENLSetBack(serviceId, sessionKey) {
-  showAirConditioner(serviceId);
-}
-
-/**
  * Get Air Conditioner power state.
  * @param {String} serviceId Service ID.
  */
 function getAirConditionerPowerStatus(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += json.powerstatus;
     $('#idPowerState').val(str);
     PowerStatus = str;
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idPowerState').val(str);
     PowerStatus = str;
@@ -270,21 +226,16 @@ function getAirConditionerPowerStatus(serviceId) {
  * @param {String} isSwitch On / Off
  */
 function doAirConditionerOnOff(serviceId, isSwitch) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
+  let params = {
+    profile: 'airconditioner',
+    params: {
+      serviceId: serviceId
+    }
   }
-
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -293,16 +244,16 @@ function doAirConditionerOnOff(serviceId, isSwitch) {
     getAirConditionerPowerStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('PowerOnOff Air Conditioner', errorCode, errorMessage);
     getAirConditionerPowerStatus(serviceId);
   };
 
   if (isSwitch == 'ON') {
-    dConnect.put(uri, null, null, successCallback, errorCallback);
+    sdk.put(params).then( json => { successCallback(json); }).catch( e => { errorCallback(e.errorCode, e.errorMessage);});
   } else {
-    dConnect.delete(uri, null, successCallback, errorCallback);
+    sdk.delete(params).then( json => { successCallback(json); }).catch( e => { errorCallback(e.errorCode, e.errorMessage);});
   }
 
 }
@@ -312,32 +263,28 @@ function doAirConditionerOnOff(serviceId, isSwitch) {
  * @param {String} serviceId Service ID.
  */
 function getAirConditionerPowerSavingStatus(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('powersaving');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'powersaving',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += json.powersaving;
     $('#idPowerSavingStatus').val(str);
     PowerSaving = str;
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idPowerSavingStatus').val(str);
     PowerSaving = str;
@@ -350,23 +297,10 @@ function getAirConditionerPowerSavingStatus(serviceId) {
  * @param {String} isSwitch On / Off
  */
 function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('powersaving');
-  builder.setServiceId(serviceId);
-  builder.addParameter('powersaving', isSwitch);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -375,14 +309,24 @@ function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
     getAirConditionerPowerSavingStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('PowerSavingOnOff Air Conditioner', errorCode, errorMessage);
     getAirConditionerPowerSavingStatus(serviceId);
   };
 
-  dConnect.put(uri, null, null, successCallback, errorCallback);
-
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'powersaving',
+    params: {
+      serviceId: serviceId,
+      powersaving: isSwitch
+    }
+  }).then(json => {
+    successCallback(json);
+  }).catch(e => {
+    errorCallback(e.errorCode, e.errorMessage);
+  });
 }
 
 /**
@@ -390,32 +334,28 @@ function doAirConditionerPowerSavingOnOff(serviceId, isSwitch) {
  * @param {String} serviceId Service ID.
  */
 function getAirConditionerModeSettingStatus(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += json.modesetting;
     $('#idOperationModeStatus').val(str);
     OperationMode = str;
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idOperationModeStatus').val(str);
     OperationMode = str;
@@ -428,23 +368,10 @@ function getAirConditionerModeSettingStatus(serviceId) {
  * @param {String} mode Operation Mode
  */
 function doAirConditionerModeSetting(serviceId, mode) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('modesetting');
-  builder.setServiceId(serviceId);
-  builder.addParameter('modesetting', mode);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -453,13 +380,24 @@ function doAirConditionerModeSetting(serviceId, mode) {
     getAirConditionerModeSettingStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('ModeSettingSet Air Conditioner', errorCode, errorMessage);
     getAirConditionerModeSettingStatus(serviceId);
   };
 
-  dConnect.put(uri, null, null, successCallback, errorCallback);
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'modesetting',
+    params: {
+      serviceId: serviceId,
+      modesetting: mode
+    }
+  }).then(json => {
+    successCallback(json);
+  }).catch(e => {
+    errorCallback(e.errorCode, e.errorMessage);
+  });
 
 }
 
@@ -468,33 +406,28 @@ function doAirConditionerModeSetting(serviceId, mode) {
  * @param {String} serviceId Service ID.
  */
 function getAirConditionerRoomTemperatureStatus(serviceId) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('roomtemperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'roomtemperature',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += json.roomtemperature;
     $('#idRoomTemperatureStatus').val(str);
     RoomTemperature = str;
-  }, function(errorCode, errorMessage) {
+  }).catch (e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idRoomTemperatureStatus').val(str);
     RoomTemperature = str;
@@ -507,33 +440,29 @@ function getAirConditionerRoomTemperatureStatus(serviceId) {
  */
 function getAirConditionerTemperatureStatus(serviceId) {
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('temperature');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'temperature',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += json.temperature;
     $('#idTemperatureStatus').val(str);
     $('#idTemperature').val(str);
     Temperature = str;
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idTemperatureStatus').val(str);
     Temperature = str;
@@ -543,26 +472,12 @@ function getAirConditionerTemperatureStatus(serviceId) {
 /**
  * Set Temperature Value.
  * @param {String} serviceId service ID
- * @param {String} value Temperature Value
  */
 function doAirConditionerSetTemperatureValue(serviceId) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('temperature');
-  builder.setServiceId(serviceId);
-  builder.addParameter('temperature', Temperature);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -571,13 +486,24 @@ function doAirConditionerSetTemperatureValue(serviceId) {
     getAirConditionerTemperatureStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('TemperatureValueSet Air Conditioner', errorCode, errorMessage);
     getAirConditionerTemperatureStatus(serviceId);
   };
 
-  dConnect.put(uri, null, null, successCallback, errorCallback);
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'temperature',
+    params: {
+      serviceId: serviceId,
+      temperature: Temperature
+    }
+  }).then(json => {
+    successCallback(json);
+  }).catch(e => {
+    errorCallback(e.errorCode, e.errorMessage);
+  });
 
 }
 
@@ -587,26 +513,22 @@ function doAirConditionerSetTemperatureValue(serviceId) {
  */
 function getAirConditionerAirFlowStatus(serviceId) {
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += (json.airflow) * 100;
     $('#idAirFlowStatus').val(str);
     $('#idAirFlow').val(str).slider('refresh');
@@ -619,9 +541,9 @@ function getAirConditionerAirFlowStatus(serviceId) {
       AirFlowAuto = false;
       document.AirConditionerForm.elements["idAirFlowAutoCheck"].checked = false;
     }
-   }, function(errorCode, errorMessage) {
+  }).catch(e =>  {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idAirFlowStatus').val(str);
     AirFlow = str;
@@ -634,35 +556,31 @@ function getAirConditionerAirFlowStatus(serviceId) {
  */
 function doAirConditionerSetAirFlow(serviceId) {
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('airflow');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var AirFlow = Number($('#idAirFlow').val());
+  let params = {
+    profile: 'airconditioner',
+    attribute: 'airflow',
+    params: {
+      serviceId: serviceId
+    }
+  };
+  let AirFlow = Number($('#idAirFlow').val());
   console.log('AirFlow: ', AirFlow);
 
   if ($('#idAirFlowAutoCheck:checked').val()) {
-    builder.addParameter('airflowauto', "true");
+    params.params.airflowauto = true;
   } else {
-    builder.addParameter('airflowauto', "false");
+    params.params.airflowauto = false;
     if (AirFlow == 0) {
-      builder.addParameter('airflow', 0);
+      params.params.airflow = 0;
     } else {
-      builder.addParameter('airflow', AirFlow/100);
+      params.params.airflow = AirFlow/100;
     }
-  }
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
   }
 
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -671,13 +589,18 @@ function doAirConditionerSetAirFlow(serviceId) {
     getAirConditionerAirFlowStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('AirFlowValueSet Air Conditioner', errorCode, errorMessage);
     getAirConditionerAirFlowStatus(serviceId);
   };
 
-  dConnect.put(uri, null, null, successCallback, errorCallback);
+  sdk.put(params)
+  .then(json => {
+    successCallback(json);
+  }).catch(e => {
+    errorCallback(e.errorCode, e.errorMessage);
+  });
 
 }
 
@@ -687,38 +610,33 @@ function doAirConditionerSetAirFlow(serviceId) {
  * @param {String} epc Property number.
  */
 function getAirConditionerECHONETLiteProperty(serviceId, epc) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('enlproperty');
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', epc);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'airconditioner',
+    attribute: 'enlproperty',
+    params: {
+      serviceId: serviceId,
+      epc: epc
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
-    for(var i=0; i<json.properties.length; i++) {
+    let str = '';
+    for(let i=0; i<json.properties.length; i++) {
       if (i != 0) {
         str += ",";
       }
       str += '{\"' + json.properties[i].epc + '\",\"' + json.properties[i].value + '\"}';
     }
     $('#idGetEDT').val(str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idGetEDT').val(str);
   });
@@ -732,23 +650,10 @@ function getAirConditionerECHONETLiteProperty(serviceId, epc) {
  */
 function doAirConditionerECHONETLitePropertySet(serviceId, epc, value) {
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('airconditioner');
-  builder.setAttribute('enlproperty');
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', epc);
-  builder.addParameter('value', value);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -757,14 +662,25 @@ function doAirConditionerECHONETLitePropertySet(serviceId, epc, value) {
     $('#idSetResult').val(json.result);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('ECHONETLitePropertySet Air Conditioner', errorCode, errorMessage);
     $('#idSetResult').val(errorMessage);
   };
 
-  dConnect.put(uri, null, null, successCallback, errorCallback);
-
+  sdk.put({
+    profile: 'airconditioner',
+    attribute: 'enlproperty',
+    params: {
+      serviceId: serviceId,
+      epc: epc,
+      value: value
+    }
+  }).then(json => {
+    successCallback(json);
+  }).catch(e => {
+    errorCallback(e.errorCode, e.errorMessage);
+  });
 }
 
 /* Show ECHONET Lite page */
@@ -772,15 +688,13 @@ function showENLControl(serviceId) {
   initAll();
   setTitle('ECHONET Lite Property Control');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('AirCoditioner Top', 'doENLGetBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('AirCoditioner Top', 'showAirConditioner', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-  
-  var str = '';
+
+  let str = '';
   str += '<form name="ECHONETLiteForm">';
-  
+
   str += '<div>';
   str += '<label>Get ECHONET Lite Property:</label>';
   str += '<label for="idGetEPC">ECHONET Property (EPC):</label>';
@@ -816,7 +730,7 @@ function showENLControl(serviceId) {
  */
 function doGetENLEPC(serviceId) {
 
-  var epc = $('#idGetEPC').val();
+  let epc = $('#idGetEPC').val();
       console.log('epc: ', epc);
   getAirConditionerECHONETLiteProperty(serviceId, epc);
 
@@ -828,12 +742,10 @@ function doGetENLEPC(serviceId) {
  */
 function doSetENLEPC(serviceId) {
 
-  var epc = $('#idSetEPC').val();
-  var edt = $('#idSetEDT').val();
+  let epc = $('#idSetEPC').val();
+  let edt = $('#idSetEDT').val();
       console.log('epc: ', epc);
       console.log('edt: ', edt);
   doAirConditionerECHONETLitePropertySet(serviceId, epc, edt);
 
 }
-
-

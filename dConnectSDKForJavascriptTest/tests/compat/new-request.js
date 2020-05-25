@@ -1,190 +1,200 @@
-module('Device Connect API Compatibility Test', {
-    setup: function() {
+QUnit.module('Device Connect API Compatibility Test', {
+    before: function() {
     }
 });
 
-var _tests = [
+let _tests = [
     {
         name: 'Ignored Case: /SERVICEINFORMATION',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('serviceInformation')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+          console.log("aaaa:" + serviceIdForTest());
+                let done = assert.async();
+                let onsuccess = (json) => {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = (code, message) => {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('GET', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('GET', {
+                  profile: 'serviceInformation',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /driveController/*',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('driveController')
-                                .setAttribute('move')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = (json) => {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = (code, message) => {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('POST', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('POST', {
+                  profile: 'driveController',
+                  attribute:'move',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /fileDescriptor/*',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('fileDescriptor')
-                                .setAttribute('open')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('GET', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('GET', {
+                  profile: 'fileDescriptor',
+                  attribute:'open',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name:'New: /mediaStreamRecording/*',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('mediaStreamRecording')
-                                .setAttribute('record')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('POST', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('POST', {
+                  profile: 'mediaStreamRecording',
+                  attribute: 'record',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /mediaPlayer/mediaList',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('mediaPlayer')
-                                .setAttribute('mediaList')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('GET', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('GET', {
+                  profile: 'mediaPlayer',
+                  attribute: 'mediaList',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /mediaPlayer/playStatus',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('mediaPlayer')
-                                .setAttribute('playStatus')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('GET', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('GET', {
+                  profile: 'mediaPlayer',
+                  attribute: 'playStatus',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /mediaPlayer/*',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('mediaPlayer')
-                                .setAttribute('media')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('GET', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('GET', {
+                  profile: 'mediaPlayer',
+                  attribute: 'media',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /omnidirectionalImage/*',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('omnidirectionalImage')
-                                .setAttribute('roi')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('PUT', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('PUT', {
+                  profile: 'omnidirectionalImage',
+                  attribute: 'roi',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     },
     {
         name: 'New: /remoteController/*',
         run: function(assert) {
-                var uri = new dConnect.URIBuilder()
-                                .setProfile('remoteController')
-                                .setServiceId(serviceIdForTest())
-                                .setAccessToken(accessToken())
-                                .build();
-                var onsuccess = function(json) {
+                let done = assert.async();
+                let onsuccess = function(json) {
                     assert.ok(true, 'success');
-                    QUnit.start();
+                    done();
                 };
-                var onerror = function(code, message) {
+                let onerror = function(code, message) {
                     checkResponse(assert, code, message);
-                    QUnit.start();
+                    done();
                 };
-                dConnect.sendRequest('GET', uri, null, null, onsuccess, onerror);
+                sdk.sendRequest('GET', {
+                  profile: 'remoteController',
+                  params: {
+                    serviceId: serviceIdForTest()
+                  }
+                }).then(json => { onsuccess(json);}).catch(e => { onerror(e.errorCode, e.errorMessage);});
             }
     }
 ];
 
-var _scopes = [
+let _scopes = [
       'battery',
       'canvas',
       'connect',

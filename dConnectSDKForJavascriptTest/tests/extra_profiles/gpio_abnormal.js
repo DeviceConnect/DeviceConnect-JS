@@ -1,5 +1,5 @@
-module('GPIOProfileAbnormalTest', {
-  setup: function() {
+QUnit.module('GPIOProfileAbnormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('GPIOProfileAbnormalTest', {
  * GPIOプロファイルの正常系テストを行うクラス。
  * @class
  */
-var GPIOProfileAbnormalTest = {};
+let GPIOProfileAbnormalTest = {};
 
 /**
  * 指定範囲外のPIN番号を指定して、GPIOのDigital値を取得
@@ -23,29 +23,23 @@ var GPIOProfileAbnormalTest = {};
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('21');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest001',
+QUnit.test('gpioAbnormalTest001',
     GPIOProfileAbnormalTest.gpioAbnormalTest001);
 
 /**
@@ -61,29 +55,23 @@ QUnit.asyncTest('gpioAbnormalTest001',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('analog');
-  builder.setAttribute('21');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'gpio',
+    interface: 'analog',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest002',
+QUnit.test('gpioAbnormalTest002',
     GPIOProfileAbnormalTest.gpioAbnormalTest002);
 
 /**
@@ -99,29 +87,23 @@ QUnit.asyncTest('gpioAbnormalTest002',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('test');
-  builder.setAttribute('21');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'gpio',
+    interface: 'test',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest003',
+QUnit.test('gpioAbnormalTest003',
     GPIOProfileAbnormalTest.gpioAbnormalTest003);
 
 /**
@@ -138,30 +120,24 @@ QUnit.asyncTest('gpioAbnormalTest003',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('export');
-  builder.setAttribute('21');
-  builder.addParameter('mode', 1);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'export',
+    attribute: '21',
+    mode: 1,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest004',
+QUnit.test('gpioAbnormalTest004',
     GPIOProfileAbnormalTest.gpioAbnormalTest004);
 
 /**
@@ -178,29 +154,24 @@ QUnit.asyncTest('gpioAbnormalTest004',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('export');
-  builder.setAttribute('19');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'export',
+    attribute: '19',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest005',
+QUnit.test('gpioAbnormalTest005',
     GPIOProfileAbnormalTest.gpioAbnormalTest005);
 
 /**
@@ -217,30 +188,24 @@ QUnit.asyncTest('gpioAbnormalTest005',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('export');
-  builder.setAttribute('19');
-  builder.addParameter('mode', 10);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'export',
+    attribute: '19',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 10
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest006',
+QUnit.test('gpioAbnormalTest006',
     GPIOProfileAbnormalTest.gpioAbnormalTest006);
 
 /**
@@ -257,30 +222,24 @@ QUnit.asyncTest('gpioAbnormalTest006',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('export');
-  builder.setAttribute('19');
-  builder.addParameter('mode', 'aaaa');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'export',
+    attribute: '19',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 'aaaa'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest007',
+QUnit.test('gpioAbnormalTest007',
     GPIOProfileAbnormalTest.gpioAbnormalTest007);
 
 /**
@@ -297,30 +256,24 @@ QUnit.asyncTest('gpioAbnormalTest007',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('21');
-  builder.addParameter('value', 1);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mode: 1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest008',
+QUnit.test('gpioAbnormalTest008',
     GPIOProfileAbnormalTest.gpioAbnormalTest008);
 
 /**
@@ -337,29 +290,23 @@ QUnit.asyncTest('gpioAbnormalTest008',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('5');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '5'
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest009',
+QUnit.test('gpioAbnormalTest009',
     GPIOProfileAbnormalTest.gpioAbnormalTest009);
 
 /**
@@ -376,30 +323,24 @@ QUnit.asyncTest('gpioAbnormalTest009',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('5');
-  builder.addParameter('value', 4);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '5',
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 4
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest010',
+QUnit.test('gpioAbnormalTest010',
     GPIOProfileAbnormalTest.gpioAbnormalTest010);
 
 /**
@@ -416,30 +357,24 @@ QUnit.asyncTest('gpioAbnormalTest010',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('5');
-  builder.addParameter('value', 'aaaa');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '5',
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 'aaaa'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest011',
+QUnit.test('gpioAbnormalTest011',
     GPIOProfileAbnormalTest.gpioAbnormalTest011);
 
 /**
@@ -456,30 +391,24 @@ QUnit.asyncTest('gpioAbnormalTest011',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('analog');
-  builder.setAttribute('1');
-  builder.addParameter('value', 100);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'analog',
+    attribute: '1',
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest012',
+QUnit.test('gpioAbnormalTest012',
     GPIOProfileAbnormalTest.gpioAbnormalTest012);
 
 /**
@@ -492,33 +421,29 @@ QUnit.asyncTest('gpioAbnormalTest012',
  * </p>
  * <h3>【期待する動作】</h3>
  * <p id='expected'>
- * ・resultに10が返ってくること。<br/>
+ * ・resultに1が返ってくること。<br/>
+ * ・errorCodeに10が返ってくること。<br/>
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('analog');
-  builder.setAttribute('3');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'analog',
+    attribute: '3',
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest013',
+QUnit.test('gpioAbnormalTest013',
     GPIOProfileAbnormalTest.gpioAbnormalTest013);
 
 /**
@@ -535,30 +460,24 @@ QUnit.asyncTest('gpioAbnormalTest013',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest014 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('analog');
-  builder.setAttribute('3');
-  builder.addParameter('value', 300);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'analog',
+    attribute: '3',
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 300
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest014',
+QUnit.test('gpioAbnormalTest014',
     GPIOProfileAbnormalTest.gpioAbnormalTest014);
 
 /**
@@ -575,30 +494,24 @@ QUnit.asyncTest('gpioAbnormalTest014',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest015 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('analog');
-  builder.setAttribute('3');
-  builder.addParameter('value', 'aaaa');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'gpio',
+    interface: 'analog',
+    attribute: '3',
+    params: {
+      serviceId: getCurrentServiceId(),
+      value: 'aaa'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest015',
+QUnit.test('gpioAbnormalTest015',
     GPIOProfileAbnormalTest.gpioAbnormalTest015);
 
 /**
@@ -614,29 +527,23 @@ QUnit.asyncTest('gpioAbnormalTest015',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest016 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('21');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest016',
+QUnit.test('gpioAbnormalTest016',
     GPIOProfileAbnormalTest.gpioAbnormalTest016);
 
 /**
@@ -652,28 +559,23 @@ QUnit.asyncTest('gpioAbnormalTest016',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest017 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('test');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: 'gpio',
+    interface: 'test',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest017',
+QUnit.test('gpioAbnormalTest017',
     GPIOProfileAbnormalTest.gpioAbnormalTest017);
 
 /**
@@ -689,29 +591,23 @@ QUnit.asyncTest('gpioAbnormalTest017',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest018 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('digital');
-  builder.setAttribute('21');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: 'gpio',
+    interface: 'digital',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest018',
+QUnit.test('gpioAbnormalTest018',
     GPIOProfileAbnormalTest.gpioAbnormalTest018);
 
 /**
@@ -727,31 +623,21 @@ QUnit.asyncTest('gpioAbnormalTest018',
  * </p>
  */
 GPIOProfileAbnormalTest.gpioAbnormalTest019 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('gpio');
-  builder.setInterface('test');
-  builder.setAttribute('21');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: 'gpio',
+    interface: 'test',
+    attribute: '21',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('gpioAbnormalTest019',
+QUnit.test('gpioAbnormalTest019',
     GPIOProfileAbnormalTest.gpioAbnormalTest019);
-
-
-
-

@@ -1,5 +1,5 @@
-module('SpheroProfileNormalTest', {
-  setup: function() {
+QUnit.module('SpheroProfileNormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('SpheroProfileNormalTest', {
  * RemoteControllerプロファイルの正常系テストを行うクラス。
  * @class
  */
-var SpheroProfileNormalTest = {};
+let SpheroProfileNormalTest = {};
 
 /**
  * Spheroプロファイルのonquaternionイベント登録と解除のテストを行う。
@@ -24,12 +24,16 @@ var SpheroProfileNormalTest = {};
  * </p>
  */
 SpheroProfileNormalTest.onQuaternionNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('quaternion');
-  builder.setAttribute('onquaternion');
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let params = {
+    profile: 'sphero',
+    interface: 'quaternion',
+    attribute: 'onquaternion',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'sphero' && json.attribute === 'onquaternion') {
       assert.ok(true, message);
       return true;
@@ -37,7 +41,7 @@ SpheroProfileNormalTest.onQuaternionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternionNormalTest001);
+QUnit.test('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternionNormalTest001);
 
 
 /**
@@ -54,12 +58,16 @@ QUnit.asyncTest('onQuaternionNormalTest001', SpheroProfileNormalTest.onQuaternio
  * </p>
  */
 SpheroProfileNormalTest.onLocatorNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('locator');
-  builder.setAttribute('onlocator');
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let params = {
+    profile: 'sphero',
+    interface: 'locator',
+    attribute: 'onlocator',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'sphero' && json.attribute === 'onlocator') {
       assert.ok(true, message);
       return true;
@@ -67,7 +75,7 @@ SpheroProfileNormalTest.onLocatorNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNormalTest001);
+QUnit.test('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNormalTest001);
 
 
 /**
@@ -84,12 +92,16 @@ QUnit.asyncTest('onLocatorNormalTest001', SpheroProfileNormalTest.onLocatorNorma
  * </p>
  */
 SpheroProfileNormalTest.onCollisionNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('sphero');
-  builder.setInterface('collision');
-  builder.setAttribute('oncollision');
-  openWebsocket(builder, assert, 10000, function(message) {
-    var json = JSON.parse(message);
+  let params = {
+    profile: 'sphero',
+    interface: 'collision',
+    attribute: 'oncollision',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+    let json = JSON.parse(message);
     if (json.profile === 'sphero' && json.attribute === 'oncollision') {
       assert.ok(true, message);
       return true;
@@ -97,5 +109,4 @@ SpheroProfileNormalTest.onCollisionNormalTest001 = function(assert) {
     return false;
   });
 };
-QUnit.asyncTest('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionNormalTest001);
-
+QUnit.test('onCollisionNormalTest001', SpheroProfileNormalTest.onCollisionNormalTest001);

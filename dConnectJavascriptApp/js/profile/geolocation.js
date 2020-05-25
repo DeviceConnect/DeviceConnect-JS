@@ -1,6 +1,6 @@
 /**
  geolocation.js
- Copyright (c) 2017 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -12,13 +12,12 @@ function showGeolocation(serviceId) {
   initAll();
   setTitle('Geolocation Profile(Event)');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Device Top', 'doGeolocationBack',
-      serviceId, sessionKey);
+  let btnStr = getBackButton('Device Top', 'doGeolocationBack',
+      serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doGeolocationGet(\'' +
           serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -39,14 +38,13 @@ function showGeolocation(serviceId) {
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
           'onclick=\"doGeolocationRegist(\'' +
-          serviceId + '\', \'' + sessionKey + '\')\"' +
+          serviceId + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\"' +
           ' onclick=\"doGeolocationUnregister(\'' +
-          serviceId + '\', \'' + sessionKey +
-          '\')\" type=\"button\" value=\"Unregister\" />';
+          serviceId + '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
   str += '<div>';
@@ -82,10 +80,9 @@ function showGeolocation(serviceId) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doGeolocationBack(serviceId, sessionKey) {
-  doGeolocationUnregister(serviceId, sessionKey);
+function doGeolocationBack(serviceId) {
+  doGeolocationUnregister(serviceId);
   searchSystem(serviceId);
 }
 
@@ -121,100 +118,92 @@ function setGeolocation(json) {
 }
 
 function doGeolocationGet(serviceId) {
-  var maximumAgeParam = $('#set_maximumAge').val();
+  let maximumAgeParam = $('#set_maximumAge').val();
 
-  var highAccuracyGetValue = $('#highAccuracyGet').val();
+  let highAccuracyGetValue = $('#highAccuracyGet').val();
   if (highAccuracyGetValue == 'null_value') {
     highAccuracyGetValue = null;
   }
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('geolocation');
-  builder.setAttribute('currentposition');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'geolocation',
+    attribute: 'currentposition',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (highAccuracyGetValue) {
-    builder.addParameter('highAccuracy', highAccuracyGetValue);
+    params['highAccuracy'] = highAccuracyGetValue;
   }
   if (maximumAgeParam !== '') {
-    builder.addParameter('maximumAge', maximumAgeParam);
+    params['maximumAge'] = maximumAgeParam;
   }
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get(params).then(json =>  {
     if (json.position) {
       setGeolocation(json);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
   });
 }
 
 /**
  * Geolocation Event Regist
  */
-function doGeolocationRegist(serviceId, sessionKey) {
-  var intervalParam = $('#set_interval').val();
+function doGeolocationRegist(serviceId) {
+  let intervalParam = $('#set_interval').val();
 
-  var highAccuracyEventValue = $('#highAccuracyEvent').val();
+  let highAccuracyEventValue = $('#highAccuracyEvent').val();
   if (highAccuracyEventValue == 'null_value') {
     highAccuracyEventValue = null;
   }
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('geolocation');
-  builder.setAttribute('onwatchposition');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'geolocation',
+    attribute: 'onwatchposition',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (highAccuracyEventValue) {
-    builder.addParameter('highAccuracy', highAccuracyEventValue);
+    params['highAccuracy'] = highAccuracyEventValue;
   }
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
+    params['interval'] = intervalParam;
   }
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener(params, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message)
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.position) {
       setGeolocation(json);
     }
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
-      console.log('Successed register Geolocation.');
+      console.log('Successed register Geolocation');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
   });
 }
 
 /**
  * Geolocation Event Unregist
  */
-function doGeolocationUnregister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('geolocation');
-  builder.setAttribute('onwatchposition');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-  dConnect.removeEventListener(uri, function() {
+function doGeolocationUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'geolocation',
+    attribute: 'onwatchposition',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Successed unregister Geolocation.');
     }
-  }, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }

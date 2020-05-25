@@ -1,6 +1,6 @@
 /**
  phone.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,14 +14,14 @@ function showPhone(serviceId) {
 
   initAll();
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doMediaplayerBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'doMediaplayerBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   setTitle('Phone Profile');
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showPhoneCall(\'' + serviceId +
           '\');" value="Call">Call</a></li>';
   str += '<li><a href="javascript:showPhoneSetting(\'' + serviceId +
@@ -33,9 +33,8 @@ function showPhone(serviceId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doPhoneCallBack(serviceId, sessionKey) {
+function doPhoneCallBack(serviceId) {
   showPhone(serviceId);
 }
 
@@ -43,9 +42,8 @@ function doPhoneCallBack(serviceId, sessionKey) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doPhoneSetBack(serviceId, sessionKey) {
+function doPhoneSetBack(serviceId) {
   showPhone(serviceId);
 }
 
@@ -55,19 +53,16 @@ function doPhoneSetBack(serviceId, sessionKey) {
  * @param {String} serviceId サービスID
  */
 function showPhoneCall(serviceId) {
-  var sessionKey = currentClientId;
-
   initAll();
 
   setTitle('Phone Profile (Call)');
 
-  var btnStr = '';
-  btnStr += getBackButton('Phone TOP', 'doPhoneCallBack',
-                      serviceId, sessionKey);
+  let btnStr = '';
+  btnStr += getBackButton('Phone TOP', 'doPhoneCallBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = ''; 
+  let str = '';
   str += '<label for="callStateGet">Call State (Get):</label>';
   str += '<div data-role="controlgroup" data-type="horizontal">';
   str += '  <input type="text" id="callStateGet" data-wrapper-class="controlgroup-textinput ui-btn">';
@@ -88,25 +83,16 @@ function showPhoneCall(serviceId) {
   str += '  <button onclick="javascript:doPhoneCall(\'' + serviceId + '\')">Call</button>';
   str += '</div>';
   reloadContent(str);
-
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-  });
-
 }
 
 function getCallState(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('callState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'phone',
+    attribute: 'callState',
+    params: {
+      serviceId: serviceId,
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -116,128 +102,110 @@ function getCallState(serviceId) {
     if (json.phoneNumber) {
       $('#phoneNumber').val(json.phoneNumber);
     }
-  }, function(errorCode, errorMessage) {
-    showError('phone/callState', errorCode, errorMessage);
+  }).catch(e => {
+    showError('phone/callState', e.errorCode, e.errorMessage);
   });
 }
 
 function registerCallStateEvent(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('onCallStateChange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener({
+    profile: 'phone',
+    attribute: 'onCallStateChange',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.state) {
       $('#callStateEvent').val(json.state);
     }
     if (json.phoneNumber) {
       $('#phoneNumber').val(json.phoneNumber);
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 function unregisterCallStateEvent(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('onCallStateChange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  sdk.removeEventListener({
+    profile: 'phone',
+    attribute: 'onCallStateChange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 function acceptCall(serviceId) {
-  var phoneNumber = $('#phoneNumber').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('acceptCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let phoneNumber = $('#phoneNumber').val();
+  let params = {
+    profile: 'phone',
+    attribute: 'acceptCall',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (phoneNumber !== '') {
-    builder.addParameter('phoneNumber', phoneNumber);
+    params['phoneNumber'] = phoneNumber;
   }
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.post(uri, null, null, function(json) {
+  sdk.post(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('phone/acceptCall', errorCode, errorMessage);
+  }).catch(e => {
+    showError('phone/acceptCall', e.errorCode, e.errorMessage);
   });
 }
 
 function rejectCall(serviceId) {
-  var phoneNumber = $('#phoneNumber').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('rejectCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let phoneNumber = $('#phoneNumber').val();
+  let params = {
+    profile: 'phone',
+    attribute: 'rejectCall',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (phoneNumber !== '') {
-    builder.addParameter('phoneNumber', phoneNumber);
-  }
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
+    params.params['phoneNumber'] = phoneNumber;
   }
 
-  dConnect.post(uri, null, null, function(json) {
+  sdk.post(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('phone/rejectCall', errorCode, errorMessage);
+  }).catch(e => {
+    showError('phone/rejectCall', e.errorCode, e.errorMessage);
   });
 }
 
 function endCall(serviceId) {
-  var phoneNumber = $('#phoneNumber').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('endCall');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let phoneNumber = $('#phoneNumber').val();
+  let params = {
+    profile: 'phone',
+    attribute: 'endCall',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (phoneNumber !== '') {
-    builder.addParameter('phoneNumber', phoneNumber);
+    params.params['phoneNumber'] = phoneNumber;
   }
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.post(uri, null, null, function(json) {
+  sdk.post(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('phone/endCall', errorCode, errorMessage);
+  }).catch(e => {
+    showError('phone/endCall', e.errorCode, e.errorMessage);
   });
+
 }
 
 /**
@@ -252,12 +220,12 @@ function showPhoneSetting(serviceId) {
 
   setTitle('Phone Profile(Set)');
 
-  var btnStr = '';
-  btnStr += getBackButton('Phone TOP', 'doPhoneSetBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Phone TOP', 'doPhoneSetBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form action="" method="POST" name="phoneForm">';
   str += '<SELECT name="mode" id="mode">'
   str += '<OPTION value="0">Silent Mode</OPTION>'
@@ -275,26 +243,20 @@ function showPhoneSetting(serviceId) {
  */
 function doPhoneCall(serviceId) {
 
-  var phoneNumber = $('#phoneNumber').val();
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('call');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('phoneNumber', phoneNumber);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.post(uri, null, null, function(json) {
+  let phoneNumber = $('#phoneNumber').val();
+  sdk.post({
+    profile: 'phone',
+    attribute: 'call',
+    params: {
+      serviceId: serviceId,
+      phoneNumber: phoneNumber
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('phone/call', errorCode, errorMessage);
+  }).catch(e => {
+    showError('phone/call', e.errorCode, e.errorMessage);
   });
 }
 
@@ -303,28 +265,21 @@ function doPhoneCall(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doPhoneSet(serviceId) {
-  var modeValue = $('#mode').val();
+  let modeValue = $('#mode').val();
   body = 'mode=' + modeValue;
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('phone');
-  builder.setAttribute('set');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('mode', modeValue);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.post({
+    profile: 'phone',
+    attribute: 'set',
+    params: {
+      serviceId: serviceId,
+      mode: mode
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-
     alert('success:change mode');
-  }, function(errorCode, errorMessage) {
-    showError('phone/call', errorCode, errorMessage);
+  }).catch(e => {
+    showError('phone/set', e.errorCode, e.errorMessage);
   });
 }

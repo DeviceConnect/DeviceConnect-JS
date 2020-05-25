@@ -1,19 +1,19 @@
-module('Send Request Method Test', {
-  setup: function() {
+QUnit.module('Send Request Method Test', {
+  before: function() {
     TEST_TIMEOUT = 150000;
     init();
   }
 });
 
 /**
- * dConnect.sendRequestメソッドのテストを行うクラス。
+ * sdk.sendRequestメソッドのテストを行うクラス。
  * 実用的なテストは、各デバイスプラグインで行うため、こちらでは割愛する。
  * @class
  */
-var SendRequestMethodTest = {};
+let SendRequestMethodTest = {};
 
 
-/* dConnect.sendRequest */
+/* sdk.sendRequest */
 ////etc
 /**
  *　引数を無しにした場合のテストを行う
@@ -24,18 +24,19 @@ var SendRequestMethodTest = {};
  * </p>
  */
 SendRequestMethodTest.sendRequestTest001 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest();
+    sdk.sendRequest();
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 
 };
-QUnit.asyncTest('sendRequestTest, non exist parameters.',
+QUnit.test('sendRequestTest, non exist parameters.',
   SendRequestMethodTest.sendRequestTest001);
 
 /**
@@ -47,19 +48,20 @@ QUnit.asyncTest('sendRequestTest, non exist parameters.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest002 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin();
-    dConnect.sendRequest();
+    sdk.setExtendedOrigin();
+    sdk.sendRequest();
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.equal(e.message, '2nd argument must be a function for callback.',
       'messsage=2nd argument must be a function for callback.');
-    QUnit.start();
+    done();
   }
 
 };
-QUnit.asyncTest('sendRequestTest, non exist parameters and origin.',
+QUnit.test('sendRequestTest, non exist parameters and origin.',
   SendRequestMethodTest.sendRequestTest002);
 
 
@@ -74,21 +76,22 @@ QUnit.asyncTest('sendRequestTest, non exist parameters and origin.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest011 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(null, null, null, null, function(json) {
+    sdk.sendRequest(null, null, null, null).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data null.',
+QUnit.test('sendRequestTest, method and uri and header and data null.',
   SendRequestMethodTest.sendRequestTest011);
 
 /**
@@ -100,18 +103,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data null.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest012 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(null, null, null, null, null, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.sendRequest(null, null, null, null).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  null.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  null.',
   SendRequestMethodTest.sendRequestTest012);
 
 /**
@@ -123,17 +127,18 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data and success
  * </p>
  */
 SendRequestMethodTest.sendRequestTest013 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(null, null, null, null, null, null);
+    sdk.sendRequest(null, null, null, null);
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback null.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback null.',
   SendRequestMethodTest.sendRequestTest013);
 
 
@@ -146,18 +151,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest014 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin(null);
-    dConnect.sendRequest(null, null, null, null, null, null);
+    sdk.setExtendedOrigin(null);
+    sdk.sendRequest(null, null, null, null);
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and origin null.',
   SendRequestMethodTest.sendRequestTest014);
 
@@ -172,21 +178,22 @@ QUnit.asyncTest('sendRequestTest,' +
  * </p>
  */
 SendRequestMethodTest.sendRequestTest021 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(undefined, undefined, undefined, undefined, function(json) {
+    sdk.sendRequest(undefined, undefined, undefined, undefined).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data undefined.',
+QUnit.test('sendRequestTest, method and uri and header and data undefined.',
   SendRequestMethodTest.sendRequestTest021);
 
 /**
@@ -198,18 +205,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data undefined.'
  * </p>
  */
 SendRequestMethodTest.sendRequestTest022 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(undefined, undefined, undefined, undefined, undefined, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.sendRequest(undefined, undefined, undefined, undefined).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  undefined.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  undefined.',
   SendRequestMethodTest.sendRequestTest022);
 
 /**
@@ -221,17 +229,18 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data and success
  * </p>
  */
 SendRequestMethodTest.sendRequestTest023 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(undefined, undefined, undefined, undefined, undefined, undefined);
+    sdk.sendRequest(undefined, undefined, undefined, undefined);
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback undefined.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback undefined.',
   SendRequestMethodTest.sendRequestTest023);
 
 
@@ -244,18 +253,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest024 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin(undefined);
-    dConnect.sendRequest(undefined, undefined, undefined, undefined, undefined, undefined);
+    sdk.setExtendedOrigin(undefined);
+    sdk.sendRequest(undefined, undefined, undefined, undefined);
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin undefined.',
   SendRequestMethodTest.sendRequestTest024);
 
@@ -270,21 +280,22 @@ QUnit.asyncTest('sendRequestTest,' +
  * </p>
  */
 SendRequestMethodTest.sendRequestTest031 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(123, 123, 123, 123, function(json) {
+    sdk.sendRequest(123, 123, 123, 123).then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data number.',
+QUnit.test('sendRequestTest, method and uri and header and data number.',
   SendRequestMethodTest.sendRequestTest031);
 
 /**
@@ -296,18 +307,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data number.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest032 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(123, 123, 123, 123, 123, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.sendRequest(123, 123, 123, 123).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  number.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  number.',
   SendRequestMethodTest.sendRequestTest032);
 
 /**
@@ -319,17 +331,18 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data and success
  * </p>
  */
 SendRequestMethodTest.sendRequestTest033 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest(123, 123, 123, 123, 123, 123);
+    sdk.sendRequest(123, 123, 123, 123);
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback number.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback number.',
   SendRequestMethodTest.sendRequestTest033);
 
 /**
@@ -341,18 +354,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest034 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin(123);
-    dConnect.sendRequest(123, 123, 123, 123, 123, 123);
+    sdk.setExtendedOrigin(123);
+    sdk.sendRequest(123, 123, 123, 123);
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and origin number.',
   SendRequestMethodTest.sendRequestTest034);
 
@@ -367,21 +381,22 @@ QUnit.asyncTest('sendRequestTest,' +
  * </p>
  */
 SendRequestMethodTest.sendRequestTest041 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('abc','abc', 'abc', 'abc', function(json) {
+    sdk.sendRequest('abc','abc', 'abc', 'abc').then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data alphabet.',
+QUnit.test('sendRequestTest, method and uri and header and data alphabet.',
   SendRequestMethodTest.sendRequestTest041);
 
 /**
@@ -393,18 +408,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data alphabet.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest042 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('abc', 'abc', 'abc', 'abc', 'abc', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.sendRequest('abc', 'abc', 'abc', 'abc').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  alphabet.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  alphabet.',
   SendRequestMethodTest.sendRequestTest042);
 
 /**
@@ -416,17 +432,18 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data and success
  * </p>
  */
 SendRequestMethodTest.sendRequestTest043 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('abc', 'abc', 'abc', 'abc', 'abc', 'abc');
+    sdk.sendRequest('abc', 'abc', 'abc', 'abc');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback alphabet.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback alphabet.',
   SendRequestMethodTest.sendRequestTest043);
 
 /**
@@ -438,18 +455,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest044 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('abc');
-    dConnect.sendRequest('abc', 'abc', 'abc', 'abc', 'abc', 'abc');
+    sdk.setExtendedOrigin('abc');
+    sdk.sendRequest('abc', 'abc', 'abc', 'abc');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin alphabet.',
   SendRequestMethodTest.sendRequestTest044);
 
@@ -464,21 +482,22 @@ QUnit.asyncTest('sendRequestTest,' +
  * </p>
  */
 SendRequestMethodTest.sendRequestTest051 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('あいう', 'あいう', 'あいう', 'あいう', function(json) {
+    sdk.sendRequest('あいう', 'あいう', 'あいう', 'あいう').then(json => {
       assert.ok(false, 'Success.=' + json);
-      QUnit.start();
-    }, function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+      done();
+    }).catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data hiragana.',
+QUnit.test('sendRequestTest, method and uri and header and data hiragana.',
   SendRequestMethodTest.sendRequestTest051);
 
 /**
@@ -490,18 +509,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data hiragana.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest052 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('あいう', 'あいう', 'あいう', 'あいう', 'あいう', function(errorCode, errorMessage) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    sdk.sendRequest('あいう', 'あいう', 'あいう', 'あいう').catch(e => {
+      assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data and successCallback  hiragana.',
+QUnit.test('sendRequestTest, method and uri and header and data and successCallback  hiragana.',
   SendRequestMethodTest.sendRequestTest052);
 
 /**
@@ -513,17 +533,18 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data and success
  * </p>
  */
 SendRequestMethodTest.sendRequestTest053 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('あいう', 'あいう', 'あいう', 'あいう', 'あいう', 'あいう');
+    sdk.sendRequest('あいう', 'あいう', 'あいう', 'あいう');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback hiragana.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback hiragana.',
   SendRequestMethodTest.sendRequestTest053);
 
 /**
@@ -535,18 +556,19 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest054 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('あいう');
-    dConnect.sendRequest('あいう', 'あいう', 'あいう', 'あいう', 'あいう', 'あいう');
+    sdk.setExtendedOrigin('あいう');
+    sdk.sendRequest('あいう', 'あいう', 'あいう', 'あいう');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin hiragana.',
   SendRequestMethodTest.sendRequestTest054);
 
@@ -562,25 +584,26 @@ QUnit.asyncTest('sendRequestTest,' +
  * </p>
  */
 SendRequestMethodTest.sendRequestTest061 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function(json) {
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+      .then(json => {
         assert.ok(false, 'Success.=' + json);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+        done();
+      }).catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,  method and uri and header and data symbol.',
+QUnit.test('sendRequestTest,  method and uri and header and data symbol.',
   SendRequestMethodTest.sendRequestTest061);
 
 /**
@@ -592,23 +615,23 @@ QUnit.asyncTest('sendRequestTest,  method and uri and header and data symbol.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest062 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=')
+      .catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,method and uri and header and data and successCallback  symbol.',
+QUnit.test('sendRequestTest,method and uri and header and data and successCallback  symbol.',
   SendRequestMethodTest.sendRequestTest062);
 
 /**
@@ -620,22 +643,21 @@ QUnit.asyncTest('sendRequestTest,method and uri and header and data and successC
  * </p>
  */
 SendRequestMethodTest.sendRequestTest063 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback symbol.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback symbol.',
   SendRequestMethodTest.sendRequestTest063);
 
 /**
@@ -647,23 +669,22 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest064 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
-    dConnect.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
-      '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
+    sdk.setExtendedOrigin('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
+    sdk.sendRequest('!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=',
       '!"#$%&\'()-^¥@[;:],./__?><}*+{`|~=');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and Origin symbol.',
   SendRequestMethodTest.sendRequestTest064);
 
@@ -679,24 +700,25 @@ QUnit.asyncTest('sendRequestTest,' +
  * </p>
  */
 SendRequestMethodTest.sendRequestTest071 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(json) {
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+      .then(json => {
         assert.ok(false, 'Success.=' + json);
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+        done();
+      }).catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data limit.',
+QUnit.test('sendRequestTest, method and uri and header and data limit.',
   SendRequestMethodTest.sendRequestTest071);
 
 /**
@@ -708,22 +730,22 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data limit.',
  * </p>
  */
 SendRequestMethodTest.sendRequestTest072 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      function(errorCode, errorMessage) {
-        assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl')
+      .catch(e => {
+        assert.ok(true, 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
       });
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,method and uri and header and data and successCallback  limit.',
+QUnit.test('sendRequestTest,method and uri and header and data and successCallback  limit.',
   SendRequestMethodTest.sendRequestTest072);
 
 /**
@@ -735,21 +757,20 @@ QUnit.asyncTest('sendRequestTest,method and uri and header and data and successC
  * </p>
  */
 SendRequestMethodTest.sendRequestTest073 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest, method and uri and header and data successCallback and errorCallback limit.',
+QUnit.test('sendRequestTest, method and uri and header and data successCallback and errorCallback limit.',
   SendRequestMethodTest.sendRequestTest073);
 
 /**
@@ -761,22 +782,20 @@ QUnit.asyncTest('sendRequestTest, method and uri and header and data successCall
  * </p>
  */
 SendRequestMethodTest.sendRequestTest074 = function(assert) {
+  let done = assert.async();
   try {
-    dConnect.setExtendedOrigin('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
-    dConnect.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
-      'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
+    sdk.setExtendedOrigin('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
+    sdk.sendRequest('abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl','abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl',
       'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijkl');
     assert.ok(true, 'Nothing happens');
-    QUnit.start();
+    done();
   } catch (e) {
     assert.ok(false, e.message);
-    QUnit.start();
+    done();
   }
 };
 
-QUnit.asyncTest('sendRequestTest,' +
+QUnit.test('sendRequestTest,' +
   ' method and uri and header and data successCallback and errorCallback and origin limit.',
   SendRequestMethodTest.sendRequestTest074);
-

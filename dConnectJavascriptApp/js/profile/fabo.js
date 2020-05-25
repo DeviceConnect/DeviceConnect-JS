@@ -1,6 +1,6 @@
 /**
  fabo.js
- Copyright (c) 2017 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -10,28 +10,27 @@ function showFaBo(serviceId) {
     initAll();
     setTitle('FaBo');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'searchSystem', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    doGetVirtualServiceList(serviceId, function(services) {
+    doGetVirtualServiceList(serviceId, services => {
         showVirtualServiceList(serviceId, services);
     });
 }
 
 function showVirtualServiceList(serviceId, services) {
-    var str = '';
-    for (var i = 0; i < services.length; i++) {
-        var service = services[i];
-        var txt = encodeURIComponent(JSON.stringify(service));
+    let str = '';
+    for (let i = 0; i < services.length; i++) {
+        let service = services[i];
+        let txt = encodeURIComponent(JSON.stringify(service));
         str += '<li>';
         str += '<a href="javascript:showVirtualService(\'' + serviceId + '\', \'' + txt + '\');">' + service.name + "</a>";
         str += '</li>';
     }
     reloadList(str);
 
-    var contents = '';
+    let contents = '';
     contents += '<div>';
     contents += '<input type="button" value="サービス追加" onclick="javascript:showAddService(\'' + serviceId + '\');">';
     contents += '<input type="button" value="サービス削除" onclick="javascript:showRemoveService(\'' + serviceId + '\');">';
@@ -43,20 +42,19 @@ function showRemoveService(serviceId, services) {
     initAll();
     setTitle('FaBo 仮想サービス削除');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'showFaBo', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'showFaBo', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    doGetVirtualServiceList(serviceId, function(services) {
+    doGetVirtualServiceList(serviceId, services => {
         showRemoveServiceList(serviceId, services);
     });
 }
 
 function showRemoveServiceList(serviceId, services) {
-    var str = '';
-    for (var i = 0; i < services.length; i++) {
-        var service = services[i];
+    let str = '';
+    for (let i = 0; i < services.length; i++) {
+        let service = services[i];
         str += '<li data-icon="delete">';
         str += '<a href="javascript:doDeleteRemoveService(\'' + serviceId + '\', \'' + service.vid + '\');">' + service.name + "</a>";
         str += '</li>';
@@ -68,12 +66,11 @@ function showAddService(serviceId) {
     initAll();
     setTitle('FaBo 仮想サービス追加');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'showFaBo', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'showFaBo', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var contents = '';
+    let contents = '';
     contents += '<form name="service">';
     contents += '<input type="text" value="">';
     contents += '<input type="button" value="サービス追加" onclick="javascript:doPostAddService(\'' + serviceId + '\');">';
@@ -82,19 +79,18 @@ function showAddService(serviceId) {
 }
 
 function showVirtualService(serviceId, jsonText) {
-    var service = JSON.parse(decodeURIComponent(jsonText));
+    let service = JSON.parse(decodeURIComponent(jsonText));
 
     initAll();
     setTitle("FaBo " + service.name);
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'showFaBo', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'showFaBo', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var str = '';
-    for (var i = 0; i < service.profiles.length; i++) {
-        var profile = service.profiles[i];
+    let str = '';
+    for (let i = 0; i < service.profiles.length; i++) {
+        let profile = service.profiles[i];
         str += '<li>';
         if (profile.type < 100) {
             pins = profile.pins.join(',');
@@ -113,9 +109,9 @@ function showVirtualService(serviceId, jsonText) {
     }
     reloadList(str);
 
-    var txt = encodeURIComponent(JSON.stringify(service));
+    let txt = encodeURIComponent(JSON.stringify(service));
 
-    var contents = '';
+    let contents = '';
     contents += '<div>';
     contents += '<input type="button" value="プロファイル追加" onclick="javascript:showAddProfile(\'' + serviceId + '\', \'' + txt + '\');">';
     contents += '<input type="button" value="プロファイル削除" onclick="javascript:showRemoveProfile(\'' + serviceId + '\', \'' + txt + '\');">';
@@ -125,9 +121,9 @@ function showVirtualService(serviceId, jsonText) {
 }
 
 function convertPins(pins) {
-    var str = '';
+    let str = '';
     if (pins) {
-        for (var i = 0; i < pins.length; i++) {
+        for (let i = 0; i < pins.length; i++) {
             if (str.length > 0) {
                 str += ',';
             }
@@ -138,17 +134,16 @@ function convertPins(pins) {
 }
 
 function showAddProfile(serviceId, jsonText) {
-    var service = JSON.parse(decodeURIComponent(jsonText));
+    let service = JSON.parse(decodeURIComponent(jsonText));
 
     initAll();
     setTitle("FaBo " + service.name + ' プロファイル追加');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'showFaBo', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'showFaBo', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var profiles = [
+    let profiles = [
         {
             name : 'Light(GPIO) #101',
             type : 1
@@ -215,9 +210,9 @@ function showAddProfile(serviceId, jsonText) {
         }
     ];
 
-    var str = '';
-    for (var i = 0; i < profiles.length; i++) {
-        var profile = profiles[i];
+    let str = '';
+    for (let i = 0; i < profiles.length; i++) {
+        let profile = profiles[i];
         str += '<li>';
         if (profile.type < 100) {
             str += '<a href="javascript:showVirtualProfilePins(\'' + serviceId + '\', \'' + service.vid + '\', \'' + profile.type + '\');">' + profile.name + "</a>";
@@ -234,12 +229,11 @@ function showVirtualProfilePins(serviceId, vid, type, pins) {
     initAll();
     setTitle('FaBo ピン設定');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'showFaBo', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'showFaBo', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var contents = '';
+    let contents = '';
     contents += '<form name="pins">';
     contents += '<input type="checkbox" id="A0" name="A0" value="A0"><label for="A0">A0</label>';
     contents += '<input type="checkbox" id="A1" name="A1" value="A1"><label for="A1">A1</label>';
@@ -269,8 +263,8 @@ function showVirtualProfilePins(serviceId, vid, type, pins) {
 
     if (pins) {
         pins = pins.split(',');
-        for　(var i = 0 ; i < document.pins.elements.length ; i++) {
-            var elem = document.pins.elements[i];
+        for　(let i = 0 ; i < document.pins.elements.length ; i++) {
+            let elem = document.pins.elements[i];
             if (elem.type == 'checkbox' && pins.indexOf(elem.name) != -1) {
                 elem.checked = true;
                 $(elem).checkboxradio("refresh");
@@ -280,19 +274,18 @@ function showVirtualProfilePins(serviceId, vid, type, pins) {
 }
 
 function showRemoveProfile(serviceId, jsonText) {
-    var service = JSON.parse(decodeURIComponent(jsonText));
+    let service = JSON.parse(decodeURIComponent(jsonText));
 
     initAll();
     setTitle('FaBo プロファイル削除');
 
-    var sessionKey = currentClientId;
-    var btnStr = getBackButton('Device Top', 'showFaBo', serviceId, sessionKey);
+    let btnStr = getBackButton('Device Top', 'showFaBo', serviceId);
     reloadHeader(btnStr);
     reloadFooter(btnStr);
 
-    var str = '';
-    for (var i = 0; i < service.profiles.length; i++) {
-        var profile = service.profiles[i];
+    let str = '';
+    for (let i = 0; i < service.profiles.length; i++) {
+        let profile = service.profiles[i];
         str += '<li data-icon="delete">';
         str += '<a href="javascript:doDeleteRemoveProfile(\'' + serviceId + '\', \'' + service.vid + '\', \'' + profile.type + '\');">' + profile.name + "</a>";
         str += '</li>';
@@ -301,17 +294,19 @@ function showRemoveProfile(serviceId, jsonText) {
 }
 
 function doPostAddProfile(serviceId, vid, type, pins) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('profile');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter('vid', vid);
-    builder.addParameter('type', type);
+    let params = {
+      profile: 'fabo',
+      attribute: 'profile',
+      params: {
+        serviceId: serviceId,
+        vid: vid,
+        type: type
+      }
+    };
     if (pins) {
         pins = '';
-        for　(var i = 0 ; i < document.pins.elements.length ; i++) {
-            var elem = document.pins.elements[i];
+        for　(let i = 0 ; i < document.pins.elements.length ; i++) {
+            let elem = document.pins.elements[i];
             if (elem.type == 'checkbox' && elem.checked) {
                 if (pins.length > 0) {
                     pins += ','
@@ -319,14 +314,13 @@ function doPostAddProfile(serviceId, vid, type, pins) {
                 pins += elem.name;
             }
         }
-        builder.addParameter('pins', pins);
+        params['pins'] = pins;
     }
 
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
-        doGetVirtualServiceList(serviceId, function(services) {
-            for (var i = 0; i < services.length; i++) {
-                var service = services[i];
+    sdk.post(params).then(json => {
+        doGetVirtualServiceList(serviceId, services => {
+            for (let i = 0; i < services.length; i++) {
+                let service = services[i];
                 if (service.vid == vid) {
                     showVirtualService(serviceId, encodeURIComponent(JSON.stringify(service)));
                     return;
@@ -334,90 +328,87 @@ function doPostAddProfile(serviceId, vid, type, pins) {
             }
             alert('Not found the service.');
         });
-    }, function(errorCode, errorMessage) {
-        alert('Failed to add a profile. message=' + errorMessage);
+    }).catch(e => {
+        alert('Failed to add a profile. message=' + e.errorMessage);
     });
 }
 
 function doGetVirtualServiceList(serviceId, callback) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    var uri = builder.build();
-    dConnect.get(uri, null, function(json) {
+    sdk.get({
+      profile: 'fabo',
+      attribute: 'service',
+      params: {
+        serviceId: serviceId
+      }
+    }).then(json => {
         callback(json.services);
-    }, function(errorCode, errorMessage) {
+    }).catch(e => {
         callback([]);
     });
 }
 
 function doPostAddService(serviceId) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile('fabo');
-    builder.setAttribute('service');
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-
-    for　(var i = 0 ; i < document.service.elements.length ; i++) {
-        var elem = document.service.elements[i];
+    let params = {
+      profile: 'fabo',
+      attribute: 'service',
+      params: {
+        serviceId: serviceId
+      }
+    };
+    for　(let i = 0 ; i < document.service.elements.length ; i++) {
+        let elem = document.service.elements[i];
         if (elem.type == 'text') {
             name = elem.value;
-            builder.addParameter('name', name);
+            params['name'] = name;
         }
     }
 
-    var uri = builder.build();
-    dConnect.post(uri, null, null, function(json) {
+    sdk.post(params).then(json => {
         showFaBo(serviceId);
-    }, function(errorCode, errorMessage) {
-        alert('Failed to add a service. message=' + errorMessage);
+    }).catch(e => {
+        alert('Failed to add a service. message=' + e.errorMessage);
     });
 }
 
 function doDeleteRemoveService(serviceId, vid) {
     if (window.confirm('サービスを削除しますが、良いでしょうか？')){
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('fabo');
-        builder.setAttribute('service');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('vid', vid);
-
-        var uri = builder.build();
-        dConnect.delete(uri, null, function(json) {
+        sdk.delete({
+          profile: 'fabo',
+          attribute: 'service',
+          params: {
+            serviceId: serviceId,
+            vid: vid
+          }
+        }).then(json => {
             showRemoveService(serviceId);
-        }, function(errorCode, errorMessage) {
-            alert('Failed to remove a service. message=' + errorMessage);
+        }).catch(e => {
+            alert('Failed to remove a service. message=' + e.errorMessage);
         });
     }
 }
 
 function doDeleteRemoveProfile(serviceId, vid, type) {
     if (window.confirm('プロファイルを削除しますが、良いでしょうか？')){
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile('fabo');
-        builder.setAttribute('profile');
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('vid', vid);
-        builder.addParameter('type', type);
-
-        var uri = builder.build();
-        console.log("DELETE " + uri);
-        dConnect.delete(uri, null, function(json) {
-            doGetVirtualServiceList(serviceId, function(services) {
-                for (var i = 0; i < services.length; i++) {
-                    var service = services[i];
+        sdk.delete({
+          profile: 'fabo',
+          attribute: 'profile',
+          params: {
+            serviceId: serviceId,
+            vid: vid,
+            type: type
+          }
+        }).then(json => {
+            doGetVirtualServiceList(serviceId, services => {
+                for (let i = 0; i < services.length; i++) {
+                    let service = services[i];
                     if (service.vid == vid) {
                         showRemoveProfile(serviceId, encodeURIComponent(JSON.stringify(service)));
                         return;
                     }
                 }
             });
-        }, function(errorCode, errorMessage) {
-            alert('Failed to remove a profile. message=' + errorMessage);
+        }).catch(e => {
+            alert('Failed to remove a profile. message=' + e.errorMessage);
         });
     }
 }

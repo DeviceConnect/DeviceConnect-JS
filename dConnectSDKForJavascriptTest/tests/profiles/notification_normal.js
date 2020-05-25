@@ -1,5 +1,5 @@
-module('Notification Profile Normal Test', {
-  setup: function() {
+QUnit.module('Notification Profile Normal Test', {
+  before: function() {
     TEST_TIMEOUT = 60000;
     init();
   }
@@ -9,7 +9,7 @@ module('Notification Profile Normal Test', {
  * Notificationプロファイルの正常系テストを行うクラス。
  * @class
  */
-var NotificationProfileNormalTest = {};
+let NotificationProfileNormalTest = {};
 
 /**
  * パラメータtypeを0でNotificationに文字列を通知するテストを行う。
@@ -25,28 +25,27 @@ var NotificationProfileNormalTest = {};
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 0(call))');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(type is 0(call))',
+      tag: 'TEST'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest001(type is 0(call))', NotificationProfileNormalTest.notifyNormalTest001);
+QUnit.test('notifyNormalTest001(type is 0(call))', NotificationProfileNormalTest.notifyNormalTest001);
 
 /**
  * パラメータtypeを1でNotificationに文字列を通知するテストを行う。
@@ -62,28 +61,27 @@ QUnit.asyncTest('notifyNormalTest001(type is 0(call))', NotificationProfileNorma
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_MAIL);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 1(mail))');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_MAIL,
+      body: 'notify(type is 1(mail))',
+      tag: 'TEST'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest002(type is 1(mail))', NotificationProfileNormalTest.notifyNormalTest002);
+QUnit.test('notifyNormalTest002(type is 1(mail))', NotificationProfileNormalTest.notifyNormalTest002);
 
 /**
  * パラメータtypeを2でNotificationに文字列を通知するテストを行う。
@@ -99,28 +97,27 @@ QUnit.asyncTest('notifyNormalTest002(type is 1(mail))', NotificationProfileNorma
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_SMS);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 2(sms))');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_SMS,
+      body: 'notify(type is 2(sms))',
+      tag: 'TEST'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest003(type is 2(sms))', NotificationProfileNormalTest.notifyNormalTest003);
+QUnit.test('notifyNormalTest003(type is 2(sms))', NotificationProfileNormalTest.notifyNormalTest003);
 
 /**
  * パラメータtypeを3でNotificationに文字列を通知するテストを行う。
@@ -136,28 +133,27 @@ QUnit.asyncTest('notifyNormalTest003(type is 2(sms))', NotificationProfileNormal
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_EVENT);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(type is 3(event))');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_EVENT,
+      body: 'notify(type is 2(sms))',
+      tag: 'TEST'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest004(type is 3(event))', NotificationProfileNormalTest.notifyNormalTest004);
+QUnit.test('notifyNormalTest004(type is 3(event))', NotificationProfileNormalTest.notifyNormalTest004);
 
 /**
  * パラメータbodyとtagに長い文字列を指定してNotificationを通知するテストを行う。
@@ -173,29 +169,27 @@ QUnit.asyncTest('notifyNormalTest004(type is 3(event))', NotificationProfileNorm
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  var data = 'body=' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお';
-  data += '&tag=';
-  data += 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお';
-  var uri = builder.build();
-  dConnect.post(uri, null, data, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお',
+      tag: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' + 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest005(body and tag is long string.)', NotificationProfileNormalTest.notifyNormalTest005);
+QUnit.test('notifyNormalTest005(body and tag is long string.)', NotificationProfileNormalTest.notifyNormalTest005);
 
 /**
  * パラメータbodyとtagに特殊文字列を指定してNotificationを通知するテストを行う。
@@ -211,29 +205,27 @@ QUnit.asyncTest('notifyNormalTest005(body and tag is long string.)', Notificatio
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, "!\"#$&'()0=~|'{}@`*+;<,.>/_");
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, "!\"#$&'()0=~|'{}@`*+;<,.>/_");
-
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: "!\"#$&'()0=~|'{}@`*+;<,.>/_",
+      tag: "!\"#$&'()0=~|'{}@`*+;<,.>/_"
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest006(body and tag is special characters.)', NotificationProfileNormalTest.notifyNormalTest006);
+QUnit.test('notifyNormalTest006(body and tag is special characters.)', NotificationProfileNormalTest.notifyNormalTest006);
 
 /**
  * パラメータbodyとtagに数値を指定してNotificationを通知するテストを行う。
@@ -249,28 +241,27 @@ QUnit.asyncTest('notifyNormalTest006(body and tag is special characters.)', Noti
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 1);
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 2);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 1,
+      tag: 2
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest007(body and tag is numerical value.)', NotificationProfileNormalTest.notifyNormalTest007);
+QUnit.test('notifyNormalTest007(body and tag is numerical value.)', NotificationProfileNormalTest.notifyNormalTest007);
 
 /**
  * Notificationを通知を削除するテストを行う。
@@ -285,45 +276,43 @@ QUnit.asyncTest('notifyNormalTest007(body and tag is numerical value.)', Notific
  * </p>
  */
 NotificationProfileNormalTest.notifyNormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.notification.PARAM_TYPE, dConnect.constants.notification.NOTIFICATION_TYPE_PHONE);
-  builder.addParameter(dConnect.constants.notification.PARAM_BODY, 'notify(delete)');
-  builder.addParameter(dConnect.constants.notification.PARAM_TAG, 'TEST');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      type: dConnectSDK.constants.notification.NOTIFICATION_TYPE_PHONE,
+      body: 'notify(delete)',
+      tag: 'TEST'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    assert.ok(true, 'notificationId=' + json.notificationId);
-
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-    builder.setAttribute(dConnect.constants.notification.ATTR_NOTIFY);
-    builder.setServiceId(serviceId);
-    builder.setAccessToken(accessToken);
-    builder.addParameter(dConnect.constants.notification.PARAM_NOTIFICATION_ID, json.notificationId);
-    var uri = builder.build();
-    setTimeout(function() {
-		dConnect.delete(uri, null, function(json) {
-		  assert.ok(true, 'result=' + json.result);
-		  QUnit.start();
-		}, function(errorCode, errorMessage) {
-		  assert.ok(checkErrorCode(errorCode),
-			'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-		  QUnit.start();
-		});
-	}, 5000);
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    assert.ok(json.notificationId !== undefined, 'notificationId=' + json.notificationId);
+    setTimeout(() => {
+      sdk.delete({
+        profile: dConnectSDK.constants.notification.PROFILE_NAME,
+        attribute: dConnectSDK.constants.notification.ATTR_NOTIFY,
+        params: {
+          serviceId: getCurrentServiceId(),
+          notificationId: json.notificationId
+        }
+      }).then(json => {
+        assert.ok(true, 'result=' + json.result);
+        done();
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        done();
+      });
+    }, 5 * 1000);
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+      'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('notifyNormalTest008(delete)', NotificationProfileNormalTest.notifyNormalTest008);
+QUnit.test('notifyNormalTest008(delete)', NotificationProfileNormalTest.notifyNormalTest008);
 
 /**
  * Notificationプロファイルのonclickを登録するテストを行う。
@@ -339,20 +328,24 @@ QUnit.asyncTest('notifyNormalTest008(delete)', NotificationProfileNormalTest.not
  * </p>
  */
 NotificationProfileNormalTest.onClickNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLICK);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.notification.PROFILE_NAME &&
-      json.attribute === dConnect.constants.notification.ATTR_ON_CLICK) {
+  let params = {
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_CLICK,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 5000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.notification.PROFILE_NAME &&
+      json.attribute === dConnectSDK.constants.notification.ATTR_ON_CLICK) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('onClickNormalTest001', NotificationProfileNormalTest.onClickNormalTest001);
+QUnit.test('onClickNormalTest001', NotificationProfileNormalTest.onClickNormalTest001);
 
 /**
  * Notificationプロファイルのonshowを登録するテストを行う。
@@ -368,20 +361,24 @@ QUnit.asyncTest('onClickNormalTest001', NotificationProfileNormalTest.onClickNor
  * </p>
  */
 NotificationProfileNormalTest.onShowNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_SHOW);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.notification.PROFILE_NAME &&
-      json.attribute === dConnect.constants.notification.ATTR_ON_SHOW) {
+  let params = {
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_SHOW,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 5000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.notification.PROFILE_NAME &&
+      json.attribute === dConnectSDK.constants.notification.ATTR_ON_SHOW) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('onShowNormalTest001', NotificationProfileNormalTest.onShowNormalTest001);
+QUnit.test('onShowNormalTest001', NotificationProfileNormalTest.onShowNormalTest001);
 
 /**
  * Notificationプロファイルのoncloseを登録するテストを行う。
@@ -397,17 +394,21 @@ QUnit.asyncTest('onShowNormalTest001', NotificationProfileNormalTest.onShowNorma
  * </p>
  */
 NotificationProfileNormalTest.onCloseNormalTest001 = function(assert) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.notification.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.notification.ATTR_ON_CLOSE);
-  openWebsocket(builder, assert, 5000, function(message) {
-    var json = JSON.parse(message);
-    if (json.profile === dConnect.constants.notification.PROFILE_NAME &&
-      json.attribute === dConnect.constants.notification.ATTR_ON_CLOSE) {
+  let params = {
+    profile: dConnectSDK.constants.notification.PROFILE_NAME,
+    attribute: dConnectSDK.constants.notification.ATTR_ON_CLOSE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 5000, message => {
+    let json = JSON.parse(message);
+    if (json.profile === dConnectSDK.constants.notification.PROFILE_NAME &&
+      json.attribute === dConnectSDK.constants.notification.ATTR_ON_CLOSE) {
       assert.ok(true, message);
       return true;
     }
     return false;
   });
 };
-QUnit.asyncTest('onCloseNormalTest001', NotificationProfileNormalTest.onCloseNormalTest001);
+QUnit.test('onCloseNormalTest001', NotificationProfileNormalTest.onCloseNormalTest001);

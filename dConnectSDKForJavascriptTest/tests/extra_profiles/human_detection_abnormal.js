@@ -1,5 +1,5 @@
-module('HumanDetection Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('HumanDetection Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('HumanDetection Profile Abnormal Test', {
  * HumanDetectionプロファイルの異常系テストを行うクラス。
  * @class
  */
-var HumanDetectionProfileAbnormalTest = {};
+let HumanDetectionProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
@@ -24,31 +24,24 @@ var HumanDetectionProfileAbnormalTest = {};
  * </p>
  */
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001 = function(assert) {
-  var PROFILE_NAME = 'humanDetection';
-  var ATTR_ERROR = 'onDetection';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ERROR);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let PROFILE_NAME = 'humanDetection';
+  let ATTR_ERROR = 'onDetection';
+  let done = assert.async();
+  sdk.post({
+    profile: PROFILE_NAME,
+    attribute: ATTR_ERROR,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest001(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001);
+QUnit.test('onCallErrorPostApiAbnormalTest001(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
@@ -64,31 +57,24 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest001(post)', HumanDetectionProfile
  * </p>
  */
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002 = function(assert) {
-  var PROFILE_NAME = 'humanDetection';
-  var ATTR_ERROR = 'onBodyDetection';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ERROR);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let PROFILE_NAME = 'humanDetection';
+  let ATTR_ERROR = 'onBodyDetection';
+  let done = assert.async();
+  sdk.post({
+    profile: PROFILE_NAME,
+    attribute: ATTR_ERROR,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest002(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002);
+QUnit.test('onCallErrorPostApiAbnormalTest002(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest002);
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
  * <h3>【HTTP通信】</h3>
@@ -103,31 +89,24 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest002(post)', HumanDetectionProfile
  * </p>
  */
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(assert) {
-  var PROFILE_NAME = 'humanDetection';
-  var ATTR_ERROR = 'onHandDetection';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ERROR);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let PROFILE_NAME = 'humanDetection';
+  let ATTR_ERROR = 'onHandDetection';
+  let done = assert.async();
+  sdk.post({
+    profile: PROFILE_NAME,
+    attribute: ATTR_ERROR,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
+QUnit.test('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
 
 /**
  * 定義されていないPOSTメソッドでイベントにアクセスするテストを行う。
@@ -143,31 +122,24 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfile
  * </p>
  */
 HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003 = function(assert) {
-  var PROFILE_NAME = 'humanDetection';
-  var ATTR_ERROR = 'onFaceDetection';
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(PROFILE_NAME);
-  builder.setAttribute(ATTR_ERROR);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let PROFILE_NAME = 'humanDetection';
+  let ATTR_ERROR = 'onFaceDetection';
+  let done = assert.async();
+  sdk.post({
+    profile: PROFILE_NAME,
+    attribute: ATTR_ERROR,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
+QUnit.test('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfileAbnormalTest.onCallErrorPostApiAbnormalTest003);
 
 /**
  * intervalに非常に桁の大きな数値を入力してonDetectionにアクセスするテストを行う。
@@ -182,32 +154,23 @@ QUnit.asyncTest('onCallErrorPostApiAbnormalTest003(post)', HumanDetectionProfile
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest001);
 
 /**
@@ -223,31 +186,23 @@ QUnit.asyncTest('humanIntervalAbnormalTest001(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest002);
 
 /**
@@ -263,14 +218,13 @@ QUnit.asyncTest('humanIntervalAbnormalTest002(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -278,25 +232,17 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest003);
 
 /**
@@ -312,14 +258,13 @@ QUnit.asyncTest('humanIntervalAbnormalTest003(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -327,25 +272,17 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest004);
 
 /**
@@ -361,14 +298,13 @@ QUnit.asyncTest('humanIntervalAbnormalTest004(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -376,25 +312,17 @@ HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('humanIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('humanIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.humanIntervalAbnormalTest005);
 
 /*---------------------------------------------------------------------*/
@@ -412,32 +340,23 @@ QUnit.asyncTest('humanIntervalAbnormalTest005(Calling interval parameter in spec
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest001);
 
 /**
@@ -453,31 +372,23 @@ QUnit.asyncTest('bodyIntervalAbnormalTest001(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest002);
 
 /**
@@ -493,14 +404,13 @@ QUnit.asyncTest('bodyIntervalAbnormalTest002(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -508,25 +418,17 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest003);
 
 /**
@@ -542,14 +444,13 @@ QUnit.asyncTest('bodyIntervalAbnormalTest003(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -557,25 +458,17 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest004);
 
 /**
@@ -591,14 +484,13 @@ QUnit.asyncTest('bodyIntervalAbnormalTest004(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -606,25 +498,17 @@ HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('bodyIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyIntervalAbnormalTest005);
 
 
@@ -641,32 +525,23 @@ QUnit.asyncTest('bodyIntervalAbnormalTest005(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest001);
 
 /**
@@ -682,31 +557,23 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest001(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest002);
 
 /**
@@ -722,14 +589,13 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest002(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -737,25 +603,17 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest003);
 
 /**
@@ -771,14 +629,13 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest003(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -786,25 +643,17 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest004);
 
 /**
@@ -820,14 +669,13 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest004(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -835,25 +683,17 @@ HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
+QUnit.test('bodyMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinWidthAbnormalTest005);
 
 
@@ -870,32 +710,23 @@ QUnit.asyncTest('bodyMinWidthAbnormalTest005(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest001);
 
 /**
@@ -911,31 +742,23 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest001(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest002);
 
 /**
@@ -951,14 +774,13 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest002(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -966,25 +788,17 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest003);
 
 /**
@@ -1000,14 +814,13 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest003(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -1015,25 +828,17 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest004);
 
 /**
@@ -1049,14 +854,13 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest004(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -1064,25 +868,17 @@ HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
+QUnit.test('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxWidthAbnormalTest005);
 
 
@@ -1099,32 +895,23 @@ QUnit.asyncTest('bodyMaxWidthAbnormalTest005(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest001);
 
 /**
@@ -1140,31 +927,23 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest001(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest002);
 
 /**
@@ -1180,14 +959,13 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest002(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -1195,25 +973,17 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest003);
 
 /**
@@ -1229,14 +999,13 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest003(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -1244,25 +1013,17 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest004);
 
 /**
@@ -1278,14 +1039,13 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest004(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -1293,25 +1053,17 @@ HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
+QUnit.test('bodyMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMinHeightAbnormalTest005);
 
 /**
@@ -1327,32 +1079,23 @@ QUnit.asyncTest('bodyMinHeightAbnormalTest005(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest001);
 
 /**
@@ -1368,31 +1111,23 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest001(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest002);
 
 /**
@@ -1408,14 +1143,13 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest002(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -1423,25 +1157,17 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest003);
 
 /**
@@ -1457,14 +1183,13 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest003(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -1472,25 +1197,17 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest004);
 
 /**
@@ -1506,14 +1223,13 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest004(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onBodyDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onBodyDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -1521,25 +1237,17 @@ HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
+QUnit.test('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.bodyMaxHeightAbnormalTest005);
 
 /*---------------------------------------------------------------------*/
@@ -1557,32 +1265,23 @@ QUnit.asyncTest('bodyMaxHeightAbnormalTest005(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest001);
 
 /**
@@ -1598,31 +1297,23 @@ QUnit.asyncTest('handIntervalAbnormalTest001(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest002);
 
 /**
@@ -1638,14 +1329,13 @@ QUnit.asyncTest('handIntervalAbnormalTest002(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -1653,25 +1343,17 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest003);
 
 /**
@@ -1687,14 +1369,13 @@ QUnit.asyncTest('handIntervalAbnormalTest003(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -1702,25 +1383,17 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest004);
 
 /**
@@ -1736,14 +1409,13 @@ QUnit.asyncTest('handIntervalAbnormalTest004(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -1751,25 +1423,17 @@ HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('handIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handIntervalAbnormalTest005);
 
 
@@ -1786,32 +1450,23 @@ QUnit.asyncTest('handIntervalAbnormalTest005(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest001);
 
 /**
@@ -1827,31 +1482,23 @@ QUnit.asyncTest('handMinWidthAbnormalTest001(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest002);
 
 /**
@@ -1867,14 +1514,13 @@ QUnit.asyncTest('handMinWidthAbnormalTest002(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -1882,25 +1528,17 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest003);
 
 /**
@@ -1916,14 +1554,13 @@ QUnit.asyncTest('handMinWidthAbnormalTest003(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -1931,25 +1568,17 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest004);
 
 /**
@@ -1965,14 +1594,13 @@ QUnit.asyncTest('handMinWidthAbnormalTest004(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -1980,25 +1608,17 @@ HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
+QUnit.test('handMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinWidthAbnormalTest005);
 
 
@@ -2015,32 +1635,23 @@ QUnit.asyncTest('handMinWidthAbnormalTest005(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest001);
 
 /**
@@ -2056,31 +1667,23 @@ QUnit.asyncTest('handMaxWidthAbnormalTest001(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest002);
 
 /**
@@ -2096,14 +1699,13 @@ QUnit.asyncTest('handMaxWidthAbnormalTest002(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -2111,25 +1713,17 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest003);
 
 /**
@@ -2145,14 +1739,13 @@ QUnit.asyncTest('handMaxWidthAbnormalTest003(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -2160,25 +1753,17 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest004);
 
 /**
@@ -2194,14 +1779,13 @@ QUnit.asyncTest('handMaxWidthAbnormalTest004(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -2209,25 +1793,17 @@ HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
+QUnit.test('handMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxWidthAbnormalTest005);
 
 
@@ -2244,32 +1820,23 @@ QUnit.asyncTest('handMaxWidthAbnormalTest005(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest001);
 
 /**
@@ -2285,31 +1852,23 @@ QUnit.asyncTest('handMinHeightAbnormalTest001(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest002);
 
 /**
@@ -2325,14 +1884,13 @@ QUnit.asyncTest('handMinHeightAbnormalTest002(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -2340,25 +1898,17 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest003);
 
 /**
@@ -2374,14 +1924,13 @@ QUnit.asyncTest('handMinHeightAbnormalTest003(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -2389,25 +1938,17 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest004);
 
 /**
@@ -2423,14 +1964,13 @@ QUnit.asyncTest('handMinHeightAbnormalTest004(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -2438,25 +1978,17 @@ HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
+QUnit.test('handMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMinHeightAbnormalTest005);
 
 /**
@@ -2472,32 +2004,23 @@ QUnit.asyncTest('handMinHeightAbnormalTest005(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest001);
 
 /**
@@ -2513,31 +2036,23 @@ QUnit.asyncTest('handMaxHeightAbnormalTest001(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest002);
 
 /**
@@ -2553,14 +2068,13 @@ QUnit.asyncTest('handMaxHeightAbnormalTest002(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -2568,25 +2082,17 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest003);
 
 /**
@@ -2602,14 +2108,13 @@ QUnit.asyncTest('handMaxHeightAbnormalTest003(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -2617,25 +2122,17 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest004);
 
 /**
@@ -2651,14 +2148,13 @@ QUnit.asyncTest('handMaxHeightAbnormalTest004(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onHandDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onHandDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -2666,25 +2162,17 @@ HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('handMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
+QUnit.test('handMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.handMaxHeightAbnormalTest005);
 
 /*---------------------------------------------------------------------*/
@@ -2702,32 +2190,23 @@ QUnit.asyncTest('handMaxHeightAbnormalTest005(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest001(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest001(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest001);
 
 /**
@@ -2743,31 +2222,23 @@ QUnit.asyncTest('faceIntervalAbnormalTest001(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest002(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest002(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest002);
 
 /**
@@ -2783,14 +2254,13 @@ QUnit.asyncTest('faceIntervalAbnormalTest002(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -2798,25 +2268,17 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest003(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest003(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest003);
 
 /**
@@ -2832,14 +2294,13 @@ QUnit.asyncTest('faceIntervalAbnormalTest003(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -2847,25 +2308,17 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest004(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest004(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest004);
 
 /**
@@ -2881,14 +2334,13 @@ QUnit.asyncTest('faceIntervalAbnormalTest004(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('interval',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      interval: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -2896,25 +2348,17 @@ HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceIntervalAbnormalTest005(Calling interval parameter in special characters.)',
+QUnit.test('faceIntervalAbnormalTest005(Calling interval parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceIntervalAbnormalTest005);
 
 
@@ -2931,32 +2375,23 @@ QUnit.asyncTest('faceIntervalAbnormalTest005(Calling interval parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest001(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest001);
 
 /**
@@ -2972,31 +2407,23 @@ QUnit.asyncTest('faceMinWidthAbnormalTest001(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest002(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest002);
 
 /**
@@ -3012,14 +2439,13 @@ QUnit.asyncTest('faceMinWidthAbnormalTest002(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -3027,25 +2453,17 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest003(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest003);
 
 /**
@@ -3061,14 +2479,13 @@ QUnit.asyncTest('faceMinWidthAbnormalTest003(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -3076,25 +2493,17 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest004(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest004);
 
 /**
@@ -3110,14 +2519,13 @@ QUnit.asyncTest('faceMinWidthAbnormalTest004(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -3125,25 +2533,17 @@ HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
+QUnit.test('faceMinWidthAbnormalTest005(Calling minWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinWidthAbnormalTest005);
 
 
@@ -3160,32 +2560,23 @@ QUnit.asyncTest('faceMinWidthAbnormalTest005(Calling minWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest001);
 
 /**
@@ -3201,31 +2592,23 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest001(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest002);
 
 /**
@@ -3241,14 +2624,13 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest002(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -3256,25 +2638,17 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003 = function(assert)
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest003);
 
 /**
@@ -3290,14 +2664,13 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest003(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -3305,25 +2678,17 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004 = function(assert)
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest004);
 
 /**
@@ -3339,14 +2704,13 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest004(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxWidth',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxWidth: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -3354,25 +2718,17 @@ HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005 = function(assert)
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
+QUnit.test('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxWidthAbnormalTest005);
 
 
@@ -3389,32 +2745,23 @@ QUnit.asyncTest('faceMaxWidthAbnormalTest005(Calling maxWidth parameter in speci
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest001(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest001);
 
 /**
@@ -3430,31 +2777,23 @@ QUnit.asyncTest('faceMinHeightAbnormalTest001(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight:  -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest002(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest002);
 
 /**
@@ -3470,14 +2809,13 @@ QUnit.asyncTest('faceMinHeightAbnormalTest002(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -3485,25 +2823,17 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest003(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest003);
 
 /**
@@ -3519,14 +2849,13 @@ QUnit.asyncTest('faceMinHeightAbnormalTest003(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -3534,25 +2863,17 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest004(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest004);
 
 /**
@@ -3568,14 +2889,13 @@ QUnit.asyncTest('faceMinHeightAbnormalTest004(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('minHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      minHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -3583,25 +2903,17 @@ HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
+QUnit.test('faceMinHeightAbnormalTest005(Calling minHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMinHeightAbnormalTest005);
 
 /**
@@ -3617,32 +2929,23 @@ QUnit.asyncTest('faceMinHeightAbnormalTest005(Calling minHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest001);
 
 /**
@@ -3658,31 +2961,23 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest001(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest002);
 
 /**
@@ -3698,14 +2993,13 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest002(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -3713,25 +3007,17 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003 = function(assert
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest003);
 
 /**
@@ -3747,14 +3033,13 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest003(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -3762,25 +3047,17 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004 = function(assert
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest004);
 
 /**
@@ -3796,14 +3073,13 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest004(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('maxHeight',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      maxHeight: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -3811,25 +3087,17 @@ HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005 = function(assert
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
+QUnit.test('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMaxHeightAbnormalTest005);
 
 
@@ -3846,32 +3114,23 @@ QUnit.asyncTest('faceMaxHeightAbnormalTest005(Calling maxHeight parameter in spe
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('eyeThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest001);
 
 /**
@@ -3887,31 +3146,23 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest001(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('eyeThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest002);
 
 /**
@@ -3927,14 +3178,13 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest002(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('eyeThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -3942,25 +3192,17 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003 = function(ass
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest003);
 
 /**
@@ -3976,14 +3218,13 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest003(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('eyeThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -3991,25 +3232,17 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004 = function(ass
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest004);
 
 /**
@@ -4025,14 +3258,13 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest004(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('eyeThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      eyeThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -4040,25 +3272,17 @@ HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005 = function(ass
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter in special characters.)',
+QUnit.test('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceEyeThresholdAbnormalTest005);
 
 
@@ -4075,32 +3299,23 @@ QUnit.asyncTest('faceEyeThresholdAbnormalTest005(Calling eyeThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('noseThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest001(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest001(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest001);
 
 /**
@@ -4116,31 +3331,23 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest001(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('noseThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest002(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest002(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest002);
 
 /**
@@ -4156,14 +3363,13 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest002(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('noseThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -4171,25 +3377,17 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003 = function(as
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest003(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest003(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest003);
 
 /**
@@ -4205,14 +3403,13 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest003(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('noseThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -4220,25 +3417,17 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004 = function(as
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest004(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest004(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest004);
 
 /**
@@ -4254,14 +3443,13 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest004(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('noseThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      noseThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -4269,25 +3457,17 @@ HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005 = function(as
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceNoseThresholdAbnormalTest005(Calling noseThreshold parameter in special characters.)',
+QUnit.test('faceNoseThresholdAbnormalTest005(Calling noseThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceNoseThresholdAbnormalTest005);
 
 
@@ -4304,32 +3484,23 @@ QUnit.asyncTest('faceNoseThresholdAbnormalTest005(Calling noseThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('mouthThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest001);
 
 /**
@@ -4345,31 +3516,23 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest001(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('mouthThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest002);
 
 /**
@@ -4385,14 +3548,13 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest002(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('mouthThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -4400,24 +3562,17 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003 = function(a
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest003);
 
 /**
@@ -4433,14 +3588,13 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest003(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('mouthThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -4448,25 +3602,17 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004 = function(a
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest004);
 
 /**
@@ -4482,14 +3628,13 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest004(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('mouthThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      mouthThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -4497,25 +3642,17 @@ HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005 = function(a
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parameter in special characters.)',
+QUnit.test('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceMouthThresholdAbnormalTest005);
 
 
@@ -4532,32 +3669,23 @@ QUnit.asyncTest('faceMouthThresholdAbnormalTest005(Calling mouthThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('blinkThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest001);
 
 /**
@@ -4573,31 +3701,23 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest001(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('blinkThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest002);
 
 /**
@@ -4613,14 +3733,13 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest002(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('blinkThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -4628,25 +3747,17 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003 = function(a
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest003);
 
 /**
@@ -4662,14 +3773,13 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest003(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('blinkThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -4677,25 +3787,17 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004 = function(a
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest004);
 
 /**
@@ -4711,14 +3813,13 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest004(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('blinkThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      blinkThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -4726,25 +3827,17 @@ HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005 = function(a
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parameter in special characters.)',
+QUnit.test('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceBlinkThresholdAbnormalTest005);
 
 
@@ -4761,32 +3854,23 @@ QUnit.asyncTest('faceBlinkThresholdAbnormalTest005(Calling blinkThreshold parame
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('ageThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest001);
 
 /**
@@ -4802,31 +3886,23 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest001(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('ageThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest002);
 
 /**
@@ -4842,14 +3918,13 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest002(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('ageThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -4857,25 +3932,17 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003 = function(ass
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest003);
 
 /**
@@ -4891,14 +3958,13 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest003(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('ageThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -4906,25 +3972,17 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004 = function(ass
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest004);
 
 /**
@@ -4940,14 +3998,13 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest004(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('ageThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      ageThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -4955,25 +4012,17 @@ HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005 = function(ass
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter in special characters.)',
+QUnit.test('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceAgeThresholdAbnormalTest005);
 
 
@@ -4990,32 +4039,23 @@ QUnit.asyncTest('faceAgeThresholdAbnormalTest005(Calling ageThreshold parameter 
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('genderThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest001(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest001(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest001);
 
 /**
@@ -5031,31 +4071,23 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest001(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('genderThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest002(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest002(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest002);
 
 /**
@@ -5071,14 +4103,13 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest002(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('genderThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -5086,25 +4117,17 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003 = function(
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest003(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest003(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest003);
 
 /**
@@ -5120,14 +4143,13 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest003(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('genderThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -5135,25 +4157,17 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004 = function(
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest004(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest004(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest004);
 
 /**
@@ -5169,14 +4183,13 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest004(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('genderThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      genderThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -5184,25 +4197,17 @@ HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005 = function(
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGenderThresholdAbnormalTest005(Calling genderThreshold parameter in special characters.)',
+QUnit.test('faceGenderThresholdAbnormalTest005(Calling genderThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGenderThresholdAbnormalTest005);
 
 
@@ -5219,32 +4224,23 @@ QUnit.asyncTest('faceGenderThresholdAbnormalTest005(Calling genderThreshold para
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('faceDirectionThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest001);
 
 /**
@@ -5260,32 +4256,23 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest001(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('faceDirectionThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
-
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest002);
 
 /**
@@ -5301,14 +4288,13 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest002(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('faceDirectionThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -5316,25 +4302,17 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003 = fu
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest003);
 
 /**
@@ -5350,14 +4328,13 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest003(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('faceDirectionThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -5365,25 +4342,17 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004 = fu
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest004);
 
 /**
@@ -5399,14 +4368,13 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest004(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('faceDirectionThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      faceDirectionThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -5414,25 +4382,17 @@ HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005 = fu
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirectionThreshold parameter in special characters.)',
+QUnit.test('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirectionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceFaceDirectionThresholdAbnormalTest005);
 
 
@@ -5449,32 +4409,23 @@ QUnit.asyncTest('faceFaceDirectionThresholdAbnormalTest005(Calling faceDirection
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('gazeThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest001(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest001(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest001);
 
 /**
@@ -5490,31 +4441,24 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest001(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('gazeThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest002(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest002(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest002);
 
 /**
@@ -5530,14 +4474,13 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest002(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('gazeThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -5545,25 +4488,17 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003 = function(as
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest003(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest003(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest003);
 
 /**
@@ -5579,14 +4514,13 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest003(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('gazeThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -5594,25 +4528,17 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004 = function(as
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest004(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest004(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest004);
 
 /**
@@ -5628,14 +4554,13 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest004(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('gazeThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      gazeThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -5643,25 +4568,17 @@ HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005 = function(as
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceGazeThresholdAbnormalTest005(Calling gazeThreshold parameter in special characters.)',
+QUnit.test('faceGazeThresholdAbnormalTest005(Calling gazeThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceGazeThresholdAbnormalTest005);
 
 
@@ -5678,32 +4595,23 @@ QUnit.asyncTest('faceGazeThresholdAbnormalTest005(Calling gazeThreshold paramete
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('expressionThreshold',
-      1000000000000000000000000000000000000000000000000000000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: 1000000000000000000000000000000000000000000000000000000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest001(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest001(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest001);
 
 /**
@@ -5719,31 +4627,24 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest001(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('expressionThreshold', -1);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: -1
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest002(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest002(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest002);
 
 /**
@@ -5759,14 +4660,13 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest002(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('expressionThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: 'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
@@ -5774,25 +4674,17 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003 = funct
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
       'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお' +
-      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'あいうえおあいうえおあいうえおあいうえおあいうえおあいうえおあいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest003(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest003(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest003);
 
 /**
@@ -5808,14 +4700,13 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest003(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('expressionThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: 'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
@@ -5823,25 +4714,17 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004 = funct
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
       'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg' +
-      'abcdefgabcdefgabcdefgabcdefg');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      'abcdefgabcdefgabcdefgabcdefg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest004(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest004(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest004);
 
 /**
@@ -5857,14 +4740,13 @@ QUnit.asyncTest('faceExpressionThresholdAbnormalTest004(Calling expressionThresh
  * </p>
  */
 HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('humanDetection');
-  builder.setAttribute('onFaceDetection');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('expressionThreshold',
+  let done = assert.async();
+  sdk.get({
+    profile: 'humanDetection',
+    attribute: 'onFaceDetection',
+    params: {
+      serviceId: getCurrentServiceId(),
+      expressionThreshold: '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
@@ -5872,23 +4754,15 @@ HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005 = funct
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
       '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()' +
-      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  },
-  function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+      '!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()!#$%&()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('faceExpressionThresholdAbnormalTest005(Calling expressionThreshold parameter in special characters.)',
+QUnit.test('faceExpressionThresholdAbnormalTest005(Calling expressionThreshold parameter in special characters.)',
     HumanDetectionProfileAbnormalTest.faceExpressionThresholdAbnormalTest005);

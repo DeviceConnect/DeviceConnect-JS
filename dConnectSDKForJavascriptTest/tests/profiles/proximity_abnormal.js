@@ -1,5 +1,5 @@
-module('Proximity Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('Proximity Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Proximity Profile Abnormal Test', {
  * Proximityプロファイルの異常系テストを行うクラス。
  * @class
  */
-var ProximityProfileAbnormalTest = {};
+let ProximityProfileAbnormalTest = {};
 
 /**
  * サポートしていないPOSTメソッドで、ondeviceproximityにアクセスするテストを行う。
@@ -23,29 +23,22 @@ var ProximityProfileAbnormalTest = {};
  * </p>
  */
 ProximityProfileAbnormalTest.onDeviceProximityAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.proximity.ATTR_ON_DEVICE_PROXIMITY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.proximity.PROFILE_NAME,
+    attribute: dConnectSDK.constants.proximity.ATTR_ON_DEVICE_PROXIMITY,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('onDeviceProximityAbnormalTest001', ProximityProfileAbnormalTest.onDeviceProximityAbnormalTest001);
+QUnit.test('onDeviceProximityAbnormalTest001', ProximityProfileAbnormalTest.onDeviceProximityAbnormalTest001);
 
 /**
  * サポートしていないPOSTメソッドで、onuserproximityにアクセスするテストを行う。
@@ -60,26 +53,19 @@ QUnit.asyncTest('onDeviceProximityAbnormalTest001', ProximityProfileAbnormalTest
  * </p>
  */
 ProximityProfileAbnormalTest.onUserProximityAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.proximity.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.proximity.ATTR_ON_USER_PROXIMITY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, "json: " + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 3) {
-      assert.ok(true, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, 'not support');
-    } else {
-      assert.ok(false, 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.proximity.PROFILE_NAME,
+    attribute: dConnectSDK.constants.proximity.ATTR_ON_USER_PROXIMITY,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 3);
+    done();
   });
 };
-QUnit.asyncTest('onUserProximityAbnormalTest001', ProximityProfileAbnormalTest.onUserProximityAbnormalTest001);
+QUnit.test('onUserProximityAbnormalTest001', ProximityProfileAbnormalTest.onUserProximityAbnormalTest001);

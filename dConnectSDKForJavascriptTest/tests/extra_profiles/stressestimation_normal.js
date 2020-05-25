@@ -1,5 +1,5 @@
-module("StressEstimation Profile Normal Test", {
-    setup: function () {
+QUnit.module("StressEstimation Profile Normal Test", {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ module("StressEstimation Profile Normal Test", {
  * StressEstimationプロファイルの正常系テストを行うクラス。
  * @class
  */
-var StressEstimationProfileNormalTest = {};
+let StressEstimationProfileNormalTest = {};
 
 /**
  * ストレス推定を取得するテストを行う。
@@ -25,26 +25,22 @@ var StressEstimationProfileNormalTest = {};
  * </p>
  */
 StressEstimationProfileNormalTest.stressNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("stressEstimation");
-  builder.setAttribute("onStressEstimation");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 }
-QUnit.asyncTest("stress", StressEstimationProfileNormalTest.stressNormalTest);
+QUnit.test("stress", StressEstimationProfileNormalTest.stressNormalTest);
 
 /**
  * StressEstimationプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -60,11 +56,15 @@ QUnit.asyncTest("stress", StressEstimationProfileNormalTest.stressNormalTest);
  * </p>
  */
 StressEstimationProfileNormalTest.stressEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("stressEstimation");
-    builder.setAttribute("onStressEstimation");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
+  let params = {
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+      let json = JSON.parse(message);
         if (json.profile === "stressEstimation" && json.attribute === "onStressEstimation") {
             assert.ok(true, message);
             assert.ok((json.stress != undefined && json.stress.lfhf >= 0), "stress=" + json.stress);
@@ -73,4 +73,4 @@ StressEstimationProfileNormalTest.stressEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("StressEventNormalTest001", StressEstimationProfileNormalTest.stressEventNormalTest001);
+QUnit.test("StressEventNormalTest001", StressEstimationProfileNormalTest.stressEventNormalTest001);

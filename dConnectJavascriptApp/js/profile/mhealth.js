@@ -1,6 +1,6 @@
 /**
  mhealth.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -15,7 +15,7 @@ function showMhealth(serviceId) {
   initListView();
   setTitle('mHealth Profile');
 
-  var str = '';
+  let str = '';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="OMRON(HBF-206IT)"' +
         ' onclick="javascript:doStartService(\'' +
@@ -32,20 +32,14 @@ function showMhealth(serviceId) {
  * @param {String} deviceName デバイス名
  */
 function doStartService(serviceId, deviceName) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mhealth');
-  builder.setAttribute('startservice');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('protocol', 'HDP');
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'mhealth',
+    attribute: 'startservice',
+    params: {
+      serviceId: serviceId,
+      protocol: 'HDP'
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -53,9 +47,9 @@ function doStartService(serviceId, deviceName) {
     if (deviceName == 'HBF-206IT') {
       showHBF206IT1(serviceId);
     }
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     alert('startService API failed!\n\nURI: ' + uri + '\nerrorCode: ' +
-          errorCode + '\nerrorMessage: ' + errorMessage + ')');
+          e.errorCode + '\nerrorMessage: ' + e.errorMessage + ')');
 
     if (deviceName == 'HBF-206IT') {
       showHBF206IT1(serviceId);
@@ -69,7 +63,7 @@ function doStartService(serviceId, deviceName) {
  * @param {String} serviceId サービスID
  */
 function showHBF206IT1(serviceId) {
-  var str = '';
+  let str = '';
   setTitle('初期設定', 'blue');
   str += '<center>';
   str += '<img src="./css/images/weight1.png">';
@@ -90,7 +84,7 @@ function showHBF206IT1(serviceId) {
  * @param {String} serviceId サービスID
  */
 function showHBF206IT2(serviceId) {
-  var str = '';
+  let str = '';
   setTitle('測定', 'blue');
   str += '<center>';
   str += '<img src="./css/images/weight2.png">';
@@ -109,7 +103,7 @@ function showHBF206IT2(serviceId) {
  * @param {String} serviceId サービスID
  */
 function showHBF206IT3(serviceId) {
-  var str = '';
+  let str = '';
   setTitle('データ転送', 'blue');
   str += '<center>';
   str += '<img src="./css/images/weight3.png">';
@@ -132,23 +126,17 @@ function doHBF206IT(serviceId) {
   closeLoading();
   showLoading();
 
-  var str = '';
+  let str = '';
   setTitle('データ受信中(確認中)', 'blue');
   str += '<center>データ受信中(確認中)</center>';
   reloadContent(str);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mhealth');
-  builder.setAttribute('getdbinfo');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'mhealth',
+    attribute: 'getdbinfo',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
 
     if (DEBUG) {
       console.log('Response: ', json);
@@ -160,8 +148,8 @@ function doHBF206IT(serviceId) {
     closeLoading();
     doGetDataFromHBF206IT(serviceId, json.datas[0].lastindexId);
 
-  }, function(errorCode, errorMessage) {
-    showError('POST mhealth/getdbinfo', errorCode, errorMessage);
+  }).catch(e => {
+    showError('POST mhealth/getdbinfo', e.errorCode, e.errorMessage);
     closeLoading();
   });
 
@@ -178,34 +166,29 @@ function doGetDataFromHBF206IT(serviceId, id) {
 
   closeLoading();
   showLoading();
-  var str = '';
+  let str = '';
   setTitle('データ受信中(転送中)', 'blue');
   str += '<center>データ受信中(転送中)</center>';
   reloadContent(str);
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mhealth');
-  builder.setAttribute('getmeasurements');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('firstId', id);
-  builder.addParameter('lastId', id);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'mhealth',
+    attribute: 'getmeasurements',
+    params: {
+      serviceId: serviceId,
+      firstId: id,
+      lastId: id
+    }
+  }).then(json => {
 
     if (DEBUG) {
       console.log('Response: ', json);
     }
     setTitle('データ転送完了', 'gray');
 
-    var str = responseText;
+    let str = responseText;
     reloadHeader(str);
-    var contentStr = '';
+    let contentStr = '';
     contentStr += '<input data-role="button" type="button" name="button"' +
                   ' id="button" value="mHealthの停止"' +
                   ' onclick="javascript:doStopService(\'' +
@@ -213,8 +196,8 @@ function doGetDataFromHBF206IT(serviceId, id) {
     reloadContent(contentStr);
     closeLoading();
 
-  }, function(errorCode, errorMessage) {
-    showError('POST mhealth/getmeasurements', errorCode, errorMessage);
+  }).catch(e => {
+    showError('POST mhealth/getmeasurements', e.errorCode, e.errorMessage);
     closeLoading();
   });
 
@@ -227,16 +210,14 @@ function doGetDataFromHBF206IT(serviceId, id) {
  * @param {String} deviceName デバイス名
  */
 function doStopService(serviceId) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('mhealth');
-  builder.setAttribute('stopservice');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('protocol', 'HDP');
-  var uri = builder.build();
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'mhealth',
+    attribute: 'stopservice',
+    params: {
+      serviceId: serviceId,
+      protocol: 'HDP'
+    }
+  }).then(json => {
 
     if (DEBUG) {
       console.log('Response: ', json);
@@ -244,7 +225,7 @@ function doStopService(serviceId) {
     alert('STOP mHealth Service');
     showMhealth(serviceId);
 
-  }, function(errorCode, errorMessage) {
-    showError('POST mhealth/stopservice', errorCode, errorMessage);
+  }).catch(e => {
+    showError('POST mhealth/stopservice', e.errorCode, e.errorMessage);
   });
 }

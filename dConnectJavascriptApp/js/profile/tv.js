@@ -1,6 +1,6 @@
 /**
  tv.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -15,19 +15,6 @@ function showTV(serviceId) {
   getTVPowerStatus(serviceId);
 }
 
-
-
-/**
- * Backボタン
- *
- * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
- */
-function doTVBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
-
 /**
  * TVの電源を取得する
  * @param {String} serviceId サービスID
@@ -36,36 +23,33 @@ function getTVPowerStatus(serviceId) {
   initAll();
   setTitle('TV Profile');
 
-  var btnStr = getBackButton('Device Top', 'doTVBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
 
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'tv',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
+    let str = '';
     str += '<br>';
     str += '電源: ' + json.powerstatus;
 
     tvRemoconUI(str, serviceId);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += '<br>';
     str += '電源: OFF';
     tvRemoconUI(str, serviceId);
@@ -78,21 +62,16 @@ function getTVPowerStatus(serviceId) {
  * @param {String} isSwitch On Offするか
  */
 function doTVOnOff(serviceId, isSwitch) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
+  let params = {
+    profile: 'tv',
+    params: {
+      serviceId: serviceId
+    }
+  };
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -101,16 +80,16 @@ function doTVOnOff(serviceId, isSwitch) {
     getTVPowerStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('PowerOnOff TV', errorCode, errorMessage);
     getTVPowerStatus(serviceId);
   };
 
   if (isSwitch == 'ON') {
-    dConnect.put(uri, null, null, successCallback, errorCallback);
+    sdk.put(params).then(json => { successCallback(json);}).catch(e => {errorCallback(e.errorCode, e.errorMessage);});
   } else {
-    dConnect.delete(uri, null, successCallback, errorCallback);
+    sdk.delete(params).then(json => { successCallback(json);}).catch(e => {errorCallback(e.errorCode, e.errorMessage);});
   }
 
 }
@@ -123,33 +102,29 @@ function doTVOnOff(serviceId, isSwitch) {
  */
 function doTVChangeChannel(serviceId, channel, nextPrevious) {
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('channel');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'tv',
+    attribute: 'channel',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (channel !== null) {
-    builder.addParameter('tuning', channel);
+    params.params['tuning'] = channel;
   } else if (nextPrevious !== null) {
-    builder.addParameter('control', nextPrevious);
+    params.params['control'] = nextPrevious;
   }
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('Change Channel TV', errorCode, errorMessage);
+    showError('Change Channel TV', e.errorCode, e.errorMessage);
   });
 }
 
@@ -160,30 +135,24 @@ function doTVChangeChannel(serviceId, channel, nextPrevious) {
  * @param {String} isUpDown あげるか下げるか
  */
 function doTVChangeVolume(serviceId, isUpDown) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('volume');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('control', isUpDown);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'tv',
+    attribute: 'volume',
+    params: {
+      serviceId: serviceId,
+      control: isUpDown
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('Change Volume TV', errorCode, errorMessage);
+    showError('Change Volume TV', e.errorCode, e.errorMessage);
   });
 }
 
@@ -193,30 +162,24 @@ function doTVChangeVolume(serviceId, isUpDown) {
  * @param {String} isWave どの波にするか
  */
 function doTVChangeBroadcastwave(serviceId, isWave) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('broadcastwave');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('select', isWave);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'tv',
+    attribute: 'broadcastwave',
+    params: {
+      serviceId: serviceId,
+      select: isWave
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('Change Broadcastwave TV', errorCode, errorMessage);
+    showError('Change Broadcastwave TV', e.errorCode, e.errorMessage);
   });
 }
 
@@ -227,21 +190,18 @@ function doTVChangeBroadcastwave(serviceId, isWave) {
  */
 function doTVChangeMuteOnOff(serviceId, isSwitch) {
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('tv');
-  builder.setAttribute('mute')
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
+  let params = {
+    profile: 'tv',
+    attribute: 'mute',
+    params: {
+      serviceId: serviceId,
+      select: isWave
+    }
+  };
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -250,16 +210,16 @@ function doTVChangeMuteOnOff(serviceId, isSwitch) {
     getTVPowerStatus(serviceId);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('MuteOnOff TV', errorCode, errorMessage);
     getTVPowerStatus(serviceId);
   };
 
   if (isSwitch == 'ON') {
-    dConnect.put(uri, null, null, successCallback, errorCallback);
+    sdk.put(params).then(json => { successCallback(json);}).catch(e => {errorCallback(e.errorCode, e.errorMessage);});
   } else {
-    dConnect.delete(uri, null, successCallback, errorCallback);
+    sdk.delete(params).then(json => { successCallback(json);}).catch(e => {errorCallback(e.errorCode, e.errorMessage);});
   }
 
 }
@@ -274,11 +234,11 @@ function tvRemoconUI(s, serviceId) {
   initAll();
   setTitle('TV Profile');
 
-  var btnStr = getBackButton('Device Top', 'doTVBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += s;
   str += '<div>';
   str += '<label for="tvOnOffStatus">電源:';

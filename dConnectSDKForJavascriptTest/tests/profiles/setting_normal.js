@@ -1,5 +1,5 @@
-module('Setting Profile Normal Test', {
-  setup: function() {
+QUnit.module('Setting Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('Setting Profile Normal Test', {
  * Settingプロファイルの正常系テストを行うクラス。
  * @class
  */
-var SettingProfileNormalTest = {};
+let SettingProfileNormalTest = {};
 
 /**
  * ボリュームを取得するテストを行う。
@@ -24,37 +24,36 @@ var SettingProfileNormalTest = {};
  * </p>
  */
 SettingProfileNormalTest.volumeNormalTest001 = function(assert) {
-  var testKind = new Array(1, 2, 3, 4, 5, 6);
-  var testKindName = new Array('alarm', 'call', 'calling', 'mail', 'media player', 'other');
-  var count = 0;
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var testFunc = function(count) {
+  let testKind = new Array(1, 2, 3, 4, 5, 6);
+  let testKindName = new Array('alarm', 'call', 'calling', 'mail', 'media player', 'other');
+  let count = 0;
+  let done = assert.async();
+  let testFunc = (count) => {
     if (count == testKind.length) {
-      QUnit.start();
+      done();
     } else {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-      builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-      builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter('kind', testKind[count]);
-      var uri = builder.build();
-      dConnect.get(uri, null, function(json) {
-            assert.ok(true, 'result=' + json.result + ' kind=' + testKindName[count]);
-            assert.ok(json.level >= 0 && json.level <= 1.0, 'level=' + json.level);
-            testFunc(count + 1);
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            testFunc(count + 1);
-          });
+      sdk.get({
+        profile: dConnectSDK.constants.setting.PROFILE_NAME,
+        interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+        attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+        params: {
+          serviceId: getCurrentServiceId(),
+          kind: testKind[count]
+        }
+      }).then(json => {
+        assert.ok(true, 'result=' + json.result + ' kind=' + testKindName[count]);
+        assert.ok(json.level >= 0 && json.level <= 1.0, 'level=' + json.level);
+        testFunc(count + 1);
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        testFunc(count + 1);
+      });
     }
   };
   testFunc(0);
 };
-QUnit.asyncTest('volumeNormalTest001(get)', SettingProfileNormalTest.volumeNormalTest001);
+QUnit.test('volumeNormalTest001(get)', SettingProfileNormalTest.volumeNormalTest001);
 
 /**
  * ボリュームを設定するテストを行う。
@@ -69,55 +68,53 @@ QUnit.asyncTest('volumeNormalTest001(get)', SettingProfileNormalTest.volumeNorma
  * </p>
  */
 SettingProfileNormalTest.volumeNormalTest002 = function(assert) {
-  var testKind = new Array(1, 2, 3, 4, 5, 6);
-  var testKindName = new Array('alarm', 'call', 'calling', 'mail', 'media player', 'other');
-  var volume = 1;
-  var count = 0;
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var testFunc = function(count) {
+  let testKind = new Array(1, 2, 3, 4, 5, 6);
+  let testKindName = new Array('alarm', 'call', 'calling', 'mail', 'media player', 'other');
+  let count = 0;
+  let volume = 1;
+  let done = assert.async();
+  let testFunc = (count) => {
     if (count == testKind.length) {
-      QUnit.start();
+      done();
     } else {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-      builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-      builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter('kind', testKind[count]);
-      builder.addParameter('level', volume);
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
-            assert.ok(true, 'put ok. result=' + json.result + ' kind=' + testKindName[count]);
-
-            var builder = new dConnect.URIBuilder();
-            builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-            builder.setInterface(dConnect.constants.setting.INTERFACE_SOUND);
-            builder.setAttribute(dConnect.constants.setting.ATTR_VOLUME);
-            builder.setServiceId(serviceId);
-            builder.setAccessToken(accessToken);
-            builder.addParameter('kind', testKind[count]);
-            var uri = builder.build();
-            dConnect.get(uri, null, function(json) {
-                  assert.ok(true, 'get ok. result=' + json.result + ' kind=' + testKindName[count]);
-                  assert.ok(json.level == volume, 'level=' + json.level);
-                  testFunc(count + 1);
-                }, function(errorCode, errorMessage) {
-                  assert.ok(checkErrorCode(errorCode),
-                      'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-                  testFunc(count + 1);
-                });
-          }, function(errorCode, errorMessage) {
-            assert.ok(checkErrorCode(errorCode),
-                'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-            testFunc(count + 1);
-          });
+      sdk.put({
+        profile: dConnectSDK.constants.setting.PROFILE_NAME,
+        interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+        attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+        params: {
+          serviceId: getCurrentServiceId(),
+          kind: testKind[count],
+          level: volume
+        }
+      }).then(json => {
+        assert.ok(true, 'put ok. result=' + json.result + ' kind=' + testKindName[count]);
+        sdk.get({
+          profile: dConnectSDK.constants.setting.PROFILE_NAME,
+          interface: dConnectSDK.constants.setting.INTERFACE_SOUND,
+          attribute: dConnectSDK.constants.setting.ATTR_VOLUME,
+          params: {
+            serviceId: getCurrentServiceId(),
+            kind: testKind[count]
+          }
+        }).then(json => {
+          assert.ok(true, 'get ok. result=' + json.result + ' kind=' + testKindName[count]);
+          assert.ok(json.level == volume, 'level=' + json.level);
+          testFunc(count + 1);
+        }).catch(e => {
+          assert.ok(checkErrorCode(e.errorCode),
+              'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+          testFunc(count + 1);
+        });
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode),
+            'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        testFunc(count + 1);
+      });
     }
   };
   testFunc(0);
 };
-QUnit.asyncTest('volumeNormalTest002(put)', SettingProfileNormalTest.volumeNormalTest002);
+QUnit.test('volumeNormalTest002(put)', SettingProfileNormalTest.volumeNormalTest002);
 
 /**
  * 日付を取得するテストを行う。
@@ -133,25 +130,24 @@ QUnit.asyncTest('volumeNormalTest002(put)', SettingProfileNormalTest.volumeNorma
  * </p>
  */
 SettingProfileNormalTest.dateNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    attribute: dConnectSDK.constants.setting.ATTR_DATE,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.date !== undefined, 'date=' + json.date);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('dateNormalTest001(get)', SettingProfileNormalTest.dateNormalTest001);
+QUnit.test('dateNormalTest001(get)', SettingProfileNormalTest.dateNormalTest001);
 
 /**
  * 日付を設定するテストを行う。
@@ -166,25 +162,26 @@ QUnit.asyncTest('dateNormalTest001(get)', SettingProfileNormalTest.dateNormalTes
  * </p>
  */
 SettingProfileNormalTest.dateNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.setting.ATTR_DATE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('date', createCurrentDateString());
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    attribute: dConnectSDK.constants.setting.ATTR_DATE,
+    params: {
+      serviceId: getCurrentServiceId(),
+      date: createCurrentDateString()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    assert.ok(json.date !== undefined, 'date=' + json.date);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
+
 };
-QUnit.asyncTest('dateNormalTest002(put)', SettingProfileNormalTest.dateNormalTest002);
+QUnit.test('dateNormalTest002(put)', SettingProfileNormalTest.dateNormalTest002);
 
 /**
  * バックライトの輝度を取得する。
@@ -199,26 +196,25 @@ QUnit.asyncTest('dateNormalTest002(put)', SettingProfileNormalTest.dateNormalTes
  * </p>
  */
 SettingProfileNormalTest.brightnessNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.level != undefined, 'level=' + json.level);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('brightnessNormalTest001(get)', SettingProfileNormalTest.brightnessNormalTest001);
+QUnit.test('brightnessNormalTest001(get)', SettingProfileNormalTest.brightnessNormalTest001);
 
 /**
  * バックライトの輝度を設定する。
@@ -233,42 +229,40 @@ QUnit.asyncTest('brightnessNormalTest001(get)', SettingProfileNormalTest.brightn
  * </p>
  */
 SettingProfileNormalTest.brightnessNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('level', 0.5);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-        assert.ok(true, 'result=' + json.result);
-
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_BRIGHTNESS);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'result=' + json.result);
-          assert.ok(json.level != undefined, 'level=' + json.level);
-          QUnit.start();
-         }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode),
-                  'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+    params: {
+      serviceId: getCurrentServiceId(),
+      level: 0.5
+    }
+  }).then(json => {
+    assert.ok(true, 'result=' + json.result);
+    sdk.get({
+      profile: dConnectSDK.constants.setting.PROFILE_NAME,
+      interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+      attribute: dConnectSDK.constants.setting.ATTR_BRIGHTNESS,
+      params: {
+        serviceId: getCurrentServiceId()
+      }
+    }).then(json => {
+      assert.ok(true, 'result=' + json.result);
+      assert.ok(json.level != undefined, 'level=' + json.level);
+      done();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('brightnessNormalTest002(put)', SettingProfileNormalTest.brightnessNormalTest002);
+QUnit.test('brightnessNormalTest002(put)', SettingProfileNormalTest.brightnessNormalTest002);
 
 /**
  * スリープ状態に入るまでの設定時間を取得する。
@@ -283,26 +277,25 @@ QUnit.asyncTest('brightnessNormalTest002(put)', SettingProfileNormalTest.brightn
  * </p>
  */
 SettingProfileNormalTest.sleepNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.time != undefined, 'time=' + json.time);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('sleepNormalTest001(get)', SettingProfileNormalTest.sleepNormalTest001);
+QUnit.test('sleepNormalTest001(get)', SettingProfileNormalTest.sleepNormalTest001);
 
 /**
  * スリープ状態に入るまでの設定時間を設定する。
@@ -317,38 +310,37 @@ QUnit.asyncTest('sleepNormalTest001(get)', SettingProfileNormalTest.sleepNormalT
  * </p>
  */
 SettingProfileNormalTest.sleepNormalTest002 = function(assert) {
-  var sleep = 50000 + Math.floor(Math.random() * 10000);
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-  builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('time', sleep);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-        assert.ok(true, 'put ok. result=' + json.result + ' time=[' + sleep + ']');
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.setting.PROFILE_NAME);
-        builder.setInterface(dConnect.constants.setting.INTERFACE_DISPLAY);
-        builder.setAttribute(dConnect.constants.setting.ATTR_SLEEP);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        var uri = builder.build();
-        dConnect.get(uri, null, function(json) {
-          assert.ok(true, 'get ok. result=' + json.result);
-          QUnit.start();
-        }, function(errorCode, errorMessage) {
-          assert.ok(checkErrorCode(errorCode),
-                  'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-          QUnit.start();
-        });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-            'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  let sleep = 50000 + Math.floor(Math.random() * 10000);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.setting.PROFILE_NAME,
+    interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+    attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+    params: {
+      serviceId: getCurrentServiceId(),
+      time: sleep
+    }
+  }).then(json => {
+    assert.ok(true, 'put ok. result=' + json.result + ' time=[' + sleep + ']');
+    sdk.get({
+      profile: dConnectSDK.constants.setting.PROFILE_NAME,
+      interface: dConnectSDK.constants.setting.INTERFACE_DISPLAY,
+      attribute: dConnectSDK.constants.setting.ATTR_SLEEP,
+      params: {
+        serviceId: getCurrentServiceId()
+      }
+    }).then(json => {
+      assert.ok(true, 'get ok. result=' + json.result);
+      done();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode),
+          'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
+    });
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('sleepNormalTest002(put)', SettingProfileNormalTest.sleepNormalTest002);
+QUnit.test('sleepNormalTest002(put)', SettingProfileNormalTest.sleepNormalTest002);

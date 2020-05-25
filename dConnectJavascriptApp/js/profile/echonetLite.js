@@ -1,6 +1,6 @@
 /**
  echonetLite.js
- Copyright (c) 2017 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -11,15 +11,13 @@ function showECHONETLite(serviceId) {
   initAll();
   setTitle('ECHONET Lite Property Control');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Device Top', 'doENLBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
-  
-  var str = '';
+
+  let str = '';
   str += '<form name="ECHONETLiteForm">';
-  
+
   str += '<div>';
   str += '<label>Get ECHONET Lite Property:</label>';
   str += '<label for="idGetEPC">ECHONET Property (EPC):</label>';
@@ -50,52 +48,38 @@ function showECHONETLite(serviceId) {
 }
 
 /**
- * Back button
- *
- * serviceId service ID
- */
-function doENLBack(serviceId) {
-  searchSystem(serviceId);
-}
-
-/**
  * Get ECHONETLite Property.
  * @param {String} serviceId Service ID.
  * @param {String} epc Property number.
  */
 function getECHONETLiteProperty(serviceId, epc) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', epc);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'echonetLite',
+    attribute: 'property',
+    params: {
+      serviceId: serviceId,
+      epc: epc
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
 
-    var str = '';
-    for(var i=0; i<json.properties.length; i++) {
+    let str = '';
+    for(let i=0; i<json.properties.length; i++) {
       if (i != 0) {
         str += ",";
       }
       str += '{\"' + json.properties[i].epc + '\",\"' + json.properties[i].value + '\"}';
     }
     $('#idGetEDT').val(str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    var str = '';
+    let str = '';
     str += 'Unknown';
     $('#idGetEDT').val(str);
   });
@@ -108,24 +92,10 @@ function getECHONETLiteProperty(serviceId, epc) {
  * @param {String} value Property Value
  */
 function doECHONETLitePropertySet(serviceId, epc, value) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('echonetLite');
-  builder.setAttribute('property');
-  builder.setServiceId(serviceId);
-  builder.addParameter('epc', epc);
-  builder.addParameter('value', value);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  var successCallback = function(json) {
+  let successCallback = function(json) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -134,13 +104,21 @@ function doECHONETLitePropertySet(serviceId, epc, value) {
     $('#idSetResult').val(json.result);
   };
 
-  var errorCallback = function(errorCode, errorMessage) {
+  let errorCallback = function(errorCode, errorMessage) {
     closeLoading();
     showError('ECHONETLitePropertySet', errorCode, errorMessage);
     $('#idSetResult').val(errorMessage);
   };
 
-  dConnect.put(uri, null, null, successCallback, errorCallback);
+  sdk.put({
+    profile: 'echonetLite',
+    attribute: 'property',
+    params: {
+      serviceId: serviceId,
+      epc: epc,
+      value: value
+    }
+  }).then(json => { successCallback(json); }).catch(e => { errorCallback(e.errorCode, e.errorMessage); });
 
 }
 
@@ -151,8 +129,8 @@ function doECHONETLitePropertySet(serviceId, epc, value) {
  */
 function doGetECHONETLiteEPC(serviceId) {
 
-  var epc = $('#idGetEPC').val();
-      console.log('epc: ', epc);
+  let epc = $('#idGetEPC').val();
+  console.log('epc: ', epc);
   getECHONETLiteProperty(serviceId, epc);
 
 }
@@ -163,12 +141,10 @@ function doGetECHONETLiteEPC(serviceId) {
  */
 function doSetECHONETLiteEPC(serviceId) {
 
-  var epc = $('#idSetEPC').val();
-  var edt = $('#idSetEDT').val();
-      console.log('epc: ', epc);
-      console.log('edt: ', edt);
+  let epc = $('#idSetEPC').val();
+  let edt = $('#idSetEDT').val();
+  console.log('epc: ', epc);
+  console.log('edt: ', edt);
   doECHONETLitePropertySet(serviceId, epc, edt);
 
 }
-
-

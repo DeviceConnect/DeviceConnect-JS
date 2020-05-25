@@ -1,5 +1,5 @@
-module('File Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('File Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,102 +8,8 @@ module('File Profile Abnormal Test', {
  * Fileプロファイルのテストを行うクラス。
  * @class
  */
-var FileProfileAbnormalTest = {};
+let FileProfileAbnormalTest = {};
 
-FileProfileAbnormalTest.mkdir = function(dirName, successCB, errorCB) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, dirName);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      if (successCB) {
-          successCB(accessToken, serviceId);
-      }
-  }, function(errorCode, errorMessage) {
-      if (errorCB) {
-          errorCB(errorCode, errorMessage);
-      }
-  });
-};
-
-FileProfileAbnormalTest.saveFile = function(fileName, successCB, errorCB) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-
-  var blob = FileProfileNormalTest.draw('file test');
-  var formData = new FormData();
-  formData.append('serviceId', serviceId);
-  formData.append('accessToken', accessToken);
-  formData.append('path',  fileName);
-  formData.append('mimeType', 'image/jpeg');
-  formData.append('forceOverwrite', true);
-  formData.append('data', blob);
-  var uri = builder.build();
-  dConnect.post(uri, null, formData, function(json) {
-    console.log('success!! save for ' + fileName);
-    if (successCB) {
-        successCB(accessToken, serviceId);
-    }
-  }, function(errorCode, errorMessage) {
-    console.log('failure!! save for ' + fileName);
-    if (errorCB) {
-        errorCB(errorCode, errorMessage);
-    }
-  });
-};
-
-FileProfileAbnormalTest.rmfile = function(fileName, successCB, errorCB) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, fileName);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    console.log('success!! remove file for ' + fileName);
-    if (successCB) {
-        successCB(accessToken, serviceId);
-    }
-  }, function(errorCode, errorMessage) {
-    console.log('failure!! remove file for ' + fileName);
-    if (errorCB) {
-        errorCB(errorCode, errorMessage);
-    }
-  });
-};
-
-FileProfileAbnormalTest.rmdir = function(dirName, successCB, errorCB) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, dirName);
-  builder.addParameter('forceRemove', true);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    console.log('success!! remove dir for ' + dirName);
-    if (successCB) {
-        successCB(accessToken, serviceId);
-    }
-  }, function(errorCode, errorMessage) {
-    console.log('failure!! remove dir for ' + dirName);
-    if (errorCB) {
-        errorCB(errorCode, errorMessage);
-    }
-  });
-};
 
 /**
  * 定義されていないPUTメソッドでlistにアクセスするテストを行なう。
@@ -118,29 +24,22 @@ FileProfileAbnormalTest.rmdir = function(dirName, successCB, errorCB) {
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest001(Calling a put method that does not support.)', 
+QUnit.test('listAbnormalTest001(Calling a put method that does not support.)',
     FileProfileAbnormalTest.listAbnormalTest001);
 
 /**
@@ -156,29 +55,22 @@ QUnit.asyncTest('listAbnormalTest001(Calling a put method that does not support.
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest002(Calling a post method that does not support.)', 
+QUnit.test('listAbnormalTest002(Calling a post method that does not support.)',
     FileProfileAbnormalTest.listAbnormalTest002);
 
 /**
@@ -194,29 +86,22 @@ QUnit.asyncTest('listAbnormalTest002(Calling a post method that does not support
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest003(Calling a delete method that does not support.)',
+QUnit.test('listAbnormalTest003(Calling a delete method that does not support.)',
     FileProfileAbnormalTest.listAbnormalTest003);
 
 /**
@@ -232,30 +117,23 @@ QUnit.asyncTest('listAbnormalTest003(Calling a delete method that does not suppo
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, -1000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: -1000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest004(order is minus(-1000))', FileProfileAbnormalTest.listAbnormalTest004);
+QUnit.test('listAbnormalTest004(order is minus(-1000))', FileProfileAbnormalTest.listAbnormalTest004);
 
 /**
  * order=100.55を指定してlistにアクセスするテストを行なう。
@@ -270,30 +148,23 @@ QUnit.asyncTest('listAbnormalTest004(order is minus(-1000))', FileProfileAbnorma
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 100.55);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 100.55
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest005(order is float(100.55))', FileProfileAbnormalTest.listAbnormalTest005);
+QUnit.test('listAbnormalTest005(order is float(100.55))', FileProfileAbnormalTest.listAbnormalTest005);
 
 /**
  * order=pathを指定してlistにアクセスするテストを行なう。
@@ -308,30 +179,23 @@ QUnit.asyncTest('listAbnormalTest005(order is float(100.55))', FileProfileAbnorm
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest006(order is string(path))', FileProfileAbnormalTest.listAbnormalTest006);
+QUnit.test('listAbnormalTest006(order is string(path))', FileProfileAbnormalTest.listAbnormalTest006);
 
 /**
  * order='abcdef'を指定してlistにアクセスするテストを行なう。
@@ -346,30 +210,24 @@ QUnit.asyncTest('listAbnormalTest006(order is string(path))', FileProfileAbnorma
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'abcdef');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'abcdef'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest007(order is string(abcdef))', FileProfileAbnormalTest.listAbnormalTest007);
+QUnit.test('listAbnormalTest007(order is string(abcdef))',
+      FileProfileAbnormalTest.listAbnormalTest007);
 
 /**
  * order='あいうえお'を指定してlistにアクセスするテストを行なう。
@@ -384,30 +242,24 @@ QUnit.asyncTest('listAbnormalTest007(order is string(abcdef))', FileProfileAbnor
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest008 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'あいうえお');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'あいうえお'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest008(order is string(あいうえお))', FileProfileAbnormalTest.listAbnormalTest008);
+QUnit.test('listAbnormalTest008(order is string(あいうえお))',
+        FileProfileAbnormalTest.listAbnormalTest008);
 
 /**
  * order='#$%()'を指定してlistにアクセスするテストを行なう。
@@ -422,30 +274,24 @@ QUnit.asyncTest('listAbnormalTest008(order is string(あいうえお))', FilePro
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest009 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, '#$%()');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: '#$%()'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest009(order is special character(#$%()))', FileProfileAbnormalTest.listAbnormalTest009);
+QUnit.test('listAbnormalTest009(order is special character(#$%()))',
+          FileProfileAbnormalTest.listAbnormalTest009);
 
 /**
  * order='path,asc' ,limit=-100を指定してlistにアクセスするテストを行なう。
@@ -460,31 +306,24 @@ QUnit.asyncTest('listAbnormalTest009(order is special character(#$%()))', FilePr
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest010 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_LIMIT, -100);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      limit: -100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest010()', FileProfileAbnormalTest.listAbnormalTest010);
+QUnit.test('listAbnormalTest010()', FileProfileAbnormalTest.listAbnormalTest010);
 
 /**
  * order='path,asc',limit=100.5を指定してlistにアクセスするテストを行なう。
@@ -499,31 +338,25 @@ QUnit.asyncTest('listAbnormalTest010()', FileProfileAbnormalTest.listAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest011 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_LIMIT, 100.5);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      limit: 100.5
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('listAbnormalTest011()', FileProfileAbnormalTest.listAbnormalTest011);
+QUnit.test('listAbnormalTest011()', FileProfileAbnormalTest.listAbnormalTest011);
 
 /**
  * order='path,asc',offset=10.5を指定してlistにアクセスするテストを行なう。
@@ -538,31 +371,24 @@ QUnit.asyncTest('listAbnormalTest011()', FileProfileAbnormalTest.listAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest012 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_OFFSET, 10.5);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: 10.5
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest012()', FileProfileAbnormalTest.listAbnormalTest012);
+QUnit.test('listAbnormalTest012()', FileProfileAbnormalTest.listAbnormalTest012);
 
 /**
  * order='path,asc',offset=-100を指定してlistにアクセスするテストを行なう。
@@ -577,31 +403,24 @@ QUnit.asyncTest('listAbnormalTest012()', FileProfileAbnormalTest.listAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest013 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_OFFSET, -100);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: -100
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest013()', FileProfileAbnormalTest.listAbnormalTest013);
+QUnit.test('listAbnormalTest013()', FileProfileAbnormalTest.listAbnormalTest013);
 
 /**
  * order='path,asc',offset=1000000を指定してlistにアクセスするテストを行なう。
@@ -616,38 +435,31 @@ QUnit.asyncTest('listAbnormalTest013()', FileProfileAbnormalTest.listAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest014 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_OFFSET, 1000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      offset: 1000000
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest014()', FileProfileAbnormalTest.listAbnormalTest014);
+QUnit.test('listAbnormalTest014()', FileProfileAbnormalTest.listAbnormalTest014);
 
 /**
- * order='path,asc',offset=1000000を指定してlistにアクセスするテストを行なう。
+ * path=temp, order='path,asc'を指定してlistにアクセスするテストを行なう。
  * <h3>【HTTP通信】</h3>
  * <p id="test">
  * Method: GET<br/>
- * Path: /file/list?serviceId=xxxx&accessToken=xxx&order='path,asc'&offset=1000000<br/>
+ * Path: /file/list?serviceId=xxxx&accessToken=xxx&path=tmp&order='path,asc'<br/>
  * <p>
  * <h3>【期待する動作】</h3>
  * <p id="expected">
@@ -655,109 +467,24 @@ QUnit.asyncTest('listAbnormalTest014()', FileProfileAbnormalTest.listAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.listAbnormalTest015 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_OFFSET, 1000000);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,asc',
+      path: 'temp'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest015()', FileProfileAbnormalTest.listAbnormalTest015);
-
-/**
- * path=temp, order='path,asc'を指定してlistにアクセスするテストを行なう。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: GET<br/>
- * Path: /file/list?serviceId=xxxx&accessToken=xxx&path=tmp&order='path,asc'<br/>
- * <p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultに1が返ってくること。<br/>
- * </p>
- */
-FileProfileAbnormalTest.listAbnormalTest016 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, 'tmp');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('listAbnormalTest016()', FileProfileAbnormalTest.listAbnormalTest016);
-
-/**
- * path=temp, order='path,asc'を指定してlistにアクセスするテストを行なう。
- * <h3>【HTTP通信】</h3>
- * <p id="test">
- * Method: GET<br/>
- * Path: /file/list?serviceId=xxxx&accessToken=xxx&path=tmp&order='path,asc'<br/>
- * <p>
- * <h3>【期待する動作】</h3>
- * <p id="expected">
- * ・resultに1が返ってくること。<br/>
- * </p>
- */
-FileProfileAbnormalTest.listAbnormalTest017 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,asc');
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, 'tmp');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    }
-    QUnit.start();
-  });
-};
-QUnit.asyncTest('listAbnormalTest017()', FileProfileAbnormalTest.listAbnormalTest017);
+QUnit.test('listAbnormalTest015()', FileProfileAbnormalTest.listAbnormalTest015);
 
 /**
  * path=temp, order='path,desc'を指定してlistにアクセスするテストを行なう。
@@ -771,32 +498,25 @@ QUnit.asyncTest('listAbnormalTest017()', FileProfileAbnormalTest.listAbnormalTes
  * ・resultに1が返ってくること。<br/>
  * </p>
  */
-FileProfileAbnormalTest.listAbnormalTest018 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_LIST);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_ORDER, 'path,desc');
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, 'tmp');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+FileProfileAbnormalTest.listAbnormalTest016 = function(assert) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_LIST,
+    params: {
+      serviceId: getCurrentServiceId(),
+      order: 'path,desc',
+      path: 'temp'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('listAbnormalTest018()', FileProfileAbnormalTest.listAbnormalTest018);
+QUnit.test('listAbnormalTest016()', FileProfileAbnormalTest.listAbnormalTest016);
 
 
 /**
@@ -812,30 +532,23 @@ QUnit.asyncTest('listAbnormalTest018()', FileProfileAbnormalTest.listAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.sendAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_MIME_TYPE, 'image/png');
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, 'photo.png');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'image/png',
+      path: 'photo.png'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('sendAbnormalTest001()', FileProfileAbnormalTest.sendAbnormalTest001);
+QUnit.test('sendAbnormalTest001()', FileProfileAbnormalTest.sendAbnormalTest001);
 
 
 
@@ -852,30 +565,23 @@ QUnit.asyncTest('sendAbnormalTest001()', FileProfileAbnormalTest.sendAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.sendAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_MIME_TYPE, 'image/png');
-  builder.addParameter('data', 'photo.png');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'image/png',
+      data: 'photo.png'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('sendAbnormalTest002()', FileProfileAbnormalTest.sendAbnormalTest002);
+QUnit.test('sendAbnormalTest002()', FileProfileAbnormalTest.sendAbnormalTest002);
 
 /**
  * 必要なパラメータ(data, path)がない状態でsendにアクセスするテストを行なう。
@@ -890,29 +596,23 @@ QUnit.asyncTest('sendAbnormalTest002()', FileProfileAbnormalTest.sendAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.sendAbnormalTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_MIME_TYPE, 'image/png');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      mimeType: 'image/png'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('sendAbnormalTest003()', FileProfileAbnormalTest.sendAbnormalTest003);
+QUnit.test('sendAbnormalTest003()', FileProfileAbnormalTest.sendAbnormalTest003);
 
 /**
  * forceOverwriteがfalseのときに上書きに失敗するテスト.
@@ -926,43 +626,35 @@ QUnit.asyncTest('sendAbnormalTest003()', FileProfileAbnormalTest.sendAbnormalTes
  * ・resultに1が返ってくること。<br />
  * </p>
  */
-FileProfileNormalTest.sendAbnormalTest004 = function(assert) {
-  FileProfileNormalTest.saveFile('/send_abnormal_test005.jpg', function() {
-      var accessToken = getCurrentAccessToken();
-      var serviceId = getCurrentServiceId();
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-      var blob = FileProfileNormalTest.draw('file test');
-      var formData = new FormData();
-      formData.append('serviceId', serviceId);
-      formData.append('accessToken', accessToken);
-      formData.append('path', '/send_abnormal_test005.jpg');
-      formData.append('mimeType', 'image/jpeg');
-      formData.append('data', blob);
-      formData.append('forceOverwrite', false);
-      var uri = builder.build();
-      dConnect.post(uri, null, formData, function(json) {
-        assert.ok(false, 'json: ' + JSON.stringify(json));
-        FileProfileAbnormalTest.rmfile('/send_abnormal_test005.jpg');
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        if (errorCode == 10) {
-          assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, "not support");
-        } else {
-          assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+FileProfileAbnormalTest.sendAbnormalTest004 = function(assert) {
+  let done = assert.async();
+  saveFile('/send_abnormal_test005.jpg').then(serviceId => {
+      let blob = draw('file test');
+      sdk.post({
+        profile: dConnectSDK.constants.file.PROFILE_NAME,
+        params: {
+          serviceId: serviceId,
+          path: '/send_abnormal_test005.jpg',
+          mimeType: 'image/jpeg',
+          data: blob,
+          forceOverwrite: false
         }
-        FileProfileAbnormalTest.rmfile('/send_abnormal_test005.jpg');
-        QUnit.start();
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        removeFile('/send_abnormal_test005.jpg').then(json =>{}).catch(e => {});
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        removeFile('/send_abnormal_test005.jpg').then(json =>{}).catch(e => {});
+        done();
       });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 
 };
-QUnit.asyncTest('sendAbnormalTest004()', FileProfileNormalTest.sendAbnormalTest004);
+QUnit.test('sendAbnormalTest004()', FileProfileAbnormalTest.sendAbnormalTest004);
 
 /**
  * 必要なパラメータ（path）が無い状態でファイルのURIを取得する。
@@ -977,28 +669,21 @@ QUnit.asyncTest('sendAbnormalTest004()', FileProfileNormalTest.sendAbnormalTest0
  * </p>
  */
 FileProfileAbnormalTest.receiveAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('receiveAbnormalTest001(path does not exist.)', FileProfileAbnormalTest.receiveAbnormalTest001);
+QUnit.test('receiveAbnormalTest001(path does not exist.)', FileProfileAbnormalTest.receiveAbnormalTest001);
 
 /**
  * ファイル0000が無い状態でファイル0000のURIを取得する。
@@ -1013,29 +698,29 @@ QUnit.asyncTest('receiveAbnormalTest001(path does not exist.)', FileProfileAbnor
  * </p>
  */
 FileProfileAbnormalTest.receiveAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, '0000');
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '0000'
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10 || errorCode == 16) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
+    done();
+  }).catch(e => {
+    if (e.errorCode == 10 || e.errorCode == 16) {
+      assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    } else if (checkErrorCode(e.errorCode)) {
       assert.ok(true, "not support");
     } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
     }
-    QUnit.start();
+    done();
   });
 };
-QUnit.asyncTest('receiveAbnormalTest002(Calling a delete method that does not support.)', FileProfileAbnormalTest.receiveAbnormalTest002);
+QUnit.test('receiveAbnormalTest002(Calling a delete method that does not support.)',
+          FileProfileAbnormalTest.receiveAbnormalTest002);
 
 /**
  * 必要なパラメータ(oldPath, newPath)がない状態でmoveにアクセスするテストを行なう。
@@ -1050,28 +735,21 @@ QUnit.asyncTest('receiveAbnormalTest002(Calling a delete method that does not su
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('moveAbnormalTest001()', FileProfileAbnormalTest.moveAbnormalTest001);
+QUnit.test('moveAbnormalTest001()', FileProfileAbnormalTest.moveAbnormalTest001);
 
 /**
  * 存在しない画像を指定された状態でmoveにアクセスするテストを行なう。
@@ -1086,30 +764,23 @@ QUnit.asyncTest('moveAbnormalTest001()', FileProfileAbnormalTest.moveAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('oldPath', 'moveAbnormalTest002.jpg');
-  builder.addParameter('newPath', 'moveAbnormalTest002_1.jpg');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      oldPath: 'moveAbnormalTest002.jpg',
+      newPath: 'moveAbnormalTest002_1.jpg'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('moveAbnormalTest002()', FileProfileAbnormalTest.moveAbnormalTest002);
+QUnit.test('moveAbnormalTest002()', FileProfileAbnormalTest.moveAbnormalTest002);
 
 /**
  * ディレクトリが指定された状態でmoveにアクセスするテストを行なう。
@@ -1125,45 +796,39 @@ QUnit.asyncTest('moveAbnormalTest002()', FileProfileAbnormalTest.moveAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest003 = function(assert) {
-  FileProfileAbnormalTest.mkdir('moveAbnormalTest003_1', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.mkdir('/moveAbnormalTest003_2/moveAbnormalTest003_1',  function(accessToken, serviceId) {
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          builder.addParameter('oldPath', '/moveAbnormalTest003_1');
-          builder.addParameter('newPath', '/moveAbnormalTest003_2');
-          var uri = builder.build();
-          dConnect.put(uri, null, null, function(json) {
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                FileProfileAbnormalTest.rmdir('/moveAbnormalTest003_1');
-                FileProfileAbnormalTest.rmdir('/moveAbnormalTest003_2');
-                QUnit.start();
-          }, function(errorCode, errorMessage) {
-            if (errorCode == 10) {
-              assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-            } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, "not support");
-            } else {
-              assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  mkdir('moveAbnormalTest003_1').then(serviceId => {
+    mkdir('/moveAbnormalTest003_2/moveAbnormalTest003_1').then(serviceId => {
+          sdk.put({
+            profile: dConnectSDK.constants.file.PROFILE_NAME,
+            params: {
+              serviceId: serviceId,
+              oldPath: '/moveAbnormalTest003_1',
+              newPath: '/moveAbnormalTest003_2'
             }
-            FileProfileAbnormalTest.rmdir('/moveAbnormalTest003_1');
-            FileProfileAbnormalTest.rmdir('/moveAbnormalTest003_2');
-            QUnit.start();
+          }).then(json => {
+            assert.ok(false, 'json: ' + JSON.stringify(json));
+            rmdir('/moveAbnormalTest003_1').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest003_2').then(json =>{}).catch(e => {});
+            done();
+          }).catch(e => {
+            checkSuccessErrorCode(assert, e, 10);
+            rmdir('/moveAbnormalTest003_1').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest003_2').then(json =>{}).catch(e => {});
+            done();
           });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
+      }).catch(e => {
+          assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+          done();
       });
-
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 
 
 };
-QUnit.asyncTest('moveAbnormalTest003()', FileProfileAbnormalTest.moveAbnormalTest003);
+QUnit.test('moveAbnormalTest003()', FileProfileAbnormalTest.moveAbnormalTest003);
 
 /**
  * 移動先に同じファイルが存在している場合に、moveにアクセスするテストを行なう。
@@ -1179,49 +844,46 @@ QUnit.asyncTest('moveAbnormalTest003()', FileProfileAbnormalTest.moveAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest004 = function(assert) {
-  FileProfileAbnormalTest.saveFile('/moveAbnormalTest004.jpg', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.mkdir('moveAbnormalTest004', function(accessToken, serviceId) {
-      FileProfileAbnormalTest.saveFile('/moveAbnormalTest004/moveAbnormalTest004.jpg', function(accessToken, serviceId) {
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          builder.addParameter('oldPath', '/moveAbnormalTest004.jpg');
-          builder.addParameter('newPath', '/moveAbnormalTest004');
-          builder.addParameter('forceOverwrite', false);
-          var uri = builder.build();
-          dConnect.put(uri, null, null, function(json) {
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                FileProfileAbnormalTest.rmfile('/moveAbnormalTest004.jpg');
-                FileProfileAbnormalTest.rmdir('/moveAbnormalTest004');
-                QUnit.start();
-          }, function(errorCode, errorMessage) {
-              if (errorCode == 10) {
-                assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              } else if (checkErrorCode(errorCode)) {
-                assert.ok(true, "not support");
-              } else {
-                assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-              }
-              FileProfileAbnormalTest.rmfile('/moveAbnormalTest004.jpg');
-              FileProfileAbnormalTest.rmdir('/moveAbnormalTest004');
-              QUnit.start();
+  let done = assert.async();
+  saveFile('/moveAbnormalTest004.jpg').then(serviceId => {
+    mkdir('moveAbnormalTest004').then(serviceId => {
+      saveFile('/moveAbnormalTest004/moveAbnormalTest004.jpg').then(serviceId => {
+          sdk.put({
+            profile: dConnectSDK.constants.file.PROFILE_NAME,
+            params: {
+              serviceId: serviceId,
+              oldPath: '/moveAbnormalTest004.jpg',
+              newPath: '/moveAbnormalTest004'
+            }
+          }).then(json => {
+            assert.ok(false, 'json: ' + JSON.stringify(json));
+            removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest004').then(json =>{}).catch(e => {});
+            done();
+          }).catch(e => {
+            checkSuccessErrorCode(assert, e, 10);
+            removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+            rmdir('/moveAbnormalTest004').then(json =>{}).catch(e => {});
+            done();
           });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        QUnit.start();
-      });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+        }).catch(e => {
+          removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+          rmdir('/moveAbnormalTest004').then(json =>{}).catch(e => {});
+          assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+          done();
+        });
+    }).catch(e => {
+      removeFile('/moveAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 
 };
-QUnit.asyncTest('moveAbnormalTest004()', FileProfileAbnormalTest.moveAbnormalTest004);
+QUnit.test('moveAbnormalTest004()', FileProfileAbnormalTest.moveAbnormalTest004);
 
 /**
  * 移動先に同じファイルが存在している場合にforceOverwrite=falseの時に、moveにアクセスするテストを行なう。
@@ -1237,52 +899,47 @@ QUnit.asyncTest('moveAbnormalTest004()', FileProfileAbnormalTest.moveAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.moveAbnormalTest005 = function(assert) {
-  FileProfileAbnormalTest.saveFile('moveAbnormalTest005.jpg', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.mkdir('moveAbnormalTest005', function(accessToken, serviceId) {
-      FileProfileAbnormalTest.saveFile('/moveAbnormalTest005/moveAbnormalTest005.jpg', function(accessToken, serviceId) {
-        var builder = new dConnect.URIBuilder();
-        builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-        builder.setServiceId(serviceId);
-        builder.setAccessToken(accessToken);
-        builder.addParameter('oldPath', 'moveAbnormalTest005.jpg');
-        builder.addParameter('newPath', '/moveAbnormalTest005');
-        var uri = builder.build();
-        dConnect.put(uri, null, null, function(json) {
-              assert.ok(false, 'json: ' + JSON.stringify(json));
-              FileProfileAbnormalTest.rmdir('/moveAbnormalTest005');
-              QUnit.start();
-        }, function(errorCode, errorMessage) {
-          if (errorCode == 10) {
-            assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-            assert.ok(true, "not support");
-          } else {
-            assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  saveFile('moveAbnormalTest005.jpg').then(serviceId => {
+    mkdir('moveAbnormalTest005').then(serviceId => {
+      saveFile('/moveAbnormalTest005/moveAbnormalTest005.jpg').then(serviceId => {
+        sdk.put({
+          profile: dConnectSDK.constants.file.PROFILE_NAME,
+          params: {
+            serviceId: serviceId,
+            oldPath: '/moveAbnormalTest005.jpg',
+            newPath: '/moveAbnormalTest005'
           }
-          FileProfileAbnormalTest.rmfile('moveAbnormalTest005.jpg');
-          FileProfileAbnormalTest.rmdir('/moveAbnormalTest005');
-          QUnit.start();
+        }).then(json => {
+          assert.ok(false, 'json: ' + JSON.stringify(json));
+          rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
+          done();
+        }).catch(e => {
+          checkSuccessErrorCode(assert, e, 10);
+          removeFile('/moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+          rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
+          done();
         });
-      }, function(errorCode, errorMessage) {
-        assert.ok(checkErrorCode(errorCode), 'In Save file errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-        FileProfileAbnormalTest.rmfile('moveAbnormalTest005.jpg');
-        FileProfileAbnormalTest.rmdir('/moveAbnormalTest005');
-        QUnit.start();
+      }).catch(e => {
+        assert.ok(checkErrorCode(e.errorCode), 'In Save file errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+        removeFile('moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+        rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
+        done();
       });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'Mkdir errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      FileProfileAbnormalTest.rmfile('moveAbnormalTest005.jpg');
-      FileProfileAbnormalTest.rmdir('/moveAbnormalTest005');
-      QUnit.start();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'Mkdir errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      removeFile('moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+      rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
+      done();
     });
-  }, function(errorCode, errorMessage) {
-    FileProfileAbnormalTest.rmfile('moveAbnormalTest005.jpg');
-    FileProfileAbnormalTest.rmdir('/moveAbnormalTest005');
-    assert.ok(checkErrorCode(errorCode), 'Save file errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    removeFile('moveAbnormalTest005.jpg').then(json =>{}).catch(e => {});
+    rmdir('/moveAbnormalTest005').then(json =>{}).catch(e => {});
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('moveAbnormalTest005()', FileProfileAbnormalTest.moveAbnormalTest005);
+QUnit.test('moveAbnormalTest005()', FileProfileAbnormalTest.moveAbnormalTest005);
 
 /**
  * 必要なパラメータ（path）が無い状態でファイルを削除する。
@@ -1297,28 +954,27 @@ QUnit.asyncTest('moveAbnormalTest005()', FileProfileAbnormalTest.moveAbnormalTes
  * </p>
  */
 FileProfileAbnormalTest.removeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10 || errorCode == 16) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
+    done();
+  }).catch(e => {
+    if (e.errorCode == 10 || e.errorCode == 16) {
+      assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    } else if (checkErrorCode(e.errorCode)) {
       assert.ok(true, "not support");
     } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
     }
-    QUnit.start();
+    done();
   });
 };
-QUnit.asyncTest('removeAbnormalTest001(path does not exist.)', FileProfileAbnormalTest.removeAbnormalTest001);
+QUnit.test('removeAbnormalTest001(path does not exist.)', FileProfileAbnormalTest.removeAbnormalTest001);
 
 /**
  * ファイル0000が無い状態でファイル0000のURIを取得する。
@@ -1333,29 +989,28 @@ QUnit.asyncTest('removeAbnormalTest001(path does not exist.)', FileProfileAbnorm
  * </p>
  */
 FileProfileAbnormalTest.removeAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter(dConnect.constants.file.PARAM_PATH, '0000');
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    params: {
+      serviceId: getCurrentServiceId(),
+      path: '0000'
+    }
+  }).then(json => {
     assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode ==1 || errorCode == 10 || errorCode == 16) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
+    done();
+  }).catch(e => {
+    if (e.errorCode == 1 || e.errorCode == 10 || e.errorCode == 16) {
+      assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+    } else if (checkErrorCode(e.errorCode)) {
       assert.ok(true, "not support");
     } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+      assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
     }
-    QUnit.start();
+    done();
   });
 };
-QUnit.asyncTest('removeAbnormalTest002(0000 does not exist.)', FileProfileAbnormalTest.removeAbnormalTest002);
+QUnit.test('removeAbnormalTest002(0000 does not exist.)', FileProfileAbnormalTest.removeAbnormalTest002);
 
 
 /**
@@ -1371,29 +1026,22 @@ QUnit.asyncTest('removeAbnormalTest002(0000 does not exist.)', FileProfileAbnorm
  * </p>
  */
 FileProfileAbnormalTest.mkdirAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mkdirAbnormalTest001()', FileProfileAbnormalTest.mkdirAbnormalTest001);
+QUnit.test('mkdirAbnormalTest001()', FileProfileAbnormalTest.mkdirAbnormalTest001);
 
 /**
  * ディレクトリもしくはファイル(mkdirAbnormalTest002)が存在する状態でディレクトリmkdirAbnormalTest002作成を行う。
@@ -1408,42 +1056,42 @@ QUnit.asyncTest('mkdirAbnormalTest001()', FileProfileAbnormalTest.mkdirAbnormalT
  * </p>
  */
 FileProfileAbnormalTest.mkdirAbnormalTest002 = function(assert) {
-  FileProfileAbnormalTest.mkdir('/mkdirAbnormalTest002', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.saveFile('/mkdirAbnormalTest002/mkdirAbnormalTest002.jpg', function(accessToken, serviceId) {
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          builder.addParameter(dConnect.constants.file.PARAM_PATH, '/mkdirAbnormalTest002');
-          var uri = builder.build();
-          dConnect.post(uri, null, null, function(json) {
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                FileProfileAbnormalTest.rmdir('/mkdirAbnormalTest002');
-                QUnit.start();
-              }, function(errorCode, errorMessage) {
-                if (errorCode == 10 || errorCode == 16) {
-                  assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-                } else if (checkErrorCode(errorCode)) {
-                  assert.ok(true, "not support");
-                } else {
-                  assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-                }
-                FileProfileAbnormalTest.rmdir('/mkdirAbnormalTest002');
-                QUnit.start();
-              });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      FileProfileAbnormalTest.rmdir('/mkdirAbnormalTest002');
-      QUnit.start();
+  let done = assert.async();
+  mkdir('/mkdirAbnormalTest002').then(serviceId => {
+    saveFile('/mkdirAbnormalTest002/mkdirAbnormalTest002.jpg').then(serviceId => {
+          sdk.post({
+            profile: dConnectSDK.constants.file.PROFILE_NAME,
+            attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+            params: {
+              serviceId: serviceId,
+              path: '/mkdirAbnormalTest002'
+            }
+          }).then(json => {
+            assert.ok(false, 'json: ' + JSON.stringify(json));
+            rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
+            done();
+          }).catch(e => {
+            if (e.errorCode == 10 || e.errorCode == 16) {
+              assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+            } else if (checkErrorCode(e.errorCode)) {
+              assert.ok(true, "not support");
+            } else {
+              assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+            }
+            rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
+            done();
+          });
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      rmdir('/mkdirAbnormalTest002').then(json =>{}).catch(e => {});
+      done();
     });
-
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('mkdirAbnormalTest002()', FileProfileAbnormalTest.mkdirAbnormalTest002);
+QUnit.test('mkdirAbnormalTest002()', FileProfileAbnormalTest.mkdirAbnormalTest002);
 
 
 /**
@@ -1459,29 +1107,22 @@ QUnit.asyncTest('mkdirAbnormalTest002()', FileProfileAbnormalTest.mkdirAbnormalT
  * </p>
  */
 FileProfileAbnormalTest.mvDirAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mvDirAbnormalTest001(Invalid path.)', FileProfileAbnormalTest.mvDirAbnormalTest001);
+QUnit.test('mvDirAbnormalTest001(Invalid path.)', FileProfileAbnormalTest.mvDirAbnormalTest001);
 
 /**
  * 存在しないディレクトリを指定された状態でMoveDirectoryにアクセスするテストを行なう。
@@ -1497,31 +1138,24 @@ QUnit.asyncTest('mvDirAbnormalTest001(Invalid path.)', FileProfileAbnormalTest.m
  * </p>
  */
 FileProfileAbnormalTest.mvDirAbnormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('oldPath', 'mvDirAbnormalTest002_1');
-  builder.addParameter('newPath', 'mvDirAbnormalTest002_2');
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.put({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+    params: {
+      serviceId: getCurrentServiceId(),
+      oldPath: 'mvDirAbnormalTest002_1',
+      newPath: 'mvDirAbnormalTest002_2'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('mvDirAbnormalTest002(Non exist dir.)', FileProfileAbnormalTest.mvDirAbnormalTest002);
+QUnit.test('mvDirAbnormalTest002(Non exist dir.)', FileProfileAbnormalTest.mvDirAbnormalTest002);
 
 /**
  * ファイルが指定された状態でMoveDirectoryにアクセスするテストを行なう。
@@ -1537,45 +1171,39 @@ QUnit.asyncTest('mvDirAbnormalTest002(Non exist dir.)', FileProfileAbnormalTest.
  * </p>
  */
 FileProfileAbnormalTest.mvDirAbnormalTest003 = function(assert) {
-  FileProfileAbnormalTest.saveFile('mvDirAbnormalTest003.jpg', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.mkdir('/mvDirAbnormalTest003', function(accessToken, serviceId) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter('oldPath', '/mvDirAbnormalTest003.jpg');
-      builder.addParameter('newPath', '/mvDirAbnormalTest003');
-      var uri = builder.build();
-      dConnect.put(uri, null, null, function(json) {
-            assert.ok(false, 'json: ' + JSON.stringify(json));
-            FileProfileAbnormalTest.rmfile('/mvDirAbnormalTest003.jpg');
-            FileProfileAbnormalTest.rmdir('/mvDirAbnormalTest003');
-            QUnit.start();
-      }, function(errorCode, errorMessage) {
-        if (errorCode == 10) {
-          assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
-          assert.ok(true, "not support");
-        } else {
-          assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  saveFile('mvDirAbnormalTest003.jpg').then(serviceId => {
+    mkdir('/mvDirAbnormalTest003').then(serviceId => {
+      sdk.put({
+        profile: dConnectSDK.constants.file.PROFILE_NAME,
+        attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+        params: {
+          serviceId: serviceId,
+          oldPath: 'mvDirAbnormalTest003.jpg',
+          newPath: 'mvDirAbnormalTest003'
         }
-        FileProfileAbnormalTest.rmfile('/mvDirAbnormalTest003.jpg');
-        FileProfileAbnormalTest.rmdir('/mvDirAbnormalTest003');
-        QUnit.start();
+      }).then(json => {
+        assert.ok(false, 'json: ' + JSON.stringify(json));
+        removeFile('/mvDirAbnormalTest003.jpg').then(json =>{}).catch(e => {});
+        rmdir('/mvDirAbnormalTest003').then(json =>{}).catch(e => {});
+        done();
+      }).catch(e => {
+        checkSuccessErrorCode(assert, e, 10);
+        removeFile('/mvDirAbnormalTest003.jpg').then(json =>{}).catch(e => {});
+        rmdir('/mvDirAbnormalTest003').then(json =>{}).catch(e => {});
+        done();
       });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 
 };
-QUnit.asyncTest('mvDirAbnormalTest003()', FileProfileAbnormalTest.mvDirAbnormalTest003);
+QUnit.test('mvDirAbnormalTest003()', FileProfileAbnormalTest.mvDirAbnormalTest003);
 
 
 
@@ -1592,29 +1220,22 @@ QUnit.asyncTest('mvDirAbnormalTest003()', FileProfileAbnormalTest.mvDirAbnormalT
  * </p>
  */
 FileProfileAbnormalTest.rmdirAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.file.PROFILE_NAME,
+    attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('rmdirAbnormalTest001(Path does not exist.)', FileProfileAbnormalTest.rmdirAbnormalTest001);
+QUnit.test('rmdirAbnormalTest001(Path does not exist.)', FileProfileAbnormalTest.rmdirAbnormalTest001);
 
 /**
  * rmdirAbnormalTest002以下にファイルが有るときrmdirAbnormalTest002を削除するリクエストを送る。
@@ -1629,42 +1250,42 @@ QUnit.asyncTest('rmdirAbnormalTest001(Path does not exist.)', FileProfileAbnorma
  * </p>
  */
 FileProfileAbnormalTest.rmdirAbnormalTest002 = function(assert) {
-  FileProfileAbnormalTest.mkdir('rmdirAbnormalTest002', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.saveFile('/rmdirAbnormalTest002/rmdirAbnormalTest002.jpg', function(accessToken, serviceId) {
-          var builder = new dConnect.URIBuilder();
-          builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-          builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-          builder.setServiceId(serviceId);
-          builder.setAccessToken(accessToken);
-          builder.addParameter(dConnect.constants.file.PARAM_PATH, '/rmdirAbnormalTest002');
-          var uri = builder.build();
-          dConnect.delete(uri, null, function(json) {
-                assert.ok(false, 'json: ' + JSON.stringify(json));
-                FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest002');
-                QUnit.start();
-              }, function(errorCode, errorMessage) {
-                if (errorCode == 1 || errorCode == 10 || errorCode == 16) {
-                  assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-                } else if (checkErrorCode(errorCode)) {
-                  assert.ok(true, "not support");
-                } else {
-                  assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-                }
-                FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest002');
-                QUnit.start();
-              });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'Save File errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest002');
-      QUnit.start();
+  let done = assert.async();
+  mkdir('rmdirAbnormalTest002').then(serviceId => {
+    saveFile('/rmdirAbnormalTest002/rmdirAbnormalTest002.jpg').then(serviceId => {
+          sdk.delete({
+            profile: dConnectSDK.constants.file.PROFILE_NAME,
+            attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+            params: {
+              serviceId: serviceId,
+              path: '/rmdirAbnormalTest002'
+            }
+          }).then(json => {
+            assert.ok(false, 'json: ' + JSON.stringify(json));
+            rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
+            done();
+          }).catch(e => {
+            if (e.errorCode == 1 || e.errorCode == 10 || e.errorCode == 16) {
+              assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+            } else if (checkErrorCode(e.errorCode)) {
+              assert.ok(true, "not support");
+            } else {
+              assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+            }
+            rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
+            done();
+          });
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'Save File errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      rmdir('/rmdirAbnormalTest002').then(json =>{}).catch(e => {});
+      done();
     });
-
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'mkdir errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'mkdir errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('rmdirAbnormalTest002(Dir1 has some files.)', FileProfileAbnormalTest.rmdirAbnormalTest002);
+QUnit.test('rmdirAbnormalTest002(Dir1 has some files.)', FileProfileAbnormalTest.rmdirAbnormalTest002);
 
 /**
  * ディレクトリではないrm_test.jpgに対してディレクトリ削除を行う。
@@ -1679,41 +1300,41 @@ QUnit.asyncTest('rmdirAbnormalTest002(Dir1 has some files.)', FileProfileAbnorma
  * </p>
  */
 FileProfileAbnormalTest.rmdirAbnormalTest003 = function(assert) {
-  FileProfileAbnormalTest.mkdir('rmdirAbnormalTest003', function(accessToken, serviceId) {
-    FileProfileAbnormalTest.saveFile('/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg', function(accessToken, serviceId) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter(dConnect.constants.file.PARAM_PATH, '/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg');
-      var uri = builder.build();
-      dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  mkdir('rmdirAbnormalTest003').then(serviceId => {
+    saveFile('/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg').then(serviceId => {
+      sdk.delete({
+        profile: dConnectSDK.constants.file.PROFILE_NAME,
+        attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+        params: {
+          serviceId: getCurrentServiceId(),
+          path: '/rmdirAbnormalTest003/rmdirAbnormalTest003.jpg'
+        }
+      }).then(json => {
         assert.ok(false, 'json: ' + JSON.stringify(json));
-        FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest003');
-        QUnit.start();
-      }, function(errorCode, errorMessage) {
-        if (errorCode == 10 || errorCode == 16) {
-          assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-        } else if (checkErrorCode(errorCode)) {
+        rmdir('/rmdirAbnormalTest003').then(json =>{}).catch(e => {});
+        done();
+      }).catch(e => {
+        if (e.errorCode == 10 || e.errorCode == 16) {
+          assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+        } else if (checkErrorCode(e.errorCode)) {
           assert.ok(true, "not support");
         } else {
-          assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+          assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
         }
-        FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest003');
-        QUnit.start();
+        rmdir('/rmdirAbnormalTest003').then(json =>{}).catch(e => {});
+        done();
       });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('rmdirAbnormalTest003(1.jpeg is not directory.)', FileProfileAbnormalTest.rmdirAbnormalTest003);
+QUnit.test('rmdirAbnormalTest003(1.jpeg is not directory.)', FileProfileAbnormalTest.rmdirAbnormalTest003);
 
 
 /**
@@ -1729,40 +1350,41 @@ QUnit.asyncTest('rmdirAbnormalTest003(1.jpeg is not directory.)', FileProfileAbn
  * </p>
  */
 FileProfileAbnormalTest.rmdirAbnormalTest004 = function(assert) {
-  FileProfileAbnormalTest.mkdir('rmdirAbnormalTest004', function(accessToken, serviceId) {
-  FileProfileAbnormalTest.saveFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg', function(accessToken, serviceId) {
-      var builder = new dConnect.URIBuilder();
-      builder.setProfile(dConnect.constants.file.PROFILE_NAME);
-      builder.setAttribute(dConnect.constants.file.ATTR_DIRECTORY);
-      builder.setServiceId(serviceId);
-      builder.setAccessToken(accessToken);
-      builder.addParameter(dConnect.constants.file.PARAM_PATH, '/rmdirAbnormalTest004');
-      builder.addParameter('forceRemove', false);
-      var uri = builder.build();
-      dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  mkdir('rmdirAbnormalTest004').then(serviceId => {
+    saveFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg').then(serviceId => {
+      sdk.delete({
+        profile: dConnectSDK.constants.file.PROFILE_NAME,
+        attribute: dConnectSDK.constants.file.ATTR_DIRECTORY,
+        params: {
+          serviceId: serviceId,
+          path: '/rmdirAbnormalTest004',
+          forceRemove: false
+        }
+      }).then(json => {
           assert.ok(false, 'json: ' + JSON.stringify(json));
-          FileProfileAbnormalTest.rmfile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg');
-          FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest004');
-          QUnit.start();
-      }, function(errorCode, errorMessage) {
-          if (errorCode == 10 || errorCode == 16) {
-              assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-          } else if (checkErrorCode(errorCode)) {
-              assert.ok(true, "not support");
+          removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+          rmdir('/rmdirAbnormalTest004').then(json =>{}).catch(e => {});
+          done();
+      }).catch(e => {
+          if (e.errorCode == 10 || e.errorCode == 16) {
+            assert.ok(true, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
+          } else if (checkErrorCode(e.errorCode)) {
+            assert.ok(true, "not support");
           } else {
-              assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+            assert.ok(false, "errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
           }
-          FileProfileAbnormalTest.rmfile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg');
-          FileProfileAbnormalTest.rmdir('/rmdirAbnormalTest004');
-          QUnit.start();
+          removeFile('/rmdirAbnormalTest004/rmdirAbnormalTest004.jpg').then(json =>{}).catch(e => {});
+          rmdir('/rmdirAbnormalTest004').then(json =>{}).catch(e => {});
+          done();
       });
-    }, function(errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-      QUnit.start();
+    }).catch(e => {
+      assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+      done();
     });
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ', errorMessage=' + errorMessage);
-    QUnit.start();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ', errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('rmdirAbnormalTest004(Overwrite is false)', FileProfileAbnormalTest.rmdirAbnormalTest004);
+QUnit.test('rmdirAbnormalTest004(Overwrite is false)', FileProfileAbnormalTest.rmdirAbnormalTest004);

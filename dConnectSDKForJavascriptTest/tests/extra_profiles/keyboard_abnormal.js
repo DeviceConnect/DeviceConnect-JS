@@ -1,5 +1,5 @@
-module('Keyboard Profile Abnormal Test', {
-    setup: function() {
+QUnit.module('Keyboard Profile Abnormal Test', {
+    before: function() {
         init();
     }
 });
@@ -8,7 +8,7 @@ module('Keyboard Profile Abnormal Test', {
  * Keyboardプロファイルの異常系テストを行うクラス。
  * @class
  */
-var KeyboardProfileAbnormalTest = {};
+let KeyboardProfileAbnormalTest = {};
 
 /**
  * キーコードを指定しないで送信するテストを行う。
@@ -24,28 +24,21 @@ var KeyboardProfileAbnormalTest = {};
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('keyboardTest001', KeyboardProfileAbnormalTest.keyboardTest001);
+QUnit.test('keyboardTest001', KeyboardProfileAbnormalTest.keyboardTest001);
 
 /**
  * キーコードにキーコード以外の文字列を指定して送信するテストを行う。
@@ -61,29 +54,22 @@ QUnit.asyncTest('keyboardTest001', KeyboardProfileAbnormalTest.keyboardTest001);
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', 'ABC');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: 'ABC'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('keyboardTest002', KeyboardProfileAbnormalTest.keyboardTest002);
+QUnit.test('keyboardTest002', KeyboardProfileAbnormalTest.keyboardTest002);
 
 /**
  * キーコードを6個以上指定して送信するテストを行う。
@@ -99,29 +85,23 @@ QUnit.asyncTest('keyboardTest002', KeyboardProfileAbnormalTest.keyboardTest002);
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest003 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '4,5,6,7,8,9,10,11,12,13');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: '4,5,6,7,8,9,10,11,12,13'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
+
 };
-QUnit.asyncTest('keyboardTest003', KeyboardProfileAbnormalTest.keyboardTest003);
+QUnit.test('keyboardTest003', KeyboardProfileAbnormalTest.keyboardTest003);
 
 /**
  * キーコードに大きい値(1234)を指定して送信するテストを行う。
@@ -137,29 +117,22 @@ QUnit.asyncTest('keyboardTest003', KeyboardProfileAbnormalTest.keyboardTest003);
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest004 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '1024');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: '1024'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('keyboardTest004', KeyboardProfileAbnormalTest.keyboardTest004);
+QUnit.test('keyboardTest004', KeyboardProfileAbnormalTest.keyboardTest004);
 
 /**
  * キーコードに大きい値(0x1234)を指定して送信するテストを行う。
@@ -175,29 +148,22 @@ QUnit.asyncTest('keyboardTest004', KeyboardProfileAbnormalTest.keyboardTest004);
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest005 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('keyCode', '0x1234');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId(),
+      keyCode: '0x1234'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('keyboardTest005', KeyboardProfileAbnormalTest.keyboardTest005);
+QUnit.test('keyboardTest005', KeyboardProfileAbnormalTest.keyboardTest005);
 
 /**
  * modifierに指定できない文字列を指定して送信するテストを行う。
@@ -213,30 +179,23 @@ QUnit.asyncTest('keyboardTest005', KeyboardProfileAbnormalTest.keyboardTest005);
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest006 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modifier', 'ABC');
-  builder.addParameter('keyCode', '0x04');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId(),
+      modifier: 'ABC',
+      keyCode: '0x04'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('keyboardTest006', KeyboardProfileAbnormalTest.keyboardTest006);
+QUnit.test('keyboardTest006', KeyboardProfileAbnormalTest.keyboardTest006);
 
 /**
  * modifierに空文字列を指定して送信するテストを行う。
@@ -252,30 +211,23 @@ QUnit.asyncTest('keyboardTest006', KeyboardProfileAbnormalTest.keyboardTest006);
  * </p>
  */
 KeyboardProfileAbnormalTest.keyboardTest007 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('modifier', '');
-  builder.addParameter('keyCode', '0x04');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    params: {
+      serviceId: getCurrentServiceId(),
+      modifier: '',
+      keyCode: '0x04'
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('keyboardTest007', KeyboardProfileAbnormalTest.keyboardTest007);
+QUnit.test('keyboardTest007', KeyboardProfileAbnormalTest.keyboardTest007);
 
 /**
  * asciiにstringを指定しないで送信するテストを行う。
@@ -291,29 +243,22 @@ QUnit.asyncTest('keyboardTest007', KeyboardProfileAbnormalTest.keyboardTest007);
  * </p>
  */
 KeyboardProfileAbnormalTest.asciiTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('ascii');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'ascii',
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('asciiTest001', KeyboardProfileAbnormalTest.asciiTest001);
+QUnit.test('asciiTest001', KeyboardProfileAbnormalTest.asciiTest001);
 
 /**
  * asciiにstringに空文字を指定して送信するテストを行う。
@@ -329,28 +274,20 @@ QUnit.asyncTest('asciiTest001', KeyboardProfileAbnormalTest.asciiTest001);
  * </p>
  */
 KeyboardProfileAbnormalTest.asciiTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('keyboard');
-  builder.setAttribute('ascii');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('string', '');
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-      assert.ok(false, 'result=' + json.result);
-      QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 10) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: 'keyboard',
+    attribute: 'ascii',
+    params: {
+      serviceId: getCurrentServiceId(),
+      string: ''
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 10);
+    done();
   });
 };
-QUnit.asyncTest('asciiTest002', KeyboardProfileAbnormalTest.asciiTest002);
-
+QUnit.test('asciiTest002', KeyboardProfileAbnormalTest.asciiTest002);

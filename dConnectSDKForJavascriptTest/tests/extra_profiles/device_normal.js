@@ -1,5 +1,5 @@
-module('DeviceProfileNormalTest', {
-  setup: function() {
+QUnit.module('DeviceProfileNormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('DeviceProfileNormalTest', {
  * Deviceプロファイルの正常系テストを行うクラス。
  * @class
  */
-var DeviceProfileNormalTest = {};
+let DeviceProfileNormalTest = {};
 
 /**
  * デバイスに接続するテストを行う。
@@ -23,24 +23,23 @@ var DeviceProfileNormalTest = {};
  * </p>
  */
 DeviceProfileNormalTest.postPairingNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('device');
-  builder.setAttribute('pairing');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+  let done = assert.async();
+  sdk.post({
+    profile: 'device',
+    attribute: 'pairing',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-     'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+     'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('postPairingNormalTest001(post)',
+QUnit.test('postPairingNormalTest001(post)',
     DeviceProfileNormalTest.postPairingNormalTest001);
 
 /**
@@ -56,22 +55,21 @@ QUnit.asyncTest('postPairingNormalTest001(post)',
  * </p>
  */
 DeviceProfileNormalTest.deletePairingNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('device');
-  builder.setAttribute('pairing');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.delete(uri, null, function(json) {
+  let done = assert.async();
+  sdk.delete({
+    profile: 'device',
+    attribute: 'pairing',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-      'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+     'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('deletePairingNormalTest001(delete)',
+QUnit.test('deletePairingNormalTest001(delete)',
     DeviceProfileNormalTest.deletePairingNormalTest001);

@@ -1,6 +1,6 @@
 /**
  camera.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -13,13 +13,13 @@
 function showCamera(serviceId) {
   initAll();
 
-  var btnStr = getBackButton('Device Top', 'doCameraBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   setTitle('Camera Profile');
 
-  var str = '';
+  let str = '';
   str += '<form name="cameraForm">';
   str += '<label for="direction">Zoom Direction:</label>';
   str += '<SELECT id="direction">';
@@ -39,8 +39,8 @@ function showCamera(serviceId) {
   reloadContent(str);
 
   $('#direction').change(function() {
-    var dir = $(this).val();
-    var str;
+    let dir = $(this).val();
+    let str;
     if (dir === 'in') {
       str = 'Max';
     } else if (dir === 'out') {
@@ -56,41 +56,27 @@ function showCamera(serviceId) {
 }
 
 /**
- * Backボタン
- *
- * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションKEY
- */
-function doCameraBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
-
-/**
  * カメラのズーム設定を操作する.
  *
  * @param {String} serviceId サービスID
  */
 function doZoom(serviceId) {
-  var movement = $('#movement').val();
-  var direction = $('#direction').val();
+  let movement = $('#movement').val();
+  let direction = $('#direction').val();
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  builder.addParameter('movement', movement);
-  builder.addParameter('direction', direction);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri)
-  }
-
-  dConnect.put(uri, null, null, function(json) {
+  sdk.put({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: serviceId,
+      movement: movement,
+      direction: direction
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
 
   });
 }
@@ -101,23 +87,19 @@ function doZoom(serviceId) {
  * @param {String} serviceId サービスID
  */
 function doCheckZoom(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('camera');
-  builder.setAttribute('zoom');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'camera',
+    attribute: 'zoom',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     $('#zoomRange').val(json.zoomPosition);
     $('#zoomRange').slider('refresh');
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
 
   });
 }

@@ -1,5 +1,5 @@
-module('KeyEvent Profile Abnormal Test', {
-  setup: function() {
+QUnit.module('KeyEvent Profile Abnormal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('KeyEvent Profile Abnormal Test', {
  * Touchプロファイルの正常系テストを行うクラス。
  * @class
  */
-var KeyEventProfileAbnormalTest = {};
+let KeyEventProfileAbnormalTest = {};
 
 /**
  * 定義されていないPOSTメソッドでondownにアクセスするテストを行う。
@@ -24,30 +24,22 @@ var KeyEventProfileAbnormalTest = {};
  * </p>
  */
 KeyEventProfileAbnormalTest.ondownAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.keyevent.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.keyevent.ATTR_ON_DOWN);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_DOWN,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('ondownAbnormalTest001(post)', KeyEventProfileAbnormalTest.ondownAbnormalTest001);
+QUnit.test('ondownAbnormalTest001(post)', KeyEventProfileAbnormalTest.ondownAbnormalTest001);
 
 /**
  * 定義されていないPOSTメソッドでonupにアクセスするテストを行う。
@@ -63,30 +55,22 @@ QUnit.asyncTest('ondownAbnormalTest001(post)', KeyEventProfileAbnormalTest.ondow
  * </p>
  */
 KeyEventProfileAbnormalTest.onupAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.keyevent.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.keyevent.ATTR_ON_UP);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_UP,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onupAbnormalTest001(post)', KeyEventProfileAbnormalTest.onupAbnormalTest001);
+QUnit.test('onupAbnormalTest001(post)', KeyEventProfileAbnormalTest.onupAbnormalTest001);
 
 
 /**
@@ -103,27 +87,19 @@ QUnit.asyncTest('onupAbnormalTest001(post)', KeyEventProfileAbnormalTest.onupAbn
  * </p>
  */
 KeyEventProfileAbnormalTest.onkeychangeAbnormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.keyevent.PROFILE_NAME);
-  builder.setAttribute(dConnect.constants.keyevent.ATTR_ON_KEY_CHANGE);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
-    assert.ok(false, 'json: ' + JSON.stringify(json));
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    if (errorCode == 8) {
-      assert.ok(true, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
-    } else if (checkErrorCode(errorCode)) {
-      assert.ok(true, "not support");
-    } else {
-      assert.ok(false, "errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  let done = assert.async();
+  sdk.post({
+    profile: dConnectSDK.constants.keyEvent.PROFILE_NAME,
+    attribute: dConnectSDK.constants.keyEvent.ATTR_ON_KEY_CHANGE,
+    params: {
+      serviceId: getCurrentServiceId()
     }
-    QUnit.start();
+  }).then(json => {
+    assert.ok(false, 'json: ' + JSON.stringify(json));
+    done();
+  }).catch(e => {
+    checkSuccessErrorCode(assert, e, 8);
+    done();
   });
 };
-QUnit.asyncTest('onkeychangeAbnormalTest001(post)', KeyEventProfileAbnormalTest.onkeychangeAbnormalTest001);
+QUnit.test('onkeychangeAbnormalTest001(post)', KeyEventProfileAbnormalTest.onkeychangeAbnormalTest001);

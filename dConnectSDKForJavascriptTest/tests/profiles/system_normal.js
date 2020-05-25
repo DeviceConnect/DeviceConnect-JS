@@ -1,5 +1,5 @@
-module('System Profile Normal Test', {
-  setup: function() {
+QUnit.module('System Profile Normal Test', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('System Profile Normal Test', {
  * Systemプロファイルの正常系テストを行うクラス。
  * @class
  */
-var SystemProfileNormalTest = {};
+let SystemProfileNormalTest = {};
 
 /**
  * スマートフォンのシステム情報を取得するテストを行う。
@@ -23,25 +23,21 @@ var SystemProfileNormalTest = {};
  * </p>
  */
 SystemProfileNormalTest.systemTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: dConnectSDK.constants.system.PROFILE_NAME
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(true, 'version=' + json.version);
     assert.ok(json.supports !== undefined, 'supports is ok.');
     assert.ok(json.plugins !== undefined, 'pluginId is ok.');
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('systemTest001(get)', SystemProfileNormalTest.systemTest001);
+QUnit.test('systemTest001(get)', SystemProfileNormalTest.systemTest001);
 
 /**
  * デバイスプラグインを有効にする、もしくは設定画面を起動するテストを行う。
@@ -56,21 +52,22 @@ QUnit.asyncTest('systemTest001(get)', SystemProfileNormalTest.systemTest001);
  * </p>
  */
 SystemProfileNormalTest.systemWakeupTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile(dConnect.constants.system.PROFILE_NAME);
-  builder.setInterface(dConnect.constants.system.INTERFACE_DEVICE);
-  builder.setAttribute(dConnect.constants.system.ATTRI_WAKEUP);
-  builder.setAccessToken(accessToken);
-  builder.addParameter("pluginId", serviceId);
-  var uri = builder.build();
-  dConnect.put(uri, null, null, function(json) {
+  let serviceId = getCurrentServiceId();
+  let pluginId = serviceId.replace('Host.', '');
+  let done = assert.async();
+  sdk.delete({
+    profile: dConnectSDK.constants.system.PROFILE_NAME,
+    interface: dConnectSDK.constants.system.INTERFACE_DEVICE,
+    attribute: dConnectSDK.constants.system.ATTRI_WAKEUP,
+    params: {
+      pluginId: pluginId
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode), 'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode), 'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('systemWakeupTest001(put)', SystemProfileNormalTest.systemWakeupTest001);
+QUnit.test('systemWakeupTest001(put)', SystemProfileNormalTest.systemWakeupTest001);

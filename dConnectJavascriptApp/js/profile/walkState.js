@@ -1,6 +1,6 @@
 /**
  walkState.js
- Copyright (c) 2016 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showWalkStateProfile(serviceId) {
   initAll();
   setTitle('WalkState Profile');
 
-  var btnStr = getBackButton('Device Top', 'doWalkStateBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doWalkStateBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showWalkState(\'' +
           serviceId + '\');">WalkState</a></li>';
   reloadList(str);
@@ -28,13 +28,13 @@ function showWalkState(serviceId) {
   initAll();
   setTitle('WalkState');
 
-  var btnStr = getBackButton('WalkState Top', 'doWalkStateAllBack', serviceId, '');
+  let btnStr = getBackButton('WalkState Top', 'doWalkStateAllBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   closeLoading();
 
-  var str = '';
+  let str = '';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get WalkState"' +
         ' onclick="javascript:doGetWalkState(\'' +
@@ -65,79 +65,65 @@ function showWalkState(serviceId) {
 }
 
 function doGetWalkState(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('walkState');
-  builder.setAttribute('onWalkState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'walkState',
+    attribute: 'onWalkState',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     closeLoading();
     showResponseWalk(json);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function doRegisterWalkState(serviceId) {
-  var intervalParam = $('#interval').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('walkState');
-  builder.setAttribute('onWalkState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let intervalParam = $('#interval').val();
+  let params = {
+    profile: 'walkState',
+    attribute: 'onWalkState',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
+    params.params['interval'] = intervalParam;
   }
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener(params, message => {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     showResponseWalk(json);
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function unregisterWalkState(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('walkState');
-  builder.setAttribute('onWalkState');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile: 'walkState',
+    attribute: 'onWalkState',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
@@ -145,7 +131,7 @@ function doWalkStateBack(serviceId) {
   searchDevice(serviceId);
 }
 
-function doWalkStateAllBack(serviceId, sessionKey) {
+function doWalkStateAllBack(serviceId) {
   showWalkStateProfile(serviceId);
 }
 

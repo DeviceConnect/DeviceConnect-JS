@@ -1,6 +1,6 @@
 /**
  stressEstimation.js
- Copyright (c) 2016 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showStressEstimationProfile(serviceId) {
   initAll();
   setTitle('StressEstimation Profile');
 
-  var btnStr = getBackButton('Device Top', 'doStressEstimationBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doStressEstimationBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showStressEstimation(\'' +
           serviceId + '\');">StressEstimation</a></li>';
   reloadList(str);
@@ -28,13 +28,13 @@ function showStressEstimation(serviceId) {
   initAll();
   setTitle('StressEstimation');
 
-  var btnStr = getBackButton('StressEstimation Top', 'doStressEstimationAllBack', serviceId, '');
+  let btnStr = getBackButton('StressEstimation Top', 'doStressEstimationAllBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   closeLoading();
 
-  var str = '';
+  let str = '';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get StressEstimation"' +
         ' onclick="javascript:doGetStressEstimation(\'' +
@@ -61,79 +61,66 @@ function showStressEstimation(serviceId) {
 }
 
 function doGetStressEstimation(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('stressEstimation');
-  builder.setAttribute('onStressEstimation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     closeLoading();
     showResponseStress(json);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function doRegisterStressEstimation(serviceId) {
-  var intervalParam = $('#interval').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('stressEstimation');
-  builder.setAttribute('onStressEstimation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let intervalParam = $('#interval').val();
+  let params = {
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
+    params.params['interval'] = intervalParam;
   }
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener(params, message => {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     showResponseStress(json);
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch( e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function unregisterStressEstimation(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('stressEstimation');
-  builder.setAttribute('onStressEstimation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile: 'stressEstimation',
+    attribute: 'onStressEstimation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
@@ -141,7 +128,7 @@ function doStressEstimationBack(serviceId) {
   searchDevice(serviceId);
 }
 
-function doStressEstimationAllBack(serviceId, sessionKey) {
+function doStressEstimationAllBack(serviceId) {
   showStressEstimationProfile(serviceId);
 }
 

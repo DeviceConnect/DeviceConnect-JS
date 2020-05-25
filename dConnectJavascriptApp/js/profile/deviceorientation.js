@@ -1,6 +1,6 @@
 /**
  deviceorientation.js
- Copyright (c) 2014 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -12,13 +12,12 @@ function showDeviceOrientation(serviceId) {
   initAll();
   setTitle('DeviceOrientation Profile(Event)');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Device Top', 'doOrientationBack',
-      serviceId, sessionKey);
+  let btnStr = getBackButton('Device Top', 'doOrientationBack',
+      serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doDeviceOrientationGet(\'' +
           serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -32,14 +31,13 @@ function showDeviceOrientation(serviceId) {
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
           'onclick=\"doDeviceOrientationRegist(\'' +
-          serviceId + '\', \'' + sessionKey + '\')\"' +
+          serviceId + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\"' +
           ' onclick=\"doDeviceOrientationUnregister(\'' +
-          serviceId + '\', \'' + sessionKey +
-          '\')\" type=\"button\" value=\"Unregister\" />';
+          serviceId + '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
 
@@ -66,10 +64,9 @@ function showDeviceOrientation(serviceId) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doOrientationBack(serviceId, sessionKey) {
-  doDeviceOrientationUnregister(serviceId, sessionKey);
+function doOrientationBack(serviceId) {
+  doDeviceOrientationUnregister(serviceId);
   searchSystem(serviceId);
 }
 
@@ -98,21 +95,18 @@ function setDeviceOrientation(json) {
 }
 
 function doDeviceOrientationGet(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('deviceorientation');
-  builder.setAttribute('ondeviceorientation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'deviceorientation',
+    attribute: 'ondeviceorientation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (json.orientation) {
       setDeviceOrientation(json);
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
   });
 }
 
@@ -120,35 +114,34 @@ function doDeviceOrientationGet(serviceId) {
  * DeviceOrientation Event
  */
 function doDeviceOrientationRegist(serviceId, sessionKey) {
-  var intervalParam = $('#set_interval').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('deviceorientation');
-  builder.setAttribute('ondeviceorientation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let intervalParam = $('#set_interval').val();
+  let params = {
+    profile: 'deviceorientation',
+    attribute: 'ondeviceorientation',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
+    params['interval'] = intervalParam;
   }
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.addEventListener(uri, function(message) {
+
+  sdk.addEventListener(params, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message)
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.orientation) {
       setDeviceOrientation(json);
     }
-  }, function() {
+  }).then(json ={
     if (DEBUG) {
       console.log('Successed register Device Orientation.');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
   });
 }
 
@@ -156,20 +149,17 @@ function doDeviceOrientationRegist(serviceId, sessionKey) {
  * DeviceOrientation
  */
 function doDeviceOrientationUnregister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('deviceorientation');
-  builder.setAttribute('ondeviceorientation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile: 'deviceorientation',
+    attribute: 'ondeviceorientation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Successed unregister Device Orientation.');
     }
-  }, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }

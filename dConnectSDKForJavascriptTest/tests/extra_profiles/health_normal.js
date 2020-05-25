@@ -1,5 +1,5 @@
-module("Health Profile Normal Test", {
-    setup: function () {
+QUnit.module("Health Profile Normal Test", {
+    before: function () {
         init();
     }
 });
@@ -9,7 +9,7 @@ module("Health Profile Normal Test", {
  * Healthプロファイルの正常系テストを行うクラス。
  * @class
  */
-var HealthProfileNormalTest = {};
+let HealthProfileNormalTest = {};
 
 /**
  * 心拍数を取得するテストを行う。
@@ -25,26 +25,24 @@ var HealthProfileNormalTest = {};
  * </p>
  */
 HealthProfileNormalTest.heartNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("health");
-  builder.setAttribute("heart");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'health',
+    attribute: 'heart',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(true, "result=" + json.result);
+    assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 }
-QUnit.asyncTest("heart", HealthProfileNormalTest.heartNormalTest);
+QUnit.test("heart", HealthProfileNormalTest.heartNormalTest);
 
 /**
  * Healthプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -60,11 +58,15 @@ QUnit.asyncTest("heart", HealthProfileNormalTest.heartNormalTest);
  * </p>
  */
 HealthProfileNormalTest.heartEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("health");
-    builder.setAttribute("heart");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
+  let params = {
+    profile: "health",
+    attribute: "heart",
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+        let json = JSON.parse(message);
         if (json.profile === "health" && json.attribute === "heart") {
             assert.ok(true, message);
             assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
@@ -73,7 +75,7 @@ HealthProfileNormalTest.heartEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("heartEventNormalTest001", HealthProfileNormalTest.heartEventNormalTest001);
+QUnit.test("heartEventNormalTest001", HealthProfileNormalTest.heartEventNormalTest001);
 
 
 
@@ -91,26 +93,24 @@ QUnit.asyncTest("heartEventNormalTest001", HealthProfileNormalTest.heartEventNor
  * </p>
  */
 HealthProfileNormalTest.onheartNormalTest = function (assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile("health");
-  builder.setAttribute("onHeart");
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function (json) {
-      assert.ok(true, "result=" + json.result);
-      assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
-      QUnit.start();
-  },
-  function (errorCode, errorMessage) {
-      assert.ok(checkErrorCode(errorCode),
-          'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-      QUnit.start();
+  let done = assert.async();
+  sdk.get({
+    profile: 'health',
+    attribute: 'onHeart',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
+    assert.ok(true, "result=" + json.result);
+    assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 }
-QUnit.asyncTest("onHeart", HealthProfileNormalTest.onheartNormalTest);
+QUnit.test("onHeart", HealthProfileNormalTest.onheartNormalTest);
 
 /**
  * Healthプロファイルのheartrateの登録と解除を行うテストを行う。
@@ -126,11 +126,15 @@ QUnit.asyncTest("onHeart", HealthProfileNormalTest.onheartNormalTest);
  * </p>
  */
 HealthProfileNormalTest.onheartEventNormalTest001 = function (assert) {
-    var builder = new dConnect.URIBuilder();
-    builder.setProfile("health");
-    builder.setAttribute("onHeart");
-    openWebsocket(builder, assert, 10000, function (message) {
-        var json = JSON.parse(message);
+  let params = {
+    profile: "health",
+    attribute: "onHeart",
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  };
+  openWebsocket(params, assert, 10000, message => {
+        let json = JSON.parse(message);
         if (json.profile === "health" && json.attribute === "onHeart") {
             assert.ok(true, message);
             assert.ok((json.heart != undefined && json.heart.rate.value >= 0), "heart=" + json.heart);
@@ -139,4 +143,4 @@ HealthProfileNormalTest.onheartEventNormalTest001 = function (assert) {
         return false;
     });
 }
-QUnit.asyncTest("onheartEventNormalTest001", HealthProfileNormalTest.onheartEventNormalTest001);
+QUnit.test("onheartEventNormalTest001", HealthProfileNormalTest.onheartEventNormalTest001);

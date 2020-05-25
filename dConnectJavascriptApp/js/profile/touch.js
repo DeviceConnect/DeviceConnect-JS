@@ -1,6 +1,6 @@
 /**
  touch.js
- Copyright (c) 2015 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -12,13 +12,11 @@ function showTouch(serviceId) {
   initAll();
   setTitle('Touch Profile(Event)');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('Device Top', 'doTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showOnTouch(\'' + serviceId +
            '\');" >Show Touch(ontouch)</a></li>';
   str += '<li><a href="javascript:showOnTouchStart(\'' + serviceId +
@@ -58,15 +56,11 @@ function showTouch(serviceId) {
 function showOnTouch(serviceId) {
   initAll();
   setTitle('Show Touch(ontouch)');
-
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchForm">';
   str += 'Touch<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -89,24 +83,20 @@ function showOnTouch(serviceId) {
  * Get OnTouch
  */
 function doGetOnTouch(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouch');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ontouch',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var i;
+    let i;
     for (i = 0; i < 10; i++) {
       switch (i) {
       case 0: $('#idT0').val(''); break;
@@ -124,7 +114,7 @@ function doGetOnTouch(serviceId) {
 
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -182,8 +172,8 @@ function doGetOnTouch(serviceId) {
       }
     }
 
-  }, function(errorCode, errorMessage) {
-    showError('GET touch', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET touch', e.errorCode, e.errorMessage);
   });
 }
 
@@ -196,14 +186,11 @@ function showTouchEvent(serviceId) {
   initAll();
   setTitle('Touch Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doTouchEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doTouchEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchForm">';
   str += 'Touch<br>';
   str += '<input type="text" id="idT0" width="100%">';
@@ -219,8 +206,7 @@ function showTouchEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doTouchRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doTouchRegister(serviceId);
 }
 
 /**
@@ -232,14 +218,11 @@ function showOnTouchStart(serviceId) {
   initAll();
   setTitle('Show Touch(ontouchstart)');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchstartForm">';
   str += 'TouchStart<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -262,24 +245,20 @@ function showOnTouchStart(serviceId) {
  * Get OnTouchStart
  */
 function doGetOnTouchStart(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchstart');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ontouchstart',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var i;
+    let i;
     for (i = 0; i < 10; i++) {
       switch (i) {
       case 0: $('#idS0').val(''); break;
@@ -297,7 +276,7 @@ function doGetOnTouchStart(serviceId) {
 
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -354,8 +333,8 @@ function doGetOnTouchStart(serviceId) {
         }
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET touchstart', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET touchstart', e.errorCode, e.errorMessage);
   });
 }
 
@@ -368,14 +347,11 @@ function showTouchStartEvent(serviceId) {
   initAll();
   setTitle('TouchStart Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doTouchStartEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doTouchStartEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchstartForm">';
   str += 'TouchStart<br>';
   str += '<input type="text" id="idS0" width="100%">';
@@ -391,8 +367,7 @@ function showTouchStartEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doTouchStartRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doTouchStartRegister(serviceId);
 }
 
 /**
@@ -404,14 +379,11 @@ function showOnTouchEnd(serviceId) {
   initAll();
   setTitle('Show Touch(ontouchEnd)');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchendForm">';
   str += 'TouchEnd<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -434,24 +406,20 @@ function showOnTouchEnd(serviceId) {
  * Get OnTouchEnd
  */
 function doGetOnTouchEnd(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchend');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ontouchend',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var i;
+    let i;
     for (i = 0; i < 10; i++) {
       switch (i) {
       case 0: $('#idE0').val(''); break;
@@ -469,7 +437,7 @@ function doGetOnTouchEnd(serviceId) {
 
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -526,8 +494,8 @@ function doGetOnTouchEnd(serviceId) {
         }
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET touchend', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET touchend', e.errorCode, e.errorMessage);
   });
 }
 
@@ -540,14 +508,11 @@ function showTouchEndEvent(serviceId) {
   initAll();
   setTitle('TouchEnd Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doTouchEndEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doTouchEndEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchendForm">';
   str += 'TouchEnd<br>';
   str += '<input type="text" id="idE0" width="100%">';
@@ -563,8 +528,7 @@ function showTouchEndEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doTouchEndRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doTouchEndRegister(serviceId);
 }
 
 /**
@@ -576,14 +540,11 @@ function showOnDoubleTap(serviceId) {
   initAll();
   setTitle('Show Touch(ondoubletap)');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="doubletapForm">';
   str += 'DoubleTap<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -597,17 +558,13 @@ function showOnDoubleTap(serviceId) {
  * Get OnDoubleTap
  */
 function doGetOnDoubleTap(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ondoubletap');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ondoubletap',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -623,8 +580,8 @@ function doGetOnDoubleTap(serviceId) {
           ' y: ' + json.touch.touches[0].y);
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET doubletap', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET doubletap', e.errorCode, e.errorMessage);
   });
 }
 
@@ -637,22 +594,18 @@ function showDoubleTapEvent(serviceId) {
   initAll();
   setTitle('DoubleTap Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doDoubleTapEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doDoubleTapEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="doubletapForm">';
   str += 'DoubleTap<br>';
   str += '<input type="text" id="idD0" width="100%">';
   str += '</form>';
   reloadContent(str);
 
-  doDoubleTapRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doDoubleTapRegister(serviceId);
 }
 
 /**
@@ -664,14 +617,11 @@ function showOnTouchMove(serviceId) {
   initAll();
   setTitle('Show Touch(ontouchmove)');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchmoveForm">';
   str += 'TouchMove<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -694,24 +644,20 @@ function showOnTouchMove(serviceId) {
  * Get OnTouchMove
  */
 function doGetOnTouchMove(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchmove');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ontouchmove',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var i;
+    let i;
     for (i = 0; i < 10; i++) {
       switch (i) {
       case 0: $('#idM0').val(''); break;
@@ -729,7 +675,7 @@ function doGetOnTouchMove(serviceId) {
 
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -786,8 +732,8 @@ function doGetOnTouchMove(serviceId) {
         }
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET touchmove', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET touchmove', e.errorCode, e.errorMessage);
   });
 }
 
@@ -800,14 +746,11 @@ function showTouchMoveEvent(serviceId) {
   initAll();
   setTitle('TouchMove Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doTouchMoveEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doTouchMoveEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchmoveForm">';
   str += 'TouchMove<br>';
   str += '<input type="text" id="idM0" width="100%">';
@@ -823,8 +766,7 @@ function showTouchMoveEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doTouchMoveRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doTouchMoveRegister(serviceId);
 }
 
 /**
@@ -836,14 +778,11 @@ function showOnTouchCancel(serviceId) {
   initAll();
   setTitle('Show Touch(ontouchcancel)');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchcancelForm">';
   str += 'TouchCancel<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -866,24 +805,20 @@ function showOnTouchCancel(serviceId) {
  * Get OnTouchCancel
  */
 function doGetOnTouchCancel(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchcancel');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ontouchcancel',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var i;
+    let i;
     for (i = 0; i < 10; i++) {
       switch (i) {
       case 0: $('#idC0').val(''); break;
@@ -957,8 +892,8 @@ function doGetOnTouchCancel(serviceId) {
         }
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET touchcancel', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET touchcancel', e.errorCode, e.errorMessage);
   });
 }
 
@@ -971,14 +906,11 @@ function showTouchCancelEvent(serviceId) {
   initAll();
   setTitle('TouchCancel Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doTouchCancelEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doTouchCancelEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchcancelForm">';
   str += 'TouchCancel<br>';
   str += '<input type="text" id="idC0" width="100%">';
@@ -994,8 +926,7 @@ function showTouchCancelEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doTouchCancelRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doTouchCancelRegister(serviceId);
 }
 /**
  * Show OnTouchChange
@@ -1006,14 +937,11 @@ function showOnTouchChange(serviceId) {
   initAll();
   setTitle('Show Touch(ontouchcancel)');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doOnTouchBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchchangeForm">';
   str += 'TouchChange<br>';
   str += '<input type="button" name="getButton" id="getButton" value="Get"' +
@@ -1037,24 +965,20 @@ function showOnTouchChange(serviceId) {
  * Get OnTouchChange
  */
 function doGetOnTouchChange(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'touch',
+    attribute: 'ontouchchange',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
 
     closeLoading();
 
-    var i;
+    let i;
     for (i = 0; i < 10; i++) {
       switch (i) {
       case 0: $('#idC0').val(''); break;
@@ -1129,8 +1053,8 @@ function doGetOnTouchChange(serviceId) {
         }
       }
     }
-  }, function(errorCode, errorMessage) {
-    showError('GET touchchange', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET touchchange', e.errorCode, e.errorMessage);
   });
 }
 /**
@@ -1142,14 +1066,11 @@ function showTouchChangeEvent(serviceId) {
   initAll();
   setTitle('TouchChange Event');
 
-  var sessionKey = currentClientId;
-
-  var btnStr = getBackButton('Touch Top', 'doTouchChangeEventBack', serviceId,
-                 sessionKey);
+  let btnStr = getBackButton('Touch Top', 'doTouchChangeEventBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form name="touchchangeForm">';
   str += 'TouchChange<br>';
   str += '<input type="text" id="state" width="100%">';
@@ -1166,26 +1087,16 @@ function showTouchChangeEvent(serviceId) {
   str += '</form>';
   reloadContent(str);
 
-  doTouchChangeRegister(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {});
+  doTouchChangeRegister(serviceId);
 }
-/**
- * Backボタン
- *
- * serviceId サービスID
- * sessionKey セッションKEY
- */
-function doTouchBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
-}
+
 
 /**
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doOnTouchBack(serviceId, sessionKey) {
+function doOnTouchBack(serviceId) {
   showTouch(serviceId);
 }
 
@@ -1193,10 +1104,9 @@ function doOnTouchBack(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doTouchEventBack(serviceId, sessionKey) {
-  doTouchUnregister(serviceId, sessionKey);
+function doTouchEventBack(serviceId) {
+  doTouchUnregister(serviceId);
   showTouch(serviceId);
 }
 
@@ -1204,10 +1114,9 @@ function doTouchEventBack(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doTouchStartEventBack(serviceId, sessionKey) {
-  doTouchStartUnregister(serviceId, sessionKey);
+function doTouchStartEventBack(serviceId) {
+  doTouchStartUnregister(serviceId);
   showTouch(serviceId);
 }
 
@@ -1215,10 +1124,9 @@ function doTouchStartEventBack(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doTouchEndEventBack(serviceId, sessionKey) {
-  doTouchEndUnregister(serviceId, sessionKey);
+function doTouchEndEventBack(serviceId) {
+  doTouchEndUnregister(serviceId);
   showTouch(serviceId);
 }
 
@@ -1226,10 +1134,9 @@ function doTouchEndEventBack(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doDoubleTapEventBack(serviceId, sessionKey) {
-  doDoubleTapUnregister(serviceId, sessionKey);
+function doDoubleTapEventBack(serviceId) {
+  doDoubleTapUnregister(serviceId);
   showTouch(serviceId);
 }
 
@@ -1237,10 +1144,9 @@ function doDoubleTapEventBack(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doTouchMoveEventBack(serviceId, sessionKey) {
-  doTouchMoveUnregister(serviceId, sessionKey);
+function doTouchMoveEventBack(serviceId) {
+  doTouchMoveUnregister(serviceId);
   showTouch(serviceId);
 }
 
@@ -1248,46 +1154,40 @@ function doTouchMoveEventBack(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doTouchCancelEventBack(serviceId, sessionKey) {
-  doTouchCancelUnregister(serviceId, sessionKey);
+function doTouchCancelEventBack(serviceId) {
+  doTouchCancelUnregister(serviceId);
   showTouch(serviceId);
 }
 /**
  * Backボタン
  *
  * serviceId サービスID
- * sessionKey セッションKEY
  */
-function doTouchChangeEventBack(serviceId, sessionKey) {
-  doTouchChangeUnregister(serviceId, sessionKey);
+function doTouchChangeEventBack(serviceId) {
+  doTouchChangeUnregister(serviceId);
   showTouch(serviceId);
 }
 /**
  * Touch Event Register.
  */
-function doTouchRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouch');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doTouchRegister(serviceId) {
+  sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ontouch',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1358,35 +1258,31 @@ function doTouchRegister(serviceId, sessionKey) {
         }
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Start Event Register.
  */
-function doTouchStartRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchstart');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doTouchStartRegister(serviceId) {
+   sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ontouchstart',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1457,35 +1353,31 @@ function doTouchStartRegister(serviceId, sessionKey) {
         }
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch End Event Register.
  */
-function doTouchEndRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchend');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doTouchEndRegister(serviceId) {
+  sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ontouchend',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1556,32 +1448,28 @@ function doTouchEndRegister(serviceId, sessionKey) {
         }
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e. errorMessage);
   });
 }
 
 /**
  * Double Tap Event Register.
  */
-function doDoubleTapRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ondoubletap');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doDoubleTapRegister(serviceId) {
+  sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ondoubletap',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
         $('#idD0').val('');
@@ -1590,35 +1478,31 @@ function doDoubleTapRegister(serviceId, sessionKey) {
           ' y: ' + json.touch.touches[0].y);
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Move Event Register.
  */
-function doTouchMoveRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchmove');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doTouchMoveRegister(serviceId) {
+  sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ontouchmove',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1689,35 +1573,31 @@ function doTouchMoveRegister(serviceId, sessionKey) {
         }
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e. errorMessage);
   });
 }
 
 /**
  * Touch Cancel Event Register.
  */
-function doTouchCancelRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchcancel');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doTouchCancelRegister(serviceId) {
+  sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ontouchcancel',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1788,37 +1668,33 @@ function doTouchCancelRegister(serviceId, sessionKey) {
         }
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Change Event Register.
  */
-function doTouchChangeRegister(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doTouchChangeRegister(serviceId) {
+  sdk.addEventListener({
+    profile: 'touch',
+    attribute: 'ontouchchange',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     if (json.touch) {
       console.log(json.touch.state);
       $('#state').val('state: ' + json.touch.state);
       if (json.touch.touches) {
-        var i;
+        let i;
         for (i = 0; i < json.touch.touches.length; i++) {
           switch (i) {
           case 0:
@@ -1873,7 +1749,7 @@ function doTouchChangeRegister(serviceId, sessionKey) {
             break;
           }
         }
-        
+
         for (i; i < 10; i++) {
           switch (i) {
           case 0: $('#idC0').val(''); break;
@@ -1891,146 +1767,111 @@ function doTouchChangeRegister(serviceId, sessionKey) {
 
       }
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Event Unregist
  */
-function doTouchUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouch');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doTouchUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ontouch',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Start Event Unregist
  */
-function doTouchStartUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchstart');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doTouchStartUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ontouchstart',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch End Event Unregist
  */
-function doTouchEndUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchend');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doTouchEndUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ontouchend',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Double Tap Event Unregist
  */
-function doDoubleTapUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ondoubletap');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doDoubleTapUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ondoubletap',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Move Event Unregist
  */
-function doTouchMoveUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchmove');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doTouchMoveUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ontouchmove',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
 /**
  * Touch Cancel Event Unregist
  */
-function doTouchCancelUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchcancel');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doTouchCancelUnregister(serviceId) {
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ontouchcancel',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 /**
  * Touch Change Event Unregist
  */
 function doTouchChangeUnregister(serviceId, sessionKey) {
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('touch');
-  builder.setAttribute('ontouchchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  sdk.removeEventListener({
+    profile: 'touch',
+    attribute: 'ontouchchange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }

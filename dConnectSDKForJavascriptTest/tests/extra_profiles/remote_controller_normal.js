@@ -1,5 +1,5 @@
-module('RemoteControllerProfileNormalTest', {
-  setup: function() {
+QUnit.module('RemoteControllerProfileNormalTest', {
+  before: function() {
     init();
   }
 });
@@ -8,7 +8,7 @@ module('RemoteControllerProfileNormalTest', {
  * RemoteControllerプロファイルの正常系テストを行うクラス。
  * @class
  */
-var RemoteControllerProfileNormalTest = {};
+let RemoteControllerProfileNormalTest = {};
 
 /**
  * 赤外線情報を取得するテストを行う。
@@ -24,24 +24,23 @@ var RemoteControllerProfileNormalTest = {};
  * </p>
  */
 RemoteControllerProfileNormalTest.remoteControllerNormalTest001 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.get(uri, null, function(json) {
+  let done = assert.async();
+  sdk.get({
+    profile: 'remotecontroller',
+    params: {
+      serviceId: getCurrentServiceId()
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
     assert.ok(json.message !== undefined, 'message: ' + json.message);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('remoteControllerNormalTest001',
+QUnit.test('remoteControllerNormalTest001',
     RemoteControllerProfileNormalTest.remoteControllerNormalTest001);
 
 /**
@@ -57,13 +56,12 @@ QUnit.asyncTest('remoteControllerNormalTest001',
  * </p>
  */
 RemoteControllerProfileNormalTest.remoteControllerNormalTest002 = function(assert) {
-  var accessToken = getCurrentAccessToken();
-  var serviceId = getCurrentServiceId();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('remotecontroller');
-  builder.setServiceId(serviceId);
-  builder.addParameter('message',
-      '{\"format\":\"raw\",\"freq\":38,\"data\":' +
+  let done = assert.async();
+  sdk.post({
+    profile: 'remotecontroller',
+    params: {
+      serviceId: getCurrentServiceId(),
+      message: '{\"format\":\"raw\",\"freq\":38,\"data\":' +
       '[58076,65535,0,34665,6424,3341,735,2537,735,1037,735,1037,735,' +
       '1037,735,1037,735,1037,735,1037,735,1037,735,1037,735,1037,735,' +
       '1037,735,1037,735,2537,735,1037,735,1037,735,1037,735,1037,735,' +
@@ -123,17 +121,16 @@ RemoteControllerProfileNormalTest.remoteControllerNormalTest002 = function(asser
       '2537,735,1037,735,1037,735,1037,735,1037,735,1037,735,1037,735,' +
       '1037,735,1037,735,2537,735,2537,735,2537,735,2537,735,2537,735,' +
       '2537,735,2537,735,2537,735,1037,735,1037,735,1037,735,1037,735,' +
-      '1037,735,1037,735,1037,735,1037,735]}');
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  dConnect.post(uri, null, null, function(json) {
+      '1037,735,1037,735,1037,735,1037,735]}'
+    }
+  }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    QUnit.start();
-  }, function(errorCode, errorMessage) {
-    assert.ok(checkErrorCode(errorCode),
-        'errorCode=' + errorCode + ' errorMessage=' + errorMessage);
-    QUnit.start();
+    done();
+  }).catch(e => {
+    assert.ok(checkErrorCode(e.errorCode),
+        'errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
+    done();
   });
 };
-QUnit.asyncTest('remoteControllerNormalTest002',
+QUnit.test('remoteControllerNormalTest002',
     RemoteControllerProfileNormalTest.remoteControllerNormalTest002);

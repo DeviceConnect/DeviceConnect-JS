@@ -1,6 +1,6 @@
 /**
  connection.js
- Copyright (c) 2017 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -12,15 +12,14 @@
  */
 function showConnection(serviceId) {
   initAll();
-  var sessionKey = currentClientId;
   setTitle('Connection Profile');
 
-  var btnStr = getBackButton('Device Top', 'doConnectionBack',
-                  serviceId, sessionKey);
+  let btnStr = getBackButton('Device Top', 'doConnectionBack',
+                  serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += 'Bluetooth:<br>';
   str += '<select name="bluetooth" id="bluetooth" data-role="slider">';
   str += '<option value="off" id="off">Off</option>';
@@ -48,10 +47,8 @@ function showConnection(serviceId) {
   doCheckWifi(serviceId);
   doCheckNfc(serviceId);
 
-  doRegisterWifiChangeEvent(serviceId, sessionKey);
-  doRegisterBluetoothChangeEvent(serviceId, sessionKey);
-  dConnect.connectWebSocket(sessionKey, function(errorCode, errorMessage) {
-  });
+  doRegisterWifiChangeEvent(serviceId);
+  doRegisterBluetoothChangeEvent(serviceId);
 }
 
 /**
@@ -60,16 +57,13 @@ function showConnection(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doCheckBluetooth(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('bluetooth');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'connection',
+    attribute: 'bluetooth',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -81,8 +75,8 @@ function doCheckBluetooth(serviceId) {
         doConnectBluetooth(serviceId, true);
       }
     });
-  }, function(errorCode, errorMessage) {
-    showError('connection/bluetooth', errorCode, errorMessage);
+  }).catch(e => {
+    showError('connection/bluetooth', e.errorCode, e.errorMessage);
   });
 }
 
@@ -92,16 +86,13 @@ function doCheckBluetooth(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doCheckBLE(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('ble');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'connection',
+    attribute: 'ble',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -113,8 +104,8 @@ function doCheckBLE(serviceId) {
         doConnectBLE(serviceId, true);
       }
     });
-  }, function(errorCode, errorMessage) {
-    showError('GET connection/ble', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET connection/ble', e.errorCode, e.errorMessage);
   });
 }
 
@@ -124,16 +115,13 @@ function doCheckBLE(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doCheckWifi(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('wifi');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'connection',
+    attribute: 'wifi',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -145,8 +133,8 @@ function doCheckWifi(serviceId) {
         doConnectWifi(serviceId, true);
       }
     });
-  }, function(errorCode, errorMessage) {
-    showError('GET connection/wifi', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET connection/wifi', e.errorCode, e.errorMessage);
   });
 }
 
@@ -156,16 +144,13 @@ function doCheckWifi(serviceId) {
  * @param {String}serviceId サービスID
  */
 function doCheckNfc(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('nfc');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'connection',
+    attribute: 'nfc',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
@@ -177,8 +162,8 @@ function doCheckNfc(serviceId) {
         doConnectNfc(serviceId, true);
       }
     });
-  }, function(errorCode, errorMessage) {
-    showError('GET connection/nfc', errorCode, errorMessage);
+  }).catch(e => {
+    showError('GET connection/nfc', e.errorCode, e.errorMessage);
   });
 }
 
@@ -231,17 +216,15 @@ function doConnectNfc(serviceId, connect) {
  * @param {Boolean} connect true ON, false OFF
  */
 function doDeviceOn(type, serviceId, connect) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute(type);
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
+  let params = {
+    profile: 'connection',
+    attribute: type,
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (connect) {
-    dConnect.put(uri, null, null, function(json) {
+    sdk.put(params).then(json => {
       if (DEBUG) {
         console.log('Response: ', json);
       }
@@ -251,12 +234,12 @@ function doDeviceOn(type, serviceId, connect) {
       } else {
         changeSlider(type, 1);
       }
-    }, function(errorCode, errorMessage) {
-      showError('PUT connection/' + type, errorCode, errorMessage);
+    }).catch(e => {
+      showError('PUT connection/' + type, e.errorCode, e.errorMessage);
       changeSlider(type, 0);
     });
   } else {
-    dConnect.delete(uri, null, function(json) {
+    sdk.delete(params).then(json => {
       if (DEBUG) {
         console.log('Response: ', json);
       }
@@ -266,8 +249,8 @@ function doDeviceOn(type, serviceId, connect) {
       } else {
         changeSlider(type, 0);
       }
-    }, function(errorCode, errorMessage) {
-      showError('DELETE connection/' + type, errorCode, errorMessage);
+    }).catch(e => {
+      showError('DELETE connection/' + type, e.errorCode, e.errorMessage);
       changeSlider(type, 1);
     });
   }
@@ -299,33 +282,28 @@ function changeSlider(name, status) {
  * Wifi Change Event
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doRegisterWifiChangeEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('onwifichange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterWifiChangeEvent(serviceId) {
+  sdk.addEventListener({
+    profile: 'connection',
+    attribute: 'onwifichange',
+    params: {
+      serviceId: serviceId
+    }
+  }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
-    if (json.connectStatus.enable === true) {
+    let json = JSON.parse(message);
+    if (json.connectStatus.enable) {
       changeSlider('wifi', 1);
     } else {
       changeSlider('wifi', 0);
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -333,35 +311,30 @@ function doRegisterWifiChangeEvent(serviceId, sessionKey) {
  * Bluetooth Change Event
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doRegisterBluetoothChangeEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('onbluetoothchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+function doRegisterBluetoothChangeEvent(serviceId) {
+  sdk.addEventListener({
+    profile: 'connection',
+    attribute: 'onbluetoothchange',
+    params: {
+      serviceId: serviceId
+    }
+  }, (message) => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
-    if (json.connectStatus.enable === true) {
+    let json = JSON.parse(message);
+    if (json.connectStatus.enable) {
       changeSlider('bluetooth', 1);
       changeSlider('ble', 1);
     } else {
       changeSlider('bluetooth', 0);
       changeSlider('ble', 0);
     }
-  }, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -369,11 +342,10 @@ function doRegisterBluetoothChangeEvent(serviceId, sessionKey) {
  * Backボタン
  *
  * serviceId {String}サービスID
- * sessionKey {String}セッションKEY
  */
-function doConnectionBack(serviceId, sessionKey) {
-  doUnregisterWifiChangeEvent(serviceId, sessionKey);
-  doUnregisterBluetoothChangeEvent(serviceId, sessionKey);
+function doConnectionBack(serviceId) {
+  doUnregisterWifiChangeEvent(serviceId);
+  doUnregisterBluetoothChangeEvent(serviceId);
   searchSystem(serviceId);
 }
 
@@ -381,21 +353,16 @@ function doConnectionBack(serviceId, sessionKey) {
  * Wifi Change Event削除
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doUnregisterWifiChangeEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('onwifichange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doUnregisterWifiChangeEvent(serviceId) {
+  sdk.removeEventListener({
+    profile: 'connection',
+    attribute: 'onwifichange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -403,21 +370,16 @@ function doUnregisterWifiChangeEvent(serviceId, sessionKey) {
  * Bluetooth Change Event削除
  *
  * @param {String}serviceId サービスID
- * @param {String}sessionKey セッションキー
  */
-function doUnregisterBluetoothChangeEvent(serviceId, sessionKey) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('connection');
-  builder.setAttribute('onbluetoothchange');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, null, function(errorCode, errorMessage) {
-    alert(errorMessage);
+function doUnregisterBluetoothChangeEvent(serviceId) {
+  sdk.removeEventListener({
+    profile: 'connection',
+    attribute: 'onbluetoothchange',
+    params: {
+      serviceId: serviceId
+    }
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 
 }

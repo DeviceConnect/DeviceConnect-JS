@@ -1,12 +1,12 @@
 /**
  messagehook.js
- Copyright (c) 2016 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
 
-var messagehook_messages = [];
-var messagehook_registerd = false;
+let MESSAGEHOOK_MESSAGES = [];
+let MESSAGEHOOK_REGISTERD = false;
 
 
 /**
@@ -16,32 +16,22 @@ var messagehook_registerd = false;
  */
 function showMessageHook(serviceId) {
 
-  messagehook_registerd = false;
+  MESSAGEHOOK_REGISTERD = false;
   initAll();
 
-  var btnStr = '';
-  btnStr += getBackButton('Device Top', 'doMessageHookBack', serviceId, '');
+  let btnStr = '';
+  btnStr += getBackButton('Device Top', 'searchSystem', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   setTitle('MessageHook Profile');
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:doChannelList(\'' + serviceId +
           '\');">Channel List</a></li>';
   str += '<li><a href="javascript:showGetMessage(\'' + serviceId +
           '\');">Get Messages</a></li>';
   reloadList(str);
-}
-
-/**
- * Backボタン
- *
- * serviceId サービスID
- * sessionKey セッションKEY
- */
-function doMessageHookBack(serviceId, sessionKey) {
-  searchSystem(serviceId);
 }
 
 /**
@@ -57,36 +47,28 @@ function doChannelList(serviceId) {
 
   setTitle('MessageHook ChannelList');
 
-  var str = getBackButton('MessageHook TOP', 'doChannelListBack', serviceId, '');
+  let str = getBackButton('MessageHook TOP', 'doChannelListBack', serviceId);
   reloadContent(str);
   reloadHeader(str);
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messagehook');
-  builder.setAttribute('channel');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'messagehook',
+    attribute: 'channel',
+    serviceId: serviceId
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
-    var str = '';
-    for (var i = 0; i < json.channels.length; i++) {
+    let str = '';
+    for (let i = 0; i < json.channels.length; i++) {
       str += '<li><a href="javascript:showSendMessage(\'' +
               serviceId + '\',\'' + json.channels[i].id + '\',1);"  >';
       str += json.channels[i].name + '</a></li>';
     }
     reloadList(str);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('messagehook/channel', errorCode, errorMessage);
+    showError('messagehook/channel', e.errorCode, e.errorMessage);
   });
 }
 
@@ -94,9 +76,8 @@ function doChannelList(serviceId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function doChannelListBack(serviceId, sessionKey) {
+function doChannelListBack(serviceId) {
   showMessageHook(serviceId);
 }
 
@@ -110,13 +91,13 @@ function showSendMessage(serviceId, channelId) {
 
   setTitle('MessageHook SendMessage');
 
-  var btnStr = '';
+  let btnStr = '';
   btnStr += getBackButton('Channel List', 'showSendMessageBack',
                       serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<form action="" method="POST" name="messageForm">';
   str += makeInputText('Text', 'text', 'text');
   str += makeInputText('ResourceURI', 'resource', 'resource');
@@ -130,9 +111,8 @@ function showSendMessage(serviceId, channelId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function showSendMessageBack(serviceId, sessionKey) {
+function showSendMessageBack(serviceId) {
   doChannelList(serviceId);
 }
 
@@ -142,37 +122,34 @@ function showSendMessageBack(serviceId, sessionKey) {
  */
 function doSendMessage(serviceId, channelId) {
 
-  var form = document.getElementsByName('messageForm');
-  var text = $('#text').val();
-  var resource = $('#resource').val();
+  let form = document.getElementsByName('messageForm');
+  let text = $('#text').val();
+  let resource = $('#resource').val();
   if (!text && !resource) {
     return;
   }
 
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messagehook');
-  builder.setAttribute('message');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let params = {
+    profile: 'messagehook',
+    attribute: 'message',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (text) {
-    builder.addParameter('text', text);
+    params.params['text'] = text;
   }
   if (resource) {
-    builder.addParameter('resource', resource);
+    params.params['resource'] = resource;
   }
-  builder.addParameter('channelId', channelId);
-  var uri = builder.build();
+  params.params['channelId'] = channelId;
 
-  if (DEBUG) {
-    console.log('Uri:' + uri);
-  }
-
-  dConnect.post(uri, null, null, function(json) {
+  sdk.post(params).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-  }, function(errorCode, errorMessage) {
-    showError('messagehook/message', errorCode, errorMessage);
+  }).catch(e => {
+    showError('messagehook/message', e.errorCode, e.errorMessage);
   });
 }
 
@@ -185,13 +162,11 @@ function showGetMessage(serviceId) {
   initAll();
   setTitle('MessageHook GetMessage');
 
-  var sessionKey = currentClientId;
-  var btnStr = getBackButton('MessageHook TOP', 'showGetMessageBack',
-      serviceId, sessionKey);
+  let btnStr = getBackButton('MessageHook TOP', 'showGetMessageBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<div>';
   str += '  <input data-icon=\"search\" onclick=\"doGetMessage(\'' +
           serviceId + '\')\" type=\"button\" value=\"Get\" />';
@@ -200,14 +175,13 @@ function showGetMessage(serviceId) {
   str += '  <div class=\"ui-block-a\">';
   str += '    <input data-icon=\"search\" ' +
           'onclick=\"doGetMessageRegister(\'' +
-          serviceId + '\', \'' + sessionKey + '\')\"' +
+          serviceId + '\')\"' +
           ' type=\"button\" value=\"Register\" />';
   str += '  </div>';
   str += '  <div class=\"ui-block-b\">';
   str += '    <input data-icon=\"search\"' +
           ' onclick=\"doGetMessageUnregister(\'' +
-          serviceId + '\', \'' + sessionKey +
-          '\')\" type=\"button\" value=\"Unregister\" />';
+          serviceId + '\')\" type=\"button\" value=\"Unregister\" />';
   str += '  </div>';
   str += '</fieldset>';
 
@@ -218,10 +192,9 @@ function showGetMessage(serviceId) {
  * Backボタン
  *
  * @param {String} serviceId サービスID
- * @param {String} sessionKey セッションKEY
  */
-function showGetMessageBack(serviceId, sessionKey) {
-  doGetMessageUnregister(serviceId, sessionKey);
+function showGetMessageBack(serviceId) {
+  doGetMessageUnregister(serviceId);
   showMessageHook(serviceId);
 }
 
@@ -235,61 +208,52 @@ function doGetMessage(serviceId) {
 
   closeLoading();
   showLoading();
-
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messagehook');
-  builder.setAttribute('onmessage');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile: 'messagehook',
+    attribute: 'onmessage',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
     }
     closeLoading();
     updateMessage(json);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    showError('messagehook/message', errorCode, errorMessage);
+    showError('messagehook/message', e.errorCode, e.errorMessage);
   });
 }
 
 /**
  * イベント登録
  */
-function doGetMessageRegister(serviceId, sessionKey) {
-  if (messagehook_registerd) {
+function doGetMessageRegister(serviceId) {
+  if (MESSAGEHOOK_REGISTERD) {
     return;
   }
-  messagehook_messages = [];
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messagehook');
-  builder.setAttribute('onmessage');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-  dConnect.addEventListener(uri, function(message) {
+  MESSAGEHOOK_MESSAGES = [];
+  sdk.addEventListener({
+    profile: 'messagehook',
+    attribute: 'onmessage',
+    params: {
+      serviceId: serviceId
+    }
+  }, message => {
     // イベントメッセージが送られてくる
     if (DEBUG) {
       console.log('Event-Message:' + message)
     }
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     updateMessage(json);
-  }, function() {
-    messagehook_registerd = true;
+  }).then(json => {
+    MESSAGEHOOK_REGISTERD = true;
     if (DEBUG) {
       console.log('Successed register Get Message Event.');
     }
-  }, function(errorCode, errorMessage) {
-    alert('errorCode=' + errorCode + ' errorMessage=' + errorMessage);
+  }).catch(e => {
+    alert('errorCode=' + e.errorCode + ' errorMessage=' + e.errorMessage);
   });
 }
 
@@ -297,25 +261,22 @@ function doGetMessageRegister(serviceId, sessionKey) {
 * イベント解除
  */
 function doGetMessageUnregister(serviceId, sessionKey) {
-  if (!messagehook_registerd) {
+  if (!MESSAGEHOOK_REGISTERD) {
     return;
   }
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('messagehook');
-  builder.setAttribute('onmessage');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri : ' + uri);
-  }
-  dConnect.removeEventListener(uri, function() {
-    messagehook_registerd = false;
+  sdk.removeEventListener({
+    profile: 'messagehook',
+    attribute: 'onmessage',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
+    MESSAGEHOOK_REGISTERD = false;
     if (DEBUG) {
       console.log('Successed unregister Get Message Event.');
     }
-  }, function(errorCode, errorMessage) {
-    alert(errorMessage);
+  }).catch(e => {
+    alert(e.errorMessage);
   });
 }
 
@@ -324,13 +285,13 @@ function doGetMessageUnregister(serviceId, sessionKey) {
 * メッセージの更新.
 **/
 function updateMessage(json) {
-    messagehook_messages.unshift(json.message);
-    if (messagehook_messages.length > 10) {
-      messagehook_messages.pop();
+    MESSAGEHOOK_MESSAGES.unshift(json.message);
+    if (MESSAGEHOOK_MESSAGES.length > 10) {
+      MESSAGEHOOK_MESSAGES.pop();
     }
-    var str = '';
-    for (var i = 0; i < messagehook_messages.length; i++) {
-      var msg = messagehook_messages[i];
+    let str = '';
+    for (let i = 0; i < MESSAGEHOOK_MESSAGES.length; i++) {
+      let msg = MESSAGEHOOK_MESSAGES[i];
       str += '<li>[' + msg.channelId + '] ' + msg.from + ": " + msg.text + '</li>';
     }
     reloadList(str);

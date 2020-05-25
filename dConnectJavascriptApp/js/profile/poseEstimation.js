@@ -1,6 +1,6 @@
 /**
  poseEstimation.js
- Copyright (c) 2016 NTT DOCOMO,INC.
+ Copyright (c) 2020 NTT DOCOMO,INC.
  Released under the MIT license
  http://opensource.org/licenses/mit-license.php
  */
@@ -14,11 +14,11 @@ function showPoseEstimationProfile(serviceId) {
   initAll();
   setTitle('PoseEstimation Profile');
 
-  var btnStr = getBackButton('Device Top', 'doPoseEstimationBack', serviceId, '');
+  let btnStr = getBackButton('Device Top', 'doPoseEstimationBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  var str = '';
+  let str = '';
   str += '<li><a href="javascript:showPoseEstimation(\'' +
           serviceId + '\');">PoseEstimation</a></li>';
   reloadList(str);
@@ -28,13 +28,13 @@ function showPoseEstimation(serviceId) {
   initAll();
   setTitle('PoseEstimation');
 
-  var btnStr = getBackButton('PoseEstimation Top', 'doPoseEstimationAllBack', serviceId, '');
+  let btnStr = getBackButton('PoseEstimation Top', 'doPoseEstimationAllBack', serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
   closeLoading();
 
-  var str = '';
+  let str = '';
   str += '<input data-role="button" type="button" name="button"' +
         ' id="button" value="Get PoseEstimation"' +
         ' onclick="javascript:doGetPoseEstimation(\'' +
@@ -61,79 +61,66 @@ function showPoseEstimation(serviceId) {
 }
 
 function doGetPoseEstimation(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('poseEstimation');
-  builder.setAttribute('onPoseEstimation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   closeLoading();
   showLoading();
 
-  dConnect.get(uri, null, function(json) {
+  sdk.get({
+    profile:'poseEstimation',
+    attribute: 'onPoseEstimation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     closeLoading();
     showResponsePose(json);
-  }, function(errorCode, errorMessage) {
+  }).catch(e => {
     closeLoading();
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function doRegisterPoseEstimation(serviceId) {
-  var intervalParam = $('#interval').val();
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('poseEstimation');
-  builder.setAttribute('onPoseEstimation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
+  let intervalParam = $('#interval').val();
+  let params = {
+    profile:'poseEstimation',
+    attribute: 'onPoseEstimation',
+    params: {
+      serviceId: serviceId
+    }
+  };
   if (intervalParam !== '') {
-    builder.addParameter('interval', intervalParam);
+    pararms.params['interval'] = intervalParam;
   }
 
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.addEventListener(uri, function(message) {
+  sdk.addEventListener(params, message => {
     if (DEBUG) {
       console.log('Event-Message: ' + message);
     }
 
-    var json = JSON.parse(message);
+    let json = JSON.parse(message);
     showResponsePose(json);
-  }, function() {
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to add event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
 function unregisterPoseEstimation(serviceId) {
-  var builder = new dConnect.URIBuilder();
-  builder.setProfile('poseEstimation');
-  builder.setAttribute('onPoseEstimation');
-  builder.setServiceId(serviceId);
-  builder.setAccessToken(accessToken);
-
-  var uri = builder.build();
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
-  dConnect.removeEventListener(uri, function() {
+  sdk.removeEventListener({
+    profile:'poseEstimation',
+    attribute: 'onPoseEstimation',
+    params: {
+      serviceId: serviceId
+    }
+  }).then(json => {
     if (DEBUG) {
       console.log('Success to remove event listener.');
     }
-  }, function(errorCode, errorMessage) {
-    alert("errorCode=" + errorCode + ", errorMessage=" + errorMessage);
+  }).catch(e => {
+    alert("errorCode=" + e.errorCode + ", errorMessage=" + e.errorMessage);
   });
 }
 
@@ -141,7 +128,7 @@ function doPoseEstimationBack(serviceId) {
   searchDevice(serviceId);
 }
 
-function doPoseEstimationAllBack(serviceId, sessionKey) {
+function doPoseEstimationAllBack(serviceId) {
   showPoseEstimationProfile(serviceId);
 }
 
