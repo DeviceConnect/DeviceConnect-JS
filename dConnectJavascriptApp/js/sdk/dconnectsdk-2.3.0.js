@@ -1341,15 +1341,15 @@ let dConnectSDK = function(settings) {
           }).catch(e => {
             if (e.errorCode == dConnectSDK.constants.errorCode.NOT_SUPPORT_PROFILE) {
               // NOT_SUPPORT_PROFILEエラーが出た場合は、LocalOAuthがOFFになっているので、
-              // dummyのAccessTokenを設定する。
-              this.data['accessToken'] = 'dummy';
+              // placeHolderのAccessTokenを設定する。
+              this.data['accessToken'] = 'placeHolder';
               this.storage[applicationName] = JSON.stringify(this.data);
               if (this.isConnectedWebSocket()) {
                 let cb = this.websocketListener;
                 this.disconnectWebSocket();
                 this.connectWebSocket(cb);
               }
-              resolve('dummy');
+              resolve('placeHolder');
             } else {
               reject(e);
             }
@@ -1564,8 +1564,8 @@ let dConnectSDK = function(settings) {
         }).catch(e => {
           if (e.errorCode == dConnectSDK.constants.errorCode.NOT_SUPPORT_PROFILE) {
             // NOT_SUPPORT_PROFILEエラーが出た場合は、LocalOAuthがOFFになっているので、
-            // dummyのAccessTokenを設定する。
-            this.data['accessToken'] = 'dummy';
+            // placeHolderのAccessTokenを設定する。
+            this.data['accessToken'] = 'placeHolder';
             this.storage[this.appName] = JSON.stringify(this.data);
             this.initWebSocket(cb);
           } else {
