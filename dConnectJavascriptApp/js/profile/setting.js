@@ -407,14 +407,21 @@ function showCopyGuard() {
   setTitle('CopyGuard API');
 
   let str = '';
-  str += '<div style="text-align:center">コピーガード状態: <span id="copyGuardState">未確認</span></div>';
+  str += '<div style="text-align:center">コピーガード状態: <span id="copyGuardState"></span></div>';
   str += '<div style="text-align:center"><div data-role="controlgroup" data-type="horizontal">'
   str += '  <input data-inline="true" data-mini="true" onclick="turnCopyGuardOnOff(true)" type="button" value="ON" />';
   str += '  <input data-inline="true" data-mini="true" onclick="turnCopyGuardOnOff(false)" type="button" value="OFF" />';
   str += '</div></div>';
+  str += '<br>';
+  str += '<div style="text-align:center">状態変更イベント: <span id="changeEventState"></span></div>';
+  str += '<div style="text-align:center"><div data-role="controlgroup" data-type="horizontal">'
+  str += '  <input data-inline="true" data-mini="true" onclick="registerChangeEvent()" type="button" value="登録" />';
+  str += '  <input data-inline="true" data-mini="true" onclick="unregisterChangeEvent()" type="button" value="解除" />';
+  str += '</div></div>';
   reloadContent(str);
 
   getCopyGuardState();
+  registerChangeEvent();
 }
 
 function getCopyGuardState() {
@@ -428,7 +435,7 @@ function getCopyGuardState() {
     }
     showCopyGuardState(json.enabled ? 'ON' : 'OFF');
   }).catch(e => {
-    showError(method + ' setting/copyGuard', e.errorCode, e.errorMessage);
+    showError('GET /setting/copyGuard', e.errorCode, e.errorMessage);
   });
 }
 
@@ -448,5 +455,51 @@ function turnCopyGuardOnOff(on) {
     }
   }).catch(e => {
     showError(method + ' setting/copyGuard', e.errorCode, e.errorMessage);
+  });
+}
+
+function showCopyGuardChangeEventState(stateName) {
+  let e = document.getElementById('changeEventState');
+  e.innerHTML = stateName;
+}
+
+function registerChangeEvent() {
+  showCopyGuardChangeEventState('登録中...');
+  let onmessage = function(event) {
+    let json = JSON.parse(event);
+    if (DEBUG) {
+      console.log('Event: /setting/copyGuard/onChange', json);
+    }
+    showCopyGuardState(json.enabled ? 'ON' : 'OFF');
+  };
+  sdk.addEventListener({
+    profile: 'setting',
+    interface: 'copyGuard',
+    attribute: 'onChange'
+  }, onmessage).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    showCopyGuardChangeEventState('受信する');
+  }).catch(e => {
+    showCopyGuardChangeEventState('登録失敗');
+    showError('PUT /setting/copyGuard/onChange', e.errorCode, e.errorMessage);
+  });
+}
+
+function unregisterChangeEvent() {
+  showCopyGuardChangeEventState('解除中...');
+  sdk.removeEventListener({
+    profile: 'setting',
+    interface: 'copyGuard',
+    attribute: 'onChange'
+  }).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    showCopyGuardChangeEventState('受信しない');
+  }).catch(e => {
+    showCopyGuardChangeEventState('解除失敗');
+    showError('DELETE /setting/copyGuard/onChange', e.errorCode, e.errorMessage);
   });
 }
