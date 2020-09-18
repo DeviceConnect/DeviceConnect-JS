@@ -401,3 +401,105 @@ function doSetSoundLevel(type, serviceId, level) {
     showError('PUT setting/volume/sound', e.errorCode, e.errorMessage);
   });
 }
+
+function showCopyGuard() {
+  initAll();
+  setTitle('CopyGuard API');
+
+  let str = '';
+  str += '<div style="text-align:center">コピーガード状態: <span id="copyGuardState"></span></div>';
+  str += '<div style="text-align:center"><div data-role="controlgroup" data-type="horizontal">'
+  str += '  <input data-inline="true" data-mini="true" onclick="turnCopyGuardOnOff(true)" type="button" value="ON" />';
+  str += '  <input data-inline="true" data-mini="true" onclick="turnCopyGuardOnOff(false)" type="button" value="OFF" />';
+  str += '</div></div>';
+  str += '<br>';
+  str += '<div style="text-align:center">状態変更イベント: <span id="changeEventState"></span></div>';
+  str += '<div style="text-align:center"><div data-role="controlgroup" data-type="horizontal">'
+  str += '  <input data-inline="true" data-mini="true" onclick="registerChangeEvent()" type="button" value="登録" />';
+  str += '  <input data-inline="true" data-mini="true" onclick="unregisterChangeEvent()" type="button" value="解除" />';
+  str += '</div></div>';
+  reloadContent(str);
+
+  getCopyGuardState();
+  registerChangeEvent();
+}
+
+function getCopyGuardState() {
+  showCopyGuardState('確認中');
+  sdk.get({
+    profile: 'setting',
+    attribute: 'copyGuard',
+  }).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    showCopyGuardState(json.enabled ? 'ON' : 'OFF');
+  }).catch(e => {
+    showError('GET /setting/copyGuard', e.errorCode, e.errorMessage);
+  });
+}
+
+function showCopyGuardState(stateName) {
+  let e = document.getElementById('copyGuardState');
+  e.innerHTML = stateName;
+}
+
+function turnCopyGuardOnOff(on) {
+  let method = on ? 'PUT' : 'DELETE';
+  sdk.sendRequest(method, {
+    profile: 'setting',
+    attribute: 'copyGuard',
+  }).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+  }).catch(e => {
+    showError(method + ' setting/copyGuard', e.errorCode, e.errorMessage);
+  });
+}
+
+function showCopyGuardChangeEventState(stateName) {
+  let e = document.getElementById('changeEventState');
+  e.innerHTML = stateName;
+}
+
+function registerChangeEvent() {
+  showCopyGuardChangeEventState('登録中...');
+  let onmessage = function(event) {
+    let json = JSON.parse(event);
+    if (DEBUG) {
+      console.log('Event: /setting/copyGuard/onChange', json);
+    }
+    showCopyGuardState(json.enabled ? 'ON' : 'OFF');
+  };
+  sdk.addEventListener({
+    profile: 'setting',
+    interface: 'copyGuard',
+    attribute: 'onChange'
+  }, onmessage).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    showCopyGuardChangeEventState('受信する');
+  }).catch(e => {
+    showCopyGuardChangeEventState('登録失敗');
+    showError('PUT /setting/copyGuard/onChange', e.errorCode, e.errorMessage);
+  });
+}
+
+function unregisterChangeEvent() {
+  showCopyGuardChangeEventState('解除中...');
+  sdk.removeEventListener({
+    profile: 'setting',
+    interface: 'copyGuard',
+    attribute: 'onChange'
+  }).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    showCopyGuardChangeEventState('受信しない');
+  }).catch(e => {
+    showCopyGuardChangeEventState('解除失敗');
+    showError('DELETE /setting/copyGuard/onChange', e.errorCode, e.errorMessage);
+  });
+}
