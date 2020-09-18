@@ -335,7 +335,7 @@ function doHumanDetectBodyUnregister(serviceId, sessionKey) {
     params: {
       serviceId: serviceId
     }
-  }.then(json => {
+  }).then(json => {
 
   }).catch(e => {
     alert(e.errorMessage);
