@@ -29,12 +29,12 @@ function showSoundController(serviceId) {
   registerOnNoteEvent(serviceId);
 }
 
-function showEventStatus(str) {
+function showOnNoteEventStatus(str) {
   $('#eventStatus').text(str);
 }
 
 function registerOnNoteEvent(serviceId) {
-  showEventStatus('登録処理中...');
+  showOnNoteEventStatus('登録処理中...');
   sdk.addEventListener({
     profile: 'soundController',
     attribute: 'onNote',
@@ -51,9 +51,9 @@ function registerOnNoteEvent(serviceId) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-    showEventStatus('登録済み');
+    showOnNoteEventStatus('登録済み');
   }).catch(e => {
-    showEventStatus('登録失敗');
+    showOnNoteEventStatus('登録失敗');
     showError('PUT /soundController/onNote', e.errorCode, e.errorMessage);
   });
 }
@@ -67,7 +67,7 @@ function showOnNoteEvent(json) {
 }
 
 function unregisterOnNoteEvent(serviceId) {
-  showEventStatus('解除処理中...');
+  showOnNoteEventStatus('解除処理中...');
   sdk.removeEventListener({
     profile: 'soundController',
     attribute: 'onNote',
@@ -78,9 +78,9 @@ function unregisterOnNoteEvent(serviceId) {
     if (DEBUG) {
       console.log('Response: ', json);
     }
-    showEventStatus('解除済み');
+    showOnNoteEventStatus('解除済み');
   }).catch(e => {
-    showEventStatus('解除失敗');
+    showOnNoteEventStatus('解除失敗');
     showError('DELETE /soundController/onNote', e.errorCode, e.errorMessage);
   });
 }
