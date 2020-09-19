@@ -18,8 +18,7 @@ const appScoepes = ['servicediscovery', 'serviceinformation', 'system',
              'tv', 'powermeter','humidity','illuminance', 'videochat',
              'airconditioner','gpio', 'ecg', 'stressEstimation', 'poseEstimation',
              'walkState', 'messagehook', 'atmosphericPressure', 'geolocation',
-             'echonetLite', 'power', 'fabo', 'mouse', 'keyboard',
-             'midi', 'soundModule', 'soundController', 'volumeController', 'device'];
+             'echonetLite', 'power', 'fabo', 'mouse', 'keyboard', 'device'];
 /** IPアドレスを保持する. */
 let ip;
 /** 画像読み込み中Flag. */
@@ -72,9 +71,6 @@ function init() {
     sdk.setSSLEnabled(true);
   }
   openWebsocketIfNeeded();
-
-  // TODO: 最後に以下を削除
-  showMidi('usb-midi11.ae2d3416af930a1bf6f14f2832fe0.localhost.deviceconnect.org');
 }
 
 function showWebSocketState(state) {
@@ -391,14 +387,6 @@ function searchProfile(serviceId, profile) {
     showMouse(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'keyboard')) {
     showKeyboard(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, 'midi')) {
-    showMidi(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, 'soundModule')) {
-    showSoundModule(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, 'soundController')) {
-    showSoundController(serviceId);
-  } else if (isEqualToStringIgnoreCase(profile, 'volumeController')) {
-    showVolumeController(serviceId);
   } else if (isEqualToStringIgnoreCase(profile, 'device')) {
     showDevice(serviceId);
   }
