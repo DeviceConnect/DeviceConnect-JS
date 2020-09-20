@@ -72,9 +72,6 @@ function init() {
     sdk.setSSLEnabled(true);
   }
   openWebsocketIfNeeded();
-
-  // TODO: 最後に以下を削除
-  showMidi('usb-midi11.ae2d3416af930a1bf6f14f2832fe0.localhost.deviceconnect.org');
 }
 
 function showWebSocketState(state) {
