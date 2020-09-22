@@ -9,16 +9,26 @@ function showVolumeController(serviceId) {
   initAll();
   setTitle('VolumeController Profile');
 
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
   let str = '';
   str += '<div>イベント登録状態: <span id="eventStatus"></span></div>';
-  str += '<fieldset class="ui-grid-a">';
-  str += '<div class="ui-block-a"><button id="btnRegisterOnVolumeChangeEvent">登録</button></div>';
-  str += '<div class="ui-block-b"><button id="btnUnegisterOnVolumeChangeEvent">解除</button></div>';
+  str += '<fieldset class="ui-grid-b">';
+  str += '<div class="ui-block-a"><button id="btnGetOnVolumeChangeEvent">GET</button></div>';
+  str += '<div class="ui-block-b"><button id="btnRegisterOnVolumeChangeEvent">登録</button></div>';
+  str += '<div class="ui-block-c"><button id="btnUnegisterOnVolumeChangeEvent">解除</button></div>';
   str += '</fieldset>';
-  str += '<div id="evaneLog"></div>';
+  str += '<hr>';
+  str += '<div>イベントログ:</div>';
+  str += '<textarea id="evaneLog" data-autogrow="false" rows="10"></textarea>';
 
   reloadContent(str);
 
+  $('#btnGetOnVolumeChangeEvent').on('click', function() {
+    getOnVolumeChangeEvent(serviceId);
+  });
   $('#btnRegisterOnVolumeChangeEvent').on('click', function() {
     registerOnVolumeChangeEvent(serviceId);
   });
@@ -31,6 +41,20 @@ function showVolumeController(serviceId) {
 
 function showOnVolumeChangeEventStatus(str) {
   $('#eventStatus').text(str);
+}
+
+function getOnVolumeChangeEvent(serviceId) {
+  sdk.get({
+    profile: 'volumeController',
+    attribute: 'onVolumeChange',
+    params: {
+      serviceId
+    }
+  }).then(json => {
+    showOnVolumeChangeMessage(json, 'GET');
+  }).catch(e => {
+    showError('GET /volumeController/onVolumeChange', e.errorCode, e.errorMessage);
+  });
 }
 
 function registerOnVolumeChangeEvent(serviceId) {
@@ -46,7 +70,7 @@ function registerOnVolumeChangeEvent(serviceId) {
     if (DEBUG) {
       console.log('Event: /volumeController/onVolumeChange: ', json);
     }
-    showOnVolumeChangeEvent(json);
+    showOnVolumeChangeMessage(json, 'EVENT');
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -58,11 +82,13 @@ function registerOnVolumeChangeEvent(serviceId) {
   });
 }
 
-function showOnVolumeChangeEvent(json) {
+function showOnVolumeChangeMessage(json, type) {
   if (json) {
-    let value = json.value;
     let channel = json.channel;
-    $('#evaneLog').html(`ボリューム値=${value} チャンネル=${channel}`);
+    let value = json.value;
+
+    let log = $('#evaneLog').text();
+    $('#evaneLog').text(`[${toLocaleDateTime(new Date())}][${type}] チャンネル=${channel} ボリューム値=${value}\n${log}`);
   }
 }
 

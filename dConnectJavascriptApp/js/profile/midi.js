@@ -9,6 +9,10 @@ function showMidi(serviceId) {
   initAll();
   setTitle('MIDI Profile');
 
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
   let str = '';
 
   // MIDI デバイス情報

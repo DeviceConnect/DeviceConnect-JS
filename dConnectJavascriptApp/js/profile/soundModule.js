@@ -9,6 +9,10 @@ function showSoundModule(serviceId) {
   initAll();
   setTitle('SoundModule Profile');
 
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
   let str = '';
   str += '<table width="100%">';
   str += '<tbody>';

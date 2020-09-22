@@ -244,3 +244,17 @@ function showError(profileName, errorCode, errorMessage) {
         '\n errorCode:' + errorCode);
   }
 }
+
+/**
+ * 指定した Date オブジェクトの文字列表現を取得する.
+ * 
+ * ミリ秒まで含めた、かつ、ロケールに合わせた日時の文字列を返す.
+ * 
+ * @param {Object} date Date オブジェクト
+ */
+function toLocaleDateTime(date) {
+  let dateStr = date.toLocaleDateString();
+  let timeStr = date.toLocaleTimeString();
+  let msStr = (date.getMilliseconds() / 1000).toFixed(3).slice(2, 5);
+  return `${dateStr} ${timeStr}.${msStr}`;
+}

@@ -9,16 +9,26 @@ function showSoundController(serviceId) {
   initAll();
   setTitle('SoundController Profile');
 
+  let btnStr = getBackButton('Device Top', 'searchSystem', serviceId);
+  reloadHeader(btnStr);
+  reloadFooter(btnStr);
+
   let str = '';
   str += '<div>イベント登録状態: <span id="eventStatus"></span></div>';
-  str += '<fieldset class="ui-grid-a">';
-  str += '<div class="ui-block-a"><button id="btnRegisterOnNoteEvent">登録</button></div>';
-  str += '<div class="ui-block-b"><button id="btnUnegisterOnNoteEvent">解除</button></div>';
+  str += '<fieldset class="ui-grid-b">';
+  str += '<div class="ui-block-a"><button id="btnGetOnNoteEvent">GET</button></div>';
+  str += '<div class="ui-block-b"><button id="btnRegisterOnNoteEvent">登録</button></div>';
+  str += '<div class="ui-block-c"><button id="btnUnegisterOnNoteEvent">解除</button></div>';
   str += '</fieldset>';
-  str += '<div id="evaneLog"></div>';
+  str += '<hr>';
+  str += '<div>イベントログ:</div>';
+  str += '<textarea id="evaneLog" data-autogrow="false" rows="10"></textarea>';
 
   reloadContent(str);
 
+  $('#btnGetOnNoteEvent').on('click', function() {
+    getOnNoteEvent(serviceId);
+  });
   $('#btnRegisterOnNoteEvent').on('click', function() {
     registerOnNoteEvent(serviceId);
   });
@@ -31,6 +41,20 @@ function showSoundController(serviceId) {
 
 function showOnNoteEventStatus(str) {
   $('#eventStatus').text(str);
+}
+
+function getOnNoteEvent(serviceId) {
+  sdk.get({
+    profile: 'soundController',
+    attribute: 'onNote',
+    params: {
+      serviceId
+    }
+  }).then(json => {
+    showOnNoteMessage(json, 'GET');
+  }).catch(e => {
+    showError('GET /soundController/onNote', e.errorCode, e.errorMessage);
+  });
 }
 
 function registerOnNoteEvent(serviceId) {
@@ -46,7 +70,7 @@ function registerOnNoteEvent(serviceId) {
     if (DEBUG) {
       console.log('Event: /soundController/onNote: ', json);
     }
-    showOnNoteEvent(json);
+    showOnNoteMessage(json, 'EVENT');
   }).then(json => {
     if (DEBUG) {
       console.log('Response: ', json);
@@ -58,11 +82,14 @@ function registerOnNoteEvent(serviceId) {
   });
 }
 
-function showOnNoteEvent(json) {
+function showOnNoteMessage(json, type) {
   if (json) {
-    let note = json.note;
     let channel = json.channel;
-    $('#evaneLog').html(`音階=${note} チャンネル=${channel}`);
+    let note = json.note;
+    let state = json.state;
+
+    let log = $('#evaneLog').text();
+    $('#evaneLog').text(`[${toLocaleDateTime(new Date())}][${type}] チャンネル=${channel} 音階=${note} 状態=${state}\n${log}`);
   }
 }
 
