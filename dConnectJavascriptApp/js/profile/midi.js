@@ -44,6 +44,7 @@ function showMidi(serviceId) {
   str += '<input id="midiMessegeToReceive" type="text">';
   str += '<div data-role="controlgroup" data-type="horizontal">';
   str += '<button id="btnReceivedMessageClear">クリア</button>';
+  str += '<button id="btnGetOnMessageEvent">GET</button>';
   str += '<button id="btnRegisterOnMessageEvent">登録</button>';
   str += '<button id="btnUnregisterOnMessageEvent">解除</button>';
   str += '</div>';
@@ -68,6 +69,9 @@ function showMidi(serviceId) {
   });
   $('#btnReceivedMessageClear').on('click', function() {
     $('#midiMessegeToReceive').val('');
+  });
+  $('#btnGetOnMessageEvent').on('click', function() {
+    getMidiOnMessage(serviceId);
   });
   $('#btnRegisterOnMessageEvent').on('click', function() {
     registerMidiOnMessage(serviceId);
@@ -104,6 +108,25 @@ function getMidiInfo(serviceId) {
   }).catch(e => {
     showMidiInfoStatus('取得失敗');
     showError('PUT /midi/info', e.errorCode, e.errorMessage);
+  });
+}
+
+function getMidiOnMessage(serviceId) {
+  sdk.get({
+    profile: 'midi',
+    attribute: 'onMessage',
+    params: {
+      serviceId
+    }
+  }).then(json => {
+    if (DEBUG) {
+      console.log('Response: ', json);
+    }
+    if (json.message) {
+      $('#midiMessegeToReceive').val(json.message);
+    }
+  }).catch(e => {
+    showError('PUT /midi/onMessage', e.errorCode, e.errorMessage);
   });
 }
 
