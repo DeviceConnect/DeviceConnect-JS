@@ -108,13 +108,23 @@ function showKeyChangeEvent(serviceId) {
   str += '<input type="text" id="idD" width="100%">';
   str += '<input type="text" id="configD" width="100%">';
   str += '</form>';
+  str += '<hr>';
+  str += '<div>イベント登録状態: <span id="statusOnKeyChange"></span></div>';
+  str += '<fieldset class="ui-grid-a">';
+  str += '<div class="ui-block-a"><button id="btnRegisterOnKeyChange">登録</button></div>';
+  str += '<div class="ui-block-b"><button id="btnUnegisterOnKeyChange">解除</button></div>';
+  str += '</fieldset>';
   reloadContent(str);
+
+  $('#btnRegisterOnKeyChange').on('click', function() {
+    doKeyChangeRegister(serviceId);
+  });
+  $('#btnUnegisterOnKeyChange').on('click', function() {
+    doKeyChangeUnregister(serviceId);
+  });
 
   doKeyChangeRegister(serviceId);
 }
-
-
-
 
 /**
  * Show OnDown
@@ -188,7 +198,20 @@ function showDownEvent(serviceId) {
   str += '<input type="text" id="idD" width="100%">';
   str += '<input type="text" id="configD" width="100%">';
   str += '</form>';
+  str += '<hr>';
+  str += '<div>イベント登録状態: <span id="statusOnDown"></span></div>';
+  str += '<fieldset class="ui-grid-a">';
+  str += '<div class="ui-block-a"><button id="btnRegisterOnDown">登録</button></div>';
+  str += '<div class="ui-block-b"><button id="btnUnegisterOnDown">解除</button></div>';
+  str += '</fieldset>';
   reloadContent(str);
+
+  $('#btnRegisterOnDown').on('click', function() {
+    doDownRegister(serviceId);
+  });
+  $('#btnUnegisterOnDown').on('click', function() {
+    doDownUnregister(serviceId);
+  });
 
   doDownRegister(serviceId);
 }
@@ -266,7 +289,20 @@ function showUpEvent(serviceId) {
   str += '<input type="text" id="idU" width="100%">';
   str += '<input type="text" id="configU" width="100%">';
   str += '</form>';
+  str += '<hr>';
+  str += '<div>イベント登録状態: <span id="statusOnUp"></span></div>';
+  str += '<fieldset class="ui-grid-a">';
+  str += '<div class="ui-block-a"><button id="btnRegisterOnUp">登録</button></div>';
+  str += '<div class="ui-block-b"><button id="btnUnegisterOnUp">解除</button></div>';
+  str += '</fieldset>';
   reloadContent(str);
+
+  $('#btnRegisterOnUp').on('click', function() {
+    doUpRegister(serviceId);
+  });
+  $('#btnUnegisterOnUp').on('click', function() {
+    doUpUnregister(serviceId);
+  });
 
   doUpRegister(serviceId);
 }
@@ -313,6 +349,7 @@ function doKeyChangeEventBack(serviceId) {
  * Key Change Event Register.
  */
 function doKeyChangeRegister(serviceId) {
+  $('#statusOnKeyChange').text('登録処理中...');
   sdk.addEventListener({
     profile: 'keyevent',
     attribute: 'onkeychange',
@@ -331,7 +368,10 @@ function doKeyChangeRegister(serviceId) {
       $('#idD').val('KeyID: ' + json.keyevent.id);
       $('#configD').val('config: ' + json.keyevent.config);
     }
+  }).then(json => {
+    $('#statusOnKeyChange').text('登録済み');
   }).catch(e => {
+    $('#statusOnKeyChange').text('登録失敗');
     alert(e.errorMessage);
   });
 }
@@ -339,6 +379,7 @@ function doKeyChangeRegister(serviceId) {
  * Down Event Register.
  */
 function doDownRegister(serviceId) {
+  $('#statusOnDown').text('登録処理中...');
   sdk.addEventListener({
     profile: 'keyevent',
     attribute: 'ondown',
@@ -356,7 +397,10 @@ function doDownRegister(serviceId) {
       $('#idD').val('KeyID: ' + json.keyevent.id);
       $('#configD').val('config: ' + json.keyevent.config);
     }
+  }).then(json => {
+    $('#statusOnDown').text('登録済み');
   }).catch(e =>  {
+    $('#statusOnDown').text('登録失敗');
     alert(e.errorMessage);
   });
 }
@@ -365,6 +409,7 @@ function doDownRegister(serviceId) {
  * Up Event Register.
  */
 function doUpRegister(serviceId) {
+  $('#statusOnUp').text('登録処理中...');
   sdk.addEventListener({
     profile: 'keyevent',
     attribute: 'onup',
@@ -382,7 +427,10 @@ function doUpRegister(serviceId) {
       $('#idU').val('KeyID: ' + json.keyevent.id);
       $('#configU').val('config: ' + json.keyevent.config);
     }
+  }).then(json => {
+    $('#statusOnUp').text('登録済み');
   }).catch(e => {
+    $('#statusOnUp').text('登録失敗');
     alert(e.errorMessage);
   });
 }
@@ -391,27 +439,36 @@ function doUpRegister(serviceId) {
  * Key Change Event Unregist
  */
 function doKeyChangeUnregister(serviceId) {
+  $('#statusOnKeyChange').text('解除処理中...');
   sdk.removeEventListener({
     profile: 'keyevent',
     attribute: 'onkeychange',
     params: {
       serviceId: serviceId
     }
+  }).then(json => {
+    $('#statusOnKeyChange').text('解除済み');
   }).catch(e => {
+    $('#statusOnKeyChange').text('解除失敗');
     alert(e.errorMessage);
   });
 }
+
 /**
  * Down Event Unregist
  */
 function doDownUnregister(serviceId) {
+  $('#statusOnDown').text('解除処理中...');
   sdk.removeEventListener({
     profile: 'keyevent',
     attribute: 'ondown',
     params: {
       serviceId: serviceId
     }
+  }).then(json => {
+    $('#statusOnDown').text('解除済み');
   }).catch(e => {
+    $('#statusOnDown').text('解除失敗');
     alert(e.errorMessage);
   });
 }
@@ -420,13 +477,17 @@ function doDownUnregister(serviceId) {
  * Up Event Unregist
  */
 function doUpUnregister(serviceId) {
+  $('#statusOnUp').text('解除処理中...');
   sdk.removeEventListener({
     profile: 'keyevent',
     attribute: 'onup',
     params: {
       serviceId: serviceId
     }
+  }).then(json => {
+    $('#statusOnUp').text('解除済み');
   }).catch(e => {
+    $('#statusOnUp').text('解除失敗');
     alert(e.errorMessage);
   });
 }
