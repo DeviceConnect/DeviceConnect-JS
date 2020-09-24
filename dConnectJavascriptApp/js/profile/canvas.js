@@ -55,6 +55,12 @@ function showCanvasDrawImage(serviceId) {
                   serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
+
+  let builder = new sdk.URIBuilder();	
+  builder.setProfile('canvas');	
+  builder.setAttribute('drawimage');	
+  let uri = builder.build();
+
   /* ※省略パラメータがあり1種類のformでは対応できないため2つformを用意しています。 */
 
   let str = '';

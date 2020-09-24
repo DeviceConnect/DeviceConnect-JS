@@ -29,6 +29,11 @@ function showNotification(serviceId) {
 
   setTitle('Notification Profile(Notify)');
 
+  let builder = new sdk.URIBuilder();	
+  builder.setProfile('notification');	
+  builder.setAttribute('notify');	
+  let uri = builder.build();
+
   let str = '';
   str += '<form action="' + uri + '" method="POST" id="notificationForm"' +
         ' name="notificationForm" enctype="multipart/form-data"' +
