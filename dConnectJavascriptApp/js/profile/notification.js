@@ -35,9 +35,7 @@ function showNotification(serviceId) {
   let uri = builder.build();
 
   let str = '';
-  str += '<form action="' + uri + '" method="POST" id="notificationForm"' +
-        ' name="notificationForm" enctype="multipart/form-data"' +
-        ' onsubmit="return false;">';
+  str += '<form id="notificationForm" name="notificationForm">';
 
   if (myDeviceName.indexOf('Pebble') == -1 &&
       myDeviceName.indexOf('SmartWatch') == -1 &&
@@ -259,39 +257,32 @@ function doUnregisterNotificationError(serviceId) {
  */
 function doNotificationNotify(serviceId) {
   let myForm = document.getElementById('notificationForm');
-  let myFormData = new FormData(myForm);
-  let myXhr = new XMLHttpRequest();
-  myXhr.open(myForm.method, myForm.action, true);
-  myXhr.onreadystatechange = function() {
-    if (myXhr.readyState === 4) {
-      if (myXhr.status === 200 || myXhr.status == 0) {
-        if (DEBUG) {
-          console.log('Response:' + myXhr.responseText)
-        }
-        let obj = JSON.parse(myXhr.responseText);
-        if (obj.result == 0) {
-          let str = '';
-          if (myDeviceName.indexOf('Pebble') != -1) {
-          } else if (myDeviceName.indexOf('SmartWatch') != -1) {
-          } else {
-            str += '<center>';
-            str += '<input type="button" onclick="notificationDel(\'' +
-                    serviceId + '\',\'' + obj.notificationId +
-                    '\');" value="Delete" type="button" >';
-            str += '</center>';
-            reloadMenu(str)
-          }
-        } else {
-          showError('POST notification/notify',
-                    obj.errorCode, obj.errorMessage);
-        }
-      } else {
-        alert('error:' + myXhr.status);
-      }
-      closeLoading();
+  let inputs = myForm.elements;
+  let params = { serviceId };
+  parseInputElements(inputs, params);
+
+  sdk.post({
+    profile: 'notification',
+    attribute: 'notify',
+    params
+  }).then(json => {
+    closeLoading();
+
+    let str = '';
+    if (myDeviceName.indexOf('Pebble') != -1) {
+    } else if (myDeviceName.indexOf('SmartWatch') != -1) {
+    } else {
+      str += '<center>';
+      str += '<input type="button" onclick="notificationDel(\'' +
+              serviceId + '\',\'' + json.notificationId +
+              '\');" value="Delete" type="button" >';
+      str += '</center>';
+      reloadMenu(str)
     }
-  };
-  myXhr.send(myFormData);
+  }).catch(e => {
+    closeLoading();
+    showError('POST notification/notify', e.errorCode, e.errorMessage);
+  });
 }
 
 /**
