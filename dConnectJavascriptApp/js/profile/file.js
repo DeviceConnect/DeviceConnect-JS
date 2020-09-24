@@ -562,19 +562,8 @@ function showFileSend(serviceId) {
   reloadHeader(btnStr);
   reloadFooter(btnStr);
 
-  let builder = new sdk.URIBuilder();
-  builder.setProfile('file');
-  let uri = builder.build();
-
-  if (DEBUG) {
-    console.log('Uri: ' + uri);
-  }
-
   let str = '';
-  str += '<form action="' + uri + '" method="POST"' +
-        ' enctype="multipart/form-data" id="fileForm"><br>';
-  str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
-  str += '<input type="hidden" name="accessToken" value="' + sdk.getAccessToken() + '"/>';
+  str += '<form id="fileForm"><br>';
   str += makeSelectBoolean('forceOverwrite');
   str += makeInputText('path', 'path', 'path');
   str += makeInputText('uri', 'uri', 'uri');
@@ -606,37 +595,20 @@ function doFileSend(serviceId) {
   showLoading();
 
   let myForm = document.getElementById('fileForm');
-  let myFormData = new FormData(myForm);
+  let inputs = myForm.elements;
+  let params = { serviceId };
+  parseInputElements(inputs, params);
 
-  try {
-    if (myFormData.get('uri') === '') {
-      myFormData.delete('uri');
-    }
-  } catch (e) {
-  }
-
-  let myXhr = new XMLHttpRequest();
-  myXhr.open(myForm.method, myForm.action, true);
-  myXhr.onreadystatechange = function() {
-    if (myXhr.readyState === 4) {
-      if (myXhr.status === 200 || myXhr.status == 0) {
-        if (DEBUG) {
-          console.log('Response:' + myXhr.responseText)
-        }
-        let str = '';
-        let obj = JSON.parse(myXhr.responseText);
-        if (obj.result == 0) {
-          alert('success:file/send');
-        } else {
-          showError('PUT file/send', obj.errorCode, obj.errorMessage);
-        }
-      } else {
-        alert('error:' + myXhr.status);
-      }
-      closeLoading();
-    }
-  };
-  myXhr.send(myFormData);
+  sdk.post({
+    profile: 'file',
+    params
+  }).then(json => {
+    closeLoading();
+    alert('success:file/send');
+  }).catch(e => {
+    closeLoading();
+    showError('PUT file/send', e.errorCode, e.errorMessage);
+  });
 }
 
 /**

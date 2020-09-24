@@ -55,16 +55,12 @@ function showCanvasDrawImage(serviceId) {
                   serviceId);
   reloadHeader(btnStr);
   reloadFooter(btnStr);
+
   /* ※省略パラメータがあり1種類のformでは対応できないため2つformを用意しています。 */
 
   let str = '';
 
-  str += '<form action="' + uri + '" method="POST"' +
-          ' enctype="multipart/form-data" id="fileForm"><br>';
-  str += '<input type="hidden" name="serviceId" value="' + serviceId + '"/>';
-  str += '<input type="hidden" name="accessToken" value="' +
-          sdk.getAccessToken() + '"/>';
-
+  str += '<form id="fileForm"><br>';
   str += makeInputText('path', 'path', 'path');
   str += makeInputText('uri', 'uri', 'uri');
   str += makeInputText('MIME-Type', 'mimeType', 'mimeType');
@@ -114,38 +110,22 @@ function doCanvasDrawImage(serviceId, fileFormId) {
   showLoading();
 
   let myForm = document.getElementById(fileFormId);
-  let myFormData = new FormData(myForm);
-  let myXhr = new XMLHttpRequest();
-  try {
-    if (!myFormData.get('mode')) {
-      myFormData.delete('mode');
-    }
-  } catch (e) {
-    // Safariなどでは、FormData#append以外はサポートしていないため、エラーが出る
-  }
-  myXhr.open(myForm.method, myForm.action, true);
-  myXhr.onreadystatechange = function() {
-    if (myXhr.readyState === 4) {
-      if (myXhr.status === 200 || myXhr.status == 0) {
-        if (DEBUG) {
-          console.log('Response:' + myXhr.responseText)
-        }
-        let str = '';
-        let obj = JSON.parse(myXhr.responseText);
-        if (obj.result == 0) {
-          //alert('success:canvas/drawimage');
-          $('#path').val('');
-          $('#data').val('');
-        } else {
-          showError('POST canvas/drawimage', obj.errorCode, obj.errorMessage);
-        }
-      } else {
-        alert('error:' + myXhr.status);
-      }
-      closeLoading();
-    }
-  };
-  myXhr.send(myFormData);
+  let inputs = myForm.elements;
+  let params = { serviceId };
+  parseInputElements(inputs, params);
+
+  sdk.post({
+    profile: 'canvas',
+    attribute: 'drawImage',
+    params
+  }).then(json => {
+    closeLoading();
+    $('#path').val('');
+    $('#data').val('');
+  }).catch(e => {
+    closeLoading();
+    showError('POST canvas/drawimage', e.errorCode, e.errorMessage);
+  });
 }
 
 /**
