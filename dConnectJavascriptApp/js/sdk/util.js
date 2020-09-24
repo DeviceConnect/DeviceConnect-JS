@@ -258,3 +258,21 @@ function toLocaleDateTime(date) {
   let msStr = (date.getMilliseconds() / 1000).toFixed(3).slice(2, 5);
   return `${dateStr} ${timeStr}.${msStr}`;
 }
+
+function parseInputElements(inputs, params) {
+  for (let i = 0; i < inputs.length; i++) {
+    let input = inputs[i];
+    if (input.type === 'button') {
+      continue;
+    } else if (input.type === 'file') {
+      if (input.files.length > 0) {
+        params[input.name] = input.files[0];
+      }
+    } else {
+      let value = input.value;
+      if (value !== '') {
+        params[input.name] = value;
+      }
+    }
+  }
+}
