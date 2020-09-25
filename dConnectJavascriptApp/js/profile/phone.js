@@ -267,12 +267,12 @@ function doPhoneCall(serviceId) {
 function doPhoneSet(serviceId) {
   let modeValue = $('#mode').val();
   body = 'mode=' + modeValue;
-  sdk.post({
+  sdk.put({
     profile: 'phone',
     attribute: 'set',
     params: {
       serviceId: serviceId,
-      mode: mode
+      mode: modeValue
     }
   }).then(json => {
     if (DEBUG) {
