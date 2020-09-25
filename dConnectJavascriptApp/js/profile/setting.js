@@ -385,8 +385,8 @@ function doChangeSoundLevel(serviceId, type) {
 function doSetSoundLevel(type, serviceId, level) {
   sdk.put({
     profile: 'setting',
-    interface: 'volume',
-    attribute: 'sound',
+    interface: 'sound',
+    attribute: 'volume',
     params: {
       serviceId: serviceId,
       kind: type,
