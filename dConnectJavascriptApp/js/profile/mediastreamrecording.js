@@ -349,6 +349,15 @@ function doRegisterPreview(serviceId, target) {
       return;
     }
     let myUri = json.uri;
+    for (let u in json.streams) {
+      if (!sdk.isSSLEnabled() && json.streams[u].uri.indexOf('http') !== -1) {
+        myUri = json.streams[u].uri;
+        break;
+      } else if (sdk.isSSLEnabled() && json.streams[u].uri.indexOf('https') !== -1) {
+        myUri = json.streams[u].uri;
+        break;
+      }
+    }
     myUri = myUri.replace('localhost', ip);
     $('#preview-uri').text(myUri);
     let img = $('#preview');
