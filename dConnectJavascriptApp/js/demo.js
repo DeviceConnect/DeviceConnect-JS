@@ -62,16 +62,17 @@ function init() {
   showWebSocketState('Closed');
 
   if (isAndroid() &&
-    location.href.indexOf('file:///') == -1) {
+    location.href.indexOf('file://') == -1) {
       sdk.setAntiSpoofing(true);
   }
   // ファイルから直接開かれた場合には、originを格納
-  if (location.origin.indexOf('file://') !== -1) {
-    sdk.setExtendedOrigin('file://');
-  }
-  if (location.origin.indexOf('https') !== -1) {
+  if (location.origin == 'file://') {
+    sdk.setExtendedOrigin('null');
+  } 
+  if (location.origin == 'https://') {
     sdk.setSSLEnabled(true);
   }
+
   openWebsocketIfNeeded();
 }
 
@@ -159,7 +160,7 @@ function openWebsocketIfNeeded() {
       sdk.disconnectWebSocket();
     }
     if (location.origin == 'file://') {
-      sdk.setExtendedOrigin("file://");
+      sdk.setExtendedOrigin('null');
     }
     sdk.connectWebSocket((state, message) => {
       _onWebSocketMessage(state, message);
