@@ -103,9 +103,9 @@ MediaStreamRecordingProfileNormalTest.optionsNormalTest002 = function(assert) {
     }
   }).then(json => {
     assert.ok(true, 'result=' + json.result);
-    let imageSizes = json.imageSizes;
-    let previewSizes = json.previewSizes;
-    let mimeType = json.mimeType[0];
+    let imageSizes = json.recorders[0].imageSizes;
+    let previewSizes = json.recorders[0].previewSizes;
+    let mimeType = json.recorders[0].mimeType[0];
     let size;
 
     let params = {
